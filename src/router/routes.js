@@ -4,6 +4,14 @@ const routes = [
     component: () => import('layouts/MainLayout.vue'),
     children: [
       { path: '', component: () => import('pages/IndexPage.vue') },
+      { path: '/sample/table', component: () => import('pages/sample/TablePage.vue') },
+    ],
+  },
+  {
+    path: '/guide',
+    component: () => import('layouts/GuideLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/guide/IndexPage.vue') },
     ],
   },
 

@@ -46,10 +46,16 @@
 </template>
 
 <script>
-import { defineComponent, ref } from 'vue';
+export default {
+  name: 'MainLayout',
+};
+</script>
+
+<script setup>
+import { ref } from 'vue';
 import EssentialLink from 'components/EssentialLink.vue';
 
-const linksList = [
+const essentialLinks = [
   {
     title: 'Docs',
     caption: 'quasar.dev',
@@ -93,24 +99,9 @@ const linksList = [
     link: 'https://awesome.quasar.dev',
   },
 ];
+const leftDrawerOpen = ref(false);
 
-export default defineComponent({
-  name: 'MainLayout',
-
-  components: {
-    EssentialLink,
-  },
-
-  setup() {
-    const leftDrawerOpen = ref(false);
-
-    return {
-      essentialLinks: linksList,
-      leftDrawerOpen,
-      toggleLeftDrawer() {
-        leftDrawerOpen.value = !leftDrawerOpen.value;
-      },
-    };
-  },
-});
+const toggleLeftDrawer = () => {
+  leftDrawerOpen.value = !leftDrawerOpen.value;
+};
 </script>

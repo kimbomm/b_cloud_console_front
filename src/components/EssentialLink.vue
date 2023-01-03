@@ -18,32 +18,32 @@
     </q-item-section>
   </q-item>
 </template>
-
 <script>
-import { defineComponent } from 'vue';
-
-export default defineComponent({
+export default {
   name: 'EssentialLink',
-  props: {
-    title: {
-      type: String,
-      required: true,
-    },
+};
+</script>
+<script setup>
+defineProps({
+  title: {
+    type: String,
+    required: true,
+  },
 
-    caption: {
-      type: String,
-      default: '',
-    },
+  caption: {
+    type: String,
+    default: '',
+  },
 
-    link: {
-      type: String,
-      default: '#',
-    },
+  link: {
+    type: String,
+    default: '#',
+  },
 
-    icon: {
-      type: String,
-      default: '',
-    },
+  icon: {
+    type: String,
+    default: '',
   },
 });
+
 </script>
