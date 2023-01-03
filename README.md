@@ -1,3 +1,33 @@
-# b_cloud_front
+# Quasar App (quasar-project)
 
-카카오브레인 비 클라우드 퍼블리싱 및 프론트 개발
+A Quasar Project
+
+## Install the dependencies
+```bash
+yarn
+# or
+npm install
+```
+
+### Start the app in development mode (hot-code reloading, error reporting, etc.)
+```bash
+quasar dev
+```
+
+
+### Lint the files
+```bash
+yarn lint
+# or
+npm run lint
+```
+
+
+
+### Build the app for production
+```bash
+quasar build
+```
+
+### Customize the configuration
+See [Configuring quasar.config.js](https://v2.quasar.dev/quasar-cli-vite/quasar-config-js).
