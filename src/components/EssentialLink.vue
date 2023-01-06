@@ -20,7 +20,7 @@
 </template>
 <script>
 export default {
-  name: 'EssentialLink',
+  name: "EssentialLink",
 };
 </script>
 <script setup>
@@ -32,17 +32,17 @@ defineProps({
 
   caption: {
     type: String,
-    default: '',
+    default: "",
   },
 
   link: {
     type: String,
-    default: '#',
+    default: "#",
   },
 
   icon: {
     type: String,
-    default: '',
+    default: "",
   },
 });
 

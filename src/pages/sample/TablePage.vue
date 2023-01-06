@@ -4,5 +4,5 @@
   </div>
 </template>
 <script setup>
-import BTable from 'components/common/BTable.vue';
+import BTable from "components/common/BTable.vue";
 </script>
