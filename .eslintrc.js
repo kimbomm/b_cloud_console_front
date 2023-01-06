@@ -50,6 +50,7 @@ module.exports = {
 
   // add your custom rules here
   rules: {
+    "comma-dangle": "off",
     quotes: ["error", "double"],
     "no-underscore-dangle": "off",
     "no-restricted-globals": ["error", "event", "fdescribe"],
