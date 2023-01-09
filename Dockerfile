@@ -1,3 +1,15 @@
-FROM node:18-alpine
+FROM node:18
 MAINTAINER ive@freeive.com
+
+WORKDIR /APP
+COPY . /APP
+
+RUN npm install yarn
+RUN yarn global add @quasar/cli
+RUN yarn
+RUN yarn build:spa
+
+EXPOSE 9091
+
+CMD ["quasar","serve","./dist/spa","-p9091"]
 
