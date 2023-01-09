@@ -11,5 +11,5 @@ RUN yarn build:spa
 
 EXPOSE 8088
 
-CMD ["quasar","serve","./dist/spa","-p9091"]
+CMD ["quasar","serve","./dist/spa","-p8088"]
 
