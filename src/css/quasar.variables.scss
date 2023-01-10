@@ -11,15 +11,120 @@
 // It's highly recommended to change the default colors
 // to match your app's branding.
 // Tip: Use the "Theme Builder" on Quasar's documentation website.
+// Base Url
+$baseUrl: '';
+$imgUrl: $baseUrl + '/src/assets/images/';
+$iconUrl: $imgUrl + 'icon/';
+// primary color
+$primary      : #363CE5;
+$primary-dark : #2E34D4;
+$primary-light: #6368F6;
 
-$primary   : #1976D2;
-$secondary : #26A69A;
+// secondary color
+$secondary      : #212648;
+$secondary-dark : #1C2142;
+$secondary-light: #454B75;
+
+$secondary-coral      : #FF6955;
+$secondary-coral-dark : #E14935;
+$secondary-coral-light: #FF9A8C;
+
+$secondary-purple      : #751EF5;
+$secondary-purple-dark : #6819DD;
+$secondary-purple-light: #9C59FE;
+
+$secondary-mint      : #63D8CF;
+$secondary-mint-dark : #48C2B9;
+$secondary-mint-light: #A0F6F0;
+
+$white     : #ffffff;
+$black     : #000000;
+$blue      : #363CE5;
+
+// status color
+$yellow      : #FFC600;
+$yellow-light: #FFF6D6;
+$green       : #00E190;
+$green-light : #E5FDF6;
+$red         : #E50F1C;
+$red-light   : #FFE5E5;
+$orange      : #FF5000;
+$orange-light: #FFEDE5;
+
+// surface color
+$surface00: #FAFBFC;
+$surface01: #F5F7FA;
+$surface02: #EFF1F6;
+$surface03: #E8ECF1;
+$surface04: #E2E6ED;
+$surface05: #DCE0E8;
+$surface06: #D6DAE4;
+$surface07: #CFD5DF;
+$surface08: #C9CFDB;
+$surface09: #BDC4D3;
+$surface10: #B5BECE;
+$surface11: #ACB5C9;
+$surface12: #A1ACC2;
+$surface13: #97A3BB;
+$surface14: #909DB7;
+$surface15: #8A97B2;
+$surface16: #8391AD;
+$surface17: #6F7F9D;
+$surface18: #61718F;
+$surface19: #50607D;
+$surface20: #42516F;
+$surface21: #36445F;
+$surface22: #2A364F;
+$surface23: #1B2539;
+$surface24: #0C172C;
+
+// grayscale color
+$gray100: #E2E3E6;
+$gray200: #CED0D2;
+$gray300: #BBBCBE;
+$gray400: #A7A9AA;
+$gray500: #949597;
+$gray600: #818183;
+$gray700: #6D6E6F;
+$gray800: #5A5A5B;
+$gray900: #464747;
+$gray00 : #333333;
+
 $accent    : #9C27B0;
 
-$dark      : #1D1D1D;
-$dark-page : #121212;
+$dark      : #212648;
+$dark-page : #0C172C;
 
-$positive  : #21BA45;
-$negative  : #C10015;
-$info      : #31CCEC;
+$positive  : #00E190;
+$negative  : #E50F1C;
+$info      : #363CE5;
 $warning   : #F2C037;
+
+// Custum Color
+$color     : transparent !default;
+$default   : #000 !default;
+$bg        : #fff !default;
+$shadow    : #E3E3E3 !default;
+
+$btn-hover : linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), $primary;
+$btn-focus : $dark;
+
+// Custum font-family
+$font: Inter, 'Noto Sans KR', sans-serif, -apple-system, 'droid sans fallback', "Apple SD Gothic Neo", AppleGothic, Dotum, Tahoma, Verdana, Arial;
+
+// Custum font-weight
+$regular: 400; //Regular
+$bold: 700; //Bold
+
+// Custum font-size
+$fs12: 12px;
+$fs14: 14px;
+$fs16: 16px;
+$fs20: 20px;
+$fs24: 24px;
+$fs28: 28px;
+$fs32: 32px;
+$fs36: 36px;
+
+// Custum Media Size Breakpoint
+$desktop-width: 1440px;
