@@ -1,18 +1,16 @@
-# Quasar App (quasar-project)
+# B^ Clode Project
 
-B^ Clode Project
-
-1. 패키지 관리 툴: YARN
+## 패키지 관리 툴: YARN
 ```bash
 npm install -g yarn
 ```
 
-2. 운영체제별 line-break 설정 셋팅
-### Window
+## 운영체제별 line-break 설정 셋팅
+1. Window
 ```bash
 git config --global core.autocrlf true
 ```
-### OS
+2. OS
 ```bash
 git config --global core.autocrlf input
 ```
