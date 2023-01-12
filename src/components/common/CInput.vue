@@ -1,8 +1,29 @@
 <template>
-  <div class="color">
-    color
-  </div>
+  <q-input
+    outlined
+    v-model="ph"
+    placeholder="Placeholder Text"
+    hint="Description"
+    clearable
+  >
+    <template v-slot:append>
+      <q-icon v-if="text !== ''" name="close" @click="text = ''" class="cursor-pointer" />
+      <q-icon name="search" />
+    </template>
+    <template v-slot:hint>
+      Field hint
+    </template>
+  </q-input>
 </template>
-<script setup>
+<script>
+import { ref } from "vue";
 
+export default {
+  setup() {
+    return {
+      text: ref(""),
+      ph: ref(""),
+    };
+  }
+};
 </script>

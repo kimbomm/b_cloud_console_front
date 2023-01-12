@@ -4,5 +4,5 @@
   </div>
 </template>
 <script setup>
-import CRadio from 'components/common/CRadio.vue';
+import CRadio from "components/common/CRadio.vue";
 </script>

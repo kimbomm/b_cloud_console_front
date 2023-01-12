@@ -52,34 +52,34 @@
   </div>
 </template>
 <script>
-import { ref } from 'vue';
-import { useMeta } from 'quasar';
-import CDropdown from 'components/common/CDropdown.vue';
+import { ref } from "vue";
+import { useMeta } from "quasar";
+import CDropdown from "components/common/CDropdown.vue";
 
 export default {
-  name: 'ToastPage',
+  name: "ToastPage",
   components: {
     CDropdown,
   },
   setup() {
-    const title = ref('Dropdown');
+    const title = ref("Dropdown");
     useMeta(() => ({
       title: title.value,
     }));
 
     function setAnotherTitle() {
-      title.value = 'Dropdown';
+      title.value = "Dropdown";
     }
     return {
       setAnotherTitle,
       ptitle: ref(title),
-      model: ref('전체'),
-      model1: ref('읽기쓰기'),
+      model: ref("전체"),
+      model1: ref("읽기쓰기"),
       options: [
-        '운영중', '정지중', '삭제중', '삭제',
+        "운영중", "정지중", "삭제중", "삭제",
       ],
       options1: [
-        '읽기쓰기', '읽기', '삭제',
+        "읽기쓰기", "읽기", "삭제",
       ],
     };
   },

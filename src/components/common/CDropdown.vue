@@ -10,14 +10,14 @@
 </template>
 
 <script>
-import { ref } from 'vue';
+import { ref } from "vue";
 
 export default {
   setup() {
     return {
-      model: ref('전체'),
+      model: ref("전체"),
       options: [
-        '운영중', '정지중', '삭제중', '삭제',
+        "운영중", "정지중", "삭제중", "삭제",
       ],
     };
   },

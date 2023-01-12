@@ -15,17 +15,17 @@
   </div>
 </template>
 <script>
-import { ref } from 'vue';
-import CTabs from 'components/common/CTabs.vue';
+import { ref } from "vue";
+import CTabs from "components/common/CTabs.vue";
 
 export default {
-  name: 'TabsPage',
+  name: "TabsPage",
   components: {
     CTabs,
   },
   setup() {
     return {
-      ptitle: ref('Tabs'),
+      ptitle: ref("Tabs"),
       showing1: ref(false),
     };
   },

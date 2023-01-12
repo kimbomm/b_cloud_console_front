@@ -13,13 +13,13 @@
   />
 </template>
 <script>
-import { ref } from 'vue';
+import { ref } from "vue";
 
 export default {
   setup() {
     return {
-      model: ref('one'),
-      segModel1: ref('one'),
+      model: ref("one"),
+      segModel1: ref("one"),
     };
   },
 };

@@ -299,7 +299,7 @@
 
 <script>
 export default {
-  name: 'ColorPage',
+  name: "ColorPage",
 };
 </script>
 <style lang="scss" scoped>

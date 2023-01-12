@@ -432,7 +432,7 @@
 </template>
 <script>
 export default {
-  name: 'IconPage',
+  name: "IconPage",
 };
 </script>
 <style lang="scss" scoped>

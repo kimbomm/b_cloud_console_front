@@ -30,17 +30,17 @@
   </div>
 </template>
 <script>
-import { ref } from 'vue';
-import CTooltip from 'components/common/CTooltip.vue';
+import { ref } from "vue";
+import CTooltip from "components/common/CTooltip.vue";
 
 export default {
-  name: 'TooltipPage',
+  name: "TooltipPage",
   components: {
     CTooltip,
   },
   setup() {
     return {
-      ptitle: ref('Tooltip'),
+      ptitle: ref("Tooltip"),
       showing1: ref(true),
     };
   },

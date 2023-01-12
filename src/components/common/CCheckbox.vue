@@ -12,7 +12,7 @@
   </div>
 </template>
 <script>
-import { ref } from 'vue';
+import { ref } from "vue";
 
 export default {
   setup() {
@@ -21,20 +21,20 @@ export default {
       chk2: ref(true),
       chk3: ref(false),
       chk4: ref(true),
-      group: ref(['op1']),
+      group: ref(["op1"]),
 
       options: [
         {
-          label: 'Option 1',
-          value: 'op1',
+          label: "Option 1",
+          value: "op1",
         },
         {
-          label: 'Option 2',
-          value: 'op2',
+          label: "Option 2",
+          value: "op2",
         },
         {
-          label: 'Option 3',
-          value: 'op3',
+          label: "Option 3",
+          value: "op3",
         },
       ],
     };
