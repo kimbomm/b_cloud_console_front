@@ -1,12 +1,25 @@
 # Quasar App (quasar-project)
 
-A Quasar Project
+B^ Clode Project
+
+1. 패키지 관리 툴: YARN
+```bash
+npm install -g yarn
+```
+
+2. 운영체제별 line-break 설정 셋팅
+### Window
+```bash
+git config --global core.autocrlf true
+```
+### OS
+```bash
+git config --global core.autocrlf input
+```
 
 ## Install the dependencies
 ```bash
 yarn
-# or
-npm install
 ```
 
 ### Start the app in development mode (hot-code reloading, error reporting, etc.)
@@ -18,8 +31,6 @@ quasar dev
 ### Lint the files
 ```bash
 yarn lint
-# or
-npm run lint
 ```
 
 
