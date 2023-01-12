@@ -26,6 +26,7 @@
         :columns="columns"
         :data="data"
         row-click
+        @rowClick="onRowClick"
       />
     </div>
   </div>
@@ -33,7 +34,6 @@
 <script setup>
 import CTable from "src/components/common/CTable.vue";
 
-const title = "테이블 타이틀";
 const columns = [
   {
     name: "id",
@@ -153,61 +153,6 @@ const data = [
     }
   },
 ];
-// const realData = [
-//   {
-//     base_image_name: "pytorch-ngc-22.08-py3",
-//     container_name: "mesos-63b2c8e9-3754-4d35-827d-07d3f47a0e67",
-//     cpu_utilization: 0,
-//     created_at: "2023-01-09T23:25:30.810+09:00",
-//     extra_ports: [
-//       {
-//         container_port: 31219,
-//         host_port: 31219
-//       }
-//     ],
-//     flavor: "cg.small",
-//     gpu_utilization: 0,
-//     host: "csi-cloud-cpu18.cloud.kakaobrain.com",
-//     id: "31a4a71b-4f8d-4dc3-9cdb-8c1c6716cb36",
-//     image_name: "pytorch ngc 22.08 (python3, cuda 11.7, ubuntu 20.04)",
-//     image_tag: "pytorch-ngc-22.08-py3",
-//     min_nvidia_driver_version: 450.0008,
-//     nickname: "instance test1",
-//     owner: {
-//       email: "qhals0710@gmail.com",
-//       id: 2168,
-//       role: "user",
-//       zones: [
-//         "public:normal",
-//         "public:a2xlarge"
-//       ]
-//     },
-//     project: {
-//       description: "test for freeive",
-//       id: 1186,
-//       name: "Freeive-test",
-//       workspace: {
-//         id: 231,
-//         name: "BCLOUD"
-//       }
-//     },
-//     resource: {
-//       cpus: 14,
-//       gpu_device_model: "NONE",
-//       gpus: 0,
-//       mem: 124928,
-//       zone: "public:normal"
-//     },
-//     ssh_endpoint: {
-//       host: "ex-instance.cloud.kakaobrain.com",
-//       port: 12731
-//     },
-//     ssh_port: 31218,
-//     started_at: "2023-01-09T23:32:08.245+09:00",
-//     status: "running",
-//     type: "ssh"
-//   },
-// ];
 
 const actionButtons = [
   { name: "이용현황", event: "state" },
@@ -234,5 +179,8 @@ const respAction = (eventObj) => {
     default:
       break;
   }
+};
+const onRowClick = (rowData) => {
+  console.log("row click Data::", rowData);
 };
 </script>

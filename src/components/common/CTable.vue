@@ -3,7 +3,6 @@
     <q-table
       ref="table"
       :class="tableClasses"
-      :title="title"
       :rows="data"
       :columns="columns"
       :row-key="name"
@@ -13,6 +12,7 @@
     >
       <template v-slot:header="props">
         <q-tr :props="props">
+          <q-th v-if="rowClick"></q-th>
           <q-th
             v-for="col in props.cols"
             :key="col.name"
@@ -20,11 +20,19 @@
           >
             {{ col.label }}
           </q-th>
-          <q-th v-if="actionButtons.length > 0"></q-th>
+          <q-th v-if="!rowClick && inviteRequest"></q-th>
+          <q-th v-if="!rowClick && actionButtons.length > 0"></q-th>
+          <q-th v-if="rowClick"></q-th>
         </q-tr>
       </template>
       <template v-slot:body="props">
-        <q-tr :props="props" @click="onRowClick(props.row)">
+        <q-tr
+          :props="props"
+          @click="onRowClick(props.row)"
+        >
+          <q-td  v-if="rowClick">
+            <q-checkbox v-model="props.selected" />
+          </q-td>
           <q-td
             v-for="(col, i) in props.cols"
             :key="col.name"
@@ -59,8 +67,14 @@
               {{ col.value }}
             </template>
           </q-td>
+          <q-td v-if="rowClick">
+            <button v-show="props.selected">선택취소하기</button>
+          </q-td>
+          <q-td v-if="!rowClick && inviteRequest">
+            <button>초대요청 확인</button>
+          </q-td>
           <!-- row action button -->
-          <q-td v-if="actionButtons.length > 0">
+          <q-td v-if="!rowClick && actionButtons.length > 0">
             <button>클릭</button>
             <q-popup-edit v-model="props.cols">
               <div class="text-italic text-primary">
@@ -86,17 +100,15 @@ const table = ref(null);
 const selected = ref([]);
 
 const props = defineProps({
-  title: {
-    type: String,
-    default: "",
-  },
   columns: {
     type: Array,
     default: () => [],
+    required: true,
   },
   data: {
     type: Array,
     default: () => [],
+    required: true,
   },
   selection: {
     type: String,
@@ -109,9 +121,15 @@ const props = defineProps({
   rowClick: {
     type: Boolean,
     default: false
+  },
+  inviteRequest: {
+    type: Boolean,
+    default: true
   }
 });
 const rowClick = toRef(props, "rowClick");
+const selection = toRef(props, "selection");
+const inviteRequest = toRef(props, "inviteRequest");
 
 const emit = defineEmits(["action", "row-click", "copy"]);
 
