@@ -26,13 +26,23 @@ module.exports = {
     // 'plugin:vue/vue3-strongly-recommended', // Priority B: Strongly Recommended (Improving Readability)
     // 'plugin:vue/vue3-recommended', // Priority C: Recommended (Minimizing Arbitrary Choices and Cognitive Overhead)
 
+<<<<<<< HEAD
     "airbnb-base",
+=======
+    'airbnb-base'
+
+>>>>>>> feature/7
   ],
 
   plugins: [
     // https://eslint.vuejs.org/user-guide/#why-doesn-t-it-work-on-vue-files
     // required to lint *.vue files
+<<<<<<< HEAD
     "vue",
+=======
+    'vue',
+
+>>>>>>> feature/7
   ],
 
   globals: {

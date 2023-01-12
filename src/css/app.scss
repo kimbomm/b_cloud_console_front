@@ -1,1 +1,7 @@
 // app global css in SCSS form
+@import "_fonts"; // Intel font 영문에만 사용
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap"); // Noto font 한글에만 사용
+@import "_reset"; // 디자인 스타일에 맞게 초기화
+@import "_utillity"; // 디자인Components에 사용된 UI
+@import "layout"; // 기본 레이아웃 UI
+@import "page"; // 각 페이지 Contents UI
