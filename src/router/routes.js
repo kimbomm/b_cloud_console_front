@@ -28,6 +28,7 @@ const routes = [
       { path: 'popover', component: () => import('pages/guide/PopoverPage.vue') },
       { path: 'popup', component: () => import('pages/guide/PopupPage.vue') },
       { path: 'toast', component: () => import('pages/guide/ToastPage.vue') },
+      { path: 'tooltip', component: () => import('pages/guide/TooltipPage.vue') },
     ],
   },
 

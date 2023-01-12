@@ -6,6 +6,9 @@
     flat
     color="grey"
     active-color="primary"
+    icon-prev="prev"
+    icon-next="next"
+    class="c_pagination"
   />
 </template>
 <script>

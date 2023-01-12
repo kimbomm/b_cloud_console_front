@@ -1,10 +1,11 @@
 <template>
   <q-tabs
     v-model="tab"
-    class="text-teal"
+    align="left"
+    class="c_tabs"
   >
     <q-tab name="tabs1" label="인스턴스">
-      <q-badge color="red" floating>2</q-badge>
+      <q-badge>2</q-badge>
     </q-tab>
     <q-tab name="tabs2" label="태스크" />
     <q-tab name="tabs3" label="Hyperopt" />

@@ -1,14 +1,14 @@
 <template>
   <q-btn-toggle
-    v-model="model"
-    spread
-    no-caps
-    toggle-color="purple"
-    color="white"
-    text-color="black"
+    v-model="segModel1"
+    class="c_tabcontrol"
+    toggle-color="primary"
+    flat
     :options="[
-      {label: 'Option 1', value: 'one'},
-      {label: 'Option 2', value: 'two'}
+      {label: '첫번째', value: 'one'},
+      {label: '두번째', value: 'two'},
+      {label: '세번째', value: 'third'},
+      {label: '네번째', value: 'fourth'}
     ]"
   />
 </template>
@@ -19,6 +19,7 @@ export default {
   setup() {
     return {
       model: ref('one'),
+      segModel1: ref('one'),
     };
   },
 };

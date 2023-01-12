@@ -1,5 +1,5 @@
 <template>
-  <div class="cgroup">
+  <div class="c_group">
     <q-checkbox v-model="chk1" label="One" />
     <q-checkbox v-model="chk2" label="Two" />
     <q-checkbox disable v-model="chk3" label="Three" />

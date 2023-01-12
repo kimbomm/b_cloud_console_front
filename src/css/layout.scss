@@ -19,7 +19,7 @@ $side-minw: 80px;
 // Layout Header l-header
 .q-header{
   height:64px;
-  background-color:#212648;
+  background-color:$secondary;
   box-shadow: none;
   .q-layout__shadow{
     bottom:0;
@@ -30,9 +30,16 @@ $side-minw: 80px;
 }
 .q-toolbar{
   min-height:64px;
-}
-.q-toolbar__title{
-  font-size: $fs16;
+  .q-btn{
+    &--dense{
+      &--round{
+        background:$color;
+      }
+    }
+  }
+  &__title{
+    font-size: $fs16;
+  }
 }
 .h_title{
   display:flex;
@@ -55,7 +62,7 @@ $side-minw: 80px;
 .q-drawer{
   background-color:#F5F7FA;
   &--left{
-
+    z-index:100;
   }
 }
 .l-sidebar{
@@ -85,6 +92,7 @@ $side-minw: 80px;
   padding:40px 24px 150px;
 }
 .p-head{
+  position:relative;
   margin-bottom:50px;
 }
 .p-body{

@@ -1,16 +1,11 @@
 <template>
-  <q-breadcrumbs class="text-brown">
+  <q-breadcrumbs class="c_breadcrumb" gutter="none">
     <template v-slot:separator>
-      <q-icon
-        size="1.5em"
-        name="chevron_right"
-        color="primary"
-      />
+      <q-icon />
     </template>
-
-    <q-breadcrumbs-el label="Home" icon="home" />
-    <q-breadcrumbs-el label="Components" icon="widgets" />
-    <q-breadcrumbs-el label="Breadcrumbs" icon="navigation" />
+    <q-breadcrumbs-el label="Home" to="/guide" />
+    <q-breadcrumbs-el label="Guide" to="/guide/breadcrumb" />
+    <q-breadcrumbs-el label="Breadcrumbs" />
   </q-breadcrumbs>
 </template>
 <script setup>

@@ -2,7 +2,7 @@
   <q-layout view="hHh Lpr lff" class="l-wrap" :class="drawer ? '' : 'sm-sidemenu'">
     <q-header class="l-header">
       <q-toolbar>
-        <q-btn flat @click="drawer = !drawer" round dense icon="menu" />
+        <q-btn flat @click="drawer = !drawer" round dense icon="menu" class="c_icon menu" />
         <div class="h_title">
           <router-link to="/">
             <img
@@ -74,6 +74,9 @@
           </q-item>
           <q-item>
             <router-link to="/guide/toast" class="menu-link">Toast</router-link>
+          </q-item>
+          <q-item>
+            <router-link to="/guide/tooltip" class="menu-link">Tooltip</router-link>
           </q-item>
         </q-list>
       </q-scroll-area>

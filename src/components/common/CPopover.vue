@@ -1,8 +1,24 @@
 <template>
-  <q-tooltip>
-    Some text as content of Tooltip
-  </q-tooltip>
+  {{ label }}
+  <q-popup-edit
+    v-model="label"
+    anchor="top left" self="top left"
+    class="c_popover"
+  >
+    <div class="inner">
+      {{ desc }}
+    </div>
+  </q-popup-edit>
 </template>
-<script setup>
+<script>
+import { ref } from 'vue';
 
+export default {
+  setup() {
+    return {
+      label: ref('click'),
+      desc: ref('Two values setting the starting position or anchor point of the menu relative to its target'),
+    };
+  },
+};
 </script>

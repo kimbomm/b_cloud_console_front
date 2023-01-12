@@ -1,35 +1,24 @@
 <template>
-  <div class="q-pa-md" style="max-width: 300px">
-    <div class="q-gutter-md">
-      <q-select
-        filled
-        v-model="model"
-        :options="options"
-      />
-      <q-select
-        filled
-        v-model="model1"
-        multiple
-        :options="options"
-      />
-    </div>
-  </div>
+  <q-select
+    outlined
+    v-model="model"
+    :options="options"
+    options-selected-class="is-active"
+    label="전체"
+    class="c_dropdown"
+  />
 </template>
 
 <script>
 import { ref } from 'vue';
 
-const options = [];
-for (let i = 0; i <= 10; i++) {
-  options.push(`Opt ${i}`);
-}
-
 export default {
   setup() {
     return {
-      model: ref(null),
-      model1: ref(null),
-      options,
+      model: ref('전체'),
+      options: [
+        '운영중', '정지중', '삭제중', '삭제',
+      ],
     };
   },
 };
