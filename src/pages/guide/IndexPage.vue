@@ -1,6 +1,7 @@
 <template>
-  <div>
-    가이드 index 페이지
+  <div class="p-content p-guide">
+    B CLOUD GUIDE
   </div>
 </template>
-<script setup></script>
+<script>
+</script>
