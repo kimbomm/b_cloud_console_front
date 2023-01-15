@@ -4,5 +4,5 @@
   </div>
 </template>
 <script setup>
-import CPop from 'components/common/CPop.vue';
+import CPop from "components/common/CPop.vue";
 </script>

@@ -4,17 +4,17 @@
   </div>
 </template>
 <script>
-import { ref } from 'vue';
-import CCheckbox from 'components/common/CCheckbox.vue';
+import { ref } from "vue";
+import CCheckbox from "components/common/CCheckbox.vue";
 
 export default {
-  name: 'CheckboxPage',
+  name: "CheckboxPage",
   components: {
     CCheckbox,
   },
   setup() {
     return {
-      ptitle: ref('Checkbox'),
+      ptitle: ref("Checkbox"),
     };
   },
 };

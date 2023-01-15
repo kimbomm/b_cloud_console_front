@@ -11,13 +11,13 @@
   </q-popup-edit>
 </template>
 <script>
-import { ref } from 'vue';
+import { ref } from "vue";
 
 export default {
   setup() {
     return {
-      label: ref('click'),
-      desc: ref('Two values setting the starting position or anchor point of the menu relative to its target'),
+      label: ref("click"),
+      desc: ref("Two values setting the starting position or anchor point of the menu relative to its target"),
     };
   },
 };

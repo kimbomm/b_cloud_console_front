@@ -27,7 +27,7 @@
 </template>
 <script>
 export default {
-  name: 'TypoPage',
+  name: "TypoPage",
 };
 </script>
 <style lang="scss" scoped>

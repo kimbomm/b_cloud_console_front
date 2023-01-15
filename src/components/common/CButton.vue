@@ -277,7 +277,7 @@ export default {
     btnNames: {
       type: String,
       required: true,
-      default: 'Button',
+      default: "Button",
     },
   },
   setup() {

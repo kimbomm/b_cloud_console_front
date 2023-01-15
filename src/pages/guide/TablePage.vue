@@ -4,5 +4,5 @@
   </div>
 </template>
 <script setup>
-import CTable from 'components/common/CTable.vue';
+import CTable from "components/common/CTable.vue";
 </script>

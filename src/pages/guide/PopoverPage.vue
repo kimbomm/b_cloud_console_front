@@ -15,17 +15,17 @@
   </div>
 </template>
 <script>
-import { ref } from 'vue';
-import CPopover from 'components/common/CPopover.vue';
+import { ref } from "vue";
+import CPopover from "components/common/CPopover.vue";
 
 export default {
-  name: 'PopoverPage',
+  name: "PopoverPage",
   components: {
     CPopover,
   },
   setup() {
     return {
-      ptitle: ref('Popover'),
+      ptitle: ref("Popover"),
     };
   },
 };

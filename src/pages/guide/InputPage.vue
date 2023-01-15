@@ -4,5 +4,5 @@
   </div>
 </template>
 <script setup>
-import CInput from 'components/common/CInput.vue';
+import CInput from "components/common/CInput.vue";
 </script>

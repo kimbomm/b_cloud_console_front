@@ -32,17 +32,17 @@
   </div>
 </template>
 <script>
-import { ref } from 'vue';
-import CBreadcrumb from 'components/common/CBreadcrumb.vue';
+import { ref } from "vue";
+import CBreadcrumb from "components/common/CBreadcrumb.vue";
 
 export default {
-  name: 'BreadcrumbsPage',
+  name: "BreadcrumbsPage",
   components: {
     CBreadcrumb,
   },
   setup() {
     return {
-      ptitle: ref('Breadcrumbs'),
+      ptitle: ref("Breadcrumbs"),
     };
   },
 };

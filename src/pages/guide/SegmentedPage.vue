@@ -33,19 +33,19 @@
   </div>
 </template>
 <script>
-import { ref } from 'vue';
-import CSegmented from 'components/common/CSegmented.vue';
+import { ref } from "vue";
+import CSegmented from "components/common/CSegmented.vue";
 
 export default {
-  name: 'SegmentedPage',
+  name: "SegmentedPage",
   components: {
     CSegmented,
   },
   setup() {
     return {
-      ptitle: ref('Segmented control'),
-      model: ref('one'),
-      segModel2: ref('one'),
+      ptitle: ref("Segmented control"),
+      model: ref("one"),
+      segModel2: ref("one"),
     };
   },
 };

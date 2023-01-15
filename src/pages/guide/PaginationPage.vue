@@ -51,17 +51,17 @@
   </div>
 </template>
 <script>
-import { ref } from 'vue';
-import CPagination from 'components/common/CPagination.vue';
+import { ref } from "vue";
+import CPagination from "components/common/CPagination.vue";
 
 export default {
-  name: 'PaginationPage',
+  name: "PaginationPage",
   components: {
     CPagination,
   },
   setup() {
     return {
-      ptitle: ref('Pagination'),
+      ptitle: ref("Pagination"),
       type2: ref(1),
       type3: ref(5),
     };

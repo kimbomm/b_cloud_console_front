@@ -561,21 +561,21 @@
   <!-- //.p-content -->
 </template>
 <script>
-import { ref } from 'vue';
-import CButton from 'components/common/CButton.vue';
+import { ref } from "vue";
+import CButton from "components/common/CButton.vue";
 
 export default {
-  name: 'ButtonPage',
+  name: "ButtonPage",
   components: {
     CButton,
   },
   setup() {
     return {
-      ptitle: ref('Button'),
-      btnName: ref('Default'),
-      btnDis: ref('Disabled'),
-      btnHover: ref('Hover'),
-      btnFocus: ref('Pressed'),
+      ptitle: ref("Button"),
+      btnName: ref("Default"),
+      btnDis: ref("Disabled"),
+      btnHover: ref("Hover"),
+      btnFocus: ref("Pressed"),
       on: ref(true),
       off: ref(false),
     };
