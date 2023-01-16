@@ -90,35 +90,6 @@ const options = ref([
 
 onMounted(() => {});
 </script>
-<script>
-import { ref } from "vue";
-import { useMeta } from "quasar";
-import CDropdown from "components/common/CDropdown.vue";
-
-export default {
-  name: "ToastPage",
-  components: {
-    CDropdown,
-  },
-  setup() {
-    const title = ref("Dropdown");
-    useMeta(() => ({
-      title: title.value,
-    }));
-    return {
-      ptitle: ref(title),
-      model: ref("전체"),
-      model1: ref("읽기쓰기"),
-      options: [
-        "운영중", "정지중", "삭제중", "삭제",
-      ],
-      options1: [
-        "읽기쓰기", "읽기", "삭제",
-      ],
-    };
-  },
-};
-</script>
 <style lang="scss" scoped>
 .section{
   h2{

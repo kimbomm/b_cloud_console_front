@@ -2,7 +2,6 @@
   <q-layout view="hHh Lpr lff" class="l-wrap l-guide" :class="drawer ? '' : 'sm-sidemenu'">
     <q-header class="l-header">
       <q-toolbar>
-        <q-btn flat @click="drawer = !drawer" round dense icon="menu" class="c_icon menu" />
         <div class="h_title">
           <router-link to="/">
             <img
@@ -99,17 +98,13 @@ const metaData = {
 export default {
   name: "GuidePage",
   components: {
-
   },
   setup() {
     useMeta(metaData);
     return {
-      drawer: ref(false),
+      drawer: ref(true),
     };
   },
-};
-export default {
-  name: "GuideLayout",
 };
 </script>
 
