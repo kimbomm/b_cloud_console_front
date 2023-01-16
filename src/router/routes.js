@@ -50,6 +50,7 @@ const routes = [
       { path: "popup", component: () => import("pages/guide/PopupPage.vue") },
       { path: "toast", component: () => import("pages/guide/ToastPage.vue") },
       { path: "tooltip", component: () => import("pages/guide/TooltipPage.vue") },
+      { path: "uploader", component: () => import("pages/guide/UploaderPage.vue") },
     ],
   },
 

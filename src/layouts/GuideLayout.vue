@@ -77,6 +77,9 @@
           <q-item>
             <router-link to="/guide/tooltip" class="menu-link">Tooltip</router-link>
           </q-item>
+          <q-item>
+            <router-link to="/guide/uploader" class="menu-link">Uploader</router-link>
+          </q-item>
         </q-list>
       </q-scroll-area>
     </q-drawer>

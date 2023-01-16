@@ -134,7 +134,7 @@ const inviteRequest = toRef(props, "inviteRequest");
 const emit = defineEmits(["action", "row-click", "copy"]);
 
 const tableClasses = computed(() => {
-  const classList = ["table"];
+  const classList = ["c_table"];
   return classList.join(",");
 });
 
