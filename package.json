@@ -1,8 +1,8 @@
 {
-  "name": "quasar-project",
+  "name": "bcloud-project",
   "version": "0.0.1",
-  "description": "A Quasar Project",
-  "productName": "Quasar App",
+  "description": "Brain Cloud Project",
+  "productName": "Brain Cloud",
   "author": "uprise-bomm <bomm@heybit.io>",
   "private": true,
   "scripts": {
@@ -31,6 +31,7 @@
     "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-vue": "^9.0.0",
     "postcss": "^8.4.14",
+    "prettier": "2.8.2",
     "workbox-build": "^6.5.0",
     "workbox-cacheable-response": "^6.5.0",
     "workbox-core": "^6.5.0",
