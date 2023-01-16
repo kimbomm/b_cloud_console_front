@@ -47,8 +47,6 @@ See [Configuring quasar.config.js](https://v2.quasar.dev/quasar-cli-vite/quasar-
 ```bash
 develop:  개발 브랜치
 feature/${IssueNumber}: 각 업무(issue, task) 개발용 브랜치
-release/develop: DEV 서버 배포 브랜치
-release/staging: STG(QA) 서버 배포 브랜치
 master: 실서버(Product) 배포 브랜치
 ```
 
