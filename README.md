@@ -1,5 +1,11 @@
 # B^ Clode Project
 
+페이지 | URL | 진행여부
+--- | --- | ---
+컴포넌트 가이드 | https://bcloud.freeive.dev/#/guide | 진행중
+대시보드 | https://bcloud.freeive.dev/#/ | 대기
+로그인 | https://bcloud.freeive.dev/#/login | 대기
+
 ## 패키지 관리 툴: YARN
 ```bash
 npm install -g yarn
