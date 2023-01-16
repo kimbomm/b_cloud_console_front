@@ -45,10 +45,6 @@ export default {
     useMeta(() => ({
       title: title.value,
     }));
-
-    function setAnotherTitle() {
-      title.value = "Toast";
-    }
     return {
       ptitle: ref(title),
       toastMsg1: ref("안내 메시지 입니다."),
@@ -57,7 +53,6 @@ export default {
       toastMsg4: ref("안내 메시지 입니다.안내 메시지 입니다.안내 메시지 입니다.안내 메시지 입니다."),
       link: ref("#"),
       linkName: ref("바로보기"),
-      setAnotherTitle,
     };
   },
 };

@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="hHh Lpr lff" class="l-wrap" :class="drawer ? '' : 'sm-sidemenu'">
+  <q-layout view="hHh Lpr lff" class="l-wrap l-guide" :class="drawer ? '' : 'sm-sidemenu'">
     <q-header class="l-header">
       <q-toolbar>
         <q-btn flat @click="drawer = !drawer" round dense icon="menu" class="c_icon menu" />
@@ -90,15 +90,37 @@
 
 <script>
 import { ref } from "vue";
+import { useMeta } from "quasar";
 
+const metaData = {
+  title: "Brain Cloud",
+  titleTemplate: (title) => `${title} | Brain Cloud`,
+};
 export default {
+  name: "GuidePage",
+  components: {
+
+  },
   setup() {
+    useMeta(metaData);
     return {
       drawer: ref(false),
     };
   },
 };
 </script>
-
 <style lang="scss" scoped>
+.h_title{
+  display:flex;
+  align-items: center;
+  font-size:$fs16;
+  line-height:1.3;
+  letter-spacing: 0;
+  img{
+    vertical-align: middle;
+  }
+  .tit{
+    margin-left:20px;
+  }
+}
 </style>

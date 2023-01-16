@@ -1,4 +1,15 @@
 /* quasar reset */
+:root {
+  --q-primary: #363CE5;
+  --q-secondary: #212648;
+  --q-accent: #9C27B0;
+  --q-positive: #00E190;
+  --q-negative: #E50F1C;
+  --q-info: #212648;
+  --q-warning: #FFC600;
+  --q-dark: #1C2142;
+  --q-dark-page: #454B75;
+}
 .q-gutter-y-sm > *, .q-gutter-sm > *{
   margin-top:0;
 }
@@ -173,3 +184,28 @@ button{
 .fs28{font-size:28px;}
 .fs32{font-size:32px;}
 .fs36{font-size:36px;}
+
+/* Form - Input */
+input{
+  &[type="text"],
+  &[type="password"],
+  &[type="number"],
+  &[type="file"],
+  &[type="mail"],
+  &[type="search"],
+  &[type="url"]{
+    color:$black;
+    &::placeholder{
+      color:$gray300;
+      opacity:1;
+    }
+  }
+  &[type="password"]:not(:placeholder-shown){
+    -webkit-text-security: disc;
+    // margin-top: -8px;
+    font:caption;
+    font-family: 'pass';
+    font-size:26px!important;
+    letter-spacing:-3px;
+  }
+}

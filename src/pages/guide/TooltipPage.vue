@@ -31,6 +31,7 @@
 </template>
 <script>
 import { ref } from "vue";
+import { useMeta } from "quasar";
 import CTooltip from "components/common/CTooltip.vue";
 
 export default {
@@ -39,8 +40,12 @@ export default {
     CTooltip,
   },
   setup() {
+    const title = ref("Tooltip");
+    useMeta(() => ({
+      title: title.value,
+    }));
     return {
-      ptitle: ref("Tooltip"),
+      ptitle: ref(title),
       showing1: ref(true),
     };
   },

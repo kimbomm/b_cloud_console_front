@@ -66,12 +66,7 @@ export default {
     useMeta(() => ({
       title: title.value,
     }));
-
-    function setAnotherTitle() {
-      title.value = "Dropdown";
-    }
     return {
-      setAnotherTitle,
       ptitle: ref(title),
       model: ref("전체"),
       model1: ref("읽기쓰기"),

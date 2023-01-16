@@ -33,6 +33,7 @@
 </template>
 <script>
 import { ref } from "vue";
+import { useMeta } from "quasar";
 import CBreadcrumb from "components/common/CBreadcrumb.vue";
 
 export default {
@@ -41,8 +42,12 @@ export default {
     CBreadcrumb,
   },
   setup() {
+    const title = ref("Breadcrumbs");
+    useMeta(() => ({
+      title: title.value,
+    }));
     return {
-      ptitle: ref("Breadcrumbs"),
+      ptitle: ref(title),
     };
   },
 };

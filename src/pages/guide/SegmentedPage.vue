@@ -34,6 +34,7 @@
 </template>
 <script>
 import { ref } from "vue";
+import { useMeta } from "quasar";
 import CSegmented from "components/common/CSegmented.vue";
 
 export default {
@@ -42,8 +43,12 @@ export default {
     CSegmented,
   },
   setup() {
+    const title = ref("Segmented Control");
+    useMeta(() => ({
+      title: title.value,
+    }));
     return {
-      ptitle: ref("Segmented control"),
+      ptitle: ref(title),
       model: ref("one"),
       segModel2: ref("one"),
     };

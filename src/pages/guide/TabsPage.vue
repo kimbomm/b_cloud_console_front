@@ -16,6 +16,7 @@
 </template>
 <script>
 import { ref } from "vue";
+import { useMeta } from "quasar";
 import CTabs from "components/common/CTabs.vue";
 
 export default {
@@ -24,8 +25,13 @@ export default {
     CTabs,
   },
   setup() {
+    const title = ref("Tabs");
+    useMeta(() => ({
+      title: title.value,
+    }));
+
     return {
-      ptitle: ref("Tabs"),
+      ptitle: ref(title),
       showing1: ref(false),
     };
   },

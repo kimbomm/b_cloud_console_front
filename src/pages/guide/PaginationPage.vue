@@ -52,6 +52,7 @@
 </template>
 <script>
 import { ref } from "vue";
+import { useMeta } from "quasar";
 import CPagination from "components/common/CPagination.vue";
 
 export default {
@@ -60,8 +61,12 @@ export default {
     CPagination,
   },
   setup() {
+    const title = ref("Pagination");
+    useMeta(() => ({
+      title: title.value,
+    }));
     return {
-      ptitle: ref("Pagination"),
+      ptitle: ref(title),
       type2: ref(1),
       type3: ref(5),
     };

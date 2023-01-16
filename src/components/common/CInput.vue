@@ -5,11 +5,8 @@
     placeholder="Placeholder Text"
     hint="Description"
     clearable
+    class="c_inp"
   >
-    <template v-slot:append>
-      <q-icon v-if="text !== ''" name="close" @click="text = ''" class="cursor-pointer" />
-      <q-icon name="search" />
-    </template>
     <template v-slot:hint>
       Field hint
     </template>

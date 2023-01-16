@@ -16,6 +16,7 @@
 </template>
 <script>
 import { ref } from "vue";
+import { useMeta } from "quasar";
 import CPopover from "components/common/CPopover.vue";
 
 export default {
@@ -24,8 +25,12 @@ export default {
     CPopover,
   },
   setup() {
+    const title = ref("Popover");
+    useMeta(() => ({
+      title: title.value,
+    }));
     return {
-      ptitle: ref("Popover"),
+      ptitle: ref(title),
     };
   },
 };
