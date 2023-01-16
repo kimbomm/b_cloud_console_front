@@ -1,25 +1,106 @@
 <template>
   <q-select
-    outlined
-    v-model="model"
+    v-model="lazyValue"
+    :class="DropdownClasses"
+    :label="label"
+    :disable="disabled"
     :options="options"
-    options-selected-class="is-active"
-    label="전체"
-    class="c_dropdown"
-  />
+    :options-selected-class="'is-active'"
+    :popup-content-class="type === 'text' ? 'smtext' : ''"
+    :outlined="type !== 'text'"
+    :filled="type === 'text'"
+    :multiple="multiple"
+    @update:model-value="onUpdate"
+  >
+    <!-- multi-select 일 경우 slot활용한 custom view -->
+    <template
+      v-if="multiple && lazyValue && lazyValue.length > 0"
+      v-slot:selected
+    >
+      <div>
+        {{ lazyValue[0].label }}
+        <template v-if="lazyValue.length > 1">
+          외 {{ lazyValue.length }}개
+        </template>
+      </div>
+    </template>
+    <!-- multi-select 일 경우 slot활용한 custom view 끝 -->
+  </q-select>
 </template>
+<script setup>
+import {
+  onMounted, ref, computed, defineEmits, useAttrs, watch
+} from "vue";
 
-<script>
-import { ref } from "vue";
+const emit = defineEmits(["update:selected"]);
+const attrs = useAttrs();
 
-export default {
-  setup() {
-    return {
-      model: ref("전체"),
-      options: [
-        "운영중", "정지중", "삭제중", "삭제",
-      ],
-    };
+const lazyValue = ref(null);
+const props = defineProps({
+  /**
+   * 설명: placeholder 역할, 미선택시 나타날 텍스트
+   */
+  label: {
+    type: String,
+    default: "전체"
   },
+  /**
+   * 설명: disabled 여부
+   */
+  disabled: {
+    type: Boolean,
+    default: false
+  },
+  /**
+   * 설명: multi-select 여부
+   */
+  multiple: {
+    type: Boolean,
+    default: false
+  },
+  /**
+   * 설명: selectbox option list
+   */
+  options: {
+    type: Array,
+    default: () => []
+  },
+  /**
+   * 설명: selectbox 형태
+   * default: ""
+   * type: "text" => 텍스트 형태 selectbox
+   */
+  type: {
+    type: String,
+    default: ""
+  }
+});
+
+/**
+ * 설명: dropdown ClassName 추가
+ */
+const DropdownClasses = computed(() => {
+  const classList = ["c_dropdown"];
+  if (props.type === "text") {
+    classList.push("smtext");
+  }
+  return classList.join(" ");
+});
+
+const onUpdate = (value) => {
+  emit("update:selected", value);
 };
+
+/**
+ * 설명: 최초 페이지 dropdown value값 초기화시 셋팅
+ */
+watch(() => attrs.selected, (cur, prev) => {
+  if (!prev) {
+    lazyValue.value = cur;
+  }
+});
+
+onMounted(() => {
+  lazyValue.value = attrs.selected;
+});
 </script>

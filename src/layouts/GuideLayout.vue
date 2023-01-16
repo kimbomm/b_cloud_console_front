@@ -108,6 +108,13 @@ export default {
     };
   },
 };
+export default {
+  name: "GuideLayout",
+};
+</script>
+
+<script setup>
+// import { ref } from "vue";
 </script>
 <style lang="scss" scoped>
 .h_title{
