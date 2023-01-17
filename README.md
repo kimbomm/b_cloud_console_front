@@ -1,5 +1,11 @@
 # B^ Clode Project
 
+페이지 | URL | 진행여부
+--- | --- | ---
+컴포넌트 가이드 | https://bcloud.freeive.dev/#/guide | 진행중
+대시보드 | https://bcloud.freeive.dev/#/ | 대기
+로그인 | https://bcloud.freeive.dev/#/login | 대기
+
 ## 패키지 관리 툴: YARN
 ```bash
 npm install -g yarn
@@ -47,8 +53,6 @@ See [Configuring quasar.config.js](https://v2.quasar.dev/quasar-cli-vite/quasar-
 ```bash
 develop:  개발 브랜치
 feature/${IssueNumber}: 각 업무(issue, task) 개발용 브랜치
-release/develop: DEV 서버 배포 브랜치
-release/staging: STG(QA) 서버 배포 브랜치
 master: 실서버(Product) 배포 브랜치
 ```
 
