@@ -185,8 +185,8 @@ const actionButtons = [
 ];
 const respAction = (eventObj) => {
   const eventName = eventObj.event;
-  const rowData = eventObj.data;
-  console.log(rowData);
+  // const rowData = eventObj.data;
+  // console.log(rowData);
   switch (eventName) {
     case "state":
       break;
@@ -202,9 +202,9 @@ const respAction = (eventObj) => {
       break;
   }
 };
-const onRowClick = (rowData) => {
-  console.log("row click Data::", rowData);
-};
+// const onRowClick = (rowData) => {
+//   console.log("row click Data::", rowData);
+// };
 </script>
 
 <style lang="scss" scoped>

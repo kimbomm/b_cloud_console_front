@@ -22,9 +22,9 @@ import { ref } from "vue";
 const file = ref(null);
 const files = ref([file.value]);
 
-const onChange = (event) => {
-  console.log(event.target.value);
-};
+// const onChange = (event) => {
+//   console.log(event.target.value);
+// };
 </script>
 <style lang="scss" scoped>
 input {
