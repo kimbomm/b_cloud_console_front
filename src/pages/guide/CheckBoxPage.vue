@@ -8,7 +8,12 @@
       <section class="section">
         <h2 class="h6">class="c_checkbox"</h2>
         <div class="group">
-          <CCheckbox />
+          <div class="c_checkgroup">
+            <q-checkbox v-model="chk1" label="One" class="c_checkbox" />
+            <q-checkbox v-model="chk2" label="Two" class="c_checkbox" />
+            <q-checkbox disable v-model="chk3" label="Three" class="c_checkbox" />
+            <q-checkbox disable v-model="chk4" label="Four" class="c_checkbox" />
+          </div>
         </div>
       </section>
     </div>
@@ -17,12 +22,12 @@
 <script>
 import { ref } from "vue";
 import { useMeta } from "quasar";
-import CCheckbox from "components/common/CCheckbox.vue";
+// import CCheckbox from "components/common/CCheckbox.vue";
 
 export default {
   name: "CheckboxPage",
   components: {
-    CCheckbox,
+    // CCheckbox,
   },
   setup() {
     const title = ref("Checkbox");
@@ -31,6 +36,10 @@ export default {
     }));
     return {
       ptitle: ref(title),
+      chk1: ref(false),
+      chk2: ref(true),
+      chk3: ref(false),
+      chk4: ref(true),
     };
   },
 };

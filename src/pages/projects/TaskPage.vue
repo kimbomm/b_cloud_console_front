@@ -26,11 +26,11 @@
                 <span class="txt">할당량 변경 요청</span>
               </q-btn>
             </q-item>
-            <q-btn>
+            <q-item>
               <q-btn class="item">
                 <span class="txt">프로젝트 삭제</span>
               </q-btn>
-            </q-btn>
+            </q-item>
           </q-list>
         </q-menu>
       </q-btn>
