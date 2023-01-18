@@ -17,7 +17,6 @@
 
     <q-drawer
       v-model="drawer"
-      show-if-above
       class="l-sidebar"
       :width="316"
     >
@@ -80,6 +79,12 @@
           <q-item>
             <router-link to="/guide/uploader" class="menu-link">Uploader</router-link>
           </q-item>
+          <q-item>
+            <router-link to="/guide/notify" class="menu-link">Notify</router-link>
+          </q-item>
+          <q-item>
+            <router-link to="/guide/template" class="menu-link">Template</router-link>
+          </q-item>
         </q-list>
       </q-scroll-area>
     </q-drawer>
@@ -105,7 +110,7 @@ export default {
   setup() {
     useMeta(metaData);
     return {
-      drawer: ref(true),
+      drawer: ref(false),
     };
   },
 };

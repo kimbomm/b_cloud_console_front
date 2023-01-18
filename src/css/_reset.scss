@@ -208,4 +208,10 @@ input{
     font-size:26px!important;
     letter-spacing:-3px;
   }
+  &::-webkit-inner-spin-button{
+    display:none;
+  }
+}
+textarea{
+  resize: none;
 }

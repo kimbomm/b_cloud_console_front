@@ -26,6 +26,7 @@ const routes = [
       { path: "/support/survey", component: () => import("pages/support/SurveyPage.vue") },
 
       { path: "/sample/table", component: () => import("pages/sample/TablePage.vue") },
+      { path: "/sample/temp", component: () => import("pages/sample/TempPage.vue") },
     ],
   },
   {
@@ -51,6 +52,8 @@ const routes = [
       { path: "toast", component: () => import("pages/guide/ToastPage.vue") },
       { path: "tooltip", component: () => import("pages/guide/TooltipPage.vue") },
       { path: "uploader", component: () => import("pages/guide/UploaderPage.vue") },
+      { path: "notify", component: () => import("pages/guide/NotifyPage.vue") },
+      { path: "template", component: () => import("pages/guide/TemplatePage.vue") },
     ],
   },
 
