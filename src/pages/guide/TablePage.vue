@@ -5,37 +5,38 @@
     </div>
     <div class="p-body">
       <section class="section">
-        <h2 class="h6">class="c_table"</h2>
+        <h2 class="h6">Type1 class="c_table"</h2>
         <div class="group">
-          <div>
-            <h5>Type 1</h5>
-            <CTable
-              :title="title"
-              :columns="columns"
-              :data="data"
-              :action-buttons="actionButtons"
-              @action="respAction"
-            />
-          </div>
-          <div>
-            <h5>Type 2</h5>
-            <CTable
-              :title="title"
-              :columns="columns"
-              :data="data"
-              :selection="'multiple'"
-            />
-          </div>
-          <div>
-            <h5>Type 3</h5>
-            <CTable
-              :title="title"
-              :columns="columns"
-              :data="data"
-              row-click
-              @rowClick="onRowClick"
-            />
-          </div>
+          <CTable
+            :title="title"
+            :columns="columns"
+            :data="data"
+            :action-buttons="actionButtons"
+            @action="respAction"
+          />
+        </div>
+      </section>
+      <section class="section">
+        <h2 class="h6">Type2 class="c_table"</h2>
+        <div class="group">
+          <CTable
+            :title="title"
+            :columns="columns"
+            :data="data"
+            :selection="'multiple'"
+          />
+        </div>
+      </section>
+      <section class="section">
+        <h2 class="h6">Type3 class="c_table"</h2>
+        <div class="group">
+          <CTable
+            :title="title"
+            :columns="columns"
+            :data="data"
+            row-click
+            @rowClick="onRowClick"
+          />
         </div>
       </section>
     </div>
@@ -57,7 +58,7 @@ const columns = [
     field: "id",
     label: "ID",
     required: true,
-    align: "left",
+    align: "center",
     sortable: true,
   },
   {
@@ -81,7 +82,7 @@ const columns = [
     field: "ssh",
     label: "ssh",
     align: "left",
-    sortable: true,
+    sortable: false,
     type: "copy",
   },
   {
@@ -89,7 +90,7 @@ const columns = [
     field: "JupyterLab",
     label: "JupyterLab",
     align: "left",
-    sortable: true,
+    sortable: false,
     type: "copy",
   },
   {
@@ -105,14 +106,14 @@ const columns = [
     field: "gpu",
     label: "GPU",
     align: "left",
-    sortable: true,
+    sortable: false,
   },
   {
     name: "cpu",
     field: "cpu",
     label: "CPU",
     align: "left",
-    sortable: true,
+    sortable: false,
   },
   {
     name: "createdAt",
@@ -127,7 +128,7 @@ const columns = [
     field: "createdBy",
     label: "생성자",
     align: "left",
-    sortable: true,
+    sortable: false,
   },
 ];
 const data = [

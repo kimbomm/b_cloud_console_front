@@ -8,7 +8,38 @@
       <section class="section">
         <h2 class="h6">Dots Menu</h2>
         <div class="group">
-          do
+          <q-btn class="c_btn ibtn dot">
+            <i class="ico dots" /><span class="txt">클릭</span>
+            <q-popup-edit class="dots_menu" anchor="top right">
+              <q-list style="min-width: 100px">
+                <q-item>
+                  <q-btn class="item">
+                    <span class="txt">이용현황</span>
+                  </q-btn>
+                </q-item>
+                <q-item>
+                  <q-btn class="item">
+                    <span class="txt">공유관리</span>
+                  </q-btn>
+                </q-item>
+                <q-item>
+                  <q-btn class="item">
+                    <span class="txt">스냅샷 관리</span>
+                  </q-btn>
+                </q-item>
+                <q-item>
+                  <q-btn class="item">
+                    <span class="txt">스냅샷 생성</span>
+                  </q-btn>
+                </q-item>
+                <q-item>
+                  <q-btn class="item">
+                    <span class="txt">삭제</span>
+                  </q-btn>
+                </q-item>
+              </q-list>
+            </q-popup-edit>
+          </q-btn>
         </div>
       </section>
       <section class="section">
@@ -387,7 +418,7 @@ const options = ref([
 const projectCreateModal = ref(false);
 const projectChangeModal = ref(false);
 const quotaChangeModal = ref(false);
-const memberInviteModal = ref(true);
+const memberInviteModal = ref(false);
 const textName = ref(null);
 const textChangeName = ref("aa인스턴스");
 const textInviteName = ref(null);
