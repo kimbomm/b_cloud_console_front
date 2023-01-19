@@ -19,8 +19,8 @@
               >
                 <i class="ico" /><span class="txt">{{ projects }}</span>
               </router-link>
-              <q-btn type="button" class="c_btn c_icon">
-                <i class="ico plus" /><span class="txt">추가</span>
+              <q-btn type="button" class="c_btn c_icon" @click="projectCreateModal = true">
+                <i class="ico plus" /><span class="txt">프로젝트 추가하기</span>
               </q-btn>
             </q-item>
             <q-slide-transition>
@@ -134,36 +134,99 @@
           </q-btn>
         </div>
       </div>
+      <!-- Start : 프로젝트 생성 팝업 -->
+      <q-dialog v-model="projectCreateModal" class="c_dialog medium">
+        <q-card>
+          <q-card-section class="c_dialog_body">
+            <p class="title">
+              <strong>프로젝트 생성</strong>
+            </p>
+            <section class="section" aria-label="프로젝트 이름">
+              <p class="sub_title">프로젝트 이름<i class="ess">*</i></p>
+              <div class="c_inpgroup">
+                <q-input
+                  outlined
+                  v-model="textName"
+                  placeholder="최소 2자 최대 30자 입력"
+                  clearable
+                  class="wsize_full"
+                />
+              </div>
+            </section>
+            <section class="section" aria-label="프로젝트 설명">
+              <p class="sub_title">프로젝트 설명</p>
+              <div class="c_inpgroup">
+                  <q-input
+                    outlined
+                    v-model="textDesc"
+                    bottom-slots
+                    type="textarea"
+                    placeholder="프로젝트 설명 입력"
+                    clearable
+                    counter
+                    :count="10"
+                    maxlength="500"
+                    class="wsize_full hsize244"
+                    :input-style="{height: '100%'}"
+                  >
+                    <!-- <template v-slot:hint>
+                      Description
+                    </template> -->
+                  </q-input>
+              </div>
+            </section>
+          </q-card-section>
+          <q-card-actions class="c_dialog_foot">
+            <q-btn label="취소" class="line" v-close-popup />
+            <q-btn
+              label="확인"
+              class="primary"
+              @click="triggerSuccess('top-right')"
+              v-close-popup
+            />
+          </q-card-actions>
+        </q-card>
+      </q-dialog>
+      <!-- End : 프로젝트 생성 팝업 -->
     </q-list>
   </q-scroll-area>
 </template>
-<script>
-import { ref } from "vue";
-
-export default {
-  setup() {
-    return {
-      projectVisible: ref(true),
-      mngVisible: ref(true),
-      dashboard: ref("Dashboard"),
-      projects: ref("Projects"),
-      storage: ref("Storage"),
-      image: ref("Image"),
-      member: ref("Member"),
-      billing: ref("Billing"),
-      workspace: ref("Workspace Manager"),
-      mngProject: ref("Projects"),
-      mngInstance: ref("Instance & Task"),
-      mngStorage: ref("Storage"),
-      support: ref("Support"),
-      myinfo: ref("Myinfo"),
-      name: ref("김카브"),
-      mail: ref("root.choi@kakaobrainsddddfdslfkjalkdlfkad"),
-    };
-  }
-};
-</script>
 <script setup>
+import { ref } from "vue";
+import { useQuasar } from "quasar";
 
+const $q = useQuasar();
+
+const projectCreateModal = ref(false);
+const projectVisible = ref(true);
+const mngVisible = ref(true);
+const dashboard = ref("Dashboard");
+const projects = ref("Projects");
+const storage = ref("Storage");
+const image = ref("Image");
+const member = ref("Member");
+const billing = ref("Billing");
+const workspace = ref("Workspace Manager");
+const mngProject = ref("Projects");
+const mngInstance = ref("Instance & Task");
+const mngStorage = ref("Storage");
+const name = ref("김카브");
+const mail = ref("root.choi@kakaobrainsddddfdslfkjalkdlfkad");
+const textName = ref(null);
+const textDesc = ref(null);
+const triggerSuccess = (position) => {
+  setTimeout(() => {
+    $q.notify({
+      type: "positive",
+      message: "신규 프로젝트가 생성되었습니다.",
+      icon: "positive",
+      position,
+      actions: [
+        { label: "닫기", class: "xclose", handler: () => { /* console.log('') */ } }
+      ],
+      timeout: 3000
+    });
+  }, 100);
+};
 </script>
 <style lang="scss" scoped></style>

@@ -22,7 +22,7 @@
   </q-layout>
 </template>
 
-<script>
+<script setup>
 import { ref } from "vue";
 import { useMeta } from "quasar";
 import TopNav from "components/layout/TopNav.vue";
@@ -32,19 +32,8 @@ const metaData = {
   title: "Brain Cloud",
   titleTemplate: (title) => `${title} | Brain Cloud`,
 };
-export default {
-  name: "MainLayout",
-  components: {
-    TopNav,
-    SideBar,
-  },
-  setup() {
-    useMeta(metaData);
-    return {
-      drawer: ref(false),
-    };
-  },
-};
+useMeta(metaData);
+const drawer = ref(false);
 </script>
 <style lang="scss" scoped>
 </style>

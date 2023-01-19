@@ -18,7 +18,7 @@
         </div>
       </section>
       <section class="section">
-        <h2 class="h6">Colsole 팝업</h2>
+        <h2 class="h6">Console 팝업</h2>
         <div class="group">
           <q-btn class="c_btn line" @click="projectCreateModal = true">
             <span class="txt">프로젝트 생성</span>
@@ -373,9 +373,9 @@ useMeta(() => ({
   title: title.value,
 }));
 
+const ptitle = ref(title);
 const label = ref("프로젝트 선택");
 const selectedCheck = ref(null);
-const ptitle = ref(title);
 const options = ref([
   { label: "프로젝트1", value: 0 },
   { label: "프로젝트2", value: 1 },

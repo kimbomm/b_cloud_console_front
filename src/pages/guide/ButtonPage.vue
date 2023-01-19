@@ -560,32 +560,22 @@
   </div>
   <!-- //.p-content -->
 </template>
-<script>
+<script setup>
 import { ref } from "vue";
 import { useMeta } from "quasar";
 import CButton from "components/common/CButton.vue";
 
-export default {
-  name: "ButtonPage",
-  components: {
-    CButton,
-  },
-  setup() {
-    const title = ref("Button");
-    useMeta(() => ({
-      title: title.value,
-    }));
-    return {
-      ptitle: ref(title),
-      btnName: ref("Default"),
-      btnDis: ref("Disabled"),
-      btnHover: ref("Hover"),
-      btnFocus: ref("Pressed"),
-      on: ref(true),
-      off: ref(false),
-    };
-  },
-};
+const title = ref("Button");
+useMeta(() => ({
+  title: title.value,
+}));
+const ptitle = ref(title);
+const btnName = ref("Default");
+const btnDis = ref("Disabled");
+const btnHover = ref("Hover");
+const btnFocus = ref("Pressed");
+const on = ref(true);
+const off = ref(false);
 </script>
 <style lang="scss" scoped>
 .p-body{

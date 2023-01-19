@@ -9,27 +9,15 @@
     </div>
   </q-page>
 </template>
-<script>
+<script setup>
 import { ref } from "vue";
 import { useMeta } from "quasar";
 
-export default {
-  name: "BillingDetailPage",
-  components: {
-
-  },
-  setup() {
-    const title = ref("Billing");
-    useMeta(() => ({
-      title: title.value,
-    }));
-    return {
-      ptitle: ref(title),
-    };
-  },
-};
-</script>
-<script setup>
+const title = ref("Billing");
+useMeta(() => ({
+  title: title.value,
+}));
+const ptitle = ref(title);
 </script>
 
 <style lang="scss" scoped>

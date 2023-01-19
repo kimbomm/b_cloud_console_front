@@ -52,25 +52,15 @@
     </div>
   </div>
 </template>
-<script>
+<script setup>
 import { ref } from "vue";
 import { useMeta } from "quasar";
 
-export default {
-  name: "IndexPage",
-  components: {
-
-  },
-  setup() {
-    const title = ref("Guide");
-    useMeta(() => ({
-      title: title.value,
-    }));
-    return {
-      ptitle: ref(title),
-    };
-  },
-};
+const title = ref("Guide");
+useMeta(() => ({
+  title: title.value,
+}));
+const ptitle = ref(title);
 </script>
 <script setup>
 </script>

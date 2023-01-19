@@ -317,40 +317,28 @@
     </div>
   </div>
 </template>
-<script>
+<script setup>
 import { ref } from "vue";
 import { useMeta } from "quasar";
 // import CPop from "components/common/CPop.vue";
 
-export default {
-  name: "PopupPage",
-  components: {
-    // CPop,
-  },
-  setup() {
-    const title = ref("Popup");
-    useMeta(() => ({
-      title: title.value,
-    }));
-    return {
-      ptitle: ref(title),
-      alert1: ref(false),
-      alert2: ref(false),
-      alert3: ref(false),
-      alert4: ref(false),
-      alert5: ref(false),
-      alert6: ref(false),
-      alert7: ref(false),
-      alert8: ref(false),
-      alertMedium1: ref(false),
-      alertMedium2: ref(false),
-      alertLarge1: ref(false),
-      alertLarge2: ref(false),
-    };
-  },
-};
-</script>
-<script setup>
+const title = ref("Popup");
+useMeta(() => ({
+  title: title.value,
+}));
+const ptitle = ref(title);
+const alert1 = ref(false);
+const alert2 = ref(false);
+const alert3 = ref(false);
+const alert4 = ref(false);
+const alert5 = ref(false);
+const alert6 = ref(false);
+const alert7 = ref(false);
+const alert8 = ref(false);
+const alertMedium1 = ref(false);
+const alertMedium2 = ref(false);
+const alertLarge1 = ref(false);
+const alertLarge2 = ref(false);
 </script>
 
 <style lang="scss" scoped>

@@ -19,29 +19,17 @@
     </div>
   </div>
 </template>
-<script>
+<script setup>
 import { ref } from "vue";
 import { useMeta } from "quasar";
 // import CRadio from "components/common/CRadio.vue";
 
-export default {
-  name: "CheckboxPage",
-  components: {
-    // CRadio,
-  },
-  setup() {
-    const title = ref("Radio");
-    useMeta(() => ({
-      title: title.value,
-    }));
-    return {
-      ptitle: ref(title),
-      radCheck: ref("rad1"),
-    };
-  },
-};
-</script>
-<script setup>
+const title = ref("Radio");
+useMeta(() => ({
+  title: title.value,
+}));
+const ptitle = ref(title);
+const radCheck = ref("rad1");
 </script>
 
 <style lang="scss" scoped>
