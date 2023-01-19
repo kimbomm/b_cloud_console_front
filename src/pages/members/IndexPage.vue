@@ -9,27 +9,16 @@
     </div>
   </q-page>
 </template>
-<script>
+<script setup>
 import { ref } from "vue";
 import { useMeta } from "quasar";
 
-export default {
-  name: "MembersPage",
-  components: {
+const title = ref("Member");
+useMeta(() => ({
+  title: title.value,
+}));
 
-  },
-  setup() {
-    const title = ref("Member");
-    useMeta(() => ({
-      title: title.value,
-    }));
-    return {
-      ptitle: ref(title),
-    };
-  },
-};
-</script>
-<script setup>
+const ptitle = ref(title);
 </script>
 
 <style lang="scss" scoped>

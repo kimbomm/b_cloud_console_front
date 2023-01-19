@@ -25,29 +25,17 @@
     </div>
   </div>
 </template>
-<script>
+<script setup>
 import { ref } from "vue";
 import { useMeta } from "quasar";
 // import CPopover from "components/common/CPopover.vue";
 
-export default {
-  name: "PopoverPage",
-  components: {
-    // CPopover,
-  },
-  setup() {
-    const title = ref("Popover");
-    useMeta(() => ({
-      title: title.value,
-    }));
-    return {
-      ptitle: ref(title),
-      helpShow: ref(false),
-    };
-  },
-};
-</script>
-<script setup>
+const title = ref("Popover");
+useMeta(() => ({
+  title: title.value,
+}));
+const ptitle = ref(title);
+const helpShow = ref(false);
 </script>
 
 <style lang="scss" scoped>

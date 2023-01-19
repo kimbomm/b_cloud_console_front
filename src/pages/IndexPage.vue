@@ -14,27 +14,16 @@
   </q-page>
 </template>
 
-<script>
+<script setup>
 import { ref } from "vue";
 import { useMeta } from "quasar";
 
-export default {
-  name: "IndexPage",
-  components: {
+const title = ref("Dashboard");
+useMeta(() => ({
+  title: title.value,
+}));
 
-  },
-  setup() {
-    const title = ref("Dashboard");
-    useMeta(() => ({
-      title: title.value,
-    }));
-    return {
-      ptitle: ref(title),
-    };
-  },
-};
-</script>
-<script setup>
+const ptitle = ref(title);
 </script>
 
 <style lang="scss" scoped>

@@ -12,15 +12,8 @@
     </template>
   </q-input>
 </template>
-<script>
+<script setup>
 import { ref } from "vue";
 
-export default {
-  setup() {
-    return {
-      text: ref(""),
-      ph: ref(""),
-    };
-  }
-};
+const ph = ref("");
 </script>

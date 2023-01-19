@@ -430,22 +430,15 @@
     </div>
   </div>
 </template>
-<script>
+<script setup>
 import { ref } from "vue";
 import { useMeta } from "quasar";
 
-export default {
-  name: "IconPage",
-  setup() {
-    const title = ref("Icon");
-    useMeta(() => ({
-      title: title.value,
-    }));
-    return {
-      ptitle: ref(title),
-    };
-  },
-};
+const title = ref("Icon");
+useMeta(() => ({
+  title: title.value,
+}));
+const ptitle = ref(title);
 </script>
 <style lang="scss" scoped>
 .iconwrap{

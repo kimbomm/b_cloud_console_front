@@ -41,11 +41,6 @@
     </div>
   </div>
 </template>
-<script>
-export default {
-  name: "TablePage",
-};
-</script>
 <script setup>
 import { ref } from "vue";
 import { useMeta } from "quasar";

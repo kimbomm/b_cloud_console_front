@@ -19,32 +19,20 @@
     </div>
   </div>
 </template>
-<script>
+<script setup>
 import { ref } from "vue";
 import { useMeta } from "quasar";
 // import CCheckbox from "components/common/CCheckbox.vue";
 
-export default {
-  name: "CheckboxPage",
-  components: {
-    // CCheckbox,
-  },
-  setup() {
-    const title = ref("Checkbox");
-    useMeta(() => ({
-      title: title.value,
-    }));
-    return {
-      ptitle: ref(title),
-      chk1: ref(false),
-      chk2: ref(true),
-      chk3: ref(false),
-      chk4: ref(true),
-    };
-  },
-};
-</script>
-<script setup>
+const title = ref("Checkbox");
+useMeta(() => ({
+  title: title.value,
+}));
+const ptitle = ref(title);
+const chk1 = ref(false);
+const chk2 = ref(true);
+const chk3 = ref(false);
+const chk4 = ref(true);
 </script>
 
 <style lang="scss" scoped>

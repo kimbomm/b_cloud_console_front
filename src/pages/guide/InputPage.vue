@@ -186,49 +186,24 @@
     </div>
   </div>
 </template>
-<script>
+<script setup>
 import { ref, computed } from "vue";
 import { useMeta } from "quasar";
 import CInput from "components/common/CInput.vue";
 
-export default {
-  name: "InputPage",
-  components: {
-    CInput,
-  },
-  props: {
-    sizeTypes: {
-      type: Number,
-      default: 1,
-    },
-  },
-  setup() {
-    const title = ref("Input");
-    const texterror = ref("Texterror");
-    const passworderror = ref("1q2w3e4r%T");
-    useMeta(() => ({
-      title: title.value,
-    }));
-    return {
-      ptitle: ref(title),
-      text: ref(""),
-      suffix: ref(""),
-      comfirm: ref("Text"),
-      password: ref(""),
-      isPwd: ref(true),
-      texterror,
-      passworderror,
-      isValid: computed(() => texterror.value.length <= 8),
-      isPwdValid: computed(() => passworderror.value.length <= 8),
-      input: {
-        name: null,
-        dob: null,
-      },
-    };
-  },
-};
-</script>
-<script setup>
+const title = ref("Input");
+useMeta(() => ({
+  title: title.value,
+}));
+const ptitle = ref(title);
+const texterror = ref("Texterror");
+const passworderror = ref("1q2w3e4r%T");
+const suffix = ref("");
+const comfirm = ref("Text");
+const password = ref("");
+const isPwd = ref(true);
+const isValid = computed(() => texterror.value.length <= 8);
+const isPwdValid = computed(() => passworderror.value.length <= 8);
 </script>
 
 <style lang="scss" scoped>

@@ -3,6 +3,6 @@
     <div class="item"></div>
   </div>
 </template>
-<script>
+<script setup>
 
 </script>
