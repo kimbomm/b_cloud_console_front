@@ -83,6 +83,15 @@
             <router-link to="/guide/notify" class="menu-link">Notify(Toast)</router-link>
           </q-item>
           <q-item>
+            <router-link to="/guide/carousel" class="menu-link">Carousel</router-link>
+          </q-item>
+          <q-item>
+            <router-link to="/guide/collapse" class="menu-link">Collapse</router-link>
+          </q-item>
+          <q-item>
+            <router-link to="/guide/banner" class="menu-link">Banner</router-link>
+          </q-item>
+          <q-item>
             <router-link to="/guide/template" class="menu-link">Template</router-link>
           </q-item>
         </q-list>
