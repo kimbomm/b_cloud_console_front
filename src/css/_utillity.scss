@@ -264,6 +264,18 @@
       }
     }
   }
+  &.upload{
+    width:100px;height:100px;
+    border-radius:8px;
+    background:$surface03;
+    .ico{
+      &.plus{
+        width:32px;height:32px;
+        background-image:url($iconUrl + '32/ico_plus_normal.svg');
+        background-size: 32px;
+      }
+    }
+  }
   &.bg-positive{
     background:$green;
   }
@@ -311,6 +323,10 @@
         width:24px;height:24px;
         background:url($iconUrl + '24/ico_help_normal.svg') no-repeat 50% 50%;
       }
+      &.close{
+        width:16px;height:16px;
+        background:url($iconUrl + '16/ico_cancel_normal.svg') no-repeat 50% 50%;
+      }
     }
     &::before{
       display:none;
@@ -347,6 +363,17 @@
       }
     }
   }
+  &.cancel{
+    flex:none;
+    width:28px;height:28px;
+    min-height:28px;
+    margin:0;padding:0;
+    border-color:$surface02;
+    @include shadow;
+  }
+  &.circle{
+    border-radius:50%!important;
+  }
   &.xclose{
     flex:none;
     position:absolute;top:0;right:0;
@@ -359,6 +386,12 @@
     background-image:url($iconUrl + '20/ico_toast_cancel_normal.svg');
     .block{
       color:$color;font-size:0;
+    }
+    &.large{
+      width:40px;height:40px;
+      min-height:40px;
+      border:0;
+      background-image:url($iconUrl + '40/ico_cancel_normal.svg');
     }
   }
   &.alink{
@@ -568,6 +601,83 @@ body.desktop .q-radio,
   }
   &.mr0{
     margin-right:0;
+  }
+}
+/* Component - Uplaoder */
+.c_uploader{
+  display:flex;
+  flex-wrap: wrap;
+  .uploader-input{
+    height:0;
+  }
+  .imgwrap{
+    position:relative;
+    width:100px;height:100px;
+    margin-right:16px;
+    .imgbox{
+      overflow:hidden;
+      display:inline-flex;
+      justify-content: center;
+      align-items: center;
+      position:relative;
+      width:100%;height:100%;
+      border-radius:8px;
+      border:1px solid $surface03;
+      background-repeat:no-repeat;
+      background-position:50% 50%;
+      background-color:$surface24;
+      background-size: contain;
+      background-image:url($imgUrl + 'common/logo_dark_23x25.svg');
+      background-size:auto;
+    }
+    img{
+      // max-width:100%;
+      // max-height:100%;
+      object-fit: cover;
+    }
+    .ibtn{
+      position:absolute;top:0;right:0;
+      transform: translate(10px, -10px);
+    }
+  }
+}
+.imgmodal{
+  display:none;
+  align-items: center;
+  justify-content: center;
+  position:fixed;top:0;left:0;z-index:100;
+  width: 100%;height:100%;
+  margin:0;padding:0;
+  background: rgba(0, 0, 0, 0.3);
+  &.is-show{
+    display:flex;
+  }
+  img{
+    max-width:100%;
+    max-height:100%;
+    object-fit: contain;
+  }
+  .inner{
+    position:relative;
+  }
+  .picture{
+    display:inline-flex;
+    flex:none;
+    max-width:80%;
+    max-height:80%;
+    &.none{
+      min-width:500px;height:500px;
+      background-color:$surface05;
+      background-repeat:no-repeat;
+      background-position:50% 50%;
+      background-size: 118px 26px;
+      background-image:url($imgUrl + 'common/logo_gray_118x26.svg');
+    }
+  }
+  .ibtn{
+    &.xclose{
+      transform: translate(40px, -40px);
+    }
   }
 }
 /* Component - Pagination .q-pagination */

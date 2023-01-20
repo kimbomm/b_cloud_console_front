@@ -1,5 +1,5 @@
 <template>
-  <div class="uploader">
+  <div class="c_uploader">
     <div class="uploader-input">
       <input
         v-for="(file, i) in files"
@@ -9,15 +9,34 @@
         type="file"
         :value="file.value"
         @change="onChange"
+        class="hidden"
       />
     </div>
     <template v-for="(file, i) in files" :key="i">
-      <div v-if="file.src">
-        <img :src="file.src" />
-        <button @click="onRemove(i)">삭제</button>
+      <div v-if="file.src" class="imgwrap">
+        <div class="imgbox"><img :src="file.src" alt="" /></div>
+        <q-btn @click="onRemove(i)" class="ibtn cancel circle">
+          <i class="ico close" /><span class="hidden">삭제</span>
+        </q-btn>
+        <!-- 첨부된 이미지 클릭 시 해당 이미지 보기 class is-show 이미지가 안 뜰 경우 박스 사이즈 500x500 -->
+        <q-item class="imgmodal">
+          <div class="inner">
+            <picture class="picture">
+              <img :src="file.src" alt="" />
+            </picture>
+            <!-- Start : 이미지가 안 뜰 경우 박스 사이즈 500x500 -->
+            <picture class="picture none"></picture>
+            <!-- End : 이미지가 안 뜰 경우나 에러일 경우 -->
+            <q-btn class="ibtn xclose large">
+              <span class="hidden">닫기</span>
+            </q-btn>
+          </div>
+        </q-item>
       </div>
     </template>
-    <button class="c_button" @click="onClick">추가하기</button>
+    <q-btn class="c_btn c_icon upload" @click="onClick">
+      <i class="ico plus" /><span class="hidden">파일추가</span>
+    </q-btn>
   </div>
 </template>
 <script setup>
@@ -62,29 +81,4 @@ const onClick = () => {
 };
 </script>
 <style lang="scss" scoped>
-input {
-  display: none;
-}
-.uploader {
-  display: flex;
-  gap: 5px;
-  &-input {
-    display: none;
-  }
-  div,
-  .c_button {
-    width: 100px;
-    height: 100px;
-    border-radius: 10px;
-    border: 1px gray solid;
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-  }
-  div {
-    position: relative;
-  }
-}
 </style>
