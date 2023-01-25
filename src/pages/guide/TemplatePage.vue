@@ -45,7 +45,25 @@
       <section class="section">
         <h2 class="h6">Table 상단 search</h2>
         <div class="group">
-          do
+          <div class="table_set">
+            <q-select
+              outlined
+              placeholder="이름 상태 생성자 검색"
+              use-input
+              clearable
+              class="c_inpchip default_size"
+            >
+              <template v-slot:prepend>
+                <q-icon name="search" class="ico_search" />
+              </template>
+            </q-select>
+            <CDropdown
+              v-model:selected="selectedBasic"
+              :label="optLabel"
+              :options="optNumber"
+              class="auto_size"
+            />
+          </div>
         </div>
       </section>
       <section class="section">
@@ -406,6 +424,7 @@ useMeta(() => ({
 
 const ptitle = ref(title);
 const label = ref("프로젝트 선택");
+const optLabel = ref("10");
 const selectedCheck = ref(null);
 const options = ref([
   { label: "프로젝트1", value: 0 },
@@ -413,6 +432,10 @@ const options = ref([
   { label: "프로젝트3", value: 2 },
   { label: "프로젝트4", value: 3 },
   { label: "프로젝트5", value: 4 },
+]);
+const optNumber = ref([
+  { label: "10", value: 0 },
+  { label: "9", value: 1 },
 ]);
 
 const projectCreateModal = ref(false);
