@@ -47,4 +47,9 @@ const chk4 = ref(true);
 .group{
   margin-top:20px;
 }
+.q-checkbox{
+  &:not(:last-child){
+    margin-right:20px;
+  }
+}
 </style>
