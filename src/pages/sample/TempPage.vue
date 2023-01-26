@@ -1,12 +1,21 @@
 <template>
   <q-page class="p-content p-projects p-index">
     <div class="p-head">
-      <q-breadcrumbs class="c_breadcrumb" gutter="none">
+      <q-breadcrumbs
+        class="c_breadcrumb"
+        gutter="none"
+      >
         <template v-slot:separator>
           <q-icon />
         </template>
-        <q-breadcrumbs-el label="Projects" to="/" />
-        <q-breadcrumbs-el label="Test Project" to="/" />
+        <q-breadcrumbs-el
+          label="Projects"
+          to="/"
+        />
+        <q-breadcrumbs-el
+          label="Test Project"
+          to="/"
+        />
         <q-breadcrumbs-el label="인스턴스" />
       </q-breadcrumbs>
       <h1 class="p-title">
@@ -40,7 +49,9 @@
     </div>
     <!-- //.chead -->
     <div class="p-body">
-      <div class="coming"><p>페이지 준비중입니다.</p></div>
+      <div class="coming">
+        <p>페이지 준비중입니다.</p>
+      </div>
     </div>
   </q-page>
 </template>
