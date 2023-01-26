@@ -1,6 +1,6 @@
 <template>
   <q-scroll-area class="fit">
-    <q-list padding class="menu-list">
+    <q-list class="menu-list">
       <div class="side_menulist">
         <ul class="base_menu">
           <li class="dashboard">
@@ -11,34 +11,66 @@
             </q-item>
           </li>
           <li class="projects">
-            <q-item>
-              <router-link to="/projects/"
-                v-model="projectVisible"
-                @click="projectVisible = !projectVisible"
-                class="menu-link toggle"
-              >
-                <i class="ico" /><span class="txt">{{ projects }}</span>
-              </router-link>
-              <q-btn type="button" class="c_btn c_icon" @click="projectCreateModal = true">
-                <i class="ico plus" /><span class="txt">프로젝트 추가하기</span>
+            <div class="textmenu">
+              <q-item>
+                <q-btn
+                  v-model="projectVisible"
+                  @click="projectVisible = !projectVisible"
+                  class="menu-item toggle"
+                >
+                  <i class="ico" /><span class="txt">{{ projects }}</span>
+                </q-btn>
+                <q-btn type="button" class="c_btn add" @click="projectCreateModal = true">
+                  <i class="ico plus" /><span class="txt">프로젝트 추가하기</span>
+                </q-btn>
+              </q-item>
+              <q-slide-transition>
+                <ul v-show="projectVisible" class="sub_menu">
+                  <li>
+                    <router-link to="/projects/task" class="menu-link">
+                      <span class="txt">Test project</span>
+                    </router-link>
+                  </li>
+                  <li>
+                    <router-link to="/projects/instance" class="menu-link">
+                      <span class="txt">
+                        Test project - Test012Test project - Test012Test project - Test012
+                      </span>
+                    </router-link>
+                  </li>
+                </ul>
+              </q-slide-transition>
+            </div>
+
+            <!-- sidebar 접혔을 때 나오는 메뉴 구조 -->
+            <div class="iconmenu">
+              <q-btn class="ibtn">
+                <i class="ico projects" />
+                <q-menu :offset="[-50, -40]" class="submenu">
+                  <q-list style="min-width: 178px">
+                    <q-item>
+                      <router-link to="/projects/task" class="menu-link">
+                        <span class="txt">Test project</span>
+                      </router-link>
+                    </q-item>
+                    <q-item>
+                      <router-link to="/projects/instance" class="menu-link">
+                        <span class="txt">Test project-Test012 project-Test012</span>
+                      </router-link>
+                    </q-item>
+                    <q-separator />
+                    <q-item>
+                      <q-btn
+                        class="menu-link add"
+                        @click="projectCreateModal = true"
+                      >
+                        <span class="txt">프로젝트 추가하기</span>
+                      </q-btn>
+                    </q-item>
+                  </q-list>
+                </q-menu>
               </q-btn>
-            </q-item>
-            <q-slide-transition>
-              <ul v-show="projectVisible" class="sub_menu">
-                <li>
-                  <router-link to="/projects/task" class="menu-link">
-                    <span class="txt">Test project</span>
-                  </router-link>
-                </li>
-                <li>
-                  <router-link to="/projects/instance" class="menu-link">
-                    <span class="txt">
-                      Test project - Test012Test project - Test012Test project - Test012
-                    </span>
-                  </router-link>
-                </li>
-              </ul>
-            </q-slide-transition>
+            </div>
           </li>
           <li class="storage">
             <q-item>
@@ -70,33 +102,60 @@
           </li>
         </ul>
         <div class="workspace_area">
-          <router-link
-            to="/manage/project"
-            v-model="mngVisible"
-            @click="mngVisible = !mngVisible"
-            class="menu-link toggle"
-          >
-            <i class="ico" /><span class="txt">{{ workspace }}</span>
-          </router-link>
-          <q-slide-transition>
-            <ul v-show="mngVisible" class="sub_menu">
-              <li>
-                <router-link to="/manage/project" class="menu-link">
-                  <span class="txt">{{ mngProject }}</span>
-                </router-link>
-              </li>
-              <li>
-                <router-link to="/manage/instance" class="menu-link">
-                  <span class="txt">{{ mngInstance }}</span>
-                </router-link>
-              </li>
-              <li>
-                <router-link to="/manage/storage" class="menu-link">
-                  <span class="txt">{{ mngStorage }}</span>
-                </router-link>
-              </li>
-            </ul>
-          </q-slide-transition>
+          <div class="textmenu">
+            <q-btn
+              v-model="mngVisible"
+              @click="mngVisible = !mngVisible"
+              class="menu-item toggle"
+            >
+              <i class="ico" /><span class="txt">{{ workspace }}</span>
+            </q-btn>
+            <q-slide-transition>
+              <ul v-show="mngVisible" class="sub_menu">
+                <li>
+                  <router-link to="/manage/project" class="menu-link">
+                    <span class="txt">{{ mngProject }}</span>
+                  </router-link>
+                </li>
+                <li>
+                  <router-link to="/manage/instance" class="menu-link">
+                    <span class="txt">{{ mngInstance }}</span>
+                  </router-link>
+                </li>
+                <li>
+                  <router-link to="/manage/storage" class="menu-link">
+                    <span class="txt">{{ mngStorage }}</span>
+                  </router-link>
+                </li>
+              </ul>
+            </q-slide-transition>
+          </div>
+
+          <!-- sidebar 접혔을 때 나오는 메뉴 구조 -->
+          <div class="iconmenu">
+            <q-btn class="ibtn">
+              <i class="ico workspace" />
+              <q-menu :offset="[-50, -40]" class="submenu">
+                <q-list style="min-width: 178px">
+                  <q-item>
+                    <router-link to="/manage/project" class="menu-link">
+                      <span class="txt">{{ mngProject }}</span>
+                    </router-link>
+                  </q-item>
+                  <q-item>
+                    <router-link to="/manage/instance" class="menu-link">
+                      <span class="txt">{{ mngInstance }}</span>
+                    </router-link>
+                  </q-item>
+                  <q-item>
+                    <router-link to="/manage/storage" class="menu-link">
+                      <span class="txt">{{ mngStorage }}</span>
+                    </router-link>
+                  </q-item>
+                </q-list>
+              </q-menu>
+            </q-btn>
+          </div>
         </div>
       </div>
       <div class="side_foot">
@@ -114,26 +173,29 @@
             <strong class="name">{{ name }}</strong>
             <p class="mail">{{ mail }}</p>
           </div>
-          <q-btn class="more-menu">
+          <q-btn class="more">
             <i class="ico more" /><span class="txt">메뉴</span>
-            <q-menu class="side more_menu">
+            <q-menu :offset="[-40, -35]" class="more_menu">
               <q-list style="min-width: 100px">
                 <q-item clickable v-close-popup>
-                  <router-link to="#" class="menu-link"><span class="txt">내정보</span></router-link>
+                  <router-link to="/my/" class="menu-link">
+                    <span class="txt">내정보</span>
+                  </router-link>
                 </q-item>
                 <q-item clickable v-close-popup>
-                  <router-link to="#" class="menu-link">
+                  <router-link to="/key" class="menu-link">
                     <span class="txt">SSH Key & API Key</span>
                   </router-link>
                 </q-item>
                 <q-item clickable v-close-popup>
-                  <router-link to="#" class="menu-link"><span class="txt">로그아웃</span></router-link>
+                  <q-btn class="menu-link"><span class="txt">로그아웃</span></q-btn>
                 </q-item>
               </q-list>
             </q-menu>
           </q-btn>
         </div>
       </div>
+
       <!-- Start : 프로젝트 생성 팝업 -->
       <q-dialog v-model="projectCreateModal" class="c_dialog medium">
         <q-card>
@@ -198,8 +260,8 @@ import { useQuasar } from "quasar";
 const $q = useQuasar();
 
 const projectCreateModal = ref(false);
-const projectVisible = ref(true);
-const mngVisible = ref(true);
+const projectVisible = ref(false);
+const mngVisible = ref(false);
 const dashboard = ref("Dashboard");
 const projects = ref("Projects");
 const storage = ref("Storage");
