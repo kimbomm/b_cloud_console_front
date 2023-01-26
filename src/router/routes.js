@@ -5,8 +5,6 @@ const routes = [
     children: [
       // Dashboard
       { path: "", component: () => import("pages/IndexPage.vue") },
-      // 로그인
-      { path: "login", component: () => import("pages/LoginPage.vue") },
       // 프로젝트
       { path: "/projects/", component: () => import("pages/projects/IndexPage.vue") },
       { path: "/projects/projectdetail", component: () => import("pages/projects/ProjectDetailPage.vue") },
@@ -57,11 +55,13 @@ const routes = [
     ],
   },
   {
-    path: "/withdrawal",
-    component: () => import("layouts/WithdrawalLayout.vue"),
+    path: "/common",
+    component: () => import("layouts/SubLayout.vue"),
     children: [
+      // 로그인
+      { path: "/common/login", component: () => import("pages/common/LoginPage.vue") },
       // 회원탈퇴
-      { path: "", component: () => import("pages/withdrawal/IndexPage.vue") },
+      { path: "/common/withdrawal", component: () => import("pages/common/WithdrawalPage.vue") },
     ],
   },
   {

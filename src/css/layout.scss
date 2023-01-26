@@ -4,7 +4,7 @@ $side-maxw: 316px;
 $side-minw: 80px;
 // Layout wrap l-wrap
 .q-layout{
-  &.l-drawal{
+  &.l-sub{
     .l-header{
       .c_selectgroup{
         display:none;
@@ -205,13 +205,31 @@ $side-minw: 80px;
     background:$color;
     .ico{
       width:32px;height:32px;
+      &.projects{
+        background-image:url($iconUrl + '32/ico_projects_normal.svg');
+      }
       &.workspace{
         background-image:url($iconUrl + '32/ico_manager_normal.svg');
+      }
+    }
+    @at-root .q-layout.sm-sidemenu .l-sidebar .ibtn{
+      &:focus,
+      &:active{
+        background:$surface03!important;
+        .ico{
+          &.projects{
+            background-image:url($iconUrl + '32/ico_projects_pressed.svg');
+          }
+          &.workspace{
+            background-image:url($iconUrl + '32/ico_manager_pressed.svg');
+          }
+        }
       }
     }
   }
   .q-item{
     align-items: center;
+    position:relative;
     min-height: 48px;
     padding: 0 16px;
   }
@@ -268,8 +286,9 @@ $side-minw: 80px;
     .ico + .txt{
       margin-left:0;
     }
-    &.c_icon{
+    &.add{
       flex:none;
+      position:absolute;top:12px;right:28px;
       width:24px;
       min-height:24px;
       height:24px;
@@ -279,6 +298,9 @@ $side-minw: 80px;
       .ico{
         width:16px;height:16px;
         background-image:url($iconUrl + '16/ico_plus_white.svg');
+      }
+      .txt{
+        display:none;
       }
     }
     &.menu-item{
@@ -405,6 +427,9 @@ $side-minw: 80px;
     }
   }
   .projects{
+    .iconmenu{
+      padding:0 16px;
+    }
     .menu-link{
       .ico{
         background-image:url($iconUrl + '32/ico_projects_normal.svg');
@@ -547,6 +572,9 @@ $side-minw: 80px;
       padding:0 8px;
       border-radius:8px;
       background:$white;
+      @at-root .q-layout.sm-sidemenu .l-sidebar .side_foot .mybox{
+        padding:0;
+      }
     }
     .myinfo{
       display:flex;
@@ -563,7 +591,10 @@ $side-minw: 80px;
         display:inline-block;
         position:absolute;top:0;left:0;
         width:32px;height:32px;
-        background:url($iconUrl + '32/ico_account_circle_gray.svg') no-repeat 50% 50%;
+        background:url($iconUrl + '32/ico_profile_normal.svg') no-repeat 50% 50%;
+        @at-root .q-layout.sm-sidemenu .l-sidebar .side_foot .myinfo:before{
+          display:none;
+        }
       }
     }
     .name{
@@ -575,7 +606,7 @@ $side-minw: 80px;
       @include ellipsis;
     }
     .q-btn{
-      &.more-menu{
+      &.more{
         flex:none;
         width:36px;height:36px;
         min-height:36px;
@@ -591,6 +622,21 @@ $side-minw: 80px;
         }
         .txt{
           display:none;
+        }
+        @at-root .q-layout.sm-sidemenu .l-sidebar .side_foot .q-btn.more{
+          width:48px;height:48px;
+          background:$color;
+          .ico{
+            width:32px;height:32px;
+            background-image:url($iconUrl + '32/ico_profile_normal.svg');
+          }
+          &:focus,
+          &:active{
+            background:$surface03;
+            .ico{
+              background-image:url($iconUrl + '32/ico_profile_pressed.svg');
+            }
+          }
         }
       }
     }

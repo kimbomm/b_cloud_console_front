@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="hHh Lpr lff" class="l-drawal">
+  <q-layout view="hHh Lpr lff" class="l-sub">
     <q-header class="l-header">
       <q-toolbar>
         <top-nav />
