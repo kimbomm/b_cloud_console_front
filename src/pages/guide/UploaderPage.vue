@@ -1,5 +1,5 @@
 <template>
-  <div class="p-content p-uploader">
+  <div class="p-content p-guide p-uploader">
     <CUploader />
   </div>
 </template>

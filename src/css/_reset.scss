@@ -164,7 +164,21 @@ button{
   font-weight:$regular;
   cursor:pointer;
 }
-
+table{
+  margin:0;padding:0;
+  border-spacing: 0;
+  box-sizing: border-box;
+  thead,tbody,tfoot{
+    box-sizing: border-box;
+  }
+  th,td{
+    border:0;
+    font-size:$fs14;
+    font-weight: $regular;
+    vertical-align:middle;
+    box-sizing: border-box;
+  }
+}
 // font-size 14px + 2px plus up
 @for $i from 1 through 6 {
   h#{7 - $i},
@@ -208,4 +222,10 @@ input{
     font-size:26px!important;
     letter-spacing:-3px;
   }
+  &::-webkit-inner-spin-button{
+    display:none;
+  }
+}
+textarea{
+  resize: none;
 }

@@ -11,30 +11,24 @@
     />
   </div>
 </template>
-<script>
+<script setup>
 import { ref } from "vue";
 
-export default {
-  setup() {
-    return {
-      shape: ref("line"),
-      shape1: ref("ellipse"),
-      group: ref("op1"),
-      options: [
-        {
-          label: "Option 1",
-          value: "op1",
-        },
-        {
-          label: "Option 2",
-          value: "op2",
-        },
-        {
-          label: "Option 3",
-          value: "op3",
-        },
-      ],
-    };
+const shape = ref("line");
+const shape1 = ref("ellipse");
+const group = ref("op1");
+const options = ref([
+  {
+    label: "Option 1",
+    value: "op1",
   },
-};
+  {
+    label: "Option 2",
+    value: "op2",
+  },
+  {
+    label: "Option 3",
+    value: "op3",
+  },
+]);
 </script>

@@ -17,7 +17,6 @@
 
     <q-drawer
       v-model="drawer"
-      show-if-above
       class="l-sidebar"
       :width="316"
     >
@@ -71,14 +70,29 @@
           <q-item>
             <router-link to="/guide/popup" class="menu-link">Popup</router-link>
           </q-item>
-          <q-item>
+          <!-- <q-item>
             <router-link to="/guide/toast" class="menu-link">Toast</router-link>
-          </q-item>
+          </q-item> -->
           <q-item>
             <router-link to="/guide/tooltip" class="menu-link">Tooltip</router-link>
           </q-item>
           <q-item>
             <router-link to="/guide/uploader" class="menu-link">Uploader</router-link>
+          </q-item>
+          <q-item>
+            <router-link to="/guide/notify" class="menu-link">Notify(Toast)</router-link>
+          </q-item>
+          <q-item>
+            <router-link to="/guide/carousel" class="menu-link">Carousel</router-link>
+          </q-item>
+          <q-item>
+            <router-link to="/guide/collapse" class="menu-link">Collapse</router-link>
+          </q-item>
+          <q-item>
+            <router-link to="/guide/banner" class="menu-link">Banner</router-link>
+          </q-item>
+          <q-item>
+            <router-link to="/guide/template" class="menu-link">Template</router-link>
           </q-item>
         </q-list>
       </q-scroll-area>
@@ -90,7 +104,7 @@
   </q-layout>
 </template>
 
-<script>
+<script setup>
 import { ref } from "vue";
 import { useMeta } from "quasar";
 
@@ -98,17 +112,8 @@ const metaData = {
   title: "Brain Cloud",
   titleTemplate: (title) => `${title} | Brain Cloud`,
 };
-export default {
-  name: "GuidePage",
-  components: {
-  },
-  setup() {
-    useMeta(metaData);
-    return {
-      drawer: ref(true),
-    };
-  },
-};
+useMeta(metaData);
+const drawer = ref(false);
 </script>
 <style lang="scss" scoped>
 .h_title{

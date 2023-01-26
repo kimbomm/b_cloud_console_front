@@ -12,15 +12,8 @@
     ]"
   />
 </template>
-<script>
+<script setup>
 import { ref } from "vue";
 
-export default {
-  setup() {
-    return {
-      model: ref("one"),
-      segModel1: ref("one"),
-    };
-  },
-};
+const segModel1 = ref("one");
 </script>

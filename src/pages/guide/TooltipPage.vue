@@ -29,29 +29,17 @@
     </div>
   </div>
 </template>
-<script>
+<script setup>
 import { ref } from "vue";
 import { useMeta } from "quasar";
 import CTooltip from "components/common/CTooltip.vue";
 
-export default {
-  name: "TooltipPage",
-  components: {
-    CTooltip,
-  },
-  setup() {
-    const title = ref("Tooltip");
-    useMeta(() => ({
-      title: title.value,
-    }));
-    return {
-      ptitle: ref(title),
-      showing1: ref(true),
-    };
-  },
-};
-</script>
-<script setup>
+const title = ref("Tooltip");
+useMeta(() => ({
+  title: title.value,
+}));
+const ptitle = ref(title);
+const showing1 = ref(false);
 </script>
 
 <style lang="scss" scoped>
