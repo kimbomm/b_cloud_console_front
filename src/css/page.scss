@@ -9,6 +9,210 @@
 }
 /* Dashboard */
 .p-console{
+  .p-body{
+    .section{
+      margin-top: 24px;
+      .sub-title{
+        margin-bottom: 30px;
+        font-size: $fs20; font-weight: $bold;
+      }
+    }
+    .card-box{
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+    }
+    .card{
+      width: calc(50% - 12px);
+    }
+    .storage-box{
+      display: flex;
+      justify-content: space-between;
+      width: 100%; height: 450px;
+      &_dash{
+        position: relative;
+        padding: 30px 30px 0;
+        width: calc((100% - 48px) / 3);
+        border-radius: 12px;
+        background-color: $surface01;
+        .morelink{
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          position: absolute;
+          top: 30px; right: 30px;
+          width: 50px; height: 26px;
+          border-radius: 100px;
+          color: $surface16; font-size: $fs12;
+          background-color: $bg;
+        }
+        .store-wrap{
+          width: calc(100% + 18px); height: calc(100% - 90px);
+          padding-right: 18px;
+          overflow: auto;
+          -webkit-overflow-scrolling: touch;
+          will-change: scroll-position;
+          @include scrollbar;
+        }
+        .store-none{
+          position: relative;
+          top: 50%; transform: translateY(-50%);
+          color: $gray300; font-size: $fs14; text-align: center;
+        }
+        .store{
+          width: 100%;;
+          padding: 18px;
+          margin-bottom: 10px;
+          border-radius: 8px;
+          background-color: $surface02;
+          &:last-child{
+            margin-bottom: 0;
+          }
+          /** chart **/
+          .circle_chart{
+            $linew:10px;
+            display:flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            position:relative;
+            width:44px;height:44px;
+            margin:0 12px 0 0;padding:$linew;
+            border-radius:50%;
+            background-color: $surface02;
+            .circle_in{
+              display:flex;
+              align-items: center;
+              justify-content: center;
+              flex-direction: column;
+              flex:none;
+              position:relative;z-index:1;
+              width:calc(44px - #{$linew});height:calc(44px - #{$linew});
+              border-radius:50%;
+              background-color: $surface02;
+            }
+            .circle_line{
+              position:absolute;top:0;left:0;
+              width:44px;height:44px;
+              border-radius:50%;
+              background:linear-gradient(336.21deg, #FF0000 20.46%, #4992FF 84.7%);
+            }
+          }
+          /** //chart **/
+          &_card{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+          }
+          .state{
+            display: flex;
+            align-items: center;
+          }
+          .text{
+            display: flex;
+            color: $surface13; font-size: $fs12;
+          }
+          .ex{
+            position: relative;
+            padding-left: 13px;
+            width: 171px;
+            height: 14px;
+            @include ellipsis;
+            &::before{
+              position: absolute;
+              top: 50%; left: 6px;
+              transform: translateY(-50%);
+              content: "";
+              width: 1px; height: 10px;
+              background-color: $surface07;
+            }
+          }
+          .capacity{
+            display: flex;
+            flex-direction: column;
+            text-align: right;
+            &_use{
+              color: $surface21; font-size: $fs24; font-weight: $bold;
+            }
+            &_amount{
+              color: $surface09; font-size: $fs14;
+            }
+          }
+        }
+        .name{
+          color: $surface16; font-size: $fs14;
+        }
+
+      }
+      .billing{
+        .current{
+          display: flex; align-items: baseline;
+          margin-bottom: 49px;
+          color: $secondary-mint; font-size: $fs16; font-weight: $bold;
+          &_pay{
+            font-size: $fs24;
+          }
+        }
+        .billing-chart{
+          display: flex;
+          justify-content: space-between;
+          align-items: baseline;
+          width: 100%;
+        }
+        .chart{
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          .graph{
+            position: relative;
+            display: block;
+            margin-bottom: 10px;
+            width: 8px; max-height: 200px;
+            border-radius: 100px;
+            background-color: $surface03;
+            &:hover{
+              cursor: pointer;
+              transition: 0.3s;
+              background-color: $secondary-mint;
+            }
+          }
+          .gr1{height: 171px;}
+          .gr2{height: 85px;}
+          .gr3{height: 200px;}
+          .gr4{height: 163px;}
+          .gr5{height: 85px;}
+          .gr6{height: 132px;}
+          .month{
+            color: $surface16; font-size: $fs14; line-height: 14px;
+          }
+        }
+      }
+      .quota{
+        .space{
+          display: flex; justify-content: space-between; align-items: baseline;
+          // background-color: pink;
+        }
+        .useage{
+          margin-top: 8px;
+          color: $primary; font-size: $fs24; font-weight: $bold;
+        }
+        .used{color: $surface10; font-size: $fs12;}
+        .space-chart{
+          display: block;
+          margin-top: 4px;
+          width: 100%; height: 8px;
+          border-radius: 100px;
+          background-color: $surface04;
+        }
+      }
+    }
+    .notice-box{
+      padding: 30px;
+      width: 100%;
+      border-radius: 12px;
+      background-color: $surface01;
+    }
+  }
 
 }
 /* Projects */
@@ -1022,17 +1226,329 @@
 }
 /* Support */
 .p-support{
+  .essential{ color: $secondary-coral;}
   &.p-index{
-
+    .p-body{
+      .flex-top{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .sub-text{
+        font-size: $fs24; font-weight: $bold;
+      }
+      .page-nation{
+        margin: 57px auto 0;
+      }
+      /** 테이블 **/
+      .q-table thead tr th:first-child,
+      .q-table tbody tr td:first-child{
+        display: none;
+      }
+      .q-table thead th:last-child{
+        display: none;
+      }
+      /** //테이블 **/
+    }
   }
   &.p-write{
+    .p-body{
+      .q-field__control{
+        background-color: #fff;
+      }
+      /** 요청하기 폼 & 버튼 **/
+      .request-input{
+        margin-top: 46px;
+        font-size: $fs16;
+        .sub_title{
+          margin-bottom: 8px;
+        }
+      }
+      /** //요청하기 폼 & 버튼 **/
 
+      /** 유형 input **/
+      .type{
+        width: 100%;
+        font-size: $fs16;
+        margin-bottom: 8px;
+      }
+      .type-dropdown{
+        width: 608px;
+        margin-bottom: 30px;
+      }
+      .type-area{
+        height: calc(100vh - 504px);
+        background-color: $surface00;
+        &_text{
+          position: relative;
+          top: 50%;
+          transform: translateY(-50%);
+          color: $gray500; text-align: center; font-size: $fs14;
+        }
+      }
+      /** //유형 input **/
+
+      .area-box{
+        width: 100%;
+        border-radius: $fs12;
+      }
+      // 고객지원-1:1문의
+      .type-area{
+        height: calc(100vh - 504px);
+        background-color: $surface00;
+        &_text{
+          position: relative;
+          top: 50%;
+          transform: translateY(-50%);
+          color: $gray500; text-align: center; font-size: $fs14;
+        }
+      }
+      /** placeholder 폰트크기 **/
+      .pl-px{
+        font-size: $fs16;
+      }
+
+      // 고객지원-문의하기-스토리지 할당량 변경
+      .amount-area{
+        padding: 30px 30px 24px;
+        background-color: $surface01;
+        .inp_unit{
+          background-color: $bg;
+        }
+        .area-title{
+          font-size: $fs16;
+          margin-bottom: 24px;
+        }
+      }
+      .req-btn{
+        margin-top: 40px !important;
+        width: 292px !important;
+      }
+      // 고객지원-문의하기-리소스 할당량 변경
+      .resource-area{
+        padding: 30px;
+        background-color: $surface01;
+        .title{
+          margin-bottom: 24px;
+          font-size: $fs16;
+        }
+        .sub-title{
+          margin-bottom: 16px;
+          font-size: $fs16;
+        }
+        .unit_type{
+          margin-bottom: 12px;
+        }
+        .req{
+          margin-right: 50px;
+          font-size: $fs16;
+        }
+        .req-box{
+          display: flex;
+          align-items: center;
+          justify-content: baseline;
+          margin-bottom: 34px;
+          .inp_unit{
+            background-color: $bg;
+          }
+          &:nth-last-child(1){
+            margin-bottom: 46px;
+          }
+        }
+      }
+      // 고객지원-문의하기-오류/버그 제보
+      .report-area{
+        padding: 30px;
+        background-color: $surface01;
+        .title{
+          margin: 46px 0 8px;
+          font-size: $fs16;
+          &:first-child{
+            margin: 0 0 8px;
+          }
+        }
+        .title-file{
+          font-size: $fs16;
+          margin: 46px 0 24px;
+        }
+      }
+    }
   }
   &.p-survey{
 
   }
   &.p-detail{
+    .p-body{
+      /** 확인 폼 **/
+      .q-badge{
+        position: absolute;
+        top: 30px; right: 30px;
+      }
+      .check-title{
+        position: relative;
+        margin-bottom: 12px;
+        font-size: $fs20; font-weight: $bold;
+      }
+      .check-date{
+        margin-bottom: 30px;
+        color: $gray500;
+      }
+      .date-fx{
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        .error-report{
+          position: relative;
+          padding-left: 21px;
+          &::before{
+            position: absolute;
+            top: 50%; left: 11px;
+            transform: translate(0, -50%);
+            content: "";
+            width: 1px; height: 12px;
+            background-color: $surface08;
+          }
+        }
+      }
+      .check-contents{
+        margin-bottom: 20px;
+        font-size: $fs16; color: $gray800;
+      }
+      .check-img{
+        display: flex;
+        flex-wrap: wrap;
+        gap: 24px;
+        margin-top: 30px;
+        .img{
+          height: 500px;
+        }
+        .img1{
+          width: 500px;
+        }
+        .img2{
+          width: 666px;
+        }
+        .img3{
+          width: 375px;
+        }
+        .img4{
+          width: 281px;
+        }
+        .img5{
+          width: 888px;
+        }
+      }
+      .mb0{
+        margin-bottom: 0;
+      }
+      /** //확인 폼 **/
 
+      /** 답변 폼 **/
+      .check-reply{
+        padding: 30px;
+        width: 100%;
+        border-radius: 12px;
+        background-color: $surface01;
+        &_title{
+          margin-bottom: 16px;
+          color: $gray800; font-size: $fs16;
+        }
+        &_answer{
+          font-size: $fs16;
+        }
+        .checking{
+          color: $gray300; font-size: $fs16;
+        }
+      }
+      /** // 답변 폼 **/
+
+      // 고개지원-1:1문의-스토리지 할당량 변경 문의내용 확인
+      .amount-check{
+        position: relative;
+        padding: 30px;
+        margin-bottom: $fs24;
+        width: 100%;
+        border-radius: 12px;
+        border: 1px solid $surface05;
+        &_req-box{
+          padding: 20px;
+          width: 362px; height: 98px;
+          border-radius: 12px;
+          background-color: $surface01;
+        }
+        &_req-box2{
+          padding: 20px;
+          margin-right: 16px; margin-bottom: 16px;
+          width: 362px; height: 139px;
+          border-radius: 12px;
+          background-color: $surface01;
+          &:nth-child(4n){
+            margin-right: 0;
+          }
+          &:nth-last-child(-n + 4){
+            margin-bottom: 0;
+          }
+        }
+        .req-wrap{
+          display: flex;
+          flex-wrap: wrap;
+          width: 1496px;
+          font-size: 0;
+          &::after{
+            content: "";
+            display: block;
+            clear: both;
+          }
+        }
+        .amount-title{
+          margin-bottom: 20px;
+          color: $gray800; font-size: $fs16;
+        }
+        .current-amount, .request-amount{
+          color: $gray800; font-size: $fs16;
+        }
+        .current-amount{
+          span{
+            &:nth-child(1){
+              padding-left: 20px;
+            }
+          }
+        }
+        .request-amount{
+          margin-top: 16px;
+          span{
+            padding-left: 53px;
+            color: $black;
+          }
+        }
+      }
+      .q-btn, .c_btn{
+        margin-top: 24px;
+        width: 70px;
+      }
+
+    }
+  }
+}
+/* SSH Key & API Key */
+.p-index{
+  .key-body{
+    }
+    .key-box{
+      &_title{
+        margin-bottom: 32px;
+        font-size: $fs20; font-weight: $bold;
+      }
+    }
+    .sign-up{
+      display: flex;
+      flex-direction: column; justify-content: center; align-items: center;
+      width: 100%; height: 272px;
+      border-radius: 12px; background-color: $surface01;
+      > p{
+        font-size: $fs16; color: $gray500;
+        &:first-child{color: $gray800;}
+      }
   }
 }
 
