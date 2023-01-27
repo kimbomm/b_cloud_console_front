@@ -1,12 +1,21 @@
 <template>
   <q-page class="p-content p-projects p-index">
     <div class="p-head">
-      <q-breadcrumbs class="c_breadcrumb" gutter="none">
+      <q-breadcrumbs
+        class="c_breadcrumb"
+        gutter="none"
+      >
         <template v-slot:separator>
           <q-icon />
         </template>
-        <q-breadcrumbs-el label="Projects" to="/" />
-        <q-breadcrumbs-el label="Test Project" to="/" />
+        <q-breadcrumbs-el
+          label="Projects"
+          to="/"
+        />
+        <q-breadcrumbs-el
+          label="Test Project"
+          to="/"
+        />
         <q-breadcrumbs-el label="인스턴스" />
       </q-breadcrumbs>
       <h1 class="p-title">
@@ -235,10 +244,10 @@ const respAction = (eventObj) => {
 // };
 </script>
 <style lang="scss" scoped>
-.sub_title{
-  margin-bottom:10px;
+.sub_title {
+  margin-bottom: 10px;
 }
-.section:not(:first-child){
-  margin-top:40px;
+.section:not(:first-child) {
+  margin-top: 40px;
 }
 </style>
