@@ -13,7 +13,7 @@
 import { ref } from "vue";
 import { useMeta } from "quasar";
 
-const title = ref("Projects");
+const title = ref("Workspace Manager");
 useMeta(() => ({
   title: title.value,
 }));
