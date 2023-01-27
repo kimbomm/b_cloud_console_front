@@ -696,6 +696,14 @@ $side-minw: 80px;
   flex-direction: column;
   flex-wrap: wrap;
   flex:1;
+  .sub_title{
+    margin-bottom:32px;
+    color:$black;font-size:$fs20;font-weight:$bold;
+  }
+  .sub_ctitle{
+    margin-bottom:8px;
+    color:$black;font-size:$fs16;font-weight:$regular;
+  }
 }
 .p-foot{
 

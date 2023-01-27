@@ -42,6 +42,7 @@ const routes = [
       { path: "/manage/instance", component: () => import("pages/manage/InstancePage.vue") },
       { path: "/manage/task", component: () => import("pages/manage/TaskPage.vue") },
       { path: "/manage/storage", component: () => import("pages/manage/StoragePage.vue") },
+      { path: "/manage/member", component: () => import("pages/manage/MemberPage.vue") },
       // 고객지원
       { path: "/support/", component: () => import("pages/support/IndexPage.vue") },
       { path: "/support/write", component: () => import("pages/support/WritePage.vue") },
