@@ -93,6 +93,7 @@ const routes = [
       { path: "collapse", component: () => import("pages/guide/CollapsePage.vue") },
       { path: "banner", component: () => import("pages/guide/BannerPage.vue") },
       { path: "template", component: () => import("pages/guide/TemplatePage.vue") },
+      { path: "chart", component: () => import("pages/guide/ChartPage.vue") },
     ],
   },
 
