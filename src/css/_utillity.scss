@@ -341,6 +341,10 @@
         width:16px;height:16px;
         background:url($iconUrl + '16/ico_cancel_normal.svg') no-repeat 50% 50%;
       }
+      &.copy{
+        width:32px;height:32px;
+        background:url($iconUrl + '32/ico_copy_normal.svg') no-repeat 50% 50%;
+      }
     }
     &::before{
       display:none;
@@ -375,6 +379,12 @@
       .txt{
         display:none;
       }
+    }
+    &.copy{
+      flex:none;
+      width:48px;height:48px;
+      border-radius:8px;
+      border-color:$primary;
     }
   }
   &.cancel{
@@ -741,6 +751,50 @@ body.desktop .q-radio,
     }
   }
 }
+.c_file{
+  display:inline-flex;
+  justify-content: center;
+  align-items: center;
+  position:relative;z-index:1;
+  width:auto;
+  padding:0 16px;
+  background:$white;
+  color:$primary;font-size:$fs14;font-weight:$regular;
+  cursor: pointer;
+  input[type="file"]{
+    position: absolute;
+    margin: -1px;
+    width: 1px;
+    height: 1px;
+    border: 0;
+    line-height: 1;
+    clip: rect(1px, 1px, 1px, 1px);
+    clip-path: inset(50%);
+  }
+  &.btntype{
+    height:40px;
+    border-radius: 8px;
+    border:1px solid $primary;
+  }
+  &.absolute{
+    position:absolute;top:0;right:0;
+  }
+  &.top-right{
+    top:0;right:0;
+  }
+  &.top{
+    top:0;
+  }
+  &.top-20{
+    top:-20px;
+  }
+  &.right{
+    right:0;
+  }
+  .file_text{
+    display:inline-block;
+  }
+}
 /* Component - Pagination .q-pagination */
 .c_pagination{
   margin:0;
@@ -1035,15 +1089,30 @@ $dialog_foot:90px;
     + .desc{
       margin-top:16px;
     }
+    + .info{
+      margin-top:30px;
+    }
+    + .item_card.member{
+      margin-top:30px;
+    }
   }
   .sub_title{
     margin-bottom:8px;
     color:$black;font-size:$fs16;font-weight:$regular;
+    + .p_list{
+      margin-top:-8px;
+    }
   }
   .desc{
     color:$gray800;font-size:$fs16;
     ~ .info{
       margin-top:30px;
+    }
+    &.etc{
+      color:$gray800;
+    }
+    &.mt10{
+      margin-top:10px;
     }
   }
   .info{
@@ -1056,10 +1125,25 @@ $dialog_foot:90px;
       background:$red-opacity04;
       color:$red;
     }
+    .black{
+      color:$black;
+    }
+    .red{
+      color:$red;
+    }
   }
   .section{
     &:not(:first-child){
       margin-top:40px;
+    }
+    &.mt24{
+      margin-top:24px;
+    }
+  }
+  .relative{
+    position:relative;
+    .quotaToggle{
+      position:absolute;top:0;right:0;
     }
   }
   &.medium,
@@ -1087,6 +1171,11 @@ $dialog_foot:90px;
   &.large{
     .q-card{
       min-width:766px;
+    }
+  }
+  .c_banner.caution{
+    + .section:not(:first-child){
+      margin-top:30px;
     }
   }
 }
@@ -1955,10 +2044,26 @@ $qhsize:48px;
     + .desc{
       margin-left:8px;
       color:$gray300;
+      .bar{
+        color:$surface04;font-size:$fs12;
+        &:after{
+          content:"";
+          display:inline-block;
+          width:1px;height:12px;
+          margin:0 8px;
+          background:$surface04;
+          vertical-align: middle;
+        }
+      }
     }
   }
   &.inp_calendar{
     width:292px;
+  }
+  &.q-field--disabled{
+    .q-field__native{
+      color:$gray300;
+    }
   }
 }
 .q-textarea{
@@ -2039,6 +2144,14 @@ $qhsize:48px;
     display:flex;
     align-items: flex-end;
   }
+  &.keygroup{
+    display:flex;
+    align-items: center;
+    .q-input{
+      flex:1 auto;
+      margin-right:12px;
+    }
+  }
   .wsize_full{
     width:100%;
   }
@@ -2113,6 +2226,9 @@ $qhsize:48px;
     &:not(:first-child){
       margin-top:40px;
     }
+  }
+  &.mt24{
+    margin-top:24px;
   }
 }
 /* Component - Collapse */
@@ -2288,6 +2404,40 @@ $qhsize:48px;
   }
   .bn_body{
     margin-top:8px;
+  }
+  &.small{
+    min-height:72px;
+    border-radius:8px;
+    &.q-banner--top-padding{
+      padding:16px;
+    }
+    .q-banner__content{
+      padding-left:12px!important;
+    }
+    .bn_body{
+      margin:0;
+    }
+    .title{
+      margin-bottom:0;
+    }
+  }
+  &.caution{
+    background:rgb(230, 15, 28, 0.04);
+    .q-banner__avatar{
+      align-self: center;
+      width:32px;height:32px;
+      background:$color;
+    }.q-banner__content{
+      color:$black;
+    }
+    .q-icon{
+      &.noti{
+        background-image:url($iconUrl + '32/ico_error_red.svg');
+      }
+    }
+    .title{
+      color:$black;font-size:$fs14;
+    }
   }
 }
 
@@ -2954,6 +3104,124 @@ $qhsize:48px;
 .q-date__calendar-days-container{
   height:100%;
   min-height:130px;
+}
+/* page List */
+.item_card{
+  padding:20px;
+  .q-item__label{
+    line-height: 1!important;
+    + .q-item__label {
+      margin-top: 4px!important;
+    }
+  }
+  .name{
+    color:$black;font-size:$fs14;
+  }
+  .mail,
+  .desc,
+  .text-caption{
+    color:$gray500;
+    font-size: $fs14;
+    font-weight: $regular;
+    line-height: 1;
+    letter-spacing: 0;
+  }
+  &.bg{
+    background:$surface01;
+  }
+  &.negative{
+    background:rgb(230, 15, 28, 0.04);
+    &.member{
+      &::before{
+        background-image:url($iconUrl + '32/ico_account_circle_red.svg');
+      }
+    }
+  }
+  &.medium{
+    border-radius:8px;
+    .name{
+      font-weight:$bold;
+    }
+    .mail,
+    .desc,
+    .text-caption{
+      color:$black;
+    }
+  }
+  &.member{
+    position:relative;
+    padding-left:60px;
+    border-radius:8px;
+    &::before{
+      content:"";
+      display:inline-block;
+      position:absolute;top:0;bottom:0;left:16px;
+      width:32px;height:32px;
+      margin:auto;
+      background-repeat:no-repeat;
+      background-position:50% 50%;
+      background-size:100%;
+      background-image:url($iconUrl + '32/ico_account_circle_gray.svg');
+    }
+    .name{
+      font-weight:$bold;
+    }
+    .mail,
+    .desc,
+    .text-caption{
+      color:$black;
+    }
+  }
+  &.f_start{
+    justify-content: flex-start;
+    text-align:left;
+  }
+}
+.p_list{
+  display:flex;
+  flex-direction: column;
+  .item{
+    flex-wrap:wrap;
+    min-height:auto;
+    padding:0;
+    &.chkall{
+      margin-bottom:20px;
+      border-bottom:1px solid $surface03;
+      .item_card{
+        padding:20px 16px;
+      }
+    }
+    &.subitem{
+      ~ .subitem{
+        margin-top:20px;
+      }
+      .item_card{
+        padding:0 16px;
+      }
+    }
+    &.subitem{
+      ~ .subitem{
+        margin-top:20px;
+      }
+      .item_card{
+        padding:0 16px;
+      }
+    }
+  }
+  .ico{
+    display:inline-flex;
+    align-self: center;
+    width:32px;height:32px;
+    background-repeat:no-repeat;
+    background-position:50% 50%;
+    background-size:100%;
+    &.folder{
+      background-image:url($iconUrl + '32/ico_group_popup_gray.svg');
+    }
+    &.note{
+      background-image:url($iconUrl + '32/ico_projects_group_gray.svg');
+    }
+  }
 }
 .slotopt{
   width:100px;
