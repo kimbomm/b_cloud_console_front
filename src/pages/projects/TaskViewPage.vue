@@ -1,13 +1,25 @@
 <template>
   <q-page class="p-content p-projects p-detail">
     <div class="p-head">
-      <q-breadcrumbs class="c_breadcrumb" gutter="none">
+      <q-breadcrumbs
+        class="c_breadcrumb"
+        gutter="none"
+      >
         <template v-slot:separator>
           <q-icon />
         </template>
-        <q-breadcrumbs-el label="Projects" to="/" />
-        <q-breadcrumbs-el label="Test Project" to="/" />
-        <q-breadcrumbs-el label="태스크" to="/" />
+        <q-breadcrumbs-el
+          label="Projects"
+          to="/"
+        />
+        <q-breadcrumbs-el
+          label="Test Project"
+          to="/"
+        />
+        <q-breadcrumbs-el
+          label="태스크"
+          to="/"
+        />
         <q-breadcrumbs-el label="00태스크 1-1" />
       </q-breadcrumbs>
       <div class="p-detail-head">
@@ -99,7 +111,9 @@
           <div class="t_command_box com_box">
             <p class="sub_title">태스크 명령어</p>
             <ul class="command_list">
-              <li><p class="com_txt">~~~celebAHQwobg_EG3D_fromfs_FrzGBbMapSyn16.yaml</p></li>
+              <li>
+                <p class="com_txt">~~~celebAHQwobg_EG3D_fromfs_FrzGBbMapSyn16.yaml</p>
+              </li>
             </ul>
           </div>
         </div>
@@ -178,28 +192,28 @@
                   <p class="external_title">External URL</p>
                 </div>
                 <q-scroll-area style="height:180px;">
-                <ul class="port_box">
-                  <li>
-                    <p class="p_input_data">task1:33221</p>
-                    <p class="p_external_data">http://gpu-cloud-vnode95.dakao.io:10472</p>
-                  </li>
-                  <li>
-                    <p class="p_input_data">task1:33221</p>
-                    <p class="p_external_data">http://gpu-cloud-vnode95.dakao.io:10472</p>
-                  </li>
-                  <li>
-                    <p class="p_input_data">task1:33221</p>
-                    <p class="p_external_data">http://gpu-cloud-vnode95.dakao.io:10472</p>
-                  </li>
-                  <li>
-                    <p class="p_input_data">task1:33221</p>
-                    <p class="p_external_data">http://gpu-cloud-vnode95.dakao.io:10472</p>
-                  </li>
-                  <li>
-                    <p class="p_input_data">task1:33221</p>
-                    <p class="p_external_data">http://gpu-cloud-vnode95.dakao.io:10472</p>
-                  </li>
-                </ul>
+                  <ul class="port_box">
+                    <li>
+                      <p class="p_input_data">task1:33221</p>
+                      <p class="p_external_data">http://gpu-cloud-vnode95.dakao.io:10472</p>
+                    </li>
+                    <li>
+                      <p class="p_input_data">task1:33221</p>
+                      <p class="p_external_data">http://gpu-cloud-vnode95.dakao.io:10472</p>
+                    </li>
+                    <li>
+                      <p class="p_input_data">task1:33221</p>
+                      <p class="p_external_data">http://gpu-cloud-vnode95.dakao.io:10472</p>
+                    </li>
+                    <li>
+                      <p class="p_input_data">task1:33221</p>
+                      <p class="p_external_data">http://gpu-cloud-vnode95.dakao.io:10472</p>
+                    </li>
+                    <li>
+                      <p class="p_input_data">task1:33221</p>
+                      <p class="p_external_data">http://gpu-cloud-vnode95.dakao.io:10472</p>
+                    </li>
+                  </ul>
                 </q-scroll-area>
               </div>
             </div>
@@ -249,4 +263,5 @@ const ptitle = ref(title);
 </script>
 
 <style lang="scss" scoped>
+@import "./src/css/projects";
 </style>

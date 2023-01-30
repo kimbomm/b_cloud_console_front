@@ -42,10 +42,18 @@ const routes = [
       { path: "/manage/instance", component: () => import("pages/manage/InstancePage.vue") },
       { path: "/manage/task", component: () => import("pages/manage/TaskPage.vue") },
       { path: "/manage/storage", component: () => import("pages/manage/StoragePage.vue") },
+      { path: "/manage/member", component: () => import("pages/manage/MemberPage.vue") },
       // 고객지원
       { path: "/support/", component: () => import("pages/support/IndexPage.vue") },
       { path: "/support/write", component: () => import("pages/support/WritePage.vue") },
+      { path: "/support/writeb", component: () => import("pages/support/WritebPage.vue") },
+      { path: "/support/writec", component: () => import("pages/support/WritecPage.vue") },
+      { path: "/support/writed", component: () => import("pages/support/WritedPage.vue") },
+      { path: "/support/writee", component: () => import("pages/support/WriteePage.vue") },
       { path: "/support/questiondetail", component: () => import("pages/support/QuestionDetailPage.vue") },
+      { path: "/support/questiondetailb", component: () => import("pages/support/QuestionDetailbPage.vue") },
+      { path: "/support/questiondetailc", component: () => import("pages/support/QuestionDetailcPage.vue") },
+      { path: "/support/questiondetaild", component: () => import("pages/support/QuestionDetaildPage.vue") },
       { path: "/support/survey", component: () => import("pages/support/SurveyPage.vue") },
       // 팝업
       { path: "/popup/", component: () => import("pages/popup/IndexPage.vue") },
@@ -92,6 +100,7 @@ const routes = [
       { path: "collapse", component: () => import("pages/guide/CollapsePage.vue") },
       { path: "banner", component: () => import("pages/guide/BannerPage.vue") },
       { path: "template", component: () => import("pages/guide/TemplatePage.vue") },
+      { path: "chart", component: () => import("pages/guide/ChartPage.vue") },
     ],
   },
 

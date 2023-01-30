@@ -1,23 +1,32 @@
 <template>
   <q-page class="p-content p-manage p-instance">
     <div class="p-head">
-      <q-breadcrumbs class="c_breadcrumb" gutter="none">
+      <q-breadcrumbs
+        class="c_breadcrumb"
+        gutter="none"
+      >
         <template v-slot:separator>
           <q-icon />
         </template>
-        <q-breadcrumbs-el label="Workspace Manager" to="/" />
-        <q-breadcrumbs-el label="Instance & Tasks" to="/" />
+        <q-breadcrumbs-el
+          label="Workspace Manager"
+          to="/"
+        />
+        <q-breadcrumbs-el
+          label="Instance & Tasks"
+          to="/"
+        />
         <q-breadcrumbs-el label="태스크" />
       </q-breadcrumbs>
       <div class="p-detail-head">
         <h1 class="p-title">{{ ptitle }}</h1>
-          <div class="resource_employ_btn">
-            <CButton
-              :size-types="2"
-              :btn-types="5"
-              :btn-names="btnName"
-            />
-          </div>
+        <div class="resource_employ_btn">
+          <CButton
+            :size-types="2"
+            :btn-types="5"
+            :btn-names="btnName"
+          />
+        </div>
       </div>
     </div>
     <!-- //.chead -->
@@ -29,10 +38,16 @@
             align="left"
             class="c_tabs"
           >
-            <q-tab name="tabs1" label="인스턴스">
+            <q-tab
+              name="tabs1"
+              label="인스턴스"
+            >
               <q-badge>36</q-badge>
             </q-tab>
-            <q-tab name="tabs2" label="태스크">
+            <q-tab
+              name="tabs2"
+              label="태스크"
+            >
               <q-badge>19</q-badge>
             </q-tab>
           </q-tabs>
@@ -48,7 +63,10 @@
                 class="c_inpchip default_size"
               >
                 <template v-slot:prepend>
-                  <q-icon name="search" class="ico_search" />
+                  <q-icon
+                    name="search"
+                    class="ico_search"
+                  />
                 </template>
               </q-select>
             </div>
@@ -206,7 +224,7 @@ const columns = [
     label: "생성일시",
     align: "left",
     sortable: true,
-    type: "datetime"
+    type: "datetime",
   },
   {
     name: "createdBy",
@@ -233,8 +251,8 @@ const data = [
       gpu_device_model: "TESLA_V100",
       gpus: 2,
       mem: 249856,
-      zone: "public:normal"
-    }
+      zone: "public:normal",
+    },
   },
   {
     pjName: "aa프로젝트",
@@ -252,8 +270,8 @@ const data = [
       gpu_device_model: "TESLA_V100",
       gpus: 2,
       mem: 249856,
-      zone: "public:normal"
-    }
+      zone: "public:normal",
+    },
   },
   {
     pjName: "aa프로젝트",
@@ -271,8 +289,8 @@ const data = [
       gpu_device_model: "TESLA_V100",
       gpus: 2,
       mem: 249856,
-      zone: "public:normal"
-    }
+      zone: "public:normal",
+    },
   },
   {
     pjName: "aa프로젝트",
@@ -290,8 +308,8 @@ const data = [
       gpu_device_model: "TESLA_V100",
       gpus: 2,
       mem: 249856,
-      zone: "public:normal"
-    }
+      zone: "public:normal",
+    },
   },
 ];
 
@@ -324,4 +342,5 @@ const respAction = (eventObj) => {
 </script>
 
 <style lang="scss" scoped>
+@import "./src/css/manage";
 </style>

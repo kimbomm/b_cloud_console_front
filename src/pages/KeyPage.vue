@@ -266,4 +266,5 @@ const btnDelete = ref("삭제");
 </script>
 
 <style lang="scss" scoped>
+@import 'src/css/key';
 </style>

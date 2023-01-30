@@ -231,7 +231,7 @@ import { useMeta } from "quasar";
 import CButton from "components/common/CButton.vue";
 import CDropdown from "components/common/CDropdown.vue";
 
-const visible = ref("B");
+const visible = ref("A");
 const title = ref("Member");
 const btnName = ref("삭제");
 const btnCancle = ref("취소");
@@ -259,4 +259,5 @@ const ptitle = ref(title);
 </script>
 
 <style lang="scss" scoped>
+@import 'src/css/members';
 </style>

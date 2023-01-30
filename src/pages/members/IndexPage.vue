@@ -137,7 +137,7 @@ import CButton from "components/common/CButton.vue";
 import CTable from "src/components/common/CTable.vue";
 import CPagination from "components/common/CPagination.vue";
 
-const visible = ref("B");
+const visible = ref("A");
 const title = ref("워크스페이스 1 Member");
 const label = ref("전체");
 const label2 = ref("역활전체");
@@ -310,4 +310,5 @@ const ptitle = ref(title);
 </script>
 
 <style lang="scss" scoped>
+@import 'src/css/members';
 </style>

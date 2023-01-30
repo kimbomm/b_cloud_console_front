@@ -255,121 +255,123 @@
             </div> -->
 
             <!-- 3개 넘게 스크롤이 생길경우(스크롤) -->
-            <div class="store">
-              <div class="store_card">
-                <div class="state">
-                  <div class="circle_chart">
-                    <div class="circle_in">
-                      <strong data-rate="45.6" />
+            <q-scroll-area style="padding-right: 18px; height: 100%; max-width: 100%;">
+              <div class="store">
+                <div class="store_card">
+                  <div class="state">
+                    <div class="circle_chart">
+                      <div class="circle_in">
+                        <strong data-rate="45.6" />
+                      </div>
+                      <div class="circle_line" />
                     </div>
-                    <div class="circle_line" />
+                    <div>
+                      <p class="name">스토리지 이름</p>
+                      <p class="text">
+                        <span>복원중</span>
+                        <span class="ex">스토리지 설명 스토리지 설명스토리지 설명스토리지 설명</span>
+                      </p>
+                    </div>
                   </div>
-                  <div>
-                    <p class="name">스토리지 이름</p>
-                    <p class="text">
-                      <span>복원중</span>
-                      <span class="ex">스토리지 설명 스토리지 설명스토리지 설명스토리지 설명</span>
-                    </p>
+                  <div class="capacity">
+                    <span class="capacity_use">45</span>
+                    <span class="capacity_amount">/ 200 BG</span>
                   </div>
-                </div>
-                <div class="capacity">
-                  <span class="capacity_use">45</span>
-                  <span class="capacity_amount">/ 200 BG</span>
                 </div>
               </div>
-            </div>
-            <div class="store">
-              <div class="store_card">
-                <div class="state">
-                  <div class="circle_chart">
-                    <div class="circle_in">
-                      <strong data-rate="45.6" />
+              <div class="store">
+                <div class="store_card">
+                  <div class="state">
+                    <div class="circle_chart">
+                      <div class="circle_in">
+                        <strong data-rate="45.6" />
+                      </div>
+                      <div class="circle_line" />
                     </div>
-                    <div class="circle_line" />
+                    <div>
+                      <p class="name">스토리지 이름</p>
+                      <p class="text">
+                        <span>복원중</span>
+                        <span class="ex">스토리지 설명 스토리지 설명스토리지 설명스토리지 설명</span>
+                      </p>
+                    </div>
                   </div>
-                  <div>
-                    <p class="name">스토리지 이름</p>
-                    <p class="text">
-                      <span>복원중</span>
-                      <span class="ex">스토리지 설명 스토리지 설명스토리지 설명스토리지 설명</span>
-                    </p>
+                  <div class="capacity">
+                    <span class="capacity_use">45</span>
+                    <span class="capacity_amount">/ 200 BG</span>
                   </div>
-                </div>
-                <div class="capacity">
-                  <span class="capacity_use">45</span>
-                  <span class="capacity_amount">/ 200 BG</span>
                 </div>
               </div>
-            </div>
-            <div class="store">
-              <div class="store_card">
-                <div class="state">
-                  <div class="circle_chart">
-                    <div class="circle_in">
-                      <strong data-rate="45.6" />
+              <div class="store">
+                <div class="store_card">
+                  <div class="state">
+                    <div class="circle_chart">
+                      <div class="circle_in">
+                        <strong data-rate="45.6" />
+                      </div>
+                      <div class="circle_line" />
                     </div>
-                    <div class="circle_line" />
+                    <div>
+                      <p class="name">스토리지 이름</p>
+                      <p class="text">
+                        <span>복원중</span>
+                        <span class="ex">스토리지 설명 스토리지 설명스토리지 설명스토리지 설명</span>
+                      </p>
+                    </div>
                   </div>
-                  <div>
-                    <p class="name">스토리지 이름</p>
-                    <p class="text">
-                      <span>복원중</span>
-                      <span class="ex">스토리지 설명 스토리지 설명스토리지 설명스토리지 설명</span>
-                    </p>
+                  <div class="capacity">
+                    <span class="capacity_use">45</span>
+                    <span class="capacity_amount">/ 200 BG</span>
                   </div>
-                </div>
-                <div class="capacity">
-                  <span class="capacity_use">45</span>
-                  <span class="capacity_amount">/ 200 BG</span>
                 </div>
               </div>
-            </div>
-            <div class="store">
-              <div class="store_card">
-                <div class="state">
-                  <div class="circle_chart">
-                    <div class="circle_in">
-                      <strong data-rate="45.6" />
+              <div class="store">
+                <div class="store_card">
+                  <div class="state">
+                    <div class="circle_chart">
+                      <div class="circle_in">
+                        <strong data-rate="45.6" />
+                      </div>
+                      <div class="circle_line" />
                     </div>
-                    <div class="circle_line" />
+                    <div>
+                      <p class="name">스토리지 이름</p>
+                      <p class="text">
+                        <span>복원중</span>
+                        <span class="ex">스토리지 설명 스토리지 설명스토리지 설명스토리지 설명</span>
+                      </p>
+                    </div>
                   </div>
-                  <div>
-                    <p class="name">스토리지 이름</p>
-                    <p class="text">
-                      <span>복원중</span>
-                      <span class="ex">스토리지 설명 스토리지 설명스토리지 설명스토리지 설명</span>
-                    </p>
+                  <div class="capacity">
+                    <span class="capacity_use">45</span>
+                    <span class="capacity_amount">/ 200 BG</span>
                   </div>
-                </div>
-                <div class="capacity">
-                  <span class="capacity_use">45</span>
-                  <span class="capacity_amount">/ 200 BG</span>
                 </div>
               </div>
-            </div>
-            <div class="store">
-              <div class="store_card">
-                <div class="state">
-                  <div class="circle_chart">
-                    <div class="circle_in">
-                      <strong data-rate="45.6" />
+              <div class="store">
+                <div class="store_card">
+                  <div class="state">
+                    <div class="circle_chart">
+                      <div class="circle_in">
+                        <strong data-rate="45.6" />
+                      </div>
+                      <div class="circle_line" />
                     </div>
-                    <div class="circle_line" />
+                    <div>
+                      <p class="name">스토리지 이름</p>
+                      <p class="text">
+                        <span>복원중</span>
+                        <span class="ex">스토리지 설명 스토리지 설명스토리지 설명스토리지 설명</span>
+                      </p>
+                    </div>
                   </div>
-                  <div>
-                    <p class="name">스토리지 이름</p>
-                    <p class="text">
-                      <span>복원중</span>
-                      <span class="ex">스토리지 설명 스토리지 설명스토리지 설명스토리지 설명</span>
-                    </p>
+                  <div class="capacity">
+                    <span class="capacity_use">45</span>
+                    <span class="capacity_amount">/ 200 BG</span>
                   </div>
-                </div>
-                <div class="capacity">
-                  <span class="capacity_use">45</span>
-                  <span class="capacity_amount">/ 200 BG</span>
                 </div>
               </div>
-            </div>
+            </q-scroll-area>
           </div>
         </div>
         <!-- Billing -->
@@ -388,7 +390,7 @@
                   v-model="showing1"
                   aanchor="top middle" self="bottom middle"
                   class="c_tooltip bottom"
-                >
+                  >
                   <div class="inner">382,232원</div>
                 </q-tooltip>
               </span>
@@ -464,51 +466,52 @@
             <span>더보기</span>
           </a>
           <div class="store-wrap">
-
-            <!-- store -->
-            <div class="store">
-              <p class="name">CPU</p>
-              <div class="space">
-                <p class="useage">24%</p>
-                <p class="used"><span>24</span>&nbsp;/&nbsp;100</p>
+            <q-scroll-area style="padding-right: 18px; height: 100%; max-width: 100%;">
+              <!-- store -->
+              <div class="store">
+                <p class="name">CPU</p>
+                <div class="space">
+                  <p class="useage">24%</p>
+                  <p class="used"><span>24</span>&nbsp;/&nbsp;100</p>
+                </div>
+                <!-- 임시 chart -->
+                <div class="space-chart"></div>
               </div>
-              <!-- 임시 chart -->
-              <div class="space-chart"></div>
-            </div>
-            <!-- // store -->
-            <!-- store -->
-            <div class="store">
-              <p class="name">Tesla A100_80G</p>
-              <div class="space">
-                <p class="useage">24%</p>
-                <p class="used"><span>24</span>&nbsp;/&nbsp;100</p>
+              <!-- // store -->
+              <!-- store -->
+              <div class="store">
+                <p class="name">Tesla A100_80G</p>
+                <div class="space">
+                  <p class="useage">24%</p>
+                  <p class="used"><span>24</span>&nbsp;/&nbsp;100</p>
+                </div>
+                <!-- 임시 chart -->
+                <div class="space-chart"></div>
               </div>
-              <!-- 임시 chart -->
-              <div class="space-chart"></div>
-            </div>
-            <!-- // store -->
-            <!-- store -->
-            <div class="store">
-              <p class="name">Tesla A100_40G</p>
-              <div class="space">
-                <p class="useage">75%</p>
-                <p class="used"><span>75</span>&nbsp;/&nbsp;100</p>
+              <!-- // store -->
+              <!-- store -->
+              <div class="store">
+                <p class="name">Tesla A100_40G</p>
+                <div class="space">
+                  <p class="useage">75%</p>
+                  <p class="used"><span>75</span>&nbsp;/&nbsp;100</p>
+                </div>
+                <!-- 임시 chart -->
+                <div class="space-chart"></div>
               </div>
-              <!-- 임시 chart -->
-              <div class="space-chart"></div>
-            </div>
-            <!-- // store -->
-            <!-- store -->
-            <div class="store">
-              <p class="name">CPU</p>
-              <div class="space">
-                <p class="useage">24%</p>
-                <p class="used"><span>24</span>&nbsp;/&nbsp;100</p>
+              <!-- // store -->
+              <!-- store -->
+              <div class="store">
+                <p class="name">CPU</p>
+                <div class="space">
+                  <p class="useage">24%</p>
+                  <p class="used"><span>24</span>&nbsp;/&nbsp;100</p>
+                </div>
+                <!-- 임시 chart -->
+                <div class="space-chart"></div>
               </div>
-              <!-- 임시 chart -->
-              <div class="space-chart"></div>
-            </div>
-            <!-- // store -->
+              <!-- // store -->
+            </q-scroll-area>
           </div>
         </div>
       </div>
@@ -621,6 +624,7 @@ const taskData = true;
 </script>
 
 <style lang="scss" scoped>
+@import 'src/css/dashboard';
 .c_tooltip{
   // position: relative;
   // padding: 50px;

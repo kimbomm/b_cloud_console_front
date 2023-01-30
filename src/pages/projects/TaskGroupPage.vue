@@ -1,12 +1,21 @@
 <template>
   <q-page class="p-content p-projects p-detail">
     <div class="p-head">
-      <q-breadcrumbs class="c_breadcrumb" gutter="none">
+      <q-breadcrumbs
+        class="c_breadcrumb"
+        gutter="none"
+      >
         <template v-slot:separator>
           <q-icon />
         </template>
-        <q-breadcrumbs-el label="Projects" to="/" />
-        <q-breadcrumbs-el label="Test Project" to="/" />
+        <q-breadcrumbs-el
+          label="Projects"
+          to="/"
+        />
+        <q-breadcrumbs-el
+          label="Test Project"
+          to="/"
+        />
         <q-breadcrumbs-el label="태스크" />
       </q-breadcrumbs>
       <h1 class="p-title">
@@ -55,15 +64,21 @@
                     <p class="m_sub_title">태스크 그룹 이름</p>
                     <div class="m_modify_main">
                       <q-input
-                          outlined
-                          v-model="textName"
-                          placeholder="최소 2자 최대 30자 입력"
-                          clearable
-                          class="wsize608"
-                        />
+                        outlined
+                        v-model="textName"
+                        placeholder="최소 2자 최대 30자 입력"
+                        clearable
+                        class="wsize608"
+                      />
                       <div class="modify_btn">
-                        <q-btn label="취소" class="line" />
-                        <q-btn label="저장" class="primary" />
+                        <q-btn
+                          label="취소"
+                          class="line"
+                        />
+                        <q-btn
+                          label="저장"
+                          class="primary"
+                        />
                       </div>
                     </div>
                   </div>
@@ -192,7 +207,7 @@
         <div class="task_table_area">
           <p class="sub_title">태스크</p>
           <div class="task_inner">
-             <CTable
+            <CTable
               :title="title"
               :columns="columns"
               :data="data"
@@ -282,7 +297,7 @@ const columns = [
     label: "시작일시",
     align: "left",
     sortable: true,
-    type: "datetime"
+    type: "datetime",
   },
   {
     name: "scheduledAt",
@@ -290,7 +305,7 @@ const columns = [
     label: "완료일시",
     align: "left",
     sortable: true,
-    type: "datetime"
+    type: "datetime",
   },
   {
     name: "logCheck",
@@ -317,8 +332,8 @@ const data = [
       gpu_device_model: "TESLA_V100",
       gpus: 2,
       mem: 249856,
-      zone: "public:normal"
-    }
+      zone: "public:normal",
+    },
   },
   {
     id: 342,
@@ -336,8 +351,8 @@ const data = [
       gpu_device_model: "TESLA_V100",
       gpus: 2,
       mem: 249856,
-      zone: "public:normal"
-    }
+      zone: "public:normal",
+    },
   },
 ];
 
@@ -370,4 +385,5 @@ const respAction = (eventObj) => {
 </script>
 
 <style lang="scss" scoped>
+@import "./src/css/projects";
 </style>

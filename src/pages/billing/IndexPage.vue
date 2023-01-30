@@ -40,6 +40,27 @@
               </q-icon>
             </template>
           </q-input>
+
+          <q-input
+              outlined
+              v-model="date"
+              :value="dateRange"
+              class="inp_calendar"
+            >
+              <template v-slot:prepend>
+                <q-icon class="ico_calendar">
+                  <q-popup-proxy :offset="[15, 18]" class="c_datepicker">
+                    <q-date
+                      v-model="dateRange"
+                      mask="YYYY.MM.DD"
+                      range
+                      multiple
+                      class="datepicker"
+                    />
+                  </q-popup-proxy>
+                </q-icon>
+              </template>
+            </q-input>
         </div>
       </div>
       <div class="pay-info mb30">
@@ -251,8 +272,15 @@ const respAction = (eventObj) => {
   }
 };
 
+// Date Picker
+const date = ref(null);
+const dateRange = ref(
+  { from: "2023.01.09", to: "2023.01.30" }
+);
+
 const ptitle = ref(title);
 </script>
 
 <style lang="scss" scoped>
+@import 'src/css/billing';
 </style>

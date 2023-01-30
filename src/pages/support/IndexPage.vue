@@ -127,4 +127,5 @@ const data = [
 </script>
 
 <style lang="scss" scoped>
+@import 'src/css/support';
 </style>

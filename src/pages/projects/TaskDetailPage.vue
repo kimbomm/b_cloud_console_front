@@ -1,13 +1,25 @@
 <template>
   <q-page class="p-content p-projects p-make">
     <div class="p-head">
-      <q-breadcrumbs class="c_breadcrumb" gutter="none">
+      <q-breadcrumbs
+        class="c_breadcrumb"
+        gutter="none"
+      >
         <template v-slot:separator>
           <q-icon />
         </template>
-        <q-breadcrumbs-el label="Projects" to="/" />
-        <q-breadcrumbs-el label="Test Project" to="/" />
-        <q-breadcrumbs-el label="태스크" to="/" />
+        <q-breadcrumbs-el
+          label="Projects"
+          to="/"
+        />
+        <q-breadcrumbs-el
+          label="Test Project"
+          to="/"
+        />
+        <q-breadcrumbs-el
+          label="태스크"
+          to="/"
+        />
         <q-breadcrumbs-el label="태스크 생성" />
       </q-breadcrumbs>
       <h1 class="p-title">
@@ -16,7 +28,7 @@
     </div>
     <!-- //.chead -->
     <div class="p-body">
-      <div class="wrap">
+      <div class="wrap p-task-detail">
         <div class="make_main_cont">
           <div class="s_01">
             <p class="sub_title">태스크 그룹 이름<i class="ess">*</i></p>
@@ -45,70 +57,80 @@
                 maxlength="500"
                 class="wsize_full hsize244"
                 :input-style="{height: '100%'}"
-                >
+              >
               </q-input>
             </div>
           </div>
           <div class="s_task_01">
             <div class="s_task01_head">
-                <p class="sub_title2">태스크 입력<i class="ess">*</i></p>
-                <q-checkbox v-model="chk1" label="Multiline 입력" class="c_checkbox" />
+              <p class="sub_title2">태스크 입력<i class="ess">*</i></p>
+              <q-checkbox
+                v-model="chk1"
+                label="Multiline 입력"
+                class="c_checkbox"
+              />
             </div>
             <div class="s_task01_main">
-                <div class="s_task01_box com_border_box">
-                    <template v-if="chk1 === false">
-                      <div class="task01_box_head">
-                          <p class="sub_title">태스크 이름</p>
-                          <p class="sub_title">명령어</p>
-                      </div>
-                      <div class="task01_box_main">
-                          <div class="task_name_input">
-                              <div class="c_inpgroup">
-                                  <q-input
-                                      outlined
-                                      v-model="taskName"
-                                      placeholder="최소 2자 최대 30자"
-                                      clearable
-                                      maxlength="30"
-                                      class="wsize210"
-                                  />
-                              </div>
-                          </div>
-                          <div class="task_command_input">
-                              <div class="c_inpgroup">
-                                  <q-input
-                                      outlined
-                                      v-model="textName2"
-                                      placeholder="명령어 입력"
-                                      clearable
-                                      class="wsize680"
-                                  />
-                                  <q-btn type="button" class="c_btn c_icon medium">
-                                      <i class="ico plus" /><span class="txt">Disabled</span>
-                                  </q-btn>
-                                  <q-btn type="button" class="c_btn c_icon line medium">
-                                      <i class="ico minus" /><span class="txt">Button</span>
-                                  </q-btn>
-                              </div>
-                          </div>
-                      </div>
-                    </template>
-                    <template v-else>
-                      <div class="task01_box_head2">
-                          <p class="sub_title">태스크 이름</p>
-                      </div>
-                      <div class="task01_box_main2">
+              <div class="s_task01_box com_border_box">
+                <template v-if="chk1 === false">
+                  <div class="task01_box_head">
+                    <p class="sub_title">태스크 이름</p>
+                    <p class="sub_title">명령어</p>
+                  </div>
+                  <div class="task01_box_main">
+                    <div class="task_name_input">
+                      <div class="c_inpgroup">
                         <q-input
                           outlined
-                          v-model="textDesc"
-                          bottom-slots
-                          type="textarea"
-                          class="wsize_full hsize244"
-                          :input-style="{height: '100%'}"
+                          v-model="taskName"
+                          placeholder="최소 2자 최대 30자"
+                          clearable
+                          maxlength="30"
+                          class="wsize210"
                         />
                       </div>
-                    </template>
-                </div>
+                    </div>
+                    <div class="task_command_input">
+                      <div class="c_inpgroup">
+                        <q-input
+                          outlined
+                          v-model="textName2"
+                          placeholder="명령어 입력"
+                          clearable
+                          class="wsize680"
+                        />
+                        <q-btn
+                          type="button"
+                          class="c_btn c_icon medium"
+                        >
+                          <i class="ico plus" /><span class="txt">Disabled</span>
+                        </q-btn>
+                        <q-btn
+                          type="button"
+                          class="c_btn c_icon line medium"
+                        >
+                          <i class="ico minus" /><span class="txt">Button</span>
+                        </q-btn>
+                      </div>
+                    </div>
+                  </div>
+                </template>
+                <template v-else>
+                  <div class="task01_box_head2">
+                    <p class="sub_title">태스크 이름</p>
+                  </div>
+                  <div class="task01_box_main2">
+                    <q-input
+                      outlined
+                      v-model="textDesc"
+                      bottom-slots
+                      type="textarea"
+                      class="wsize_full hsize244"
+                      :input-style="{height: '100%'}"
+                    />
+                  </div>
+                </template>
+              </div>
             </div>
           </div>
           <div class="s_task_02">
@@ -135,9 +157,18 @@
                   align="left"
                   class="c_tabs"
                 >
-                  <q-tab name="tabs1" label="CPU"></q-tab>
-                  <q-tab name="tabs2" label="GPU Tesla V100"></q-tab>
-                  <q-tab name="tabs3" label="GPU Tesla A100_40G"></q-tab>
+                  <q-tab
+                    name="tabs1"
+                    label="CPU"
+                  ></q-tab>
+                  <q-tab
+                    name="tabs2"
+                    label="GPU Tesla V100"
+                  ></q-tab>
+                  <q-tab
+                    name="tabs3"
+                    label="GPU Tesla A100_40G"
+                  ></q-tab>
                 </q-tabs>
               </div>
 
@@ -164,9 +195,18 @@
                   align="left"
                   class="c_tabs"
                 >
-                  <q-tab name="tabs1" label="기본 이미지"></q-tab>
-                  <q-tab name="tabs2" label="내이미지"></q-tab>
-                  <q-tab name="tabs3" label="공유받은 이미지"></q-tab>
+                  <q-tab
+                    name="tabs1"
+                    label="기본 이미지"
+                  ></q-tab>
+                  <q-tab
+                    name="tabs2"
+                    label="내이미지"
+                  ></q-tab>
+                  <q-tab
+                    name="tabs3"
+                    label="공유받은 이미지"
+                  ></q-tab>
                 </q-tabs>
               </div>
 
@@ -222,20 +262,20 @@
           <div class="s_task_05">
             <p class="sub_title2">실패시 재시도 횟수</p>
             <div class="c_inpgroup">
-                <p class="info_txt">최대 5회</p>
-                <q-input
+              <p class="info_txt">최대 5회</p>
+              <q-input
                 outlined
                 v-model="textName2"
                 placeholder="포트 번호 입력"
                 clearable
                 class="wsize_full"
-                />
+              />
             </div>
           </div>
           <div class="s_07">
             <div class="sub_title2">
-                <p>포트 번호 입력</p>
-                <span>최대 태스크 개수 만큼 입력 가능</span>
+              <p>포트 번호 입력</p>
+              <span>최대 태스크 개수 만큼 입력 가능</span>
             </div>
 
             <div class="s_07_main wsize608">
@@ -249,13 +289,19 @@
                     class="wsize_full"
                   />
                 </div>
-                <q-btn type="button" class="c_btn c_icon medium" disabled>
+                <q-btn
+                  type="button"
+                  class="c_btn c_icon medium"
+                  disabled
+                >
                   <i class="ico plus" /><span class="txt">Disabled</span>
                 </q-btn>
               </div>
               <div class="port_list_area">
                 <ul class="port_list_box com_border_box">
-                  <li><p>등록된 포트 번호가 없습니다.</p></li>
+                  <li>
+                    <p>등록된 포트 번호가 없습니다.</p>
+                  </li>
                 </ul>
               </div>
             </div>
@@ -320,20 +366,20 @@
               </li>
             </ul>
             <div class="make_btn">
-                <template v-if="datacheck === datacheck">
-                    <CButton
-                        :size-types="2"
-                        :btn-types="11"
-                        :btn-names="btnDis"
-                    />
-                </template>
-                <template v-else>
-                    <CButton
-                        :size-types="1"
-                        :btn-types="1"
-                        :btn-names="btnName"
-                    />
-                </template>
+              <template v-if="datacheck === datacheck">
+                <CButton
+                  :size-types="2"
+                  :btn-types="11"
+                  :btn-names="btnDis"
+                />
+              </template>
+              <template v-else>
+                <CButton
+                  :size-types="1"
+                  :btn-types="1"
+                  :btn-names="btnName"
+                />
+              </template>
             </div>
           </div>
         </div>
@@ -541,4 +587,5 @@ const data4 = [
 </script>
 
 <style lang="scss" scoped>
+@import "./src/css/projects";
 </style>
