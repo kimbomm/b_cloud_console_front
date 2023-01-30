@@ -1,12 +1,21 @@
 <template>
   <q-page class="p-content p-projects p-index">
     <div class="p-head">
-      <q-breadcrumbs class="c_breadcrumb" gutter="none">
+      <q-breadcrumbs
+        class="c_breadcrumb"
+        gutter="none"
+      >
         <template v-slot:separator>
           <q-icon />
         </template>
-        <q-breadcrumbs-el label="Projects" to="/" />
-        <q-breadcrumbs-el label="Test Project" to="/" />
+        <q-breadcrumbs-el
+          label="Projects"
+          to="/"
+        />
+        <q-breadcrumbs-el
+          label="Test Project"
+          to="/"
+        />
         <q-breadcrumbs-el label="인스턴스" />
       </q-breadcrumbs>
       <h1 class="p-title">
@@ -41,191 +50,203 @@
     <!-- //.chead -->
     <div class="p-body">
       <div class="wrap">
-          <ul class="com_h_cont">
-            <li class="quota_cont">
-              <div class="cont_head">
-                <h3>
-                  <i class="ico quota" />
-                </h3>
+        <ul class="com_h_cont">
+          <li class="quota_cont">
+            <div class="cont_head">
+              <h3>
+                <i class="ico quota" />
+              </h3>
 
-                <div class="cont_head_inner">
-                  <ul>
-                    <li class="now_view">워크스페이스 할당량</li>
-                    <li>프로젝트 할당량</li>
-                  </ul>
-                </div>
-              </div>
-
-              <div class="cont_main">
-                <ul class="now_quota">
-                  <li>
-                    <div class="circle_progress"></div>
-                    <div class="progress_info">
-                      <p class="pro_info_name">Tesla V100</p>
-                      <p class="pro_info_num">
-                        <span class="now_using">50</span> / 100
-                      </p>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="circle_progress"></div>
-                    <div class="progress_info">
-                      <p class="pro_info_name">Tesla A100</p>
-                      <p class="pro_info_num">
-                        <span class="now_using">3</span> / 10
-                      </p>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="circle_progress"></div>
-                    <div class="progress_info">
-                      <p class="pro_info_name">CPU</p>
-                      <p class="pro_info_num">
-                        <span class="now_using">1002</span> / 2000
-                      </p>
-                    </div>
-                  </li>
+              <div class="cont_head_inner">
+                <ul>
+                  <li class="now_view">워크스페이스 할당량</li>
+                  <li>프로젝트 할당량</li>
                 </ul>
               </div>
-            </li>
-            <li class="cpu_rate com_area">
-              <div class="cont_head">
-                <h3>
-                  <i class="ico cpu" />
-                </h3>
+            </div>
 
-                <div class="cont_head_inner">
-                  <p class="head_txt">CPU 활용률</p>
-                  <p class="time_info"><i class="ico blue_clock" />최근 24시간</p>
-                </div>
-              </div>
-
-              <div class="cont_main">
-                <p class="percentage_txt">
-                  <span class="now_percentage">55.6</span> %
-                </p>
-              </div>
-              <div class="cont_footer">
-                <div class="progress_bar_area"></div>
-              </div>
-            </li>
-            <li class="gpu_rate com_area">
-              <div class="cont_head">
-                <h3>
-                  <i class="ico gpu" />
-                </h3>
-
-                <div class="cont_head_inner">
-                  <p class="head_txt">GPU 활용률</p>
-                  <p class="time_info"><i class="ico purple_clock" />최근 24시간</p>
+            <div class="cont_main">
+              <ul class="now_quota">
+                <li>
+                  <div class="circle_progress"></div>
+                  <div class="progress_info">
+                    <p class="pro_info_name">Tesla V100</p>
+                    <p class="pro_info_num">
+                      <span class="now_using">50</span> / 100
+                    </p>
                   </div>
-              </div>
+                </li>
+                <li>
+                  <div class="circle_progress"></div>
+                  <div class="progress_info">
+                    <p class="pro_info_name">Tesla A100</p>
+                    <p class="pro_info_num">
+                      <span class="now_using">3</span> / 10
+                    </p>
+                  </div>
+                </li>
+                <li>
+                  <div class="circle_progress"></div>
+                  <div class="progress_info">
+                    <p class="pro_info_name">CPU</p>
+                    <p class="pro_info_num">
+                      <span class="now_using">1002</span> / 2000
+                    </p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li class="cpu_rate com_area">
+            <div class="cont_head">
+              <h3>
+                <i class="ico cpu" />
+              </h3>
 
-              <div class="cont_main">
-                <p class="percentage_txt">
-                  <span class="now_percentage">55.6</span> %
-                </p>
+              <div class="cont_head_inner">
+                <p class="head_txt">CPU 활용률</p>
+                <p class="time_info"><i class="ico blue_clock" />최근 24시간</p>
               </div>
-              <div class="cont_footer">
-                <div class="progress_bar_area"></div>
-              </div>
-            </li>
-            <li class="cost_rate com_area">
-              <div class="cont_head">
-                <h3>
-                  <i class="ico cost" />
-                </h3>
+            </div>
 
-                <div class="cont_head_inner">
-                  <p class="head_txt">프로젝트 비용</p>
-                </div>
-              </div>
+            <div class="cont_main">
+              <p class="percentage_txt">
+                <span class="now_percentage">55.6</span> %
+              </p>
+            </div>
+            <div class="cont_footer">
+              <div class="progress_bar_area"></div>
+            </div>
+          </li>
+          <li class="gpu_rate com_area">
+            <div class="cont_head">
+              <h3>
+                <i class="ico gpu" />
+              </h3>
 
-              <div class="cont_main">
-                <p class="cost_txt">
-                  <span class="now_cost">39,220,000</span> 원
-                </p>
+              <div class="cont_head_inner">
+                <p class="head_txt">GPU 활용률</p>
+                <p class="time_info"><i class="ico purple_clock" />최근 24시간</p>
               </div>
-              <div class="cont_footer">
-                <p class="cost_use_date">22.12.01 ~ 22.12.23</p>
-              </div>
-            </li>
-          </ul>
+            </div>
 
-          <div class="com_m_cont">
-            <div class="change_tab_btn">
-              <q-tabs
-                v-model="tab"
-                align="left"
-                class="c_tabs"
+            <div class="cont_main">
+              <p class="percentage_txt">
+                <span class="now_percentage">55.6</span> %
+              </p>
+            </div>
+            <div class="cont_footer">
+              <div class="progress_bar_area"></div>
+            </div>
+          </li>
+          <li class="cost_rate com_area">
+            <div class="cont_head">
+              <h3>
+                <i class="ico cost" />
+              </h3>
+
+              <div class="cont_head_inner">
+                <p class="head_txt">프로젝트 비용</p>
+              </div>
+            </div>
+
+            <div class="cont_main">
+              <p class="cost_txt">
+                <span class="now_cost">39,220,000</span> 원
+              </p>
+            </div>
+            <div class="cont_footer">
+              <p class="cost_use_date">22.12.01 ~ 22.12.23</p>
+            </div>
+          </li>
+        </ul>
+
+        <div class="com_m_cont">
+          <div class="change_tab_btn">
+            <q-tabs
+              v-model="tab"
+              align="left"
+              class="c_tabs"
+            >
+              <q-tab
+                name="tabs1"
+                label="인스턴스"
               >
-                <q-tab name="tabs1" label="인스턴스">
-                  <q-badge>36</q-badge>
-                </q-tab>
-                <q-tab name="tabs2" label="태스크">
-                  <q-badge>19</q-badge>
-                </q-tab>
-                <q-tab name="tabs3" label="멤버">
-                  <q-badge>0</q-badge>
-                </q-tab>
-              </q-tabs>
-            </div>
-            <div class="change_table_area">
-              <div class="table_set">
-                <div class="l_set_inner">
-                  <div class="c_inpgroup">
-                    <q-input
-                      outlined
-                      v-model="suffix"
-                      placeholder="이름, 상태, 생성자 검색"
-                    >
-                      <template v-slot:prepend>
-                        <q-icon name="search" class="ico_search" />
-                      </template>
-                    </q-input>
-                  </div>
-
-                  <div class="c_selectgroup">
-                    <CDropdown
-                      v-model:selected="selectedCheck"
-                      :label="label"
-                      :options="options"
-                      :multiple="true"
-                    />
-                  </div>
+                <q-badge>36</q-badge>
+              </q-tab>
+              <q-tab
+                name="tabs2"
+                label="태스크"
+              >
+                <q-badge>19</q-badge>
+              </q-tab>
+              <q-tab
+                name="tabs3"
+                label="멤버"
+              >
+                <q-badge>0</q-badge>
+              </q-tab>
+            </q-tabs>
+          </div>
+          <div class="change_table_area">
+            <div class="table_set">
+              <div class="l_set_inner">
+                <div class="c_inpgroup">
+                  <q-input
+                    outlined
+                    v-model="suffix"
+                    placeholder="이름, 상태, 생성자 검색"
+                  >
+                    <template v-slot:prepend>
+                      <q-icon
+                        name="search"
+                        class="ico_search"
+                      />
+                    </template>
+                  </q-input>
                 </div>
 
-                <div class="r_set_inner">
-                  <div class="instance_make_btn">
-                    <CButton
-                      :size-types="2"
-                      :btn-types="4"
-                      :btn-names="'인스턴스 생성하기'"
-                    />
-                  </div>
-
-                  <div class="view_cont_num">
-                    <CDropdown
-                      v-model:selected="selectedBasic"
-                      :label="label2"
-                      :options="options2"
-                    />
-                  </div>
+                <div class="c_selectgroup">
+                  <CDropdown
+                    v-model:selected="selectedCheck"
+                    :label="label"
+                    :options="options"
+                    :multiple="true"
+                  />
                 </div>
               </div>
 
-              <CTable
-                :title="title"
-                :columns="columns"
-                :data="data"
-                :action-buttons="actionButtons"
-                @action="respAction"
-              />
+              <div class="r_set_inner">
+                <div class="instance_make_btn">
+                  <CButton
+                    :size-types="2"
+                    :btn-types="4"
+                    :btn-names="'인스턴스 생성하기'"
+                  />
+                </div>
+
+                <div class="view_cont_num">
+                  <CDropdown
+                    v-model:selected="selectedBasic"
+                    :label="label2"
+                    :options="options2"
+                  />
+                </div>
+              </div>
             </div>
-            <div class="group">
-              <CPagination />
-            </div>
+
+            <CTable
+              :title="title"
+              :columns="columns"
+              :data="data"
+              :action-buttons="actionButtons"
+              @action="respAction"
+            />
           </div>
+          <div class="group">
+            <CPagination />
+          </div>
+        </div>
       </div>
     </div>
   </q-page>
@@ -330,7 +351,7 @@ const columns = [
     label: "생성일시",
     align: "left",
     sortable: true,
-    type: "datetime"
+    type: "datetime",
   },
   {
     name: "createdBy",
@@ -357,8 +378,8 @@ const data = [
       gpu_device_model: "TESLA_V100",
       gpus: 2,
       mem: 249856,
-      zone: "public:normal"
-    }
+      zone: "public:normal",
+    },
   },
   {
     id: 2,
@@ -376,8 +397,8 @@ const data = [
       gpu_device_model: "TESLA_V100",
       gpus: 2,
       mem: 249856,
-      zone: "public:normal"
-    }
+      zone: "public:normal",
+    },
   },
 ];
 
@@ -407,8 +428,8 @@ const respAction = (eventObj) => {
       break;
   }
 };
-
 </script>
 
 <style lang="scss" scoped>
+@import "./src/css/projects";
 </style>

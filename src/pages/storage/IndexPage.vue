@@ -232,4 +232,5 @@ const respAction = (eventObj) => {
 </script>
 
 <style lang="scss" scoped>
+@import "./src/css/storage";
 </style>
