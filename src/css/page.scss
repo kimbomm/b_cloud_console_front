@@ -1841,3 +1841,26 @@
   align-items: center;
   justify-content: space-between;
 }
+
+//공통요소
+.mt32{margin-top: 32px;}
+.disflex_C{
+  display: flex;
+  justify-content: center;
+}
+.com_border_box{
+  border: 1px solid #DCE0E8;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px -10px rgb(43 53 63 / 8%);
+}
+.com_box{
+  padding: 30px;
+  border-radius: 12px;
+  background-color: $surface01;
+}
+
+.table_set{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}

@@ -1035,6 +1035,9 @@ $dialog_foot:90px;
     + .desc{
       margin-top:16px;
     }
+    + .info{
+      margin-top:30px;
+    }
   }
   .sub_title{
     margin-bottom:8px;
@@ -1044,6 +1047,12 @@ $dialog_foot:90px;
     color:$gray800;font-size:$fs16;
     ~ .info{
       margin-top:30px;
+    }
+    &.etc{
+      color:$gray800;
+    }
+    &.mt10{
+      margin-top:10px;
     }
   }
   .info{
@@ -1060,6 +1069,15 @@ $dialog_foot:90px;
   .section{
     &:not(:first-child){
       margin-top:40px;
+    }
+    &.mt24{
+      margin-top:24px;
+    }
+  }
+  .relative{
+    position:relative;
+    .quotaToggle{
+      position:absolute;top:0;right:0;
     }
   }
   &.medium,
@@ -1955,6 +1973,17 @@ $qhsize:48px;
     + .desc{
       margin-left:8px;
       color:$gray300;
+      .bar{
+        color:$surface04;font-size:$fs12;
+        &:after{
+          content:"";
+          display:inline-block;
+          width:1px;height:12px;
+          margin:0 8px;
+          background:$surface04;
+          vertical-align: middle;
+        }
+      }
     }
   }
   &.inp_calendar{
@@ -2113,6 +2142,9 @@ $qhsize:48px;
     &:not(:first-child){
       margin-top:40px;
     }
+  }
+  &.mt24{
+    margin-top:24px;
   }
 }
 /* Component - Collapse */

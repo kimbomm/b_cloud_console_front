@@ -42,6 +42,7 @@ const routes = [
       { path: "/manage/instance", component: () => import("pages/manage/InstancePage.vue") },
       { path: "/manage/task", component: () => import("pages/manage/TaskPage.vue") },
       { path: "/manage/storage", component: () => import("pages/manage/StoragePage.vue") },
+      { path: "/manage/member", component: () => import("pages/manage/MemberPage.vue") },
       // 고객지원
       { path: "/support/", component: () => import("pages/support/IndexPage.vue") },
       { path: "/support/write", component: () => import("pages/support/WritePage.vue") },
@@ -92,6 +93,7 @@ const routes = [
       { path: "collapse", component: () => import("pages/guide/CollapsePage.vue") },
       { path: "banner", component: () => import("pages/guide/BannerPage.vue") },
       { path: "template", component: () => import("pages/guide/TemplatePage.vue") },
+      { path: "chart", component: () => import("pages/guide/ChartPage.vue") },
     ],
   },
 
