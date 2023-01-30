@@ -247,17 +247,29 @@
                 </div>
               </div>
             </div>
-
-            <CTable
-              :title="title"
-              :columns="columns"
-              :data="data"
-              :action-buttons="actionButtons"
-              @action="respAction"
-            />
-          </div>
-          <div class="group">
-            <CPagination />
+            <div class="table_main">
+              <template v-if="segModel2 === 'one'">
+                <CTable
+                  :title="title"
+                  :columns="columns"
+                  :data="data"
+                  :action-buttons="actionButtons"
+                  @action="respAction"
+                />
+              </template>
+              <template v-else-if="segModel2 === 'two'">
+                <CTable
+                  :title="title"
+                  :columns="columns2"
+                  :data="data2"
+                  :action-buttons="actionButtons"
+                  @action="respAction"
+                />
+              </template>
+            </div>
+            <div class="group">
+              <CPagination />
+            </div>
           </div>
         </div>
       </div>
@@ -283,7 +295,7 @@ const tab = ref("tabs2");
 const label = ref("전체");
 const label2 = ref("10");
 const selectedCheck = ref(null);
-const segModel2 = ref("two");
+const segModel2 = ref("one");
 
 const options = ref([
   { label: "전체", value: 0 },
@@ -298,7 +310,81 @@ const options2 = ref([
   { label: "50", value: 2 },
 ]);
 
+// 그룹보기
 const columns = [
+  {
+    name: "groupid",
+    field: "groupid",
+    label: "그룹ID",
+    align: "left",
+    sortable: false,
+  },
+  {
+    name: "groupName",
+    field: "groupName",
+    label: "그룹이름",
+    align: "left",
+    sortable: true,
+  },
+  {
+    name: "account",
+    field: "account",
+    label: "설명",
+    align: "left",
+    sortable: false,
+  },
+  {
+    name: "status",
+    field: "status",
+    label: "상태",
+    align: "left",
+    sortable: false,
+    type: "tag",
+  },
+  {
+    name: "createdAt",
+    field: "createdAt",
+    label: "생성일시",
+    align: "left",
+    sortable: true,
+    type: "datetime",
+  },
+  {
+    name: "constructor",
+    field: "constructor",
+    label: "생성자",
+    align: "left",
+    sortable: true,
+  },
+];
+const data = [
+  {
+    groupid: "21",
+    groupName: "Taskgroup1",
+    account: "태스크 그룹 설명태스크 그룹 설명태스크 그룹 설명태스크 그룹 설명",
+    status: "running",
+    createdAt: "2023.10.22 12:33:40",
+    constructor: "root.choi (root.choi@kakaobrain.com)",
+  },
+  {
+    groupid: "21",
+    groupName: "Taskgroup1",
+    account: "태스크 그룹 설명태스크 그룹 설명태스크 그룹 설명태스크 그룹 설명",
+    status: "running",
+    createdAt: "2023.10.22 12:33:40",
+    constructor: "root.choi (root.choi@kakaobrain.com)",
+  },
+  {
+    groupid: "21",
+    groupName: "Taskgroup1",
+    account: "태스크 그룹 설명태스크 그룹 설명태스크 그룹 설명태스크 그룹 설명",
+    status: "running",
+    createdAt: "2023.10.22 12:33:40",
+    constructor: "root.choi (root.choi@kakaobrain.com)",
+  },
+];
+// 테스크보기
+const columns2 = [
   {
     name: "id",
     field: "id",
@@ -375,7 +461,7 @@ const columns = [
     sortable: false,
   },
 ];
-const data = [
+const data2 = [
   {
     id: 342,
     instance: "인스턴스 이름 인스턴스 이름 인스턴스 이름",
