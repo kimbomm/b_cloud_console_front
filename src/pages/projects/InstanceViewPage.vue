@@ -1,13 +1,25 @@
 <template>
   <q-page class="p-content p-projects p-detail">
     <div class="p-head">
-      <q-breadcrumbs class="c_breadcrumb" gutter="none">
+      <q-breadcrumbs
+        class="c_breadcrumb"
+        gutter="none"
+      >
         <template v-slot:separator>
           <q-icon />
         </template>
-        <q-breadcrumbs-el label="Projects" to="/" />
-        <q-breadcrumbs-el label="Test Project" to="/" />
-        <q-breadcrumbs-el label="인스턴스" to="/" />
+        <q-breadcrumbs-el
+          label="Projects"
+          to="/"
+        />
+        <q-breadcrumbs-el
+          label="Test Project"
+          to="/"
+        />
+        <q-breadcrumbs-el
+          label="인스턴스"
+          to="/"
+        />
         <q-breadcrumbs-el label="aa인스턴스1" />
       </q-breadcrumbs>
       <div class="p-detail-head">
@@ -64,8 +76,14 @@
                     />
                   </div>
                   <div class="modify_btn">
-                    <q-btn label="취소" class="line" />
-                    <q-btn label="저장" class="primary" />
+                    <q-btn
+                      label="취소"
+                      class="line"
+                    />
+                    <q-btn
+                      label="저장"
+                      class="primary"
+                    />
                   </div>
                 </div>
               </template>
@@ -194,28 +212,28 @@
                   <p class="external_num_title">외부 포트 번호</p>
                 </div>
                 <q-scroll-area style="height:180px;">
-                <ul class="port_box">
-                  <li>
-                    <p class="p_input_data">23335</p>
-                    <p class="p_external_data">23335</p>
-                  </li>
-                  <li>
-                    <p class="p_input_data">23335</p>
-                    <p class="p_external_data">23335</p>
-                  </li>
-                  <li>
-                    <p class="p_input_data">23335</p>
-                    <p class="p_external_data">23335</p>
-                  </li>
-                  <li>
-                    <p class="p_input_data">23335</p>
-                    <p class="p_external_data">23335</p>
-                  </li>
-                  <li>
-                    <p class="p_input_data">23335</p>
-                    <p class="p_external_data">23335</p>
-                  </li>
-                </ul>
+                  <ul class="port_box">
+                    <li>
+                      <p class="p_input_data">23335</p>
+                      <p class="p_external_data">23335</p>
+                    </li>
+                    <li>
+                      <p class="p_input_data">23335</p>
+                      <p class="p_external_data">23335</p>
+                    </li>
+                    <li>
+                      <p class="p_input_data">23335</p>
+                      <p class="p_external_data">23335</p>
+                    </li>
+                    <li>
+                      <p class="p_input_data">23335</p>
+                      <p class="p_external_data">23335</p>
+                    </li>
+                    <li>
+                      <p class="p_input_data">23335</p>
+                      <p class="p_external_data">23335</p>
+                    </li>
+                  </ul>
                 </q-scroll-area>
               </div>
             </div>
@@ -260,4 +278,5 @@ const ptitle = ref(title);
 </script>
 
 <style lang="scss" scoped>
+@import "./src/css/projects";
 </style>

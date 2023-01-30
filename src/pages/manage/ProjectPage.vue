@@ -1,12 +1,18 @@
 <template>
   <q-page class="p-content p-manage p-project">
     <div class="p-head">
-      <q-breadcrumbs class="c_breadcrumb" gutter="none">
-          <template v-slot:separator>
+      <q-breadcrumbs
+        class="c_breadcrumb"
+        gutter="none"
+      >
+        <template v-slot:separator>
           <q-icon />
-          </template>
-          <q-breadcrumbs-el label="Workapace Manager" to="/" />
-          <q-breadcrumbs-el label="Projects" />
+        </template>
+        <q-breadcrumbs-el
+          label="Workapace Manager"
+          to="/"
+        />
+        <q-breadcrumbs-el label="Projects" />
       </q-breadcrumbs>
       <h1 class="p-title">{{ ptitle }}</h1>
     </div>
@@ -110,13 +116,16 @@
             <div class="l_set_inner">
               <div class="search_area">
                 <q-input
-                    outlined
-                    v-model="suffix"
-                    placeholder="카테고리, 제목 검색"
-                    class="wsize292"
-                  >
+                  outlined
+                  v-model="suffix"
+                  placeholder="카테고리, 제목 검색"
+                  class="wsize292"
+                >
                   <template v-slot:prepend>
-                      <q-icon name="search" class="ico_search" />
+                    <q-icon
+                      name="search"
+                      class="ico_search"
+                    />
                   </template>
                 </q-input>
               </div>
@@ -127,7 +136,8 @@
                       <i class="ico help" /><span class="hidden">도움말</span>
                       <q-popup-edit
                         v-model="helpShow"
-                        anchor="top middle" self="top middle"
+                        anchor="top middle"
+                        self="top middle"
                         class="c_popover"
                       >
                         <div class="inner">
@@ -147,32 +157,32 @@
             <div class="r_set_inner">
               <div class="quota_set_btn">
                 <CButton
-                    :size-types="2"
-                    :btn-types="4"
-                    :btn-names="btnName"
-                  />
+                  :size-types="2"
+                  :btn-types="4"
+                  :btn-names="btnName"
+                />
               </div>
               <div class="view_cont_num">
-                  <CDropdown
+                <CDropdown
                   v-model:selected="selectedBasic"
                   :label="label"
                   :options="options"
                   class="auto_size"
-                  />
+                />
               </div>
             </div>
           </div>
           <div class="table_inner">
             <CTable
-                :title="title"
-                :columns="columns"
-                :data="data"
-                :action-buttons="actionButtons"
-                @action="respAction"
+              :title="title"
+              :columns="columns"
+              :data="data"
+              :action-buttons="actionButtons"
+              @action="respAction"
             />
           </div>
           <div class="table_pagenav disflex_C">
-              <CPagination />
+            <CPagination />
           </div>
         </div>
       </div>
@@ -269,8 +279,8 @@ const data = [
       gpu_device_model: "TESLA_V100",
       gpus: 2,
       mem: 249856,
-      zone: "public:normal"
-    }
+      zone: "public:normal",
+    },
   },
   {
     pjName: "aa프로젝트",
@@ -285,8 +295,8 @@ const data = [
       gpu_device_model: "TESLA_V100",
       gpus: 2,
       mem: 249856,
-      zone: "public:normal"
-    }
+      zone: "public:normal",
+    },
   },
   {
     pjName: "aa프로젝트",
@@ -301,8 +311,8 @@ const data = [
       gpu_device_model: "TESLA_V100",
       gpus: 2,
       mem: 249856,
-      zone: "public:normal"
-    }
+      zone: "public:normal",
+    },
   },
   {
     pjName: "aa프로젝트",
@@ -317,8 +327,8 @@ const data = [
       gpu_device_model: "TESLA_V100",
       gpus: 2,
       mem: 249856,
-      zone: "public:normal"
-    }
+      zone: "public:normal",
+    },
   },
   {
     pjName: "aa프로젝트",
@@ -333,8 +343,8 @@ const data = [
       gpu_device_model: "TESLA_V100",
       gpus: 2,
       mem: 249856,
-      zone: "public:normal"
-    }
+      zone: "public:normal",
+    },
   },
 ];
 
@@ -367,4 +377,5 @@ const respAction = (eventObj) => {
 </script>
 
 <style lang="scss" scoped>
+@import "./src/css/manage";
 </style>

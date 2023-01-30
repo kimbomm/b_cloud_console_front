@@ -1,70 +1,88 @@
 <template>
   <q-page class="p-content p-my p-index">
     <div class="p-head">
-      <q-breadcrumbs class="c_breadcrumb" gutter="none">
-          <template v-slot:separator>
+      <q-breadcrumbs
+        class="c_breadcrumb"
+        gutter="none"
+      >
+        <template v-slot:separator>
           <q-icon />
-          </template>
-          <q-breadcrumbs-el label="Account" to="/" />
-          <q-breadcrumbs-el label="내 알림" />
+        </template>
+        <q-breadcrumbs-el
+          label="Account"
+          to="/"
+        />
+        <q-breadcrumbs-el label="내 알림" />
       </q-breadcrumbs>
       <h1 class="p-title">{{ ptitle }}</h1>
     </div>
     <!-- //.chead -->
     <div class="p-body">
-        <div class="p-alarm">
-            <div class="btn_area">
-                <q-tabs
-                    v-model="tab"
-                    align="left"
-                    class="c_tabs"
-                >
-                    <q-tab name="tabs1" label="내 정보"></q-tab>
-                    <q-tab name="tabs2" label="내 알림">
-                        <q-badge>19</q-badge>
-                    </q-tab>
-                    <q-tab name="tabs3" label="SSH key & API key"></q-tab>
-                </q-tabs>
+      <div class="p-alarm">
+        <div class="btn_area">
+          <q-tabs
+            v-model="tab"
+            align="left"
+            class="c_tabs"
+          >
+            <q-tab
+              name="tabs1"
+              label="내 정보"
+            ></q-tab>
+            <q-tab
+              name="tabs2"
+              label="내 알림"
+            >
+              <q-badge>19</q-badge>
+            </q-tab>
+            <q-tab
+              name="tabs3"
+              label="SSH key & API key"
+            ></q-tab>
+          </q-tabs>
+        </div>
+        <div class="table_set">
+          <div class="l_set_inner">
+            <div class="c_inpgroup">
+              <q-input
+                outlined
+                v-model="suffix"
+                placeholder="카테고리, 제목 검색"
+                class="wsize450"
+              >
+                <template v-slot:prepend>
+                  <q-icon
+                    name="search"
+                    class="ico_search"
+                  />
+                </template>
+              </q-input>
             </div>
-            <div class="table_set">
-                <div class="l_set_inner">
-                    <div class="c_inpgroup">
-                        <q-input
-                          outlined
-                          v-model="suffix"
-                          placeholder="카테고리, 제목 검색"
-                          class="wsize450"
-                        >
-                        <template v-slot:prepend>
-                            <q-icon name="search" class="ico_search" />
-                        </template>
-                        </q-input>
-                    </div>
-                    </div>
+          </div>
 
-                    <div class="r_set_inner">
-                    <div class="view_cont_num">
-                        <CDropdown
-                        v-model:selected="selectedBasic"
-                        :label="label"
-                        :options="options"
-                        />
-                    </div>
-                </div>
-            </div>
-            <div class="table_inner">
-              <CTable
-                  :title="title"
-                  :columns="columns"
-                  :data="data"
+          <div class="r_set_inner">
+            <div class="view_cont_num">
+              <CDropdown
+                v-model:selected="selectedBasic"
+                :label="label"
+                :options="options"
               />
             </div>
-            <div class="table_pagenav disflex_C">
-                <CPagination />
-            </div>
+          </div>
         </div>
+        <div class="table_inner">
+          <CTable
+            :title="title"
+            :columns="columns"
+            :data="data"
+          />
+        </div>
+        <div class="table_pagenav disflex_C">
+          <CPagination />
+        </div>
+      </div>
     </div>
-    </q-page>
+  </q-page>
 </template>
 <script setup>
 import { ref } from "vue";
@@ -153,4 +171,5 @@ const data = [
 </script>
 
 <style lang="scss" scoped>
+@import "./src/css/mypage";
 </style>
