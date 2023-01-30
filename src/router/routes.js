@@ -46,7 +46,14 @@ const routes = [
       // 고객지원
       { path: "/support/", component: () => import("pages/support/IndexPage.vue") },
       { path: "/support/write", component: () => import("pages/support/WritePage.vue") },
+      { path: "/support/writeb", component: () => import("pages/support/WritebPage.vue") },
+      { path: "/support/writec", component: () => import("pages/support/WritecPage.vue") },
+      { path: "/support/writed", component: () => import("pages/support/WritedPage.vue") },
+      { path: "/support/writee", component: () => import("pages/support/WriteePage.vue") },
       { path: "/support/questiondetail", component: () => import("pages/support/QuestionDetailPage.vue") },
+      { path: "/support/questiondetailb", component: () => import("pages/support/QuestionDetailbPage.vue") },
+      { path: "/support/questiondetailc", component: () => import("pages/support/QuestionDetailcPage.vue") },
+      { path: "/support/questiondetaild", component: () => import("pages/support/QuestionDetaildPage.vue") },
       { path: "/support/survey", component: () => import("pages/support/SurveyPage.vue") },
       // 팝업
       { path: "/popup/", component: () => import("pages/popup/IndexPage.vue") },

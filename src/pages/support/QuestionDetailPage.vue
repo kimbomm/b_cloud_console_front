@@ -1,49 +1,58 @@
 <template>
   <q-page class="p-content p-support p-detail">
     <div class="p-head">
-      <q-breadcrumbs class="c_breadcrumb" gutter="none">
+      <q-breadcrumbs
+        class="c_breadcrumb"
+        gutter="none"
+      >
         <template v-slot:separator>
           <q-icon />
         </template>
-        <q-breadcrumbs-el label="Workspace Manager" to="/support" />
-        <q-breadcrumbs-el label="Support" to="/support" />
+        <q-breadcrumbs-el
+          label="Workspace Manager"
+          to="/support"
+        />
+        <q-breadcrumbs-el
+          label="Support"
+          to="/support"
+        />
       </q-breadcrumbs>
       <h1 class="p-title">{{ ptitle }}</h1>
     </div>
-  <!-- //.chead -->
-  <div class="p-body">
-    <!--   고객지원-1:1문의-스토리지 할당량 변경 문의내용 확인   -->
-    <template v-if="visible === 'A'">
+    <!-- //.chead -->
+    <div class="p-body">
+      <!--   고객지원-1:1문의-스토리지 할당량 변경 문의내용 확인   -->
+      <template v-if="visible === 'A'">
         <div class="amount-check">
-            <p class="check-title">워크스페이스 스토리지 용량 변경 (관리자 전용)</p>
-            <div class="q-badge green">답변완료</div>
-            <p class="check-date">2023.04.01&nbsp;11:30:44</p>
-            <p class="check-contents">워크스페이스 스토리지 중량 요청 드립니다.</p>
-            <div class="amount-check_req-box">
-              <p class="current-amount">
-                현재 사용량
-                <span>3,000</span>&nbsp;/&nbsp;<span>2,750</span>
-              </p>
-              <p class="request-amount">
-                요청량
-                <span>5,000</span>&nbsp;GiB
-              </p>
-            </div>
+          <p class="check-title">워크스페이스 스토리지 용량 변경 (관리자 전용)</p>
+          <div class="q-badge green">답변완료</div>
+          <p class="check-date">2023.04.01&nbsp;11:30:44</p>
+          <p class="check-contents">워크스페이스 스토리지 중량 요청 드립니다.</p>
+          <div class="amount-check_req-box">
+            <p class="current-amount">
+              현재 사용량
+              <span>3,000</span>&nbsp;/&nbsp;<span>2,750</span>
+            </p>
+            <p class="request-amount">
+              요청량
+              <span>5,000</span>&nbsp;GiB
+            </p>
           </div>
-          <div class="check-reply">
-            <p class="check-reply_title">답변</p>
-            <p class="check-reply_answer">5,000 GiB 스토리지 증량 처리 완료 되었습니다.</p>
-            <!-- <p class="amount-reply_answer checking">관리자가 확인 중 입니다.</p> -->
-          </div>
-          <div class="c_btngroup">
-            <CButton
-              :size-types="1"
-              :btn-types="1"
-              :btn-names="listBtn"
-              class="list-btn"
-              to="/support/"
-            />
-          </div>
+        </div>
+        <div class="check-reply">
+          <p class="check-reply_title">답변</p>
+          <p class="check-reply_answer">5,000 GiB 스토리지 증량 처리 완료 되었습니다.</p>
+          <!-- <p class="amount-reply_answer checking">관리자가 확인 중 입니다.</p> -->
+        </div>
+        <div class="c_btngroup">
+          <CButton
+            :size-types="1"
+            :btn-types="1"
+            :btn-names="listBtn"
+            class="list-btn"
+            to="/support/"
+          />
+        </div>
 
       </template>
       <!-- 고객지원-1:1문의-리소스 할당량 변경 문의내용 확인 -->
@@ -55,15 +64,15 @@
           <p class="check-contents">워크스페이스 스토리지 중량 요청 드립니다.</p>
           <div class="req-wrap">
             <div class="amount-check_req-box2">
-            <p class="amount-title">CPU</p>
-            <p class="current-amount">
-              현재 할당량
-              <span>3,000</span>&nbsp;/&nbsp;<span>2,750</span>
-            </p>
-            <p class="request-amount">
-              요청량
-              <span>5,000</span>&nbsp;GiB
-            </p>
+              <p class="amount-title">CPU</p>
+              <p class="current-amount">
+                현재 할당량
+                <span>3,000</span>&nbsp;/&nbsp;<span>2,750</span>
+              </p>
+              <p class="request-amount">
+                요청량
+                <span>5,000</span>&nbsp;GiB
+              </p>
             </div>
             <div class="amount-check_req-box2">
               <p class="amount-title">Tesla A100</p>
@@ -127,12 +136,36 @@
           <p class="check-contents mb0">오류 버그 제보 드립니다.</p>
           <!-- 이미지 추가 -->
           <div class="check-img">
-            <img src="" alt="" class="img img1">
-            <img src="" alt="" class="img img1">
-            <img src="" alt="" class="img img2">
-            <img src="" alt="" class="img img3">
-            <img src="" alt="" class="img img4">
-            <img src="" alt="" class="img img5">
+            <img
+              src=""
+              alt=""
+              class="img img1"
+            >
+            <img
+              src=""
+              alt=""
+              class="img img1"
+            >
+            <img
+              src=""
+              alt=""
+              class="img img2"
+            >
+            <img
+              src=""
+              alt=""
+              class="img img3"
+            >
+            <img
+              src=""
+              alt=""
+              class="img img4"
+            >
+            <img
+              src=""
+              alt=""
+              class="img img5"
+            >
           </div>
         </div>
         <div class="check-reply">
@@ -162,12 +195,36 @@
           <p class="check-contents mb0">오류 버그 제보 드립니다.</p>
           <!-- 이미지 추가 -->
           <div class="check-img">
-            <img src="" alt="" class="img img1">
-            <img src="" alt="" class="img img1">
-            <img src="" alt="" class="img img2">
-            <img src="" alt="" class="img img3">
-            <img src="" alt="" class="img img4">
-            <img src="" alt="" class="img img5">
+            <img
+              src=""
+              alt=""
+              class="img img1"
+            >
+            <img
+              src=""
+              alt=""
+              class="img img1"
+            >
+            <img
+              src=""
+              alt=""
+              class="img img2"
+            >
+            <img
+              src=""
+              alt=""
+              class="img img3"
+            >
+            <img
+              src=""
+              alt=""
+              class="img img4"
+            >
+            <img
+              src=""
+              alt=""
+              class="img img5"
+            >
           </div>
         </div>
         <div class="check-reply">
@@ -194,7 +251,7 @@ import { useMeta } from "quasar";
 import CButton from "components/common/CButton.vue";
 
 const title = ref("Support");
-const visible = ref("D");
+const visible = ref("A");
 useMeta(() => ({
   title: title.value,
   visible,
@@ -202,11 +259,10 @@ useMeta(() => ({
 
 const ptitle = ref(title);
 const listBtn = ref("목록");
-
 </script>
 
 <style lang="scss" scoped>
-.c_btngroup{
+.c_btngroup {
   display: flex;
   justify-content: flex-end;
 }

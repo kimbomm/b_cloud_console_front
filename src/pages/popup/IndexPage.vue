@@ -1325,6 +1325,423 @@
     </q-dialog>
     <!-- End : [프로젝트 - 태스크] 태스크 - 로그 stdout(+ Full Size) 팝업 -->
 
+    <!-- Start : [프로젝트 - 멤버관리] 권한 변경 불가 안내 Alert 팝업 -->
+
+    <!-- End : [프로젝트 - 멤버관리] 권한 변경 불가 안내 Alert 팝업 -->
+
+    <!-- Start : [프로젝트 - 멤버관리] 삭제 불가 안내 Alert 팝업 -->
+    <!-- End : [프로젝트 - 멤버관리] 삭제 불가 안내 Alert 팝업 -->
+
+    <!-- Start : [프로젝트 - 멤버관리] 멤버 - 추가 -->
+    <!-- End : [프로젝트 - 멤버관리] 멤버 - 추가 -->
+
+    <!-- Start : [프로젝트 - 멤버관리] 권한변경 -->
+    <!-- End : [프로젝트 - 멤버관리] 권한변경 -->
+
+    <!-- Start : [프로젝트 - 멤버관리] 멤버삭제 -->
+    <!-- End : [프로젝트 - 멤버관리] 멤버삭제 -->
+
+    <!-- Start : [스토리지] 스토리지 삭제 확인 Alert 팝업 -->
+    <!-- End : [스토리지] 스토리지 삭제 확인 Alert 팝업 -->
+
+    <!-- Start : [스토리지] 스토리지 삭제 불가 안내 Alert 팝업 -->
+    <!-- End : [스토리지] 스토리지 삭제 불가 안내 Alert 팝업 -->
+
+    <!-- Start : [스토리지] 개인스토리지 추가 -->
+    <!-- End : [스토리지] 개인스토리지 추가 -->
+
+    <!-- Start : [스토리지] 공유관리 -->
+    <!-- End : [스토리지] 공유관리 -->
+
+    <!-- Start : [스토리지] 이용 현황 -->
+    <!-- End : [스토리지] 이용 현황 -->
+
+    <!-- Start : [스토리지] 용량 변경 -->
+    <!-- End : [스토리지] 용량 변경 -->
+
+    <!-- Start : [스토리지] 용량 변경 요청 (TBD) -->
+    <!-- End : [스토리지] 용량 변경 요청 (TBD) -->
+
+    <!-- Start : [내 이미지] 이미지 삭제 확인  Alert 팝업 -->
+    <q-dialog
+      v-model="alertImageDeleteModal"
+      class="c_dialog"
+    >
+      <q-card>
+        <q-card-section
+          style="max-height:290px"
+          class="c_dialog_body"
+        >
+          <p class="title">
+            <strong>이미지를 삭제하시겠습니까?</strong>
+          </p>
+          <div class="info">
+            <strong>내 이미지 1</strong>
+          </div>
+        </q-card-section>
+        <q-card-actions class="c_dialog_foot">
+          <q-btn
+            label="취소"
+            class="line"
+            v-close-popup
+          />
+          <q-btn
+            label="삭제"
+            class="primary"
+            v-close-popup
+          />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
+    <!-- End : [내 이미지] 이미지 삭제 확인  Alert 팝업 -->
+
+    <!-- Start : [내 이미지] 이미지 - 내이미지 - 공유관리 -->
+    <q-dialog
+      v-model="imageShareMngModal"
+      class="c_dialog medium"
+    >
+      <q-card>
+        <q-card-section class="c_dialog_body">
+          <p class="title">
+            <strong>내 이미지 공유 관리</strong>
+          </p>
+          <q-item-section class="item_card medium bg">
+            <q-item-label class="name">{{ itemImageName }}</q-item-label>
+            <q-item-label class="desc">{{ itemImageDesc }}</q-item-label>
+          </q-item-section>
+          <section class="section">
+            <p class="sub_title">공유 여부</p>
+            <q-list class="p_list share">
+              <q-item class="item chkall">
+                <i class="ico folder" />
+                <q-item-section class="item_card">
+                  <q-item-label class="name">{{ itemName }}</q-item-label>
+                  <q-item-label class="desc">{{ itemDesc }}</q-item-label>
+                </q-item-section>
+                <q-checkbox
+                  v-model="chkAll"
+                  class="c_checkbox check_all"
+                />
+              </q-item>
+              <q-item class="item subitem">
+                <i class="ico note" />
+                <q-item-section class="item_card">
+                  <q-item-label class="name">{{ itemName1 }}</q-item-label>
+                  <q-item-label class="desc">{{ itemDesc1 }}</q-item-label>
+                </q-item-section>
+                <q-checkbox
+                  v-model="chk1"
+                  disable
+                  class="c_checkbox"
+                />
+              </q-item>
+              <q-item class="item subitem">
+                <i class="ico note" />
+                <q-item-section class="item_card">
+                  <q-item-label class="name">{{ itemName2 }}</q-item-label>
+                  <q-item-label class="desc">{{ itemDesc1 }}</q-item-label>
+                </q-item-section>
+                <q-checkbox
+                  v-model="chk2"
+                  disable
+                  class="c_checkbox"
+                />
+              </q-item>
+              <q-item class="item subitem">
+                <i class="ico note" />
+                <q-item-section class="item_card">
+                  <q-item-label class="name">{{ itemName3 }}</q-item-label>
+                  <q-item-label class="desc">{{ itemDesc1 }}</q-item-label>
+                </q-item-section>
+                <q-checkbox
+                  v-model="chk3"
+                  disable
+                  class="c_checkbox"
+                />
+              </q-item>
+            </q-list>
+          </section>
+        </q-card-section>
+        <q-card-actions class="c_dialog_foot">
+          <q-btn
+            label="취소"
+            class="line"
+            v-close-popup
+          />
+          <q-btn
+            label="저장"
+            class="primary"
+            v-close-popup
+          />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
+    <!-- End : [내 이미지] 이미지 - 내이미지 - 공유관리 -->
+
+    <!-- Start : [멤버] 소속된 프로젝트가 있는 경우 Alert 팝업 -->
+    <q-dialog
+      v-model="alertMemberProjectModal"
+      class="c_dialog"
+    >
+      <q-card>
+        <q-card-section
+          style="max-height:290px"
+          class="c_dialog_body"
+        >
+          <p class="title">
+            <strong>소속된 프로젝트가 있어 멤버 삭제가<br />불가능합니다.</strong>
+          </p>
+          <div class="info">
+            aaProject1, 개인작업용prj
+          </div>
+        </q-card-section>
+        <q-card-actions class="c_dialog_foot">
+          <q-btn
+            label="취소"
+            class="line"
+            v-close-popup
+          />
+          <q-btn
+            label="확인"
+            class="primary"
+            v-close-popup
+          />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
+    <!-- End : [멤버] 소속된 프로젝트가 있는 경우 Alert 팝업 -->
+
+    <!-- Start : [멤버] 개인이 생성한 스토리지가 있는 경우 Alert 팝업 -->
+    <q-dialog
+      v-model="alertMemberStorageModal"
+      class="c_dialog"
+    >
+      <q-card>
+        <q-card-section
+          style="max-height:290px"
+          class="c_dialog_body"
+        >
+          <p class="title">
+            <strong>이용중인 스토리지가 있어 멤버 삭제가<br />불가능합니다.</strong>
+          </p>
+        </q-card-section>
+        <q-card-actions class="c_dialog_foot">
+          <q-btn
+            label="확인"
+            class="primary"
+            v-close-popup
+          />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
+    <!-- End : [멤버] 개인이 생성한 스토리지가 있는 경우 Alert 팝업 -->
+
+    <!-- Start : [멤버] 사용자 삭제 가능한 경우 Alert 팝업 -->
+    <q-dialog
+      v-model="alertMemberUserDelModal"
+      class="c_dialog"
+    >
+      <q-card>
+        <q-card-section
+          style="max-height:290px"
+          class="c_dialog_body"
+        >
+          <p class="title">
+            <strong>삭제하시겠습니까?</strong>
+          </p>
+          <p class="desc">
+            삭제된 사용자의 개인 스토리지 데이터는 삭제되며,<br />복구 불가능합니다.
+          </p>
+          <div class="info negative">
+            <span class="black">김카브(root.choi@kakaobrain.com)</span> 외 3명
+          </div>
+        </q-card-section>
+        <q-card-actions class="c_dialog_foot">
+          <q-btn
+            label="취소"
+            class="line"
+            v-close-popup
+          />
+          <q-btn
+            label="확인"
+            class="primary"
+            v-close-popup
+          />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
+    <!-- End : [멤버] 사용자 삭제 가능한 경우 Alert 팝업 -->
+
+    <!-- Start : [멤버] 멤버 삭제 가능한 경우 Alert 팝업 -->
+    <q-dialog
+      v-model="alertMemberDeleteModal"
+      class="c_dialog"
+    >
+      <q-card>
+        <q-card-section
+          style="max-height:290px"
+          class="c_dialog_body"
+        >
+          <p class="title">
+            <strong>멤버를 삭제 하시겠습니까?</strong>
+          </p>
+          <q-item-section class="item_card member negative f_start">
+            <q-item-label class="name">{{ memberName }}</q-item-label>
+            <q-item-label class="mail">{{ memberMail }}</q-item-label>
+          </q-item-section>
+        </q-card-section>
+        <q-card-actions class="c_dialog_foot">
+          <q-btn
+            label="취소"
+            class="line"
+            v-close-popup
+          />
+          <q-btn
+            label="확인"
+            class="primary"
+            v-close-popup
+          />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
+    <!-- End : [멤버] 멤버 삭제 가능한 경우 Alert 팝업 -->
+
+    <!-- Start : [멤버] 수정된 내용이 있는 경우(멤버편집) 취소 확인 Alert 팝업 -->
+    <q-dialog
+      v-model="alertMemberEditCancelModal"
+      class="c_dialog"
+    >
+      <q-card>
+        <q-card-section
+          style="max-height:290px"
+          class="c_dialog_body"
+        >
+          <p class="title">
+            <strong>멤버 편집을 취소하시겠습니까?</strong>
+          </p>
+          <p class="desc">
+            변경사항은 저장되지 않습니다.
+          </p>
+        </q-card-section>
+        <q-card-actions class="c_dialog_foot">
+          <q-btn
+            label="취소"
+            class="line"
+            v-close-popup
+          />
+          <q-btn
+            label="확인"
+            class="primary"
+            v-close-popup
+          />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
+    <!-- End : [멤버] 수정된 내용이 있는 경우(멤버편집) 취소 확인 Alert 팝업 -->
+
+    <!-- Start : [멤버] 워크스페이스 멤버 추가 -->
+    <q-dialog
+      v-model="memberWorkspaceAddModal"
+      class="c_dialog medium"
+    >
+      <q-card>
+        <q-card-section class="c_dialog_body">
+          <p class="title">
+            <strong>워크스페이스 멤버 추가</strong>
+          </p>
+          <div class="c_form">
+            <section class="section">
+              <p class="sub_title">이메일<i class="ess">*</i></p>
+              <div class="c_inpgroup">
+                <q-input
+                  outlined
+                  v-model="textInviteName"
+                  placeholder="이름 또는 이메일 입력"
+                  clearable
+                  class="wsize_full"
+                />
+              </div>
+            </section>
+            <section class="section">
+              <p class="sub_title">워크스페이스 역할<i class="ess">*</i></p>
+              <div class="c_radiogroup f_wrap w50">
+                <q-radio
+                  v-model="radCheck"
+                  val="rad1"
+                  label="워크스페이스 관리자"
+                  class="c_radio"
+                />
+                <q-radio
+                  v-model="radCheck"
+                  val="rad2"
+                  label="워크스페이스 멤버"
+                  class="c_radio"
+                />
+                <q-radio
+                  v-model="radCheck"
+                  val="rad2"
+                  label="정산 관리자"
+                  class="c_radio"
+                />
+                <q-radio
+                  v-model="radCheck"
+                  val="rad3"
+                  label="게스트"
+                  class="c_radio mr0"
+                />
+                <q-btn class="ibtn help">
+                  <i class="ico help" /><span class="hidden">도움말</span>
+                  <q-popup-edit
+                    v-model="helpShow"
+                    anchor="top middle"
+                    self="top middle"
+                    class="c_popover"
+                  >
+                    <div class="inner">
+                      게스트는 워크스페이스 멤버 조회 및 프로젝트 생성 기능이 제한됩니다.
+                    </div>
+                  </q-popup-edit>
+                </q-btn>
+              </div>
+            </section>
+            <section class="section">
+              <p class="sub_title">개인 스토리지 용량<i class="ess">*</i></p>
+              <div class="c_inpgroup flex-end">
+                <q-input
+                  outlined
+                  v-model="quota2"
+                  type="number"
+                  placeholder="50GiB 단위 입력"
+                  clearable
+                  class="inp_unit"
+                >
+                  <template v-slot:append>
+                    <span class="unit">GiB</span>
+                  </template>
+                </q-input>
+                <span class="desc">최대 50,000</span>
+              </div>
+            </section>
+          </div>
+          <!-- //.c_form -->
+        </q-card-section>
+        <q-card-actions class="c_dialog_foot">
+          <q-btn
+            label="취소"
+            class="line"
+            v-close-popup
+          />
+          <q-btn
+            label="확인"
+            class="primary"
+            disable
+            v-close-popup
+          />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
+    <!-- End : [멤버] 워크스페이스 멤버 추가 -->
+
     <!-- Start : [멤버] 멤버 초대 요청 (TBD) 팝업 -->
     <q-dialog
       v-model="memberInviteModal"
@@ -1335,10 +1752,7 @@
           <p class="title">
             <strong>멤버 초대 요청</strong>
           </p>
-          <section
-            class="section"
-            aria-label="이메일"
-          >
+          <section class="section">
             <p class="sub_title">이메일</p>
             <div class="c_inpgroup">
               <q-input
@@ -1357,10 +1771,7 @@
               </q-input>
             </div>
           </section>
-          <section
-            class="section"
-            aria-label="워크스페이스 역할"
-          >
+          <section class="section">
             <p class="sub_title">워크스페이스 역할</p>
             <div class="c_radiogroup mt20">
               <q-radio
@@ -1396,10 +1807,7 @@
               </q-btn>
             </div>
           </section>
-          <section
-            class="section"
-            aria-label="프로젝트"
-          >
+          <section class="section">
             <p class="sub_title">프로젝트</p>
             <div class="c_selectgroup">
               <CDropdown
@@ -1411,10 +1819,7 @@
               />
             </div>
           </section>
-          <section
-            class="section"
-            aria-label="초대사유"
-          >
+          <section class="section">
             <p class="sub_title">초대사유</p>
             <div class="c_inpgroup">
               <q-input
@@ -1455,6 +1860,207 @@
     </q-dialog>
     <!-- End : [멤버] 초대 요청 (TBD) 팝업 -->
 
+    <!-- Start : [멤버] 멤버 초대 요청 확인 (TBD) -->
+    <!-- End : [멤버] 멤버 초대 요청 확인 (TBD) -->
+
+    <!-- Start : [내정보] LDAP 로그인(오픈 이후 개발) -->
+    <!-- End : [내정보] LDAP 로그인(오픈 이후 개발) -->
+
+    <!-- Start : [회원탈퇴] 회원탈퇴 안내 (TBD) Alert 팝업 -->
+    <!-- End : [회원탈퇴] 회원탈퇴 안내 (TBD) Alert 팝업 -->
+
+    <!-- Start : [회원탈퇴] 회원탈퇴 완료 (TBD) Alert 팝업 -->
+    <!-- End : [회원탈퇴] 회원탈퇴 완료 (TBD) Alert 팝업 -->
+
+    <!-- Start : [sshkey & apikey] SSH Key 삭제 선택시, 삭제 확인  Alert 팝업 -->
+    <q-dialog
+      v-model="alertSshkeyDeleteModal"
+      class="c_dialog"
+    >
+      <q-card>
+        <q-card-section
+          style="max-height:290px"
+          class="c_dialog_body"
+        >
+          <p class="title">
+            <strong>SSH Key를 삭제하시겠습니까?</strong>
+          </p>
+        </q-card-section>
+        <q-card-actions class="c_dialog_foot">
+          <q-btn
+            label="취소"
+            class="line"
+            v-close-popup
+          />
+          <q-btn
+            label="확인"
+            class="primary"
+            v-close-popup
+          />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
+    <!-- End : [sshkey & apikey] SSH Key 삭제 선택시, 삭제 확인  Alert 팝업 -->
+
+    <!-- Start : [sshkey & apikey] API Key 삭제  Alert 팝업 -->
+    <q-dialog
+      v-model="alertApikeyDeleteModal"
+      class="c_dialog"
+    >
+      <q-card>
+        <q-card-section
+          style="max-height:290px"
+          class="c_dialog_body"
+        >
+          <p class="title">
+            <strong>API Key를 삭제하시겠습니까?</strong>
+          </p>
+        </q-card-section>
+        <q-card-actions class="c_dialog_foot">
+          <q-btn
+            label="취소"
+            class="line"
+            v-close-popup
+          />
+          <q-btn
+            label="확인"
+            class="primary"
+            v-close-popup
+          />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
+    <!-- End : [sshkey & apikey] API Key 삭제  Alert 팝업 -->
+
+    <!-- Start : [sshkey & apikey] SSH Key&API Key - 등록 -->
+    <q-dialog
+      v-model="sshkeyWriteModal"
+      class="c_dialog large"
+    >
+      <q-card>
+        <q-card-section class="c_dialog_body">
+          <p class="title">
+            <strong>SSH Key 등록</strong>
+          </p>
+          <section class="section">
+            <p class="sub_title">이름</p>
+            <div class="c_inpgroup">
+              <q-input
+                outlined
+                v-model="textName"
+                placeholder="최소 2자 최대 30자 입력"
+                clearable
+                class="wsize_full"
+              />
+            </div>
+          </section>
+          <section class="section relative">
+            <p class="sub_title">Public key</p>
+            <label class="c_file btntype absolute top-20 right">
+              <input
+                type="file"
+                @update:model-value="val => { files = val }"
+              />
+              <span class="file_text">파일업로드</span>
+            </label>
+            <div class="c_inpgroup">
+              <q-input
+                outlined
+                v-model="textDesc"
+                bottom-slots
+                type="textarea"
+                placeholder="Public key 를 입력하거나 파일을 업로드 해주세요."
+                clearable
+                counter
+                :count="10"
+                maxlength="500"
+                class="wsize_full hsize244"
+                :input-style="{height: '100%'}"
+              >
+                <!-- <template v-slot:hint>
+                    Description
+                  </template> -->
+              </q-input>
+            </div>
+          </section>
+        </q-card-section>
+        <q-card-actions class="c_dialog_foot">
+          <q-btn
+            label="취소"
+            class="line"
+            v-close-popup
+          />
+          <q-btn
+            label="저장"
+            class="primary"
+            v-close-popup
+          />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
+    <!-- End : [sshkey & apikey] SSH Key&API Key - 등록 -->
+
+    <!-- Start : [sshkey & apikey] API Key 생성 -->
+    <q-dialog
+      v-model="apikeyCreateModal"
+      class="c_dialog medium"
+    >
+      <q-card>
+        <q-card-section class="c_dialog_body">
+          <p class="title">
+            <strong>API Key 생성</strong>
+          </p>
+          <q-banner class="c_banner caution small">
+            <template v-slot:avatar>
+              <q-icon class="noti" />
+            </template>
+            <div class="bn_head">
+              <strong class="title">주의</strong>
+            </div>
+            <div class="bn_body">
+              Secret Key는 최초 1회만 확인 가능합니다. 복사 후 이용해주세요.
+            </div>
+          </q-banner>
+          <section class="section">
+            <p class="sub_title">Access Key</p>
+            <div class="c_inpgroup keygroup">
+              <q-input
+                outlined
+                v-model="textKeyName"
+                disable
+              />
+              <q-btn class="c_icon ibtn copy">
+                <i class="ico copy" />
+                <span class="hidden">Key 복사</span>
+              </q-btn>
+            </div>
+          </section>
+          <section class="section">
+            <p class="sub_title">Secret Key</p>
+            <div class="c_inpgroup keygroup">
+              <q-input
+                outlined
+                v-model="textKeyName"
+                disable
+              />
+              <q-btn class="c_icon ibtn copy">
+                <i class="ico copy" />
+                <span class="hidden">Key 복사</span>
+              </q-btn>
+            </div>
+          </section>
+        </q-card-section>
+        <q-card-actions class="c_dialog_foot">
+          <q-btn
+            label="확인"
+            class="primary"
+            v-close-popup
+          />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
+    <!-- End : [sshkey & apikey] API Key 생성 -->
+
     <!-- Start : [관리 - 프로젝트] 프로젝트 삭제 안내  Alert 팝업 -->
     <q-dialog
       v-model="alertProjectDelInfoModal"
@@ -1478,7 +2084,7 @@
         </q-card-actions>
       </q-card>
     </q-dialog>
-    <!-- End : [관리 - 인스턴스] 프로젝트 삭제 안내  Alert 팝업 -->
+    <!-- End : [관리 - 프로젝트] 프로젝트 삭제 안내  Alert 팝업 -->
 
     <!-- Start : [관리 - 프로젝트] 프로젝트 삭제 확인  Alert 팝업 -->
     <q-dialog
@@ -1516,7 +2122,7 @@
         </q-card-actions>
       </q-card>
     </q-dialog>
-    <!-- End : [관리 - 인스턴스] 프로젝트 삭제 확인  Alert 팝업 -->
+    <!-- End : [관리 - 프로젝트] 프로젝트 삭제 확인  Alert 팝업 -->
 
     <!-- Start : [관리 - 프로젝트] 인스턴스, 태스크 생성하기 선택시 안내  Alert 팝업 -->
     <q-dialog
@@ -2576,6 +3182,7 @@ const mngStorageQuotaChangeModal = ref(false);
 const mngStorageShareModal = ref(false);
 
 const textName = ref(null);
+const textKeyName = ref("UxEDrsKjrTYjzB1QsOJhQVUKDj8e150W");
 const textProjectName = ref("테스트용 프로젝트 01");
 const textChangeName = ref("aa인스턴스");
 const textInviteName = ref(null);
@@ -2583,8 +3190,21 @@ const textDesc = ref(null);
 const textProjectDesc = ref(
   "프로젝트 설명 프로젝트 설명프로젝트 설명프로젝트 설명프로젝트 설명프로젝트 설명프로젝트 설명프로젝트 설명프로젝트 설명프로젝트 설명프로젝트 설명프로젝트 설명"
 );
+const memberName = ref("김카브");
+const memberMail = ref("root.choi@kakaobrain.com");
 const textChangeDesc = ref("프로젝트 설명 텍스트");
 const textInviteDesc = ref(null);
+const itemImageName = ref("내이미지 01");
+const itemImageDesc = ref(
+  "내 이미지 테스트 01 (tensorflow 2.9.0, Karlo 테스트용)"
+);
+const itemName = ref("카카오모빌리티 워크스페이스");
+const itemName1 = ref("aaTEST");
+const itemName2 = ref("MLTEST");
+const itemName3 = ref("aa팀 프로젝트");
+const itemDesc = ref("워크스페이스");
+const itemDesc1 = ref("소속 프로젝트");
+
 const quota1 = ref(null);
 const quota2 = ref(null);
 const quota3 = ref(null);
@@ -2592,6 +3212,12 @@ const quota4 = ref(null);
 const radCheck = ref("rad1");
 const helpShow = ref(false);
 const quotaOn = ref(true);
+const files = ref(null);
+
+const chkAll = ref(true);
+const chk1 = ref(true);
+const chk2 = ref(true);
+const chk3 = ref(true);
 
 const triggerSuccess = (position) => {
   setTimeout(() => {
