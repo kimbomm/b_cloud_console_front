@@ -176,9 +176,9 @@
   }
   /* Instance & Task */
   &.p-instance{
-    .p-detail-head{
+    .p-head{
       .resource_employ_btn{
-        .c_btn.line{
+        .q-btn.line,.c_btn.line{
           .ico{background-image: url(/src/assets/images/icon/16/ico_receipt_normal.svg);}
         }
       }
