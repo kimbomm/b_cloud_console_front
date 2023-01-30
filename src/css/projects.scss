@@ -45,11 +45,12 @@
                 margin-right: 12px;
                 color: $secondary-light;
                 font-weight: $bold;
-                text-decoration: underline;
+                text-decoration: none;
+                cursor: pointer;
                 &.now_view{
                   color:#fff;
-                  text-decoration: none;
                 }
+                &:hover{text-decoration: underline;}
                 &:first-child:after{
                   content: '';
                   display: inline-block;
