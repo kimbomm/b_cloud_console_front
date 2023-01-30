@@ -6,6 +6,9 @@
 대시보드 | https://bcloud.freeive.dev/#/ | 대기
 로그인 | https://bcloud.freeive.dev/#/login | 대기
 
+* Console Page UI 진행 현황
+[https://bcloud.freeive.dev/#/guide](https://bcloud.freeive.dev/#/guide)
+
 ## 패키지 관리 툴: YARN
 ```bash
 npm install -g yarn

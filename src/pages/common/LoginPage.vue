@@ -24,5 +24,5 @@ const ptitle = ref(title);
 </script>
 
 <style lang="scss" scoped>
-@import url("src/css/common");
+@import "src/css/common";
 </style>
