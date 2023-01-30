@@ -119,24 +119,4 @@ const optNumber = ref([
 
 <style lang="scss" scoped>
 @import "src/css/images.scss";
-// .container {
-//   display: flex;
-//   flex-direction: column;
-//   .header {
-//     display: flex;
-//     margin-top: 12px;
-//     margin-bottom: 30px;
-//   }
-//   .wsize_full {
-//     width: 450px;
-//     margin-bottom: 18px;
-//   }
-
-//   .imgpagination{
-//     display: flex;
-//     flex-direction: column;
-//     align-items: center;
-//     margin-top: 50px;
-//   }
-// }
 </style>
