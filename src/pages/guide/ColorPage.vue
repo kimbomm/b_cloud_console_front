@@ -302,25 +302,15 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { ref } from "vue";
 import { useMeta } from "quasar";
 
-export default {
-  name: "ColorPage",
-  components: {
-
-  },
-  setup() {
-    const title = ref("Color");
-    useMeta(() => ({
-      title: title.value,
-    }));
-    return {
-      ptitle: ref(title),
-    };
-  },
-};
+const title = ref("Color");
+useMeta(() => ({
+  title: title.value,
+}));
+const ptitle = ref(title);
 </script>
 <style lang="scss" scoped>
 h1{

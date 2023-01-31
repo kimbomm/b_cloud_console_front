@@ -2,94 +2,691 @@
   <div class="p-content p-guide p-index">
     <div class="p-head">
       <h1 class="p-title">{{ ptitle }}</h1>
+      <p class="desc">공통 페이지 : pages/</p>
     </div>
     <!-- //.chead -->
     <div class="p-body">
-      <section class="section">
-        <h2 class="h6">공통 컴포넌트</h2>
-        <ul class="list">
-          <li>- Color - 완료(작업 시 필요에 따라 추가)</li>
-          <li>- Typo - 완료(작업 시 필요에 따라 추가)</li>
-          <li>- Icon - 완료(작업 시 필요에 따라 추가)</li>
-          <li>
-            - Button - 완료(수정 중)  (Quasar UI : [https://quasar.dev/vue](https://quasar.dev/vue-components/button)<br />
-            다른 컴포넌트에서 사용되는 버튼과 style이 상속되는 부분들이 발생하여 버튼 부분은 계속 수정 및 추가
-          </li>
-          <li>- Input - 진행 중  (Quasar UI : [https://quasar.dev/vue-components/input](https://quasar.dev/vue-components/input))</li>
-          <li>- Checkbox - 진행 중  (Quasar UI : [https://quasar.dev/vue-components/checkbox](https://quasar.dev/vue-components/checkbox))</li>
-          <li>- Radio - 진행 중  (Quasar UI : [https://quasar.dev/vue-components/radio](https://quasar.dev/vue-components/radio))</li>
-          <li>- Pagination - 완료  (Quasar UI : [https://quasar.dev/vue-components/pagination](https://quasar.dev/vue-components/pagination))</li>
-          <li>- SegmentedControl - 완료  (Quasar UI : [https://quasar.dev/vue-components/button-toggle](https://quasar.dev/vue-components/button-toggle))</li>
-          <li>- **Table** - 예정(front에서 선 진행 후 UI 수정)  (Quasar UI : [https://quasar.dev/vue-components/table](https://quasar.dev/vue-components/table))</li>
-          <li>- **DropDown** - (front 선 진행 완료) 진행 중  (Quasar UI : [https://quasar.dev/vue-components/select](https://quasar.dev/vue-components/select))</li>
-          <li>- Tabs - 완료  (Quasar UI : [https://quasar.dev/vue-components/tabs](https://quasar.dev/vue-components/tabs))</li>
-          <li>- Breadcrumb - 완료  (Quasar UI : [https://quasar.dev/vue-components/breadcrumbs](https://quasar.dev/vue-components/breadcrumbs))</li>
-          <li>- Popover - 완료  (Quasar UI : [https://quasar.dev/vue-components/popup-edit](https://quasar.dev/vue-components/button))</li>
-          <li>- Popup - 예정  (Quasar UI : [https://quasar.dev/vue-components/dialog](https://quasar.dev/vue-components/dialog))</li>
-          <li>- Toast - 완료  (Pure)</li>
-          <li>- Form - 진행 중  (Quasar UI : [https://quasar.dev/vue-components/form](https://quasar.dev/vue-components/form))</li>
-          <li>- Tooltip - 완료(추가)  (Quasar UI : [https://quasar.dev/vue-components/tooltip](https://quasar.dev/vue-components/tooltip))</li>
-          <li>- Notify - 예정(추가)  (Quasar UI : [https://quasar.dev/quasar-plugins/notify](https://quasar.dev/quasar-plugins/notify))</li>
-          <li>- DatePicker - 예정(추가) (Quasr UI : [https://quasar.dev/vue-components/date](https://quasar.dev/vue-components/date))</li>
-          <li>- Badge -  예정(추가) (Quasr UI : [https://quasar.dev/vue-components/badge](https://quasar.dev/vue-components/badge))</li>
-          <li>- Carousel -  예정(추가) (Quasr UI : [https://quasar.dev/vue-components/carousel](https://quasar.dev/vue-components/carousel))</li>
-          <li>- CircularProgress -  예정(추가) (Quasr UI : [https://quasar.dev/vue-components/circular-progress](https://quasar.dev/vue-components/circular-progress))</li>
-          <li>- Toggle-  예정 (Quasr UI : [https://quasar.dev/vue-components/toggle](https://quasar.dev/vue-components/toggle))</li>
-          <li>- Knob -  예정(추가) (Quasr UI : [https://quasar.dev/vue-components/knob](https://quasar.dev/vue-components/knob))</li>
-          <li>- Progress -  예정(추가) (Quasr UI : [https://quasar.dev/vue-components/linear-progress#example--indeterminate-state](https://quasar.dev/vue-components/linear-progress#example--indeterminate-state))</li>
-          <li>- Menu -  예정(추가) (Quasr UI : [https://quasar.dev/vue-components/menu](https://quasar.dev/vue-components/menu))</li>
-          <li>- Spinners(Loading) -  예정(추가) (Quasr UI : [https://quasar.dev/vue-components/spinners](https://quasar.dev/vue-components/spinners), [https://quasar.dev/vue-components/inner-loading](https://quasar.dev/vue-components/inner-loading), [https://quasar.dev/vue-components/inner-loading](https://quasar.dev/vue-components/inner-loading))</li>
-          <li>- Banner -  예정(추가) (Quasr UI : [https://quasar.dev/vue-components/banner](https://quasar.dev/vue-components/banner))</li>
-          <li>- **FilePicker Upload** -  (front에서 선 진행 후 UI 수정) 예정(추가) (Quasr UI : [https://quasar.dev/vue-components/file-picker](https://quasar.dev/vue-components/file-picker), [https://quasar.dev/vue-components/uploader](https://quasar.dev/vue-components/uploader))</li>
-          <li>- Expansion(Collapse UI) -  예정(추가) (Quasr UI : [https://quasar.dev/vue-components/expansion-item](https://quasar.dev/vue-components/expansion-item))</li>
-          <li>- Card -  예정(추가) (Quasr UI : [https://quasar.dev/vue-components/card](https://quasar.dev/vue-components/card))</li>
-          <li>- Tree -  예정(추가) (Quasr UI : [https://quasar.dev/vue-components/tree))</li>
-          <li>- 공통 레이아웃 - 예정</li>
-          <li>- Sidebar - 예정</li>
-          <li>- Console 페이지 작업 시 필요한 부분 추가 예정</li>
-        </ul>
-      </section>
+      <table class="q-table">
+        <colgroup>
+          <col style="width:500px">
+          <col style="width:300px">
+          <col style="width:80px">
+          <col style="width:auto">
+        </colgroup>
+        <thead>
+          <tr>
+            <th>메뉴명</th>
+            <th>URL</th>
+            <th>상태</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Popup</td>
+            <td>
+              <router-link
+                to="popup"
+                target="_blank"
+              />
+            </td>
+            <td>
+              <q-badge class="c_badge green">
+                <span class="txt">완료</span>
+              </q-badge>
+            </td>
+            <td>PopupPage - Console에 사용되는 전체 팝업 모음</td>
+          </tr>
+          <tr>
+            <td>로그인</td>
+            <td>
+              <router-link
+                to="common/login"
+                target="_blank"
+              />
+            </td>
+            <td>
+              <q-badge class="c_badge">
+                <span class="txt">진행중</span>
+              </q-badge>
+            </td>
+            <td>LoginPage - 로그인 SubLayout 생성 후 좌측 메뉴 없는 구조 생성</td>
+          </tr>
+          <tr>
+            <td>회원탈퇴(TBD)</td>
+            <td>
+              <router-link
+                to="common/withdrawal"
+                target="_blank"
+              />
+            </td>
+            <td>
+              <q-badge class="c_badge">
+                <span class="txt">진행중</span>
+              </q-badge>
+            </td>
+            <td>WithdrawalPage - 회원탈퇴 SubLayout 생성 후 좌측 메뉴 없는 구조 생성</td>
+          </tr>
+          <tr>
+            <td>프로젝트 - Dashboard</td>
+            <td>
+              <router-link
+                to="/"
+                target="_blank"
+              />
+            </td>
+            <td>
+              <q-badge class="c_badge green">
+                <span class="txt">완료</span>
+              </q-badge>
+            </td>
+            <td>IndexPage</td>
+          </tr>
+          <tr>
+            <td>프로젝트 - 인스턴스(탭)</td>
+            <td>
+              <router-link
+                to="projects/instance"
+                target="_blank"
+              />
+            </td>
+            <td>
+              <q-badge class="c_badge green">
+                <span class="txt">완료</span>
+              </q-badge>
+            </td>
+            <td>InstancePage</td>
+          </tr>
+          <tr>
+            <td>프로젝트 - 인스턴스 상세(탭)</td>
+            <td>
+              <router-link
+                to="projects/instanceview"
+                target="_blank"
+              />
+            </td>
+            <td>
+              <q-badge class="c_badge green">
+                <span class="txt">완료</span>
+              </q-badge>
+            </td>
+            <td>InstanceViewPage</td>
+          </tr>
+          <tr>
+            <td>프로젝트 - 인스턴스 생성(탭)</td>
+            <td>
+              <router-link
+                to="projects/instancedetail"
+                target="_blank"
+              />
+            </td>
+            <td>
+              <q-badge class="c_badge green">
+                <span class="txt">완료</span>
+              </q-badge>
+            </td>
+            <td>InstanceDetailPage</td>
+          </tr>
+          <tr>
+            <td>프로젝트 - 태스크(탭)</td>
+            <td>
+              <router-link
+                to="projects/task"
+                target="_blank"
+              />
+            </td>
+            <td>
+              <q-badge class="c_badge green">
+                <span class="txt">완료</span>
+              </q-badge>
+            </td>
+            <td>TaskPage</td>
+          </tr>
+          <tr>
+            <td>프로젝트 - 태스크 상세(탭)</td>
+            <td>
+              <router-link
+                to="projects/taskview"
+                target="_blank"
+              />
+            </td>
+            <td>
+              <q-badge class="c_badge green">
+                <span class="txt">완료</span>
+              </q-badge>
+            </td>
+            <td>TaskViewPage</td>
+          </tr>
+          <tr>
+            <td>프로젝트 - 태스크 생성(탭)</td>
+            <td>
+              <router-link
+                to="projects/taskdetail"
+                target="_blank"
+              />
+            </td>
+            <td>
+              <q-badge class="c_badge green">
+                <span class="txt">완료</span>
+              </q-badge>
+            </td>
+            <td>TaskDetailPage</td>
+          </tr>
+          <tr>
+            <td>프로젝트 - 태스크 그룹 상세정보(탭)</td>
+            <td>
+              <router-link
+                to="projects/taskgroup"
+                target="_blank"
+              />
+            </td>
+            <td>
+              <q-badge class="c_badge green">
+                <span class="txt">완료</span>
+              </q-badge>
+            </td>
+            <td>TaskGroupPage</td>
+          </tr>
+          <tr>
+            <td>프로젝트 - 멤버관리(탭)</td>
+            <td>
+              <router-link
+                to="projects"
+                target="_blank"
+              />
+            </td>
+            <td>
+              <q-badge class="c_badge green">
+                <span class="txt">완료</span>
+              </q-badge>
+            </td>
+            <td>IndexPage</td>
+          </tr>
+          <tr>
+            <td>스토리지</td>
+            <td>
+              <router-link
+                to="storage"
+                target="_blank"
+              />
+            </td>
+            <td>
+              <q-badge class="c_badge green">
+                <span class="txt">완료</span>
+              </q-badge>
+            </td>
+            <td>IndexPage</td>
+          </tr>
+          <tr>
+            <td>내 이미지(탭)</td>
+            <td>
+              <router-link
+                to="images"
+                target="_blank"
+              />
+            </td>
+            <td>
+              <q-badge class="c_badge green">
+                <span class="txt">완료</span>
+              </q-badge>
+            </td>
+            <td>IndexPage</td>
+          </tr>
+          <tr>
+            <td>기본 이미지(탭)</td>
+            <td>
+              <router-link
+                to="images/basic"
+                target="_blank"
+              />
+            </td>
+            <td>
+              <q-badge class="c_badge green">
+                <span class="txt">완료</span>
+              </q-badge>
+            </td>
+            <td>BasicPage</td>
+          </tr>
+          <tr>
+            <td>공유받은 이미지(탭)</td>
+            <td>
+              <router-link
+                to="images/shared"
+                target="_blank"
+              />
+            </td>
+            <td>
+              <q-badge class="c_badge green">
+                <span class="txt">완료</span>
+              </q-badge>
+            </td>
+            <td>SharedPage</td>
+          </tr>
+          <tr>
+            <td>멤버</td>
+            <td>
+              <router-link
+                to="members"
+                target="_blank"
+              />
+            </td>
+            <td>
+              <q-badge class="c_badge green">
+                <span class="txt">완료</span>
+              </q-badge>
+            </td>
+            <td>IndexPage</td>
+          </tr>
+          <tr>
+            <td>멤버 상세</td>
+            <td>
+              <router-link
+                to="members/memberdetail"
+                target="_blank"
+              />
+            </td>
+            <td>
+              <q-badge class="c_badge green">
+                <span class="txt">완료</span>
+              </q-badge>
+            </td>
+            <td>MemberDetailPage</td>
+          </tr>
+          <tr>
+            <td>요금 메인</td>
+            <td>
+              <router-link
+                to="billing"
+                target="_blank"
+              />
+            </td>
+            <td>
+              <q-badge class="c_badge green">
+                <span class="txt">완료</span>
+              </q-badge>
+            </td>
+            <td>IndexPage</td>
+          </tr>
+          <tr>
+            <td>요금 - 멤버(탭)</td>
+            <td>
+              <router-link
+                to="billing/member"
+                target="_blank"
+              />
+            </td>
+            <td>
+              <q-badge class="c_badge green">
+                <span class="txt">완료</span>
+              </q-badge>
+            </td>
+            <td>MemberPage</td>
+          </tr>
+          <tr>
+            <td>요금 - 프로젝트(탭)</td>
+            <td>
+              <router-link
+                to="billing/project"
+                target="_blank"
+              />
+            </td>
+            <td>
+              <q-badge class="c_badge green">
+                <span class="txt">완료</span>
+              </q-badge>
+            </td>
+            <td>ProjectPage</td>
+          </tr>
+          <tr>
+            <td>요금 - 인스턴스 타입(탭)</td>
+            <td>
+              <router-link
+                to="billing/instance"
+                target="_blank"
+              />
+            </td>
+            <td>
+              <q-badge class="c_badge green">
+                <span class="txt">완료</span>
+              </q-badge>
+            </td>
+            <td>InstancePage</td>
+          </tr>
+          <tr>
+            <td>요금 - 스토리지(탭)</td>
+            <td>
+              <router-link
+                to="billing/storage"
+                target="_blank"
+              />
+            </td>
+            <td>
+              <q-badge class="c_badge green">
+                <span class="txt">완료</span>
+              </q-badge>
+            </td>
+            <td>StoragePage</td>
+          </tr>
+          <tr>
+            <td>고객지원(TBD)</td>
+            <td>
+              <router-link
+                to="support"
+                target="_blank"
+              />
+            </td>
+            <td>
+              <q-badge class="c_badge green">
+                <span class="txt">완료</span>
+              </q-badge>
+            </td>
+            <td>IndexPage</td>
+          </tr>
+          <tr>
+            <td>고객지원(TBD) - 1:1 문의</td>
+            <td>
+              <router-link
+                to="support/write"
+                target="_blank"
+              />
+            </td>
+            <td>
+              <q-badge class="c_badge green">
+                <span class="txt">완료</span>
+              </q-badge>
+            </td>
+            <td>WritePage</td>
+          </tr>
+          <tr>
+            <td>고객지원(TBD) - 문의하기 - 스토리지 할당량 변경</td>
+            <td>
+              <router-link
+                to="support/writeb"
+                target="_blank"
+              />
+            </td>
+            <td>
+              <q-badge class="c_badge green">
+                <span class="txt">완료</span>
+              </q-badge>
+            </td>
+            <td>WritebPage</td>
+          </tr>
+          <tr>
+            <td>고객지원(TBD) - 문의하기 - 리소스 할당량 변경</td>
+            <td>
+              <router-link
+                to="support/writec"
+                target="_blank"
+              />
+            </td>
+            <td>
+              <q-badge class="c_badge green">
+                <span class="txt">완료</span>
+              </q-badge>
+            </td>
+            <td>WritecPage</td>
+          </tr>
+          <tr>
+            <td>고객지원(TBD) - 문의하기 - 오류/버그 제보</td>
+            <td>
+              <router-link
+                to="support/writed"
+                target="_blank"
+              />
+            </td>
+            <td>
+              <q-badge class="c_badge green">
+                <span class="txt">완료</span>
+              </q-badge>
+            </td>
+            <td>WritedPage</td>
+          </tr>
+          <tr>
+            <td>고객지원(TBD) - 문의하기 - 기타문의</td>
+            <td>
+              <router-link
+                to="support/writee"
+                target="_blank"
+              />
+            </td>
+            <td>
+              <q-badge class="c_badge green">
+                <span class="txt">완료</span>
+              </q-badge>
+            </td>
+            <td>WriteedPage</td>
+          </tr>
+          <tr>
+            <td>고객지원(TBD) - 1:1문의 -스토리지 할당량 변경 문의내용 확인</td>
+            <td>
+              <router-link
+                to="support/questiondetail"
+                target="_blank"
+              />
+            </td>
+            <td>
+              <q-badge class="c_badge green">
+                <span class="txt">완료</span>
+              </q-badge>
+            </td>
+            <td>QuestionDetailPage</td>
+          </tr>
+          <tr>
+            <td>고객지원(TBD) - 1:1문의 -리소스 할당량 변경 문의내용 확인</td>
+            <td>
+              <router-link
+                to="support/questiondetailb"
+                target="_blank"
+              />
+            </td>
+            <td>
+              <q-badge class="c_badge green">
+                <span class="txt">완료</span>
+              </q-badge>
+            </td>
+            <td>QuestionDetailbPage</td>
+          </tr>
+          <tr>
+            <td>고객지원(TBD) - 1:1문의 -오류/버그제보 내용 확인</td>
+            <td>
+              <router-link
+                to="support/questiondetailc"
+                target="_blank"
+              />
+            </td>
+            <td>
+              <q-badge class="c_badge green">
+                <span class="txt">완료</span>
+              </q-badge>
+            </td>
+            <td>QuestionDetailcPage</td>
+          </tr>
+          <tr>
+            <td>고객지원(TBD) - 1:1문의 -기타문의 내용 확인</td>
+            <td>
+              <router-link
+                to="support/questiondetaild"
+                target="_blank"
+              />
+            </td>
+            <td>
+              <q-badge class="c_badge green">
+                <span class="txt">완료</span>
+              </q-badge>
+            </td>
+            <td>QuestionDetaildPage</td>
+          </tr>
+          <tr>
+            <td>내정보(탭)</td>
+            <td>
+              <router-link
+                to="my"
+                target="_blank"
+              />
+            </td>
+            <td>
+              <q-badge class="c_badge">
+                <span class="txt">진행중</span>
+              </q-badge>
+            </td>
+            <td>IndexPage</td>
+          </tr>
+          <tr>
+            <td>내알림(탭)</td>
+            <td>
+              <router-link
+                to="my/alarm"
+                target="_blank"
+              />
+            </td>
+            <td>
+              <q-badge class="c_badge green">
+                <span class="txt">완료</span>
+              </q-badge>
+            </td>
+            <td>AlarmPage</td>
+          </tr>
+          <tr>
+            <td>sshkey & apikey(탭)</td>
+            <td>
+              <router-link
+                to="key"
+                target="_blank"
+              />
+            </td>
+            <td>
+              <q-badge class="c_badge green">
+                <span class="txt">완료</span>
+              </q-badge>
+            </td>
+            <td>KeyPage</td>
+          </tr>
+          <tr>
+            <td>관리 - 프로젝트</td>
+            <td>
+              <router-link
+                to="manage/project"
+                target="_blank"
+              />
+            </td>
+            <td>
+              <q-badge class="c_badge green">
+                <span class="txt">완료</span>
+              </q-badge>
+            </td>
+            <td>ProjectPage</td>
+          </tr>
+          <tr>
+            <td>관리 - 인스턴스(탭)</td>
+            <td>
+              <router-link
+                to="manage/instance"
+                target="_blank"
+              />
+            </td>
+            <td>
+              <q-badge class="c_badge green">
+                <span class="txt">완료</span>
+              </q-badge>
+            </td>
+            <td>InstancePage</td>
+          </tr>
+          <tr>
+            <td>관리 - 태스크(탭)</td>
+            <td>
+              <router-link
+                to="manage/task"
+                target="_blank"
+              />
+            </td>
+            <td>
+              <q-badge class="c_badge green">
+                <span class="txt">완료</span>
+              </q-badge>
+            </td>
+            <td>TaskPage</td>
+          </tr>
+          <tr>
+            <td>관리 - 스토리지(탭)</td>
+            <td>
+              <router-link
+                to="manage/storage"
+                target="_blank"
+              />
+            </td>
+            <td>
+              <q-badge class="c_badge green">
+                <span class="txt">완료</span>
+              </q-badge>
+            </td>
+            <td>StoragePage</td>
+          </tr>
+          <tr>
+            <td>관리 - 멤버(탭)</td>
+            <td>
+              <router-link
+                to="manage/member"
+                target="_blank"
+              />
+            </td>
+            <td>
+              <q-badge class="c_badge green">
+                <span class="txt">완료</span>
+              </q-badge>
+            </td>
+            <td>MemberPage</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </template>
-<script>
+<script setup>
 import { ref } from "vue";
 import { useMeta } from "quasar";
 
-export default {
-  name: "IndexPage",
-  components: {
-
-  },
-  setup() {
-    const title = ref("Guide");
-    useMeta(() => ({
-      title: title.value,
-    }));
-    return {
-      ptitle: ref(title),
-    };
-  },
-};
+const title = ref("Console Page UI 구조");
+useMeta(() => ({
+  title: title.value,
+}));
+const ptitle = ref(title);
 </script>
 <script setup>
 </script>
 
 <style lang="scss" scoped>
-.section{
-  display:none;
-  h2{
-    margin-bottom:10px;
+.section {
+  h2 {
+    margin-bottom: 10px;
   }
-  ~ .section{
-    margin-top:50px;
+  ~ .section {
+    margin-top: 50px;
   }
 }
-.list{
-  >li{
-    &:not(:first-child){
-      margin-top:10px;
-    }
+th {
+  height: 40px !important;
+  text-align: left;
+}
+tr {
+  height: 40px !important;
+  th:first-child,
+  td:first-child {
+    padding: 0 30px;
+    text-align: left !important;
+  }
+  th:last-child,
+  td:last-child {
+    padding: 0 30px;
+  }
+}
+a {
+  width: 100%;
+  color: $primary;
+  &:before {
+    content: attr(href);
+    display: inline-block;
+    text-decoration: underline;
   }
 }
 </style>

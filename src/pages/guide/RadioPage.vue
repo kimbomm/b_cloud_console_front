@@ -8,34 +8,28 @@
       <section class="section">
         <h2 class="h6">class="c_radio"</h2>
         <div class="group">
-          <CRadio />
+          <div class="c_radiogroup">
+            <q-radio v-model="radCheck" val="rad1" label="워크스페이스 멤버" class="c_radio" />
+            <q-radio v-model="radCheck" val="rad1" label="정산 관리자" disable class="c_radio" />
+            <q-radio v-model="radCheck" val="rad2" label="게스트" class="c_radio" />
+            <q-radio v-model="radCheck" val="rad2" label="게스트" disable class="c_radio" />
+          </div>
         </div>
       </section>
     </div>
   </div>
 </template>
-<script>
+<script setup>
 import { ref } from "vue";
 import { useMeta } from "quasar";
-import CRadio from "components/common/CRadio.vue";
+// import CRadio from "components/common/CRadio.vue";
 
-export default {
-  name: "CheckboxPage",
-  components: {
-    CRadio,
-  },
-  setup() {
-    const title = ref("Radio");
-    useMeta(() => ({
-      title: title.value,
-    }));
-    return {
-      ptitle: ref(title),
-    };
-  },
-};
-</script>
-<script setup>
+const title = ref("Radio");
+useMeta(() => ({
+  title: title.value,
+}));
+const ptitle = ref(title);
+const radCheck = ref("rad1");
 </script>
 
 <style lang="scss" scoped>

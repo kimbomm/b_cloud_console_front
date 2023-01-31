@@ -32,30 +32,17 @@
     </div>
   </div>
 </template>
-<script>
+<script setup>
 import { ref } from "vue";
 import { useMeta } from "quasar";
 import CSegmented from "components/common/CSegmented.vue";
 
-export default {
-  name: "SegmentedPage",
-  components: {
-    CSegmented,
-  },
-  setup() {
-    const title = ref("Segmented Control");
-    useMeta(() => ({
-      title: title.value,
-    }));
-    return {
-      ptitle: ref(title),
-      model: ref("one"),
-      segModel2: ref("one"),
-    };
-  },
-};
-</script>
-<script setup>
+const title = ref("Segmented Control");
+useMeta(() => ({
+  title: title.value,
+}));
+const ptitle = ref(title);
+const segModel2 = ref("one");
 </script>
 
 <style lang="scss" scoped>

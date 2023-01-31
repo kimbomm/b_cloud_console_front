@@ -9,28 +9,18 @@
     </div>
   </q-page>
 </template>
-<script>
+<script setup>
 import { ref } from "vue";
 import { useMeta } from "quasar";
 
-export default {
-  name: "SurveyPage",
-  components: {
+const title = ref("고객지원");
+useMeta(() => ({
+  title: title.value,
+}));
 
-  },
-  setup() {
-    const title = ref("고객지원");
-    useMeta(() => ({
-      title: title.value,
-    }));
-    return {
-      ptitle: ref(title),
-    };
-  },
-};
-</script>
-<script setup>
+const ptitle = ref(title);
 </script>
 
 <style lang="scss" scoped>
+@import 'src/css/support';
 </style>

@@ -50,30 +50,18 @@
     </div>
   </div>
 </template>
-<script>
+<script setup>
 import { ref } from "vue";
 import { useMeta } from "quasar";
 import CPagination from "components/common/CPagination.vue";
 
-export default {
-  name: "PaginationPage",
-  components: {
-    CPagination,
-  },
-  setup() {
-    const title = ref("Pagination");
-    useMeta(() => ({
-      title: title.value,
-    }));
-    return {
-      ptitle: ref(title),
-      type2: ref(1),
-      type3: ref(5),
-    };
-  },
-};
-</script>
-<script setup>
+const title = ref("Pagination");
+useMeta(() => ({
+  title: title.value,
+}));
+const ptitle = ref(title);
+const type2 = ref(1);
+const type3 = ref(5);
 </script>
 
 <style lang="scss" scoped>

@@ -5,32 +5,24 @@
     </div>
     <!-- //.chead -->
     <div class="p-body">
-      <div class="coming"><p>페이지 준비중입니다.</p></div>
+      <div class="coming">
+        <p>페이지 준비중입니다.</p>
+      </div>
     </div>
   </q-page>
 </template>
-<script>
+<script setup>
 import { ref } from "vue";
 import { useMeta } from "quasar";
 
-export default {
-  name: "LoginPage",
-  components: {
+const title = ref("로그인");
+useMeta(() => ({
+  title: title.value,
+}));
 
-  },
-  setup() {
-    const title = ref("로그인");
-    useMeta(() => ({
-      title: title.value,
-    }));
-    return {
-      ptitle: ref(title),
-    };
-  },
-};
-</script>
-<script setup>
+const ptitle = ref(title);
 </script>
 
 <style lang="scss" scoped>
+@import "src/css/common.scss";
 </style>

@@ -23,21 +23,12 @@
     </q-btn>
   </div>
 </template>
-<script>
+<script setup>
 import { ref } from "vue";
 
-export default {
-  setup() {
-    return {
-      menumodel: ref("Workspace 01"),
-      menuopt: [
-        "Workspace 01", "Workspace 02", "Workspace 03", "Workspace 04 - Workspace 04",
-      ],
-    };
-  },
-};
-</script>
-<script setup>
-
+const menumodel = ref("Workspace 01");
+const menuopt = ref([
+  "Workspace 01", "Workspace 02", "Workspace 03", "Workspace 04 - Workspace 04",
+]);
 </script>
 <style lang="scss" scoped></style>
