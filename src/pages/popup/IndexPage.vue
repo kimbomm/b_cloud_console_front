@@ -1303,16 +1303,77 @@
     <!-- Start : [프로젝트 - 태스크] 태스크 - 로그 stdout(+ Full Size) 팝업 -->
     <q-dialog
       v-model="taskLogModal"
-      class="c_dialog medium"
+      class="c_dialog"
+      :class="taskLog ? 'full' : 'large'"
     >
-      <q-card>
+      <q-card v-model="taskLog">
         <q-card-section class="c_dialog_body">
           <p class="title">
             <strong>태스크 로그</strong>
           </p>
-          <section class="section">
+          <section class="section command">
             <p class="sub_title">명령어</p>
+            <div class="subject">
+              command command command command command command
+              command command command command command command command
+            </div>
           </section>
+          <div class="tasklog_group">
+            <div class="tasklog_header">
+              <q-tabs
+                v-model="taskLogTab"
+                align="left"
+                class="c_tabs"
+              >
+                <q-tab
+                  name="stdout"
+                  label="stdout"
+                />
+                <q-tab
+                  name="stderr"
+                  label="stderr"
+                />
+              </q-tabs>
+              <div class="c_btngroup">
+                <q-btn class="ibtn download">
+                  <span class="hidden">txt 파일 다운로드</span>
+                </q-btn>
+                <q-btn
+                  class="ibtn fullscreen"
+                  @click="taskLog = !taskLog"
+                >
+                  <template v-if="taskLog === false">
+                    <span class="hidden">전체화면</span>
+                  </template>
+                  <template v-else>
+                    <span class="hidden">화면축소</span>
+                  </template>
+                </q-btn>
+                <q-btn
+                  class="ibtn close"
+                  v-close-popup
+                  @click="taskLog = !taskLog"
+                >
+                  <span class="hidden">닫기</span>
+                </q-btn>
+              </div>
+            </div>
+            <div class="tasklog_body">
+              <q-item-section class="item_stdlog">
+                <pre>
+                  101 04:09:31.131465 97509 exec.cpp:162] Version: 1.5.1
+                  I1101 04:09:31.133281 97583 exec.cpp:236] Executor registered on agent
+                  c537b15d-ad89-472f-aa2c-e4d35aefa82e-S340
+                  I1101 04:09:31.133646 97584 executor.cpp:121] Registered docker executor
+                  on gpu-cloud-anode2.dakao.io
+                  I1101 04:09:31.134100 97586 executor.cpp:161] Starting task
+                  arthur.kyg@kakaobrain.com&lt;@&gt;task&lt;@&gt;
+                  4453b5bb-21ec-46af-993b-e861c6cc7407:2,
+                  grad, grad
+                </pre>
+              </q-item-section>
+            </div>
+          </div>
         </q-card-section>
         <q-card-actions class="c_dialog_foot">
           <q-btn
@@ -4275,6 +4336,7 @@ const projectInstanceImgCreateModal = ref(false);
 const workspaceHistoryAModal = ref(false);
 const workspaceHistoryBModal = ref(false);
 const taskLogModal = ref(false);
+const taskLog = ref(false);
 const projectMemberAddModal = ref(false);
 const projectMemberAuthChangeModal = ref(false);
 const projectMemberDeleteModal = ref(false);
@@ -4338,6 +4400,8 @@ const chkAll = ref(true);
 const chk1 = ref(true);
 const chk2 = ref(true);
 const chk3 = ref(true);
+
+const taskLogTab = ref("stdout");
 
 const listData = ref(true);
 
