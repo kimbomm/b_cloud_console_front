@@ -660,11 +660,11 @@
         >div{
           display: inline-block;
           &.com_box{
-            width:49.4%;
+            width:calc(100%/2 - 12px);
             height: 320px;
           }
-          &:first-child{margin-bottom: 18px;}
-          &:nth-child(2n){margin-left: 18px;}
+          &:first-child{margin-bottom: 24px;}
+          &:nth-child(2n){margin-left: 24px;}
 
           &.ins_img{
             .ins_img_cont{

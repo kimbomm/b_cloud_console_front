@@ -875,3 +875,12 @@
   align-items: center;
   justify-content: space-between;
 }
+
+/* Workspace Manager */
+.p-manage{
+  .resource_employ_btn{
+    .q-btn.line,.c_btn.line{
+      .ico{background-image: url(/src/assets/images/icon/16/ico_receipt_normal.svg);}
+    }
+  }
+}
