@@ -1,0 +1,24 @@
+/* Mypage */
+.p-my{
+    &.p-index{
+      .p-alarm{
+        .btn_area{margin-bottom: 30px;}
+        .table_set{
+          .l_set_inner{
+            .c_inpgroup{
+              display: inline-block;
+              .wsize450{
+                width: 450px;
+              }
+            }
+          }
+          .r_set_inner{
+            .view_cont_num{
+              display: inline-block;
+              width: 108px;
+            }
+          }
+        }
+      }
+    }
+  }

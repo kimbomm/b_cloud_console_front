@@ -4,6 +4,13 @@ $side-maxw: 316px;
 $side-minw: 80px;
 // Layout wrap l-wrap
 .q-layout{
+  &.l-sub{
+    .l-header{
+      .c_selectgroup{
+        display:none;
+      }
+    }
+  }
   &.sm-sidemenu{
     // sidemenu
     .q-drawer--left{
@@ -11,12 +18,17 @@ $side-minw: 80px;
       transform: translateX(0)!important;
     }
     .l-sidebar{
+      .textmenu,
       .txt,
       .sub_menu,
-      .q-btn{
+      .c_btn{
         display:none;
       }
-      .menu-link{
+      .iconmenu{
+        display:flex;
+      }
+      .menu-link,
+      .menu-item{
         width:48px;height:48px;
         &.router-link-exact-active{
           background-color:$surface03;
@@ -180,8 +192,44 @@ $side-minw: 80px;
   }
 }
 .l-sidebar{
+  .iconmenu{
+    display:none;
+    flex:1;
+    height:100%;
+  }
+  .ibtn{
+    width:48px;height:48px;
+    padding:0;
+    border:0;
+    border-radius:8px;
+    background:$color;
+    .ico{
+      width:32px;height:32px;
+      &.projects{
+        background-image:url($iconUrl + '32/ico_projects_normal.svg');
+      }
+      &.workspace{
+        background-image:url($iconUrl + '32/ico_manager_normal.svg');
+      }
+    }
+    @at-root .q-layout.sm-sidemenu .l-sidebar .ibtn{
+      &:focus,
+      &:active{
+        background:$surface03!important;
+        .ico{
+          &.projects{
+            background-image:url($iconUrl + '32/ico_projects_pressed.svg');
+          }
+          &.workspace{
+            background-image:url($iconUrl + '32/ico_manager_pressed.svg');
+          }
+        }
+      }
+    }
+  }
   .q-item{
     align-items: center;
+    position:relative;
     min-height: 48px;
     padding: 0 16px;
   }
@@ -195,6 +243,9 @@ $side-minw: 80px;
     background-repeat:no-repeat;
     background-position:50% 50%;
     color:$surface12;font-size:$fs14;
+    .q-focus-helper{
+      display:none;
+    }
     .ico{
       width:32px;height:32px;
       margin-right:8px;
@@ -212,11 +263,12 @@ $side-minw: 80px;
       background:none;
       color:$surface12;font-size:$fs14;
       &[modelvalue="true"]{
+        background-color:$surface03;
         color:$primary;
       }
       &.router-link-exact-active{
         background:none;
-        color:$primary;
+        // color:$primary;
         &[modelvalue="true"]{
           color:$primary;
         }
@@ -234,8 +286,9 @@ $side-minw: 80px;
     .ico + .txt{
       margin-left:0;
     }
-    &.c_icon{
+    &.add{
       flex:none;
+      position:absolute;top:12px;right:28px;
       width:24px;
       min-height:24px;
       height:24px;
@@ -245,6 +298,9 @@ $side-minw: 80px;
       .ico{
         width:16px;height:16px;
         background-image:url($iconUrl + '16/ico_plus_white.svg');
+      }
+      .txt{
+        display:none;
       }
     }
     &.menu-item{
@@ -257,9 +313,25 @@ $side-minw: 80px;
       &[modelvalue="true"]{
         color:$primary;
       }
+      .txt{
+        position:relative;
+        padding-right:16px;
+        &:after{
+          content:"";
+          display:inline-block;
+          position:absolute;top:-1px;right:0;
+          transition: .3s;
+          width:16px;height:16px;
+          background:url($iconUrl + '16/ico_arrow_down_gray.svg') no-repeat 50% 50%;
+          @at-root .l-sidebar .q-btn.menu-item[modelvalue="true"] .txt:after{
+            transform:rotate(180deg) translateY(-2px);
+            background-image:url($iconUrl + '16/ico_arrow_down_blue.svg');
+          }
+        }
+      }
     }
   }
-  .q-list--padding{
+  .menu-list{
     display:flex;
     flex-direction: column;
     flex:1;
@@ -280,23 +352,25 @@ $side-minw: 80px;
   }
   .sub_menu{
     padding: 0 16px;
-    >li{
-      .menu-link{
-        padding:0 8px;
-        color:$gray800;
-        &:before{
-          content:"";
-          flex:none;
-          display:inline-block;
-          width:32px;height:32px;
-          margin-right:8px;
-          background:url($iconUrl + '32/ico_menuopen_gray.svg') no-repeat 0 50%;
-        }
-        >span{
-          display:inline-block;
-          max-width:100%;
-          @include ellipsis;
-        }
+    .menu-link{
+      padding:0 8px;
+      background-color:$color;
+      color:$gray800;
+      &:before{
+        content:"";
+        flex:none;
+        display:inline-block;
+        width:32px;height:32px;
+        margin-right:8px;
+        background:url($iconUrl + '32/ico_menuopen_gray.svg') no-repeat 0 50%;
+      }
+      >span{
+        display:inline-block;
+        max-width:100%;
+        @include ellipsis;
+      }
+      &.router-link-exact-active{
+        color:$primary;
       }
     }
   }
@@ -316,12 +390,14 @@ $side-minw: 80px;
           background-image:url($iconUrl + '32/ico_manager_pressed.svg');
         }
       }
-      &.toggle{
-        &[modelvalue="true"],
-        &[modelvalue="true"].router-link-exact-active{
-          .ico{
-            background-image:url($iconUrl + '32/ico_manager_pressed.svg');
-          }
+      &[modelvalue="false"]{
+        .ico{
+          background-image:url($iconUrl + '32/ico_manager_normal.svg');
+        }
+      }
+      &[modelvalue="true"]{
+        .ico{
+          background-image:url($iconUrl + '32/ico_manager_pressed.svg');
         }
       }
     }
@@ -351,6 +427,9 @@ $side-minw: 80px;
     }
   }
   .projects{
+    .iconmenu{
+      padding:0 16px;
+    }
     .menu-link{
       .ico{
         background-image:url($iconUrl + '32/ico_projects_normal.svg');
@@ -363,6 +442,21 @@ $side-minw: 80px;
       &.toggle{
         &[modelvalue="true"],
         &[modelvalue="true"].router-link-exact-active{
+          .ico{
+            // background-image:url($iconUrl + '32/ico_projects_pressed.svg');
+          }
+        }
+      }
+    }
+    .q-btn{
+      &.c_icon{
+        margin-right:12px;
+      }
+      &.menu-item{
+        .ico{
+          background-image:url($iconUrl + '32/ico_projects_normal.svg');
+        }
+        &[modelvalue="true"]{
           .ico{
             background-image:url($iconUrl + '32/ico_projects_pressed.svg');
           }
@@ -414,23 +508,6 @@ $side-minw: 80px;
       &.router-link-exact-active{
         .ico{
           background-image:url($iconUrl + '32/ico_brlling_pressed.svg');
-        }
-      }
-    }
-  }
-  .projects{
-    .q-btn{
-      &.c_icon{
-        margin-right:12px;
-      }
-      &.menu-item{
-        .ico{
-          background-image:url($iconUrl + '32/ico_projects_normal.svg');
-        }
-        &[modelvalue="true"]{
-          .ico{
-            background-image:url($iconUrl + '32/ico_projects_pressed.svg');
-          }
         }
       }
     }
@@ -495,6 +572,9 @@ $side-minw: 80px;
       padding:0 8px;
       border-radius:8px;
       background:$white;
+      @at-root .q-layout.sm-sidemenu .l-sidebar .side_foot .mybox{
+        padding:0;
+      }
     }
     .myinfo{
       display:flex;
@@ -511,7 +591,10 @@ $side-minw: 80px;
         display:inline-block;
         position:absolute;top:0;left:0;
         width:32px;height:32px;
-        background:url($iconUrl + '32/ico_account_circle_gray.svg') no-repeat 50% 50%;
+        background:url($iconUrl + '32/ico_profile_normal.svg') no-repeat 50% 50%;
+        @at-root .q-layout.sm-sidemenu .l-sidebar .side_foot .myinfo:before{
+          display:none;
+        }
       }
     }
     .name{
@@ -523,7 +606,7 @@ $side-minw: 80px;
       @include ellipsis;
     }
     .q-btn{
-      &.more-menu{
+      &.more{
         flex:none;
         width:36px;height:36px;
         min-height:36px;
@@ -539,6 +622,21 @@ $side-minw: 80px;
         }
         .txt{
           display:none;
+        }
+        @at-root .q-layout.sm-sidemenu .l-sidebar .side_foot .q-btn.more{
+          width:48px;height:48px;
+          background:$color;
+          .ico{
+            width:32px;height:32px;
+            background-image:url($iconUrl + '32/ico_profile_normal.svg');
+          }
+          &:focus,
+          &:active{
+            background:$surface03;
+            .ico{
+              background-image:url($iconUrl + '32/ico_profile_pressed.svg');
+            }
+          }
         }
       }
     }
@@ -598,6 +696,14 @@ $side-minw: 80px;
   flex-direction: column;
   flex-wrap: wrap;
   flex:1;
+  .sub_title{
+    margin-bottom:32px;
+    color:$black;font-size:$fs20;font-weight:$bold;
+  }
+  .sub_ctitle{
+    margin-bottom:8px;
+    color:$black;font-size:$fs16;font-weight:$regular;
+  }
 }
 .p-foot{
 

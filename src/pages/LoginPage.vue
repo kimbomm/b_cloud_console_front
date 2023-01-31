@@ -5,7 +5,9 @@
     </div>
     <!-- //.chead -->
     <div class="p-body">
-      <div class="coming"><p>페이지 준비중입니다.</p></div>
+      <div class="coming">
+        <p>페이지 준비중입니다.</p>
+      </div>
     </div>
   </q-page>
 </template>
@@ -22,4 +24,5 @@ const ptitle = ref(title);
 </script>
 
 <style lang="scss" scoped>
+@import "src/css/common.scss";
 </style>

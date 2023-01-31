@@ -1,5 +1,9 @@
 <template>
-  <q-layout view="hHh Lpr lff" class="l-wrap l-guide" :class="drawer ? '' : 'sm-sidemenu'">
+  <q-layout
+    view="hHh Lpr lff"
+    class="l-wrap l-guide"
+    :class="drawer ? '' : 'sm-sidemenu'"
+  >
     <q-header class="l-header">
       <q-toolbar>
         <div class="h_title">
@@ -21,78 +25,156 @@
       :width="316"
     >
       <q-scroll-area class="fit">
-        <q-list padding class="menu-list">
+        <q-list
+          padding
+          class="menu-list"
+        >
           <q-item>
-            <router-link to="/guide" class="menu-link">Index</router-link>
+            <router-link
+              to="/guide"
+              class="menu-link"
+            >Index</router-link>
           </q-item>
           <q-item>
-            <router-link to="/guide/color" class="menu-link">Color</router-link>
+            <router-link
+              to="/guide/color"
+              class="menu-link"
+            >Color</router-link>
           </q-item>
           <q-item>
-            <router-link to="/guide/typo" class="menu-link">Typo</router-link>
+            <router-link
+              to="/guide/typo"
+              class="menu-link"
+            >Typo</router-link>
           </q-item>
           <q-item>
-            <router-link to="/guide/icon" class="menu-link">Icon</router-link>
+            <router-link
+              to="/guide/icon"
+              class="menu-link"
+            >Icon</router-link>
           </q-item>
           <q-item>
-            <router-link to="/guide/button" class="menu-link">Button</router-link>
+            <router-link
+              to="/guide/button"
+              class="menu-link"
+            >Button</router-link>
           </q-item>
           <q-item>
-            <router-link to="/guide/input" class="menu-link">Input</router-link>
+            <router-link
+              to="/guide/input"
+              class="menu-link"
+            >Input</router-link>
           </q-item>
           <q-item>
-            <router-link to="/guide/checkbox" class="menu-link">CheckBox</router-link>
+            <router-link
+              to="/guide/checkbox"
+              class="menu-link"
+            >CheckBox</router-link>
           </q-item>
           <q-item>
-            <router-link to="/guide/radio" class="menu-link">Radio</router-link>
+            <router-link
+              to="/guide/radio"
+              class="menu-link"
+            >Radio</router-link>
           </q-item>
           <q-item>
-            <router-link to="/guide/pagination" class="menu-link">Pagination</router-link>
+            <router-link
+              to="/guide/pagination"
+              class="menu-link"
+            >Pagination</router-link>
           </q-item>
           <q-item>
-            <router-link to="/guide/segmented" class="menu-link">SegmentedControl</router-link>
+            <router-link
+              to="/guide/segmented"
+              class="menu-link"
+            >SegmentedControl</router-link>
           </q-item>
           <q-item>
-            <router-link to="/guide/table" class="menu-link">Table</router-link>
+            <router-link
+              to="/guide/table"
+              class="menu-link"
+            >Table</router-link>
           </q-item>
           <q-item>
-            <router-link to="/guide/dropdown" class="menu-link">DropDwon</router-link>
+            <router-link
+              to="/guide/dropdown"
+              class="menu-link"
+            >DropDwon</router-link>
           </q-item>
           <q-item>
-            <router-link to="/guide/tabs" class="menu-link">Tabs</router-link>
+            <router-link
+              to="/guide/tabs"
+              class="menu-link"
+            >Tabs</router-link>
           </q-item>
           <q-item>
-            <router-link to="/guide/breadcrumb" class="menu-link">Breadcrumb</router-link>
+            <router-link
+              to="/guide/breadcrumb"
+              class="menu-link"
+            >Breadcrumb</router-link>
           </q-item>
           <q-item>
-            <router-link to="/guide/popover" class="menu-link">Popover</router-link>
+            <router-link
+              to="/guide/popover"
+              class="menu-link"
+            >Popover</router-link>
           </q-item>
           <q-item>
-            <router-link to="/guide/popup" class="menu-link">Popup</router-link>
+            <router-link
+              to="/guide/popup"
+              class="menu-link"
+            >Popup</router-link>
           </q-item>
           <!-- <q-item>
             <router-link to="/guide/toast" class="menu-link">Toast</router-link>
           </q-item> -->
           <q-item>
-            <router-link to="/guide/tooltip" class="menu-link">Tooltip</router-link>
+            <router-link
+              to="/guide/tooltip"
+              class="menu-link"
+            >Tooltip</router-link>
           </q-item>
           <q-item>
-            <router-link to="/guide/uploader" class="menu-link">Uploader</router-link>
+            <router-link
+              to="/guide/uploader"
+              class="menu-link"
+            >Uploader</router-link>
           </q-item>
           <q-item>
-            <router-link to="/guide/notify" class="menu-link">Notify(Toast)</router-link>
+            <router-link
+              to="/guide/notify"
+              class="menu-link"
+            >Notify(Toast)</router-link>
           </q-item>
           <q-item>
-            <router-link to="/guide/carousel" class="menu-link">Carousel</router-link>
+            <router-link
+              to="/guide/carousel"
+              class="menu-link"
+            >Carousel</router-link>
           </q-item>
           <q-item>
-            <router-link to="/guide/collapse" class="menu-link">Collapse</router-link>
+            <router-link
+              to="/guide/collapse"
+              class="menu-link"
+            >Collapse</router-link>
           </q-item>
           <q-item>
-            <router-link to="/guide/banner" class="menu-link">Banner</router-link>
+            <router-link
+              to="/guide/banner"
+              class="menu-link"
+            >Banner</router-link>
           </q-item>
           <q-item>
-            <router-link to="/guide/template" class="menu-link">Template</router-link>
+            <router-link
+              to="/guide/template"
+              class="menu-link"
+            >Template</router-link>
+          </q-item>
+          <q-item>
+            <router-link
+              to="/guide/chart"
+              class="menu-link"
+            >Chart</router-link>
           </q-item>
         </q-list>
       </q-scroll-area>
@@ -116,17 +198,17 @@ useMeta(metaData);
 const drawer = ref(false);
 </script>
 <style lang="scss" scoped>
-.h_title{
-  display:flex;
+.h_title {
+  display: flex;
   align-items: center;
-  font-size:$fs16;
-  line-height:1.3;
+  font-size: $fs16;
+  line-height: 1.3;
   letter-spacing: 0;
-  img{
+  img {
     vertical-align: middle;
   }
-  .tit{
-    margin-left:20px;
+  .tit {
+    margin-left: 20px;
   }
 }
 </style>

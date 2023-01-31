@@ -22,4 +22,5 @@ const ptitle = ref(title);
 </script>
 
 <style lang="scss" scoped>
+@import 'src/css/support';
 </style>
