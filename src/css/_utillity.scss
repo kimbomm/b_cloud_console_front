@@ -683,6 +683,11 @@ body.desktop .q-radio,
       }
     }
   }
+  &.choice_group{
+    .c_radio{
+      margin-right:40px;
+    }
+  }
 }
 /* Component - Uplaoder */
 .c_uploader{
@@ -992,6 +997,13 @@ body.desktop .q-radio,
       }
     }
   }
+  &.ldap{
+    transform:translateY(-120%);
+    max-width:350px;
+    .inner{
+      max-width:350px;
+    }
+  }
 }
 
 /* Component - tooltip .q-tooltip */
@@ -1136,6 +1148,28 @@ $dialog_foot:90px;
       background:$red-opacity04;
       color:$red;
     }
+    &.storage{
+      display:flex;
+      align-items: center;
+      padding:13px 16px;
+      border-radius:8px;
+      background:$surface01;
+      .ico{
+        display:inline-block;
+        width:32px;height:32px;
+        background:url($iconUrl + '32/ico_storage_popup_gray.svg') no-repeat 50% 50%;
+        + .name{
+          margin-left:12px;
+        }
+      }
+      .name{
+        color:$black;font-size:$fs14;
+      }
+      + .c_group,
+      + .c_inpgroup{
+        margin-top:12px;
+      }
+    }
     &.black{
       color:$black!important;
     }
@@ -1207,6 +1241,20 @@ $dialog_foot:90px;
   .c_banner.caution{
     + .section:not(:first-child){
       margin-top:30px;
+    }
+  }
+  .nodata{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    height:278px;
+    border-radius:12px;
+    background:$surface01;
+    &.bg_white{
+      background:$white;
+    }
+    .text{
+      color:$gray500;font-size:$fs14;
     }
   }
 }
@@ -2157,6 +2205,9 @@ $qhsize:48px;
       padding:0;
     }
   }
+  &.hsize136{
+    height:136px;
+  }
   &.hsize244{
     height:244px;
   }
@@ -2194,6 +2245,27 @@ $qhsize:48px;
     align-items: center;
     position:absolute;top:0;bottom:0;right:1px;
     margin:auto;
+    &.f_start{
+      align-items: flex-start;
+      top:1px;right:3px;
+      padding:5px 0;
+      border-radius:8px;
+    }
+  }
+}
+.c_group{
+  display:flex;
+  .c_inpgroup{
+    flex:1 auto;
+    max-width:438px;
+  }
+  > .c_btn{
+    flex:none;
+    width:100px;
+    margin-left:10px;
+  }
+  + .p_list{
+    margin-top:34px;
   }
 }
 .q-chip{
@@ -2241,6 +2313,9 @@ $qhsize:48px;
   }
   .quota{
     color:$black;
+    &.blue{
+      color:$blue;
+    }
   }
   .counter{
     display:inline-flex;
@@ -2472,6 +2547,9 @@ $qhsize:48px;
     .title{
       color:$black;font-size:$fs14;
     }
+    + .info.storage{
+      margin-top:12px;
+    }
   }
 }
 
@@ -2524,7 +2602,6 @@ $qhsize:48px;
     align-items: center;
     position:absolute;top:132px;bottom:80px;left:132px;right:132px;
     color:$secondary-light;font-size:$fs14;
-    border:1px solid;
   }
   .circle_state{
     display:flex;
@@ -3239,10 +3316,25 @@ $qhsize:48px;
       flex:none;
       width:94px;
     }
+    .capacity{
+      flex:none;
+    }
     .proj{
       width:calc(100% - 94px);
       @include ellipsis;
     }
+    .volume{
+      margin-top:0!important;
+      margin-left:12px;
+      color:$black;
+    }
+    .capacity,
+    .volume{
+      font-size:$fs16;
+    }
+  }
+  &.padding{
+    padding:16px;
   }
   &.request{
     flex-direction: row;
@@ -3266,6 +3358,9 @@ $qhsize:48px;
       margin:0!important;
       color:$gray800;font-size:$fs12;
     }
+  }
+  + .choice_group{
+    margin-top:24px;
   }
 }
 .q-item{
@@ -3322,6 +3417,46 @@ $qhsize:48px;
     &.storage{
       background-image:url($iconUrl + '32/ico_storage_popup_gray.svg');
     }
+    &.member{
+      background-image:url($iconUrl + '32/ico_account_circle_gray.svg');
+    }
+  }
+  &.stglist{
+    padding:0;
+    border-radius:8px;
+    .ico{
+      align-self: flex-start;
+      width:40px;height:40px;
+      border-radius:8px;
+      background-color:$surface01;
+    }
+    .item{
+      &:not(:first-child){
+        margin-top:30px;
+      }
+    }
+    .item_card{
+      padding:0 16px;
+    }
+    .name{
+      color:$black;font-weight:$regular;
+    }
+    .desc{
+      margin-top:8px!important;
+      > span{
+        color:$gray500;
+        &:first-child{
+          color:$gray800;
+          &:after{
+            content:"";
+            display:inline-block;
+            width:1px;height:12px;
+            margin:0 6px;
+            background:$surface04;
+          }
+        }
+      }
+    }
   }
   &.storage{
     padding:16px;
@@ -3346,6 +3481,24 @@ $qhsize:48px;
           }
         }
       }
+    }
+  }
+  &.sharemng{
+    padding:0;
+    .item{
+      padding:12px 0;
+    }
+    .item_card{
+      padding:0 16px;
+    }
+  }
+  &.membermng{
+    padding:0;
+    .item{
+      padding:12px 0;
+    }
+    .item_card{
+      padding:0 16px;
     }
   }
   &.bg{

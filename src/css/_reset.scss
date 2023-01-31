@@ -158,6 +158,9 @@ q {
 [disabled] *{
   cursor: default!important;
 }
+progress {
+  -webkit-appearance: none;
+}
 // Button Primary
 button{
   margin:0;padding:0;
