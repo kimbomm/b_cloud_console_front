@@ -63,11 +63,17 @@ const routes = [
     ],
   },
   {
+    path: "/login",
+    component: () => import("layouts/LoginLayout.vue"),
+    children: [
+      // 로그인
+      { path: "/login", component: () => import("pages/login/IndexPage.vue") },
+    ],
+  },
+  {
     path: "/common",
     component: () => import("layouts/SubLayout.vue"),
     children: [
-      // 로그인
-      { path: "/common/login", component: () => import("pages/common/LoginPage.vue") },
       // 회원탈퇴
       { path: "/common/withdrawal", component: () => import("pages/common/WithdrawalPage.vue") },
     ],
