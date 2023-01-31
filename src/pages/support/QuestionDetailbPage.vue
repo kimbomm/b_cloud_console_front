@@ -262,6 +262,7 @@ const listBtn = ref("목록");
 </script>
 
 <style lang="scss" scoped>
+@import 'src/css/support';
 .c_btngroup {
   display: flex;
   justify-content: flex-end;

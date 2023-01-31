@@ -140,7 +140,7 @@ import CPagination from "components/common/CPagination.vue";
 const visible = ref("A");
 const title = ref("워크스페이스 1 Member");
 const label = ref("전체");
-const label2 = ref("역활전체");
+const label2 = ref("역할전체");
 const label3 = ref("10");
 
 useMeta(() => ({
