@@ -57,6 +57,8 @@ module.exports = {
     "no-plusplus": "off",
     "no-param-reassign": "off",
     "no-void": "off",
+    "no-alert": "off",
+    "no-console": "off",
     "no-nested-ternary": "off",
     "max-classes-per-file": "off",
     "import/first": "off",
