@@ -6,6 +6,9 @@
       .table-set{
         .set{display: flex; align-items: center; }
         .set-l{
+          .member-input{
+            width: 292px;
+          }
           &_right{
             position: relative;
             padding-left: 33px;
@@ -45,7 +48,7 @@
       .u-info{
         padding: 30px;
         border-bottom: 1px solid $surface05;
-        &_name{font-size: $fs20; font-weight: $bold;}
+        &_name{margin-bottom: 4px; font-size: $fs20; font-weight: $bold;}
         &_email{margin-bottom: 20px; color: $gray500; font-size: $fs16;}
         &_intro{font-size: $fs14;}
       }
@@ -129,6 +132,42 @@
           color: $gray500; font-size: $fs16;
         }
       }
+      .p-tWrap{
+        display: flex;
+        > p{
+          margin: 0 24px 24px 0;
+          width: 216px;
+          color: $gray500; font-size: $fs16;
+          &:last-child{margin: 0 24px 0 0}
+        }
+      }
+      .sel-wrap{
+        display: flex; align-items: center;
+        margin-bottom: 24px;
+        &:last-child{
+          position: relative;
+          margin-bottom: 0;
+        }
+        .w216{
+          margin-right: 24px;
+          width: 216px;
+          &:last-child{margin-right: 0;}
+        }
+        .w250{width: 250px;}
+      }
+      .minus-btn{
+        position: absolute;
+        bottom: 63px; left: 514px;
+        .q-btn.c_icon.line .ico{
+          background: url($iconUrl + '32/ico_minus_normal.svg') no-repeat 50% 50%;
+        }
+        &:hover, &:active, &:focus{
+          .ico{
+            background-image: url($iconUrl + '32/ico_download_pressed.svg') no-repeat 50% 50%;
+          }
+        }
+      }
+
       .line{
         position: relative;
         &::after{

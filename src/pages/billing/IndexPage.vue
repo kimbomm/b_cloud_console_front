@@ -69,38 +69,38 @@
         <p class="pay-notice">*CPU, GPU 자원 이용 금액만 집계된 비용입니다.</p>
       </div>
       <div class="group">
-          <div class="table_set">
-            <q-select
-              outlined
-              placeholder="이름 타입 검색"
-              use-input
-              clearable
-              class="c_inpchip default_size"
-            >
-              <template v-slot:prepend>
-                <q-icon name="search" class="ico_search" />
-              </template>
-            </q-select>
-            <CDropdown
-              v-model:selected="selectedBasic"
-              :label="optLabel"
-              :options="optNumber"
-              class="auto_size"
-            />
-          </div>
-        </div>
-        <div class="group-table">
-          <CTable
-            :title="title"
-            :columns="columns"
-            :data="data"
-            :action-buttons="actionButtons"
-            @action="respAction"
+        <div class="table_set">
+          <q-select
+            outlined
+            placeholder="이름 타입 검색"
+            use-input
+            clearable
+            class="c_inpchip default_size"
+          >
+            <template v-slot:prepend>
+              <q-icon name="search" class="ico_search" />
+            </template>
+          </q-select>
+          <CDropdown
+            v-model:selected="selectedBasic"
+            :label="optLabel"
+            :options="optNumber"
+            class="auto_size"
           />
         </div>
-        <div class="group-page">
-          <CPagination />
-        </div>
+      </div>
+      <div class="group-table">
+        <CTable
+          :title="title"
+          :columns="columns"
+          :data="data"
+          :action-buttons="actionButtons"
+          @action="respAction"
+        />
+      </div>
+      <div class="group-page">
+        <CPagination />
+      </div>
     </div>
   </q-page>
 </template>

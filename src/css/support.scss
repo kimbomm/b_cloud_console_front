@@ -3,6 +3,9 @@
   .essential{ color: $secondary-coral;}
   &.p-index{
     .p-body{
+      .c_btngroup{
+        margin-top: 20px;;
+      }
       .sub-text{
         font-size: $fs24; font-weight: $bold;
       }
@@ -107,6 +110,10 @@
         }
         .req{
           margin-right: 50px;
+          color: $gray500; font-size: $fs16;
+        }
+        .req_title{
+          margin-bottom: 8px;
           font-size: $fs16;
         }
         .req-box{
@@ -211,7 +218,7 @@
 
       /** 답변 폼 **/
       .check-reply{
-        padding: 30px;
+        padding: 30px; margin-bottom: 24px;
         width: 100%;
         border-radius: 12px;
         background-color: $surface01;

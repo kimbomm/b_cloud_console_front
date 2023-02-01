@@ -20,6 +20,7 @@
                 outlined
                 v-model="suffix"
                 placeholder="이름 이메일 검색"
+                class="member-input"
               >
                 <template v-slot:prepend>
                   <q-icon name="search" class="ico_search" />
@@ -81,6 +82,7 @@
                 outlined
                 v-model="suffix"
                 placeholder="이름 상태 생성자 검색"
+                class="member-input"
               >
                 <template v-slot:prepend>
                   <q-icon name="search" class="ico_search" />
@@ -137,7 +139,7 @@ import CButton from "components/common/CButton.vue";
 import CTable from "src/components/common/CTable.vue";
 import CPagination from "components/common/CPagination.vue";
 
-const visible = ref("A");
+const visible = ref("B");
 const title = ref("워크스페이스 1 Member");
 const label = ref("전체");
 const label2 = ref("역할전체");
