@@ -150,3 +150,27 @@
     }
   }
 }
+
+
+/* ico common */
+.ico.low{
+  display: inline-block;
+  width: 8px; height: 8px;
+  margin-right: 8px;
+  vertical-align: unset;
+  background:url(/src/assets/images/icon/8/ico_low.svg) no-repeat 50% 50%;
+}
+.ico.middle{
+  display: inline-block;
+  width: 8px; height: 8px;
+  margin-right: 8px;
+  vertical-align: unset;
+  background:url(/src/assets/images/icon/8/ico_middle.svg) no-repeat 50% 50%;
+}
+.ico.high{
+  display: inline-block;
+  width: 8px; height: 8px;
+  margin-right: 8px;
+  vertical-align: unset;
+  background:url(/src/assets/images/icon/8/ico_high.svg) no-repeat 50% 50%;
+}

@@ -191,9 +191,9 @@
                       </q-popup-edit>
                     </q-btn>
                   </p>
-                  <p class="com_tag"><i class="ico state_low" />0% ~ 50%</p>
-                  <p class="com_tag"><i class="ico state_middle" />51% ~ 90%</p>
-                  <p class="com_tag"><i class="ico state_high" />91% ~ 100%</p>
+                  <p class="com_tag"><i class="ico low" />0% ~ 50%</p>
+                  <p class="com_tag"><i class="ico middle" />51% ~ 90%</p>
+                  <p class="com_tag"><i class="ico high" />91% ~ 100%</p>
                 </div>
               </div>
             </div>
