@@ -109,6 +109,50 @@
                 </div>
               </div>
             </li>
+            <li class="box_list03">
+              <div class="mmh_cont03 mmh_com">
+                <div class="cont_head">
+                  <h3>
+                    <i class="ico cpu" />
+                  </h3>
+
+                  <div class="cont_head_inner">
+                    <p class="head_txt">Tesla A100_40G 할당량</p>
+                  </div>
+                </div>
+                <div class="cont_main">
+                  <p class="percentage_txt">
+                    <span class="now_percentage">122</span>/ 400
+                  </p>
+                </div>
+                <div class="cont_footer">
+                  <p class="progress_percentage_txt">12%</p>
+                  <div class="progress_bar_area"></div>
+                </div>
+              </div>
+            </li>
+            <li class="box_list04">
+              <div class="mmh_cont04 mmh_com">
+                <div class="cont_head">
+                  <h3>
+                    <i class="ico cpu" />
+                  </h3>
+
+                  <div class="cont_head_inner">
+                    <p class="head_txt">Tesla A100_80G 할당량</p>
+                  </div>
+                </div>
+                <div class="cont_main">
+                  <p class="percentage_txt">
+                    <span class="now_percentage">43</span>/ 300
+                  </p>
+                </div>
+                <div class="cont_footer">
+                  <p class="progress_percentage_txt">75%</p>
+                  <div class="progress_bar_area"></div>
+                </div>
+              </div>
+            </li>
           </ul>
         </div>
         <div class="manage_main_area">
@@ -147,9 +191,9 @@
                       </q-popup-edit>
                     </q-btn>
                   </p>
-                  <p class="com_tag green_tag">0% ~ 50%</p>
-                  <p class="com_tag yellow_tag">51% ~ 90%</p>
-                  <p class="com_tag red_tag">91% ~ 100%</p>
+                  <p class="com_tag"><i class="ico state_low" />0% ~ 50%</p>
+                  <p class="com_tag"><i class="ico state_middle" />51% ~ 90%</p>
+                  <p class="com_tag"><i class="ico state_high" />91% ~ 100%</p>
                 </div>
               </div>
             </div>

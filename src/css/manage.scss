@@ -1,5 +1,29 @@
 /* Workspace Manager */
 .p-manage{
+  /* ico common */
+  .state{
+    &_low{
+      display: inline-block;
+      width: 8px; height: 8px;
+      margin-right: 8px;
+      vertical-align: unset;
+      background:url(/src/assets/images/icon/8/ico_low.svg) no-repeat 50% 50%;
+    }
+    &_middle{
+      display: inline-block;
+      width: 8px; height: 8px;
+      margin-right: 8px;
+      vertical-align: unset;
+      background:url(/src/assets/images/icon/8/ico_middle.svg) no-repeat 50% 50%;
+    }
+    &_high{
+      display: inline-block;
+      width: 8px; height: 8px;
+      margin-right: 8px;
+      vertical-align: unset;
+      background:url(/src/assets/images/icon/8/ico_high.svg) no-repeat 50% 50%;
+    }
+  }
   /* Projects */
   &.p-project{
     .manage_main_head{
@@ -140,29 +164,8 @@
                 }
               }
               .com_tag{
-                &::before{
-                  content:'';
-                  display: inline-block;
-                  width: 8px; height: 8px;
-                  border-radius: 50%;
-                  margin-right: 8px;
-                }
-              }
-              .green_tag{
-                &::before{
-                  background-color: $green;
-                }
-              }
-              .yellow_tag{
-                margin:0 14px;
-                &::before{
-                  background-color: $yellow;
-                }
-              }
-              .red_tag{
-                &::before{
-                  background-color: $red;
-                }
+                margin-right: 14px;
+                &:last-child{margin-right: 0px;}
               }
             }
           }
