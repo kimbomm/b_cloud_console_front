@@ -120,18 +120,18 @@
           >
             <span class="txt">프로젝트 - 인스턴스 - 이미지 생성</span>
           </q-btn>
-          <q-btn
-            class="c_btn line"
+          <!-- <q-btn
+            class="c_btn"
             @click="workspaceHistoryAModal = true"
           >
-            <span class="txt">A 워크스페이스 리소스 사용 이력(꺽은선 그래프 + 달력 + 시계)</span>
+            <span class="txt">A 워크스페이스 리소스 사용 이력(꺽은선 그래프 + 달력 + 시계)(TBD)</span>
           </q-btn>
           <q-btn
-            class="c_btn line"
+            class="c_btn"
             @click="workspaceHistoryBModal = true"
           >
-            <span class="txt">B 워크스페이스 리소스 사용 이력(꺽은선 그래프 + 달력 + 시계)</span>
-          </q-btn>
+            <span class="txt">B 워크스페이스 리소스 사용 이력(꺽은선 그래프 + 달력 + 시계)(TBD)</span>
+          </q-btn> -->
         </div>
       </section>
 
@@ -1303,16 +1303,77 @@
     <!-- Start : [프로젝트 - 태스크] 태스크 - 로그 stdout(+ Full Size) 팝업 -->
     <q-dialog
       v-model="taskLogModal"
-      class="c_dialog medium"
+      class="c_dialog"
+      :class="taskLog ? 'full' : 'large'"
     >
-      <q-card>
+      <q-card v-model="taskLog">
         <q-card-section class="c_dialog_body">
           <p class="title">
             <strong>태스크 로그</strong>
           </p>
-          <section class="section">
+          <section class="section command">
             <p class="sub_title">명령어</p>
+            <div class="subject">
+              command command command command command command
+              command command command command command command command
+            </div>
           </section>
+          <div class="tasklog_group">
+            <div class="tasklog_header">
+              <q-tabs
+                v-model="taskLogTab"
+                align="left"
+                class="c_tabs"
+              >
+                <q-tab
+                  name="stdout"
+                  label="stdout"
+                />
+                <q-tab
+                  name="stderr"
+                  label="stderr"
+                />
+              </q-tabs>
+              <div class="c_btngroup">
+                <q-btn class="ibtn download">
+                  <span class="hidden">txt 파일 다운로드</span>
+                </q-btn>
+                <q-btn
+                  class="ibtn fullscreen"
+                  @click="taskLog = !taskLog"
+                >
+                  <template v-if="taskLog === false">
+                    <span class="hidden">전체화면</span>
+                  </template>
+                  <template v-else>
+                    <span class="hidden">화면축소</span>
+                  </template>
+                </q-btn>
+                <q-btn
+                  class="ibtn close"
+                  v-close-popup
+                  @click="taskLog = !taskLog"
+                >
+                  <span class="hidden">닫기</span>
+                </q-btn>
+              </div>
+            </div>
+            <div class="tasklog_body">
+              <q-item-section class="item_stdlog">
+                <pre>
+                  101 04:09:31.131465 97509 exec.cpp:162] Version: 1.5.1
+                  I1101 04:09:31.133281 97583 exec.cpp:236] Executor registered on agent
+                  c537b15d-ad89-472f-aa2c-e4d35aefa82e-S340
+                  I1101 04:09:31.133646 97584 executor.cpp:121] Registered docker executor
+                  on gpu-cloud-anode2.dakao.io
+                  I1101 04:09:31.134100 97586 executor.cpp:161] Starting task
+                  arthur.kyg@kakaobrain.com&lt;@&gt;task&lt;@&gt;
+                  4453b5bb-21ec-46af-993b-e861c6cc7407:2,
+                  grad, grad
+                </pre>
+              </q-item-section>
+            </div>
+          </div>
         </q-card-section>
         <q-card-actions class="c_dialog_foot">
           <q-btn
@@ -1326,40 +1387,827 @@
     <!-- End : [프로젝트 - 태스크] 태스크 - 로그 stdout(+ Full Size) 팝업 -->
 
     <!-- Start : [프로젝트 - 멤버관리] 권한 변경 불가 안내 Alert 팝업 -->
-
+    <q-dialog
+      v-model="alertMemberAuthNotModal"
+      class="c_dialog"
+    >
+      <q-card>
+        <q-card-section
+          style="max-height:290px"
+          class="c_dialog_body"
+        >
+          <p class="title">
+            <strong>프로젝트 관리자가 1명인 경우,<br />관리자에 대한 권한 변경이 불가능합니다.</strong>
+          </p>
+        </q-card-section>
+        <q-card-actions class="c_dialog_foot">
+          <q-btn
+            label="확인"
+            class="primary"
+            v-close-popup
+          />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
     <!-- End : [프로젝트 - 멤버관리] 권한 변경 불가 안내 Alert 팝업 -->
 
     <!-- Start : [프로젝트 - 멤버관리] 삭제 불가 안내 Alert 팝업 -->
+    <q-dialog
+      v-model="alertMemberDelNotModal"
+      class="c_dialog"
+    >
+      <q-card>
+        <q-card-section
+          style="max-height:290px"
+          class="c_dialog_body"
+        >
+          <p class="title">
+            <strong>이용중인 태스크/인스턴스가 있어<br />멤버 삭제가 불가능합니다.</strong>
+          </p>
+        </q-card-section>
+        <q-card-actions class="c_dialog_foot">
+          <q-btn
+            label="확인"
+            class="primary"
+            v-close-popup
+          />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
     <!-- End : [프로젝트 - 멤버관리] 삭제 불가 안내 Alert 팝업 -->
 
     <!-- Start : [프로젝트 - 멤버관리] 멤버 - 추가 -->
+    <q-dialog
+      v-model="projectMemberAddModal"
+      class="c_dialog medium"
+    >
+      <q-card>
+        <q-card-section class="c_dialog_body">
+          <p class="title">
+            <strong>프로젝트 멤버 추가</strong>
+          </p>
+
+          <div class="c_group">
+            <div class="c_inpgroup">
+              <q-select
+                outlined
+                v-model="shareChipModel"
+                placeholder="사용자 이메일 입력"
+                use-input
+                use-chips
+                multiple
+                input-debounce="0"
+                @new-value="createValue"
+                :options="filterOptions"
+                @filter="chipFilterFn"
+                class="c_inpchip"
+              >
+                <template v-slot:prepend>
+                  <q-icon
+                    name="search"
+                    class="ico_search"
+                  />
+                </template>
+                <template v-slot:append>
+                  <div class="slotopt"></div>
+                </template>
+                <template v-slot:no-option>
+                  <q-item class="no_data">
+                    <q-item-section>
+                      검색 결과 없습니다.
+                    </q-item-section>
+                  </q-item>
+                </template>
+              </q-select>
+              <div class="c_selectgroup f_start">
+                <CDropdown
+                  v-model:selected="memberSelModel"
+                  :label="'프로젝트 관리자'"
+                  :options="memberSelOptions"
+                  :type="'text'"
+                />
+              </div>
+            </div>
+            <q-btn class="c_btn medium add">
+              <span class="txt">추가하기</span>
+            </q-btn>
+          </div>
+          <!-- 검색 완료 -->
+          <!-- <q-list class="p_list membermng">
+            <q-item class="item">
+              <i class="ico member" />
+              <q-item-section class="item_card">
+                <q-item-label class="name">root.choi</q-item-label>
+                <q-item-label class="mail">root.choi@kakaobrain.com</q-item-label>
+              </q-item-section>
+              <CDropdown
+                v-model:selected="memberSelModel"
+                :label="'멤버'"
+                :options="memberSelOptions"
+                :type="'text'"
+              />
+            </q-item>
+            <q-item class="item">
+              <i class="ico member" />
+              <q-item-section class="item_card">
+                <q-item-label class="name">김나온</q-item-label>
+                <q-item-label class="mail">naon12@gmail.com</q-item-label>
+              </q-item-section>
+              <CDropdown
+                v-model:selected="memberSelModel"
+                :label="'멤버'"
+                :options="memberSelOptions"
+                :type="'text'"
+              />
+            </q-item>
+            <q-item class="item">
+              <i class="ico member" />
+              <q-item-section class="item_card">
+                <q-item-label class="name">김나온</q-item-label>
+                <q-item-label class="mail">naon12@gmail.com</q-item-label>
+              </q-item-section>
+              <CDropdown
+                v-model:selected="memberSelModel"
+                :label="'멤버'"
+                :options="memberSelOptions"
+                :type="'text'"
+              />
+            </q-item>
+          </q-list> -->
+        </q-card-section>
+        <q-card-actions class="c_dialog_foot">
+          <q-btn
+            label="취소"
+            class="line"
+            v-close-popup
+          />
+          <q-btn
+            label="확인"
+            class="primary"
+            v-close-popup
+            disable
+          />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
     <!-- End : [프로젝트 - 멤버관리] 멤버 - 추가 -->
 
     <!-- Start : [프로젝트 - 멤버관리] 권한변경 -->
+    <q-dialog
+      v-model="projectMemberAuthChangeModal"
+      class="c_dialog medium"
+    >
+      <q-card>
+        <q-card-section
+          style="max-height:290px"
+          class="c_dialog_body"
+        >
+          <p class="title">
+            <strong>프로젝트 권한 변경</strong>
+          </p>
+          <q-item-section class="item_card member bg f_start">
+            <q-item-label class="name">{{ memberName }}</q-item-label>
+            <q-item-label class="mail">{{ memberMail }}</q-item-label>
+          </q-item-section>
+
+          <div class="c_radiogroup f_wrap choice_group">
+            <q-radio
+              v-model="radCheck"
+              val="rad1"
+              label="프로젝트 관리자"
+              class="c_radio"
+            />
+            <q-radio
+              v-model="radCheck"
+              val="rad2"
+              label="멤버"
+              class="c_radio"
+            />
+          </div>
+        </q-card-section>
+        <q-card-actions class="c_dialog_foot">
+          <q-btn
+            label="취소"
+            class="line"
+            v-close-popup
+          />
+          <q-btn
+            label="저장"
+            class="primary"
+            v-close-popup
+          />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
     <!-- End : [프로젝트 - 멤버관리] 권한변경 -->
 
     <!-- Start : [프로젝트 - 멤버관리] 멤버삭제 -->
+    <q-dialog
+      v-model="projectMemberDeleteModal"
+      class="c_dialog"
+    >
+      <q-card>
+        <q-card-section
+          style="max-height:290px"
+          class="c_dialog_body"
+        >
+          <p class="title">
+            <strong>프로젝트에서 삭제 하시겠습니까?</strong>
+          </p>
+          <q-item-section class="item_card member negative f_start">
+            <q-item-label class="name">{{ memberName }}</q-item-label>
+            <q-item-label class="mail">{{ memberMail }}</q-item-label>
+          </q-item-section>
+        </q-card-section>
+        <q-card-actions class="c_dialog_foot">
+          <q-btn
+            label="취소"
+            class="line"
+            v-close-popup
+          />
+          <q-btn
+            label="삭제"
+            class="primary"
+            v-close-popup
+          />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
     <!-- End : [프로젝트 - 멤버관리] 멤버삭제 -->
 
     <!-- Start : [스토리지] 스토리지 삭제 확인 Alert 팝업 -->
+    <q-dialog
+      v-model="alertStorageDeleteModal"
+      class="c_dialog"
+    >
+      <q-card>
+        <q-card-section
+          style="max-height:290px"
+          class="c_dialog_body"
+        >
+          <p class="title">
+            <strong>스토리지를 삭제하시겠습니까?</strong>
+          </p>
+          <p class="desc">
+            스토리지에 저장된 데이터는 모두 삭제되며,<br />삭제된 내용은 복구되지 않습니다.
+          </p>
+          <div class="info negative">
+            aa스토리지 이름
+          </div>
+        </q-card-section>
+        <q-card-actions class="c_dialog_foot">
+          <q-btn
+            label="취소"
+            class="line"
+            v-close-popup
+          />
+          <q-btn
+            label="확인"
+            class="primary"
+            v-close-popup
+          />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
     <!-- End : [스토리지] 스토리지 삭제 확인 Alert 팝업 -->
 
     <!-- Start : [스토리지] 스토리지 삭제 불가 안내 Alert 팝업 -->
+    <q-dialog
+      v-model="alertStorageDelNotModal"
+      class="c_dialog"
+    >
+      <q-card>
+        <q-card-section
+          style="max-height:290px"
+          class="c_dialog_body"
+        >
+          <p class="title">
+            <strong>현재 이용중인 사용자가 있어<br />스토리지 삭제가 불가능합니다. </strong>
+          </p>
+        </q-card-section>
+        <q-card-actions class="c_dialog_foot">
+          <q-btn
+            label="확인"
+            class="primary"
+            v-close-popup
+          />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
     <!-- End : [스토리지] 스토리지 삭제 불가 안내 Alert 팝업 -->
 
     <!-- Start : [스토리지] 개인스토리지 추가 -->
+    <q-dialog
+      v-model="storageAddModal"
+      class="c_dialog large"
+    >
+      <q-card>
+        <q-card-section class="c_dialog_body">
+          <p class="title">
+            <strong>개인 스토리지 추가</strong>
+          </p>
+          <section class="section">
+            <p class="sub_title">이름<i class="ess">*</i></p>
+            <div class="c_inpgroup">
+              <q-input
+                outlined
+                v-model="textName"
+                placeholder="최소 2자 최대 30자"
+                clearable
+                class="wsize_full"
+              />
+            </div>
+          </section>
+          <section class="section">
+            <p class="sub_title">설명</p>
+            <div class="c_inpgroup">
+              <q-input
+                outlined
+                v-model="textDesc"
+                bottom-slots
+                type="textarea"
+                placeholder="스토리지 설명"
+                clearable
+                counter
+                :count="10"
+                maxlength="500"
+                class="wsize_full hsize244"
+                :input-style="{height: '100%'}"
+              >
+                <!-- <template v-slot:hint>
+                    Description
+                  </template> -->
+              </q-input>
+            </div>
+          </section>
+          <section class="section mt24">
+            <p class="sub_title">스토리지 용량</p>
+            <div class="c_inpgroup flex-end">
+              <q-input
+                outlined
+                v-model="quota2"
+                type="number"
+                placeholder="50GiB 단위 입력"
+                clearable
+                class="inp_unit"
+              >
+                <template v-slot:append>
+                  <span class="unit">GiB</span>
+                </template>
+              </q-input>
+              <span class="desc">최대 50,000</span>
+            </div>
+          </section>
+        </q-card-section>
+        <q-card-actions class="c_dialog_foot">
+          <q-btn
+            label="취소"
+            class="line"
+            v-close-popup
+          />
+          <q-btn
+            label="확인"
+            class="primary"
+            v-close-popup
+            disable
+          />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
     <!-- End : [스토리지] 개인스토리지 추가 -->
 
     <!-- Start : [스토리지] 공유관리 -->
+    <q-dialog
+      v-model="storageShareMngModal"
+      class="c_dialog medium"
+    >
+      <q-card>
+        <q-card-section
+          class="c_dialog_body"
+          style="max-height:684px"
+        >
+          <p class="title">
+            <strong>공유 관리</strong>
+          </p>
+          <!-- <q-banner class="c_banner caution small">
+            <template v-slot:avatar>
+              <q-icon class="noti" />
+            </template>
+            <div class="bn_head">
+              <strong class="title">스토리지 공유 설정 불가</strong>
+            </div>
+            <div class="bn_body">
+              현재 이용중인 사용자가 있어 설정이 불가능 합니다.
+            </div>
+          </q-banner> -->
+          <div class="info storage">
+            <i class="ico" />
+            <span class="name">root 공유용</span>
+          </div>
+          <div class="c_group">
+            <div class="c_inpgroup">
+              <q-select
+                outlined
+                v-model="shareChipModel"
+                placeholder="사용자, 프로젝트, 워크스페이스 검색"
+                use-input
+                use-chips
+                multiple
+                input-debounce="0"
+                @new-value="createValue"
+                :options="filterOptions"
+                @filter="chipFilterFn"
+                class="c_inpchip"
+              >
+                <template v-slot:prepend>
+                  <q-icon
+                    name="search"
+                    class="ico_search"
+                  />
+                </template>
+                <template v-slot:append>
+                  <div class="slotopt"></div>
+                </template>
+                <template v-slot:no-option>
+                  <q-item class="no_data">
+                    <q-item-section>
+                      검색 결과 없습니다.
+                    </q-item-section>
+                  </q-item>
+                </template>
+              </q-select>
+              <div class="c_selectgroup f_start">
+                <CDropdown
+                  v-model:selected="shareSelModel"
+                  :label="'읽기쓰기'"
+                  :options="shareSelOptions"
+                  :type="'text'"
+                />
+              </div>
+            </div>
+            <q-btn class="c_btn medium add">
+              <span class="txt">추가하기</span>
+            </q-btn>
+          </div>
+          <template v-if="listData === listData">
+            <q-list class="p_list sharemng">
+              <template
+                v-for="k in 5"
+                :key="k"
+              >
+                <q-item class="item">
+                  <i class="ico member" />
+                  <q-item-section class="item_card">
+                    <q-item-label class="name">{{ memberName }}</q-item-label>
+                    <q-item-label class="mail">{{ memberMail }}</q-item-label>
+                  </q-item-section>
+                  <CDropdown
+                    v-model:selected="shareSelModel"
+                    :label="'읽기쓰기'"
+                    :options="shareSelOptions"
+                    :type="'text'"
+                  />
+                </q-item>
+                <q-item class="item">
+                  <i class="ico note" />
+                  <q-item-section class="item_card">
+                    <q-item-label class="name">00프로젝트</q-item-label>
+                    <q-item-label class="mail">프로젝트</q-item-label>
+                  </q-item-section>
+                  <CDropdown
+                    v-model:selected="shareSelModel"
+                    :label="'읽기쓰기'"
+                    :options="shareSelOptions"
+                    :type="'text'"
+                  />
+                </q-item>
+              </template>
+            </q-list>
+          </template>
+          <template v-else>
+            <div class="nodata bg_white">
+              <p class="text">공유된 사용자가 없습니다.</p>
+            </div>
+          </template>
+        </q-card-section>
+        <q-card-actions class="c_dialog_foot bdr">
+          <q-btn
+            label="확인"
+            class="primary"
+            v-close-popup
+          />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
     <!-- End : [스토리지] 공유관리 -->
 
+    <!-- Start : [스토리지] 공유관리(현재 이용중인 사용자가 있는 경우) -->
+    <q-dialog
+      v-model="storageShareMngIngModal"
+      class="c_dialog medium"
+    >
+      <q-card>
+        <q-card-section
+          class="c_dialog_body"
+          style="max-height:684px"
+        >
+          <p class="title">
+            <strong>공유 관리</strong>
+          </p>
+          <q-banner class="c_banner caution small">
+            <template v-slot:avatar>
+              <q-icon class="noti" />
+            </template>
+            <div class="bn_head">
+              <strong class="title">스토리지 공유 설정 불가</strong>
+            </div>
+            <div class="bn_body">
+              현재 이용중인 사용자가 있어 설정이 불가능 합니다.
+            </div>
+          </q-banner>
+          <div class="info storage">
+            <i class="ico" />
+            <span class="name">root 공유용</span>
+          </div>
+          <div class="c_group">
+            <div class="c_inpgroup">
+              <q-select
+                outlined
+                v-model="shareChipModel"
+                placeholder="사용자, 프로젝트, 워크스페이스 검색"
+                use-input
+                use-chips
+                multiple
+                input-debounce="0"
+                @new-value="createValue"
+                :options="filterOptions"
+                @filter="chipFilterFn"
+                class="c_inpchip"
+              >
+                <template v-slot:prepend>
+                  <q-icon
+                    name="search"
+                    class="ico_search"
+                  />
+                </template>
+                <template v-slot:append>
+                  <div class="slotopt"></div>
+                </template>
+                <template v-slot:no-option>
+                  <q-item class="no_data">
+                    <q-item-section>
+                      검색 결과 없습니다.
+                    </q-item-section>
+                  </q-item>
+                </template>
+              </q-select>
+              <div class="c_selectgroup f_start">
+                <CDropdown
+                  v-model:selected="shareSelModel"
+                  :label="'읽기쓰기'"
+                  :options="shareSelOptions"
+                  :type="'text'"
+                />
+              </div>
+            </div>
+            <q-btn class="c_btn medium add">
+              <span class="txt">추가하기</span>
+            </q-btn>
+          </div>
+          <template v-if="listData === listData">
+            <q-list class="p_list sharemng">
+              <template
+                v-for="k in 5"
+                :key="k"
+              >
+                <q-item class="item">
+                  <i class="ico member" />
+                  <q-item-section class="item_card">
+                    <q-item-label class="name">{{ memberName }}</q-item-label>
+                    <q-item-label class="mail">{{ memberMail }}</q-item-label>
+                  </q-item-section>
+                  <CDropdown
+                    v-model:selected="shareSelModel"
+                    :label="'읽기쓰기'"
+                    :options="shareSelOptions"
+                    :type="'text'"
+                  />
+                </q-item>
+                <q-item class="item">
+                  <i class="ico note" />
+                  <q-item-section class="item_card">
+                    <q-item-label class="name">00프로젝트</q-item-label>
+                    <q-item-label class="mail">프로젝트</q-item-label>
+                  </q-item-section>
+                  <CDropdown
+                    v-model:selected="shareSelModel"
+                    :label="'읽기쓰기'"
+                    :options="shareSelOptions"
+                    :type="'text'"
+                  />
+                </q-item>
+              </template>
+            </q-list>
+          </template>
+          <template v-else>
+            <div class="nodata bg_white">
+              <p class="text">공유된 사용자가 없습니다.</p>
+            </div>
+          </template>
+        </q-card-section>
+        <q-card-actions class="c_dialog_foot bdr">
+          <q-btn
+            label="확인"
+            class="primary"
+            v-close-popup
+          />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
+    <!-- End : [스토리지] 공유관리(현재 이용중인 사용자가 있는 경우) -->
+
     <!-- Start : [스토리지] 이용 현황 -->
+    <q-dialog
+      v-model="storageUsageStatusModal"
+      class="c_dialog medium"
+    >
+      <q-card>
+        <q-card-section
+          class="c_dialog_body"
+          style="max-height:684px"
+        >
+          <p class="title">
+            <strong>스토리지 이용 현황</strong>
+          </p>
+          <template v-if="listData === listData">
+            <q-list class="p_list stglist">
+              <q-item
+                v-for="i in 10"
+                :key="i"
+                class="item"
+              >
+                <i class="ico storage" />
+                <q-item-section class="item_card">
+                  <q-item-label class="name">MLOPS 용</q-item-label>
+                  <q-item-label class="desc">
+                    <span>인스턴스</span>
+                    <span>김카브 (root.choi@kakaobrain.com)</span>
+                  </q-item-label>
+                </q-item-section>
+              </q-item>
+            </q-list>
+          </template>
+          <template v-else>
+            <div class="nodata">
+              <p class="text">현재 사용중인 사용자가 없습니다.</p>
+            </div>
+          </template>
+        </q-card-section>
+        <q-card-actions class="c_dialog_foot bdr">
+          <q-btn
+            label="확인"
+            class="primary"
+            v-close-popup
+          />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
     <!-- End : [스토리지] 이용 현황 -->
 
     <!-- Start : [스토리지] 용량 변경 -->
+    <q-dialog
+      v-model="storageVolumeChangeModal"
+      class="c_dialog large"
+    >
+      <q-card>
+        <q-card-section class="c_dialog_body">
+          <p class="title">
+            <strong>스토리지 용량 변경</strong>
+          </p>
+          <q-list class="p_list storage bg">
+            <q-item class="item">
+              <i class="ico storage" />
+              <q-item-section class="item_card">
+                <q-item-label class="name">MLOPS 용</q-item-label>
+                <q-item-label class="desc">
+                  <span>인스턴스</span>
+                  <span>김카브 (root.choi@kakaobrain.com)</span>
+                </q-item-label>
+              </q-item-section>
+            </q-item>
+          </q-list>
+          <section class="section">
+            <!-- <p class="sub_title">스토리지 용량</p> -->
+            <div class="unit_type">
+              <span class="tit">현재 사용량</span>
+              <span class="counter">
+                <em class="usage">190</em>
+                <i class="bar">/</i>
+                <strong class="quota">450</strong>
+              </span>
+            </div>
+            <div class="c_inpgroup flex-end">
+              <q-input
+                outlined
+                v-model="quota2"
+                type="number"
+                placeholder="50GiB 단위 입력"
+                clearable
+                class="inp_unit"
+              >
+                <template v-slot:append>
+                  <span class="unit">GiB</span>
+                </template>
+              </q-input>
+              <span class="desc">최대 50,000</span>
+            </div>
+          </section>
+        </q-card-section>
+        <q-card-actions class="c_dialog_foot">
+          <q-btn
+            label="취소"
+            class="line"
+            v-close-popup
+          />
+          <q-btn
+            label="저장"
+            class="primary"
+            v-close-popup
+            disable
+          />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
     <!-- End : [스토리지] 용량 변경 -->
 
     <!-- Start : [스토리지] 용량 변경 요청 (TBD) -->
+    <q-dialog
+      v-model="storageChangeRequestModal"
+      class="c_dialog large"
+    >
+      <q-card>
+        <q-card-section class="c_dialog_body">
+          <p class="title">
+            <strong>개인 용량 변경 요청</strong>
+          </p>
+          <div class="info black">
+            스토리지 용량 : 150GiB / 200GiB
+          </div>
+          <section class="section mt24">
+            <p class="sub_title">요청 용량</p>
+            <div class="c_inpgroup flex-end">
+              <q-input
+                outlined
+                v-model="quota2"
+                type="number"
+                placeholder="50GiB 단위 입력"
+                clearable
+                class="inp_unit wsize_full"
+              >
+                <template v-slot:append>
+                  <span class="unit">GiB</span>
+                </template>
+              </q-input>
+            </div>
+          </section>
+          <section class="section">
+            <p class="sub_title">요청사유</p>
+            <div class="c_inpgroup">
+              <q-input
+                outlined
+                v-model="textDesc"
+                bottom-slots
+                type="textarea"
+                placeholder="요청 사유 입력"
+                clearable
+                counter
+                :count="10"
+                maxlength="500"
+                class="wsize_full hsize244"
+                :input-style="{height: '100%'}"
+              >
+                <!-- <template v-slot:hint>
+                    Description
+                  </template> -->
+              </q-input>
+            </div>
+          </section>
+        </q-card-section>
+        <q-card-actions class="c_dialog_foot">
+          <q-btn
+            label="취소"
+            class="line"
+            v-close-popup
+          />
+          <q-btn
+            label="확인"
+            class="primary"
+            v-close-popup
+            disable
+          />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
     <!-- End : [스토리지] 용량 변경 요청 (TBD) -->
 
     <!-- Start : [내 이미지] 이미지 삭제 확인  Alert 팝업 -->
@@ -1664,7 +2512,7 @@
             </section>
             <section class="section">
               <p class="sub_title">워크스페이스 역할<i class="ess">*</i></p>
-              <div class="c_radiogroup f_wrap w50">
+              <div class="c_radiogroup f_wrap wsize-50">
                 <q-radio
                   v-model="radCheck"
                   val="rad1"
@@ -1861,15 +2709,236 @@
     <!-- End : [멤버] 초대 요청 (TBD) 팝업 -->
 
     <!-- Start : [멤버] 멤버 초대 요청 확인 (TBD) -->
+    <q-dialog
+      v-model="memberInviteConfirmModal"
+      class="c_dialog medium"
+    >
+      <q-card>
+        <q-card-section
+          style="max-height:684px"
+          class="c_dialog_body"
+        >
+          <p class="title">
+            <strong>멤버 초대 요청 확인</strong>
+          </p>
+          <div class="c_form">
+            <section class="section bg padding">
+              <q-item-section class="item_card request f_start">
+                <q-item-label class="requester">요청자</q-item-label>
+                <q-item-label class="requester_name">
+                  {{ memberName }}({{ memberMail }})
+                </q-item-label>
+              </q-item-section>
+              <q-item class="subject">
+                같이 협업을 위해 신규 사용자를 초대했습니다. 확인해주세요~
+                같이 협업을 위해 신규 사용자를 초대했습니다. 확인해주세요~
+                같이 협업을 위해 신규 사용자를 초대했습니다. 확인해주세요~
+                같이 협업을 위해 신규 사용자를 초대했습니다. 확인해주세요~
+                같이 협업을 위해 신규 사용자를 초대했습니다. 확인해주세요~
+                같이 협업을 위해 신규 사용자를 초대했습니다. 확인해주세요~
+                같이 협업을 위해 신규 사용자를 초대했습니다. 확인해주세요~
+                같이 협업을 위해 신규 사용자를 초대했습니다. 확인해주세요~
+                같이 협업을 위해 신규 사용자를 초대했습니다. 확인해주세요~
+              </q-item>
+              <q-item-section class="item_card member bg_white f_start">
+                <q-item-label class="name">{{ memberName }}</q-item-label>
+                <q-item-label class="mail">{{ memberMail }}</q-item-label>
+              </q-item-section>
+              <q-item-section class="item_card info bg_white f_start f_wrap row">
+                <q-item-label class="name">{{ itemDesc1 }}</q-item-label>
+                <q-item-label class="proj">
+                  AA프로젝트, BB프로젝트,
+                  AA프로젝트, BB프로젝트,
+                  AA프로젝트, BB프로젝트
+                </q-item-label>
+              </q-item-section>
+            </section>
+            <section class="section">
+              <p class="sub_title">워크스페이스 역할</p>
+              <div class="c_radiogroup f_wrap wsize-50">
+                <q-radio
+                  v-model="radCheck"
+                  val="rad1"
+                  label="워크스페이스 관리자"
+                  class="c_radio"
+                />
+                <q-radio
+                  v-model="radCheck"
+                  val="rad2"
+                  label="워크스페이스 멤버"
+                  class="c_radio"
+                />
+                <q-radio
+                  v-model="radCheck"
+                  val="rad3"
+                  label="정산 관리자"
+                  class="c_radio"
+                />
+                <q-radio
+                  v-model="radCheck"
+                  val="rad4"
+                  label="게스트"
+                  class="c_radio mr0"
+                />
+                <q-btn class="ibtn help">
+                  <i class="ico help" /><span class="hidden">도움말</span>
+                  <q-popup-edit
+                    v-model="helpShow"
+                    anchor="top middle"
+                    self="top middle"
+                    class="c_popover"
+                  >
+                    <div class="inner">
+                      게스트는 워크스페이스 멤버 조회 및 프로젝트 생성 기능이 제한됩니다.
+                    </div>
+                  </q-popup-edit>
+                </q-btn>
+              </div>
+            </section>
+            <section class="section">
+              <p class="sub_title">개인 스토리지 용량</p>
+              <div class="c_inpgroup flex-end">
+                <q-input
+                  outlined
+                  v-model="quota2"
+                  type="number"
+                  placeholder="50GiB 단위 입력"
+                  clearable
+                  class="inp_unit"
+                >
+                  <template v-slot:append>
+                    <span class="unit">GiB</span>
+                  </template>
+                </q-input>
+                <span class="desc">최대 50,000</span>
+              </div>
+            </section>
+          </div>
+          <!-- //.c_form -->
+        </q-card-section>
+        <q-card-actions class="c_dialog_foot bdr">
+          <q-btn
+            label="취소"
+            class="line"
+            v-close-popup
+          />
+          <q-btn
+            label="확인"
+            class="primary"
+            disable
+            v-close-popup
+          />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
     <!-- End : [멤버] 멤버 초대 요청 확인 (TBD) -->
 
     <!-- Start : [내정보] LDAP 로그인(오픈 이후 개발) -->
+    <q-dialog
+      v-model="LDAPLoginModal"
+      class="c_dialog medium"
+    >
+      <q-card>
+        <q-card-section class="c_dialog_body">
+          <p class="title">
+            <strong>LDAP 로그인</strong>
+          </p>
+          <section class="section">
+            <div class="c_inpgroup">
+              <q-input
+                outlined
+                v-model="ldapID"
+                placeholder="LDAP ID"
+                clearable
+                class="wsize_full"
+              />
+            </div>
+          </section>
+          <section class="section">
+            <div class="c_inpgroup">
+              <q-input
+                outlined
+                v-model="ldapPW"
+                placeholder="PW"
+                clearable
+                class="wsize_full"
+              />
+            </div>
+          </section>
+        </q-card-section>
+        <q-card-actions class="c_dialog_foot">
+          <q-btn
+            label="취소"
+            class="line"
+            v-close-popup
+          />
+          <q-btn
+            label="로그인"
+            class="primary"
+            v-close-popup
+            disable
+          />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
     <!-- End : [내정보] LDAP 로그인(오픈 이후 개발) -->
 
     <!-- Start : [회원탈퇴] 회원탈퇴 안내 (TBD) Alert 팝업 -->
+    <q-dialog
+      v-model="alertWithDrawalInfoModal"
+      class="c_dialog"
+    >
+      <q-card>
+        <q-card-section
+          style="max-height:290px"
+          class="c_dialog_body"
+        >
+          <p class="title">
+            <strong>회원탈퇴 하시겠습니까?</strong>
+          </p>
+          <p class="desc">
+            회원탈퇴시, 계정 관련 모든 데이터가 삭제되며<br />복구되지 않습니다.
+          </p>
+        </q-card-section>
+        <q-card-actions class="c_dialog_foot">
+          <q-btn
+            label="취소"
+            class="line"
+            v-close-popup
+          />
+          <q-btn
+            label="확인"
+            class="primary"
+            v-close-popup
+          />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
     <!-- End : [회원탈퇴] 회원탈퇴 안내 (TBD) Alert 팝업 -->
 
     <!-- Start : [회원탈퇴] 회원탈퇴 완료 (TBD) Alert 팝업 -->
+    <q-dialog
+      v-model="alertWithDrawalConfirmModal"
+      class="c_dialog"
+    >
+      <q-card>
+        <q-card-section
+          style="max-height:290px"
+          class="c_dialog_body"
+        >
+          <p class="title">
+            <strong>회원 탈퇴가 완료되었습니다.<br />B^Cloud를 이용해주셔서 감사합니다.</strong>
+          </p>
+        </q-card-section>
+        <q-card-actions class="c_dialog_foot">
+          <q-btn
+            label="확인"
+            class="primary"
+            v-close-popup
+          />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
     <!-- End : [회원탈퇴] 회원탈퇴 완료 (TBD) Alert 팝업 -->
 
     <!-- Start : [sshkey & apikey] SSH Key 삭제 선택시, 삭제 확인  Alert 팝업 -->
@@ -2953,8 +4022,20 @@
           <p class="title">
             <strong>스토리지 할당량 변경 요청</strong>
           </p>
-          <section class="section">
-            작업 중
+          <section class="section bg padding">
+            <q-item-section class="item_card request f_start">
+              <q-item-label class="requester">요청자</q-item-label>
+              <q-item-label class="requester_name">
+                {{ memberName }}({{ memberMail }})
+              </q-item-label>
+            </q-item-section>
+            <q-item class="subject">
+              테스트 진행 및 데이터 추가 업로드를 위한 개인 스토리지 증량 요청
+            </q-item>
+            <q-item-section class="item_card info bg_white f_start row padding">
+              <q-item-label class="capacity">요청용량</q-item-label>
+              <q-item-label class="volume">500GiB</q-item-label>
+            </q-item-section>
           </section>
           <section class="section">
             <p class="sub_title">스토리지 할당량 변경</p>
@@ -2963,7 +4044,9 @@
               <span class="counter">
                 <em class="usage">190</em>
                 <i class="bar">/</i>
+                <!-- 인풋 클릭시 (할당량 색 변경 후 실시간 반영) class blue 추가 또는 style blue 추가 -->
                 <strong class="quota">450</strong>
+                <!-- <strong class="quota blue">450</strong> -->
               </span>
             </div>
             <div class="c_inpgroup flex-end">
@@ -3010,9 +4093,10 @@
           <p class="title">
             <strong>개인 스토리지 할당량 변경</strong>
           </p>
-          <section class="section">
-            작업 중 (공통 요소)
-          </section>
+          <q-item-section class="item_card member bg f_start">
+            <q-item-label class="name">{{ memberName }}</q-item-label>
+            <q-item-label class="mail">{{ memberMail }}</q-item-label>
+          </q-item-section>
           <section class="section">
             <div class="unit_type">
               <span class="tit">현재 사용량</span>
@@ -3062,20 +4146,115 @@
       class="c_dialog medium"
     >
       <q-card>
-        <q-card-section class="c_dialog_body">
+        <q-card-section
+          class="c_dialog_body"
+          style="max-height:684px"
+        >
           <p class="title">
             <strong>공유 관리</strong>
           </p>
-          <section class="section">
-            작업 중
-          </section>
+          <!-- <q-banner class="c_banner caution small">
+            <template v-slot:avatar>
+              <q-icon class="noti" />
+            </template>
+            <div class="bn_head">
+              <strong class="title">스토리지 공유 설정 불가</strong>
+            </div>
+            <div class="bn_body">
+              현재 이용중인 사용자가 있어 설정이 불가능 합니다.
+            </div>
+          </q-banner> -->
+          <div class="info storage">
+            <i class="ico" />
+            <span class="name">root 공유용</span>
+          </div>
+          <div class="c_group">
+            <div class="c_inpgroup">
+              <q-select
+                outlined
+                v-model="shareChipModel"
+                placeholder="사용자, 프로젝트, 워크스페이스 검색"
+                use-input
+                use-chips
+                multiple
+                input-debounce="0"
+                @new-value="createValue"
+                :options="filterOptions"
+                @filter="chipFilterFn"
+                class="c_inpchip"
+              >
+                <template v-slot:prepend>
+                  <q-icon
+                    name="search"
+                    class="ico_search"
+                  />
+                </template>
+                <template v-slot:append>
+                  <div class="slotopt"></div>
+                </template>
+                <template v-slot:no-option>
+                  <q-item class="no_data">
+                    <q-item-section>
+                      검색 결과 없습니다.
+                    </q-item-section>
+                  </q-item>
+                </template>
+              </q-select>
+              <div class="c_selectgroup f_start">
+                <CDropdown
+                  v-model:selected="shareSelModel"
+                  :label="'읽기쓰기'"
+                  :options="shareSelOptions"
+                  :type="'text'"
+                />
+              </div>
+            </div>
+            <q-btn class="c_btn medium add">
+              <span class="txt">추가하기</span>
+            </q-btn>
+          </div>
+          <template v-if="listData === listData">
+            <q-list class="p_list sharemng">
+              <template
+                v-for="k in 5"
+                :key="k"
+              >
+                <q-item class="item">
+                  <i class="ico member" />
+                  <q-item-section class="item_card">
+                    <q-item-label class="name">{{ memberName }}</q-item-label>
+                    <q-item-label class="mail">{{ memberMail }}</q-item-label>
+                  </q-item-section>
+                  <CDropdown
+                    v-model:selected="shareSelModel"
+                    :label="'읽기쓰기'"
+                    :options="shareSelOptions"
+                    :type="'text'"
+                  />
+                </q-item>
+                <q-item class="item">
+                  <i class="ico note" />
+                  <q-item-section class="item_card">
+                    <q-item-label class="name">00프로젝트</q-item-label>
+                    <q-item-label class="mail">프로젝트</q-item-label>
+                  </q-item-section>
+                  <CDropdown
+                    v-model:selected="shareSelModel"
+                    :label="'읽기쓰기'"
+                    :options="shareSelOptions"
+                    :type="'text'"
+                  />
+                </q-item>
+              </template>
+            </q-list>
+          </template>
+          <template v-else>
+            <div class="nodata bg_white">
+              <p class="text">공유된 사용자가 없습니다.</p>
+            </div>
+          </template>
         </q-card-section>
-        <q-card-actions class="c_dialog_foot">
-          <q-btn
-            label="취소"
-            class="line"
-            v-close-popup
-          />
+        <q-card-actions class="c_dialog_foot bdr">
           <q-btn
             label="확인"
             class="primary"
@@ -3157,6 +4336,7 @@ const projectInstanceImgCreateModal = ref(false);
 const workspaceHistoryAModal = ref(false);
 const workspaceHistoryBModal = ref(false);
 const taskLogModal = ref(false);
+const taskLog = ref(false);
 const projectMemberAddModal = ref(false);
 const projectMemberAuthChangeModal = ref(false);
 const projectMemberDeleteModal = ref(false);
@@ -3181,6 +4361,8 @@ const mngStorageChangeRequestModal = ref(false);
 const mngStorageQuotaChangeModal = ref(false);
 const mngStorageShareModal = ref(false);
 
+const ldapID = ref(null);
+const ldapPW = ref(null);
 const textName = ref(null);
 const textKeyName = ref("UxEDrsKjrTYjzB1QsOJhQVUKDj8e150W");
 const textProjectName = ref("테스트용 프로젝트 01");
@@ -3218,6 +4400,38 @@ const chkAll = ref(true);
 const chk1 = ref(true);
 const chk2 = ref(true);
 const chk3 = ref(true);
+
+const taskLogTab = ref("stdout");
+
+const listData = ref(true);
+
+const shareChipModel = ref(null);
+const shareSelModel = ref("읽기쓰기");
+const memberSelModel = ref("프로젝트 관리자");
+const shareSelOptions = ["읽기쓰기", "읽기전용"];
+const memberSelOptions = ["프로젝트 관리자", "멤버"];
+const stringOptions = [];
+const filterOptions = ref(stringOptions);
+const createValue = (val, done) => {
+  if (val.length > 0) {
+    if (!stringOptions.includes(val)) {
+      stringOptions.push(val);
+    }
+    done(val, "toggle");
+  }
+};
+const chipFilterFn = (val, update) => {
+  update(() => {
+    if (val === "") {
+      filterOptions.value = stringOptions;
+    } else {
+      const needle = val.toLowerCase();
+      filterOptions.value = stringOptions.filter(
+        (v) => v.toLowerCase().indexOf(needle) > -1
+      );
+    }
+  });
+};
 
 const triggerSuccess = (position) => {
   setTimeout(() => {

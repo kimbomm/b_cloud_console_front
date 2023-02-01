@@ -103,7 +103,7 @@ import { useMeta } from "quasar";
 import CButton from "components/common/CButton.vue";
 import CTable from "src/components/common/CTable.vue";
 
-const visible = ref("B");
+const visible = ref("A");
 const title = ref("Account");
 useMeta(() => ({
   title: title.value,

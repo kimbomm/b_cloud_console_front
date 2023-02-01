@@ -141,7 +141,7 @@ const optLabel = ref("10");
 const optNumber = ref([
   { label: "10", value: 0 },
   { label: "25", value: 1 },
-  { label: "50", value: 1 },
+  { label: "50", value: 2 },
 ]);
 
 const columns = [

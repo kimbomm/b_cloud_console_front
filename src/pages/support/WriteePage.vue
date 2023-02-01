@@ -362,6 +362,7 @@ const triggerSuccess3 = (position) => {
 </script>
 
 <style lang="scss" scoped>
+@import 'src/css/support';
 .q_btngroup {
   display: flex;
   justify-content: flex-end;
