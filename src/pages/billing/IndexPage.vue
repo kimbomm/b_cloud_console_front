@@ -75,7 +75,7 @@
               placeholder="이름 타입 검색"
               use-input
               clearable
-              class="c_inpchip default_size"
+              class="c_inpchip wsize450"
             >
               <template v-slot:prepend>
                 <q-icon name="search" class="ico_search" />

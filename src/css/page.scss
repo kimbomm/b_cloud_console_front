@@ -96,8 +96,9 @@
 }
 .c_popover{
   .inner{
-    margin-left: 1rem;
+    b{display: block; margin-top: 1rem;}
     .list_dot{
+      margin-left: 1rem;
       display: list-item;
       list-style:disc;
     }
@@ -114,6 +115,38 @@
   .resource_employ_btn{
     .q-btn.line,.c_btn.line{
       .ico{background-image: url(/src/assets/images/icon/16/ico_receipt_normal.svg);}
+    }
+  }
+}
+
+/* Projects */
+.p-projects{
+  &.p-make{
+    .aside_cont{
+      .make_btn{
+        button{width: 100%;}
+      }
+    }
+  }
+}
+
+/* Member */
+.p-member{
+  .remove_member_btn{
+    .q-btn.line,.c_btn.line{
+      .ico{
+        background-image: url(/src/assets/images/icon/16/ico_minus_normal.svg);
+      }
+      &:disabled{
+        .ico{
+          background-image: url(/src/assets/images/icon/16/ico_minus_disabled.svg);
+        }
+      }
+      &:hover{
+        .ico{
+          background-image: url(/src/assets/images/icon/16/ico_minus_pressed.svg);
+        }
+      }
     }
   }
 }

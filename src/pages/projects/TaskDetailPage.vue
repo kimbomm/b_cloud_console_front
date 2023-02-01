@@ -134,11 +134,39 @@
             </div>
           </div>
           <div class="s_task_02">
-            <p class="sub_title2">호스트 전체 준비 완료시 실행<i class="ico help" /></p>
+            <p class="sub_title2">호스트 전체 준비 완료시 실행<q-btn class="ibtn help">
+                <i class="ico help" /><span class="hidden">도움말</span>
+                <q-popup-edit
+                  v-model="helpShow"
+                  anchor="top middle" self="top middle"
+                  class="c_popover"
+                >
+                  <div class="inner">
+                    태스크 그룹 내 모든 태스크의 호스트가 인식될 때까지 대기하였다가, 모두 완료되면 태스크가 실행됩니다.
+                  </div>
+                </q-popup-edit>
+              </q-btn>
+            </p>
             <q-toggle v-model="off" />
           </div>
           <div class="s_task_03">
-            <p class="sub_title2">태스크 동시 실행 최대 개수 설정<i class="ico help" /></p>
+            <p class="sub_title2">태스크 동시 실행 최대 개수 설정<q-btn class="ibtn help">
+                <i class="ico help" /><span class="hidden">도움말</span>
+                <q-popup-edit
+                  v-model="helpShow"
+                  anchor="top middle" self="top middle"
+                  class="c_popover"
+                >
+                  <div class="inner">
+                    동시 실행되는 태스크 최대 개수를 설정합니다.
+                    <b>예시</b>
+                    <p class="list_dot">5개 태스크 입력 후 최대 개수 3개로 설정</p>
+                    <p class="list_dot">3개 태스크 실행, 2개 대기 상태로 진행</p>
+                    <p class="list_dot">실행중인 3개 태스크 중 완료되는 태스크가 있는 경우 대기중인 태스크 실행 시작</p>
+                  </div>
+                </q-popup-edit>
+              </q-btn>
+            </p>
             <q-toggle v-model="off2" />
             <q-input
               outlined
@@ -375,7 +403,7 @@
               </template>
               <template v-else>
                 <CButton
-                  :size-types="1"
+                  :size-types="2"
                   :btn-types="1"
                   :btn-names="btnName"
                 />

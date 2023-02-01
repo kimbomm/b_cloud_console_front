@@ -104,7 +104,7 @@
             <div class="unit_type">
               <span class="tit">현재 할당량</span>
               <span class="counter">
-                <em class="usage">190</em>
+                <em class="usage2">190</em>
               </span>
             </div>
             <div class="req-box">
@@ -126,7 +126,7 @@
             <div class="unit_type">
               <span class="tit">현재 할당량</span>
               <span class="counter">
-                <em class="usage">190</em>
+                <em class="usage2">190</em>
               </span>
             </div>
             <div class="req-box">

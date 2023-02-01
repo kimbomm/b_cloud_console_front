@@ -29,8 +29,7 @@
                   </h3>
 
                   <div class="cont_head_inner">
-                    <p class="head_txt">스토리지 생성 개수
-                      <q-btn class="ibtn help">
+                    <p class="head_txt">스토리지 생성 개수<q-btn class="ibtn help">
                         <i class="ico help" /><span class="hidden">도움말</span>
                         <q-popup-edit
                           v-model="helpShow"

@@ -87,7 +87,7 @@
             placeholder="프로젝트 이름 설명 검색"
             use-input
             clearable
-            class="c_inpchip default_size"
+            class="c_inpchip wsize450"
           >
             <template v-slot:prepend>
               <q-icon name="search" class="ico_search" />

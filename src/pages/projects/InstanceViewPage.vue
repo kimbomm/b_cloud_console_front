@@ -41,9 +41,11 @@
         <div class="user_info">
           <div class="user_box com_border_box">
             <div class="user_box_head">
-              <template v-if="datacheck === datacheck">
+              <template v-if="datacheck === true">
                 <div class="basis_view">
-                  <p class="sub_title">aa인스턴스 <i class="ico modify" /></p>
+                  <p class="sub_title">aa인스턴스
+                    <i class="ico modify" @click="datacheck = false" />
+                  </p>
                   <span class="text">인스턴스 설명인스턴스 설명인스턴스 설명인스턴스 설명인스턴스 설명인스턴스 설명</span>
                 </div>
               </template>
@@ -70,7 +72,7 @@
                       clearable
                       counter
                       :count="10"
-                      maxlength="500"
+                      maxlength="100"
                       class="wsize_full hsize136"
                       :input-style="{height: '100%'}"
                     />
@@ -83,6 +85,7 @@
                     <q-btn
                       label="저장"
                       class="primary"
+                      @click="datacheck = true"
                     />
                   </div>
                 </div>
