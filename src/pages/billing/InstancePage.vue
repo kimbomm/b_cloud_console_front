@@ -68,32 +68,19 @@
         <p class="pay-amount">워크스페이스 총 비용</p>
         <p class="pay"><span>39,220,000</span>&nbsp;원</p>
       </div>
-      <div class="group-tabs mb30">
-        <q-tabs
-          v-model="tab"
-          align="left"
-          class="c_tabs"
-        >
-          <q-tab name="tabs1" label="멤버"></q-tab>
-          <q-tab name="tabs2" label="프로젝트"></q-tab>
-          <q-tab name="tabs3" label="인스턴스 타입"></q-tab>
-          <q-tab name="tabs4" label="스토리지"></q-tab>
-        </q-tabs>
-      </div>
-
-      <div class="group-load">
+      <div class="group-tabs">
         <div class="table_set">
-          <q-select
-            outlined
-            placeholder="프로젝트 이름 설명 검색 "
-            use-input
-            clearable
-            class="c_inpchip default_size"
+          <q-tabs
+            v-model="tab"
+            align="left"
+            class="c_tabs"
           >
-            <template v-slot:prepend>
-              <q-icon name="search" class="ico_search" />
-            </template>
-          </q-select>
+            <q-tab name="tabs1" label="멤버"></q-tab>
+            <q-tab name="tabs2" label="프로젝트"></q-tab>
+            <q-tab name="tabs3" label="인스턴스 타입"></q-tab>
+            <q-tab name="tabs4" label="스토리지"></q-tab>
+          </q-tabs>
+
           <CDropdown
             v-model:selected="selectedBasic"
             :label="optLabel"
@@ -101,6 +88,9 @@
             class="auto_size"
           />
         </div>
+      </div>
+
+      <div class="group-load">
         <div class="group-table">
           <CTable
             :title="title"

@@ -20,6 +20,7 @@
                 outlined
                 v-model="suffix"
                 placeholder="이름 이메일 검색"
+                class="wsize292"
               >
                 <template v-slot:prepend>
                   <q-icon name="search" class="ico_search" />
@@ -43,7 +44,7 @@
                 :btn-names="'멤버추가'"
               />
             </div>
-            <div class="set-btn">
+            <div class="set-btn remove_member_btn">
               <CButton
                 :size-types="2"
                 :btn-types="51"
@@ -81,6 +82,7 @@
                 outlined
                 v-model="suffix"
                 placeholder="이름 상태 생성자 검색"
+                class="wsize292"
               >
                 <template v-slot:prepend>
                   <q-icon name="search" class="ico_search" />

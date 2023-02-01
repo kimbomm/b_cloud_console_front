@@ -68,6 +68,7 @@
             .now_quota{
               display: flex;
               flex-wrap: wrap;
+              margin-top: 42px;
               li{
                 display: flex;
                 align-items: center;
@@ -243,6 +244,7 @@
               vertical-align: middle;
               background-color: $surface05;
             }
+            .wsize292{width: 292px;}
           }
           .c_segmentedTab{
             display: inline-block;
@@ -420,6 +422,12 @@
         }
       }
       .s_task_02,.s_task_04{margin-bottom: 78px;}
+      .s_task_02,.s_task_03{
+        .ibtn.help{
+          margin-left: 10px;
+          vertical-align: top;
+        }
+      }
       .s_task_03{
         margin-bottom: 78px;
         .wsize608{
@@ -461,7 +469,7 @@
           font-weight: $bold;
         }
         .instance_data{
-          padding-bottom: 7px;
+          padding-bottom: 24px;
           li{
             display: flex;
             justify-content: space-between;
@@ -483,9 +491,6 @@
           &.task_data{
             li{padding:12px 0;}
           }
-        }
-        .make_btn{
-          button{width: 100%;}
         }
       }
     }
@@ -514,6 +519,7 @@
                 border:1px solid $surface05;
                 border-radius: 50%;
                 background: url(/src/assets/images/icon/16/ico_edit_gray.svg) no-repeat 50% 50%;
+                cursor: pointer;
               }
             }
             .text{
@@ -776,7 +782,7 @@
         margin-bottom: 50px;
         .ins_data_inner{
           .com_box{
-            width: 32.38%;
+            width: calc(100%/3 - 15px);
             margin-left: 22px;
             &:first-child{margin-bottom: 0;}
             &:first-child{margin-left: 0;}
