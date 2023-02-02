@@ -148,7 +148,12 @@
               </p>
             </div>
             <div class="cont_footer">
-              <div class="progress_bar_area"></div>
+              <div class="progress_bar_area">
+                <progress
+                  value="75"
+                  max="100"
+                />
+              </div>
             </div>
           </li>
           <li class="gpu_rate com_area">
@@ -169,7 +174,12 @@
               </p>
             </div>
             <div class="cont_footer">
-              <div class="progress_bar_area"></div>
+              <div class="progress_bar_area">
+                <progress
+                  value="75"
+                  max="100"
+                />
+              </div>
             </div>
           </li>
           <li class="cost_rate com_area">
@@ -221,7 +231,7 @@
               </q-tab>
             </q-tabs>
           </div>
-          <div class="change_table_area">
+          <template v-if="defaultData == true">
             <div class="table_set">
               <div class="l_set_inner">
                 <div class="c_inpgroup">
@@ -268,18 +278,26 @@
                 </div>
               </div>
             </div>
-
-            <CTable
-              :title="title"
-              :columns="columns"
-              :data="data"
-              :action-buttons="actionButtons"
-              @action="respAction"
-            />
-          </div>
-          <div class="group">
-            <CPagination />
-          </div>
+            <div class="change_table_area">
+              <CTable
+                :title="title"
+                :columns="columns"
+                :data="data"
+                :action-buttons="actionButtons"
+                @action="respAction"
+              />
+            </div>
+            <div class="group">
+              <CPagination />
+            </div>
+          </template>
+          <template v-else>
+            <div class="com_nondata_area">
+              <div class="nondata_box">
+                <p class="nondata_txt">생성된 인스턴스가 없습니다.</p>
+              </div>
+            </div>
+          </template>
         </div>
       </div>
     </div>
@@ -304,6 +322,7 @@ const label = ref("전체");
 const label2 = ref("10");
 const selectedCheck = ref(null);
 const viewTab = ref("0");
+const defaultData = ref(true);
 
 const options = ref([
   { label: "전체", value: 0 },
