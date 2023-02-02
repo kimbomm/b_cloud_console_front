@@ -39,7 +39,12 @@
                 </div>
                 <div class="cont_footer">
                   <p class="progress_percentage_txt">75%</p>
-                  <div class="progress_bar_area"></div>
+                  <div class="progress_bar_area">
+                    <progress
+                      value="75"
+                      max="100"
+                    />
+                  </div>
                 </div>
               </div>
             </li>
@@ -61,7 +66,12 @@
                 </div>
                 <div class="cont_footer">
                   <p class="progress_percentage_txt">75%</p>
-                  <div class="progress_bar_area"></div>
+                  <div class="progress_bar_area">
+                    <progress
+                      value="75"
+                      max="100"
+                    />
+                  </div>
                 </div>
               </div>
             </li>
@@ -83,7 +93,12 @@
                 </div>
                 <div class="cont_footer">
                   <p class="progress_percentage_txt">12%</p>
-                  <div class="progress_bar_area"></div>
+                  <div class="progress_bar_area">
+                    <progress
+                      value="75"
+                      max="100"
+                    />
+                  </div>
                 </div>
               </div>
             </li>
@@ -105,7 +120,12 @@
                 </div>
                 <div class="cont_footer">
                   <p class="progress_percentage_txt">75%</p>
-                  <div class="progress_bar_area"></div>
+                  <div class="progress_bar_area">
+                    <progress
+                      value="75"
+                      max="100"
+                    />
+                  </div>
                 </div>
               </div>
             </li>
@@ -127,7 +147,12 @@
                 </div>
                 <div class="cont_footer">
                   <p class="progress_percentage_txt">12%</p>
-                  <div class="progress_bar_area"></div>
+                  <div class="progress_bar_area">
+                    <progress
+                      value="75"
+                      max="100"
+                    />
+                  </div>
                 </div>
               </div>
             </li>
@@ -149,7 +174,12 @@
                 </div>
                 <div class="cont_footer">
                   <p class="progress_percentage_txt">75%</p>
-                  <div class="progress_bar_area"></div>
+                  <div class="progress_bar_area">
+                    <progress
+                      value="75"
+                      max="100"
+                    />
+                </div>
                 </div>
               </div>
             </li>
