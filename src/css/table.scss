@@ -37,6 +37,8 @@ $easy-table-buttons-pagination-border: 1px solid #e0e0e0;
 $padding: 16px;
 .vue3-easy-data-table{
   width:100%;
+  margin-top:-2px;
+  margin-bottom:-2px;
   border:0;
   .q-btn{
     &.text{
@@ -80,7 +82,7 @@ $padding: 16px;
 }
 ::v-deep{
   table{
-    border-spacing: 0 12px;
+    border-spacing: 0 2px;
   }
   .badge{
     display:flex;
