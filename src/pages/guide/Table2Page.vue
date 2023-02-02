@@ -69,7 +69,7 @@
             </template>
             <!-- 버튼 그룹 -->
             <template #item-buttons="item">
-              <div v-if="actionButtons" class="cell">
+              <div v-if="actionButtons" class="cell btngroup">
                 <q-btn class="c_btn ibtn dot">
                   <i class="ico dots" /><span class="txt">클릭</span>
                   <q-popup-edit
@@ -111,8 +111,13 @@
           >
             <!-- title -->
             <template #item-title="item">
-              <q-checkbox v-model="itemsSelected2" :val="item.id" @click="onClick(item)" />
-              <span class="txt">{{ item.title }}</span>>
+              <q-checkbox
+                v-model="itemsSelected2"
+                :val="item.id"
+                :label="item.title"
+                @click="onClick(item)"
+              />
+              <!-- <span class="txt">{{ item.title }}</span> -->
             </template>
             <!--
               상태값(status)
@@ -288,7 +293,7 @@ const itemsSelected = ref([]);
 const itemsSelected2 = ref([]);
 const headers = [
   {
-    text: "ID", value: "id", width: 50, sortable: true, checkbox: true
+    text: "ID", value: "id", width: 100, sortable: true, checkbox: true
   },
   {
     text: "인스턴스 이름", value: "title", sortable: true
@@ -296,22 +301,28 @@ const headers = [
   {
     text: "상태", value: "status", width: 100, sortable: true
   },
-  { text: "ssh", value: "ssh", sortable: true },
-  { text: "JupyterLab", value: "jupyterLab", sortable: true },
-  { text: "인스턴스 타입", value: "instanceType", sortable: true },
   {
-    text: "GPU", value: "gpu", width: 100, sortable: true
+    text: "ssh", value: "ssh", width: 100, sortable: true
   },
   {
-    text: "CPU", value: "cpu", width: 100, sortable: true
+    text: "JupyterLab", value: "jupyterLab", width: 150, sortable: true
   },
   {
-    text: "생성일시", value: "createdAt", width: 200, sortable: true
+    text: "인스턴스 타입", value: "instanceType", width: 160, sortable: true
   },
   {
-    text: "생성자", value: "createdBy", width: 200, sortable: true
+    text: "GPU", value: "gpu", sortable: true
   },
-  { text: "", value: "buttons", width: 50 },
+  {
+    text: "CPU", value: "cpu", sortable: true
+  },
+  {
+    text: "생성일시", value: "createdAt", width: 180, sortable: true
+  },
+  {
+    text: "생성자", value: "createdBy", width: 180, sortable: true
+  },
+  { text: "", value: "buttons" },
 ];
 
 const items = [
@@ -403,6 +414,7 @@ const showRow = (item) => {
 </script>
 
 <style lang="scss" scoped>
+@import "./src/css/table";
 .section {
   h2 {
     margin-bottom: 10px;
@@ -414,7 +426,6 @@ const showRow = (item) => {
 .group {
   margin-top: 20px;
 }
-
 ::v-deep {
   .row-button td {
     background-color: rgba(54, 60, 229, 0.04);

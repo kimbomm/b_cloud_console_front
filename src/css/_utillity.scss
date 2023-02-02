@@ -1530,9 +1530,47 @@ $dialog_foot:90px;
     background-color:$surface02;
     color:$surface16;
   }
+  &.text{
+    padding:0;
+    border-radius: 0;
+    background-color:$color;
+    color:$gray800;
+  }
   &.copy,
-  &.log{
+  &.log,
+  &.ssh,
+  &.lab{
     cursor: pointer;
+  }
+  &.icon{
+    &::after{
+      content:"";
+      display:inline-block;
+      width: 16px;height: 16px;
+      background-repeat:no-repeat;
+      background-position:50% 50%;
+    }
+  }
+  &.ssh.icon::after{
+    margin-left:2px;
+    background-image:url($iconUrl + '16/ico_sshcopy_normal.svg');
+  }
+  &.lab.icon::after{
+    margin-left:6px;
+    background-image:url($iconUrl + '16/ico_jupyterlab_normal.svg');
+  }
+  &.instance.icon::after{
+    margin-left:4px;
+    background-image:url($iconUrl + '16/ico_details_default.svg');
+  }
+}
+.badge_group{
+  min-height:auto;
+  padding:0;
+  .q-badge{
+    &:not(:first-child){
+      margin-left:8px;
+    }
   }
 }
 /* Component - Table */
@@ -1556,9 +1594,6 @@ $dialog_foot:90px;
 }
 .q-table__container{
   display:block;
-  &.c_table{
-
-  }
   &.q-table__card{
     border-radius:0;
     box-shadow:none;
