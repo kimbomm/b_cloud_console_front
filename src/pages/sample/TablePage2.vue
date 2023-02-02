@@ -572,7 +572,7 @@
                 </q-badge>
               </div>
 
-              <q-popup-edit self="bottom center" class="badge_menu">
+              <q-popup-edit v-model="badgeGroup" self="bottom middle" class="badge_menu">
                 <div class="inner">
                   <q-list>
                     <q-item>
@@ -936,6 +936,8 @@ useMeta(() => ({
 }));
 
 const ptitle = ref(title);
+
+const badgeGroup = ref(false);
 
 const itemsSelected = ref([]);
 const itemsSelected2 = ref([]);
