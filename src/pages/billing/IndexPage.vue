@@ -68,39 +68,41 @@
         <p class="pay"><span>39,220,000</span>&nbsp;원</p>
         <p class="pay-notice">*CPU, GPU 자원 이용 금액만 집계된 비용입니다.</p>
       </div>
-      <div class="group">
-        <div class="table_set">
-          <q-select
-            outlined
-            placeholder="이름 타입 검색"
-            use-input
-            clearable
-            class="c_inpchip default_size"
-          >
-            <template v-slot:prepend>
-              <q-icon name="search" class="ico_search" />
-            </template>
-          </q-select>
-          <CDropdown
-            v-model:selected="selectedBasic"
-            :label="optLabel"
-            :options="optNumber"
-            class="auto_size"
+      <template v-if="visibleTable">
+        <div class="group">
+          <div class="table_set">
+            <q-select
+              outlined
+              placeholder="이름 타입 검색"
+              use-input
+              clearable
+              class="c_inpchip default_size"
+            >
+              <template v-slot:prepend>
+                <q-icon name="search" class="ico_search" />
+              </template>
+            </q-select>
+            <CDropdown
+              v-model:selected="selectedBasic"
+              :label="optLabel"
+              :options="optNumber"
+              class="auto_size"
+            />
+          </div>
+        </div>
+        <div class="group-table">
+          <CTable
+            :title="title"
+            :columns="columns"
+            :data="data"
+            :action-buttons="actionButtons"
+            @action="respAction"
           />
         </div>
-      </div>
-      <div class="group-table">
-        <CTable
-          :title="title"
-          :columns="columns"
-          :data="data"
-          :action-buttons="actionButtons"
-          @action="respAction"
-        />
-      </div>
-      <div class="group-page">
-        <CPagination />
-      </div>
+        <div class="group-page">
+          <CPagination />
+        </div>
+      </template>
     </div>
   </q-page>
 </template>
@@ -112,8 +114,10 @@ import CDropdown from "components/common/CDropdown.vue";
 import CTable from "src/components/common/CTable.vue";
 import CPagination from "components/common/CPagination.vue";
 
+const visibleTable = ref(true);
 const title = ref("개인 이용 요금");
 const btnName = ref("워크스페이스 요금조회");
+
 useMeta(() => ({
   title: title.value,
 }));

@@ -80,39 +80,41 @@
           <q-tab name="tabs4" label="스토리지"></q-tab>
         </q-tabs>
       </div>
-      <div class="group">
-        <div class="table_set">
-          <q-select
-            outlined
-            placeholder="프로젝트 이름 설명 검색"
-            use-input
-            clearable
-            class="c_inpchip default_size"
-          >
-            <template v-slot:prepend>
-              <q-icon name="search" class="ico_search" />
-            </template>
-          </q-select>
-          <CDropdown
-            v-model:selected="selectedBasic"
-            :label="optLabel"
-            :options="optNumber"
-            class="auto_size"
+      <template v-if="visibleTable">
+        <div class="group">
+          <div class="table_set">
+            <q-select
+              outlined
+              placeholder="프로젝트 이름 설명 검색"
+              use-input
+              clearable
+              class="c_inpchip default_size"
+            >
+              <template v-slot:prepend>
+                <q-icon name="search" class="ico_search" />
+              </template>
+            </q-select>
+            <CDropdown
+              v-model:selected="selectedBasic"
+              :label="optLabel"
+              :options="optNumber"
+              class="auto_size"
+            />
+          </div>
+        </div>
+        <div class="group-table">
+          <CTable
+            :title="title"
+            :columns="columns"
+            :data="data"
+            :action-buttons="actionButtons"
+            @action="respAction"
           />
         </div>
-      </div>
-      <div class="group-table">
-        <CTable
-          :title="title"
-          :columns="columns"
-          :data="data"
-          :action-buttons="actionButtons"
-          @action="respAction"
-        />
-      </div>
-      <div class="group-page">
-        <CPagination />
-      </div>
+        <div class="group-page">
+          <CPagination />
+        </div>
+      </template>
     </div>
   </q-page>
 </template>
@@ -126,6 +128,8 @@ import CPagination from "components/common/CPagination.vue";
 
 const title = ref("워크스페이스 이용 요금");
 const btnName = ref("CSV 다운로드");
+const visibleTable = ref(true);
+
 useMeta(() => ({
   title: title.value,
 }));

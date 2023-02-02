@@ -12,7 +12,7 @@
     <!-- //.chead -->
     <div class="p-body">
       <!-- /* 멤버 - 메인(워크스페이스 관리자) */ -->
-      <div v-if="visible === 'A'">
+      <template v-if="visible === 'A'">
         <div class="flex-top table-set">
           <div class="set-l set">
             <div class="set-l_left">
@@ -72,7 +72,7 @@
         <div class="group">
           <CPagination />
         </div>
-      </div>
+      </template>
       <!-- /* 멤버 - 메인(워크스페이스 멤버/정산관리자,게스트) */ -->
       <template v-else>
         <div class="flex-top table-set">
@@ -139,7 +139,7 @@ import CButton from "components/common/CButton.vue";
 import CTable from "src/components/common/CTable.vue";
 import CPagination from "components/common/CPagination.vue";
 
-const visible = ref("B");
+const visible = ref("A");
 const title = ref("워크스페이스 1 Member");
 const label = ref("전체");
 const label2 = ref("역할전체");

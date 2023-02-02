@@ -49,7 +49,7 @@
                 <CButton
                   :size-types="2"
                   :btn-types="1"
-                  :btn-names="btnName"
+                  :btn-names="'편집'"
                 />
               </div>
             </div>
@@ -157,87 +157,55 @@
           </div>
           <div class="w-info_proj line pb">
             <p class="title mt40">프로젝트</p>
-            <!-- <div class="work-wrap">
-              <div class="w-name">
-                <p class="g-txt">프로젝트 이름</p>
-                <div class="c_selectgroup mb24 w216">
-                  <CDropdown
-                    v-model:selected="selectedBasic"
-                    :label="label"
-                    :options="options2"
-                  />
-                </div>
-                <div class="c_selectgroup w216">
-                  <CDropdown
-                    v-model:selected="selectedBasic"
-                    :label="label"
-                    :options="options"
-                  />
-                </div>
-              </div>
-              <div class="w-char">
-                <p class="g-txt">프로젝트 권한</p>
-                <div class="c_selectgroup mb24 w216">
-                  <CDropdown
-                    v-model:selected="selectedBasic"
-                    :label="label"
-                    :options="options2"
-                  />
-                </div>
-                <div class="c_selectgroup w216">
-                  <CDropdown
-                    v-model:selected="selectedBasic"
-                    :label="label"
-                    :options="options"
-                  />
-                </div>
-              </div>
-            </div> -->
             <div class="p-tWrap">
               <p class="p-name">프로젝트 이름</p>
               <p class="p-auth">프로젝트 권한</p>
             </div>
-            <div class="sel-wrap">
-              <div class="c_selectgroup w216">
-                <CDropdown
-                  v-model:selected="selectedBasic"
-                  :label="label"
-                  :options="options2"
-                />
+            <div class="sel-box">
+              <div class="sel-wrap">
+                <div class="c_selectgroup w216">
+                  <CDropdown
+                    v-model:selected="selectedBasic"
+                    :label="label"
+                    :options="options2"
+                  />
+                </div>
+                <div class="c_selectgroup w250">
+                    <CDropdown
+                      v-model:selected="selectedBasic"
+                      :label="label"
+                      :options="options"
+                    />
+                  </div>
               </div>
-              <div class="c_selectgroup w250">
+              <div class="sel-wrap">
+                <div class="c_selectgroup w216">
+                  <CDropdown
+                    v-model:selected="selectedBasic"
+                    :label="label"
+                    :options="options2"
+                  />
+                </div>
+                <div class="c_selectgroup w250">
                   <CDropdown
                     v-model:selected="selectedBasic"
                     :label="label"
                     :options="options"
                   />
                 </div>
-            </div>
-            <div class="sel-wrap">
-              <div class="c_selectgroup w216">
-                <CDropdown
-                  v-model:selected="selectedBasic"
-                  :label="label"
-                  :options="options2"
-                />
-              </div>
-              <div class="c_selectgroup w250">
-                <CDropdown
-                  v-model:selected="selectedBasic"
-                  :label="label"
-                  :options="options"
-                />
               </div>
             </div>
-            <div class="minus-btn">
+            <div class="delete-btn">
               <q-btn type="button" class="c_btn c_icon medium line">
                 <i class="ico plus" /><span class="txt">Hover</span>
               </q-btn>
             </div>
           </div>
-          <div>
+          <div class="add-pro">
             <a href="#">
-              <span></span>
+              <span>
+                프로젝트 추가 아이콘
+              </span>
               <p>프로젝트 추가</p>
             </a>
           </div>
@@ -278,7 +246,7 @@ import { useMeta } from "quasar";
 import CButton from "components/common/CButton.vue";
 import CDropdown from "components/common/CDropdown.vue";
 
-const visible = ref("B");
+const visible = ref("A");
 const title = ref("Member");
 const btnName = ref("삭제");
 const btnCancle = ref("취소");

@@ -274,7 +274,7 @@ import { useMeta, useQuasar } from "quasar";
 import CDropdown from "components/common/CDropdown.vue";
 import CUploader from "components/common/CUploader.vue";
 
-const visible = ref("A");
+const visible = ref("B");
 const title = ref("Support");
 const label = ref("유형선택");
 
