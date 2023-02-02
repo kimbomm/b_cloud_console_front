@@ -144,7 +144,7 @@
           display: flex; justify-content: space-between; align-items: baseline;
           width: 100%;
         }
-        .chart{
+        /* .chart{
           display: flex;
           flex-direction: column;
           align-items: center;
@@ -169,6 +169,37 @@
           // .gr6{height: 132px;}
           .month{
             color: $surface16; font-size: $fs14; line-height: 14px;
+          }
+        } */
+        .chart{
+          display:flex;
+          justify-content: space-between;
+          width:100%;
+          padding:0 6px;
+        }
+        .vertical_chart{
+          display:flex;
+          flex-direction: column;
+          justify-content: flex-end;
+          align-items: center;
+          position:relative;
+          height:228px;
+          &::after{
+            content:attr(data-legend);
+            display:inline-block;
+            color:$surface16;font-size:$fs14;
+            white-space: nowrap;
+          }
+          .chartbar{
+            overflow: hidden;
+            position:relative;
+            width:8px;max-height:200px;
+            margin-bottom:10px;
+            border-radius:100px;
+            background:$surface03;
+            &:hover{
+              background:$secondary-mint;
+            }
           }
         }
       }

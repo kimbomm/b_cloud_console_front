@@ -382,9 +382,8 @@
           </a>
           <p class="name">당월 이용금액</p>
           <p class="current"><span class="current_pay">1,394,213</span>&nbsp;원</p>
-          <!-- 임시 chart -->
           <div class="billing-chart">
-            <div class="chart chr1">
+            <!-- <div class="chart chr1">
               <progress
                 value="147"
                 max="200"
@@ -458,9 +457,64 @@
                 </q-tooltip>
               </span>
               <span class="month">03</span>
+            </div> -->
+            <div class="chart">
+              <div role="progressbar" class="vertical_chart" data-legend="22.10">
+                <div class="chartbar" style="height:70%">
+                  <q-tooltip anchor="top middle" class="c_tooltip bottom">
+                    <div class="inner">
+                      382,232 원
+                    </div>
+                  </q-tooltip>
+                </div>
+              </div>
+              <div role="progressbar" class="vertical_chart" data-legend="11">
+                <div class="chartbar" style="height:40%">
+                  <q-tooltip anchor="top middle" class="c_tooltip bottom">
+                    <div class="inner">
+                      382,232 원
+                    </div>
+                  </q-tooltip>
+                </div>
+              </div>
+              <div role="progressbar" class="vertical_chart" data-legend="12">
+                <div class="chartbar" style="height:100%">
+                  <q-tooltip anchor="top middle" class="c_tooltip bottom">
+                    <div class="inner">
+                      382,232 원
+                    </div>
+                  </q-tooltip>
+                </div>
+              </div>
+              <div role="progressbar" class="vertical_chart" data-legend="23.01">
+                <div class="chartbar" style="height:60%">
+                  <q-tooltip anchor="top middle" class="c_tooltip bottom">
+                    <div class="inner">
+                      382,232 원
+                    </div>
+                  </q-tooltip>
+                </div>
+              </div>
+              <div role="progressbar" class="vertical_chart" data-legend="02">
+                <div class="chartbar" style="height:30%">
+                  <q-tooltip anchor="top middle" class="c_tooltip bottom">
+                    <div class="inner">
+                      382,232 원
+                    </div>
+                  </q-tooltip>
+                </div>
+              </div>
+              <div role="progressbar" class="vertical_chart" data-legend="03">
+                <div class="chartbar" style="height:50%">
+                  <q-tooltip anchor="top middle" class="c_tooltip bottom">
+                    <div class="inner">
+                      382,232 원
+                    </div>
+                  </q-tooltip>
+                </div>
+              </div>
             </div>
           </div>
-          <!-- // 임시 chart -->
         </div>
         <!-- Quota -->
         <div class="storage-box_dash quota">
@@ -649,8 +703,8 @@ useMeta(() => ({
 }));
 const ptitle = ref(title);
 const slide = ref(1);
-const instanceData = true;
-const taskData = true;
+const instanceData = ref(true);
+const taskData = ref(true);
 
 </script>
 
