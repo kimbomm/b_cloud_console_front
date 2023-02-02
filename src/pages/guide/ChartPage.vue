@@ -27,6 +27,16 @@
           :series="series"
         ></apexchart>
       </section>
+      <section class="section">
+        <h3>Circular Gauage</h3>
+        <div id="chart"></div>
+        <apexchart
+          height="350"
+          type="radialBar"
+          :options="radiaBarOptions"
+          :series="radiaBarSeries"
+        ></apexchart>
+      </section>
     </div>
   </div>
 </template>
@@ -107,4 +117,82 @@ const series = [
     data: [12, 11, 14, 18, 17, 13, 13],
   },
 ];
+
+const radiaBarOptions = {
+  chart: {
+    height: 350,
+    type: "radialBar",
+    toolbar: {
+      show: true
+    }
+  },
+  plotOptions: {
+    radialBar: {
+      startAngle: 0,
+      endAngle: 360,
+      hollow: {
+        margin: 0,
+        size: "70%",
+        background: "#fff",
+        position: "front",
+        dropShadow: {
+          enabled: true,
+          top: 3,
+          left: 0,
+          blur: 4,
+          opacity: 0.24
+        }
+      },
+      track: {
+        background: "#fff",
+        strokeWidth: "67%",
+        margin: 0, // margin is in pixels
+        dropShadow: {
+          enabled: true,
+          top: -3,
+          left: 0,
+          blur: 4,
+          opacity: 0.35
+        }
+      },
+
+      dataLabels: {
+        show: true,
+        name: {
+          offsetY: -10,
+          show: true,
+          color: "#888",
+          fontSize: "17px"
+        },
+        value: {
+          formatter(val) {
+            return parseInt(val, 10);
+          },
+          color: "#111",
+          fontSize: "36px",
+          show: true,
+        }
+      }
+    }
+  },
+  fill: {
+    type: "gradient",
+    gradient: {
+      shade: "dark",
+      type: "horizental",
+      shadeIntensity: 0.5,
+      gradientToColors: ["#FF0000", "#4992FF"],
+      inverseColors: true,
+      opacityFrom: 1,
+      opacityTo: 1,
+      stops: [0, 100]
+    }
+  },
+  stroke: {
+    lineCap: "round"
+  },
+  labels: ["Percent"],
+};
+
+const radiaBarSeries = [75];
 </script>
