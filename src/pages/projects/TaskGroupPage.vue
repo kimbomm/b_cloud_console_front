@@ -21,31 +21,6 @@
       <h1 class="p-title">
         {{ ptitle }}
       </h1>
-      <q-btn class="ibtn setmenu">
-        <i class="ico set" /><span class="hidden">설정</span>
-        <q-menu class="set_menu">
-          <q-list style="min-width: 100px">
-            <q-item>
-              <q-btn class="item">
-                <span class="txt">이름/설명 편집</span>
-              </q-btn>
-            </q-item>
-            <q-item>
-              <q-btn class="item">
-                <span class="txt">할당량 변경 요청</span>
-              </q-btn>
-            </q-item>
-            <q-item>
-              <q-btn class="item">
-                <span class="txt">프로젝트 삭제</span>
-              </q-btn>
-            </q-item>
-          </q-list>
-        </q-menu>
-      </q-btn>
-      <p class="desc">
-        <span class="txt">Your Summary Information Of The Workspace</span>
-      </p>
     </div>
     <!-- //.chead -->
     <div class="p-body">
@@ -53,9 +28,11 @@
         <div class="user_info">
           <div class="user_box com_border_box">
             <div class="user_box_head">
-              <template v-if="datacheck === datacheck">
+              <template v-if="datacheck === true">
                 <div class="basis_view">
-                  <p class="sub_title">00태스크 1-1 <i class="ico modify" /></p>
+                  <p class="sub_title">00태스크 1-1
+                    <i class="ico modify" @click="datacheck = false" />
+                  </p>
                 </div>
               </template>
               <template v-else>
@@ -78,6 +55,7 @@
                         <q-btn
                           label="저장"
                           class="primary"
+                          @click="datacheck = true"
                         />
                       </div>
                     </div>

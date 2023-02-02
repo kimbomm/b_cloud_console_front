@@ -58,7 +58,7 @@ const routes = [
       // 팝업
       { path: "/popup/", component: () => import("pages/popup/IndexPage.vue") },
       // 샘플
-      { path: "/sample/table", component: () => import("pages/sample/TablePage.vue") },
+      { path: "/sample/table", component: () => import("pages/sample/TablePage2.vue") },
       { path: "/sample/temp", component: () => import("pages/sample/TempPage.vue") },
     ],
   },

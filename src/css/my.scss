@@ -142,6 +142,7 @@
       justify-content: flex-start;
       flex-wrap:wrap;
       margin:0;padding:0;
+      .ico.help{margin-left: 6px;}
       &.column{
         margin-top:30px;
         padding-top:30px;
@@ -225,6 +226,29 @@
       .c_btn{
         &:not(:last-child){
           margin-right:10px;
+        }
+      }
+    }
+  }
+
+/* Alarm */
+  &.p-index{
+    .p-alarm{
+      .btn_area{margin-bottom: 30px;}
+      .table_set{
+        .l_set_inner{
+          .c_inpgroup{
+            display: inline-block;
+            .wsize450{
+              width: 450px;
+            }
+          }
+        }
+        .r_set_inner{
+          .view_cont_num{
+            display: inline-block;
+            width: 108px;
+          }
         }
       }
     }

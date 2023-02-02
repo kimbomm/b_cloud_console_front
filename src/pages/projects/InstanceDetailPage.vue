@@ -21,31 +21,6 @@
       <h1 class="p-title">
         {{ ptitle }}
       </h1>
-      <q-btn class="ibtn setmenu">
-        <i class="ico set" /><span class="hidden">설정</span>
-        <q-menu class="set_menu">
-          <q-list style="min-width: 100px">
-            <q-item>
-              <q-btn class="item">
-                <span class="txt">이름/설명 편집</span>
-              </q-btn>
-            </q-item>
-            <q-item>
-              <q-btn class="item">
-                <span class="txt">할당량 변경 요청</span>
-              </q-btn>
-            </q-item>
-            <q-item>
-              <q-btn class="item">
-                <span class="txt">프로젝트 삭제</span>
-              </q-btn>
-            </q-item>
-          </q-list>
-        </q-menu>
-      </q-btn>
-      <p class="desc">
-        <span class="txt">Your Summary Information Of The Workspace</span>
-      </p>
     </div>
     <!-- //.chead -->
     <div class="p-body">
@@ -270,11 +245,20 @@
               </li>
             </ul>
             <div class="make_btn">
-              <CButton
-                :size-types="2"
-                :btn-types="11"
-                :btn-names="btnDis"
-              />
+              <template v-if="datacheck === datacheck">
+                <CButton
+                  :size-types="2"
+                  :btn-types="11"
+                  :btn-names="btnDis"
+                />
+              </template>
+              <template v-else>
+                <CButton
+                  :size-types="2"
+                  :btn-types="1"
+                  :btn-names="btnName"
+                />
+              </template>
             </div>
           </div>
         </div>
@@ -297,6 +281,8 @@ useMeta(() => ({
 const ptitle = ref(title);
 const tab = ref("tabs1");
 const tab2 = ref("tabs1");
+const datacheck = ref(false);
+const btnName = ref("인스턴스 생성");
 const btnDis = ref("인스턴스 생성");
 const textName = ref(null);
 const textName2 = ref(null);

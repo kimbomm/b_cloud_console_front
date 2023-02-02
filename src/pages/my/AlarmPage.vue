@@ -171,5 +171,5 @@ const data = [
 </script>
 
 <style lang="scss" scoped>
-@import "./src/css/mypage";
+@import "./src/css/my";
 </style>

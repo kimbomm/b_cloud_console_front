@@ -107,6 +107,9 @@
         }
         .unit_type{
           margin-bottom: 12px;
+          .counter{
+            .usage2{color:$gray800;}
+          }
         }
         .req{
           margin-right: 50px;
@@ -252,7 +255,8 @@
         &_req-box2{
           padding: 20px;
           margin-right: 16px; margin-bottom: 16px;
-          width: 362px; height: 139px;
+          width: calc(100% / 4 - 12px);
+          min-height: 139px;
           border-radius: 12px;
           background-color: $surface01;
           &:nth-child(4n){
@@ -265,7 +269,7 @@
         .req-wrap{
           display: flex;
           flex-wrap: wrap;
-          width: 1496px;
+          // width: 1496px;
           font-size: 0;
           &::after{
             content: "";

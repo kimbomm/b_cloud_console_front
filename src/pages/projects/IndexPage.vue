@@ -59,42 +59,75 @@
 
               <div class="cont_head_inner">
                 <ul>
-                  <li class="now_view">워크스페이스 할당량</li>
-                  <li>프로젝트 할당량</li>
+                  <li :class="{'now_view' : viewTab == 0}" @click="viewTab = 0">워크스페이스 할당량</li>
+                  <li :class="{'now_view' : viewTab == 1}" @click="viewTab = 1">프로젝트 할당량</li>
                 </ul>
               </div>
             </div>
 
             <div class="cont_main">
-              <ul class="now_quota">
-                <li>
-                  <div class="circle_progress"></div>
-                  <div class="progress_info">
-                    <p class="pro_info_name">Tesla V100</p>
-                    <p class="pro_info_num">
-                      <span class="now_using">50</span> / 100
-                    </p>
-                  </div>
-                </li>
-                <li>
-                  <div class="circle_progress"></div>
-                  <div class="progress_info">
-                    <p class="pro_info_name">Tesla A100</p>
-                    <p class="pro_info_num">
-                      <span class="now_using">3</span> / 10
-                    </p>
-                  </div>
-                </li>
-                <li>
-                  <div class="circle_progress"></div>
-                  <div class="progress_info">
-                    <p class="pro_info_name">CPU</p>
-                    <p class="pro_info_num">
-                      <span class="now_using">1002</span> / 2000
-                    </p>
-                  </div>
-                </li>
-              </ul>
+              <template v-if="viewTab == 0">
+                <ul class="now_quota">
+                  <li>
+                    <div class="circle_progress"></div>
+                    <div class="progress_info">
+                      <p class="pro_info_name">Tesla V100</p>
+                      <p class="pro_info_num">
+                        <span class="now_using">50</span> / 100
+                      </p>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="circle_progress"></div>
+                    <div class="progress_info">
+                      <p class="pro_info_name">Tesla A100</p>
+                      <p class="pro_info_num">
+                        <span class="now_using">3</span> / 10
+                      </p>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="circle_progress"></div>
+                    <div class="progress_info">
+                      <p class="pro_info_name">CPU</p>
+                      <p class="pro_info_num">
+                        <span class="now_using">1002</span> / 2000
+                      </p>
+                    </div>
+                  </li>
+                </ul>
+              </template>
+              <template v-if="viewTab == 1">
+                <ul class="now_quota">
+                  <li>
+                    <div class="circle_progress"></div>
+                    <div class="progress_info">
+                      <p class="pro_info_name">Tesla V100</p>
+                      <p class="pro_info_num">
+                        <span class="now_using">60</span> / 100
+                      </p>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="circle_progress"></div>
+                    <div class="progress_info">
+                      <p class="pro_info_name">Tesla A100</p>
+                      <p class="pro_info_num">
+                        <span class="now_using">5</span> / 10
+                      </p>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="circle_progress"></div>
+                    <div class="progress_info">
+                      <p class="pro_info_name">CPU</p>
+                      <p class="pro_info_num">
+                        <span class="now_using">1012</span> / 2000
+                      </p>
+                    </div>
+                  </li>
+                </ul>
+              </template>
             </div>
           </li>
           <li class="cpu_rate com_area">
@@ -258,6 +291,7 @@ useMeta(() => ({
 const ptitle = ref(title);
 const tab = ref("tabs3");
 const label2 = ref("10");
+const viewTab = ref(0);
 
 const options2 = ref([
   { label: "10", value: 0 },

@@ -44,7 +44,7 @@
                 :btn-names="'멤버추가'"
               />
             </div>
-            <div class="set-btn">
+            <div class="set-btn remove_member_btn">
               <CButton
                 :size-types="2"
                 :btn-types="51"
