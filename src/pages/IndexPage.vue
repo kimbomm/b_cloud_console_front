@@ -385,7 +385,10 @@
           <!-- 임시 chart -->
           <div class="billing-chart">
             <div class="chart chr1">
-              <span class="graph gr1">
+              <progress
+                value="147"
+                max="200"
+                class="graph gr1">
                 <q-tooltip
                   v-model="showing1"
                   aanchor="top middle" self="bottom middle"
@@ -393,7 +396,7 @@
                   >
                   <div class="inner">382,232원</div>
                 </q-tooltip>
-              </span>
+              </progress>
               <span class="month">22.10</span>
             </div>
             <div class="chart chr2">
@@ -474,8 +477,15 @@
                   <p class="useage">24%</p>
                   <p class="used"><span>24</span>&nbsp;/&nbsp;100</p>
                 </div>
-                <!-- 임시 chart -->
-                <div class="space-chart"></div>
+                <div class="quo_progress">
+                  <div class="state">
+                    <progress
+                      value="24"
+                      max="100"
+                      class="space-chart"
+                    />
+                  </div>
+                </div>
               </div>
               <!-- // store -->
               <!-- store -->
@@ -485,8 +495,15 @@
                   <p class="useage">24%</p>
                   <p class="used"><span>24</span>&nbsp;/&nbsp;100</p>
                 </div>
-                <!-- 임시 chart -->
-                <div class="space-chart"></div>
+                <div class="quo_progress">
+                  <div class="state">
+                    <progress
+                      value="24"
+                      max="100"
+                      class="space-chart"
+                    />
+                  </div>
+                </div>
               </div>
               <!-- // store -->
               <!-- store -->
@@ -496,8 +513,15 @@
                   <p class="useage">75%</p>
                   <p class="used"><span>75</span>&nbsp;/&nbsp;100</p>
                 </div>
-                <!-- 임시 chart -->
-                <div class="space-chart"></div>
+                <div class="quo_progress">
+                  <div class="state">
+                    <progress
+                      value="75"
+                      max="100"
+                      class="space-chart"
+                    />
+                  </div>
+                </div>
               </div>
               <!-- // store -->
               <!-- store -->
@@ -507,8 +531,15 @@
                   <p class="useage">24%</p>
                   <p class="used"><span>24</span>&nbsp;/&nbsp;100</p>
                 </div>
-                <!-- 임시 chart -->
-                <div class="space-chart"></div>
+                <div class="quo_progress">
+                  <div class="state">
+                    <progress
+                      value="24"
+                      max="100"
+                      class="space-chart"
+                    />
+                  </div>
+                </div>
               </div>
               <!-- // store -->
             </q-scroll-area>
