@@ -52,12 +52,51 @@ $padding: 16px;
   .badge_group{
     cursor:pointer;
   }
+  .usage{
+    display:flex;
+    align-items: center;
+    .ico{
+      display:inline-block;
+      width:8px;height:8px;
+      border-radius:50%;
+      margin-right:8px;
+      &.row{
+        background:$blue;
+      }
+      &.middle{
+        background:$yellow;
+      }
+      &.high{
+        background:$red;
+      }
+    }
+  }
+  .q-item{
+    &.cell{
+      min-height:auto;
+      padding:0;
+    }
+  }
 }
 ::v-deep{
   table{
     border-spacing: 0 12px;
   }
+  .badge{
+    display:flex;
+  }
+  .txt.clip{
+    max-width:150px;
+  }
+  .q-checkbox{
+    overflow:hidden;
+    max-width:300px;
+  }
   .q-checkbox .q-checkbox__label{
+    overflow:hidden;
+    max-width:calc(100% - 1px);
+    white-space: nowrap;
+    text-overflow: ellipsis;
     color:$gray500;
   }
   .easy-checkbox{
@@ -113,6 +152,7 @@ $padding: 16px;
   .vue3-easy-data-table__body{
     .cell{
       white-space: nowrap;
+      text-align:right;
       &.btngroup{
         min-width:170px;
         text-align:right;

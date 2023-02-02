@@ -310,13 +310,23 @@
             &_useable{color: $gray300;}
           }
           .cont_footer{
-            width: 240px;
-            margin-top: 8px;
+            width: 240px; margin-top: 0;
             .progress_bar_area{
               display: block;
               width: 100%; height: 4px;
               border-radius: 2px;
               background: linear-gradient(-296.32deg, #E50F1C 16.69%, #4992FF 83.45%, #363CE5 83.45%);
+            }
+            .stor_progress{
+              width: 100%; height: 4px;
+            }
+            ::-webkit-progress-bar{
+              border-radius: 2px;
+              background-color: $surface03;
+            }
+            ::-webkit-progress-value{
+              border-radius: 2px;
+              background: linear-gradient(-296.32deg, #4992FF 16.69%, #E50F1C 83.45%, #E50F1C 83.45%);
             }
           }
         }

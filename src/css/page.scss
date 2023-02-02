@@ -67,6 +67,7 @@
 .mt32{margin-top: 32px;}
 .mt40{margin-top: 40px;}
 .mt60{margin-top: 60px;}
+.mb20{margin-bottom: 20px !important;}
 .mb24{margin-bottom: 24px;}
 .mb30{margin-bottom: 30px;}
 .mb40{margin-bottom: 40px;}
@@ -151,7 +152,6 @@
   }
 }
 
-
 /* ico common */
 .ico.low{
   display: inline-block;
@@ -173,4 +173,20 @@
   margin-right: 8px;
   vertical-align: unset;
   background:url(/src/assets/images/icon/8/ico_high.svg) no-repeat 50% 50%;
+}
+
+/* common no-data table */
+.com_nondata_area{
+  .nondata_box{
+    width: 100%;
+    padding:130px 0;
+    text-align: center;
+    background-color: $surface01;
+    border-radius: 8px;
+    .nondata_txt{color:$gray500;}
+    .nondata_btn{
+      margin-top: 30px;
+      button{width: 99px;}
+    }
+  }
 }

@@ -11,6 +11,21 @@
           display: inline-block;
           width: 50%;
           color:$white;
+          .progress_bar_area{
+            display: block;
+            height: 4px;
+            progress{
+              width: 100% !important;
+            }
+            ::-webkit-progress-bar {
+              width:100%; height:4px;
+              border-radius:2px;
+            }
+            ::-webkit-progress-value {
+              border-radius:100px;
+              background: linear-gradient(270deg, #FF0000 -35.71%, #4992FF 100%);;
+            }
+          }
           .mmh_com{
             height: 330px;
             padding:30px;
@@ -52,12 +67,6 @@
             .cont_footer{
               width: 100%;
               .progress_percentage_txt{margin-bottom: 8px;}
-              .progress_bar_area{
-                display: block;
-                height: 4px;
-                border-radius: 2px;
-                background: linear-gradient(-296.32deg, #E50F1C 16.69%, #4992FF 83.45%, #363CE5 83.45%);
-              }
             }
           }
           .mmh_cont01{
@@ -70,22 +79,43 @@
             .cont_main{
               .percentage_txt{color:$primary-light !important;}
             }
+            .cont_footer{
+              .progress_bar_area{
+                ::-webkit-progress-bar{
+                  background-color: $primary-dark !important;
+                }
+              }
+            }
           }
-          &:nth-child(2n){
+          &:nth-child(2n-1){
             > div{
               background-color: $secondary-purple-dark;
               h3{background-color: $secondary-purple;}
               .cont_main{
                 .percentage_txt{color:$secondary-purple-light;}
               }
+              .cont_footer{
+                .progress_bar_area{
+                  ::-webkit-progress-bar{
+                    background-color: $secondary-purple;
+                  }
+                }
+              }
             }
           }
-          &:nth-child(2n-1){
+          &:nth-child(2n){
             > div{
               background-color: $secondary-purple;
               h3{background-color: $secondary-purple-dark;}
               .cont_main{
                 .percentage_txt{color:$secondary-purple-light;}
+              }
+              .cont_footer{
+                .progress_bar_area{
+                  ::-webkit-progress-bar{
+                    background-color: $secondary-purple-dark;
+                  }
+                }
               }
             }
           }
@@ -278,8 +308,18 @@
               .progress_bar_area{
                 display: block;
                 height: 4px;
-                border-radius: 2px;
-                background: linear-gradient(-296.32deg, #E50F1C 16.69%, #4992FF 83.45%, #363CE5 83.45%);
+                progress{
+                  width: 100% !important;
+                }
+                ::-webkit-progress-bar {
+                  width:100%; height:4px;
+                  border-radius:2px;
+                  background-color: $primary-dark;
+                }
+                ::-webkit-progress-value {
+                  border-radius:100px;
+                  background: linear-gradient(270deg, #FF0000 -35.71%, #4992FF 100%);;
+                }
               }
             }
           }

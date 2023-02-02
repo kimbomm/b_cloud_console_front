@@ -60,15 +60,108 @@
             </div>
           </div>
         </div>
-        <CTable
-          :title="title"
-          :columns="columns"
-          :data="data"
-          :action-buttons="actionButtons"
-          @action="respAction"
-          row-click
-          @rowClick="onRowClick"
-        />
+        <!-- Table -->
+        <section class="section">
+          <EasyDataTable
+            v-model:items-selected="itemsSelected"
+            :headers="headers"
+            :items="items"
+            :hide-footer="true"
+            :body-row-class-name="bodyRowClassNameFunction"
+            empty-message="정보가 없습니다."
+          >
+          <!-- title -->
+          <template #item-title="item">
+            <a href="#">
+              <span class="txt">{{ item.title }}</span>
+              <q-tooltip
+                anchor="bottom middle"
+                class="c_tooltip"
+              >
+                <div class="inner">
+                  {{ item.title }}
+                </div>
+              </q-tooltip>
+            </a>
+          </template>
+          <!--
+            상태값(status)
+            1. running, 운영중, 실행중
+            2. stopped, 정지 | 오류 | 취소 | 실패
+            3. 생성중 | 삭제중 | 대기중 | 재시작중
+          -->
+          <template #item-status="item">
+            <q-badge
+              v-if="item.status === 'running'"
+              class="green"
+            >
+              <span class="txt">운영중</span>
+            </q-badge>
+            <q-badge
+              v-else-if="item.status === 'stopped'"
+              class="orange"
+            >
+              <span class="txt">정지</span>
+            </q-badge>
+            <q-badge
+              v-else
+              class="c_badge"
+            >
+              <span class="txt">생성중</span>
+            </q-badge>
+          </template>
+          <!-- 이메일 타입 -->
+          <template #item-emailType="item">
+            <q-badge
+              class="text instance"
+              @click="onCopy(item)"
+            >
+              <span class="txt">{{ item.emailType }}</span>
+            </q-badge>
+          </template>
+          <!-- createdBy -->
+          <template #item-createdBy="item">
+            <span class="txt clip">{{ item.createdBy }}</span>
+          </template>
+          <!-- 버튼 그룹 -->
+          <template #item-buttons="item">
+            <div v-if="actionButtons || item.buttons" class="cell btngroup">
+              <!-- 초대 요청 확인 -->
+              <q-btn
+                v-if="item.buttons"
+                class="c_btn"
+              >
+                <span class="txt">{{ item.buttons.name }}</span>
+              </q-btn>
+
+              <!-- row action menu -->
+              <q-btn class="c_btn ibtn dot">
+                <i class="ico dots" /><span class="txt">클릭</span>
+                <q-popup-edit
+                  v-model="item.id"
+                  class="dots_menu"
+                  anchor="top right"
+                >
+                  <q-list style="min-width: 100px">
+                    <q-item
+                      v-for="button in actionButtons"
+                      :key="button.name"
+                    >
+                      <q-btn
+                        class="item"
+                        @click="onActions(button.event, item)"
+                      >
+                        <span class="txt">{{ button.name }}</span>
+                      </q-btn>
+                    </q-item>
+                  </q-list>
+                </q-popup-edit>
+              </q-btn>
+            </div>
+          </template>
+        </EasyDataTable>
+      </section>
+        <!-- //Table -->
         <div class="group">
           <CPagination />
         </div>
@@ -162,124 +255,89 @@ const options2 = ref([
   { label: "50", value: 2 },
 ]);
 
-const columns = [
+// Table
+const itemsSelected = ref([]);
+const headers = [
   {
-    name: "id",
-    field: "id",
-    label: "ID",
-    required: true,
-    align: "left",
+    text: "이름", value: "name", width: 80, sortable: true, checkbox: true
   },
   {
-    name: "name",
-    field: "name",
-    label: "이름",
-    align: "left",
-    sortable: true,
-    type: "link",
+    text: "이메일", value: "emailype", width: 160, sortable: true
   },
   {
-    name: "status",
-    field: "status",
-    label: "상태",
-    align: "left",
-    sortable: true,
-    type: "tag",
+    text: "GPU", value: "gpu", width: 80, sortable: false
   },
   {
-    name: "ssh",
-    field: "ssh",
-    label: "ssh",
-    align: "left",
-    sortable: true,
-    type: "copy",
+    text: "CPU", value: "cpu", width: 80, sortable: false
   },
   {
-    name: "JupyterLab",
-    field: "JupyterLab",
-    label: "JupyterLab",
-    align: "left",
-    sortable: true,
-    type: "copy",
+    text: "생성일시", value: "createdAt", width: 180, sortable: true
   },
   {
-    name: "instanceType",
-    field: "instanceType",
-    label: "인스턴스 타입",
-    align: "left",
-    sortable: true,
-    type: "tooltip",
+    text: "생성자", value: "createdBy", width: 100, sortable: true
   },
-  {
-    name: "gpu",
-    field: "gpu",
-    label: "GPU",
-    align: "left",
-    sortable: true,
-  },
-  {
-    name: "cpu",
-    field: "cpu",
-    label: "CPU",
-    align: "left",
-    sortable: true,
-  },
-  {
-    name: "createdAt",
-    field: "createdAt",
-    label: "생성일시",
-    align: "left",
-    sortable: true,
-    type: "datetime"
-  },
-  {
-    name: "createdBy",
-    field: "createdBy",
-    label: "생성자",
-    align: "left",
-    sortable: true,
-  },
+  { text: "", value: "buttons", width: 150 },
 ];
-const data = [
+const items = [
   {
-    id: 1,
-    name: "인스턴스 이름 인스턴스 이름 인스턴스 이름",
-    status: "running",
-    ssh: "ssh",
-    JupyterLab: "JupyterLab",
-    instanceType: "V1.XLARGE",
+    name: 132,
+    emailType: "V1.XLARGE",
     gpu: "49.5%",
     cpu: "100%",
     createdAt: "2023.01.12 10:33:21",
-    createdBy: "Root.choi",
+    createdBy: "root.choi (root.choi@kakaobrain.com)",
     resource: {
       cpus: 28,
       gpu_device_model: "TESLA_V100",
       gpus: 2,
       mem: 249856,
-      zone: "public:normal"
+      zone: "public:normal",
+    },
+    buttons: {
+      name: "초대요청 확인"
     }
   },
   {
-    id: 2,
-    name: "인스턴스 이름 인스턴스 이름 인스턴스 이름",
-    status: "stopped",
-    ssh: "ssh",
-    JupyterLab: "JupyterLab",
-    instanceType: "V1.XLARGE",
+    name: 34,
+    emailType: "V1.XLARGE",
     gpu: "49.5%",
     cpu: "100%",
     createdAt: "2023.01.12 10:33:21",
-    createdBy: "Root.choi",
+    createdBy: "root.choi (root.choi@kakaobrain.com)",
     resource: {
       cpus: 28,
       gpu_device_model: "TESLA_V100",
       gpus: 2,
       mem: 249856,
-      zone: "public:normal"
+      zone: "public:normal",
+    }
+  },
+  {
+    name: 99999,
+    emailType: "V1.XLARGE",
+    gpu: "49.5%",
+    cpu: "100%",
+    createdAt: "2023.01.12 10:33:21",
+    createdBy: "root.choi (root.choi@kakaobrain.com)",
+    resource: {
+      cpus: 28,
+      gpu_device_model: "TESLA_V100",
+      gpus: 2,
+      mem: 249856,
+      zone: "public:normal",
     }
   },
 ];
+
+/**
+ * 버튼 및 checkbox 에 대한 이벤트 존재할 시 class 삽입
+ */
+const bodyRowClassNameFunction = (item) => {
+  const classList = [];
+  if (item.buttons) classList.push("row-button");
+  if (item.checkbox) classList.push("row-selected");
+  return classList.join(" ");
+};
 
 const actionButtons = [
   { name: "이용현황", event: "state" },
@@ -288,29 +346,26 @@ const actionButtons = [
   { name: "스냅샷 생성", event: "crtSnap" },
   { name: "삭제", event: "delete" },
 ];
-const respAction = (eventObj) => {
-  const eventName = eventObj.event;
-  // const rowData = eventObj.data;
-  // console.log(rowData);
-  switch (eventName) {
-    case "state":
-      break;
-    case "share":
-      break;
-    case "mngSnap":
-      break;
-    case "crtSnap":
-      break;
-    case "delete":
-      break;
-    default:
-      break;
-  }
+
+/**
+ * 설명: 복사하기 버튼 이벤트
+ * @param { object } rowData get table row data
+ */
+const onCopy = (rowData) => {
+  console.log(rowData);
 };
 
+/**
+ * 설명: row Action 버튼 이벤트
+ * @param { string } eventName action event name
+ * @param { object } rowData get table row data
+ */
+
+//
 const ptitle = ref(title);
 </script>
 
 <style lang="scss" scoped>
+@import 'src/css/table';
 @import 'src/css/members';
 </style>

@@ -380,7 +380,7 @@
           <a href="#" class="morelink">
             <span>더보기</span>
           </a>
-          <p class="name">당월 이용금액</p>
+          <p class="name mb8">당월 이용금액</p>
           <p class="current"><span class="current_pay">1,394,213</span>&nbsp;원</p>
           <!-- 임시 chart -->
           <div class="billing-chart">
