@@ -9,7 +9,7 @@
         <div class="group">
           <EasyDataTable
             class="c_table"
-            :headers="headers"
+            :headers="headers.filter((header) => header.value !== 'checkbox')"
             :items="items"
             :hide-footer="true"
             empty-message="데이터가 없습니다."
@@ -102,12 +102,11 @@
         <div class="group">
           <EasyDataTable
             class="c_table"
-            :headers="headers"
+            :headers="headers.filter((header) => header.value !== 'checkbox')"
             :items="items"
             :hide-footer="true"
             :body-row-class-name="bodyRowClassNameFunction"
             empty-message="데이터가 없습니다."
-            @click-row="showRow"
           >
             <!-- title -->
             <template #item-title="item">
@@ -115,7 +114,8 @@
                 v-model="itemsSelected2"
                 :val="item.id"
                 :label="item.title"
-                @click="onClick(item)"
+                :disable="item.disabled"
+                @click="onCheck2(item)"
               />
               <!-- <span class="txt">{{ item.title }}</span> -->
             </template>
@@ -209,7 +209,6 @@
         <h2 class="h6">Type3 class="c_table"</h2>
         <div class="group">
           <EasyDataTable
-            v-model:items-selected="itemsSelected"
             class="c_table"
             :headers="headers"
             :items="items"
@@ -217,6 +216,14 @@
             :body-row-class-name="bodyRowClassNameFunction"
             empty-message="데이터가 없습니다."
           >
+            <template #item-checkbox="item">
+              <q-checkbox
+                v-model="itemsSelected"
+                :val="item.id"
+                :disable="item.disabled"
+                @click="onCheck(item)"
+              />
+            </template>
             <!-- title -->
             <template #item-title="item">
               <a href="#">
@@ -293,7 +300,10 @@ const itemsSelected = ref([]);
 const itemsSelected2 = ref([]);
 const headers = [
   {
-    text: "ID", value: "id", width: 100, sortable: true, checkbox: true
+    text: "", value: "checkbox", width: 50
+  },
+  {
+    text: "ID", value: "id", width: 100, sortable: true
   },
   {
     text: "인스턴스 이름", value: "title", sortable: true
@@ -346,7 +356,9 @@ const items = [
     },
     buttons: {
       name: "초대요청 확인"
-    }
+    },
+    checkbox: false,
+    disabled: true
   },
   {
     id: 2,
@@ -355,7 +367,7 @@ const items = [
     ssh: "ssh",
     jupyterLab: "JupyterLab",
     instanceType: "V1.XLARGE",
-    gpu: "49.5%",
+    gpu: "50.5%",
     cpu: "100%",
     createdAt: "2023.01.12 10:33:21",
     createdBy: "Root.choi",
@@ -365,7 +377,9 @@ const items = [
       gpus: 2,
       mem: 249856,
       zone: "public:normal",
-    }
+    },
+    checkbox: false,
+    disabled: false
   },
 ];
 
@@ -376,6 +390,7 @@ const bodyRowClassNameFunction = (item) => {
   const classList = [];
   if (item.buttons) classList.push("row-button");
   if (item.checkbox) classList.push("row-selected");
+  if (item.disabled) classList.push("row-disabled");
   return classList.join(" ");
 };
 
@@ -404,12 +419,14 @@ const onActions = (eventName, rowData) => {
   console.log(eventName, rowData);
 };
 
-const onClick = (item) => {
-  console.log(item);
+const onCheck = (item) => {
+  const data = items.filter((row) => row.id === item.id)[0];
+  data.checkbox = itemsSelected.value.includes(item.id);
 };
 
-const showRow = (item) => {
-  console.log(item);
+const onCheck2 = (item) => {
+  const data = items.filter((row) => row.id === item.id)[0];
+  data.checkbox = itemsSelected2.value.includes(item.id);
 };
 </script>
 
