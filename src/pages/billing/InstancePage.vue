@@ -68,8 +68,8 @@
         <p class="pay-amount">워크스페이스 총 비용</p>
         <p class="pay"><span>39,220,000</span>&nbsp;원</p>
       </div>
-      <div class="group-tabs">
-        <div class="table_set">
+      <div class="ins-wrap">
+        <div class="group-tabs">
           <q-tabs
             v-model="tab"
             align="left"
@@ -80,7 +80,8 @@
             <q-tab name="tabs3" label="인스턴스 타입"></q-tab>
             <q-tab name="tabs4" label="스토리지"></q-tab>
           </q-tabs>
-
+        </div>
+        <div class="table_set">
           <CDropdown
             v-model:selected="selectedBasic"
             :label="optLabel"
@@ -89,26 +90,27 @@
           />
         </div>
       </div>
-
-      <div class="group-load">
-        <div class="group-table">
-          <CTable
-            :title="title"
-            :columns="columns"
-            :data="data"
-            :action-buttons="actionButtons"
-            @action="respAction"
-          />
-          <div class="group-table_page">
-            <CPagination />
-          </div>
+      <template v-if="visibleTable">
+        <div class="group-load">
+          <div class="group-table">
+            <CTable
+              :title="title"
+              :columns="columns"
+              :data="data"
+              :action-buttons="actionButtons"
+              @action="respAction"
+            />
+            <div class="group-table_page">
+              <CPagination />
+            </div>
         </div>
-      </div>
+        </div>
 
-      <!-- 오픈시, 서비스 준비중 안내 문구 표기 -->
-      <!-- <div class="group-table preparing">
-        <p>서비스 준비중입니다.</p>
-      </div> -->
+        <!-- 오픈시, 서비스 준비중 안내 문구 표기 -->
+        <!-- <div class="group-table preparing">
+          <p>서비스 준비중입니다.</p>
+        </div> -->
+      </template>
     </div>
   </q-page>
 </template>
@@ -122,6 +124,8 @@ import CPagination from "components/common/CPagination.vue";
 
 const title = ref("워크스페이스 이용 요금");
 const btnName = ref("CSV 다운로드");
+const visibleTable = ref(true);
+
 useMeta(() => ({
   title: title.value,
 }));

@@ -68,7 +68,8 @@
         <p class="pay"><span>39,220,000</span>&nbsp;원</p>
         <p class="pay-notice">*CPU, GPU 자원 이용 금액만 집계된 비용입니다.</p>
       </div>
-      <div class="group">
+      <template v-if="visibleTable">
+        <div class="group">
           <div class="table_set">
             <q-select
               outlined
@@ -101,6 +102,7 @@
         <div class="group-page">
           <CPagination />
         </div>
+      </template>
     </div>
   </q-page>
 </template>
@@ -112,8 +114,10 @@ import CDropdown from "components/common/CDropdown.vue";
 import CTable from "src/components/common/CTable.vue";
 import CPagination from "components/common/CPagination.vue";
 
+const visibleTable = ref(true);
 const title = ref("개인 이용 요금");
 const btnName = ref("워크스페이스 요금조회");
+
 useMeta(() => ({
   title: title.value,
 }));

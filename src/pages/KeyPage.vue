@@ -23,7 +23,7 @@
           <q-tab name="tabs3" label="SSH key & API key"></q-tab>
         </q-tabs>
       </div>
-      <div v-if="visible === 'A'">
+      <template v-if="visible === 'A'">
         <div class="key-box">
           <p class="key-box_title mt40">SSH Key</p>
           <div class="sign-up">
@@ -47,7 +47,7 @@
               />
             </div>
           </div>
-      </div>
+      </template>
       <template v-else>
         <div class="flex-top mt40">
           <div class="notice-txt">
@@ -61,15 +61,17 @@
             :btn-names="btnSign"
           />
         </div>
-        <div class="group">
-          <CTable
-            :title="title"
-            :columns="columns"
-            :data="data"
-            :action-buttons="actionButtons"
-            @action="respAction"
-          />
-        </div>
+        <template v-if="visibleTable">
+          <div class="group">
+            <CTable
+              :title="title"
+              :columns="columns"
+              :data="data"
+              :action-buttons="actionButtons"
+              @action="respAction"
+            />
+          </div>
+        </template>
         <div class="flex-top mt60">
           <p class="name">API Key</p>
           <div>
@@ -103,7 +105,9 @@ import { useMeta } from "quasar";
 import CButton from "components/common/CButton.vue";
 import CTable from "src/components/common/CTable.vue";
 
-const visible = ref("A");
+const visible = ref("B");
+const visibleTable = ref(true);
+
 const title = ref("Account");
 useMeta(() => ({
   title: title.value,

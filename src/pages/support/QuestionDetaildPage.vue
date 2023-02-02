@@ -9,11 +9,11 @@
           <q-icon />
         </template>
         <q-breadcrumbs-el
-          label="Workspace Manager"
+          label="Account"
           to="/support"
         />
         <q-breadcrumbs-el
-          label="Support"
+          label="내 정보"
           to="/support"
         />
       </q-breadcrumbs>
