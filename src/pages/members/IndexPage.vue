@@ -12,7 +12,7 @@
     <!-- //.chead -->
     <div class="p-body">
       <!-- /* 멤버 - 메인(워크스페이스 관리자) */ -->
-      <div v-if="visible === 'A'">
+      <template v-if="visible === 'A'">
         <div class="flex-top table-set">
           <div class="set-l set">
             <div class="set-l_left">
@@ -20,7 +20,7 @@
                 outlined
                 v-model="suffix"
                 placeholder="이름 이메일 검색"
-                class="wsize292"
+                class="member-input"
               >
                 <template v-slot:prepend>
                   <q-icon name="search" class="ico_search" />
@@ -72,7 +72,7 @@
         <div class="group">
           <CPagination />
         </div>
-      </div>
+      </template>
       <!-- /* 멤버 - 메인(워크스페이스 멤버/정산관리자,게스트) */ -->
       <template v-else>
         <div class="flex-top table-set">
@@ -82,7 +82,7 @@
                 outlined
                 v-model="suffix"
                 placeholder="이름 상태 생성자 검색"
-                class="wsize292"
+                class="member-input"
               >
                 <template v-slot:prepend>
                   <q-icon name="search" class="ico_search" />

@@ -121,6 +121,10 @@ body {
   background-color:$bg;
   color: $default;font-size: $fs14;line-height: 1.3;font-family: $font;font-weight:$regular;
 }
+[tabindex]{
+  outline:0;
+  border:0;
+}
 a{
   color:$default;
   text-decoration: none;

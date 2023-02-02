@@ -148,7 +148,12 @@
               </p>
             </div>
             <div class="cont_footer">
-              <div class="progress_bar_area"></div>
+              <div class="progress_bar_area">
+                <progress
+                  value="75"
+                  max="100"
+                />
+              </div>
             </div>
           </li>
           <li class="gpu_rate com_area">
@@ -169,7 +174,12 @@
               </p>
             </div>
             <div class="cont_footer">
-              <div class="progress_bar_area"></div>
+              <div class="progress_bar_area">
+                <progress
+                  value="75"
+                  max="100"
+                />
+              </div>
             </div>
           </li>
           <li class="cost_rate com_area">
@@ -221,7 +231,6 @@
               </q-tab>
             </q-tabs>
           </div>
-          <div class="change_table_area">
             <div class="table_set">
               <div class="l_set_inner">
                 <div class="c_inpgroup">
@@ -258,18 +267,18 @@
                 </div>
               </div>
             </div>
-
-            <CTable
-              :title="title"
-              :columns="columns"
-              :data="data"
-              :action-buttons="actionButtons"
-              @action="respAction"
-            />
-          </div>
-          <div class="group">
-            <CPagination />
-          </div>
+            <div class="table_area">
+              <CTable
+                :title="title"
+                :columns="columns"
+                :data="data"
+                :action-buttons="actionButtons"
+                @action="respAction"
+              />
+            </div>
+            <div class="group">
+              <CPagination />
+            </div>
         </div>
       </div>
     </div>

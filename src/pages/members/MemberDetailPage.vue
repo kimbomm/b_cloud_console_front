@@ -49,7 +49,7 @@
                 <CButton
                   :size-types="2"
                   :btn-types="1"
-                  :btn-names="btnName"
+                  :btn-names="'편집'"
                 />
               </div>
             </div>
@@ -157,34 +157,36 @@
           </div>
           <div class="w-info_proj line pb">
             <p class="title mt40">프로젝트</p>
-            <div class="work-wrap">
-              <div class="w-name">
-                <p class="g-txt">프로젝트 이름</p>
-                <div class="c_selectgroup mb24 w216">
+            <div class="p-tWrap">
+              <p class="p-name">프로젝트 이름</p>
+              <p class="p-auth">프로젝트 권한</p>
+            </div>
+            <div class="sel-box">
+              <div class="sel-wrap">
+                <div class="c_selectgroup w216">
                   <CDropdown
                     v-model:selected="selectedBasic"
                     :label="label"
                     :options="options2"
                   />
                 </div>
-                <div class="c_selectgroup w216">
-                  <CDropdown
-                    v-model:selected="selectedBasic"
-                    :label="label"
-                    :options="options"
-                  />
-                </div>
+                <div class="c_selectgroup w250">
+                    <CDropdown
+                      v-model:selected="selectedBasic"
+                      :label="label"
+                      :options="options"
+                    />
+                  </div>
               </div>
-              <div class="w-char">
-                <p class="g-txt">프로젝트 권한</p>
-                <div class="c_selectgroup mb24 w216">
+              <div class="sel-wrap">
+                <div class="c_selectgroup w216">
                   <CDropdown
                     v-model:selected="selectedBasic"
                     :label="label"
                     :options="options2"
                   />
                 </div>
-                <div class="c_selectgroup w216">
+                <div class="c_selectgroup w250">
                   <CDropdown
                     v-model:selected="selectedBasic"
                     :label="label"
@@ -193,6 +195,19 @@
                 </div>
               </div>
             </div>
+            <div class="delete-btn">
+              <q-btn type="button" class="c_btn c_icon medium line">
+                <i class="ico plus" /><span class="txt">Hover</span>
+              </q-btn>
+            </div>
+          </div>
+          <div class="add-pro">
+            <a href="#">
+              <span>
+                프로젝트 추가 아이콘
+              </span>
+              <p>프로젝트 추가</p>
+            </a>
           </div>
           <div class="w-info_stor line">
             <p class="title mt40">개인 스토리지</p>
@@ -244,9 +259,8 @@ useMeta(() => ({
 
 const options = ref([
   { label: "전체", value: 0 },
-  { label: "워크스페이스 관리자", value: 1 },
-  { label: "워크스페이스 멤버", value: 2 },
-  { label: "정산 관리자", value: 3 },
+  { label: "프로젝트 관리자", value: 1 },
+  { label: "멤버", value: 2 },
 ]);
 
 const options2 = ref([
