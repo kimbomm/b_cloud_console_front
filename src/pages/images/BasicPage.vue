@@ -25,37 +25,77 @@
     <q-tab name="tabs3" label="공유받은 이미지" />
   </q-tabs>
          </div>
-         <div class="table_set">
-          <div class="search_area">
-         <q-input
-              outlined
-              v-model="suffix"
-              placeholder="이미지 이름 검색"
-              clearable
-              class="wsize_full"
-            >
-          <template v-slot:prepend>
-            <q-icon name="search" class="ico_search" />
+         <template v-if="defaultData == true">
+           <div class="table_set">
+            <div class="c_inpgroup">
+           <q-input
+                outlined
+                v-model="suffix"
+                placeholder="이미지 이름 검색"
+                clearable
+                class="wsize_full"
+              >
+            <template v-slot:prepend>
+              <q-icon name="search" class="ico_search" />
+            </template>
+             </q-input>
+             </div>
+             <div class="select_drop">
+              <CDropdown
+                :label="optLabel"
+                :options="optNumber"
+                class="auto_size"
+              />
+              </div>
+              </div>
+              <section class="section">
+        <EasyDataTable
+          :headers="headers"
+          :items="items"
+          :hide-footer="true"
+          empty-message="정보가 없습니다."
+          @click-row="showRow"
+        >
+          <!-- title -->
+          <template #item-title="item">
+            <a href="#">
+              <span class="txt">{{ item.title }}</span>
+              <q-tooltip
+                anchor="bottom middle"
+                class="c_tooltip"
+              >
+                <div class="inner">
+                  {{ item.title }}
+                </div>
+              </q-tooltip>
+            </a>
           </template>
-        </q-input>
-         </div>
-           <div class="select_drop">
-            <CDropdown
-              v-model:selected="selectedBasic"
-              :label="optLabel"
-              :options="optNumber"
-              class="auto_size"
-            />
+           <template #item-version="item">
+            <a href="#">
+              <span class="txt">{{ item.version }}</span>
+              <q-tooltip
+                anchor="bottom middle"
+                class="c_version"
+              >
+                <div class="inner">
+                  {{ item.version }}
+                </div>
+              </q-tooltip>
+            </a>
+          </template>
+        </EasyDataTable>
+        </section>
+            <div class="c_pagination">
+            <CPagination></CPagination>
             </div>
+         </template>
+         <template v-else>
+            <div class="com_nondata_area">
+              <div class="nondata_box">
+                <p class="nondata_txt">생성된 인스턴스가 없습니다.</p>
+              </div>
             </div>
-        <CTable
-          :columns="columns"
-          :data="data"
-          :inviteRequest="false"
-          ></CTable>
-        <div class="imgpagination">
-          <CPagination></CPagination>
-        </div>
+          </template>
       </div>
     </div>
   </q-page>
@@ -63,7 +103,6 @@
 <script setup>
 import { ref } from "vue";
 import { useMeta } from "quasar";
-import CTable from "src/components/common/CTable.vue";
 import CDropdown from "components/common/CDropdown.vue";
 import CPagination from "src/components/common/CPagination.vue";
 
@@ -75,36 +114,32 @@ useMeta(() => ({
 const ptitle = ref(title);
 const tab = ref("tabs2");
 const optLabel = ref("10");
-const columns = [
+const defaultData = ref(true);
+
+const headers = [
   {
-    name: "id",
-    field: "id",
-    label: "이름",
-    required: true,
-    align: "left",
-    sortable: true,
+    text: "이름", value: "id", width: 1228, sortable: true
   },
   {
-    name: "driverVersion",
-    field: "driverVersion",
-    label: "NVIDA 드라이브 최소 버전",
-    required: true,
-    align: "right",
-    sortable: false,
-  }
+    text: "NVIDA 드라이버 최소버전", value: "version", width: 348,
+  },
+
 ];
-const data = [
+const items = [
   {
-    id: "tensorflow 2.9.0 (python3, cuda11.2, ubuntu20.04)",
-    driverVersion: "450.000.008",
+    id: "tensorflow 2.9.0  (python3, cuda11.2, ubuntu20.04)",
+    version: "450.000.008"
+
   },
   {
-    id: "tensorflow 2.9.0 (python3, cuda11.2, ubuntu20.04)",
-    driverVersion: "450.000.008",
+    id: "tensorflow 2.9.0  (python3, cuda11.2, ubuntu20.04)",
+    version: "450.000.008"
+
   },
   {
-    id: "tensorflow 2.9.0 (python3, cuda11.2, ubuntu20.04)",
-    driverVersion: "450.000.008",
+    id: "tensorflow 2.9.0  (python3, cuda11.2, ubuntu20.04)",
+    version: "450.000.008"
+
   },
 
 ];
@@ -119,4 +154,5 @@ const optNumber = ref([
 
 <style lang="scss" scoped>
 @import "src/css/images.scss";
+@import "src/css/table.scss";
 </style>

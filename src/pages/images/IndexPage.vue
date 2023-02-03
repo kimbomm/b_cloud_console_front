@@ -2,7 +2,10 @@
   <q-page class="p-content p-images p-index">
     <div class="p-head">
         <!-- <CBreadcrumb></CBreadcrumb> -->
-        <q-breadcrumbs class="c_breadcrumb" gutter="none">
+        <q-breadcrumbs
+        class="c_breadcrumb"
+         gutter="none"
+         >
         <template v-slot:separator>
           <q-icon />
         </template>
@@ -26,40 +29,129 @@
     <q-tab name="tabs3" label="공유받은 이미지" />
   </q-tabs>
          </div>
-         <div class="table_set">
-          <div class="search_area">
-         <q-input
-              outlined
-              v-model="suffix"
-              placeholder="이름,설명,기본이미지 검색"
-              clearable
-              class="wsize_full"
-            >
-          <template v-slot:prepend>
-            <q-icon name="search" class="ico_search" />
+         <template v-if="defaultData == true">
+           <div class="table_set">
+            <div class="c_inpgroup">
+           <q-input
+                outlined
+                v-model="suffix"
+                placeholder="이름,설명,기본이미지 검색"
+                clearable
+                class="wsize_full"
+              >
+            <template v-slot:prepend>
+              <q-icon name="search" class="ico_search" />
+            </template>
+             </q-input>
+             </div>
+             <div class="select_drop">
+              <CDropdown
+                :label="optLabel"
+                :options="optNumber"
+                class="auto_size"
+              />
+              </div>
+              </div>
+              <section class="section">
+        <EasyDataTable
+          :headers="headers"
+          :items="items"
+          :hide-footer="true"
+          empty-message="정보가 없습니다."
+          @click-row="showRow"
+        >
+          <!-- title -->
+          <template #item-title="item">
+            <a href="#">
+              <span class="txt">{{ item.title }}</span>
+              <q-tooltip
+                anchor="bottom middle"
+                class="c_tooltip"
+              >
+                <div class="inner">
+                  {{ item.title }}
+                </div>
+              </q-tooltip>
+            </a>
           </template>
-           </q-input>
-           </div>
-           <div class="select_drop">
-            <CDropdown
-              v-model:selected="selectedBasic"
-              :label="optLabel"
-              :options="optNumber"
-              class="auto_size"
-            />
+          <template #item-status="item">
+            <q-badge
+              v-if="item.status === 'running'"
+              class="green"
+            >
+              <span class="txt">운영중</span>
+            </q-badge>
+            <q-badge
+              v-else-if="item.status === 'stopped'"
+              class="orange"
+            >
+              <span class="txt">정지</span>
+            </q-badge>
+            <q-badge
+              v-else
+              class="c_badge"
+            >
+              <span class="txt">생성중</span>
+            </q-badge>
+          </template>
+            <!-- image -->
+            <template #item-image="item">
+            <a href="#">
+              <span class="txt">{{ item.image }}</span>
+              <q-tooltip
+                anchor="bottom middle"
+                class="c_tooltip_image"
+              >
+                <div class="inner">
+                  {{ item.image }}
+                </div>
+              </q-tooltip>
+            </a>
+          </template>
+          <!-- createdAt -->
+          <template #item-createdAt="item">
+            <span class="txt clip">{{ item.createdAt }}</span>
+          </template>
+          <!-- 버튼 그룹 -->
+          <template #item-buttons="item">
+            <div v-if="actionButtons" class="cell btngroup">
+              <q-btn class="c_btn ibtn dot">
+                <i class="ico dots" /><span class="txt">클릭</span>
+                <q-popup-edit
+                  v-model="item.id"
+                  class="dots_menu"
+                  anchor="top right"
+                >
+                  <q-list style="min-width: 100px">
+                    <q-item
+                      v-for="button in actionButtons"
+                      :key="button.name"
+                    >
+                      <q-btn
+                        class="item"
+                        @click="onActions(button.event, item)"
+                      >
+                        <span class="txt">{{ button.name }}</span>
+                      </q-btn>
+                    </q-item>
+                  </q-list>
+                </q-popup-edit>
+              </q-btn>
             </div>
+          </template>
+        </EasyDataTable>
+        </section>
+            <div class="c_pagination">
+            <CPagination></CPagination>
             </div>
-        <CTable
-          :columns="columns"
-          :data="data"
-          :inviteRequest="false"
-          :action-buttons="actionButtons"
-          @action="respAction"
-          ></CTable>
-
-        <div class="imgpagination">
-          <CPagination></CPagination>
-        </div>
+         </template>
+         <template v-else>
+            <div class="com_nondata_area">
+              <div class="nondata_box">
+                <p class="nondata_txt">생성된 인스턴스가 없습니다.</p>
+              </div>
+            </div>
+          </template>
       </div>
     </div>
   </q-page>
@@ -67,9 +159,7 @@
 <script setup>
 import { ref } from "vue";
 import { useMeta } from "quasar";
-import CTable from "src/components/common/CTable.vue";
 import CDropdown from "components/common/CDropdown.vue";
-// import CTabs from "src/components/common/CTabs.vue";
 import CPagination from "src/components/common/CPagination.vue";
 
 const title = ref("Image");
@@ -80,74 +170,53 @@ useMeta(() => ({
 const ptitle = ref(title);
 const tab = ref("tabs1");
 const optLabel = ref("10");
+const defaultData = ref(true);
 
-const columns = [
-
+const headers = [
   {
-    name: "id",
-    field: "id",
-    label: "이름",
-    required: true,
-    align: "left",
-    sortable: true,
-    class: "columns1",
+    text: "이름", value: "id", width: 191, sortable: true
   },
   {
-    name: "instance",
-    field: "instance",
-    label: "설명",
-    required: true,
-    align: "left",
-    sortable: false,
+    text: "설명", value: "title", width: 438,
   },
   {
-    name: "status",
-    field: "status",
-    label: "상태",
-    align: "left",
-    sortable: false,
-    type: "tag",
+    text: "상태", value: "status", width: 125
   },
   {
-    name: "image",
-    field: "image",
-    label: "기본 이미지",
-    align: "left",
-    sortable: true,
+    text: "이미지", value: "image", width: 438, sortable: true
   },
   {
-    name: "createdAt",
-    field: "createdAt",
-    label: "생성일시",
-    align: "left",
-    sortable: true,
-    type: "datetime"
+    text: "생성일시", value: "createdAt", width: 200, sortable: true
   },
-
+  { text: "", value: "buttons" },
 ];
-const data = [
+const items = [
   {
     id: "내이미지01",
-    instance: "테스트용 이미지 생성 테스트용 이미지 생성 테스트용 이미지 생성 ",
+    title: "테스트용 이미지 생성 테스트 테스트테스트용 이미지 생성 테스트 테스트테스트용 이미지 생성 테스트 테스트테스트용 이미지 생성 테스트 테스트테스트용",
     status: "running",
-    image: "tensorflow 2.9.0(python3, cuda11.2, ubutun20.04)tensorflow 2.9.0(python3, cuda11.2, ubutun20.04)",
+    image: "tensorflow 2.9.0(python3, cuda11.2, ubutun20.04)tensorflow 2.9.0(python3, cuda11.2, ubutun20.04) ",
     createdAt: "2023.01.12 10:33:21",
-
   },
   {
     id: "내이미지02",
-    instance: "테스트용 이미지 생성 테스트용 이미지 생성 테스트용 이미지 생성",
+    title: "테스트용 이미지 생성 테스트 테스트테스트용 테스트용 이미지 생성 ",
     status: "running",
     image: "tensorflow 2.9.0(python3, cuda11.2, ubutun20.04)tensorflow 2.9.0(python3, cuda11.2, ubutun20.04)",
-    createdAt: "2023.01.12 10:33:21"
+    createdAt: "2023.01.12 10:33:21",
   },
   {
     id: "내이미지03",
-    instance: "테스트용 이미지 생성 테스트용 이미지 생성 테스트용 이미지 생성",
+    title: "테스트용 이미지 생성  ",
     status: "stopped",
-    image: "tensorflow 2.9.0(python3, cuda11.2, ubutun20.04)tensorflow 2.9.0(python3, cuda11.2, ubutun20.04)",
-    createdAt: "2023.01.12 10:33:21"
-  }
+    image: "tensorflow 2.9.0(python3, cuda11.2, ubutun20.04)",
+    createdAt: "2023.01.12 10:33:21",
+  },
+  //   buttons: {
+  //     name: "초대요청 확인"
+  //   }
+  // },
+
 ];
 
 const optNumber = ref([
@@ -161,22 +230,28 @@ const actionButtons = [
   { name: "삭제", event: "delete" },
 ];
 
-const respAction = (eventObj) => {
-  const eventName = eventObj.event;
-  // const rowData = eventObj.data;
-  // console.log(rowData);
-  switch (eventName) {
-    case "share":
-      break;
-    case "delete":
-      break;
-    default:
-      break;
-  }
+/**
+ * 설명: 복사하기 버튼 이벤트
+ * @param { object } rowData get table row data
+ */
+
+/**
+ * 설명: row Action 버튼 이벤트
+ * @param { string } eventName action event name
+ * @param { object } rowData get table row data
+ */
+const onActions = (eventName, rowData) => {
+  console.log(eventName, rowData);
+};
+
+const showRow = (item) => {
+  console.log(item);
 };
 
 </script>
 
 <style lang="scss" scoped>
+@import "src/css/table.scss";
 @import "src/css/images.scss";
+
 </style>

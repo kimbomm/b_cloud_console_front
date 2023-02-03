@@ -4701,10 +4701,10 @@ vue3-apexcharts@^1.4.1:
   resolved "https://registry.npmjs.org/vue3-apexcharts/-/vue3-apexcharts-1.4.1.tgz"
   integrity sha512-96qP8JDqB9vwU7bkG5nVU+E0UGQn7yYQVqUUCLQMYWDuQyu2vE77H/UFZ1yI+hwzlSTBKT9BqnNG8JsFegB3eg==
 
-vue3-easy-data-table@^1.5.29:
-  version "1.5.29"
-  resolved "https://registry.yarnpkg.com/vue3-easy-data-table/-/vue3-easy-data-table-1.5.29.tgz#dac0e43c3543d1c081ed719049c073b28244bcc9"
-  integrity sha512-6D1IGCzODFhjirf4IXan+QaMYZ2jEdi9E4gBBai9vsq7F/d+7zRVqvS6omn84x0+YZkaqBpRzUnGd9Ej1Y0FaA==
+vue3-easy-data-table@^1.5.30:
+  version "1.5.30"
+  resolved "https://registry.yarnpkg.com/vue3-easy-data-table/-/vue3-easy-data-table-1.5.30.tgz#81a91cbf05b071901d339116cbb40e2db9f4d861"
+  integrity sha512-/jHmruqEeFKs2StlfPhjJRsTN7temql6HijTtS9G35remez5fWHmyIbUa+vPeDsD1HhenGj5EKMlfKktU11dYw==
   dependencies:
     vue "^3.2.45"
 
