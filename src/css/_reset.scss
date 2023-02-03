@@ -1,4 +1,15 @@
 /* quasar reset */
+:root {
+  --q-primary: #363CE5;
+  --q-secondary: #212648;
+  --q-accent: #9C27B0;
+  --q-positive: #00E190;
+  --q-negative: #E50F1C;
+  --q-info: #212648;
+  --q-warning: #FFC600;
+  --q-dark: #1C2142;
+  --q-dark-page: #454B75;
+}
 .q-gutter-y-sm > *, .q-gutter-sm > *{
   margin-top:0;
 }
@@ -110,6 +121,10 @@ body {
   background-color:$bg;
   color: $default;font-size: $fs14;line-height: 1.3;font-family: $font;font-weight:$regular;
 }
+[tabindex]{
+  outline:0;
+  border:0;
+}
 a{
   color:$default;
   text-decoration: none;
@@ -147,13 +162,30 @@ q {
 [disabled] *{
   cursor: default!important;
 }
+progress {
+  -webkit-appearance: none;
+}
 // Button Primary
 button{
   margin:0;padding:0;
   font-weight:$regular;
   cursor:pointer;
 }
-
+table{
+  margin:0;padding:0;
+  border-spacing: 0;
+  box-sizing: border-box;
+  thead,tbody,tfoot{
+    box-sizing: border-box;
+  }
+  th,td{
+    border:0;
+    font-size:$fs14;
+    font-weight: $regular;
+    vertical-align:middle;
+    box-sizing: border-box;
+  }
+}
 // font-size 14px + 2px plus up
 @for $i from 1 through 6 {
   h#{7 - $i},
@@ -173,3 +205,34 @@ button{
 .fs28{font-size:28px;}
 .fs32{font-size:32px;}
 .fs36{font-size:36px;}
+
+/* Form - Input */
+input{
+  &[type="text"],
+  &[type="password"],
+  &[type="number"],
+  &[type="file"],
+  &[type="mail"],
+  &[type="search"],
+  &[type="url"]{
+    color:$black;
+    &::placeholder{
+      color:$gray300;
+      opacity:1;
+    }
+  }
+  &[type="password"]:not(:placeholder-shown){
+    -webkit-text-security: disc;
+    // margin-top: -8px;
+    font:caption;
+    font-family: 'pass';
+    font-size:26px!important;
+    letter-spacing:-3px;
+  }
+  &::-webkit-inner-spin-button{
+    display:none;
+  }
+}
+textarea{
+  resize: none;
+}

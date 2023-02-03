@@ -9,14 +9,8 @@
     </div>
   </q-tooltip>
 </template>
-<script>
-import { ref } from 'vue';
+<script setup>
+import { ref } from "vue";
 
-export default {
-  setup() {
-    return {
-      showing: ref(false),
-    };
-  },
-};
+const showing = ref(false);
 </script>

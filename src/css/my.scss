@@ -1,0 +1,256 @@
+/* 내 정보 */
+@mixin shadow{
+  box-shadow: 0px 8px 20px -10px rgba(43, 53, 63, 0.08);
+}
+.p-my{
+  progress{
+    block-size: 4px;
+    inline-size: 4px;
+  }
+  ::-webkit-progress-bar {
+    width:240px;height:4px;
+    border-radius:2px;
+    background-color: $surface03;
+  }
+  ::-webkit-progress-value {
+    border-radius:100px;
+    background: linear-gradient(270deg, #FF0000 -35.71%, #4992FF 100%);;
+  }
+  .q-item{
+    min-height:auto;
+  }
+  .q-btn{
+    &.ibtn{
+      width:28px;height:28px;
+      border-radius:50%;
+      border-color:$surface05;
+    }
+    &.edit{
+      background:url($iconUrl + '16/ico_edit_gray.svg') no-repeat 50% 50%;
+    }
+    &.text{
+      height:auto;min-height:auto;
+      padding:0;
+      border-radius: 0;
+      background:$color;
+      color:$primary;font-size:$fs16;
+      &:hover{
+        text-decoration: underline;
+      }
+      &:focus{
+        color:$secondary;
+        text-decoration: underline;
+      }
+    }
+    &.alink{
+      color:$gray800;font-size:$fs16;
+      text-decoration: underline;
+    }
+  }
+  .q-chip{
+    height:40px;
+    padding:0 14px;
+    border:1px solid $surface03;
+    border-radius: 30px;
+    background:$white;
+    color:$black;font-size:$fs14;
+    .ico{
+      display:inline-block;
+      width:20px;height:20px;
+      background-repeat:no-repeat;
+      background-position:50% 50%;
+      &.note{
+        background-image:url($iconUrl + '20/ico_project_gray.svg');
+      }
+      + strong{
+        margin-left:6px;
+      }
+    }
+    strong{
+      font-weight:$regular;
+      + em{
+        margin-left:6px;
+      }
+    }
+    em{
+      color:$gray800;
+    }
+  }
+  .q-input{
+    &.wsize608{
+      width:608px;
+    }
+    .q-field__native{
+      font-size: $fs16;
+    }
+  }
+  .group-tabs{
+    + .my_info{
+      margin-top:40px;
+    }
+  }
+  .my_info{
+    padding:30px;
+    border:1px solid $surface05;
+    border-radius:12px;
+    background:$white;
+    @include shadow;
+    + .my_account{
+      margin-top:24px;
+    }
+    .q-item__section--main + .q-item__section--main{
+      margin-left:0;
+    }
+    .item_card,
+    .edit_card{
+      display:none;
+      &.is-show{
+        display:flex;
+      }
+    }
+    .item_card{
+      margin:0;padding:0;
+      .q-item__label + .q-item__label{
+        margin-top:0!important;
+      }
+    }
+    .name{
+      display:flex;
+      align-items: center;
+      margin-bottom:12px;
+      color:$black;font-size:$fs20;font-weight:$bold;
+      .ibtn{
+        margin-left:8px;
+      }
+    }
+    .subject{
+      color:$gray800;font-size:$fs16;line-height:1.3!important;
+    }
+  }
+  .my_account{
+    padding:30px;
+    border-radius:12px;
+    background:$surface01;
+    + .c_btngroup{
+      margin-top:24px;
+    }
+  }
+  .account_list{
+    margin:0;padding:0;
+    .item{
+      flex-direction: column;
+      justify-content: flex-start;
+      flex-wrap:wrap;
+      margin:0;padding:0;
+      .ico.help{margin-left: 6px;}
+      &.column{
+        margin-top:30px;
+        padding-top:30px;
+        border-top:1px solid $surface03;
+        .item_card{
+          flex-direction: column;
+        }
+        .title,
+        .info{
+          width:100%;
+        }
+        .title{
+          margin-bottom:16px;
+        }
+      }
+    }
+    .item_card{
+      flex-direction: row;
+      align-items: flex-start;
+      margin:0;padding:0;
+      &:not(:first-child){
+        margin-top:24px;
+      }
+    }
+    .q-item__label{
+      ~ .q-item__label{
+        margin-top:0!important;
+      }
+    }
+    .title{
+      display:inline-flex;
+      align-items: center;
+      flex:none;
+      width:calc(180px + 64px);
+      color:$gray500;font-size:$fs16;
+    }
+    .info{
+      display:inline-flex;
+      align-items: center;
+      flex:1 auto;
+      color:$black;font-size:$fs16;
+      .q-chip:not(:last-child){
+        margin-right:8px;
+      }
+    }
+    .entry{
+      display:inline-flex;
+      align-items: center;
+      min-height:28px;
+    }
+  }
+  .stg_progress{
+    position:relative;
+    width:240px;
+    .state{
+      display:flex;
+      justify-content: space-between;
+    }
+    .start{
+      color:$gray800;font-size:$fs16;
+    }
+    .end{
+      color:$gray300;font-size:$fs14;
+    }
+  }
+  .edit_card{
+    .section{
+      &:not(:first-child){
+        margin-top:46px;
+      }
+    }
+    .sub_title{
+      margin:0;
+      font-size:$fs16;font-weight:$regular;
+      + .c_inpgroup{
+        margin-top:8px;
+      }
+    }
+    .c_btngroup{
+      margin-top:40px;
+      .c_btn{
+        &:not(:last-child){
+          margin-right:10px;
+        }
+      }
+    }
+  }
+
+/* Alarm */
+  &.p-index{
+    .p-alarm{
+      .btn_area{margin-bottom: 30px;}
+      .table_set{
+        .l_set_inner{
+          .c_inpgroup{
+            display: inline-block;
+            .wsize450{
+              width: 450px;
+            }
+          }
+        }
+        .r_set_inner{
+          .view_cont_num{
+            display: inline-block;
+            width: 108px;
+          }
+        }
+      }
+    }
+  }
+}

@@ -50,15 +50,15 @@ export default {
     toastMsg: {
       type: String,
       required: true,
-      default: '',
+      default: "",
     },
     link: {
       type: String,
-      default: '#',
+      default: "#",
     },
     linkName: {
       type: String,
-      default: '',
+      default: "",
     },
   },
   setup() {

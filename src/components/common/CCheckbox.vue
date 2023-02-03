@@ -11,33 +11,27 @@
     />
   </div>
 </template>
-<script>
-import { ref } from 'vue';
+<script setup>
+import { ref } from "vue";
 
-export default {
-  setup() {
-    return {
-      chk1: ref(false),
-      chk2: ref(true),
-      chk3: ref(false),
-      chk4: ref(true),
-      group: ref(['op1']),
+const chk1 = ref(false);
+const chk2 = ref(true);
+const chk3 = ref(false);
+const chk4 = ref(true);
+const group = ref(["op1"]);
 
-      options: [
-        {
-          label: 'Option 1',
-          value: 'op1',
-        },
-        {
-          label: 'Option 2',
-          value: 'op2',
-        },
-        {
-          label: 'Option 3',
-          value: 'op3',
-        },
-      ],
-    };
+const options = ref([
+  {
+    label: "Option 1",
+    value: "op1",
   },
-};
+  {
+    label: "Option 2",
+    value: "op2",
+  },
+  {
+    label: "Option 3",
+    value: "op3",
+  },
+]);
 </script>

@@ -11,14 +11,8 @@
     class="c_pagination"
   />
 </template>
-<script>
-import { ref } from 'vue';
+<script setup>
+import { ref } from "vue";
 
-export default {
-  setup() {
-    return {
-      current: ref(1),
-    };
-  },
-};
+const current = ref(1);
 </script>

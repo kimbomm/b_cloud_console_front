@@ -1,0 +1,241 @@
+/* Dashboard */
+.p-console{
+  .p-body{
+    .section{
+      margin-top: 24px;
+      .sub-title{
+        margin-bottom: 30px;
+        font-size: $fs20; font-weight: $bold;
+      }
+    }
+    .card-box{
+      display: flex; justify-content: space-between;
+      width: 100%;
+    }
+    .card{
+      width: calc(50% - 12px);
+    }
+    .storage-box{
+      display: flex; justify-content: space-between;
+      width: 100%; height: 450px;
+      &_dash{
+        position: relative;
+        padding: 30px 8px 0 30px;
+        width: calc((100% - 48px) / 3);
+        border-radius: 12px;
+        background-color: $surface01;
+        &:nth-child(2){
+          padding: 30px;
+        }
+        .morelink{
+          display: inline-flex; align-items: center; justify-content: center;
+          position: absolute;
+          top: 30px; right: 30px;
+          width: 50px; height: 26px;
+          border-radius: 100px;
+          color: $surface16; font-size: $fs12;
+          background-color: $bg;
+        }
+        .store-wrap{
+          padding-right: 18px;
+          width: calc(100% + 18px); height: calc(100% - 90px);
+        }
+        .store-none{
+          position: relative;
+          top: 50%; transform: translateY(-50%);
+          color: $gray300; font-size: $fs14; text-align: center;
+        }
+        .store{
+          width: 100%;;
+          padding: 18px;
+          margin-bottom: 10px;
+          border-radius: 8px;
+          background-color: $surface02;
+          &:last-child{
+            margin-bottom: 0;
+          }
+          /** chart **/
+          .circle_chart{
+            $linew:10px;
+            display:flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            position:relative;
+            width:44px;height:44px;
+            margin:0 12px 0 0;padding:$linew;
+            border-radius:50%;
+            background-color: $surface02;
+            .circle_in{
+              display:flex;
+              align-items: center;
+              justify-content: center;
+              flex-direction: column;
+              flex:none;
+              position:relative;z-index:1;
+              width:calc(44px - #{$linew});height:calc(44px - #{$linew});
+              border-radius:50%;
+              background-color: $surface02;
+            }
+            .circle_line{
+              position:absolute;top:0;left:0;
+              width:44px;height:44px;
+              border-radius:50%;
+              background:linear-gradient(336.21deg, #FF0000 20.46%, #4992FF 84.7%);
+            }
+          }
+          /** //chart **/
+          &_card{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+          }
+          .state{
+            display: flex;
+            align-items: center;
+          }
+          .text{
+            display: flex;
+            color: $surface13; font-size: $fs12;
+          }
+          .ex{
+            position: relative;
+            padding-left: 13px;
+            width: 171px; height: 14px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            &::before{
+              position: absolute;
+              top: 50%; left: 6px;
+              transform: translateY(-50%);
+              content: "";
+              width: 1px; height: 10px;
+              background-color: $surface07;
+            }
+          }
+          .capacity{
+            display: flex;
+            flex-direction: column;
+            text-align: right;
+            &_use{
+              color: $surface21; font-size: $fs24; font-weight: $bold;
+            }
+            &_amount{
+              color: $surface09; font-size: $fs14;
+            }
+          }
+        }
+        .name{
+          color: $surface16; font-size: $fs14;
+        }
+
+      }
+      .billing{
+        .current{
+          display: flex; align-items: baseline;
+          margin-bottom: 49px;
+          color: $secondary-mint; font-size: $fs16; font-weight: $bold;
+          &_pay{
+            font-size: $fs24;
+          }
+        }
+        .billing-chart{
+          display: flex; justify-content: space-between; align-items: baseline;
+          width: 100%;
+        }
+        /* .chart{
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          .graph{
+            position: relative;
+            display: block;
+            margin-bottom: 10px;
+            width: 8px; height: 200px;
+            border-radius: 100px;
+            background-color: $surface03;
+            &:hover{
+              cursor: pointer;
+              transition: 0.3s;
+              background-color: $secondary-mint;
+            }
+          }
+          // .gr1{height: 171px;}
+          // .gr2{height: 85px;}
+          // .gr3{height: 200px;}
+          // .gr4{height: 163px;}
+          // .gr5{height: 85px;}
+          // .gr6{height: 132px;}
+          .month{
+            color: $surface16; font-size: $fs14; line-height: 14px;
+          }
+        } */
+        .chart{
+          display:flex;
+          justify-content: space-between;
+          width:100%;
+          padding:0 6px;
+        }
+        .vertical_chart{
+          display:flex;
+          flex-direction: column;
+          justify-content: flex-end;
+          align-items: center;
+          position:relative;
+          height:228px;
+          &::after{
+            content:attr(data-legend);
+            display:inline-block;
+            color:$surface16;font-size:$fs14;
+            white-space: nowrap;
+          }
+          .chartbar{
+            overflow: hidden;
+            position:relative;
+            width:8px;max-height:200px;
+            margin-bottom:10px;
+            border-radius:100px;
+            background:$surface03;
+            &:hover{
+              background:$secondary-mint;
+            }
+          }
+        }
+      }
+      .quota{
+        .space{
+          display: flex; justify-content: space-between; align-items: baseline;
+        }
+        .useage{
+          margin-top: 8px;
+          color: $primary; font-size: $fs24; font-weight: $bold;
+        }
+        .used{color: $surface10; font-size: $fs12;}
+        .space-chart{
+          display: block;
+          margin-top: 4px;
+          width: 100%; height: 8px;
+          border-radius: 100px;
+          background-color: $surface04;
+        }
+        progress::-webkit-progress-bar{
+          width: 100%; height: 8px;
+          border-radius: 100px;
+          background-color: $surface04;
+        }
+        progress::-webkit-progress-value{
+          border-radius: 100px;
+          background-color: $info;
+        }
+      }
+    }
+    .notice-box{
+      padding: 30px;
+      width: 100%;
+      border-radius: 12px;
+      background-color: $surface01;
+    }
+  }
+
+}

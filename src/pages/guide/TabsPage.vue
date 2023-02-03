@@ -14,24 +14,16 @@
     </div>
   </div>
 </template>
-<script>
-import { ref } from 'vue';
-import CTabs from 'components/common/CTabs.vue';
-
-export default {
-  name: 'TabsPage',
-  components: {
-    CTabs,
-  },
-  setup() {
-    return {
-      ptitle: ref('Tabs'),
-      showing1: ref(false),
-    };
-  },
-};
-</script>
 <script setup>
+import { ref } from "vue";
+import { useMeta } from "quasar";
+import CTabs from "components/common/CTabs.vue";
+
+const title = ref("Tabs");
+useMeta(() => ({
+  title: title.value,
+}));
+const ptitle = ref(title);
 </script>
 
 <style lang="scss" scoped>

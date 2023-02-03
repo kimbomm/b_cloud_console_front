@@ -1,0 +1,362 @@
+/* Member */
+.p-member{
+  &.p-index{
+    .p-body{
+      // 멤버 - 메인(워크스페이스 관리자)
+      .table-set{
+        .set{display: flex; align-items: center; }
+        .set-l{
+          .member-input{
+            width: 292px;
+          }
+          &_right{
+            position: relative;
+            padding-left: 33px;
+            width: 220px;
+            &::before{
+              position: absolute; top: 50%; left: 16px; transform: translateY(-50%);
+              content: "";
+              width: 1px; height: 26px;
+              background-color: $surface05;
+            }
+          }
+        }
+        .set-r{
+          .set-btn{
+            margin-right: 10px;
+            &:last-child{ margin-right: 0;}
+          }
+          .select-d{width: 108px;}
+        }
+      }
+      .group{
+        display: flex; justify-content: center;
+        margin-top: 60px;
+      }
+    }
+  }
+  &.p-detail{
+    position: relative;
+    .deleteBtn{position: absolute; top: 50%; right: 0; transform: translateY(-50%);}
+    .p-body{
+      // 멤버-멤버 상세
+      .m-info{
+        margin-bottom: 24px;
+        width: 100%; height: 260px;
+        border-radius: 12px; border: 1px solid $surface05;
+      }
+      .u-info{
+        padding: 30px;
+        border-bottom: 1px solid $surface05;
+        &_name{margin-bottom: 4px; font-size: $fs20; font-weight: $bold;}
+        &_email{margin-bottom: 20px; color: $gray500; font-size: $fs16;}
+        &_intro{font-size: $fs14;}
+      }
+      .u-info2{
+        display: flex; justify-content: flex-start; align-items: center;
+        padding: 30px;
+        > div{
+          width: calc(100% / 3);
+        }
+        .g-txt{margin-bottom: 8px; font-size: $fs16; color: $gray500;}
+        .b-txt{font-size: $fs16;}
+      }
+      .w-info{
+        padding: 30px;
+        width: 100%;
+        border-radius: 12px; background-color: $surface01;
+        .t-flex{
+          display: flex; justify-content: space-between; align-items: baseline;
+        }
+        .btnWrap{
+          display: flex;
+          > div{
+            margin-right: 10px;
+            &:last-child{margin-right: 0;}
+          }
+        }
+        .pb{
+          padding-bottom: 40px;
+        }
+        .g-txt{
+          margin: 0 24px 24px 0;
+          width: 216px;
+          font-size: $fs16; color: $gray500;
+        }
+        .p-txt{
+          margin-right: 24px;
+        }
+        .b-txt, .p-txt{
+          width: 216px;
+          font-size: $fs16;
+          &:nth-child(3), &:nth-child(4){
+            margin-top: 20px;
+          }
+        }
+        &_stor{
+          .q-input.inp_unit{background-color: $bg;}
+          .c_inpgroup{margin-bottom: 16px;}
+          .amount{
+            display: flex; justify-content: space-between; align-items: center;
+            width: 240px;
+            font-size: $fs16;
+            &_used{color: $gray800;}
+            &_useable{color: $gray300;}
+          }
+          .cont_footer{
+            width: 240px;
+            margin-top: 8px;
+            .progress_bar_area{
+              display: block;
+              width: 100%; height: 4px;
+              border-radius: 2px;
+              background: linear-gradient(-296.32deg, #E50F1C 16.69%, #4992FF 83.45%, #363CE5 83.45%);
+            }
+          }
+        }
+      }
+      .work-wrap{
+        display: flex;
+        .c_selectgroup{
+          background-color: $bg;
+        }
+      }
+      .w-name{
+        .char-g{
+          margin: 0 24px 40px 0;
+          color: $gray500; font-size: $fs16;
+        }
+        .w216{width: 216px;}
+        .c_selectgroup{margin-right: 24px;}
+      }
+      .w-char{
+        .char-g{
+          margin-bottom: 24px;
+          color: $gray500; font-size: $fs16;
+        }
+      }
+      .p-tWrap{
+        display: flex;
+        > p{
+          margin: 0 24px 24px 0;
+          width: 216px;
+          color: $gray500; font-size: $fs16;
+          &:last-child{margin: 0 24px 0 0;}
+        }
+      }
+      .sel-wrap{
+        display: flex; align-items: center;
+        margin-bottom: 24px;
+        &:last-child{
+          margin-bottom: 0;
+        }
+        .w216{
+          margin-right: 24px;
+          width: 216px;
+          &:last-child{margin-right: 0;}
+        }
+        .w250{width: 250px;}
+      }
+      .delete-btn{
+        position: absolute;
+        bottom: 40px; left: 514px;
+        .q-btn.c_icon.line .ico{
+          background: url($iconUrl + '32/ico_minus_normal.svg') no-repeat 50% 50%;
+        }
+        &:hover, &:active, &:focus{
+          .ico{
+            background-image: url($iconUrl + '32/ico_download_pressed.svg') no-repeat 50% 50%;
+          }
+        }
+      }
+      .add-pro{
+        position: relative; padding-bottom: 53px;
+        >a{
+          > span{
+            position: absolute;
+            top: 0; left: 0;
+            content: "";
+            font-size: 0px;
+            width: 16px; height: 16px;
+            background-image: url($iconUrl + '16/ico_plus_normal.svg');
+            background-size: 16px;
+          }
+          > p{
+            padding-left: 24px;
+            color: $info; font-size: $fs14;
+          }
+        }
+      }
+
+      .line{
+        position: relative;
+        &::after{
+          position: absolute;
+          top: -40px; left: 0;
+          content: "";
+          width: 100%; height: 1px;
+          background-color: $surface05;
+        }
+        &:first-child{
+          &::after{
+            display: none;
+          }
+        }
+      }
+      .title{ margin-bottom: 30px; font-size: $fs20; font-weight: $bold;}
+    }
+  }
+}
+/* Member */
+.p-member{
+  &.p-index{
+    .p-body{
+      // 멤버 - 메인(워크스페이스 관리자)
+      .table-set{
+        .set{display: flex; align-items: center; }
+        .set-l{
+          &_left{
+            .wsize292{width: 292px;}
+          }
+          &_right{
+            position: relative;
+            padding-left: 33px;
+            width: 220px;
+            &::before{
+              position: absolute; top: 50%; left: 16px; transform: translateY(-50%);
+              content: "";
+              width: 1px; height: 26px;
+              background-color: $surface05;
+            }
+          }
+        }
+        .set-r{
+          .set-btn{
+            margin-right: 10px;
+            &:last-child{ margin-right: 0;}
+          }
+          .select-d{width: 108px;}
+        }
+      }
+      .group{
+        display: flex; justify-content: center;
+        margin-top: 60px;
+      }
+    }
+  }
+  &.p-detail{
+    position: relative;
+    .deleteBtn{position: absolute; top: 50%; right: 0; transform: translateY(-50%);}
+    .p-body{
+      // 멤버-멤버 상세
+      .m-info{
+        margin-bottom: 24px;
+        width: 100%; height: 260px;
+        border-radius: 12px; border: 1px solid $surface05;
+      }
+      .u-info{
+        padding: 30px;
+        border-bottom: 1px solid $surface05;
+        &_name{font-size: $fs20; font-weight: $bold; margin-bottom: 4px;}
+        &_email{margin-bottom: 20px; color: $gray500; font-size: $fs16;}
+        &_intro{font-size: $fs14;}
+      }
+      .u-info2{
+        display: flex; justify-content: flex-start; align-items: center;
+        padding: 30px;
+        > div{
+          width: calc(100% / 3);
+        }
+        .g-txt{margin-bottom: 8px; font-size: $fs16; color: $gray500;}
+        .b-txt{font-size: $fs16;}
+      }
+      .w-info{
+        padding: 30px;
+        width: 100%;
+        border-radius: 12px; background-color: $surface01;
+        .t-flex{
+          display: flex; justify-content: space-between; align-items: baseline;
+        }
+        .btnWrap{
+          display: flex;
+          > div{
+            margin-right: 10px;
+            &:last-child{margin-right: 0;}
+          }
+        }
+        .pb{
+          padding-bottom: 40px;
+        }
+        .g-txt{
+          margin: 0 24px 24px 0px;
+          width: 216px;
+          font-size: $fs16; color: $gray500;
+        }
+        .b-txt, .p-txt{
+          width: 216px;
+          font-size: $fs16;
+          &:nth-child(3), &:nth-child(4){
+            margin-top: 20px;
+          }
+        }
+        &_stor{
+          .q-input.inp_unit{background-color: $bg;}
+          .c_inpgroup{margin-bottom: 16px;}
+          .amount{
+            display: flex; justify-content: space-between; align-items: center;
+            width: 240px;
+            font-size: $fs16;
+            &_used{color: $gray800;}
+            &_useable{color: $gray300;}
+          }
+          .cont_footer{
+            width: 240px;
+            margin-top: 8px;
+            .progress_bar_area{
+              display: block;
+              width: 100%; height: 4px;
+              border-radius: 2px;
+              background: linear-gradient(-296.32deg, #E50F1C 16.69%, #4992FF 83.45%, #363CE5 83.45%);
+            }
+          }
+        }
+      }
+      .work-wrap{
+        display: flex;
+        .c_selectgroup{
+          background-color: $bg;
+        }
+      }
+      .w-name{
+        .char-g{
+          margin: 0 24px 40px 0;
+          color: $gray500; font-size: $fs16;
+        }
+        .w216{width: 216px;}
+        .c_selectgroup{margin-right: 24px;}
+      }
+      .w-char{
+        .char-g{
+          margin-bottom: 24px;
+          color: $gray500; font-size: $fs16;
+        }
+      }
+      .line{
+        position: relative;
+        &::after{
+          position: absolute;
+          top: -40px; left: 0;
+          content: "";
+          width: 100%; height: 1px;
+          background-color: $surface05;
+        }
+        &:first-child{
+          &::after{
+            display: none;
+          }
+        }
+      }
+      .title{ margin-bottom: 30px; font-size: $fs20; font-weight: $bold;}
+    }
+  }
+}

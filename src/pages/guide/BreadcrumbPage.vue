@@ -31,23 +31,16 @@
     </div>
   </div>
 </template>
-<script>
-import { ref } from 'vue';
-import CBreadcrumb from 'components/common/CBreadcrumb.vue';
-
-export default {
-  name: 'BreadcrumbsPage',
-  components: {
-    CBreadcrumb,
-  },
-  setup() {
-    return {
-      ptitle: ref('Breadcrumbs'),
-    };
-  },
-};
-</script>
 <script setup>
+import { ref } from "vue";
+import { useMeta } from "quasar";
+import CBreadcrumb from "components/common/CBreadcrumb.vue";
+
+const title = ref("Breadcrumbs");
+useMeta(() => ({
+  title: title.value,
+}));
+const ptitle = ref(title);
 </script>
 
 <style lang="scss" scoped>

@@ -11,15 +11,8 @@
     <q-tab name="tabs3" label="Hyperopt" />
   </q-tabs>
 </template>
-<script>
-import { ref } from 'vue';
+<script setup>
+import { ref } from "vue";
 
-export default {
-  setup() {
-    return {
-      tab: ref('tabs1'),
-      tab1: ref('mails'),
-    };
-  },
-};
+const tab = ref("tabs1");
 </script>

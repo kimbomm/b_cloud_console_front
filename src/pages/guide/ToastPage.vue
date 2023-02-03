@@ -31,33 +31,28 @@
   </div>
 </template>
 <script>
-import { ref } from 'vue';
-import { useMeta } from 'quasar';
-import CToast from 'components/common/CToast.vue';
+import { ref } from "vue";
+import { useMeta } from "quasar";
+import CToast from "components/common/CToast.vue";
 
 export default {
-  name: 'ToastPage',
+  name: "ToastPage",
   components: {
     CToast,
   },
   setup() {
-    const title = ref('Toast');
+    const title = ref("Toast");
     useMeta(() => ({
       title: title.value,
     }));
-
-    function setAnotherTitle() {
-      title.value = 'Toast';
-    }
     return {
       ptitle: ref(title),
-      toastMsg1: ref('안내 메시지 입니다.'),
-      toastMsg2: ref('인스턴스 생성이 완료 되었습니다.'),
-      toastMsg3: ref('인스턴스 생성에 실패했습니다.'),
-      toastMsg4: ref('안내 메시지 입니다.안내 메시지 입니다.안내 메시지 입니다.안내 메시지 입니다.'),
-      link: ref('#'),
-      linkName: ref('바로보기'),
-      setAnotherTitle,
+      toastMsg1: ref("안내 메시지 입니다."),
+      toastMsg2: ref("인스턴스 생성이 완료 되었습니다."),
+      toastMsg3: ref("인스턴스 생성에 실패했습니다."),
+      toastMsg4: ref("안내 메시지 입니다.안내 메시지 입니다.안내 메시지 입니다.안내 메시지 입니다."),
+      link: ref("#"),
+      linkName: ref("바로보기"),
     };
   },
 };

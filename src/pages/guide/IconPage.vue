@@ -1,6 +1,6 @@
 <template>
-  <div class="p-content p-guide">
-    <h1>Icon</h1>
+  <div class="p-content p-guide p-icon">
+    <h1>{{ ptitle }}</h1>
     <div class="iconwrap">
       <section class="section">
         <h2 class="h6">16x16</h2>
@@ -430,10 +430,15 @@
     </div>
   </div>
 </template>
-<script>
-export default {
-  name: 'IconPage',
-};
+<script setup>
+import { ref } from "vue";
+import { useMeta } from "quasar";
+
+const title = ref("Icon");
+useMeta(() => ({
+  title: title.value,
+}));
+const ptitle = ref(title);
 </script>
 <style lang="scss" scoped>
 .iconwrap{
