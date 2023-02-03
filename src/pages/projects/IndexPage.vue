@@ -268,13 +268,53 @@
               </div>
             </div>
             <div class="table_area">
-              <CTable
-                :title="title"
-                :columns="columns"
-                :data="data"
-                :action-buttons="actionButtons"
-                @action="respAction"
-              />
+              <EasyDataTable
+                v-model:items-selected="itemsSelected"
+                :headers="headers"
+                :items="items"
+                :hide-footer="true"
+                :body-row-class-name="bodyRowClassNameFunction"
+                empty-message="정보가 없습니다."
+              >
+                <!-- title -->
+                <template #item-title="item">
+                  <a href="#">
+                    <span class="txt">{{ item.title }}</span>
+                    <q-tooltip anchor="bottom middle" class="c_tooltip">
+                      <div class="inner">
+                        {{ item.title }}
+                      </div>
+                    </q-tooltip>
+                  </a>
+                </template>
+                <!-- 버튼 그룹 -->
+                <template #item-buttons="item">
+                  <div v-if="actionButtons" class="cell btngroup">
+                    <q-btn class="c_btn ibtn dot">
+                      <i class="ico dots" /><span class="txt">클릭</span>
+                      <q-popup-edit
+                        v-model="item.id"
+                        class="dots_menu"
+                        anchor="top right"
+                      >
+                        <q-list style="min-width: 100px">
+                          <q-item
+                            v-for="button in actionButtons"
+                            :key="button.name"
+                          >
+                            <q-btn
+                              class="item"
+                              @click="onActions(button.event, item)"
+                            >
+                              <span class="txt">{{ button.name }}</span>
+                            </q-btn>
+                          </q-item>
+                        </q-list>
+                      </q-popup-edit>
+                    </q-btn>
+                  </div>
+                </template>
+              </EasyDataTable>
             </div>
             <div class="group">
               <CPagination />
@@ -287,7 +327,6 @@
 <script setup>
 import { ref } from "vue";
 import { useMeta } from "quasar";
-import CTable from "src/components/common/CTable.vue";
 import CPagination from "components/common/CPagination.vue";
 import CDropdown from "components/common/CDropdown.vue";
 import CButton from "components/common/CButton.vue";
@@ -308,54 +347,35 @@ const options2 = ref([
   { label: "50", value: 2 },
 ]);
 
-const columns = [
+const headers = [
   {
-    name: "name",
-    field: "name",
-    label: "이름",
-    align: "left",
-    sortable: true,
-    type: "tooltip",
+    text: "이름", value: "title", width: 200, sortable: true
   },
   {
-    name: "email",
-    field: "email",
-    label: "이메일",
-    align: "left",
-    sortable: true,
-    type: "tooltip",
+    text: "이메일", value: "email", width: 200, sortable: true
   },
   {
-    name: "authority",
-    field: "authority",
-    label: "프로젝트 권한",
-    align: "left",
-    sortable: true,
-    type: "tooltip",
+    text: "프로젝트 권한", value: "authority", width: 200, sortable: true
   },
   {
-    name: "costumer",
-    field: "costumer",
-    label: "소개",
-    align: "left",
-    type: "tooltip",
+    text: "소개", value: "costumer", width: 200, sortable: false
   },
+  { text: "", value: "buttons", width: 150 },
 ];
-const data = [
+const items = [
   {
-    name: "김카브",
+    title: "김카브",
     email: "root.choi@kakaobrain.com",
     authority: "프로젝트 매니저",
     costumer: "00팀 000담당",
   },
   {
-    name: "김카브",
+    title: "김카브",
     email: "root.choi@kakaobrain.com",
     authority: "프로젝트 매니저",
     costumer: "00팀 000담당",
   },
 ];
-
 const actionButtons = [
   { name: "이용현황", event: "state" },
   { name: "공유관리", event: "share" },
@@ -363,27 +383,10 @@ const actionButtons = [
   { name: "스냅샷 생성", event: "crtSnap" },
   { name: "삭제", event: "delete" },
 ];
-const respAction = (eventObj) => {
-  const eventName = eventObj.event;
-  // const rowData = eventObj.data;
-  // console.log(rowData);
-  switch (eventName) {
-    case "state":
-      break;
-    case "share":
-      break;
-    case "mngSnap":
-      break;
-    case "crtSnap":
-      break;
-    case "delete":
-      break;
-    default:
-      break;
-  }
-};
+
 </script>
 
 <style lang="scss" scoped>
 @import "./src/css/projects";
+@import "./src/css/table";
 </style>
