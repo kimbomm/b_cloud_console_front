@@ -51,6 +51,7 @@
                         <q-btn
                           label="취소"
                           class="line"
+                          @click="datacheck = true"
                         />
                         <q-btn
                           label="저장"
@@ -82,6 +83,12 @@
                 <p class="user_data_title">생성일시</p>
                 <div class="user_data_value">
                   <p>2023.10.11 13:49pm</p>
+                </div>
+              </li>
+              <li class="u_d04">
+                <p class="user_data_title">작업경로</p>
+                <div class="user_data_value">
+                  <p>/working_dir</p>
                 </div>
               </li>
             </ul>
@@ -185,13 +192,108 @@
         <div class="task_table_area">
           <p class="sub_title">태스크</p>
           <div class="task_inner">
-            <CTable
-              :title="title"
-              :columns="columns"
-              :data="data"
-              :action-buttons="actionButtons"
-              @action="respAction"
-            />
+            <EasyDataTable
+              :headers="headers"
+              :items="items"
+              :hide-footer="true"
+              empty-message="정보가 없습니다."
+              @click-row="showRow"
+            >
+              <!-- title -->
+              <template #item-title="item">
+                <a href="#">
+                  <span class="txt">{{ item.title }}</span>
+                  <q-tooltip
+                    anchor="bottom middle"
+                    class="c_tooltip"
+                  >
+                    <div class="inner">
+                      {{ item.title }}
+                    </div>
+                  </q-tooltip>
+                </a>
+              </template>
+              <!--
+                상태값(status)
+                1. running, 운영중, 실행중
+                2. stopped, 정지 | 오류 | 취소 | 실패
+                3. 생성중 | 삭제중 | 대기중 | 재시작중
+              -->
+              <template #item-status="item">
+                <q-badge
+                  v-if="item.status === 'running'"
+                  class="green"
+                >
+                  <span class="txt">운영중</span>
+                </q-badge>
+                <q-badge
+                  v-else-if="item.status === 'stopped'"
+                  class="orange"
+                >
+                  <span class="txt">정지</span>
+                </q-badge>
+                <q-badge
+                  v-else
+                  class="c_badge"
+                >
+                  <span class="txt">생성중</span>
+                </q-badge>
+              </template>
+              <!-- ssh -->
+              <template #item-ssh="item">
+                <q-badge
+                  class="copy square ssh icon"
+                  @click="onCopy(item)"
+                >
+                  <span class="txt">{{ item.ssh }}</span>
+                </q-badge>
+              </template>
+              <!-- 인스턴스 타입 -->
+              <template #item-instanceType="item">
+                <q-badge
+                  class="text instance icon"
+                  @click="onCopy(item)"
+                >
+                  <span class="txt">{{ item.instanceType }}</span>
+
+                  <q-tooltip
+                    anchor="bottom middle"
+                    class="c_tooltip"
+                  >
+                    <div class="inner">
+                      {{ item.instanceType }}
+                    </div>
+                  </q-tooltip>
+                </q-badge>
+              </template>
+              <!-- 버튼 그룹 -->
+              <template #item-buttons="item">
+                <div v-if="actionButtons" class="cell btngroup">
+                  <q-btn class="c_btn ibtn dot">
+                    <i class="ico dots" /><span class="txt">클릭</span>
+                    <q-popup-edit
+                      v-model="item.id"
+                      class="dots_menu"
+                      anchor="top right"
+                    >
+                      <q-list style="min-width: 100px">
+                        <q-item
+                          v-for="button in actionButtons"
+                          :key="button.name"
+                        >
+                          <q-btn
+                            class="item"
+                            @click="onActions(button.event, item)"
+                          >
+                            <span class="txt">{{ button.name }}</span>
+                          </q-btn>
+                        </q-item>
+                      </q-list>
+                    </q-popup-edit>
+                  </q-btn>
+                </div>
+              </template>
+            </EasyDataTable>
           </div>
           <div class="task_pagenav disflex_C">
             <CPagination />
@@ -205,7 +307,6 @@
 import { ref } from "vue";
 import { useMeta } from "quasar";
 import CPagination from "components/common/CPagination.vue";
-import CTable from "src/components/common/CTable.vue";
 
 const title = ref("태스크 그룹 상세정보");
 const textName = ref(null);
@@ -216,95 +317,51 @@ useMeta(() => ({
 
 const ptitle = ref(title);
 
-const columns = [
+const headers = [
   {
-    name: "id",
-    field: "id",
-    label: "태스크 ID",
-    required: true,
-    align: "center",
-    sortable: true,
+    text: "ID", value: "id", width: 80, sortable: false, checkbox: true
   },
   {
-    name: "instance",
-    field: "instance",
-    label: "태스크 이름",
-    align: "left",
-    sortable: true,
-    type: "link",
+    text: "태스크 이름", value: "title", sortable: true
   },
   {
-    name: "status",
-    field: "status",
-    label: "상태",
-    align: "left",
-    type: "tag",
+    text: "상태", value: "status", width: 100, sortable: true
   },
   {
-    name: "ssh",
-    field: "ssh",
-    label: "ssh",
-    align: "left",
-    sortable: false,
-    type: "copy",
+    text: "ssh", value: "ssh", width: 100, sortable: false
   },
   {
-    name: "gpu",
-    field: "gpu",
-    label: "GPU",
-    align: "left",
-    sortable: false,
+    text: "GPU", value: "gpu", width: 80, sortable: false
   },
   {
-    name: "cpu",
-    field: "cpu",
-    label: "CPU",
-    align: "left",
-    sortable: false,
+    text: "CPU", value: "cpu", width: 80, sortable: false
   },
   {
-    name: "instanceType",
-    field: "instanceType",
-    label: "인스턴스 타입",
-    align: "left",
-    type: "tooltip",
+    text: "인스턴스 타입", value: "instanceType", width: 160, sortable: false
   },
   {
-    name: "createdAt",
-    field: "createdAt",
-    label: "시작일시",
-    align: "left",
-    sortable: true,
-    type: "datetime",
+    text: "생성일시", value: "createdAt", width: 180, sortable: true
   },
   {
-    name: "scheduledAt",
-    field: "scheduledAt",
-    label: "완료일시",
-    align: "left",
-    sortable: true,
-    type: "datetime",
+    text: "완료일시", value: "endDat", width: 180, sortable: true
   },
   {
-    name: "logCheck",
-    field: "logCheck",
-    label: "로그확인",
-    align: "cneter",
-    sortable: false,
+    text: "로그확인", value: "logCheck", width: 100, sortable: true
   },
+  { text: "", value: "buttons", width: 150 },
 ];
-const data = [
+const items = [
   {
     id: 342,
-    instance: "인스턴스 이름 인스턴스 이름 인스턴스 이름",
+    title: "dfsdfasdrwerwerwer",
     status: "running",
     ssh: "ssh",
-    instanceType: "V1.XLARGE",
     gpu: "49.5%",
     cpu: "100%",
+    instanceType: "V1.XLARGE",
     createdAt: "2023.01.12 10:33:21",
-    scheduledAt: "2023.01.12 10:33:21",
-    createdBy: "Root.choi",
+    endDat: "2023.01.12 10:33:21",
+    logCheck: "LOG",
     resource: {
       cpus: 28,
       gpu_device_model: "TESLA_V100",
@@ -312,18 +369,21 @@ const data = [
       mem: 249856,
       zone: "public:normal",
     },
+    buttons: {
+      name: "초대요청 확인"
+    }
   },
   {
     id: 342,
-    instance: "인스턴스 이름 인스턴스 이름 인스턴스 이름",
+    title: "dfsdfasdrwerwerwer",
     status: "stopped",
     ssh: "ssh",
-    instanceType: "V1.XLARGE",
     gpu: "49.5%",
     cpu: "100%",
+    instanceType: "V1.XLARGE",
     createdAt: "2023.01.12 10:33:21",
-    scheduledAt: "2023.01.12 10:33:21",
-    createdBy: "Root.choi",
+    endDat: "-",
+    logCheck: "LOG",
     resource: {
       cpus: 28,
       gpu_device_model: "TESLA_V100",
@@ -331,6 +391,31 @@ const data = [
       mem: 249856,
       zone: "public:normal",
     },
+    buttons: {
+      name: "초대요청 확인"
+    }
+  },
+  {
+    id: 342,
+    title: "dfsdfasdrwerwerwer",
+    status: "stopping",
+    ssh: "ssh",
+    gpu: "49.5%",
+    cpu: "100%",
+    instanceType: "V1.XLARGE",
+    createdAt: "2023.01.12 10:33:21",
+    endDat: "2023.01.12 10:33:21",
+    logCheck: "LOG",
+    resource: {
+      cpus: 28,
+      gpu_device_model: "TESLA_V100",
+      gpus: 2,
+      mem: 249856,
+      zone: "public:normal",
+    },
+    buttons: {
+      name: "초대요청 확인"
+    }
   },
 ];
 
@@ -341,27 +426,29 @@ const actionButtons = [
   { name: "스냅샷 생성", event: "crtSnap" },
   { name: "삭제", event: "delete" },
 ];
-const respAction = (eventObj) => {
-  const eventName = eventObj.event;
-  // const rowData = eventObj.data;
-  // console.log(rowData);
-  switch (eventName) {
-    case "state":
-      break;
-    case "share":
-      break;
-    case "mngSnap":
-      break;
-    case "crtSnap":
-      break;
-    case "delete":
-      break;
-    default:
-      break;
-  }
+/**
+ * 설명: 복사하기 버튼 이벤트
+ * @param { object } rowData get table row data
+ */
+const onCopy = (rowData) => {
+  console.log(rowData);
+};
+
+/**
+ * 설명: row Action 버튼 이벤트
+ * @param { string } eventName action event name
+ * @param { object } rowData get table row data
+ */
+const onActions = (eventName, rowData) => {
+  console.log(eventName, rowData);
+};
+
+const showRow = (item) => {
+  console.log(item);
 };
 </script>
 
 <style lang="scss" scoped>
 @import "./src/css/projects";
+@import "./src/css/table";
 </style>

@@ -90,13 +90,81 @@
         </div>
       </div>
       <div class="table_main">
-        <CTable
-          :title="title"
-          :columns="columns"
-          :data="data"
-          :action-buttons="actionButtons"
-          @action="respAction"
-        />
+        <EasyDataTable
+          :headers="headers"
+          :items="items"
+          :hide-footer="true"
+          empty-message="정보가 없습니다."
+          @click-row="showRow"
+        >
+          <!-- title -->
+          <template #item-title="item">
+            <a href="#">
+              <span class="txt">{{ item.title }}</span>
+              <q-tooltip
+                anchor="bottom middle"
+                class="c_tooltip"
+              >
+                <div class="inner">
+                  {{ item.title }}
+                </div>
+              </q-tooltip>
+            </a>
+          </template>
+          <!--
+            상태값(status)
+            1. running, 운영중, 실행중
+            2. stopped, 정지 | 오류 | 취소 | 실패
+            3. 생성중 | 삭제중 | 대기중 | 재시작중
+          -->
+          <template #item-status="item">
+            <q-badge
+              v-if="item.status === 'running'"
+              class="green"
+            >
+              <span class="txt">운영중(공유)</span>
+            </q-badge>
+            <q-badge
+              v-else-if="item.status === 'stopped'"
+              class="orange"
+            >
+              <span class="txt">정지</span>
+            </q-badge>
+            <q-badge
+              v-else
+              class="c_badge"
+            >
+              <span class="txt">생성중</span>
+            </q-badge>
+          </template>
+          <!-- 버튼 그룹 -->
+          <template #item-buttons="item">
+            <div v-if="actionButtons" class="cell btngroup">
+              <q-btn class="c_btn ibtn dot">
+                <i class="ico dots" /><span class="txt">클릭</span>
+                <q-popup-edit
+                  v-model="item.id"
+                  class="dots_menu"
+                  anchor="top right"
+                >
+                  <q-list style="min-width: 100px">
+                    <q-item
+                      v-for="button in actionButtons"
+                      :key="button.name"
+                    >
+                      <q-btn
+                        class="item"
+                        @click="onActions(button.event, item)"
+                      >
+                        <span class="txt">{{ button.name }}</span>
+                      </q-btn>
+                    </q-item>
+                  </q-list>
+                </q-popup-edit>
+              </q-btn>
+            </div>
+          </template>
+        </EasyDataTable>
       </div>
       <div class="table_pagenav disflex_C mt32">
         <CPagination />
@@ -110,7 +178,6 @@ import { useMeta } from "quasar";
 import CButton from "components/common/CButton.vue";
 import CDropdown from "components/common/CDropdown.vue";
 import CPagination from "components/common/CPagination.vue";
-import CTable from "src/components/common/CTable.vue";
 
 const title = ref("Storage");
 useMeta(() => ({
@@ -129,63 +196,34 @@ const optNumber = ref([
   { label: "50", value: 2 },
 ]);
 
-const columns = [
+const headers = [
   {
-    name: "name",
-    field: "name",
-    label: "이름",
-    align: "left",
-    sortable: true,
+    text: "이름", value: "title", width: 200, sortable: true
   },
   {
-    name: "account",
-    field: "account",
-    label: "설명",
-    align: "left",
-    sortable: false,
+    text: "설명", value: "description", sortable: false
   },
   {
-    name: "user",
-    field: "user",
-    label: "소유자",
-    align: "left",
-    sortable: true,
+    text: "소유자", value: "user", sortable: true
   },
   {
-    name: "status",
-    field: "status",
-    label: "상태",
-    align: "left",
-    sortable: false,
-    type: "tag",
+    text: "상태", value: "status", sortable: false
   },
   {
-    name: "usingData",
-    field: "usingData",
-    label: "사용량",
-    align: "left",
-    sortable: true,
+    text: "사용량", value: "usingData", sortable: true
   },
   {
-    name: "createdAt",
-    field: "createdAt",
-    label: "생성일시",
-    align: "left",
-    sortable: true,
-    type: "datetime",
+    text: "생성일시", value: "createdAt", sortable: false
   },
   {
-    name: "authority",
-    field: "authority",
-    label: "접근권한",
-    align: "left",
-    sortable: false,
+    text: "접근권한", value: "authority", sortable: false
   },
+  { text: "", value: "buttons", width: 150 },
 ];
-const data = [
+const items = [
   {
-    name: "개인작업용",
-    account: "개인이용",
+    title: "개인작업용",
+    description: "개인이용",
     user: "root.choi",
     status: "running",
     usingData: "45 / 100 GiB",
@@ -193,8 +231,8 @@ const data = [
     authority: "읽기전용",
   },
   {
-    name: "개인작업용",
-    account: "개인이용",
+    title: "개인작업용",
+    description: "개인이용",
     user: "root.choi",
     status: "running",
     usingData: "45 / 100 GiB",
@@ -210,27 +248,22 @@ const actionButtons = [
   { name: "스냅샷 생성", event: "crtSnap" },
   { name: "삭제", event: "delete" },
 ];
-const respAction = (eventObj) => {
-  const eventName = eventObj.event;
-  // const rowData = eventObj.data;
-  // console.log(rowData);
-  switch (eventName) {
-    case "state":
-      break;
-    case "share":
-      break;
-    case "mngSnap":
-      break;
-    case "crtSnap":
-      break;
-    case "delete":
-      break;
-    default:
-      break;
-  }
+
+/**
+ * 설명: row Action 버튼 이벤트
+ * @param { string } eventName action event name
+ * @param { object } rowData get table row data
+ */
+const onActions = (eventName, rowData) => {
+  console.log(eventName, rowData);
+};
+
+const showRow = (item) => {
+  console.log(item);
 };
 </script>
 
 <style lang="scss" scoped>
 @import "./src/css/storage";
+@import "./src/css/table";
 </style>
