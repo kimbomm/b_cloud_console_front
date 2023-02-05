@@ -68,7 +68,7 @@
         <p class="pay"><span>39,220,000</span>&nbsp;원</p>
         <p class="pay-notice">*CPU, GPU 자원 이용 금액만 집계된 비용입니다.</p>
       </div>
-      <template v-if="visibleTable">
+      <template v-if="defaultData == true">
         <div class="group">
           <div class="table_set">
             <q-select
@@ -90,15 +90,44 @@
             />
           </div>
         </div>
-        <div class="group-table">
-          <CTable
-            :title="title"
-            :columns="columns"
-            :data="data"
-            :action-buttons="actionButtons"
-            @action="respAction"
-          />
-        </div>
+        <section class="section">
+          <EasyDataTable
+            :headers="headers"
+            :items="items"
+            :hide-footer="true"
+            empty-message="정보가 없습니다."
+            @click-row="showRow"
+          >
+            <!-- title -->
+            <template #item-title="item">
+              <a href="#">
+                <span class="txt">{{ item.title }}</span>
+              </a>
+            </template>
+            <!-- 인스턴스 타입 -->
+            <template #item-instanceType="item">
+              <q-badge
+                class="text instance icon"
+                @click="onCopy(item)"
+              >
+                <span class="txt">{{ item.instanceType }}</span>
+
+                <q-tooltip
+                  anchor="bottom middle"
+                  class="c_tooltip"
+                >
+                  <div class="inner">
+                    {{ item.instanceType }}
+                  </div>
+                </q-tooltip>
+              </q-badge>
+            </template>
+            <!-- createdBy -->
+            <template #item-createdBy="item">
+              <span class="txt clip">{{ item.createdBy }}</span>
+            </template>
+          </EasyDataTable>
+        </section>
         <div class="group-page">
           <CPagination />
         </div>
@@ -111,10 +140,9 @@ import { ref } from "vue";
 import { useMeta } from "quasar";
 import CButton from "components/common/CButton.vue";
 import CDropdown from "components/common/CDropdown.vue";
-import CTable from "src/components/common/CTable.vue";
 import CPagination from "components/common/CPagination.vue";
 
-const visibleTable = ref(true);
+const defaultData = ref(true);
 const title = ref("개인 이용 요금");
 const btnName = ref("워크스페이스 요금조회");
 
@@ -129,152 +157,59 @@ const optNumber = ref([
   { label: "50", value: 2 },
 ]);
 
-const columns = [
+// Table
+const headers = [
   {
-    name: "id",
-    field: "id",
-    label: "ID",
-    required: true,
-    align: "center",
-    sortable: true,
+    text: "인스턴스/태스크 이름", value: "title", width: "300", sortable: true
   },
   {
-    name: "instance",
-    field: "instance",
-    label: "인스턴스 이름",
-    align: "left",
-    sortable: true,
-    type: "link",
+    text: "서비스", value: "service", sortable: true
   },
   {
-    name: "status",
-    field: "status",
-    label: "상태",
-    align: "left",
-    sortable: true,
-    type: "tag",
+    text: "인스턴스 타입", value: "instanceType", sortable: true
   },
   {
-    name: "ssh",
-    field: "ssh",
-    label: "ssh",
-    align: "left",
-    sortable: false,
-    type: "copy",
+    text: "시작시간", value: "startTime", sortable: true
   },
   {
-    name: "JupyterLab",
-    field: "JupyterLab",
-    label: "JupyterLab",
-    align: "left",
-    sortable: false,
-    type: "copy",
+    text: "종료시간", value: "endTime", sortable: true
   },
   {
-    name: "instanceType",
-    field: "instanceType",
-    label: "인스턴스 타입",
-    align: "left",
-    sortable: true,
-    type: "tooltip",
+    text: "사용시간", value: "usageTime", sortable: true
   },
   {
-    name: "gpu",
-    field: "gpu",
-    label: "GPU",
-    align: "left",
-    sortable: false,
-  },
-  {
-    name: "cpu",
-    field: "cpu",
-    label: "CPU",
-    align: "left",
-    sortable: false,
-  },
-  {
-    name: "createdAt",
-    field: "createdAt",
-    label: "생성일시",
-    align: "left",
-    sortable: true,
-    type: "datetime"
-  },
-  {
-    name: "createdBy",
-    field: "createdBy",
-    label: "생성자",
-    align: "left",
-    sortable: false,
+    text: "금액", value: "pay", sortable: true
   },
 ];
-const data = [
+const items = [
   {
-    id: 1,
-    instance: "인스턴스 이름 인스턴스 이름 인스턴스 이름",
-    status: "running",
-    ssh: "ssh",
-    JupyterLab: "JupyterLab",
+    title: "테스트용 inst",
+    service: "인스턴스",
     instanceType: "V1.XLARGE",
-    gpu: "49.5%",
-    cpu: "100%",
-    createdAt: "2023.01.12 10:33:21",
-    createdBy: "Root.choi",
-    resource: {
-      cpus: 28,
-      gpu_device_model: "TESLA_V100",
-      gpus: 2,
-      mem: 249856,
-      zone: "public:normal"
-    }
+    startTime: "2023.01.12 10:33:21",
+    endTime: "-",
+    usageTime: "183.01시간",
+    pay: "283,292원"
   },
   {
-    id: 2,
-    instance: "인스턴스 이름 인스턴스 이름 인스턴스 이름",
-    status: "stopped",
-    ssh: "ssh",
-    JupyterLab: "JupyterLab",
+    title: "테스트용 inst",
+    service: "인스턴스",
     instanceType: "V1.XLARGE",
-    gpu: "49.5%",
-    cpu: "100%",
-    createdAt: "2023.01.12 10:33:21",
-    createdBy: "Root.choi",
-    resource: {
-      cpus: 28,
-      gpu_device_model: "TESLA_V100",
-      gpus: 2,
-      mem: 249856,
-      zone: "public:normal"
-    }
+    startTime: "2023.01.12 10:33:21",
+    endTime: "2023.01.12 10:33:21",
+    usageTime: "183.01시간",
+    pay: "283,292원"
+  },
+  {
+    title: "테스트용 inst",
+    service: "인스턴스",
+    instanceType: "V1.XLARGE",
+    startTime: "2023.01.12 10:33:21",
+    endTime: "-",
+    usageTime: "183.01시간",
+    pay: "283,292원"
   },
 ];
-
-const actionButtons = [
-  { name: "이용현황", event: "state" },
-  { name: "공유관리", event: "share" },
-  { name: "스냅샷 관리", event: "mngSnap" },
-  { name: "스냅샷 생성", event: "crtSnap" },
-  { name: "삭제", event: "delete" },
-];
-const respAction = (eventObj) => {
-  const eventName = eventObj.event;
-  // const rowData = eventObj.data;
-  // console.log(rowData);
-  switch (eventName) {
-    case "state":
-      break;
-    case "share":
-      break;
-    case "mngSnap":
-      break;
-    case "crtSnap":
-      break;
-    case "delete":
-      break;
-    default:
-      break;
-  }
-};
 
 // Date Picker
 const date = ref(null);
@@ -286,5 +221,6 @@ const ptitle = ref(title);
 </script>
 
 <style lang="scss" scoped>
+@import 'src/css/table';
 @import 'src/css/billing';
 </style>

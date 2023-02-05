@@ -87,7 +87,11 @@
               <span class="amount_useable">200GiB</span>
             </p>
             <div class="cont_footer">
-              <div class="progress_bar_area"></div>
+              <progress
+                value="150"
+                max="200"
+                class="stor_progress"
+                />
             </div>
           </div>
         </div>

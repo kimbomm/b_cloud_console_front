@@ -1,8 +1,13 @@
 /* Support */
 .p-support{
+  .group-page{
+    display: flex; justify-content: center; align-items: center;
+    margin-top: 50px;
+  }
   .essential{ color: $secondary-coral;}
   &.p-index{
     .p-body{
+      td a .txt{color: $gray800;}
       .c_btngroup{
         margin-top: 20px;;
       }
