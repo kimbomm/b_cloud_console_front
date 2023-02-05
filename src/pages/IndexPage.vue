@@ -301,13 +301,12 @@
             <span>더보기</span>
           </a>
           <div class="store-wrap">
-            <!-- 정보가 없을경우 -->
-            <!-- <div class="store-none">
-              <p>이용중인 스토리지가 없습니다.</p>
-            </div> -->
 
             <!-- 3개 넘게 스크롤이 생길경우(스크롤) -->
-            <q-scroll-area style="padding-right: 18px; height: 100%; max-width: 100%;">
+            <q-scroll-area
+              v-if="storageData === storageData"
+              style="padding-right: 18px; height: 100%; max-width: 100%;"
+            >
               <div
                 v-for="(store, i) in stores"
                 :key="`${i}`"
@@ -339,111 +338,22 @@
                       <div class="circle_in" />
                     </div>
                     <div class="info">
-                      <p class="text">
-                        <span>{{ store.title }}</span>
-                        <span class="ex">{{ store.caption }}</span>
-                      </p>
+                      <p class="title">{{ store.title }}</p>
+                      <p class="caption">{{ store.caption }}</p>
                     </div>
-                  </div>
-                  <div class="capacity">
-                    <span class="capacity_use">{{ store.current }}</span>
-                    <span class="capacity_amount">/ {{ store.total }} BG</span>
+                    <div class="capacity">
+                      <span class="capacity_use">{{ store.current }}</span>
+                      <span class="capacity_amount">/ {{ store.total }} BG</span>
+                    </div>
                   </div>
                 </div>
               </div>
-              <!-- <div class="store">
-                <div class="store_card">
-                  <div class="state">
-                    <div class="circle_chart">
-                      <div class="circle_in">
-                        <strong data-rate="45.6" />
-                      </div>
-                      <div class="circle_line" />
-                    </div>
-                    <div>
-                      <p class="name">스토리지 이름</p>
-                      <p class="text">
-                        <span>복원중</span>
-                        <span class="ex">스토리지 설명 스토리지 설명스토리지 설명스토리지 설명</span>
-                      </p>
-                    </div>
-                  </div>
-                  <div class="capacity">
-                    <span class="capacity_use">45</span>
-                    <span class="capacity_amount">/ 200 BG</span>
-                  </div>
-                </div>
-              </div>
-              <div class="store">
-                <div class="store_card">
-                  <div class="state">
-                    <div class="circle_chart">
-                      <div class="circle_in">
-                        <strong data-rate="45.6" />
-                      </div>
-                      <div class="circle_line" />
-                    </div>
-                    <div>
-                      <p class="name">스토리지 이름</p>
-                      <p class="text">
-                        <span>복원중</span>
-                        <span class="ex">스토리지 설명 스토리지 설명스토리지 설명스토리지 설명</span>
-                      </p>
-                    </div>
-                  </div>
-                  <div class="capacity">
-                    <span class="capacity_use">45</span>
-                    <span class="capacity_amount">/ 200 BG</span>
-                  </div>
-                </div>
-              </div>
-              <div class="store">
-                <div class="store_card">
-                  <div class="state">
-                    <div class="circle_chart">
-                      <div class="circle_in">
-                        <strong data-rate="45.6" />
-                      </div>
-                      <div class="circle_line" />
-                    </div>
-                    <div>
-                      <p class="name">스토리지 이름</p>
-                      <p class="text">
-                        <span>복원중</span>
-                        <span class="ex">스토리지 설명 스토리지 설명스토리지 설명스토리지 설명</span>
-                      </p>
-                    </div>
-                  </div>
-                  <div class="capacity">
-                    <span class="capacity_use">45</span>
-                    <span class="capacity_amount">/ 200 BG</span>
-                  </div>
-                </div>
-              </div>
-              <div class="store">
-                <div class="store_card">
-                  <div class="state">
-                    <div class="circle_chart">
-                      <div class="circle_in">
-                        <strong data-rate="45.6" />
-                      </div>
-                      <div class="circle_line" />
-                    </div>
-                    <div>
-                      <p class="name">스토리지 이름</p>
-                      <p class="text">
-                        <span>복원중</span>
-                        <span class="ex">스토리지 설명 스토리지 설명스토리지 설명스토리지 설명</span>
-                      </p>
-                    </div>
-                  </div>
-                  <div class="capacity">
-                    <span class="capacity_use">45</span>
-                    <span class="capacity_amount">/ 200 BG</span>
-                  </div>
-                </div>
-              </div> -->
             </q-scroll-area>
+
+            <!-- 정보가 없을경우 -->
+            <div v-else class="store-none">
+              <p>이용중인 스토리지가 없습니다.</p>
+            </div>
           </div>
         </div>
         <!-- Billing -->
@@ -778,6 +688,7 @@ const slide = ref(1);
 const slide2 = ref(1);
 const instanceData = ref(true);
 const taskData = ref(true);
+const storageData = ref(true);
 
 const charts = ref([
   { label: "CPU 활용률", value: 45.6 },

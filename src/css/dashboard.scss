@@ -43,6 +43,7 @@
           height: 100%;
           // height: calc(100% - 90px);
           ::v-deep(.q-scrollarea__content){
+            max-width:100%;
             padding-bottom:calc(80px);
           }
           ::v-deep(.q-scrollarea__thumb:hover){
@@ -70,14 +71,10 @@
           }
           &_card{
             display: flex;
-            align-items: center;
-            flex-wrap:wrap;
+            flex-direction: column;
             max-width:100%;
             > .name{
               margin-bottom:16px;
-            }
-            > .state{
-              width:calc(100% - 100px);
             }
           }
           .circle_chart{
@@ -125,19 +122,33 @@
               }
             }
           }
-          .info{
-            display:flex;
-            flex:1 auto;
-            flex-direction: column;
-            margin-right:12px;
-          }
           .state{
             display: flex;
             align-items: center;
+            overflow:hidden;
+          }
+          .info{
+            display:inline-flex;
+            flex-direction: column;
+            flex:1 auto;
+            max-width:calc(100% - 60px - 100px);
+            color: $surface16; font-size: $fs14;
+            .title{
+              display:inline-block;
+            }
+            .caption{
+              display: inline-block;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+              max-width:100%;
+            }
           }
           .text{
             display: flex;
             flex-direction: column;
+            overflow:hidden;
+            flex:1 auto;
             color: $surface16; font-size: $fs14;
           }
           .ex{
@@ -162,6 +173,8 @@
             display: flex;
             flex-direction: column;
             text-align: right;
+            flex:none;
+            width:100px;
             &_use{
               color: $surface21; font-size: $fs24; font-weight: $bold;
             }
