@@ -50,7 +50,7 @@
     <!-- //.chead -->
     <div class="p-body">
       <section class="section">
-        <h2 class="h6">검색 결과 없음</h2>
+        <h2 class="h6">검색 결과가 없을때</h2>
         <EasyDataTable
           :headers="headers"
           :items="nodata"
@@ -92,7 +92,7 @@
           <!-- ssh -->
           <template #item-ssh="item">
             <q-badge
-              class="square ssh icon"
+              class="copy square ssh icon"
               @click="onCopy(item)"
             >
               <span class="txt">{{ item.ssh }}</span>
@@ -101,7 +101,7 @@
           <!-- jupyterLab -->
           <template #item-jupyterLab="item">
             <q-badge
-              class="square lab icon"
+              class="copy square lab icon"
               @click="onCopy(item)"
             >
               <span class="txt">{{ item.jupyterLab }}</span>
@@ -204,7 +204,7 @@
           <!-- ssh -->
           <template #item-ssh="item">
             <q-badge
-              class="square ssh icon"
+              class="copy square ssh icon"
               @click="onCopy(item)"
             >
               <span class="txt">{{ item.ssh }}</span>
@@ -213,7 +213,7 @@
           <!-- jupyterLab -->
           <template #item-jupyterLab="item">
             <q-badge
-              class="square lab icon"
+              class="copy square lab icon"
               @click="onCopy(item)"
             >
               <span class="txt">{{ item.jupyterLab }}</span>
@@ -226,7 +226,20 @@
               @click="onCopy(item)"
             >
               <span class="txt">{{ item.instanceType }}</span>
+
+              <q-tooltip
+                anchor="bottom middle"
+                class="c_tooltip"
+              >
+                <div class="inner">
+                  {{ item.instanceType }}
+                </div>
+              </q-tooltip>
             </q-badge>
+          </template>
+          <!-- createdBy -->
+          <template #item-createdBy="item">
+            <span class="txt clip">{{ item.createdBy }}</span>
           </template>
           <!-- 버튼 그룹 -->
           <template #item-buttons="item">
@@ -307,7 +320,7 @@
           <!-- ssh -->
           <template #item-ssh="item">
             <q-badge
-              class="square ssh icon"
+              class="copy square ssh icon"
               @click="onCopy(item)"
             >
               <span class="txt">{{ item.ssh }}</span>
@@ -316,7 +329,7 @@
           <!-- jupyterLab -->
           <template #item-jupyterLab="item">
             <q-badge
-              class="square lab icon"
+              class="copy square lab icon"
               @click="onCopy(item)"
             >
               <span class="txt">{{ item.jupyterLab }}</span>
@@ -329,7 +342,20 @@
               @click="onCopy(item)"
             >
               <span class="txt">{{ item.instanceType }}</span>
+
+              <q-tooltip
+                anchor="bottom middle"
+                class="c_tooltip"
+              >
+                <div class="inner">
+                  {{ item.instanceType }}
+                </div>
+              </q-tooltip>
             </q-badge>
+          </template>
+          <!-- createdBy -->
+          <template #item-createdBy="item">
+            <span class="txt clip">{{ item.createdBy }}</span>
           </template>
           <!-- 버튼 그룹 -->
           <template #item-buttons="item">
@@ -423,7 +449,7 @@
           <!-- ssh -->
           <template #item-ssh="item">
             <q-badge
-              class="square ssh icon"
+              class="copy square ssh icon"
               @click="onCopy(item)"
             >
               <span class="txt">{{ item.ssh }}</span>
@@ -432,7 +458,7 @@
           <!-- jupyterLab -->
           <template #item-jupyterLab="item">
             <q-badge
-              class="square lab icon"
+              class="copy square lab icon"
               @click="onCopy(item)"
             >
               <span class="txt">{{ item.jupyterLab }}</span>
@@ -445,7 +471,20 @@
               @click="onCopy(item)"
             >
               <span class="txt">{{ item.instanceType }}</span>
+
+              <q-tooltip
+                anchor="bottom middle"
+                class="c_tooltip"
+              >
+                <div class="inner">
+                  {{ item.instanceType }}
+                </div>
+              </q-tooltip>
             </q-badge>
+          </template>
+          <!-- createdBy -->
+          <template #item-createdBy="item">
+            <span class="txt clip">{{ item.createdBy }}</span>
           </template>
           <!-- 버튼 그룹 -->
           <template #item-buttons="item">
@@ -500,10 +539,7 @@
           <template #item-title="item">
             <a href="#">
               <span class="txt">{{ item.title }}</span>
-              <q-tooltip
-                anchor="bottom middle"
-                class="c_tooltip"
-              >
+              <q-tooltip anchor="bottom middle" class="c_tooltip">
                 <div class="inner">
                   {{ item.title }}
                 </div>
@@ -517,55 +553,117 @@
             3. 생성중 | 삭제중 | 대기중 | 재시작중
           -->
           <template #item-status="item">
-            <q-badge
-              v-if="item.status === 'running'"
-              class="green"
-            >
+            <q-badge v-if="item.status === 'running'" class="green">
               <span class="txt">운영중</span>
             </q-badge>
-            <q-badge
-              v-else-if="item.status === 'stopped'"
-              class="orange"
-            >
+            <q-badge v-else-if="item.status === 'stopped'" class="orange">
               <span class="txt">정지</span>
             </q-badge>
-            <q-item
-              v-else-if="item.status === 'group'"
-              class="badge_group"
-              @click="onCopy(item)"
-            >
-              <q-badge class="green">
-                <span class="txt">7</span>
-              </q-badge>
-              <q-badge class="orange">
-                <span class="txt">20</span>
-              </q-badge>
-              <q-badge class="c_badge">
-                <span class="txt">27</span>
-              </q-badge>
+            <q-item v-else-if="item.status === 'group'" class="badge_group">
+              <div class="badge">
+                <q-badge class="green">
+                  <span class="txt">7</span>
+                </q-badge>
+                <q-badge class="orange">
+                  <span class="txt">20</span>
+                </q-badge>
+                <q-badge class="c_badge">
+                  <span class="txt">27</span>
+                </q-badge>
+              </div>
+
+              <q-popup-edit v-model="badgeGroup" self="bottom middle" class="badge_menu">
+                <div class="inner">
+                  <q-list>
+                    <q-item>
+                      <q-item-section>
+                        <div class="badge_item">
+                          <q-badge class="green">
+                            <span class="txt">실행중</span>
+                          </q-badge>
+                          <span class="count">2</span>
+                        </div>
+                      </q-item-section>
+                      <q-item-section>
+                        <div class="badge_item">
+                          <q-badge>
+                            <span class="txt">생성중</span>
+                          </q-badge>
+                          <span class="count">2</span>
+                        </div>
+                      </q-item-section>
+                    </q-item>
+                    <q-item>
+                      <q-item-section>
+                        <div class="badge_item">
+                          <q-badge class="green">
+                            <span class="txt">완료</span>
+                          </q-badge>
+                          <span class="count">5</span>
+                        </div>
+                      </q-item-section>
+                      <q-item-section>
+                        <div class="badge_item">
+                          <q-badge>
+                            <span class="txt">재시작중</span>
+                          </q-badge>
+                          <span class="count">5</span>
+                        </div>
+                      </q-item-section>
+                    </q-item>
+                    <q-item>
+                      <q-item-section>
+                        <div class="badge_item">
+                          <q-badge class="orange">
+                            <span class="txt">취소</span>
+                          </q-badge>
+                          <span class="count">10</span>
+                        </div>
+                      </q-item-section>
+                      <q-item-section>
+                        <div class="badge_item">
+                          <q-badge>
+                            <span class="txt">취소중</span>
+                          </q-badge>
+                          <span class="count">10</span>
+                        </div>
+                      </q-item-section>
+                    </q-item>
+                    <q-item>
+                      <q-item-section>
+                        <div class="badge_item">
+                          <q-badge class="orange">
+                            <span class="txt">실패</span>
+                          </q-badge>
+                          <span class="count">10</span>
+                        </div>
+                      </q-item-section>
+                      <q-item-section>
+                        <div class="badge_item">
+                          <q-badge>
+                            <span class="txt">삭제중</span>
+                          </q-badge>
+                          <span class="count">10</span>
+                        </div>
+                      </q-item-section>
+                    </q-item>
+                  </q-list>
+                </div>
+              </q-popup-edit>
             </q-item>
-            <q-badge
-              v-else
-              class="c_badge"
-            >
+            <q-badge v-else class="c_badge">
               <span class="txt">생성중</span>
             </q-badge>
           </template>
           <!-- ssh -->
           <template #item-ssh="item">
-            <q-badge
-              class="square ssh icon"
-              @click="onCopy(item)"
-            >
+            <q-badge class="copy square ssh icon" @click="onCopy(item)">
               <span class="txt">{{ item.ssh }}</span>
             </q-badge>
           </template>
           <!-- jupyterLab -->
           <template #item-jupyterLab="item">
-            <q-badge
-              class="square lab icon"
-              @click="onCopy(item)"
-            >
+            <q-badge class="copy square lab icon" @click="onCopy(item)">
               <span class="txt">{{ item.jupyterLab }}</span>
             </q-badge>
           </template>
@@ -576,7 +674,20 @@
               @click="onCopy(item)"
             >
               <span class="txt">{{ item.instanceType }}</span>
+
+              <q-tooltip
+                anchor="bottom middle"
+                class="c_tooltip"
+              >
+                <div class="inner">
+                  {{ item.instanceType }}
+                </div>
+              </q-tooltip>
             </q-badge>
+          </template>
+          <!-- createdBy -->
+          <template #item-createdBy="item">
+            <span class="txt clip">{{ item.createdBy }}</span>
           </template>
           <!-- 버튼 그룹 -->
           <template #item-buttons="item">
@@ -586,100 +697,229 @@
       </section>
 
       <section class="section">
-        <h2 class="h6">Type5</h2>
+        <h2 class="h6">관리 - 프로젝트</h2>
         <EasyDataTable
-          v-model:items-selected="itemsSelected"
-          :headers="taskHeader"
-          :items="taskItems"
+          :headers="mngTaskHeader"
+          :items="mngTaskItems"
           :hide-footer="true"
-          :body-row-class-name="bodyRowClassNameFunction"
           empty-message="정보가 없습니다."
         >
           <!-- title -->
           <template #item-title="item">
+            <span class="txt">{{ item.title }}</span>
+          </template>
+          <!-- Description -->
+          <template #item-desc="item">
             <a href="#">
-              <span class="txt">{{ item.title }}</span>
-              <q-tooltip
-                anchor="bottom middle"
-                class="c_tooltip"
-              >
-                <div class="inner">
-                  {{ item.title }}
-                </div>
-              </q-tooltip>
+              <span class="txt">{{ item.desc }}</span>
             </a>
           </template>
           <!--
             상태값(status)
-            1. running, 운영중, 실행중
+            1. running, 운영중, 실행중, ON
             2. stopped, 정지 | 오류 | 취소 | 실패
-            3. 생성중 | 삭제중 | 대기중 | 재시작중
+            3. 생성중 | 삭제중 | 대기중 | 재시작중 | OFF
           -->
           <template #item-status="item">
             <q-badge
               v-if="item.status === 'running'"
               class="green"
             >
-              <span class="txt">운영중</span>
+              <span class="txt">ON</span>
             </q-badge>
-            <q-badge
-              v-else-if="item.status === 'stopped'"
-              class="orange"
-            >
-              <span class="txt">정지</span>
-            </q-badge>
-            <q-item
-              v-else-if="item.status === 'group'"
-              class="badge_group"
-              @click="onCopy(item)"
-            >
-              <q-badge class="green">
-                <span class="txt">7</span>
-              </q-badge>
-              <q-badge class="orange">
-                <span class="txt">20</span>
-              </q-badge>
-              <q-badge class="c_badge">
-                <span class="txt">27</span>
-              </q-badge>
-            </q-item>
             <q-badge
               v-else
               class="c_badge"
             >
-              <span class="txt">생성중</span>
+              <span class="txt">OFF</span>
             </q-badge>
           </template>
-          <!-- ssh -->
-          <template #item-ssh="item">
-            <q-badge
-              class="square ssh icon"
-              @click="onCopy(item)"
-            >
-              <span class="txt">{{ item.ssh }}</span>
-            </q-badge>
+          <!-- GPU -->
+          <template #item-gpu="item">
+            <!--
+              사용량(usage)
+              1. row : 0% ~ 50%
+              2. middle : 51% ~ 90%
+              3. high : 91% ~ 100%
+            -->
+            <q-item v-if="item.status === 'running'" class="cell">
+              <div v-if="item.gpu === 'row'" class="usage">
+                <i class="ico row" />
+                <span class="txt">44 / 100</span>
+              </div>
+              <div v-else-if="item.gpu === 'middle'" class="usage">
+                <i class="ico middle" />
+                <span class="txt">13 / 100</span>
+              </div>
+              <div v-else-if="item.gpu === 'high'" class="usage">
+                <i class="ico high" />
+                <span class="txt">33 / 100</span>
+              </div>
+              <div v-else class="usage">
+                <span class="txt">-</span>
+              </div>
+            </q-item>
+            <q-item v-else class="cell">
+              <div v-if="item.gpu === 'row'" class="usage">
+                <span class="txt">543</span>
+              </div>
+              <div v-else-if="item.gpu === 'middle'" class="usage">
+                <span class="txt">23</span>
+              </div>
+              <div v-else-if="item.gpu === 'high'" class="usage">
+                <span class="txt">44</span>
+              </div>
+              <div v-else class="usage">
+                <span class="txt">-</span>
+              </div>
+            </q-item>
           </template>
-          <!-- jupyterLab -->
-          <template #item-jupyterLab="item">
-            <q-badge
-              class="square lab icon"
-              @click="onCopy(item)"
-            >
-              <span class="txt">{{ item.jupyterLab }}</span>
-            </q-badge>
+          <!-- V100 -->
+          <template #item-v100="item">
+            <!--
+              사용량(usage)
+              1. row : 0% ~ 50%
+              2. middle : 51% ~ 90%
+              3. high : 91% ~ 100%
+            -->
+            <q-item v-if="item.status === 'running'" class="cell">
+              <div v-if="item.v100 === 'row'" class="usage">
+                <i class="ico row" />
+                <span class="txt">2 / 100</span>
+              </div>
+              <div v-else-if="item.v100 === 'middle'" class="usage">
+                <i class="ico middle" />
+                <span class="txt">13 / 100</span>
+              </div>
+              <div v-else-if="item.v100 === 'high'" class="usage">
+                <i class="ico high" />
+                <span class="txt">33 / 100</span>
+              </div>
+              <div v-else class="usage">
+                <span class="txt">-</span>
+              </div>
+            </q-item>
+            <q-item v-else class="cell">
+              <div v-if="item.v100 === 'row'" class="usage">
+                <span class="txt">12</span>
+              </div>
+              <div v-else-if="item.v100 === 'middle'" class="usage">
+                <span class="txt">23</span>
+              </div>
+              <div v-else-if="item.v100 === 'high'" class="usage">
+                <span class="txt">44</span>
+              </div>
+              <div v-else class="usage">
+                <span class="txt">-</span>
+              </div>
+            </q-item>
           </template>
-          <!-- 인스턴스 타입 -->
-          <template #item-instanceType="item">
-            <q-badge
-              class="text instance icon"
-              @click="onCopy(item)"
-            >
-              <span class="txt">{{ item.instanceType }}</span>
-            </q-badge>
+          <!-- A100_400G -->
+          <template #item-g400="item">
+            <!--
+              사용량(usage)
+              1. row : 0% ~ 50%
+              2. middle : 51% ~ 90%
+              3. high : 91% ~ 100%
+            -->
+            <q-item v-if="item.status === 'running'" class="cell">
+              <div v-if="item.g400 === 'row'" class="usage">
+                <i class="ico row" />
+                <span class="txt">44 / 100</span>
+              </div>
+              <div v-else-if="item.g400 === 'middle'" class="usage">
+                <i class="ico middle" />
+                <span class="txt">13 / 100</span>
+              </div>
+              <div v-else-if="item.g400 === 'high'" class="usage">
+                <i class="ico high" />
+                <span class="txt">33 / 100</span>
+              </div>
+              <div v-else class="usage">
+                <span class="txt">-</span>
+              </div>
+            </q-item>
+            <q-item v-else class="cell">
+              <div v-if="item.g400 === 'row'" class="usage">
+                <span class="txt">543</span>
+              </div>
+              <div v-else-if="item.g400 === 'middle'" class="usage">
+                <span class="txt">23</span>
+              </div>
+              <div v-else-if="item.g400 === 'high'" class="usage">
+                <span class="txt">44</span>
+              </div>
+              <div v-else class="usage">
+                <span class="txt">-</span>
+              </div>
+            </q-item>
+          </template>
+          <!-- A100_80G -->
+          <template #item-g80="item">
+            <!--
+              사용량(usage)
+              1. row : 0% ~ 50%
+              2. middle : 51% ~ 90%
+              3. high : 91% ~ 100%
+            -->
+            <q-item v-if="item.status === 'running'" class="cell">
+              <div v-if="item.g80 === 'row'" class="usage">
+                <i class="ico row" />
+                <span class="txt">44 / 100</span>
+              </div>
+              <div v-else-if="item.g80 === 'middle'" class="usage">
+                <i class="ico middle" />
+                <span class="txt">13 / 100</span>
+              </div>
+              <div v-else-if="item.g80 === 'high'" class="usage">
+                <i class="ico high" />
+                <span class="txt">33 / 100</span>
+              </div>
+              <div v-else class="usage">
+                <span class="txt">-</span>
+              </div>
+            </q-item>
+            <q-item v-else class="cell">
+              <div v-if="item.g80 === 'row'" class="usage">
+                <span class="txt">543</span>
+              </div>
+              <div v-else-if="item.g80 === 'middle'" class="usage">
+                <span class="txt">23</span>
+              </div>
+              <div v-else-if="item.g80 === 'high'" class="usage">
+                <span class="txt">44</span>
+              </div>
+              <div v-else class="usage">
+                <span class="txt">-</span>
+              </div>
+            </q-item>
           </template>
           <!-- 버튼 그룹 -->
           <template #item-buttons="item">
-            <q-btn v-if="item.checkbox" class="text"><span class="txt">선택 취소하기</span></q-btn>
+            <div v-if="actionButtons2" class="cell">
+              <q-btn class="c_btn ibtn dot">
+                <i class="ico dots" /><span class="txt">클릭</span>
+                <q-popup-edit
+                  v-model="item.id"
+                  class="dots_menu"
+                  anchor="top right"
+                >
+                  <q-list style="min-width: 100px">
+                    <q-item
+                      v-for="button in actionButtons2"
+                      :key="button.name"
+                    >
+                      <q-btn
+                        class="item"
+                        @click="onActions(button.event, item)"
+                      >
+                        <span class="txt">{{ button.name }}</span>
+                      </q-btn>
+                    </q-item>
+                  </q-list>
+                </q-popup-edit>
+              </q-btn>
+            </div>
           </template>
         </EasyDataTable>
       </section>
@@ -697,8 +937,11 @@ useMeta(() => ({
 
 const ptitle = ref(title);
 
+const badgeGroup = ref(false);
+
 const itemsSelected = ref([]);
 const itemsSelected2 = ref([]);
+const nodata = [];
 const headers = [
   {
     text: "ID", value: "id", width: 80, sortable: false, checkbox: true
@@ -732,32 +975,6 @@ const headers = [
   },
   { text: "", value: "buttons", width: 150 },
 ];
-const taskHeader = [
-  {
-    text: "프로젝트 이름", value: "title", sortable: true
-  },
-  {
-    text: "프로젝트 설명", value: "desc", sortable: false
-  },
-  {
-    text: "할당량 설정", value: "set", width: 160, sortable: true
-  },
-  {
-    text: "GPU", value: "gpu", width: 80, sortable: true
-  },
-  {
-    text: "V100", value: "c100", width: 80, sortable: true
-  },
-  {
-    text: "A100_400G", value: "400g", width: 80, sortable: true
-  },
-  {
-    text: "A100_80G", value: "80g", width: 80, sortable: true
-  },
-  { text: "", value: "buttons", width: 150 },
-];
-
-const nodata = [];
 const items = [
   {
     id: 132,
@@ -769,7 +986,7 @@ const items = [
     gpu: "49.5%",
     cpu: "100%",
     createdAt: "2023.01.12 10:33:21",
-    createdBy: "Root.choi",
+    createdBy: "root.choi (root.choi@kakaobrain.com)",
     resource: {
       cpus: 28,
       gpu_device_model: "TESLA_V100",
@@ -791,7 +1008,7 @@ const items = [
     gpu: "49.5%",
     cpu: "100%",
     createdAt: "2023.01.12 10:33:21",
-    createdBy: "Root.choi",
+    createdBy: "root.choi (root.choi@kakaobrain.com)",
     resource: {
       cpus: 28,
       gpu_device_model: "TESLA_V100",
@@ -810,7 +1027,7 @@ const items = [
     gpu: "49.5%",
     cpu: "100%",
     createdAt: "2023.01.12 10:33:21",
-    createdBy: "Root.choi",
+    createdBy: "root.choi (root.choi@kakaobrain.com)",
     resource: {
       cpus: 28,
       gpu_device_model: "TESLA_V100",
@@ -820,65 +1037,54 @@ const items = [
     }
   },
 ];
-const taskItems = [
+
+const mngTaskHeader = [
   {
-    id: 132,
-    title: "A인스턴스A인스턴스A인스턴스A인스턴스A인스턴스A인 30자",
+    text: "프로젝트 이름", value: "title", width: 300, sortable: true
+  },
+  {
+    text: "프로젝트 설명", value: "desc", sortable: false
+  },
+  {
+    text: "할당량 설정", value: "status", width: 130, sortable: true
+  },
+  {
+    text: "GPU", value: "gpu", width: 150, sortable: true
+  },
+  {
+    text: "V100", value: "v100", width: 150, sortable: true
+  },
+  {
+    text: "A100_400G", value: "g400", width: 150, sortable: true
+  },
+  {
+    text: "A100_80G", value: "g80", width: 150, sortable: true
+  },
+  { text: "", value: "buttons", width: 80 },
+];
+const mngTaskItems = [
+  {
+    title: "aa프로젝트1",
+    desc: "프로젝트 설명프로젝트 설명프로젝트 설명",
     status: "running",
-    ssh: "ssh",
-    jupyterLab: "JupyterLab",
-    instanceType: "V1.XLARGE",
-    gpu: "49.5%",
-    cpu: "100%",
-    createdAt: "2023.01.12 10:33:21",
-    createdBy: "Root.choi",
-    resource: {
-      cpus: 28,
-      gpu_device_model: "TESLA_V100",
-      gpus: 2,
-      mem: 249856,
-      zone: "public:normal",
-    },
+    gpu: "row",
+    v100: "row",
+    g400: "middle",
+    g80: "high",
     buttons: {
       name: "초대요청 확인"
     }
   },
   {
-    id: 34,
-    title: "A인스턴스A인스턴스10자",
-    status: "stopped",
-    ssh: "ssh",
-    jupyterLab: "JupyterLab",
-    instanceType: "V1.XLARGE",
-    gpu: "49.5%",
-    cpu: "100%",
-    createdAt: "2023.01.12 10:33:21",
-    createdBy: "Root.choi",
-    resource: {
-      cpus: 28,
-      gpu_device_model: "TESLA_V100",
-      gpus: 2,
-      mem: 249856,
-      zone: "public:normal",
-    }
-  },
-  {
-    id: 99999,
-    title: "A인스턴스A인스턴스A인스턴스A인 20자",
-    status: "group",
-    ssh: "ssh",
-    jupyterLab: "JupyterLab",
-    instanceType: "V1.XLARGE",
-    gpu: "49.5%",
-    cpu: "100%",
-    createdAt: "2023.01.12 10:33:21",
-    createdBy: "Root.choi",
-    resource: {
-      cpus: 28,
-      gpu_device_model: "TESLA_V100",
-      gpus: 2,
-      mem: 249856,
-      zone: "public:normal",
+    title: "aa프로젝트1",
+    desc: "프로젝트 설명프로젝트 설명프로젝트 설명",
+    status: "",
+    gpu: "row",
+    v100: "row",
+    g400: "middle",
+    g80: "high",
+    buttons: {
+      name: "초대요청 확인"
     }
   },
 ];
@@ -898,6 +1104,10 @@ const actionButtons = [
   { name: "공유관리", event: "share" },
   { name: "스냅샷 관리", event: "mngSnap" },
   { name: "스냅샷 생성", event: "crtSnap" },
+  { name: "삭제", event: "delete" },
+];
+const actionButtons2 = [
+  { name: "편집", event: "edit" },
   { name: "삭제", event: "delete" },
 ];
 

@@ -80,7 +80,6 @@
                   ></q-tab>
                 </q-tabs>
               </div>
-
               <div class="s_03_table">
                 <CTable
                   :title="title"
@@ -118,19 +117,66 @@
                   ></q-tab>
                 </q-tabs>
               </div>
-
-              <div class="s_04_table">
-                <CTable
-                  :title="title"
-                  :columns="columns2"
-                  :data="data2"
-                  row-click
-                  @rowClick="onRowClick"
-                />
-              </div>
-              <div class="s_04_pagenav disflex_C mt32">
-                <CPagination />
-              </div>
+              <template v-if="tab2 === 'tabs1'">
+                <div class="s_04_table">
+                  <CTable
+                    :title="title"
+                    :columns="imgColumns1"
+                    :data="imgData1"
+                    row-click
+                    @rowClick="onRowClick"
+                  />
+                </div>
+                <div class="s_04_pagenav disflex_C mt32">
+                  <CPagination />
+                </div>
+              </template>
+              <template v-if="tab2 === 'tabs2'">
+                <template v-if="defaultData == true">
+                  <div class="s_04_table">
+                    <CTable
+                      :title="title"
+                      :columns="imgColumns2"
+                      :data="imgData2"
+                      row-click
+                      @rowClick="onRowClick"
+                    />
+                  </div>
+                  <div class="s_04_pagenav disflex_C mt32">
+                    <CPagination />
+                  </div>
+                </template>
+                <template v-else>
+                  <div class="com_nondata_area">
+                    <div class="nondata_box">
+                      <p class="nondata_txt">생성된 이미지가 없습니다.</p>
+                    </div>
+                  </div>
+                </template>
+              </template>
+              <template v-if="tab2 === 'tabs3'">
+                <template v-if="defaultData == !true">
+                  <div class="s_04_table">
+                    <CTable
+                      :title="title"
+                      :columns="imgColumns3"
+                      :data="imgData3"
+                      row-click
+                      @rowClick="onRowClick"
+                    />
+                  </div>
+                  <div class="s_04_pagenav disflex_C mt32">
+                    <CPagination />
+                  </div>
+                </template>
+                <template v-else>
+                  <div class="com_nondata_area">
+                    <div class="nondata_box">
+                      <p class="nondata_txt">공유받은 이미지가 없습니다.</p>
+                    </div>
+                  </div>
+                </template>
+              </template>
             </div>
           </div>
           <div class="s_05 pb78">
@@ -157,17 +203,33 @@
             </div>
           </div>
           <div class="s_06 pb78">
-            <p class="sub_title2">SSH Key<i class="ess">*</i></p>
+            <p class="sub_title2 mb20">SSH Key<i class="ess">*</i></p>
             <div class="s_06_main">
-              <div class="s_06_table">
-                <CTable
-                  :title="title"
-                  :columns="columns4"
-                  :data="data4"
-                  row-click
-                  @rowClick="onRowClick"
-                />
-              </div>
+              <template v-if="defaultData == true">
+                <div class="s_06_table">
+                  <CTable
+                    :title="title"
+                    :columns="columns4"
+                    :data="data4"
+                    row-click
+                    @rowClick="onRowClick"
+                  />
+                </div>
+              </template>
+              <template v-else>
+                <div class="com_nondata_area">
+                  <div class="nondata_box">
+                    <p class="nondata_txt">생성된 인스턴스가 없습니다.</p>
+                    <div class="nondata_btn">
+                      <CButton
+                        :size-types="2"
+                        :btn-types="1"
+                        :btn-names="dataRegister"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </template>
             </div>
           </div>
           <div class="s_07">
@@ -286,6 +348,8 @@ const btnName = ref("인스턴스 생성");
 const btnDis = ref("인스턴스 생성");
 const textName = ref(null);
 const textName2 = ref(null);
+const defaultData = ref(true);
+const dataRegister = ref("등록하기");
 
 // 인스턴스 타입 테이블
 const columns = [
@@ -330,8 +394,8 @@ const data = [
   },
 ];
 
-// 이미지 테이블
-const columns2 = [
+// 이미지 테이블_기본이미지
+const imgColumns1 = [
   {
     name: "name",
     field: "name",
@@ -347,7 +411,7 @@ const columns2 = [
     sortable: false,
   },
 ];
-const data2 = [
+const imgData1 = [
   {
     name: "tensorflow 2.9.0  (python3, cuda11.2, ubuntu20.04)",
     nvida: "450.0008",
@@ -355,6 +419,94 @@ const data2 = [
   {
     name: "tensorflow 2.9.0  (python3, cuda11.2, ubuntu20.04)",
     nvida: "450.0008",
+  },
+];
+// 이미지 테이블_내이미지
+const imgColumns2 = [
+  {
+    name: "name",
+    field: "name",
+    label: "이름",
+    required: true,
+    align: "left",
+  },
+  {
+    name: "account",
+    field: "account",
+    label: "설명",
+    align: "left",
+    sortable: false,
+  },
+  {
+    name: "status",
+    field: "status",
+    label: "상태",
+    align: "left",
+    sortable: false,
+    type: "tag",
+  },
+  {
+    name: "createdAt",
+    field: "createdAt",
+    label: "생성일시",
+    align: "left",
+    sortable: true,
+    type: "datetime",
+  },
+];
+const imgData2 = [
+  {
+    name: "내 이미지 1",
+    account: "내 이미지 1",
+    status: "running",
+    createdAt: "2023.09.02 07:30:44",
+  },
+  {
+    name: "내 이미지 1",
+    account: "내 이미지 1",
+    status: "running",
+    createdAt: "2023.09.02 07:30:44",
+  },
+];
+// 이미지 테이블_공유받은 이미지
+const imgColumns3 = [
+  {
+    name: "name",
+    field: "name",
+    label: "이름",
+    required: true,
+    align: "left",
+  },
+  {
+    name: "account",
+    field: "account",
+    label: "설명",
+    align: "left",
+    sortable: false,
+  },
+  {
+    name: "owner",
+    field: "owner",
+    label: "공유자",
+    align: "left",
+    sortable: false,
+  },
+];
+const imgData3 = [
+  {
+    name: "내 이미지1",
+    account: "내 이미지 1",
+    owner: "Kayle(kayle.k@kakaobrain.com)",
+  },
+  {
+    name: "내 이미지1",
+    account: "내 이미지 1",
+    owner: "Kayle(kayle.k@kakaobrain.com)",
+  },
+  {
+    name: "내 이미지1",
+    account: "내 이미지 1",
+    owner: "Kayle(kayle.k@kakaobrain.com)",
   },
 ];
 
