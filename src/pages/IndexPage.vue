@@ -62,20 +62,33 @@
                     -->
                     <strong>대기중</strong>
                   </div>
-                  <!-- chart 정해지기 전 임시로 UI 생성 -->
-                  <div class="circle_chart">
-                    <div class="circle_in">
-                      <em>CPU 활용률</em>
-                      <strong data-rate="45.6" />
+
+                  <!-- chart UI -->
+                  <div
+                    v-for="(chart, i) in charts" :key="`${i}`"
+                    class="circle_chart"
+                  >
+                    <div class="circle-svg" :style="`--value:${chart.value}`">
+                      <svg class="svg_dashboad" fill="none" viewBox="0 0 600 600">
+                        <defs>
+                          <linearGradient id="paint0_linear" x1="50" x2="200" y1="100" y2="450"
+                            gradientUnits="userSpaceOnUse"
+                          >
+                            <stop stop-color="#FF0000"/>
+                            <stop offset="1" stop-color="#4992FF"/>
+                          </linearGradient>
+                        </defs>
+                        <circle pathLength="100"
+                        cx="300" cy="300" r="285"
+                        class="circle-svg__bg" />
+                        <circle pathLength="100"
+                        cx="300" cy="300" r="285"
+                        class="circle-svg__stroke" />
+                      </svg>
                     </div>
-                    <div class="circle_line">
-                    </div>
-                  </div>
-                  <div class="circle_chart">
-                    <div class="circle_line" />
                     <div class="circle_in">
-                      <em>GPU 활용률</em>
-                      <strong data-rate="99.8" />
+                      <em>{{ chart.label }}</em>
+                      <strong :data-rate="`${chart.value}`" />
                     </div>
                   </div>
                 </div>
@@ -108,20 +121,33 @@
                     -->
                     <strong class="red">취소</strong>
                   </div>
-                  <!-- chart 정해지기 전 임시로 UI 생성 -->
-                  <div class="circle_chart">
-                    <div class="circle_in">
-                      <em>CPU 활용률</em>
-                      <strong data-rate="45.6" />
+
+                  <!-- chart UI -->
+                  <div
+                    v-for="(chart, i) in charts" :key="`${i}`"
+                    class="circle_chart"
+                  >
+                    <div class="circle-svg" :style="`--value:${chart.value}`">
+                      <svg class="svg_dashboad" fill="none" viewBox="0 0 600 600">
+                        <defs>
+                          <linearGradient id="paint0_linear" x1="50" x2="200" y1="100" y2="450"
+                            gradientUnits="userSpaceOnUse"
+                          >
+                            <stop stop-color="#FF0000"/>
+                            <stop offset="1" stop-color="#4992FF"/>
+                          </linearGradient>
+                        </defs>
+                        <circle pathLength="100"
+                        cx="300" cy="300" r="285"
+                        class="circle-svg__bg" />
+                        <circle pathLength="100"
+                        cx="300" cy="300" r="285"
+                        class="circle-svg__stroke" />
+                      </svg>
                     </div>
-                    <div class="circle_line">
-                    </div>
-                  </div>
-                  <div class="circle_chart">
-                    <div class="circle_line" />
                     <div class="circle_in">
-                      <em>GPU 활용률</em>
-                      <strong data-rate="99.8" />
+                      <em>{{ chart.label }}</em>
+                      <strong :data-rate="`${chart.value}`" />
                     </div>
                   </div>
                 </div>
@@ -139,7 +165,7 @@
         <!-- slide 2 -->
         <div class="card">
           <q-carousel
-            v-model="slide"
+            v-model="slide2"
             animated
             arrows
             navigation
@@ -166,20 +192,33 @@
                     -->
                     <strong>대기중</strong>
                   </div>
-                  <!-- chart 정해지기 전 임시로 UI 생성 -->
-                  <div class="circle_chart">
-                    <div class="circle_in">
-                      <em>CPU 활용률</em>
-                      <strong data-rate="45.6" />
+
+                  <!-- chart UI -->
+                  <div
+                    v-for="(chart, i) in charts" :key="`${i}`"
+                    class="circle_chart"
+                  >
+                    <div class="circle-svg" :style="`--value:${chart.value}`">
+                      <svg class="svg_dashboad" fill="none" viewBox="0 0 600 600">
+                        <defs>
+                          <linearGradient id="paint0_linear" x1="50" x2="200" y1="100" y2="450"
+                            gradientUnits="userSpaceOnUse"
+                          >
+                            <stop stop-color="#FF0000"/>
+                            <stop offset="1" stop-color="#4992FF"/>
+                          </linearGradient>
+                        </defs>
+                        <circle pathLength="100"
+                        cx="300" cy="300" r="285"
+                        class="circle-svg__bg" />
+                        <circle pathLength="100"
+                        cx="300" cy="300" r="285"
+                        class="circle-svg__stroke" />
+                      </svg>
                     </div>
-                    <div class="circle_line">
-                    </div>
-                  </div>
-                  <div class="circle_chart">
-                    <div class="circle_line" />
                     <div class="circle_in">
-                      <em>GPU 활용률</em>
-                      <strong data-rate="99.8" />
+                      <em>{{ chart.label }}</em>
+                      <strong :data-rate="`${chart.value}`" />
                     </div>
                   </div>
                 </div>
@@ -212,20 +251,33 @@
                     -->
                     <strong class="red">취소</strong>
                   </div>
-                  <!-- chart 정해지기 전 임시로 UI 생성 -->
-                  <div class="circle_chart">
-                    <div class="circle_in">
-                      <em>CPU 활용률</em>
-                      <strong data-rate="45.6" />
+
+                  <!-- chart UI -->
+                  <div
+                    v-for="(chart, i) in charts" :key="`${i}`"
+                    class="circle_chart"
+                  >
+                    <div class="circle-svg" :style="`--value:${chart.value}`">
+                      <svg class="svg_dashboad" fill="none" viewBox="0 0 600 600">
+                        <defs>
+                          <linearGradient id="paint0_linear" x1="50" x2="200" y1="100" y2="450"
+                            gradientUnits="userSpaceOnUse"
+                          >
+                            <stop stop-color="#FF0000"/>
+                            <stop offset="1" stop-color="#4992FF"/>
+                          </linearGradient>
+                        </defs>
+                        <circle pathLength="100"
+                        cx="300" cy="300" r="285"
+                        class="circle-svg__bg" />
+                        <circle pathLength="100"
+                        cx="300" cy="300" r="285"
+                        class="circle-svg__stroke" />
+                      </svg>
                     </div>
-                    <div class="circle_line">
-                    </div>
-                  </div>
-                  <div class="circle_chart">
-                    <div class="circle_line" />
                     <div class="circle_in">
-                      <em>GPU 활용률</em>
-                      <strong data-rate="99.8" />
+                      <em>{{ chart.label }}</em>
+                      <strong :data-rate="`${chart.value}`" />
                     </div>
                   </div>
                 </div>
@@ -256,7 +308,50 @@
 
             <!-- 3개 넘게 스크롤이 생길경우(스크롤) -->
             <q-scroll-area style="padding-right: 18px; height: 100%; max-width: 100%;">
-              <div class="store">
+              <div
+                v-for="(store, i) in stores"
+                :key="`${i}`"
+                class="store"
+              >
+                <div class="store_card">
+                  <p class="name">스토리지 이름</p>
+                  <div class="state">
+                    <!-- chart UI -->
+                    <div class="circle_chart small">
+                      <div class="circle-svg" :style="`--value:${store.value}`">
+                        <svg class="svg_dashboad" fill="none" viewBox="0 0 600 600">
+                          <defs>
+                            <linearGradient id="paint1_linear" x1="50" x2="200" y1="100" y2="450"
+                              gradientUnits="userSpaceOnUse"
+                            >
+                              <stop stop-color="#FF0000"/>
+                              <stop offset="1" stop-color="#4992FF"/>
+                            </linearGradient>
+                          </defs>
+                          <circle pathLength="100"
+                          cx="300" cy="300" r="240"
+                          class="circle-svg__bg" />
+                          <circle pathLength="100"
+                          cx="300" cy="300" r="240"
+                          class="circle-svg__stroke" />
+                        </svg>
+                      </div>
+                      <div class="circle_in" />
+                    </div>
+                    <div class="info">
+                      <p class="text">
+                        <span>{{ store.title }}</span>
+                        <span class="ex">{{ store.caption }}</span>
+                      </p>
+                    </div>
+                  </div>
+                  <div class="capacity">
+                    <span class="capacity_use">{{ store.current }}</span>
+                    <span class="capacity_amount">/ {{ store.total }} BG</span>
+                  </div>
+                </div>
+              </div>
+              <!-- <div class="store">
                 <div class="store_card">
                   <div class="state">
                     <div class="circle_chart">
@@ -347,30 +442,7 @@
                     <span class="capacity_amount">/ 200 BG</span>
                   </div>
                 </div>
-              </div>
-              <div class="store">
-                <div class="store_card">
-                  <div class="state">
-                    <div class="circle_chart">
-                      <div class="circle_in">
-                        <strong data-rate="45.6" />
-                      </div>
-                      <div class="circle_line" />
-                    </div>
-                    <div>
-                      <p class="name">스토리지 이름</p>
-                      <p class="text">
-                        <span>복원중</span>
-                        <span class="ex">스토리지 설명 스토리지 설명스토리지 설명스토리지 설명</span>
-                      </p>
-                    </div>
-                  </div>
-                  <div class="capacity">
-                    <span class="capacity_use">45</span>
-                    <span class="capacity_amount">/ 200 BG</span>
-                  </div>
-                </div>
-              </div>
+              </div> -->
             </q-scroll-area>
           </div>
         </div>
@@ -703,9 +775,34 @@ useMeta(() => ({
 }));
 const ptitle = ref(title);
 const slide = ref(1);
+const slide2 = ref(1);
 const instanceData = ref(true);
 const taskData = ref(true);
 
+const charts = ref([
+  { label: "CPU 활용률", value: 45.6 },
+  { label: "GPU 활용률", value: 86.7 },
+]);
+const stores = ref([
+  {
+    title: "복원중", caption: "스토리지 설명", current: "45", total: "200", value: 48.6
+  },
+  {
+    title: "운영중(공유)", caption: "스토리지 설명스토리지 설명스토리지 설명스토리지 설명스토리지 설명스토리지 설명스토리지 설명스토리지 설명", current: "10,000", total: "10,000", value: 60
+  },
+  {
+    title: "삭제중", caption: "스토리지 설명", current: "3,000", total: "10,000", value: 100
+  },
+  {
+    title: "복원중", caption: "스토리지 설명", current: "45", total: "200", value: 45.6
+  },
+  {
+    title: "운영중(공유)", caption: "스토리지 설명스토리지 설명스토리지 설명스토리지 설명", current: "10,000", total: "10,000", value: 60
+  },
+  {
+    title: "삭제중", caption: "스토리지 설명", current: "3,000", total: "10,000", value: 100
+  },
+]);
 </script>
 
 <style lang="scss" scoped>

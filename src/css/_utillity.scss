@@ -2806,9 +2806,35 @@ $qhsize:48px;
     flex-direction: column;
     position:relative;
     width:140px;height:140px;
-    margin:0;padding:$linew;
+    margin:0;
+    padding:$linew;
     border-radius:50%;
     background:$secondary-dark;
+    &.small{
+      width:48px;height:48px;
+      background:$surface04;
+      .circle-svg {
+        position: relative;
+        width: 48px;height: 48px;
+        stroke: #E2E6ED;
+        stroke-dashoffset: 20;
+        &__bg{
+          stroke:$surface04;
+          stroke-width:10px;
+          opacity:1;
+        }
+        &__stroke {
+          stroke:url(#paint1_linear);
+          stroke-linecap:round;
+          stroke-width:10px;
+          stroke-dasharray: 100px;
+          stroke-dashoffset: calc((102 - var(--value, 0)) * 1px);
+          transform-origin: 300px 300px;
+          transform: rotate(-90deg);
+          transition: stroke-dashoffset 0.7s ease-in-out;
+        }
+      }
+    }
     em{
       display:inline-block;
       color:#3C4477;font-size:$fs12;
@@ -2833,10 +2859,10 @@ $qhsize:48px;
       justify-content: center;
       flex-direction: column;
       flex:none;
-      position:relative;z-index:1;
+      position:absolute;z-index:1;
       width:calc(140px - #{$linew});height:calc(140px - #{$linew});
       border-radius:50%;
-      background:$secondary-dark;
+      background:$secondary;
     }
     .circle_line{
       position:absolute;top:0;left:0;
@@ -2853,6 +2879,38 @@ $qhsize:48px;
     .ico{
       margin-right:4px;
     }
+  }
+  .circle-svg {
+    position: absolute;
+    width: 140px;height: 140px;
+    border-radius:50%;
+    stroke: #1C2142;
+    stroke-dashoffset: 140;
+    svg {
+      width: 100%;
+      display: block;
+    }
+    &__bg{
+      stroke:rgb(28, 33, 66);
+      stroke-width:30px;
+      stroke-linecap:round;
+      opacity:1;
+    }
+    &__stroke {
+      stroke:url(#paint0_linear);
+      stroke-linecap:round;
+      stroke-width:30px;
+      stroke-dasharray: 100px;
+      stroke-dashoffset: calc((101.5 - var(--value, 0)) * 1px);
+      transform-origin: 300px 300px;
+      transform: rotate(-90deg);
+      transition: stroke-dashoffset 0.7s ease-in-out;
+    }
+  }
+}
+@keyframes dash {
+  to {
+    stroke-dashoffset: 0;
   }
 }
 .q-carousel__slides-container{
