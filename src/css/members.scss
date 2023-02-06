@@ -2,6 +2,29 @@
 .p-member{
   &.p-index{
     .p-body{
+      ::v-deep{
+        /** 회원가입 미완료 **/
+        // table{
+        //   &:first-child{
+        //     tr{
+        //       color: $gray500;
+        //       td{
+        //         &:nth-child(2){
+        //           &::after{
+        //             position: relative;
+        //             left: 6px;
+        //             content: "회원가입 미완료";
+        //             padding: 4px 10px;
+        //             border-radius: 16px;
+        //             font-size: $fs12; color: $surface12;
+        //             background-color: $surface02;
+        //           }
+        //         }
+        //       }
+        //     }
+        //   }
+        // }
+      }
       // 멤버 - 메인(워크스페이스 관리자)
       .table-set{
         .set{display: flex; align-items: center; }
@@ -12,13 +35,13 @@
           &_right{
             position: relative;
             padding-left: 33px;
-            width: 220px;
             &::before{
               position: absolute; top: 50%; left: 16px; transform: translateY(-50%);
               content: "";
               width: 1px; height: 26px;
               background-color: $surface05;
             }
+            &:last-child{width: 253px;}
           }
         }
         .set-r{
@@ -29,6 +52,8 @@
           .select-d{width: 108px;}
         }
       }
+      // Table
+      .disNone{display: none;}
       .group{
         display: flex; justify-content: center;
         margin-top: 60px;
@@ -155,7 +180,17 @@
           width: 216px;
           &:last-child{margin-right: 0;}
         }
-        .w250{width: 250px;}
+        .w250{
+          position: relative;
+          width: 250px;
+        }
+        .essential{
+          position: absolute;
+          bottom: 10px; left: 240px;
+          // transform: translate(-50%, 50%);
+          // transform: translateY(100%);
+          color: $red; font-size: $fs14;
+        }
       }
       .delete-btn{
         position: absolute;
@@ -310,13 +345,23 @@
             &_useable{color: $gray300;}
           }
           .cont_footer{
-            width: 240px;
-            margin-top: 8px;
+            width: 240px; margin-top: 0;
             .progress_bar_area{
               display: block;
               width: 100%; height: 4px;
               border-radius: 2px;
               background: linear-gradient(-296.32deg, #E50F1C 16.69%, #4992FF 83.45%, #363CE5 83.45%);
+            }
+            .stor_progress{
+              width: 100%; height: 4px;
+            }
+            ::-webkit-progress-bar{
+              border-radius: 2px;
+              background-color: $surface03;
+            }
+            ::-webkit-progress-value{
+              border-radius: 2px;
+              background: linear-gradient(-296.32deg, #4992FF 16.69%, #E50F1C 83.45%, #E50F1C 83.45%);
             }
           }
         }

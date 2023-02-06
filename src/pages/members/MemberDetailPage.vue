@@ -34,6 +34,8 @@
             <div>
               <p class="g-txt">가입일자</p>
               <p class="b-txt">2022.11.22</p>
+              <!-- 회원가입 일자 정보가 없는 경우 '미가입' 표기 -->
+              <!-- <p class="b-txt">미가입</p> -->
             </div>
             <div>
               <p class="g-txt">LDAP 계정</p>
@@ -87,7 +89,11 @@
               <span class="amount_useable">200GiB</span>
             </p>
             <div class="cont_footer">
-              <div class="progress_bar_area"></div>
+              <progress
+                value="150"
+                max="200"
+                class="stor_progress"
+                />
             </div>
           </div>
         </div>
@@ -171,12 +177,12 @@
                   />
                 </div>
                 <div class="c_selectgroup w250">
-                    <CDropdown
-                      v-model:selected="selectedBasic"
-                      :label="label"
-                      :options="options"
-                    />
-                  </div>
+                  <CDropdown
+                  v-model:selected="selectedBasic"
+                  :label="label2"
+                  :options="options"
+                  />
+                </div>
               </div>
               <div class="sel-wrap">
                 <div class="c_selectgroup w216">
@@ -184,15 +190,16 @@
                     v-model:selected="selectedBasic"
                     :label="label"
                     :options="options2"
-                  />
-                </div>
-                <div class="c_selectgroup w250">
-                  <CDropdown
+                    />
+                  </div>
+                  <div class="c_selectgroup w250">
+                    <CDropdown
                     v-model:selected="selectedBasic"
-                    :label="label"
+                    :label="label2"
                     :options="options"
-                  />
-                </div>
+                    />
+                  </div>
+                  <!-- <p class="essential">관리자 1명 이상 지정 필요</p> -->
               </div>
             </div>
             <div class="delete-btn">
@@ -246,11 +253,14 @@ import { useMeta } from "quasar";
 import CButton from "components/common/CButton.vue";
 import CDropdown from "components/common/CDropdown.vue";
 
-const visible = ref("A");
+const visible = ref("");
 const title = ref("Member");
 const btnName = ref("삭제");
 const btnCancle = ref("취소");
 const btnSave = ref("저장");
+
+const label = ref("프로젝트 전체");
+const label2 = ref("전체");
 
 useMeta(() => ({
   title: title.value,

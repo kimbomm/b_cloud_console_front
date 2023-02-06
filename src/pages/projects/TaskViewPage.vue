@@ -264,4 +264,5 @@ const ptitle = ref(title);
 
 <style lang="scss" scoped>
 @import "./src/css/projects";
+@import "./src/css/table";
 </style>

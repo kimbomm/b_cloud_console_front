@@ -162,13 +162,149 @@
             </div>
           </div>
           <div class="table_inner">
-            <CTable
-              :title="title"
-              :columns="columns"
-              :data="data"
-              :action-buttons="actionButtons"
-              @action="respAction"
-            />
+            <EasyDataTable
+              :headers="headers"
+              :items="items"
+              :hide-footer="true"
+              :body-row-class-name="bodyRowClassNameFunction"
+              empty-message="정보가 없습니다."
+              @click-row="showRow"
+            >
+              <!-- title -->
+              <template #item-title="item">
+                <span class="txt">{{ item.title }}</span>
+              </template>
+              <!-- Description -->
+              <template #item-desc="item">
+                <a href="#">
+                  <span class="txt">{{ item.desc }}</span>
+                    <q-tooltip
+                      anchor="bottom middle"
+                      class="c_tooltip"
+                    >
+                      <div class="inner">
+                        {{ item.desc }}
+                      </div>
+                    </q-tooltip>
+                </a>
+              </template>
+              <!--
+                상태값(status)
+                1. running, 운영중(개인)
+                2. running_s, 운영중(공유)
+                3. making, 생성중
+                4. deleting, 삭제중
+                5. restoring, 복원중
+              -->
+              <template #item-status="item">
+                <q-badge
+                  v-if="item.status === 'running'"
+                  class="green"
+                >
+                  <span class="txt">운영중(개인)</span>
+                </q-badge>
+                <q-badge
+                  v-if="item.status === 'running_s'"
+                  class="green"
+                >
+                  <span class="txt">운영중(공유)</span>
+                </q-badge>
+                <q-badge
+                  v-if="item.status === 'making'"
+                  class="c_badge"
+                >
+                  <span class="txt">생성중</span>
+                </q-badge>
+                <q-badge
+                  v-if="item.status === 'deleting'"
+                  class="c_badge"
+                >
+                  <span class="txt">삭제중</span>
+                </q-badge>
+                <q-badge
+                  v-if="item.status === 'restoring'"
+                  class="c_badge"
+                >
+                  <span class="txt">복원중</span>
+                </q-badge>
+              </template>
+              <!-- ssh -->
+              <template #item-ssh="item">
+                <q-badge
+                  class="copy square ssh icon"
+                  @click="onCopy(item)"
+                >
+                  <span class="txt">{{ item.ssh }}</span>
+                </q-badge>
+              </template>
+              <!-- jupyterLab -->
+              <template #item-jupyterLab="item">
+                <q-badge
+                  class="copy square lab icon"
+                  @click="onCopy(item)"
+                >
+                  <span class="txt">{{ item.jupyterLab }}</span>
+                </q-badge>
+              </template>
+              <!-- 인스턴스 타입 -->
+              <template #item-instanceType="item">
+                <q-badge
+                  class="text instance icon"
+                  @click="onCopy(item)"
+                >
+                  <span class="txt">{{ item.instanceType }}</span>
+
+                  <q-tooltip
+                    anchor="bottom middle"
+                    class="c_tooltip"
+                  >
+                    <div class="inner">
+                      {{ item.instanceType }}
+                    </div>
+                  </q-tooltip>
+                </q-badge>
+              </template>
+              <!-- createdBy -->
+              <template #item-createdBy="item">
+                <span class="txt clip">{{ item.createdBy }}</span>
+              </template>
+              <!-- 버튼 그룹 -->
+              <template #item-buttons="item">
+                <div v-if="actionButtons || item.buttons" class="cell btngroup">
+                  <!-- 초대 요청 확인 -->
+                  <q-btn
+                    v-if="item.buttons"
+                    class="c_btn"
+                  >
+                    <span class="txt">{{ item.buttons.name }}</span>
+                  </q-btn>
+
+                  <!-- row action menu -->
+                  <q-btn class="c_btn ibtn dot">
+                    <i class="ico dots" /><span class="txt">클릭</span>
+                    <q-popup-edit
+                      v-model="item.id"
+                      class="dots_menu"
+                      anchor="top right"
+                    >
+                      <q-list style="min-width: 100px">
+                        <q-item
+                          v-for="button in actionButtons"
+                          :key="button.name"
+                        >
+                          <q-btn
+                            class="item"
+                            @click="onActions(button.event, item)"
+                          >
+                            <span class="txt">{{ button.name }}</span>
+                          </q-btn>
+                        </q-item>
+                      </q-list>
+                    </q-popup-edit>
+                  </q-btn>
+                </div>
+              </template>
+            </EasyDataTable>
           </div>
           <div class="table_pagenav disflex_C">
             <CPagination />
@@ -184,7 +320,6 @@ import { useMeta } from "quasar";
 import CButton from "components/common/CButton.vue";
 import CDropdown from "components/common/CDropdown.vue";
 import CPagination from "components/common/CPagination.vue";
-import CTable from "src/components/common/CTable.vue";
 
 const title = ref("Storage");
 useMeta(() => ({
@@ -203,55 +338,31 @@ const options = ref([
   { label: "50", value: 2 },
 ]);
 
-const columns = [
+const headers = [
   {
-    name: "name",
-    field: "name",
-    label: "이름",
-    align: "left",
-    sortable: true,
+    text: "이름", value: "title", width: 180, sortable: true
   },
   {
-    name: "account",
-    field: "account",
-    label: "설명",
-    align: "left",
-    sortable: false,
+    text: "설명", value: "desc", width: 350, sortable: true
   },
   {
-    name: "user",
-    field: "user",
-    label: "소유자",
-    align: "left",
-    sortable: true,
+    text: "소유자", value: "user", width: 130, sortable: true
   },
   {
-    name: "status",
-    field: "status",
-    label: "상태",
-    align: "left",
-    sortable: false,
-    type: "tag",
+    text: "상태", value: "status", width: 120, sortable: true
   },
   {
-    name: "usage",
-    field: "usage",
-    label: "사용량",
-    align: "left",
-    sortable: true,
+    text: "사용량", value: "usage", width: 120, sortable: true
   },
   {
-    name: "createdAt",
-    field: "createdAt",
-    label: "생성일시",
-    align: "left",
-    sortable: true,
+    text: "생성일시", value: "createdAt", width: 180, sortable: true
   },
+  { text: "", value: "buttons", width: 200 },
 ];
-const data = [
+const items = [
   {
-    name: "aa프로젝트",
-    account: "개인이용 35자 이후 점처리",
+    title: "aa프로젝트",
+    desc: "개인이용 35자 이후 점처리",
     user: "Root.choi",
     status: "running",
     usage: "45 / 100GiB",
@@ -263,12 +374,15 @@ const data = [
       mem: 249856,
       zone: "public:normal",
     },
+    buttons: {
+      name: "용량변경요청"
+    }
   },
   {
-    name: "aa프로젝트",
-    account: "개인이용 35자 이후 점처리",
+    title: "aa프로젝트",
+    desc: "개인이용 35자 이후 점처리",
     user: "Root.choi",
-    status: "running",
+    status: "running_s",
     usage: "45 / 100GiB",
     createdAt: "2023.01.12 10:33:40",
     resource: {
@@ -280,10 +394,10 @@ const data = [
     },
   },
   {
-    name: "aa프로젝트",
-    account: "개인이용 35자 이후 점처리",
+    title: "aa프로젝트",
+    desc: "개인이용 35자 이후 점처리",
     user: "Root.choi",
-    status: "running",
+    status: "making",
     usage: "45 / 100GiB",
     createdAt: "2023.01.12 10:33:40",
     resource: {
@@ -295,10 +409,25 @@ const data = [
     },
   },
   {
-    name: "aa프로젝트",
-    account: "개인이용 35자 이후 점처리",
+    title: "aa프로젝트",
+    desc: "개인이용 35자 이후 점처리",
     user: "Root.choi",
-    status: "running",
+    status: "deleting",
+    usage: "45 / 100GiB",
+    createdAt: "2023.01.12 10:33:40",
+    resource: {
+      cpus: 28,
+      gpu_device_model: "TESLA_V100",
+      gpus: 2,
+      mem: 249856,
+      zone: "public:normal",
+    },
+  },
+  {
+    title: "aa프로젝트",
+    desc: "개인이용 35자 이후 점처리개인이용 35자 이후 점처리개인이용 35자 이후 점처리",
+    user: "Root.choi",
+    status: "restoring",
     usage: "45 / 100GiB",
     createdAt: "2023.01.12 10:33:40",
     resource: {
@@ -314,31 +443,23 @@ const data = [
 const actionButtons = [
   { name: "이용현황", event: "state" },
   { name: "공유관리", event: "share" },
-  { name: "스냅샷 관리", event: "mngSnap" },
-  { name: "스냅샷 생성", event: "crtSnap" },
+  { name: "용량 변경", event: "doseModifying" },
   { name: "삭제", event: "delete" },
 ];
-const respAction = (eventObj) => {
-  const eventName = eventObj.event;
-  // const rowData = eventObj.data;
-  // console.log(rowData);
-  switch (eventName) {
-    case "state":
-      break;
-    case "share":
-      break;
-    case "mngSnap":
-      break;
-    case "crtSnap":
-      break;
-    case "delete":
-      break;
-    default:
-      break;
-  }
+
+/**
+ * 버튼 및 checkbox 에 대한 이벤트 존재할 시 class 삽입
+ */
+const bodyRowClassNameFunction = (item) => {
+  const classList = [];
+  if (item.buttons) classList.push("row-button");
+  if (item.checkbox) classList.push("row-selected");
+  return classList.join(" ");
 };
+
 </script>
 
 <style lang="scss" scoped>
 @import "./src/css/manage";
+@import "./src/css/table";
 </style>

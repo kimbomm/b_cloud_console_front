@@ -5,7 +5,7 @@
     </div>
     <div class="p-body">
       <section class="section">
-        <h2 class="h6">Type1 class="c_table"</h2>
+        <h2 class="h6">Type1</h2>
         <div class="group">
           <EasyDataTable
             class="c_table"
@@ -43,7 +43,7 @@
             <!-- ssh -->
             <template #item-ssh="item">
               <q-badge
-                class="c_badge copy"
+                class="copy square ssh icon"
                 @click="onCopy(item)"
               >
                 <span class="txt">{{ item.ssh }}</span>
@@ -52,7 +52,7 @@
             <!-- jupyterLab -->
             <template #item-jupyterLab="item">
               <q-badge
-                class="c_badge copy"
+                class="copy square lab icon"
                 @click="onCopy(item)"
               >
                 <span class="txt">{{ item.jupyterLab }}</span>
@@ -61,7 +61,7 @@
             <!-- 인스턴스 타입 -->
             <template #item-instanceType="item">
               <q-badge
-                class="c_badge copy"
+                class="text instance"
                 @click="onCopy(item)"
               >
                 <span class="txt">{{ item.instanceType }}</span>
@@ -98,7 +98,7 @@
         </div>
       </section>
       <section class="section">
-        <h2 class="h6">Type2 class="c_table"</h2>
+        <h2 class="h6">Type2</h2>
         <div class="group">
           <EasyDataTable
             class="c_table"
@@ -142,7 +142,7 @@
             <!-- ssh -->
             <template #item-ssh="item">
               <q-badge
-                class="c_badge copy"
+                class="copy square ssh icon"
                 @click="onCopy(item)"
               >
                 <span class="txt">{{ item.ssh }}</span>
@@ -151,7 +151,7 @@
             <!-- jupyterLab -->
             <template #item-jupyterLab="item">
               <q-badge
-                class="c_badge copy"
+                class="copy square lab icon"
                 @click="onCopy(item)"
               >
                 <span class="txt">{{ item.jupyterLab }}</span>
@@ -160,7 +160,7 @@
             <!-- 인스턴스 타입 -->
             <template #item-instanceType="item">
               <q-badge
-                class="c_badge copy"
+                class="text instance"
                 @click="onCopy(item)"
               >
                 <span class="txt">{{ item.instanceType }}</span>
@@ -206,7 +206,7 @@
         </div>
       </section>
       <section class="section">
-        <h2 class="h6">Type3 class="c_table"</h2>
+        <h2 class="h6">Type3</h2>
         <div class="group">
           <EasyDataTable
             class="c_table"
@@ -228,6 +228,14 @@
             <template #item-title="item">
               <a href="#">
                 <span class="txt">{{ item.title }}</span>
+                <q-tooltip
+                  anchor="bottom middle"
+                  class="c_tooltip"
+                >
+                  <div class="inner">
+                    {{ item.title }}
+                  </div>
+                </q-tooltip>
               </a>
             </template>
             <!--
@@ -253,7 +261,7 @@
             <!-- ssh -->
             <template #item-ssh="item">
               <q-badge
-                class="c_badge copy"
+                class="copy square ssh icon"
                 @click="onCopy(item)"
               >
                 <span class="txt">{{ item.ssh }}</span>
@@ -262,7 +270,7 @@
             <!-- jupyterLab -->
             <template #item-jupyterLab="item">
               <q-badge
-                class="c_badge copy"
+                class="copy square lab icon"
                 @click="onCopy(item)"
               >
                 <span class="txt">{{ item.jupyterLab }}</span>
@@ -271,15 +279,24 @@
             <!-- 인스턴스 타입 -->
             <template #item-instanceType="item">
               <q-badge
-                class="c_badge copy"
+                class="text instance"
                 @click="onCopy(item)"
               >
                 <span class="txt">{{ item.instanceType }}</span>
+
+                <q-tooltip
+                  anchor="bottom middle"
+                  class="c_tooltip"
+                >
+                  <div class="inner">
+                    {{ item.instanceType }}
+                  </div>
+                </q-tooltip>
               </q-badge>
             </template>
             <!-- 버튼 그룹 -->
             <template #item-buttons="item">
-              <q-btn v-if="item.checkbox">선택 취소하기</q-btn>
+              <q-btn v-if="item.checkbox" class="text"><span class="txt">선택 취소하기</span></q-btn>
             </template>
           </EasyDataTable>
         </div>
