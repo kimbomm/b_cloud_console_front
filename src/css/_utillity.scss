@@ -34,7 +34,7 @@
 }
 @mixin shadow{
   border-radius: 8px;
-  box-shadow: 2px 4px 24px $shadow;
+  box-shadow: 2px 4px 24px rgb(227, 227, 227, 0.5);
 }
 @mixin ellipsis{
   overflow: hidden;
