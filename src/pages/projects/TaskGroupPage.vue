@@ -215,28 +215,70 @@
               </template>
               <!--
                 상태값(status)
-                1. running, 운영중, 실행중
-                2. stopped, 정지 | 오류 | 취소 | 실패
-                3. 생성중 | 삭제중 | 대기중 | 재시작중
+                1. finished, 완료
+                2. stopped, 실패
+                3. pending, 대기중
+                4. making, 생성중
+                5. starting, 실행중
+                6. canceling, 취소중
+                7. cancel, 취소
+                8. deleting, 삭제중
+                9. unknown
               -->
               <template #item-status="item">
                 <q-badge
-                  v-if="item.status === 'running'"
+                  v-if="item.status === 'finished'"
                   class="green"
                 >
-                  <span class="txt">운영중</span>
+                  <span class="txt">완료</span>
                 </q-badge>
                 <q-badge
                   v-else-if="item.status === 'stopped'"
                   class="orange"
                 >
-                  <span class="txt">정지</span>
+                  <span class="txt">실패</span>
+                </q-badge>
+                <q-badge
+                  v-else-if="item.status === 'pending'"
+                  class="c_badge"
+                >
+                  <span class="txt">대기중</span>
+                </q-badge>
+                <q-badge
+                  v-else-if="item.status === 'making'"
+                  class="c_badge"
+                >
+                  <span class="txt">생성중</span>
+                </q-badge>
+                <q-badge
+                  v-else-if="item.status === 'starting'"
+                  class="c_badge"
+                >
+                  <span class="txt">실행중</span>
+                </q-badge>
+                <q-badge
+                  v-else-if="item.status === 'canceling'"
+                  class="c_badge"
+                >
+                  <span class="txt">취소중</span>
+                </q-badge>
+                <q-badge
+                  v-else-if="item.status === 'deleting'"
+                  class="c_badge"
+                >
+                  <span class="txt">삭제중</span>
+                </q-badge>
+                <q-badge
+                  v-else-if="item.status === 'cancel'"
+                  class="c_badge"
+                >
+                  <span class="txt">취소</span>
                 </q-badge>
                 <q-badge
                   v-else
                   class="c_badge"
                 >
-                  <span class="txt">생성중</span>
+                  <span class="txt">Unknown</span>
                 </q-badge>
               </template>
               <!-- ssh -->
@@ -322,7 +364,7 @@ const headers = [
     text: "ID", value: "id", width: 80, sortable: false, checkbox: true
   },
   {
-    text: "태스크 이름", value: "title", sortable: true
+    text: "태스크 이름", value: "title", width: 300, sortable: true
   },
   {
     text: "상태", value: "status", width: 100, sortable: true
@@ -348,13 +390,13 @@ const headers = [
   {
     text: "로그확인", value: "logCheck", width: 100, sortable: true
   },
-  { text: "", value: "buttons", width: 150 },
+  { text: "", value: "buttons", width: 80 },
 ];
 const items = [
   {
     id: 342,
     title: "dfsdfasdrwerwerwer",
-    status: "running",
+    status: "finished",
     ssh: "ssh",
     gpu: "49.5%",
     cpu: "100%",
@@ -376,7 +418,7 @@ const items = [
   {
     id: 342,
     title: "dfsdfasdrwerwerwer",
-    status: "stopped",
+    status: "starting",
     ssh: "ssh",
     gpu: "49.5%",
     cpu: "100%",
@@ -398,7 +440,139 @@ const items = [
   {
     id: 342,
     title: "dfsdfasdrwerwerwer",
-    status: "stopping",
+    status: "canceling",
+    ssh: "ssh",
+    gpu: "49.5%",
+    cpu: "100%",
+    instanceType: "V1.XLARGE",
+    createdAt: "2023.01.12 10:33:21",
+    endDat: "2023.01.12 10:33:21",
+    logCheck: "LOG",
+    resource: {
+      cpus: 28,
+      gpu_device_model: "TESLA_V100",
+      gpus: 2,
+      mem: 249856,
+      zone: "public:normal",
+    },
+    buttons: {
+      name: "초대요청 확인"
+    }
+  },
+  {
+    id: 342,
+    title: "dfsdfasdrwerwesdfsdfsdfsdfsdfsdfsdfsdfewrwer",
+    status: "pending",
+    ssh: "ssh",
+    gpu: "49.5%",
+    cpu: "100%",
+    instanceType: "V1.XLARGE",
+    createdAt: "2023.01.12 10:33:21",
+    endDat: "2023.01.12 10:33:21",
+    logCheck: "LOG",
+    resource: {
+      cpus: 28,
+      gpu_device_model: "TESLA_V100",
+      gpus: 2,
+      mem: 249856,
+      zone: "public:normal",
+    },
+    buttons: {
+      name: "초대요청 확인"
+    }
+  },
+  {
+    id: 342,
+    title: "dfsdfasdrwerwerwer",
+    status: "deleting",
+    ssh: "ssh",
+    gpu: "49.5%",
+    cpu: "100%",
+    instanceType: "V1.XLARGE",
+    createdAt: "2023.01.12 10:33:21",
+    endDat: "2023.01.12 10:33:21",
+    logCheck: "LOG",
+    resource: {
+      cpus: 28,
+      gpu_device_model: "TESLA_V100",
+      gpus: 2,
+      mem: 249856,
+      zone: "public:normal",
+    },
+    buttons: {
+      name: "초대요청 확인"
+    }
+  },
+  {
+    id: 342,
+    title: "dfsdfasdrwerwerwer",
+    status: "cancel",
+    ssh: "ssh",
+    gpu: "49.5%",
+    cpu: "100%",
+    instanceType: "V1.XLARGE",
+    createdAt: "2023.01.12 10:33:21",
+    endDat: "-",
+    logCheck: "LOG",
+    resource: {
+      cpus: 28,
+      gpu_device_model: "TESLA_V100",
+      gpus: 2,
+      mem: 249856,
+      zone: "public:normal",
+    },
+    buttons: {
+      name: "초대요청 확인"
+    }
+  },
+  {
+    id: 342,
+    title: "dfsdfasdrwerwerwer",
+    status: "making",
+    ssh: "ssh",
+    gpu: "49.5%",
+    cpu: "100%",
+    instanceType: "V1.XLARGE",
+    createdAt: "2023.01.12 10:33:21",
+    endDat: "2023.01.12 10:33:21",
+    logCheck: "LOG",
+    resource: {
+      cpus: 28,
+      gpu_device_model: "TESLA_V100",
+      gpus: 2,
+      mem: 249856,
+      zone: "public:normal",
+    },
+    buttons: {
+      name: "초대요청 확인"
+    }
+  },
+  {
+    id: 342,
+    title: "dfsdfasdrwerwesdfsdfsdfsdfsdfsdfsdfsdfewrwer",
+    status: "stopped",
+    ssh: "ssh",
+    gpu: "49.5%",
+    cpu: "100%",
+    instanceType: "V1.XLARGE",
+    createdAt: "2023.01.12 10:33:21",
+    endDat: "2023.01.12 10:33:21",
+    logCheck: "LOG",
+    resource: {
+      cpus: 28,
+      gpu_device_model: "TESLA_V100",
+      gpus: 2,
+      mem: 249856,
+      zone: "public:normal",
+    },
+    buttons: {
+      name: "초대요청 확인"
+    }
+  },
+  {
+    id: 342,
+    title: "dfsdfasdrwerwesdfsdfsdfsdfsdfsdfsdfsdfewrwer",
+    status: "group",
     ssh: "ssh",
     gpu: "49.5%",
     cpu: "100%",
@@ -420,10 +594,8 @@ const items = [
 ];
 
 const actionButtons = [
-  { name: "이용현황", event: "state" },
-  { name: "공유관리", event: "share" },
-  { name: "스냅샷 관리", event: "mngSnap" },
-  { name: "스냅샷 생성", event: "crtSnap" },
+  { name: "재생성", event: "regeneratory" },
+  { name: "취소", event: "cancel" },
   { name: "삭제", event: "delete" },
 ];
 /**

@@ -222,17 +222,6 @@
                   :body-row-class-name="bodyRowClassNameFunction"
                   empty-message="정보가 없습니다."
                 >
-                  <!-- title -->
-                  <template #item-title="item">
-                    <a href="#">
-                      <span class="txt">{{ item.title }}</span>
-                      <q-tooltip anchor="bottom middle" class="c_tooltip">
-                        <div class="inner">
-                          {{ item.title }}
-                        </div>
-                      </q-tooltip>
-                    </a>
-                  </template>
                   <!-- 버튼 그룹 -->
                   <template #item-buttons="item">
                     <q-btn v-if="item.checkbox" class="text">
@@ -279,17 +268,6 @@
                     :body-row-class-name="bodyRowClassNameFunction"
                     empty-message="정보가 없습니다."
                   >
-                    <!-- title -->
-                    <template #item-title="item">
-                      <a href="#">
-                        <span class="txt">{{ item.title }}</span>
-                        <q-tooltip anchor="bottom middle" class="c_tooltip">
-                          <div class="inner">
-                            {{ item.title }}
-                          </div>
-                        </q-tooltip>
-                      </a>
-                    </template>
                     <!-- 버튼 그룹 -->
                     <template #item-buttons="item">
                       <q-btn v-if="item.checkbox" class="text">
@@ -303,7 +281,7 @@
                 </div>
               </template>
               <template v-if="tab2 === 'tabs2'">
-                <template v-if="defaultData == !true">
+                <template v-if="defaultData == true">
                   <div class="s_04_table">
                     <EasyDataTable
                       v-model:items-selected="itemsSelected"
@@ -313,29 +291,21 @@
                       :body-row-class-name="bodyRowClassNameFunction"
                       empty-message="정보가 없습니다."
                     >
-                      <!-- title -->
-                      <template #item-title="item">
-                        <a href="#">
-                          <span class="txt">{{ item.title }}</span>
-                          <q-tooltip anchor="bottom middle" class="c_tooltip">
-                            <div class="inner">
-                              {{ item.title }}
-                            </div>
-                          </q-tooltip>
-                        </a>
-                      </template>
                       <!--
                         상태값(status)
-                        1. running, 운영중, 실행중
-                        2. stopped, 정지 | 오류 | 취소 | 실패
-                        3. 생성중 | 삭제중 | 대기중 | 재시작중
+                        1. sharing, 저장(공유)
+                        2. error, 오류
+                        3. inStorage, 저장중
                       -->
                       <template #item-status="item">
-                        <q-badge v-if="item.status === 'running'" class="green">
-                          <span class="txt">운영중</span>
+                        <q-badge v-if="item.status === 'sharing'" class="green">
+                          <span class="txt">저장(공유)</span>
                         </q-badge>
-                        <q-badge v-else-if="item.status === 'stopped'" class="orange">
-                          <span class="txt">정지</span>
+                        <q-badge v-else-if="item.status === 'error'" class="orange">
+                          <span class="txt">오류</span>
+                        </q-badge>
+                        <q-badge v-else-if="item.status === 'inStorage'">
+                          <span class="txt">저장중</span>
                         </q-badge>
                         <q-item v-else-if="item.status === 'group'" class="badge_group">
                           <div class="badge">
@@ -465,127 +435,6 @@
                       :body-row-class-name="bodyRowClassNameFunction"
                       empty-message="정보가 없습니다."
                     >
-                      <!-- title -->
-                      <template #item-title="item">
-                        <a href="#">
-                          <span class="txt">{{ item.title }}</span>
-                          <q-tooltip anchor="bottom middle" class="c_tooltip">
-                            <div class="inner">
-                              {{ item.title }}
-                            </div>
-                          </q-tooltip>
-                        </a>
-                      </template>
-                      <!--
-                        상태값(status)
-                        1. running, 운영중, 실행중
-                        2. stopped, 정지 | 오류 | 취소 | 실패
-                        3. 생성중 | 삭제중 | 대기중 | 재시작중
-                      -->
-                      <template #item-status="item">
-                        <q-badge v-if="item.status === 'running'" class="green">
-                          <span class="txt">운영중</span>
-                        </q-badge>
-                        <q-badge v-else-if="item.status === 'stopped'" class="orange">
-                          <span class="txt">정지</span>
-                        </q-badge>
-                        <q-item v-else-if="item.status === 'group'" class="badge_group">
-                          <div class="badge">
-                            <q-badge class="green">
-                              <span class="txt">7</span>
-                            </q-badge>
-                            <q-badge class="orange">
-                              <span class="txt">20</span>
-                            </q-badge>
-                            <q-badge class="c_badge">
-                              <span class="txt">27</span>
-                            </q-badge>
-                          </div>
-
-                          <q-popup-edit v-model="badgeGroup"
-                          self="bottom middle" class="badge_menu">
-                            <div class="inner">
-                              <q-list>
-                                <q-item>
-                                  <q-item-section>
-                                    <div class="badge_item">
-                                      <q-badge class="green">
-                                        <span class="txt">실행중</span>
-                                      </q-badge>
-                                      <span class="count">2</span>
-                                    </div>
-                                  </q-item-section>
-                                  <q-item-section>
-                                    <div class="badge_item">
-                                      <q-badge>
-                                        <span class="txt">생성중</span>
-                                      </q-badge>
-                                      <span class="count">2</span>
-                                    </div>
-                                  </q-item-section>
-                                </q-item>
-                                <q-item>
-                                  <q-item-section>
-                                    <div class="badge_item">
-                                      <q-badge class="green">
-                                        <span class="txt">완료</span>
-                                      </q-badge>
-                                      <span class="count">5</span>
-                                    </div>
-                                  </q-item-section>
-                                  <q-item-section>
-                                    <div class="badge_item">
-                                      <q-badge>
-                                        <span class="txt">재시작중</span>
-                                      </q-badge>
-                                      <span class="count">5</span>
-                                    </div>
-                                  </q-item-section>
-                                </q-item>
-                                <q-item>
-                                  <q-item-section>
-                                    <div class="badge_item">
-                                      <q-badge class="orange">
-                                        <span class="txt">취소</span>
-                                      </q-badge>
-                                      <span class="count">10</span>
-                                    </div>
-                                  </q-item-section>
-                                  <q-item-section>
-                                    <div class="badge_item">
-                                      <q-badge>
-                                        <span class="txt">취소중</span>
-                                      </q-badge>
-                                      <span class="count">10</span>
-                                    </div>
-                                  </q-item-section>
-                                </q-item>
-                                <q-item>
-                                  <q-item-section>
-                                    <div class="badge_item">
-                                      <q-badge class="orange">
-                                        <span class="txt">실패</span>
-                                      </q-badge>
-                                      <span class="count">10</span>
-                                    </div>
-                                  </q-item-section>
-                                  <q-item-section>
-                                    <div class="badge_item">
-                                      <q-badge>
-                                        <span class="txt">삭제중</span>
-                                      </q-badge>
-                                      <span class="count">10</span>
-                                    </div>
-                                  </q-item-section>
-                                </q-item>
-                              </q-list>
-                            </div>
-                          </q-popup-edit>
-                        </q-item>
-                        <q-badge v-else class="c_badge">
-                          <span class="txt">생성중</span>
-                        </q-badge>
-                      </template>
                       <!-- 버튼 그룹 -->
                       <template #item-buttons="item">
                         <q-btn v-if="item.checkbox" class="text">
@@ -620,124 +469,21 @@
                   :body-row-class-name="bodyRowClassNameFunction"
                   empty-message="정보가 없습니다."
                 >
-                  <!-- title -->
-                  <template #item-title="item">
-                    <a href="#">
-                      <span class="txt">{{ item.title }}</span>
-                      <q-tooltip anchor="bottom middle" class="c_tooltip">
-                        <div class="inner">
-                          {{ item.title }}
-                        </div>
-                      </q-tooltip>
-                    </a>
-                  </template>
                   <!--
                     상태값(status)
-                    1. running, 운영중, 실행중
-                    2. stopped, 정지 | 오류 | 취소 | 실패
-                    3. 생성중 | 삭제중 | 대기중 | 재시작중
+                    1. running, 운영중
+                    2. deleting, 삭제중
+                    3. restoring, 복구중
                   -->
                   <template #item-status="item">
                     <q-badge v-if="item.status === 'running'" class="green">
                       <span class="txt">운영중</span>
                     </q-badge>
-                    <q-badge v-else-if="item.status === 'stopped'" class="orange">
-                      <span class="txt">정지</span>
+                    <q-badge v-else-if="item.status === 'deleting'">
+                      <span class="txt">삭제중</span>
                     </q-badge>
-                    <q-item v-else-if="item.status === 'group'" class="badge_group">
-                      <div class="badge">
-                        <q-badge class="green">
-                          <span class="txt">7</span>
-                        </q-badge>
-                        <q-badge class="orange">
-                          <span class="txt">20</span>
-                        </q-badge>
-                        <q-badge class="c_badge">
-                          <span class="txt">27</span>
-                        </q-badge>
-                      </div>
-
-                      <q-popup-edit v-model="badgeGroup" self="bottom middle" class="badge_menu">
-                        <div class="inner">
-                          <q-list>
-                            <q-item>
-                              <q-item-section>
-                                <div class="badge_item">
-                                  <q-badge class="green">
-                                    <span class="txt">실행중</span>
-                                  </q-badge>
-                                  <span class="count">2</span>
-                                </div>
-                              </q-item-section>
-                              <q-item-section>
-                                <div class="badge_item">
-                                  <q-badge>
-                                    <span class="txt">생성중</span>
-                                  </q-badge>
-                                  <span class="count">2</span>
-                                </div>
-                              </q-item-section>
-                            </q-item>
-                            <q-item>
-                              <q-item-section>
-                                <div class="badge_item">
-                                  <q-badge class="green">
-                                    <span class="txt">완료</span>
-                                  </q-badge>
-                                  <span class="count">5</span>
-                                </div>
-                              </q-item-section>
-                              <q-item-section>
-                                <div class="badge_item">
-                                  <q-badge>
-                                    <span class="txt">재시작중</span>
-                                  </q-badge>
-                                  <span class="count">5</span>
-                                </div>
-                              </q-item-section>
-                            </q-item>
-                            <q-item>
-                              <q-item-section>
-                                <div class="badge_item">
-                                  <q-badge class="orange">
-                                    <span class="txt">취소</span>
-                                  </q-badge>
-                                  <span class="count">10</span>
-                                </div>
-                              </q-item-section>
-                              <q-item-section>
-                                <div class="badge_item">
-                                  <q-badge>
-                                    <span class="txt">취소중</span>
-                                  </q-badge>
-                                  <span class="count">10</span>
-                                </div>
-                              </q-item-section>
-                            </q-item>
-                            <q-item>
-                              <q-item-section>
-                                <div class="badge_item">
-                                  <q-badge class="orange">
-                                    <span class="txt">실패</span>
-                                  </q-badge>
-                                  <span class="count">10</span>
-                                </div>
-                              </q-item-section>
-                              <q-item-section>
-                                <div class="badge_item">
-                                  <q-badge>
-                                    <span class="txt">삭제중</span>
-                                  </q-badge>
-                                  <span class="count">10</span>
-                                </div>
-                              </q-item-section>
-                            </q-item>
-                          </q-list>
-                        </div>
-                      </q-popup-edit>
-                    </q-item>
-                    <q-badge v-else class="c_badge">
-                      <span class="txt">생성중</span>
+                    <q-badge v-else-if="item.status === 'restoring'">
+                      <span class="txt">복구중</span>
                     </q-badge>
                   </template>
                   <!-- 버튼 그룹 -->
@@ -765,17 +511,6 @@
                   :body-row-class-name="bodyRowClassNameFunction"
                   empty-message="정보가 없습니다."
                 >
-                  <!-- title -->
-                  <template #item-title="item">
-                    <a href="#">
-                      <span class="txt">{{ item.title }}</span>
-                      <q-tooltip anchor="bottom middle" class="c_tooltip">
-                        <div class="inner">
-                          {{ item.title }}
-                        </div>
-                      </q-tooltip>
-                    </a>
-                  </template>
                   <!-- 버튼 그룹 -->
                   <template #item-buttons="item">
                     <q-btn v-if="item.checkbox" class="text">
@@ -957,16 +692,16 @@ const itemsSelected = ref([]);
 // 인스턴스 타입 테이블
 const instanceHeaders = [
   {
-    text: "이름", value: "title", sortable: false
+    text: "이름", value: "title", widht: 400, sortable: false
   },
   {
-    text: "CPU", value: "cpu", width: 80, sortable: false
+    text: "CPU", value: "cpu", width: 180, sortable: false
   },
   {
     text: "Memory", value: "memory", width: 180, sortable: false
   },
   {
-    text: "Disk", value: "disk", width: 100, sortable: false
+    text: "Disk", value: "disk", width: 180, sortable: false
   },
   { text: "", value: "buttons", width: 150 },
 ];
@@ -1014,10 +749,10 @@ const instanceItems = [
 // 이미지 테이블_기본이미지
 const imgHeader1 = [
   {
-    text: "이름", value: "title", sortable: false
+    text: "이름", value: "title", width: 580, sortable: false
   },
   {
-    text: "NVIDA 드라이브 최소버전", value: "nvida", sortable: false
+    text: "NVIDA 드라이브 최소버전", value: "nvida", width: 390, sortable: false
   },
 ];
 const imgItems1 = [
@@ -1033,42 +768,48 @@ const imgItems1 = [
 // 이미지 테이블_내이미지
 const imgHeader2 = [
   {
-    text: "이름", value: "title", sortable: false
+    text: "이름", value: "title", widht: 190, sortable: false
   },
   {
-    text: "설명", value: "description", sortable: false
+    text: "설명", value: "description", widht: 280, sortable: false
   },
   {
-    text: "상태", value: "status", sortable: false
+    text: "상태", value: "status", widht: 190, sortable: false
   },
   {
-    text: "생성일시", value: "createdAt", sortable: false
+    text: "생성일시", value: "createdAt", widht: 280, sortable: false
   },
 ];
 const imgItems2 = [
   {
     title: "내 이미지 1",
     description: "내 이미지 1",
-    status: "running",
+    status: "inStorage",
     createdAt: "2023.09.02 07:30:44",
   },
   {
     title: "내 이미지 1",
     description: "내 이미지 1",
-    status: "stopping",
+    status: "error",
+    createdAt: "2023.09.02 07:30:44",
+  },
+  {
+    title: "내 이미지 1",
+    description: "내 이미지 1",
+    status: "sharing",
     createdAt: "2023.09.02 07:30:44",
   },
 ];
 // 이미지 테이블_공유받은 이미지
 const imgHeader3 = [
   {
-    text: "이름", value: "title", sortable: false
+    text: "이름", value: "title", width: 190, sortable: false
   },
   {
-    text: "설명", value: "description", sortable: false
+    text: "설명", value: "description", width: 480, sortable: false
   },
   {
-    text: "공유자", value: "owner", sortable: false
+    text: "공유자", value: "owner", width: 280, sortable: false
   },
 ];
 const imgItems3 = [
@@ -1079,7 +820,7 @@ const imgItems3 = [
   },
   {
     title: "내 이미지1",
-    description: "내 이미지 2",
+    description: "tensorflow 2.9.0  (python3, cuda11.2, ubuntu20.04)",
     owner: "Kayle(kayle.k@kakaobrain.com)",
   },
   {
@@ -1092,19 +833,19 @@ const imgItems3 = [
 // 스토리지 테이블
 const storageHeader = [
   {
-    text: "이름", value: "title", sortable: false
+    text: "이름", value: "title", width: 150, sortable: false
   },
   {
     text: "설명", value: "description", width: 350, sortable: false
   },
   {
-    text: "상태", value: "status", sortable: false
+    text: "상태", value: "status", width: 120, sortable: false
   },
   {
-    text: "소유자", value: "user", sortable: false
+    text: "소유자", value: "user", width: 150, sortable: false
   },
   {
-    text: "접근권한", value: "authority", sortable: false
+    text: "접근권한", value: "authority", width: 150, sortable: false
   },
 ];
 const storageItems = [
@@ -1117,15 +858,15 @@ const storageItems = [
   },
   {
     title: "프로젝트",
-    description: "aa개인 스토리지aa개인 스토리지aa개인 스토리지aa개인 스토리지",
-    status: "stopped",
+    description: "aa개인 스토리지aa개인 스토리지aa개인 스토리지",
+    status: "deleting",
     user: "root.choi",
     authority: "읽기쓰기",
   },
   {
     title: "프로젝트2",
     description: "aa개인 스토리지",
-    status: "running",
+    status: "restoring",
     user: "root.choi",
     authority: "읽기쓰기",
   },
@@ -1134,13 +875,13 @@ const storageItems = [
 // SSH Key 테이블
 const sshKeyHeader = [
   {
-    text: "이름", value: "title", sortable: false
+    text: "이름", value: "title", width: 190, sortable: false
   },
   {
-    text: "Fingerprint", value: "fingerprint", sortable: false
+    text: "Fingerprint", value: "fingerprint", width: 430, sortable: false
   },
   {
-    text: "등록일시", value: "registrationDat", sortable: false
+    text: "등록일시", value: "registrationDat", width: 330, sortable: false
   },
 ];
 const sshKeyItems = [
