@@ -150,9 +150,14 @@
                 </template>
                 <!--
                   상태값(status)
-                  1. running, 운영중, 실행중
-                  2. stopped, 정지 | 오류 | 취소 | 실패
-                  3. 생성중 | 삭제중 | 대기중 | 재시작중
+                  1. running, 운영중
+                  2. stopped, 정지
+                  3. error, 오류
+                  4. pending, 대기중
+                  5. stopping, 정지중
+                  6. deleting, 삭제중
+                  7. starting, 시작중
+                  8. unknown
                 -->
                 <template #item-status="item">
                   <q-badge
@@ -168,10 +173,40 @@
                     <span class="txt">정지</span>
                   </q-badge>
                   <q-badge
+                    v-else-if="item.status === 'error'"
+                    class="orange"
+                  >
+                    <span class="txt">오류</span>
+                  </q-badge>
+                  <q-badge
+                    v-else-if="item.status === 'pending'"
+                    class="c_badge"
+                  >
+                    <span class="txt">대기중</span>
+                  </q-badge>
+                  <q-badge
+                    v-else-if="item.status === 'stopping'"
+                    class="c_badge"
+                  >
+                    <span class="txt">정지중</span>
+                  </q-badge>
+                  <q-badge
+                    v-else-if="item.status === 'deleting'"
+                    class="c_badge"
+                  >
+                    <span class="txt">삭제중</span>
+                  </q-badge>
+                  <q-badge
+                    v-else-if="item.status === 'starting'"
+                    class="c_badge"
+                  >
+                    <span class="txt">시작중</span>
+                  </q-badge>
+                  <q-badge
                     v-else
                     class="c_badge"
                   >
-                    <span class="txt">생성중</span>
+                    <span class="txt">Unknown</span>
                   </q-badge>
                 </template>
                 <!-- ssh -->
@@ -263,7 +298,6 @@
 import { ref } from "vue";
 import { useMeta } from "quasar";
 import ProjectDashboard from "src/components/pages/ProjectDashboard.vue";
-// import CTable from "src/components/common/CTable.vue";
 import CPagination from "components/common/CPagination.vue";
 import CDropdown from "components/common/CDropdown.vue";
 import CButton from "components/common/CButton.vue";
@@ -282,34 +316,34 @@ const selectedCheck = ref(null);
 const defaultData = ref(true);
 const headers = [
   {
-    text: "ID", value: "id", sortable: false, checkbox: true
+    text: "ID", value: "id", width: 80, sortable: false, checkbox: true
   },
   {
-    text: "이름", value: "title", sortable: true
+    text: "이름", value: "title", width: 400, sortable: true
   },
   {
-    text: "상태", value: "status", sortable: true
+    text: "상태", value: "status", width: 130, sortable: true
   },
   {
-    text: "ssh", value: "ssh", sortable: false
+    text: "ssh", value: "ssh", width: 100, sortable: false
   },
   {
-    text: "JupyterLab", value: "jupyterLab", sortable: false
+    text: "JupyterLab", value: "jupyterLab", width: 150, sortable: false
   },
   {
     text: "인스턴스 타입", value: "instanceType", width: 140, sortable: true
   },
   {
-    text: "GPU", value: "gpu", sortable: false
+    text: "GPU", value: "gpu", width: 80, sortable: false
   },
   {
-    text: "CPU", value: "cpu", sortable: false
+    text: "CPU", value: "cpu", width: 80, sortable: false
   },
   {
-    text: "생성일시", value: "createdAt", sortable: true
+    text: "생성일시", value: "createdAt", width: 170, sortable: true
   },
   {
-    text: "생성자", value: "createdBy", sortable: true
+    text: "생성자", value: "createdBy", width: 120, sortable: true
   },
   { text: "", value: "buttons", width: 80 },
 ];
@@ -374,12 +408,112 @@ const items = [
       zone: "public:normal",
     }
   },
+  {
+    id: 132,
+    title: "A인스턴스A인스턴스A인스턴스A인스턴스A인스턴스A인 30자",
+    status: "error",
+    ssh: "ssh",
+    jupyterLab: "JupyterLab",
+    instanceType: "V1.XLARGE",
+    gpu: "49.5%",
+    cpu: "100%",
+    createdAt: "2023.01.12 10:33:21",
+    createdBy: "root.choi",
+    resource: {
+      cpus: 28,
+      gpu_device_model: "TESLA_V100",
+      gpus: 2,
+      mem: 249856,
+      zone: "public:normal",
+    },
+    buttons: {
+      name: "초대요청 확인"
+    }
+  },
+  {
+    id: 34,
+    title: "A인스턴스A인스턴스10자",
+    status: "deleting",
+    ssh: "ssh",
+    jupyterLab: "JupyterLab",
+    instanceType: "V1.XLARGE",
+    gpu: "49.5%",
+    cpu: "100%",
+    createdAt: "2023.01.12 10:33:21",
+    createdBy: "root.choi",
+    resource: {
+      cpus: 28,
+      gpu_device_model: "TESLA_V100",
+      gpus: 2,
+      mem: 249856,
+      zone: "public:normal",
+    }
+  },
+  {
+    id: 99999,
+    title: "A인스턴스A인스턴스A인스턴스A인A인스턴스A인스턴스A인스턴스A인 20자",
+    status: "stopping",
+    ssh: "ssh",
+    jupyterLab: "JupyterLab",
+    instanceType: "V1.XLARGE",
+    gpu: "49.5%",
+    cpu: "100%",
+    createdAt: "2023.01.12 10:33:21",
+    createdBy: "root.choi",
+    resource: {
+      cpus: 28,
+      gpu_device_model: "TESLA_V100",
+      gpus: 2,
+      mem: 249856,
+      zone: "public:normal",
+    }
+  },
+  {
+    id: 99999,
+    title: "A인스턴스A인스턴스A인스턴스A인 20자",
+    status: "starting",
+    ssh: "ssh",
+    jupyterLab: "JupyterLab",
+    instanceType: "V1.XLARGE",
+    gpu: "49.5%",
+    cpu: "100%",
+    createdAt: "2023.01.12 10:33:21",
+    createdBy: "root.choi",
+    resource: {
+      cpus: 28,
+      gpu_device_model: "TESLA_V100",
+      gpus: 2,
+      mem: 249856,
+      zone: "public:normal",
+    }
+  },
+  {
+    id: 132,
+    title: "A인스턴스A인스턴스A인스턴스A인스턴스A인스턴스A인 30자",
+    status: "pending",
+    ssh: "ssh",
+    jupyterLab: "JupyterLab",
+    instanceType: "V1.XLARGE",
+    gpu: "49.5%",
+    cpu: "100%",
+    createdAt: "2023.01.12 10:33:21",
+    createdBy: "root.choi",
+    resource: {
+      cpus: 28,
+      gpu_device_model: "TESLA_V100",
+      gpus: 2,
+      mem: 249856,
+      zone: "public:normal",
+    },
+    buttons: {
+      name: "초대요청 확인"
+    }
+  },
 ];
 const actionButtons = [
-  { name: "이용현황", event: "state" },
-  { name: "공유관리", event: "share" },
-  { name: "스냅샷 관리", event: "mngSnap" },
-  { name: "스냅샷 생성", event: "crtSnap" },
+  { name: "정지", event: "stop" },
+  { name: "시작", event: "start" },
+  { name: "이미지 생성", event: "makingImg" },
   { name: "삭제", event: "delete" },
 ];
 /**

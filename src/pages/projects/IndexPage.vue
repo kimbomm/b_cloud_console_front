@@ -124,17 +124,6 @@
                 :body-row-class-name="bodyRowClassNameFunction"
                 empty-message="정보가 없습니다."
               >
-                <!-- title -->
-                <template #item-title="item">
-                  <a href="#">
-                    <span class="txt">{{ item.title }}</span>
-                    <q-tooltip anchor="bottom middle" class="c_tooltip">
-                      <div class="inner">
-                        {{ item.title }}
-                      </div>
-                    </q-tooltip>
-                  </a>
-                </template>
                 <!-- 버튼 그룹 -->
                 <template #item-buttons="item">
                   <div v-if="actionButtons" class="cell btngroup">
@@ -227,10 +216,7 @@ const items = [
   },
 ];
 const actionButtons = [
-  { name: "이용현황", event: "state" },
-  { name: "공유관리", event: "share" },
-  { name: "스냅샷 관리", event: "mngSnap" },
-  { name: "스냅샷 생성", event: "crtSnap" },
+  { name: "권한변경", event: "authorityChange" },
   { name: "삭제", event: "delete" },
 ];
 

@@ -174,30 +174,58 @@
               <template #item-title="item">
                 <span class="txt">{{ item.title }}</span>
               </template>
+              <!-- Description -->
+              <template #item-desc="item">
+                <a href="#">
+                  <span class="txt">{{ item.desc }}</span>
+                    <q-tooltip
+                      anchor="bottom middle"
+                      class="c_tooltip"
+                    >
+                      <div class="inner">
+                        {{ item.desc }}
+                      </div>
+                    </q-tooltip>
+                </a>
+              </template>
               <!--
                 상태값(status)
-                1. running, 운영중, 실행중
-                2. stopped, 정지 | 오류 | 취소 | 실패
-                3. 생성중 | 삭제중 | 대기중 | 재시작중
+                1. running, 운영중(개인)
+                2. running_s, 운영중(공유)
+                3. making, 생성중
+                4. deleting, 삭제중
+                5. restoring, 복원중
               -->
               <template #item-status="item">
                 <q-badge
                   v-if="item.status === 'running'"
                   class="green"
                 >
-                  <span class="txt">운영중</span>
+                  <span class="txt">운영중(개인)</span>
                 </q-badge>
                 <q-badge
-                  v-else-if="item.status === 'stopped'"
-                  class="orange"
+                  v-if="item.status === 'running_s'"
+                  class="green"
                 >
-                  <span class="txt">정지</span>
+                  <span class="txt">운영중(공유)</span>
                 </q-badge>
                 <q-badge
-                  v-else
+                  v-if="item.status === 'making'"
                   class="c_badge"
                 >
                   <span class="txt">생성중</span>
+                </q-badge>
+                <q-badge
+                  v-if="item.status === 'deleting'"
+                  class="c_badge"
+                >
+                  <span class="txt">삭제중</span>
+                </q-badge>
+                <q-badge
+                  v-if="item.status === 'restoring'"
+                  class="c_badge"
+                >
+                  <span class="txt">복원중</span>
                 </q-badge>
               </template>
               <!-- ssh -->
@@ -315,7 +343,7 @@ const headers = [
     text: "이름", value: "title", width: 180, sortable: true
   },
   {
-    text: "설명", value: "account", width: 350, sortable: true
+    text: "설명", value: "desc", width: 350, sortable: true
   },
   {
     text: "소유자", value: "user", width: 130, sortable: true
@@ -329,12 +357,12 @@ const headers = [
   {
     text: "생성일시", value: "createdAt", width: 180, sortable: true
   },
-  { text: "", value: "buttons", width: 150 },
+  { text: "", value: "buttons", width: 200 },
 ];
 const items = [
   {
     title: "aa프로젝트",
-    account: "개인이용 35자 이후 점처리",
+    desc: "개인이용 35자 이후 점처리",
     user: "Root.choi",
     status: "running",
     usage: "45 / 100GiB",
@@ -352,9 +380,9 @@ const items = [
   },
   {
     title: "aa프로젝트",
-    account: "개인이용 35자 이후 점처리",
+    desc: "개인이용 35자 이후 점처리",
     user: "Root.choi",
-    status: "running",
+    status: "running_s",
     usage: "45 / 100GiB",
     createdAt: "2023.01.12 10:33:40",
     resource: {
@@ -367,9 +395,9 @@ const items = [
   },
   {
     title: "aa프로젝트",
-    account: "개인이용 35자 이후 점처리",
+    desc: "개인이용 35자 이후 점처리",
     user: "Root.choi",
-    status: "running",
+    status: "making",
     usage: "45 / 100GiB",
     createdAt: "2023.01.12 10:33:40",
     resource: {
@@ -382,9 +410,24 @@ const items = [
   },
   {
     title: "aa프로젝트",
-    account: "개인이용 35자 이후 점처리",
+    desc: "개인이용 35자 이후 점처리",
     user: "Root.choi",
-    status: "running",
+    status: "deleting",
+    usage: "45 / 100GiB",
+    createdAt: "2023.01.12 10:33:40",
+    resource: {
+      cpus: 28,
+      gpu_device_model: "TESLA_V100",
+      gpus: 2,
+      mem: 249856,
+      zone: "public:normal",
+    },
+  },
+  {
+    title: "aa프로젝트",
+    desc: "개인이용 35자 이후 점처리개인이용 35자 이후 점처리개인이용 35자 이후 점처리",
+    user: "Root.choi",
+    status: "restoring",
     usage: "45 / 100GiB",
     createdAt: "2023.01.12 10:33:40",
     resource: {
@@ -400,8 +443,7 @@ const items = [
 const actionButtons = [
   { name: "이용현황", event: "state" },
   { name: "공유관리", event: "share" },
-  { name: "스냅샷 관리", event: "mngSnap" },
-  { name: "스냅샷 생성", event: "crtSnap" },
+  { name: "용량 변경", event: "doseModifying" },
   { name: "삭제", event: "delete" },
 ];
 

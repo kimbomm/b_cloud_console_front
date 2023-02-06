@@ -124,9 +124,14 @@
             </template>
             <!--
               상태값(status)
-              1. running, 운영중, 실행중
-              2. stopped, 정지 | 오류 | 취소 | 실패
-              3. 생성중 | 삭제중 | 대기중 | 재시작중
+              1. running, 운영중
+              2. stopped, 정지
+              3. error, 오류
+              4. pending, 대기중
+              5. stopping, 정지중
+              6. deleting, 삭제중
+              7. starting, 시작중
+              8. unknown
             -->
             <template #item-status="item">
               <q-badge
@@ -142,10 +147,40 @@
                 <span class="txt">정지</span>
               </q-badge>
               <q-badge
+                v-else-if="item.status === 'error'"
+                class="orange"
+              >
+                <span class="txt">오류</span>
+              </q-badge>
+              <q-badge
+                v-else-if="item.status === 'pending'"
+                class="c_badge"
+              >
+                <span class="txt">대기중</span>
+              </q-badge>
+              <q-badge
+                v-else-if="item.status === 'stopping'"
+                class="c_badge"
+              >
+                <span class="txt">정지중</span>
+              </q-badge>
+              <q-badge
+                v-else-if="item.status === 'deleting'"
+                class="c_badge"
+              >
+                <span class="txt">삭제중</span>
+              </q-badge>
+              <q-badge
+                v-else-if="item.status === 'starting'"
+                class="c_badge"
+              >
+                <span class="txt">시작중</span>
+              </q-badge>
+              <q-badge
                 v-else
                 class="c_badge"
               >
-                <span class="txt">생성중</span>
+                <span class="txt">Unknown</span>
               </q-badge>
             </template>
             <!-- ssh -->
@@ -269,10 +304,10 @@ const headers = [
     text: "프로젝트 이름", value: "phName", width: 150, sortable: false, checkbox: true
   },
   {
-    text: "인스턴스 이름", value: "title", width: 200, sortable: true
+    text: "인스턴스 이름", value: "title", width: 300, sortable: true
   },
   {
-    text: "상태", value: "status", width: 80, sortable: true
+    text: "상태", value: "status", width: 120, sortable: true
   },
   {
     text: "ssh", value: "ssh", width: 80, sortable: false
@@ -293,13 +328,13 @@ const headers = [
     text: "생성일시", value: "createdAt", width: 180, sortable: true
   },
   {
-    text: "생성자", value: "createdBy", width: 80, sortable: true
+    text: "생성자", value: "createdBy", width: 120, sortable: true
   },
-  { text: "", value: "buttons", width: 150 },
+  { text: "", value: "buttons", width: 80 },
 ];
 const items = [
   {
-    phName: 132,
+    phName: "aa프로젝트",
     title: "A인스턴스A인스턴스A인스턴스A인스턴스A인스턴스A인 30자",
     status: "running",
     ssh: "ssh",
@@ -321,7 +356,7 @@ const items = [
     }
   },
   {
-    phName: 34,
+    phName: "aa프로젝트",
     title: "A인스턴스A인스턴스10자",
     status: "stopped",
     ssh: "ssh",
@@ -340,9 +375,110 @@ const items = [
     }
   },
   {
-    phName: 99999,
+    phName: "aa프로젝트",
     title: "A인스턴스A인스턴스A인스턴스A인 20자",
     status: "group",
+    ssh: "ssh",
+    jupyterLab: "JupyterLab",
+    instanceType: "V1.XLARGE",
+    gpu: "49.5%",
+    cpu: "100%",
+    createdAt: "2023.01.12 10:33:21",
+    createdBy: "root.choi",
+    resource: {
+      cpus: 28,
+      gpu_device_model: "TESLA_V100",
+      gpus: 2,
+      mem: 249856,
+      zone: "public:normal",
+    }
+  },
+  {
+    phName: "aa프로젝트",
+    title: "A인스턴스A인스턴스A인스턴스A인스턴스A인스턴스A인 30자",
+    status: "error",
+    ssh: "ssh",
+    jupyterLab: "JupyterLab",
+    instanceType: "V1.XLARGE",
+    gpu: "49.5%",
+    cpu: "100%",
+    createdAt: "2023.01.12 10:33:21",
+    createdBy: "root.choi",
+    resource: {
+      cpus: 28,
+      gpu_device_model: "TESLA_V100",
+      gpus: 2,
+      mem: 249856,
+      zone: "public:normal",
+    },
+    buttons: {
+      name: "초대요청 확인"
+    }
+  },
+  {
+    phName: "aa프로젝트",
+    title: "A인스턴스A인스턴스10자",
+    status: "pending",
+    ssh: "ssh",
+    jupyterLab: "JupyterLab",
+    instanceType: "V1.XLARGE",
+    gpu: "49.5%",
+    cpu: "100%",
+    createdAt: "2023.01.12 10:33:21",
+    createdBy: "root.choi",
+    resource: {
+      cpus: 28,
+      gpu_device_model: "TESLA_V100",
+      gpus: 2,
+      mem: 249856,
+      zone: "public:normal",
+    }
+  },
+  {
+    phName: "aa프로젝트",
+    title: "A인스턴스A인스턴스A인스턴스A인 20자",
+    status: "stopping",
+    ssh: "ssh",
+    jupyterLab: "JupyterLab",
+    instanceType: "V1.XLARGE",
+    gpu: "49.5%",
+    cpu: "100%",
+    createdAt: "2023.01.12 10:33:21",
+    createdBy: "root.choi",
+    resource: {
+      cpus: 28,
+      gpu_device_model: "TESLA_V100",
+      gpus: 2,
+      mem: 249856,
+      zone: "public:normal",
+    }
+  },
+  {
+    phName: "aa프로젝트",
+    title: "A인스턴스A인스턴스A인스턴스A인스턴스A인스턴스A인 30자",
+    status: "deleting",
+    ssh: "ssh",
+    jupyterLab: "JupyterLab",
+    instanceType: "V1.XLARGE",
+    gpu: "49.5%",
+    cpu: "100%",
+    createdAt: "2023.01.12 10:33:21",
+    createdBy: "root.choi",
+    resource: {
+      cpus: 28,
+      gpu_device_model: "TESLA_V100",
+      gpus: 2,
+      mem: 249856,
+      zone: "public:normal",
+    },
+    buttons: {
+      name: "초대요청 확인"
+    }
+  },
+  {
+    phName: "aa프로젝트",
+    title: "A인스턴스A인스턴스10자",
+    status: "starting",
     ssh: "ssh",
     jupyterLab: "JupyterLab",
     instanceType: "V1.XLARGE",
@@ -361,10 +497,9 @@ const items = [
 ];
 
 const actionButtons = [
-  { name: "이용현황", event: "state" },
-  { name: "공유관리", event: "share" },
-  { name: "스냅샷 관리", event: "mngSnap" },
-  { name: "스냅샷 생성", event: "crtSnap" },
+  { name: "정지", event: "stop" },
+  { name: "시작", event: "start" },
+  { name: "이미지 생성", event: "makingImg" },
   { name: "삭제", event: "delete" },
 ];
 

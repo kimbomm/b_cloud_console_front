@@ -148,16 +148,16 @@
                   empty-message="정보가 없습니다."
                   @click-row="showRow"
                 >
-                  <!-- title -->
-                  <template #item-title="item">
+                  <!-- groupTitle -->
+                  <template #item-groupTitle="item">
                     <a href="#">
-                      <span class="txt">{{ item.title }}</span>
+                      <span class="txt">{{ item.groupTitle }}</span>
                       <q-tooltip
                         anchor="bottom middle"
                         class="c_tooltip"
                       >
                         <div class="inner">
-                          {{ item.title }}
+                          {{ item.groupTitle }}
                         </div>
                       </q-tooltip>
                     </a>
@@ -328,28 +328,70 @@
                   </template>
                   <!--
                     상태값(status)
-                    1. running, 운영중, 실행중
-                    2. stopped, 정지 | 오류 | 취소 | 실패
-                    3. 생성중 | 삭제중 | 대기중 | 재시작중
+                    1. finished, 완료
+                    2. stopped, 실패
+                    3. pending, 대기중
+                    4. making, 생성중
+                    5. starting, 실행중
+                    6. canceling, 취소중
+                    7. cancel, 취소
+                    8. deleting, 삭제중
+                    9. unknown
                   -->
                   <template #item-status="item">
                     <q-badge
-                      v-if="item.status === 'running'"
+                      v-if="item.status === 'finished'"
                       class="green"
                     >
-                      <span class="txt">운영중</span>
+                      <span class="txt">완료</span>
                     </q-badge>
                     <q-badge
                       v-else-if="item.status === 'stopped'"
                       class="orange"
                     >
-                      <span class="txt">정지</span>
+                      <span class="txt">실패</span>
+                    </q-badge>
+                    <q-badge
+                      v-else-if="item.status === 'pending'"
+                      class="c_badge"
+                    >
+                      <span class="txt">대기중</span>
+                    </q-badge>
+                    <q-badge
+                      v-else-if="item.status === 'making'"
+                      class="c_badge"
+                    >
+                      <span class="txt">생성중</span>
+                    </q-badge>
+                    <q-badge
+                      v-else-if="item.status === 'starting'"
+                      class="c_badge"
+                    >
+                      <span class="txt">실행중</span>
+                    </q-badge>
+                    <q-badge
+                      v-else-if="item.status === 'canceling'"
+                      class="c_badge"
+                    >
+                      <span class="txt">취소중</span>
+                    </q-badge>
+                    <q-badge
+                      v-else-if="item.status === 'deleting'"
+                      class="c_badge"
+                    >
+                      <span class="txt">삭제중</span>
+                    </q-badge>
+                    <q-badge
+                      v-else-if="item.status === 'cancel'"
+                      class="c_badge"
+                    >
+                      <span class="txt">취소</span>
                     </q-badge>
                     <q-badge
                       v-else
                       class="c_badge"
                     >
-                      <span class="txt">생성중</span>
+                      <span class="txt">Unknown</span>
                     </q-badge>
                   </template>
                   <!-- ssh -->
@@ -394,7 +436,7 @@
                   </template>
                   <!-- 버튼 그룹 -->
                   <template #item-buttons="item">
-                    <div v-if="actionButtons" class="cell btngroup">
+                    <div v-if="actionButtons2" class="cell btngroup">
                       <q-btn class="c_btn ibtn dot">
                         <i class="ico dots" /><span class="txt">클릭</span>
                         <q-popup-edit
@@ -492,14 +534,14 @@ const headers = [
     text: "생성일시", value: "createdAt", width: 210, sortable: true
   },
   {
-    text: "생성자", value: "createdBy", width: 300, sortable: true
+    text: "생성자", value: "createdBy", width: 350, sortable: true
   },
   { text: "", value: "buttons", width: 80 },
 ];
 const items = [
   {
     id: 21,
-    groupTitle: "Taskgroup1",
+    groupTitle: "Taskgroup1Taskgroup1Taskgroup1",
     status: "group",
     description: "태스크 그룹 설명",
     createdAt: "2023.01.12 10:33:21",
@@ -558,22 +600,22 @@ const headers2 = [
     text: "그룹 이름", value: "groupTitle", width: 130, sortable: true
   },
   {
-    text: "태스크 이름", value: "title", width: 200, sortable: true
+    text: "태스크 이름", value: "title", width: 300, sortable: true
   },
   {
-    text: "상태", value: "status", sortable: true
+    text: "상태", value: "status", width: 120, sortable: true
   },
   {
-    text: "ssh", value: "ssh", sortable: false
+    text: "ssh", value: "ssh", width: 80, sortable: false
   },
   {
     text: "인스턴스 타입", value: "instanceType", width: 150, sortable: true
   },
   {
-    text: "GPU", value: "gpu", sortable: false
+    text: "GPU", value: "gpu", width: 80, sortable: false
   },
   {
-    text: "CPU", value: "cpu", sortable: false
+    text: "CPU", value: "cpu", width: 80, sortable: false
   },
   {
     text: "생성자", value: "createdBy", width: 100, sortable: true
@@ -585,15 +627,15 @@ const headers2 = [
     text: "완료일시", value: "endDate", width: 180, sortable: true
   },
   {
-    text: "로그확인", value: "logCheck", sortable: false
+    text: "로그확인", value: "logCheck", width: 80, sortable: false
   },
   { text: "", value: "buttons", width: 80 },
 ];
 const items2 = [
   {
     groupTitle: "그룹12",
-    title: "asdasdasdsa 30자",
-    status: "running",
+    title: "asdasdasdsaasdasdasdsa 30자",
+    status: "finished",
     ssh: "ssh",
     instanceType: "V1.XLARGE",
     gpu: "49.5%",
@@ -638,8 +680,146 @@ const items2 = [
   },
   {
     groupTitle: "그룹12",
-    title: "asdasdasdsa 30자",
+    title: "asdasdasdsaasdasdasdsaasdasdasdsaasdasdasdsa",
     status: "stopped",
+    ssh: "ssh",
+    instanceType: "V1.XLARGE",
+    gpu: "49.5%",
+    cpu: "100%",
+    createdBy: "root.choi",
+    startDate: "2023.01.12 10:33:21",
+    endDate: "2023.01.12 10:33:21",
+    logCheck: "log",
+    resource: {
+      cpus: 28,
+      gpu_device_model: "TESLA_V100",
+      gpus: 2,
+      mem: 249856,
+      zone: "public:normal",
+    },
+    buttons: {
+      name: "초대요청 확인"
+    }
+  },
+  {
+    groupTitle: "그룹12",
+    title: "asdasdasdsaasdasdasdsa 30자",
+    status: "pending",
+    ssh: "ssh",
+    instanceType: "V1.XLARGE",
+    gpu: "49.5%",
+    cpu: "100%",
+    createdBy: "root.choi",
+    startDate: "2023.01.12 10:33:21",
+    endDate: "2023.01.12 10:33:21",
+    logCheck: "log",
+    resource: {
+      cpus: 28,
+      gpu_device_model: "TESLA_V100",
+      gpus: 2,
+      mem: 249856,
+      zone: "public:normal",
+    },
+    buttons: {
+      name: "초대요청 확인"
+    }
+  },
+  {
+    groupTitle: "그룹12",
+    title: "asdasdasdsa 30자",
+    status: "starting",
+    ssh: "ssh",
+    instanceType: "V1.XLARGE",
+    gpu: "49.5%",
+    cpu: "100%",
+    createdBy: "root.choi",
+    startDate: "2023.01.12 10:33:21",
+    endDate: "2023.01.12 10:33:21",
+    logCheck: "log",
+    resource: {
+      cpus: 28,
+      gpu_device_model: "TESLA_V100",
+      gpus: 2,
+      mem: 249856,
+      zone: "public:normal",
+    },
+    buttons: {
+      name: "초대요청 확인"
+    }
+  },
+  {
+    groupTitle: "그룹12",
+    title: "asdasdasdsaasdasdasdsaasdasdasdsaasdasdasdsa",
+    status: "making",
+    ssh: "ssh",
+    instanceType: "V1.XLARGE",
+    gpu: "49.5%",
+    cpu: "100%",
+    createdBy: "root.choi",
+    startDate: "2023.01.12 10:33:21",
+    endDate: "2023.01.12 10:33:21",
+    logCheck: "log",
+    resource: {
+      cpus: 28,
+      gpu_device_model: "TESLA_V100",
+      gpus: 2,
+      mem: 249856,
+      zone: "public:normal",
+    },
+    buttons: {
+      name: "초대요청 확인"
+    }
+  },
+  {
+    groupTitle: "그룹12",
+    title: "asdasdasdsaasdasdasdsa 30자",
+    status: "canceling",
+    ssh: "ssh",
+    instanceType: "V1.XLARGE",
+    gpu: "49.5%",
+    cpu: "100%",
+    createdBy: "root.choi",
+    startDate: "2023.01.12 10:33:21",
+    endDate: "2023.01.12 10:33:21",
+    logCheck: "log",
+    resource: {
+      cpus: 28,
+      gpu_device_model: "TESLA_V100",
+      gpus: 2,
+      mem: 249856,
+      zone: "public:normal",
+    },
+    buttons: {
+      name: "초대요청 확인"
+    }
+  },
+  {
+    groupTitle: "그룹12",
+    title: "asdasdasdsa 30자",
+    status: "cancel",
+    ssh: "ssh",
+    instanceType: "V1.XLARGE",
+    gpu: "49.5%",
+    cpu: "100%",
+    createdBy: "root.choi",
+    startDate: "2023.01.12 10:33:21",
+    endDate: "2023.01.12 10:33:21",
+    logCheck: "log",
+    resource: {
+      cpus: 28,
+      gpu_device_model: "TESLA_V100",
+      gpus: 2,
+      mem: 249856,
+      zone: "public:normal",
+    },
+    buttons: {
+      name: "초대요청 확인"
+    }
+  },
+  {
+    groupTitle: "그룹12",
+    title: "asdasdasdsaasdasdasdsaasdasdasdsaasdasdasdsa",
+    status: "deleting",
     ssh: "ssh",
     instanceType: "V1.XLARGE",
     gpu: "49.5%",
@@ -674,10 +854,13 @@ const onCopy = (rowData) => {
  * @param { object } rowData get table row data
  */
 const actionButtons = [
-  { name: "이용현황", event: "state" },
-  { name: "공유관리", event: "share" },
-  { name: "스냅샷 관리", event: "mngSnap" },
-  { name: "스냅샷 생성", event: "crtSnap" },
+  { name: "재생성", event: "regeneratory" },
+  { name: "취소", event: "cancel" },
+  { name: "삭제", event: "delete" },
+];
+const actionButtons2 = [
+  { name: "재생성", event: "regeneratory" },
+  { name: "취소", event: "cancel" },
   { name: "삭제", event: "delete" },
 ];
 </script>
