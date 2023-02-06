@@ -35,20 +35,32 @@
                     -->
                     <strong>대기중</strong>
                   </div>
-                  <!-- chart 정해지기 전 임시로 UI 생성 -->
-                  <div class="circle_chart">
-                    <div class="circle_in">
-                      <em>CPU 활용률</em>
-                      <strong data-rate="45.6" />
+                  <!-- chart UI -->
+                  <div
+                    v-for="(chart, i) in charts" :key="`${i}`"
+                    class="circle_chart"
+                  >
+                    <div class="circle-svg" :style="`--value:${chart.value}`">
+                      <svg class="svg_dashboad" fill="none" viewBox="0 0 600 600">
+                        <defs>
+                          <linearGradient id="paint0_linear" x1="50" x2="200" y1="100" y2="450"
+                            gradientUnits="userSpaceOnUse"
+                          >
+                            <stop stop-color="#FF0000"/>
+                            <stop offset="1" stop-color="#4992FF"/>
+                          </linearGradient>
+                        </defs>
+                        <circle pathLength="100"
+                        cx="300" cy="300" r="285"
+                        class="circle-svg__bg" />
+                        <circle pathLength="100"
+                        cx="300" cy="300" r="285"
+                        class="circle-svg__stroke" />
+                      </svg>
                     </div>
-                    <div class="circle_line">
-                    </div>
-                  </div>
-                  <div class="circle_chart">
-                    <div class="circle_line" />
                     <div class="circle_in">
-                      <em>GPU 활용률</em>
-                      <strong data-rate="99.8" />
+                      <em>{{ chart.label }}</em>
+                      <strong :data-rate="`${chart.value}`" />
                     </div>
                   </div>
                 </div>
@@ -81,20 +93,32 @@
                     -->
                     <strong class="red">취소</strong>
                   </div>
-                  <!-- chart 정해지기 전 임시로 UI 생성 -->
-                  <div class="circle_chart">
-                    <div class="circle_in">
-                      <em>CPU 활용률</em>
-                      <strong data-rate="45.6" />
+                  <!-- chart UI -->
+                  <div
+                    v-for="(chart, i) in charts" :key="`${i}`"
+                    class="circle_chart"
+                  >
+                    <div class="circle-svg" :style="`--value:${chart.value}`">
+                      <svg class="svg_dashboad" fill="none" viewBox="0 0 600 600">
+                        <defs>
+                          <linearGradient id="paint0_linear" x1="50" x2="200" y1="100" y2="450"
+                            gradientUnits="userSpaceOnUse"
+                          >
+                            <stop stop-color="#FF0000"/>
+                            <stop offset="1" stop-color="#4992FF"/>
+                          </linearGradient>
+                        </defs>
+                        <circle pathLength="100"
+                        cx="300" cy="300" r="285"
+                        class="circle-svg__bg" />
+                        <circle pathLength="100"
+                        cx="300" cy="300" r="285"
+                        class="circle-svg__stroke" />
+                      </svg>
                     </div>
-                    <div class="circle_line">
-                    </div>
-                  </div>
-                  <div class="circle_chart">
-                    <div class="circle_line" />
                     <div class="circle_in">
-                      <em>GPU 활용률</em>
-                      <strong data-rate="99.8" />
+                      <em>{{ chart.label }}</em>
+                      <strong :data-rate="`${chart.value}`" />
                     </div>
                   </div>
                 </div>
@@ -124,6 +148,11 @@ const ptitle = ref(title);
 const slide = ref(1);
 const instanceData = true;
 const taskData = true;
+
+const charts = ref([
+  { label: "CPU 활용률", value: 45.6 },
+  { label: "GPU 활용률", value: 86.7 },
+]);
 </script>
 
 <style lang="scss" scoped>

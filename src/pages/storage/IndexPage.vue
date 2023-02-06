@@ -97,44 +97,44 @@
           empty-message="정보가 없습니다."
           @click-row="showRow"
         >
-          <!-- title -->
-          <template #item-title="item">
-            <a href="#">
-              <span class="txt">{{ item.title }}</span>
-              <q-tooltip
-                anchor="bottom middle"
-                class="c_tooltip"
-              >
-                <div class="inner">
-                  {{ item.title }}
-                </div>
-              </q-tooltip>
-            </a>
-          </template>
           <!--
             상태값(status)
-            1. running, 운영중, 실행중
-            2. stopped, 정지 | 오류 | 취소 | 실패
-            3. 생성중 | 삭제중 | 대기중 | 재시작중
+            1. running, 운영중(개인)
+            2. running_s, 운영중(공유)
+            3. making, 생성중
+            4. deleting, 삭제중
+            5. restoring, 복원중
           -->
           <template #item-status="item">
             <q-badge
               v-if="item.status === 'running'"
               class="green"
             >
+              <span class="txt">운영중(개인)</span>
+            </q-badge>
+            <q-badge
+              v-else-if="item.status === 'running_s'"
+              class="green"
+            >
               <span class="txt">운영중(공유)</span>
             </q-badge>
             <q-badge
-              v-else-if="item.status === 'stopped'"
-              class="orange"
-            >
-              <span class="txt">정지</span>
-            </q-badge>
-            <q-badge
-              v-else
+              v-else-if="item.status === 'making'"
               class="c_badge"
             >
               <span class="txt">생성중</span>
+            </q-badge>
+            <q-badge
+              v-else-if="item.status === 'deleting'"
+              class="c_badge"
+            >
+              <span class="txt">삭제중</span>
+            </q-badge>
+            <q-badge
+              v-else-if="item.status === 'restoring'"
+              class="c_badge"
+            >
+              <span class="txt">복원중</span>
             </q-badge>
           </template>
           <!-- 버튼 그룹 -->
@@ -198,29 +198,38 @@ const optNumber = ref([
 
 const headers = [
   {
-    text: "이름", value: "title", width: 200, sortable: true
+    text: "이름", value: "title", width: 240, sortable: true
   },
   {
-    text: "설명", value: "description", sortable: false
+    text: "설명", value: "description", width: 240, sortable: false
   },
   {
-    text: "소유자", value: "user", sortable: true
+    text: "소유자", value: "user", width: 190, sortable: true
   },
   {
-    text: "상태", value: "status", sortable: false
+    text: "상태", value: "status", width: 150, sortable: false
   },
   {
-    text: "사용량", value: "usingData", sortable: true
+    text: "사용량", value: "usingData", width: 180, sortable: true
   },
   {
-    text: "생성일시", value: "createdAt", sortable: false
+    text: "생성일시", value: "createdAt", width: 180, sortable: false
   },
   {
-    text: "접근권한", value: "authority", sortable: false
+    text: "접근권한", value: "authority", width: 180, sortable: false
   },
-  { text: "", value: "buttons", width: 150 },
+  { text: "", value: "buttons", width: 80 },
 ];
 const items = [
+  {
+    title: "개인작업용",
+    description: "개인이용",
+    user: "root.choi",
+    status: "running_s",
+    usingData: "45 / 100 GiB",
+    createdAt: "2023.10.22 12:33:40",
+    authority: "읽기전용",
+  },
   {
     title: "개인작업용",
     description: "개인이용",
@@ -234,7 +243,25 @@ const items = [
     title: "개인작업용",
     description: "개인이용",
     user: "root.choi",
-    status: "running",
+    status: "making",
+    usingData: "45 / 100 GiB",
+    createdAt: "2023.10.22 12:33:40",
+    authority: "읽기전용",
+  },
+  {
+    title: "개인작업용",
+    description: "개인이용",
+    user: "root.choi",
+    status: "deleting",
+    usingData: "45 / 100 GiB",
+    createdAt: "2023.10.22 12:33:40",
+    authority: "읽기전용",
+  },
+  {
+    title: "개인작업용",
+    description: "개인이용",
+    user: "root.choi",
+    status: "restoring",
     usingData: "45 / 100 GiB",
     createdAt: "2023.10.22 12:33:40",
     authority: "읽기전용",
@@ -244,8 +271,7 @@ const items = [
 const actionButtons = [
   { name: "이용현황", event: "state" },
   { name: "공유관리", event: "share" },
-  { name: "스냅샷 관리", event: "mngSnap" },
-  { name: "스냅샷 생성", event: "crtSnap" },
+  { name: "용량 변경", event: "doseModifying" },
   { name: "삭제", event: "delete" },
 ];
 

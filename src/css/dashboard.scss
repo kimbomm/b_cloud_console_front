@@ -1,6 +1,7 @@
 /* Dashboard */
 .p-console{
   .p-body{
+    .mb8{margin-bottom: 8px;}
     .section{
       margin-top: 24px;
       .sub-title{
@@ -17,8 +18,9 @@
     }
     .storage-box{
       display: flex; justify-content: space-between;
-      width: 100%; height: 450px;
+      width: 100%;
       &_dash{
+        overflow:hidden;
         position: relative;
         padding: 30px 8px 0 30px;
         width: calc((100% - 48px) / 3);
@@ -38,7 +40,19 @@
         }
         .store-wrap{
           padding-right: 18px;
-          width: calc(100% + 18px); height: calc(100% - 90px);
+          width: calc(100% + 18px);
+          height: 100%;
+          // height: calc(100% - 90px);
+          ::v-deep(.q-scrollarea__content){
+            max-width:100%;
+            padding-bottom:calc(80px);
+          }
+          ::v-deep(.q-scrollarea__thumb:hover){
+            opacity:1!important;
+          }
+          ::v-deep(.q-scrollarea__thumb:active){
+            opacity:1!important;
+          }
         }
         .store-none{
           position: relative;
@@ -46,66 +60,109 @@
           color: $gray300; font-size: $fs14; text-align: center;
         }
         .store{
-          width: 100%;;
+          width: 100%;
+          max-width:100%;
+          max-height:119px;
           padding: 18px;
           margin-bottom: 10px;
           border-radius: 8px;
           background-color: $surface02;
           &:last-child{
-            margin-bottom: 0;
+            margin-bottom: 40px;
           }
-          /** chart **/
-          .circle_chart{
-            $linew:10px;
-            display:flex;
-            align-items: center;
-            justify-content: center;
+          &_card{
+            display: flex;
             flex-direction: column;
-            position:relative;
-            width:44px;height:44px;
-            margin:0 12px 0 0;padding:$linew;
-            border-radius:50%;
-            background-color: $surface02;
-            .circle_in{
+            max-width:100%;
+            > .name{
+              margin-bottom:16px;
+            }
+          }
+          .circle_chart{
+            &.small{
               display:flex;
               align-items: center;
               justify-content: center;
               flex-direction: column;
               flex:none;
-              position:relative;z-index:1;
-              width:calc(44px - #{$linew});height:calc(44px - #{$linew});
+              width:48px;height:48px;
+              margin-right:12px;
               border-radius:50%;
-              background-color: $surface02;
+              background:$surface04;
+              .circle-svg {
+                position: absolute;
+                width: 48px;height: 48px;
+                border-radius:50%;
+                stroke: $surface04;
+                stroke-dashoffset: 100;
+                svg {
+                  width: 100%;
+                  display: block;
+                }
+                &__bg{
+                  stroke:$surface04;
+                  stroke-width:60px;
+                  stroke-linecap:round;
+                  opacity:1;
+                }
+                &__stroke {
+                  stroke:url(#paint1_linear);
+                  stroke-linecap:round;
+                  stroke-width:60px;
+                  stroke-dasharray: 100px;
+                  stroke-dashoffset: calc((104 - var(--value, 0)) * 1px);
+                  transform-origin: 50% 50%;
+                  transform: rotate(-90deg);
+                  transition: stroke-dashoffset 0.7s ease-in-out;
+                }
+              }
+              .circle_in{
+                width:100%;height:100%;
+                border-radius:50%;
+                background:$surface02;
+              }
             }
-            .circle_line{
-              position:absolute;top:0;left:0;
-              width:44px;height:44px;
-              border-radius:50%;
-              background:linear-gradient(336.21deg, #FF0000 20.46%, #4992FF 84.7%);
-            }
-          }
-          /** //chart **/
-          &_card{
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
           }
           .state{
             display: flex;
             align-items: center;
+            overflow:hidden;
+          }
+          .info{
+            display:inline-flex;
+            flex-direction: column;
+            flex:1 auto;
+            max-width:calc(100% - 60px - 100px);
+            color: $surface16; font-size: $fs14;
+            .title{
+              display:inline-block;
+            }
+            .caption{
+              display: inline-block;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+              max-width:100%;
+              margin-top:4px;
+            }
           }
           .text{
             display: flex;
-            color: $surface13; font-size: $fs12;
+            flex-direction: column;
+            overflow:hidden;
+            flex:1 auto;
+            color: $surface16; font-size: $fs14;
           }
           .ex{
-            position: relative;
-            padding-left: 13px;
-            width: 171px; height: 14px;
             overflow: hidden;
+            position: relative;
+            max-width: 100%;
+            margin-top:4px;
+            // padding-left: 13px;
             text-overflow: ellipsis;
             white-space: nowrap;
             &::before{
+              display:none;
               position: absolute;
               top: 50%; left: 6px;
               transform: translateY(-50%);
@@ -118,6 +175,8 @@
             display: flex;
             flex-direction: column;
             text-align: right;
+            flex:none;
+            width:100px;
             &_use{
               color: $surface21; font-size: $fs24; font-weight: $bold;
             }
@@ -127,6 +186,7 @@
           }
         }
         .name{
+          width:100%;
           color: $surface16; font-size: $fs14;
         }
 

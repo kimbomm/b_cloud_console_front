@@ -37,6 +37,8 @@ $easy-table-buttons-pagination-border: 1px solid #e0e0e0;
 $padding: 16px;
 .vue3-easy-data-table{
   width:100%;
+  margin-top:-2px;
+  margin-bottom:-2px;
   border:0;
   .q-btn{
     &.text{
@@ -80,7 +82,7 @@ $padding: 16px;
 }
 ::v-deep{
   table{
-    border-spacing: 0 12px;
+    border-spacing: 0 2px;
   }
   .badge{
     display:flex;
@@ -280,5 +282,29 @@ $padding: 16px;
         }
       }
     }
+  }
+}
+// apexchart
+::v-deep{
+  .apexcharts-title-text{
+    opacity: 0!important;
+  }
+  .apexcharts-legend.apexcharts-align-right .apexcharts-legend-series,
+  .apexcharts-legend.apexcharts-align-left .apexcharts-legend-series{
+    display:inline-flex;
+    align-items: center;
+    margin:0!important;
+    margin-left:48px!important;
+    &:first-child{
+      margin-left:0!important;
+    }
+  }
+  .apexcharts-legend-marker{
+    width:20px!important;height:1px!important;
+    border-radius:0!important;
+  }
+  .apexcharts-legend-text{
+    margin-left:8px!important;
+    padding-left:0!important;
   }
 }

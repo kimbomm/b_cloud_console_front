@@ -121,16 +121,16 @@
               empty-message="정보가 없습니다."
               @click-row="showRow"
             >
-              <!-- title -->
-              <template #item-title="item">
+              <!-- groupName -->
+              <template #item-groupName="item">
                 <a href="#">
-                  <span class="txt">{{ item.title }}</span>
+                  <span class="txt">{{ item.groupName }}</span>
                   <q-tooltip
                     anchor="bottom middle"
                     class="c_tooltip"
                   >
                     <div class="inner">
-                      {{ item.title }}
+                      {{ item.groupName }}
                     </div>
                   </q-tooltip>
                 </a>
@@ -295,30 +295,100 @@
                   </q-tooltip>
                 </a>
               </template>
+              <!-- taskname -->
+              <template #item-taskName="item">
+                <a href="#">
+                  <span class="txt">{{ item.taskName }}</span>
+                    <q-tooltip
+                      anchor="bottom middle"
+                      class="c_tooltip"
+                    >
+                      <div class="inner">
+                        {{ item.taskName }}
+                      </div>
+                    </q-tooltip>
+                </a>
+              </template>
               <!--
                 상태값(status)
-                1. running, 운영중, 실행중
-                2. stopped, 정지 | 오류 | 취소 | 실패
-                3. 생성중 | 삭제중 | 대기중 | 재시작중
+                1. running, 실행중
+                2. finished, 완료
+                3. stopped, 취소
+                4. failure, 실패
+                5. error, 에러
+                6. pending, 대기중
+                7. making, 생성중
+                8. cancel, 취소
+                9. canceling, 취소중
+                10. deleting, 삭제중
+                11. unknown
               -->
               <template #item-status="item">
                 <q-badge
                   v-if="item.status === 'running'"
                   class="green"
                 >
-                  <span class="txt">운영중</span>
+                  <span class="txt">실행중</span>
+                </q-badge>
+                <q-badge
+                  v-else-if="item.status === 'finished'"
+                  class="orange"
+                >
+                  <span class="txt">완료</span>
                 </q-badge>
                 <q-badge
                   v-else-if="item.status === 'stopped'"
                   class="orange"
                 >
-                  <span class="txt">정지</span>
+                  <span class="txt">취소</span>
+                </q-badge>
+                <q-badge
+                  v-else-if="item.status === 'failure'"
+                  class="orange"
+                >
+                  <span class="txt">실패</span>
+                </q-badge>
+                <q-badge
+                  v-else-if="item.status === 'error'"
+                  class="orange"
+                >
+                  <span class="txt">에러</span>
+                </q-badge>
+                <q-badge
+                  v-else-if="item.status === 'pending'"
+                  class="c_badge"
+                >
+                  <span class="txt">대기중</span>
+                </q-badge>
+                <q-badge
+                  v-else-if="item.status === 'making'"
+                  class="c_badge"
+                >
+                  <span class="txt">생성중</span>
+                </q-badge>
+                <q-badge
+                  v-else-if="item.status === 'cancel'"
+                  class="c_badge"
+                >
+                  <span class="txt">취소</span>
+                </q-badge>
+                <q-badge
+                  v-else-if="item.status === 'canceling'"
+                  class="c_badge"
+                >
+                  <span class="txt">취소중</span>
+                </q-badge>
+                <q-badge
+                  v-else-if="item.status === 'deleting'"
+                  class="c_badge"
+                >
+                  <span class="txt">삭제중</span>
                 </q-badge>
                 <q-badge
                   v-else
                   class="c_badge"
                 >
-                  <span class="txt">생성중</span>
+                  <span class="txt">Unknown</span>
                 </q-badge>
               </template>
               <!-- ssh -->
@@ -439,16 +509,16 @@ const groupHeaders = [
     text: "그룹ID", value: "groupid", width: 100, sortable: false
   },
   {
-    text: "그룹 이름", value: "groupName", width: 150, sortable: true
+    text: "그룹 이름", value: "groupName", width: 200, sortable: true
   },
   {
-    text: "설명", value: "account", width: 350, sortable: false
+    text: "설명", value: "desc", width: 280, sortable: false
   },
   {
-    text: "상태", value: "status", width: 150, sortable: false
+    text: "상태", value: "status", width: 170, sortable: false
   },
   {
-    text: "생성일시", value: "createdAt", width: 200, sortable: true
+    text: "생성일시", value: "createdAt", width: 180, sortable: true
   },
   {
     text: "생성자", value: "constructor", width: 300, sortable: true
@@ -460,7 +530,16 @@ const groupItems = [
     pjName: "AA프로젝트",
     groupid: "21",
     groupName: "Taskgroup1",
-    account: "태스크 그룹 설명태스크 그룹 설명태스크 그룹 설명태스크 그룹 설명",
+    desc: "태스크 그룹 설명",
+    status: "group",
+    createdAt: "2023.10.22 12:33:40",
+    constructor: "root.choi (root.choi@kakaobrain.com)",
+  },
+  {
+    pjName: "AA프로젝트",
+    groupid: "21",
+    groupName: "Taskgroup1Taskgroup1Taskgroup1",
+    desc: "태스크 그룹 설명",
     status: "group",
     createdAt: "2023.10.22 12:33:40",
     constructor: "root.choi (root.choi@kakaobrain.com)",
@@ -469,16 +548,7 @@ const groupItems = [
     pjName: "AA프로젝트",
     groupid: "21",
     groupName: "Taskgroup1",
-    account: "태스크 그룹 설명태스크 그룹 설명태스크 그룹 설명태스크 그룹 설명",
-    status: "group",
-    createdAt: "2023.10.22 12:33:40",
-    constructor: "root.choi (root.choi@kakaobrain.com)",
-  },
-  {
-    pjName: "AA프로젝트",
-    groupid: "21",
-    groupName: "Taskgroup1",
-    account: "태스크 그룹 설명태스크 그룹 설명태스크 그룹 설명태스크 그룹 설명",
+    desc: "태스크 그룹 설명",
     status: "group",
     createdAt: "2023.10.22 12:33:40",
     constructor: "root.choi (root.choi@kakaobrain.com)",
@@ -487,22 +557,22 @@ const groupItems = [
 // 테스크보기
 const taskHeaders = [
   {
-    text: "프로젝트 이름", value: "pjName", width: 150, sortable: false
+    text: "프로젝트 이름", value: "pjName", width: 140, sortable: false
   },
   {
     text: "그룹 이름", value: "groupName", width: 120, sortable: true
   },
   {
-    text: "태스크 이름", value: "task", width: 200, sortable: true
+    text: "태스크 이름", value: "taskName", width: 200, sortable: true
   },
   {
-    text: "상태", value: "status", width: 80, sortable: false
+    text: "상태", value: "status", width: 110, sortable: false
   },
   {
     text: "ssh", value: "ssh", width: 80, sortable: false
   },
   {
-    text: "인스턴스 타입", value: "instanceType", width: 100, sortable: false
+    text: "인스턴스 타입", value: "instanceType", width: 130, sortable: false
   },
   {
     text: "GPU", value: "gpu", width: 80, sortable: false
@@ -514,10 +584,10 @@ const taskHeaders = [
     text: "생성자", value: "createdBy", width: 100, sortable: true
   },
   {
-    text: "생성일시", value: "createdAt", width: 200, sortable: true
+    text: "생성일시", value: "createdAt", width: 170, sortable: true
   },
   {
-    text: "완료일시", value: "endDate", width: 200, sortable: true
+    text: "완료일시", value: "endDate", width: 170, sortable: true
   },
   {
     text: "로그확인", value: "log", width: 80, sortable: false
@@ -528,7 +598,7 @@ const taskItems = [
   {
     pjName: "aa프로젝트",
     groupName: "그룹12",
-    task: "aatask1",
+    taskName: "aatask1",
     status: "running",
     ssh: "ssh",
     JupyterLab: "JupyterLab",
@@ -550,8 +620,8 @@ const taskItems = [
   {
     pjName: "aa프로젝트",
     groupName: "그룹12",
-    task: "aatask1",
-    status: "running",
+    taskName: "aatask1aatask1aatask1aatask1",
+    status: "error",
     ssh: "ssh",
     JupyterLab: "JupyterLab",
     instanceType: "V1.XLARGE",
@@ -572,8 +642,184 @@ const taskItems = [
   {
     pjName: "aa프로젝트",
     groupName: "그룹12",
-    task: "aatask1",
+    taskName: "aatask1",
+    status: "cancel",
+    ssh: "ssh",
+    JupyterLab: "JupyterLab",
+    instanceType: "V1.XLARGE",
+    gpu: "49.5%",
+    cpu: "100%",
+    createdBy: "root.choi",
+    createdAt: "2023.01.12 10:33:14",
+    endDate: "2023.01.12 10:33:14",
+    log: "log",
+    resource: {
+      cpus: 28,
+      gpu_device_model: "TESLA_V100",
+      gpus: 2,
+      mem: 249856,
+      zone: "public:normal",
+    },
+  },
+  {
+    pjName: "aa프로젝트",
+    groupName: "그룹12",
+    taskName: "aatask1",
+    status: "deleting",
+    ssh: "ssh",
+    JupyterLab: "JupyterLab",
+    instanceType: "V1.XLARGE",
+    gpu: "49.5%",
+    cpu: "100%",
+    createdBy: "root.choi",
+    createdAt: "2023.01.12 10:33:14",
+    endDate: "2023.01.12 10:33:14",
+    log: "log",
+    resource: {
+      cpus: 28,
+      gpu_device_model: "TESLA_V100",
+      gpus: 2,
+      mem: 249856,
+      zone: "public:normal",
+    },
+  },
+  {
+    pjName: "aa프로젝트",
+    groupName: "그룹12",
+    taskName: "aatask1aatask1aatask1aatask1",
     status: "stopped",
+    ssh: "ssh",
+    JupyterLab: "JupyterLab",
+    instanceType: "V1.XLARGE",
+    gpu: "49.5%",
+    cpu: "100%",
+    createdBy: "root.choi",
+    createdAt: "2023.01.12 10:33:14",
+    endDate: "2023.01.12 10:33:14",
+    log: "log",
+    resource: {
+      cpus: 28,
+      gpu_device_model: "TESLA_V100",
+      gpus: 2,
+      mem: 249856,
+      zone: "public:normal",
+    },
+  },
+  {
+    pjName: "aa프로젝트",
+    groupName: "그룹12",
+    taskName: "aatask1",
+    status: "canceling",
+    ssh: "ssh",
+    JupyterLab: "JupyterLab",
+    instanceType: "V1.XLARGE",
+    gpu: "49.5%",
+    cpu: "100%",
+    createdBy: "root.choi",
+    createdAt: "2023.01.12 10:33:14",
+    endDate: "2023.01.12 10:33:14",
+    log: "log",
+    resource: {
+      cpus: 28,
+      gpu_device_model: "TESLA_V100",
+      gpus: 2,
+      mem: 249856,
+      zone: "public:normal",
+    },
+  },
+  {
+    pjName: "aa프로젝트",
+    groupName: "그룹12",
+    taskName: "aatask1",
+    status: "group",
+    ssh: "ssh",
+    JupyterLab: "JupyterLab",
+    instanceType: "V1.XLARGE",
+    gpu: "49.5%",
+    cpu: "100%",
+    createdBy: "root.choi",
+    createdAt: "2023.01.12 10:33:14",
+    endDate: "2023.01.12 10:33:14",
+    log: "log",
+    resource: {
+      cpus: 28,
+      gpu_device_model: "TESLA_V100",
+      gpus: 2,
+      mem: 249856,
+      zone: "public:normal",
+    },
+  },
+  {
+    pjName: "aa프로젝트",
+    groupName: "그룹12",
+    taskName: "aatask1aatask1aatask1aatask1",
+    status: "finished",
+    ssh: "ssh",
+    JupyterLab: "JupyterLab",
+    instanceType: "V1.XLARGE",
+    gpu: "49.5%",
+    cpu: "100%",
+    createdBy: "root.choi",
+    createdAt: "2023.01.12 10:33:14",
+    endDate: "2023.01.12 10:33:14",
+    log: "log",
+    resource: {
+      cpus: 28,
+      gpu_device_model: "TESLA_V100",
+      gpus: 2,
+      mem: 249856,
+      zone: "public:normal",
+    },
+  },
+  {
+    pjName: "aa프로젝트",
+    groupName: "그룹12",
+    taskName: "aatask1",
+    status: "making",
+    ssh: "ssh",
+    JupyterLab: "JupyterLab",
+    instanceType: "V1.XLARGE",
+    gpu: "49.5%",
+    cpu: "100%",
+    createdBy: "root.choi",
+    createdAt: "2023.01.12 10:33:14",
+    endDate: "2023.01.12 10:33:14",
+    log: "log",
+    resource: {
+      cpus: 28,
+      gpu_device_model: "TESLA_V100",
+      gpus: 2,
+      mem: 249856,
+      zone: "public:normal",
+    },
+  },
+  {
+    pjName: "aa프로젝트",
+    groupName: "그룹12",
+    taskName: "aatask1aatask1aatask1aatask1",
+    status: "failure",
+    ssh: "ssh",
+    JupyterLab: "JupyterLab",
+    instanceType: "V1.XLARGE",
+    gpu: "49.5%",
+    cpu: "100%",
+    createdBy: "root.choi",
+    createdAt: "2023.01.12 10:33:14",
+    endDate: "2023.01.12 10:33:14",
+    log: "log",
+    resource: {
+      cpus: 28,
+      gpu_device_model: "TESLA_V100",
+      gpus: 2,
+      mem: 249856,
+      zone: "public:normal",
+    },
+  },
+  {
+    pjName: "aa프로젝트",
+    groupName: "그룹12",
+    taskName: "aatask1aatask1aatask1aatask1",
+    status: "pending",
     ssh: "ssh",
     JupyterLab: "JupyterLab",
     instanceType: "V1.XLARGE",
@@ -594,10 +840,8 @@ const taskItems = [
 ];
 
 const actionButtons = [
-  { name: "이용현황", event: "state" },
-  { name: "공유관리", event: "share" },
-  { name: "스냅샷 관리", event: "mngSnap" },
-  { name: "스냅샷 생성", event: "crtSnap" },
+  { name: "재생성", event: "regeneratory" },
+  { name: "취소", event: "cancel" },
   { name: "삭제", event: "delete" },
 ];
 </script>

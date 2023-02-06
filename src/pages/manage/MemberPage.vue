@@ -162,20 +162,6 @@
               empty-message="정보가 없습니다."
               @click-row="showRow"
             >
-              <!-- title -->
-              <template #item-title="item">
-                <a href="#">
-                  <span class="txt">{{ item.title }}</span>
-                  <q-tooltip
-                    anchor="bottom middle"
-                    class="c_tooltip"
-                  >
-                    <div class="inner">
-                      {{ item.title }}
-                    </div>
-                  </q-tooltip>
-                </a>
-              </template>
               <!-- 버튼 그룹 -->
               <template #item-buttons="item">
                 <div v-if="actionButtons" class="cell btngroup">
