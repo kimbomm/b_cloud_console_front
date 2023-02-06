@@ -1096,6 +1096,7 @@ const bodyRowClassNameFunction = (item) => {
   const classList = [];
   if (item.buttons) classList.push("row-button");
   if (item.checkbox) classList.push("row-selected");
+  if (item.disabled) classList.push("row-disabled");
   return classList.join(" ");
 };
 
