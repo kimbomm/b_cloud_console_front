@@ -81,6 +81,7 @@ $padding: 16px;
   }
 }
 ::v-deep{
+
   table{
     border-spacing: 0 2px;
   }
@@ -163,6 +164,7 @@ $padding: 16px;
         margin-left:12px;
       }
     }
+
     tr{
       th:first-child,
       td:first-child{
@@ -225,6 +227,7 @@ $padding: 16px;
       .header-text{
 
       }
+
     }
   }
   .vue3-easy-data-table__body{
