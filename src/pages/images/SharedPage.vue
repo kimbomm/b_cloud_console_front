@@ -6,7 +6,7 @@
           <q-icon />
         </template>
         <q-breadcrumbs-el label="Projects" to="/" />
-        <q-breadcrumbs-el label="images" to="/" />
+        <q-breadcrumbs-el label="images" to="/images/" />
         <q-breadcrumbs-el label="내 이미지" />
       </q-breadcrumbs>
       <h1 class="p-title">{{ ptitle }}</h1>
@@ -112,7 +112,7 @@
          <template v-else>
             <div class="com_nondata_area">
               <div class="nondata_box">
-                <p class="nondata_txt">생성된 인스턴스가 없습니다.</p>
+                <p class="nondata_txt">검색 결과가 없습니다.</p>
               </div>
             </div>
           </template>
@@ -139,21 +139,20 @@ const defaultData = ref(true);
 
 const headers = [
   {
-    text: "이름", value: "id", width: 238, sortable: true
+    text: "이름", value: "id", width: 222, sortable: true
   },
   {
-    text: "설명", value: "title", width: 442,
+    text: "설명", value: "title", width: 426,
   },
   {
-    text: "이미지", value: "image", width: 376, sortable: true
+    text: "이미지", value: "image", width: 392, sortable: true
   },
   {
-    text: "공유자", value: "sharedBy", width: 302, sortable: true
+    text: "공유자", value: "sharedBy", width: 270, sortable: true
   },
   {
     text: "공유일시", value: "sharedAt", width: 150, sortable: true
   },
-  { text: "", value: "buttons" },
 ];
 const items = [
   {
@@ -204,4 +203,5 @@ const showRow = (item) => {
 <style lang="scss" scoped>
 @import "src/css/images.scss";
 @import "src/css/table.scss";
+@import "src/css/page.scss"
 </style>

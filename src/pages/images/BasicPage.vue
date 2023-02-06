@@ -6,8 +6,8 @@
           <q-icon />
         </template>
         <q-breadcrumbs-el label="Projects" to="/" />
-        <q-breadcrumbs-el label="images" to="/" />
-        <q-breadcrumbs-el label="내 이미지" />
+        <q-breadcrumbs-el label="images" to="/images/" />
+        <q-breadcrumbs-el label="내이미지" />
       </q-breadcrumbs>
       <h1 class="p-title">{{ ptitle }}</h1>
     </div>
@@ -92,7 +92,7 @@
          <template v-else>
             <div class="com_nondata_area">
               <div class="nondata_box">
-                <p class="nondata_txt">생성된 인스턴스가 없습니다.</p>
+                <p class="nondata_txt">검색 결과가 없습니다.</p>
               </div>
             </div>
           </template>
@@ -118,10 +118,10 @@ const defaultData = ref(true);
 
 const headers = [
   {
-    text: "이름", value: "id", width: 1228, sortable: true
+    text: "이름", value: "id", width: 1160, sortable: true
   },
   {
-    text: "NVIDA 드라이버 최소버전", value: "version", width: 348,
+    text: "NVIDA 드라이버 최소버전", value: "version", width: 332,
   },
 
 ];
@@ -155,4 +155,5 @@ const optNumber = ref([
 <style lang="scss" scoped>
 @import "src/css/images.scss";
 @import "src/css/table.scss";
+@import "src/css/page.scss"
 </style>

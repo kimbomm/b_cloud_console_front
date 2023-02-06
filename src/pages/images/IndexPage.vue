@@ -10,7 +10,7 @@
           <q-icon />
         </template>
         <q-breadcrumbs-el label="Projects" to="/" />
-        <q-breadcrumbs-el label="images" to="/" />
+        <q-breadcrumbs-el label="images" to="/images/" />
         <q-breadcrumbs-el label="내 이미지" />
       </q-breadcrumbs>
       <h1 class="p-title">{{ ptitle }}</h1>
@@ -24,7 +24,7 @@
            align="left"
            class="c_tabs"
             >
-    <q-tab name="tabs1" label="내이미지"/>
+    <q-tab name="tabs1" label="내이미지" />
     <q-tab name="tabs2" label="기본 이미지" />
     <q-tab name="tabs3" label="공유받은 이미지" />
   </q-tabs>
@@ -148,7 +148,7 @@
          <template v-else>
             <div class="com_nondata_area">
               <div class="nondata_box">
-                <p class="nondata_txt">생성된 인스턴스가 없습니다.</p>
+                <p class="nondata_txt">검색 결과가 없습니다.</p>
               </div>
             </div>
           </template>
@@ -174,21 +174,21 @@ const defaultData = ref(true);
 
 const headers = [
   {
-    text: "이름", value: "id", width: 191, sortable: true
+    text: "이름", value: "id", width: 222, sortable: true
   },
   {
-    text: "설명", value: "title", width: 438,
+    text: "설명", value: "title", width: 422,
   },
   {
-    text: "상태", value: "status", width: 125
+    text: "상태", value: "status", width: 109
   },
   {
-    text: "이미지", value: "image", width: 438, sortable: true
+    text: "이미지", value: "image", width: 422, sortable: true
   },
   {
-    text: "생성일시", value: "createdAt", width: 200, sortable: true
+    text: "생성일시", value: "createdAt", width: 216, sortable: true
   },
-  { text: "", value: "buttons" },
+  { text: "", value: "buttons", width: 10 },
 ];
 const items = [
   {
@@ -212,11 +212,6 @@ const items = [
     image: "tensorflow 2.9.0(python3, cuda11.2, ubutun20.04)",
     createdAt: "2023.01.12 10:33:21",
   },
-  //   buttons: {
-  //     name: "초대요청 확인"
-  //   }
-  // },
-
 ];
 
 const optNumber = ref([
@@ -253,5 +248,6 @@ const showRow = (item) => {
 <style lang="scss" scoped>
 @import "src/css/table.scss";
 @import "src/css/images.scss";
+@import "src/css/page.scss"
 
 </style>
