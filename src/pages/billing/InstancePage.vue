@@ -90,20 +90,23 @@
           />
         </div>
       </div>
-      <template v-if="visibleTable">
+      <template v-if="defaultData == true">
         <div class="group-load">
           <div class="group-table">
-            <CTable
-              :title="title"
-              :columns="columns"
-              :data="data"
-              :action-buttons="actionButtons"
-              @action="respAction"
-            />
+            <section class="section">
+              <EasyDataTable
+                :headers="headers"
+                :items="items"
+                :hide-footer="true"
+                empty-message="정보가 없습니다."
+                @click-row="showRow"
+              >
+              </EasyDataTable>
+            </section>
             <div class="group-table_page">
               <CPagination />
             </div>
-        </div>
+          </div>
         </div>
 
         <!-- 오픈시, 서비스 준비중 안내 문구 표기 -->
@@ -119,12 +122,11 @@ import { ref } from "vue";
 import { useMeta } from "quasar";
 import CButton from "components/common/CButton.vue";
 import CDropdown from "components/common/CDropdown.vue";
-import CTable from "src/components/common/CTable.vue";
 import CPagination from "components/common/CPagination.vue";
 
 const title = ref("워크스페이스 이용 요금");
 const btnName = ref("CSV 다운로드");
-const visibleTable = ref(true);
+const defaultData = ref(true);
 
 useMeta(() => ({
   title: title.value,
@@ -137,154 +139,41 @@ const optNumber = ref([
   { label: "25", value: 1 },
   { label: "50", value: 2 },
 ]);
-
-const columns = [
+// Table
+const headers = [
   {
-    name: "id",
-    field: "id",
-    label: "ID",
-    required: true,
-    align: "center",
-    sortable: true,
+    text: "타입", value: "type", width: "260", sortable: true
   },
   {
-    name: "instance",
-    field: "instance",
-    label: "인스턴스 이름",
-    align: "left",
-    sortable: true,
-    type: "link",
+    text: "타입상세", value: "typeDetail", width: "610", sortable: true
   },
   {
-    name: "status",
-    field: "status",
-    label: "상태",
-    align: "left",
-    sortable: true,
-    type: "tag",
+    text: "이용시간", value: "useHours", sortable: true
   },
   {
-    name: "ssh",
-    field: "ssh",
-    label: "ssh",
-    align: "left",
-    sortable: false,
-    type: "copy",
-  },
-  {
-    name: "JupyterLab",
-    field: "JupyterLab",
-    label: "JupyterLab",
-    align: "left",
-    sortable: false,
-    type: "copy",
-  },
-  {
-    name: "instanceType",
-    field: "instanceType",
-    label: "인스턴스 타입",
-    align: "left",
-    sortable: true,
-    type: "tooltip",
-  },
-  {
-    name: "gpu",
-    field: "gpu",
-    label: "GPU",
-    align: "left",
-    sortable: false,
-  },
-  {
-    name: "cpu",
-    field: "cpu",
-    label: "CPU",
-    align: "left",
-    sortable: false,
-  },
-  {
-    name: "createdAt",
-    field: "createdAt",
-    label: "생성일시",
-    align: "left",
-    sortable: true,
-    type: "datetime"
-  },
-  {
-    name: "createdBy",
-    field: "createdBy",
-    label: "생성자",
-    align: "left",
-    sortable: false,
+    text: "이용금액", value: "useageFee", sortable: true
   },
 ];
-const data = [
+const items = [
   {
-    id: 1,
-    instance: "인스턴스 이름 인스턴스 이름 인스턴스 이름",
-    status: "running",
-    ssh: "ssh",
-    JupyterLab: "JupyterLab",
-    instanceType: "V1.XLARGE",
-    gpu: "49.5%",
-    cpu: "100%",
-    createdAt: "2023.01.12 10:33:21",
-    createdBy: "Root.choi",
-    resource: {
-      cpus: 28,
-      gpu_device_model: "TESLA_V100",
-      gpus: 2,
-      mem: 249856,
-      zone: "public:normal"
-    }
+    type: "Tester2",
+    typeDetail: "1GPU, 14CPU, MEM 122GiB, DISK 80GiB",
+    useHours: "128.04시간",
+    useageFee: "283,292원"
   },
   {
-    id: 2,
-    instance: "인스턴스 이름 인스턴스 이름 인스턴스 이름",
-    status: "stopped",
-    ssh: "ssh",
-    JupyterLab: "JupyterLab",
-    instanceType: "V1.XLARGE",
-    gpu: "49.5%",
-    cpu: "100%",
-    createdAt: "2023.01.12 10:33:21",
-    createdBy: "Root.choi",
-    resource: {
-      cpus: 28,
-      gpu_device_model: "TESLA_V100",
-      gpus: 2,
-      mem: 249856,
-      zone: "public:normal"
-    }
+    type: "테스터",
+    typeDetail: "1GPU, 14CPU, MEM 122GiB, DISK 80GiB",
+    useHours: "128.04시간",
+    useageFee: "283,292원"
+  },
+  {
+    type: "테스터",
+    typeDetail: "1GPU, 14CPU, MEM 122GiB, DISK 80GiB",
+    useHours: "128.04시간",
+    useageFee: "283,292원"
   },
 ];
-
-const actionButtons = [
-  { name: "이용현황", event: "state" },
-  { name: "공유관리", event: "share" },
-  { name: "스냅샷 관리", event: "mngSnap" },
-  { name: "스냅샷 생성", event: "crtSnap" },
-  { name: "삭제", event: "delete" },
-];
-const respAction = (eventObj) => {
-  const eventName = eventObj.event;
-  // const rowData = eventObj.data;
-  // console.log(rowData);
-  switch (eventName) {
-    case "state":
-      break;
-    case "share":
-      break;
-    case "mngSnap":
-      break;
-    case "crtSnap":
-      break;
-    case "delete":
-      break;
-    default:
-      break;
-  }
-};
-
 // Date Picker
 const date = ref(null);
 const dateRange = ref(
@@ -295,5 +184,6 @@ const ptitle = ref(title);
 </script>
 
 <style lang="scss" scoped>
+@import 'src/css/table';
 @import 'src/css/billing';
 </style>

@@ -373,8 +373,7 @@
       .s_02{padding-bottom: 74px;}
       .pb78{padding-bottom: 78px;}
       .s_03_tab,.s_04_tab{
-        // padding-bottom: 20px;
-        padding-bottom: 8px;
+        padding-bottom: 20px;
       }
       .com_nondata_area{margin-top: 20px;}
       .s_05{
@@ -579,6 +578,18 @@
       font-weight: $bold;
       font-size:$fs20;
     }
+    .p-instanceview,.p-taskView{
+      .user_info{
+        .user_box{
+          .user_box_main{
+            li{
+              margin-bottom: 24px;
+              &:last-child{margin-bottom: 0;}
+            }
+          }
+        }
+      }
+    }
     .user_info{
       margin-bottom: 24px;
       .user_box{
@@ -632,13 +643,12 @@
           padding:30px;
           li{
             width: 50%;
-            margin-bottom: 24px;
             font-size: $fs16;
             .user_data_title{
               margin-bottom: 8px;
               color: $gray500;
             }
-            &:last-child{margin-bottom: 0;}
+            &:first-child{margin-bottom: 24px;}
             &.making_user_data{
               .user_data_value{
                 p{
@@ -818,6 +828,7 @@
           &.ins_etc{
             .etc_cont{
               width: 100%;
+              border-spacing: 0;
               font-size: $fs16;
               tr{
                 th{
@@ -869,7 +880,7 @@
       .task_pagenav{
         display: flex;
         justify-content: center;
-        margin-top: 73px;
+        margin-top: 69px;
       }
     }
     .p-taskView{

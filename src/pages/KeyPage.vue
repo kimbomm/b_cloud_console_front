@@ -61,17 +61,124 @@
             :btn-names="btnSign"
           />
         </div>
-        <template v-if="visibleTable">
-          <div class="group">
-            <CTable
-              :title="title"
-              :columns="columns"
-              :data="data"
-              :action-buttons="actionButtons"
-              @action="respAction"
-            />
-          </div>
-        </template>
+        <template v-if="defaultData == true">
+          <section class="section">
+            <EasyDataTable
+              :headers="headers"
+              :items="items"
+              :hide-footer="true"
+              empty-message="정보가 없습니다."
+              @click-row="showRow"
+            >
+              <!-- title -->
+              <template #item-title="item">
+                <a href="#">
+                  <span class="txt">{{ item.title }}</span>
+                  <q-tooltip
+                    anchor="bottom middle"
+                    class="c_tooltip"
+                  >
+                    <div class="inner">
+                      {{ item.title }}
+                    </div>
+                  </q-tooltip>
+                </a>
+              </template>
+              <!--
+                상태값(status)
+                1. running, 운영중, 실행중
+                2. stopped, 정지 | 오류 | 취소 | 실패
+                3. 생성중 | 삭제중 | 대기중 | 재시작중
+              -->
+              <template #item-status="item">
+                <q-badge
+                  v-if="item.status === 'running'"
+                  class="green"
+                >
+                  <span class="txt">운영중</span>
+                </q-badge>
+                <q-badge
+                  v-else-if="item.status === 'stopped'"
+                  class="orange"
+                >
+                  <span class="txt">정지</span>
+                </q-badge>
+                <q-badge
+                  v-else
+                  class="c_badge"
+                >
+                  <span class="txt">생성중</span>
+                </q-badge>
+              </template>
+              <!-- ssh -->
+              <template #item-ssh="item">
+                <q-badge
+                  class="copy square ssh icon"
+                  @click="onCopy(item)"
+                >
+                  <span class="txt">{{ item.ssh }}</span>
+                </q-badge>
+              </template>
+              <!-- jupyterLab -->
+              <template #item-jupyterLab="item">
+                <q-badge
+                  class="copy square lab icon"
+                  @click="onCopy(item)"
+                >
+                  <span class="txt">{{ item.jupyterLab }}</span>
+                </q-badge>
+              </template>
+              <!-- 인스턴스 타입 -->
+              <template #item-instanceType="item">
+                <q-badge
+                  class="text instance icon"
+                  @click="onCopy(item)"
+                >
+                  <span class="txt">{{ item.instanceType }}</span>
+
+                  <q-tooltip
+                    anchor="bottom middle"
+                    class="c_tooltip"
+                  >
+                    <div class="inner">
+                      {{ item.instanceType }}
+                    </div>
+                  </q-tooltip>
+                </q-badge>
+              </template>
+              <!-- createdBy -->
+              <template #item-createdBy="item">
+                <span class="txt clip">{{ item.createdBy }}</span>
+              </template>
+              <!-- 버튼 그룹 -->
+              <template #item-buttons="item">
+                <div v-if="actionButtons" class="cell btngroup">
+                  <q-btn class="c_btn ibtn dot">
+                    <i class="ico dots" /><span class="txt">클릭</span>
+                    <q-popup-edit
+                      v-model="item.id"
+                      class="dots_menu"
+                      anchor="top right"
+                    >
+                      <q-list style="min-width: 100px">
+                        <q-item
+                          v-for="button in actionButtons"
+                          :key="button.name"
+                        >
+                          <q-btn
+                            class="item"
+                            @click="onActions(button.event, item)"
+                          >
+                            <span class="txt">{{ button.name }}</span>
+                          </q-btn>
+                        </q-item>
+                      </q-list>
+                    </q-popup-edit>
+                  </q-btn>
+                </div>
+              </template>
+            </EasyDataTable>
+        </section>
         <div class="flex-top mt60">
           <p class="name">API Key</p>
           <div>
@@ -95,6 +202,7 @@
             <span>2023.11.21 04:33pm</span>
           </p>
         </div>
+        </template>
       </template>
     </div>
   </q-page>
@@ -103,137 +211,50 @@
 import { ref } from "vue";
 import { useMeta } from "quasar";
 import CButton from "components/common/CButton.vue";
-import CTable from "src/components/common/CTable.vue";
 
 const visible = ref("B");
-const visibleTable = ref(true);
+const defaultData = ref(true);
 
+const tab = ref("tabs3");
 const title = ref("Account");
 useMeta(() => ({
   title: title.value,
   visible,
 }));
+// Table
+const headers = [
+  {
+    text: "이름", value: "name", width: 234, sortable: false
+  },
+  {
+    text: "Fingerprint", value: "finger", width: "587", sortable: false
+  },
+  {
+    text: "등록일시", value: "registDate", sortable: false
+  },
+  { text: "", value: "buttons", width: 150 },
+];
+const items = [
+  {
+    name: "개인용",
+    finger: "61:a2:62:d0:7e:3d:c9:0a:4e:fe:83:6c:14:bc:fa:0f",
+    registDate: "2023.11.21 04:33:34",
+  },
+  {
+    name: "개인용",
+    finger: "61:a2:62:d0:7e:3d:c9:0a:4e:fe:83:6c:14:bc:fa:0f",
+    registDate: "2023.11.21 04:33:34",
+  },
+  {
+    name: "개인용",
+    finger: "61:a2:62:d0:7e:3d:c9:0a:4e:fe:83:6c:14:bc:fa:0f",
+    registDate: "2023.11.21 04:33:34",
+  },
+];
 
-const tab = ref("tabs3");
-const columns = [
-  {
-    name: "id",
-    field: "id",
-    label: "ID",
-    required: true,
-    align: "center",
-    sortable: true,
-  },
-  {
-    name: "instance",
-    field: "instance",
-    label: "인스턴스 이름",
-    align: "left",
-    sortable: true,
-    type: "link",
-  },
-  {
-    name: "status",
-    field: "status",
-    label: "상태",
-    align: "left",
-    sortable: true,
-    type: "tag",
-  },
-  {
-    name: "ssh",
-    field: "ssh",
-    label: "ssh",
-    align: "left",
-    sortable: false,
-    type: "copy",
-  },
-  {
-    name: "JupyterLab",
-    field: "JupyterLab",
-    label: "JupyterLab",
-    align: "left",
-    sortable: false,
-    type: "copy",
-  },
-  {
-    name: "instanceType",
-    field: "instanceType",
-    label: "인스턴스 타입",
-    align: "left",
-    sortable: true,
-    type: "tooltip",
-  },
-  {
-    name: "gpu",
-    field: "gpu",
-    label: "GPU",
-    align: "left",
-    sortable: false,
-  },
-  {
-    name: "cpu",
-    field: "cpu",
-    label: "CPU",
-    align: "left",
-    sortable: false,
-  },
-  {
-    name: "createdAt",
-    field: "createdAt",
-    label: "생성일시",
-    align: "left",
-    sortable: true,
-    type: "datetime"
-  },
-  {
-    name: "createdBy",
-    field: "createdBy",
-    label: "생성자",
-    align: "left",
-    sortable: false,
-  },
-];
-const data = [
-  {
-    id: 1,
-    instance: "인스턴스 이름 인스턴스 이름 인스턴스 이름",
-    status: "running",
-    ssh: "ssh",
-    JupyterLab: "JupyterLab",
-    instanceType: "V1.XLARGE",
-    gpu: "49.5%",
-    cpu: "100%",
-    createdAt: "2023.01.12 10:33:21",
-    createdBy: "Root.choi",
-    resource: {
-      cpus: 28,
-      gpu_device_model: "TESLA_V100",
-      gpus: 2,
-      mem: 249856,
-      zone: "public:normal"
-    }
-  },
-  {
-    id: 2,
-    instance: "인스턴스 이름 인스턴스 이름 인스턴스 이름",
-    status: "stopped",
-    ssh: "ssh",
-    JupyterLab: "JupyterLab",
-    instanceType: "V1.XLARGE",
-    gpu: "49.5%",
-    cpu: "100%",
-    createdAt: "2023.01.12 10:33:21",
-    createdBy: "Root.choi",
-    resource: {
-      cpus: 28,
-      gpu_device_model: "TESLA_V100",
-      gpus: 2,
-      mem: 249856,
-      zone: "public:normal"
-    }
-  },
-];
+/**
+ * 버튼 및 checkbox 에 대한 이벤트 존재할 시 class 삽입
+ */
 const actionButtons = [
   { name: "이용현황", event: "state" },
   { name: "공유관리", event: "share" },
@@ -241,24 +262,26 @@ const actionButtons = [
   { name: "스냅샷 생성", event: "crtSnap" },
   { name: "삭제", event: "delete" },
 ];
-const respAction = (eventObj) => {
-  const eventName = eventObj.event;
-  // const rowData = eventObj.data;
-  // console.log(rowData);
-  switch (eventName) {
-    case "state":
-      break;
-    case "share":
-      break;
-    case "mngSnap":
-      break;
-    case "crtSnap":
-      break;
-    case "delete":
-      break;
-    default:
-      break;
-  }
+
+/**
+ * 설명: 복사하기 버튼 이벤트
+ * @param { object } rowData get table row data
+ */
+const onCopy = (rowData) => {
+  console.log(rowData);
+};
+
+/**
+ * 설명: row Action 버튼 이벤트
+ * @param { string } eventName action event name
+ * @param { object } rowData get table row data
+ */
+const onActions = (eventName, rowData) => {
+  console.log(eventName, rowData);
+};
+
+const showRow = (item) => {
+  console.log(item);
 };
 
 /* Btn Group */
@@ -270,5 +293,6 @@ const btnDelete = ref("삭제");
 </script>
 
 <style lang="scss" scoped>
+@import "./src/css/table";
 @import 'src/css/key';
 </style>

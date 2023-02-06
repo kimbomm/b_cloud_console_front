@@ -71,11 +71,28 @@
           </div>
         </div>
         <div class="table_inner">
-          <CTable
-            :title="title"
-            :columns="columns"
-            :data="data"
-          />
+          <EasyDataTable
+            :headers="headers"
+            :items="items"
+            :hide-footer="true"
+            empty-message="정보가 없습니다."
+            @click-row="showRow"
+          >
+            <!-- title -->
+            <template #item-title="item">
+              <a href="#">
+                <span class="txt">{{ item.title }}</span>
+                <q-tooltip
+                  anchor="bottom middle"
+                  class="c_tooltip"
+                >
+                  <div class="inner">
+                    {{ item.title }}
+                  </div>
+                </q-tooltip>
+              </a>
+            </template>
+          </EasyDataTable>
         </div>
         <div class="table_pagenav disflex_C">
           <CPagination />
@@ -89,7 +106,6 @@ import { ref } from "vue";
 import { useMeta } from "quasar";
 import CPagination from "components/common/CPagination.vue";
 import CDropdown from "components/common/CDropdown.vue";
-import CTable from "src/components/common/CTable.vue";
 
 const title = ref("Account");
 useMeta(() => ({
@@ -106,37 +122,21 @@ const options = ref([
   { label: "50", value: 2 },
 ]);
 
-const columns = [
+const headers = [
   {
-    name: "category",
-    field: "category",
-    label: "카테고리",
-    align: "left",
-    sortable: true,
+    text: "카테고리", value: "category", width: 200, sortable: true
   },
   {
-    name: "content",
-    field: "content",
-    label: "내용",
-    align: "left",
-    sortable: true,
+    text: "내용", value: "content", sortable: true
   },
   {
-    name: "sendingTime",
-    field: "sendingTime",
-    label: "발송시간",
-    align: "left",
-    sortable: true,
+    text: "발송시간", value: "sendingTime", width: 250, sortable: true
   },
   {
-    name: "readStatus",
-    field: "readStatus",
-    label: "읽음여부",
-    align: "left",
-    sortable: true,
+    text: "읽음여부", value: "readStatus", width: 150, sortable: true
   },
 ];
-const data = [
+const items = [
   {
     category: "멤버",
     content: "신규 멤버 추가 요청이 있습니다",
@@ -172,4 +172,5 @@ const data = [
 
 <style lang="scss" scoped>
 @import "./src/css/my";
+@import "./src/css/table";
 </style>

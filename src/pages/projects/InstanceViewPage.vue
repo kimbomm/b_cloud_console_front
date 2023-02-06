@@ -37,7 +37,7 @@
     </div>
     <!-- //.chead -->
     <div class="p-body">
-      <div class="warp">
+      <div class="warp p-instanceview">
         <div class="user_info">
           <div class="user_box com_border_box">
             <div class="user_box_head">
@@ -81,6 +81,7 @@
                     <q-btn
                       label="취소"
                       class="line"
+                      @click="datacheck = true"
                     />
                     <q-btn
                       label="저장"

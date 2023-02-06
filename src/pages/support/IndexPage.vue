@@ -21,16 +21,54 @@
           to="/support/write"
         />
       </div>
-      <div class="group">
-        <CTable
-          :table="table"
-          :columns="columns"
-          :data="data"
-          row-click
-          @rowClick="onRowClick"
-        />
+      <template v-if="defaultData == true">
+        <section class="section">
+          <EasyDataTable
+            :headers="headers"
+            :items="items"
+            :hide-footer="true"
+            empty-message="정보가 없습니다."
+            @click-row="showRow"
+          >
+            <!-- title -->
+            <template #item-title="item">
+            <a href="#">
+            <span class="txt">{{ item.title }}</span>
+            <q-tooltip
+            anchor="bottom middle"
+            class="c_tooltip"
+            >
+            <div class="inner">
+            {{ item.title }}
+            </div>
+            </q-tooltip>
+            </a>
+            </template>
+            <!--
+            상태값(replyStatus)
+            1. running, 답변완료
+            2. 확인중
+            -->
+            <template #item-replyStatus="item">
+            <q-badge
+              v-if="item.replyStatus === 'running'"
+              class="green"
+            >
+              <span class="txt">답변완료</span>
+            </q-badge>
+            <q-badge
+              v-else
+              class="c_badge"
+            >
+              <span class="txt">확인중</span>
+            </q-badge>
+            </template>
+          </EasyDataTable>
+        </section>
+      </template>
+      <div class="group-page">
+        <CPagination />
       </div>
-      <CPagination class="page-nation" />
     </div>
   </q-page>
 </template>
@@ -39,15 +77,14 @@
 import { ref } from "vue";
 import { useMeta } from "quasar";
 import CButton from "components/common/CButton.vue";
-import CTable from "src/components/common/CTable.vue";
 import CPagination from "components/common/CPagination.vue";
 
+const defaultData = ref(true);
 const title = ref("Support");
 const btn = ref("문의하기");
 const ptitle = ref(title);
 const supportBtn = ref(btn);
 
-const table = ref("Table");
 const pageNation = ref("Pagination");
 
 useMeta(() => ({
@@ -55,77 +92,53 @@ useMeta(() => ({
   pageNation,
 }));
 
-const columns = [
+const headers = [
   {
-    name: "id",
-    field: "id",
-    label: "ID",
-    required: true,
-    align: "center",
-    sortable: true,
+    text: "유형", value: "type", width: 150, sortable: true
   },
   {
-    name: "instance",
-    field: "instance",
-    label: "인스턴스 이름",
-    align: "left",
-    sortable: true,
-    type: "link",
+    text: "제목", value: "title", width: "1098", sortable: true
   },
   {
-    name: "instanceType",
-    field: "instanceType",
-    label: "인스턴스 타입",
-    align: "left",
-    sortable: true,
-    type: "tooltip",
+    text: "문의일시", value: "inquiry", width: "200", sortable: true
   },
   {
-    name: "createdAt",
-    field: "createdAt",
-    label: "생성일시",
-    align: "left",
-    sortable: true,
-    type: "datetime"
-  },
-  // {
-  //   name: "createdBy",
-  //   field: "createdBy",
-  //   label: "생성자",
-  //   align: "left",
-  //   sortable: false,
-  // },
-];
-const data = [
-  {
-    id: 1,
-    instance: "인스턴스 이름 인스턴스 이름 인스턴스 이름",
-    instanceType: "V1.XLARGE",
-    createdAt: "2023.01.12 10:33:21",
-    resource: {
-      cpus: 28,
-      gpu_device_model: "TESLA_V100",
-      gpus: 2,
-      mem: 249856,
-      zone: "public:normal"
-    }
-  },
-  {
-    id: 2,
-    instance: "인스턴스 이름 인스턴스 이름 인스턴스 이름",
-    instanceType: "V1.XLARGE",
-    createdAt: "2023.01.12 10:33:21",
-    resource: {
-      cpus: 28,
-      gpu_device_model: "TESLA_V100",
-      gpus: 2,
-      mem: 249856,
-      zone: "public:normal"
-    }
+    text: "답변상태", value: "replyStatus", sortable: true
   },
 ];
+const items = [
+  {
+    type: "스토리지 변경",
+    title: "테스트용 이미지 생성 테스트 테스트테스트용 이미지 생성 테스트 테스트테스트용 이미지테스트용 이미지 생성 테스트 테스트테스트용 이미지 생성 테스트 테스트테스트용 이미지",
+    inquiry: "2023.10.11 12:30:31",
+    replyStatus: "running",
+  },
+  {
+    type: "CPU/GPU 변경",
+    title: "테스트용 이미지 생성 테스트 테스트테스트용 이미지 생성 테스트",
+    inquiry: "2023.10.11 12:30:31",
+    replyStatus: "stopped",
+  },
+  {
+    type: "오류/버그",
+    title: "테스트용 이미지 생성 테스트 테스트",
+    inquiry: "2023.10.11 12:30:31",
+    replyStatus: "group",
+  },
+];
+
+/**
+ * 설명: row Action 버튼 이벤트
+ * @param { string } eventName action event name
+ * @param { object } rowData get table row data
+ */
+
+const showRow = (item) => {
+  console.log(item);
+};
 </script>
 
 <style lang="scss" scoped>
+@import "./src/css/table";
 @import 'src/css/support';
 </style>
