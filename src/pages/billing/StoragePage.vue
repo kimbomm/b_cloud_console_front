@@ -82,51 +82,31 @@
       </div>
 
       <template v-if="defaultData == true">
-        <div class="group-load">
-          <div class="table_set">
-            <q-select
-              outlined
-              placeholder="프로젝트 이름 설명 검색 "
-              use-input
-              clearable
-              class="c_inpchip default_size"
+        <div class="group-table">
+          <section class="section">
+            <EasyDataTable
+              :headers="headers"
+              :items="items"
+              :hide-footer="true"
+              empty-message="정보가 없습니다."
+              @click-row="showRow"
             >
-              <template v-slot:prepend>
-                <q-icon name="search" class="ico_search" />
-              </template>
-            </q-select>
-            <CDropdown
-              v-model:selected="selectedBasic"
-              :label="optLabel"
-              :options="optNumber"
-              class="auto_size"
-            />
-          </div>
-          <div class="group-table">
-            <section class="section">
-              <EasyDataTable
-                :headers="headers"
-                :items="items"
-                :hide-footer="true"
-                empty-message="정보가 없습니다."
-                @click-row="showRow"
-              >
-              </EasyDataTable>
-            </section>
-            <div class="group-table_page">
-              <CPagination />
-            </div>
+            </EasyDataTable>
+          </section>
+          <div class="group-page">
+            <CPagination />
           </div>
         </div>
       </template>
+      <!-- 서비스 준비중입니다. -->
       <template v-else>
         <section class="section">
           <EasyDataTable
             :headers="headers"
             :items="nodata"
             :hide-footer="true"
+            :body-row-class-name="bodyRowClassNameFunction"
             empty-message="서비스 준비중입니다."
-            @click-row="showRow"
           >
           </EasyDataTable>
         </section>
@@ -138,50 +118,43 @@
 import { ref } from "vue";
 import { useMeta } from "quasar";
 import CButton from "components/common/CButton.vue";
-import CDropdown from "components/common/CDropdown.vue";
 import CPagination from "components/common/CPagination.vue";
 
+const defaultData = ref(true);
 const title = ref("워크스페이스 이용 요금");
 const btnName = ref("CSV 다운로드");
-const defaultData = ref(false);
 
 useMeta(() => ({
   title: title.value,
 }));
 
 const tab = ref("tabs4");
-const optLabel = ref("10");
-const optNumber = ref([
-  { label: "10", value: 0 },
-  { label: "25", value: 1 },
-  { label: "50", value: 2 },
-]);
 // Table
 const nodata = [];
 const headers = [
   {
-    text: "날짜", value: "date", width: "260", sortable: true
+    text: "날짜", value: "date", width: "280", sortable: true
   },
   {
-    text: "스토리지 용량", value: "storageAmount", width: "858", sortable: true
+    text: "스토리지 용량", value: "storageAmount", sortable: true
   },
   {
-    text: "이용요금", value: "useageFee", sortable: true
+    text: "이용요금", value: "useageFee", width: "300", sortable: true
   },
 ];
 const items = [
   {
-    date: "Tester2",
+    date: "2023.12.31",
     storageAmount: "3.5TiB",
     useageFee: "283,292원"
   },
   {
-    date: "테스터",
+    date: "2023.12.31",
     storageAmount: "3.5TiB",
     useageFee: "283,292원"
   },
   {
-    date: "테스터",
+    date: "2023.12.31",
     storageAmount: "3.5TiB",
     useageFee: "283,292원"
   },

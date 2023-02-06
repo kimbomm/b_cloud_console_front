@@ -29,10 +29,9 @@
             </div>
             <div class="set-l_right">
               <CDropdown
-                v-model:selected="selectedCheck"
+                v-model:selected="selectedBasic"
                 :label="label"
                 :options="options"
-                :multiple="true"
               />
             </div>
           </div>
@@ -107,10 +106,9 @@
             </div>
             <div class="set-l_right">
               <CDropdown
-                v-model:selected="selectedCheck"
+                v-model:selected="selectedBasic"
                 :label="label2"
                 :options="options"
-                :multiple="true"
               />
             </div>
           </div>
@@ -140,20 +138,20 @@
             empty-message="정보가 없습니다."
             @click-row="showRow"
           >
-          <!--
-            상태값(status)
-            1. running, 운영중, 실행중
-            2. stopped, 정지 | 오류 | 취소 | 실패
-            3. 생성중 | 삭제중 | 대기중 | 재시작중
-          -->
-          <template #item-status="item">
-            <q-badge
-              v-if="item.status === 'incomplete'"
-              class="c_badge"
-            >
-              <span class="txt">회원가입 미완료</span>
-            </q-badge>
-          </template>
+            <!--
+              상태값(status)
+              1. running, 운영중, 실행중
+              2. stopped, 정지 | 오류 | 취소 | 실패
+              3. 생성중 | 삭제중 | 대기중 | 재시작중
+            -->
+            <template #item-status="item">
+              <q-badge
+                v-if="item.status === 'incomplete'"
+                class="c_badge"
+              >
+                <span class="txt">회원가입 미완료</span>
+              </q-badge>
+            </template>
             <!-- 버튼 그룹 -->
             <template #item-buttons="item">
               <div v-if="actionButtons || item.buttons" class="cell btngroup">
@@ -210,19 +208,16 @@ const itemsSelected = ref([]);
 
 const headers = [
   {
-    text: "이름", value: "name", sortable: true, checkbox: true
+    text: "이름", value: "name", width: 300, sortable: true, checkbox: true
   },
   {
-    text: "", value: "status", width: 220, sortable: false
+    text: "이메일", value: "email", width: 370, sortable: true
   },
   {
-    text: "이메일", value: "email", width: 300, sortable: true
+    text: "워크스페이스 역할", value: "workspaceChar", width: 280, sortable: false
   },
   {
-    text: "워크스페이스 역할", value: "workspaceChar", width: 300, sortable: false
-  },
-  {
-    text: "소개", value: "introduce", width: 300, sortable: false
+    text: "소개", value: "introduce", sortable: false
   },
   { text: "", value: "buttons" },
 ];
@@ -239,7 +234,6 @@ const items = [
   },
   {
     name: "liv.olive",
-    status: "",
     email: "billing@workspace1.com",
     workspaceChar: "정산 관리자",
     introduce: "00담당자 입니다.",
@@ -249,10 +243,12 @@ const items = [
   },
   {
     name: "Test",
-    status: "running",
     email: "test@gmail.com",
     workspaceChar: "워크스페이스 멤버",
-    introduce: "-"
+    introduce: "-",
+    // buttons: {
+    //   name: "초대요청 확인"
+    // }
   },
 ];
 

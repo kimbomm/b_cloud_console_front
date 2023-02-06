@@ -108,11 +108,23 @@
             </div>
           </div>
         </div>
-
-        <!-- 오픈시, 서비스 준비중 안내 문구 표기 -->
-        <!-- <div class="group-table preparing">
-          <p>서비스 준비중입니다.</p>
-        </div> -->
+      </template>
+      <!-- 서비스 준비중입니다. -->
+      <template v-else>
+        <div class="group-load">
+          <div class="group-table">
+            <section class="section">
+              <EasyDataTable
+                :headers="headers"
+                :items="nodata"
+                :hide-footer="true"
+                :body-row-class-name="bodyRowClassNameFunction"
+                empty-message="서비스 준비중입니다."
+              >
+              </EasyDataTable>
+            </section>
+          </div>
+        </div>
       </template>
     </div>
   </q-page>
@@ -124,9 +136,9 @@ import CButton from "components/common/CButton.vue";
 import CDropdown from "components/common/CDropdown.vue";
 import CPagination from "components/common/CPagination.vue";
 
+const defaultData = ref(true);
 const title = ref("워크스페이스 이용 요금");
 const btnName = ref("CSV 다운로드");
-const defaultData = ref(true);
 
 useMeta(() => ({
   title: title.value,
@@ -140,40 +152,51 @@ const optNumber = ref([
   { label: "50", value: 2 },
 ]);
 // Table
+const nodata = [];
 const headers = [
   {
-    text: "타입", value: "type", width: "260", sortable: true
+    text: "타입", value: "type", width: "350", sortable: true
   },
   {
-    text: "타입상세", value: "typeDetail", width: "610", sortable: true
+    text: "타입상세", value: "typeDetail", sortable: true
   },
   {
-    text: "이용시간", value: "useHours", sortable: true
+    text: "이용시간", value: "useHours", width: "230", sortable: true
   },
   {
-    text: "이용금액", value: "useageFee", sortable: true
+    text: "이용금액", value: "useageFee", width: "230", sortable: true
   },
 ];
 const items = [
   {
-    type: "Tester2",
+    type: "테스트용 inst",
     typeDetail: "1GPU, 14CPU, MEM 122GiB, DISK 80GiB",
     useHours: "128.04시간",
     useageFee: "283,292원"
   },
   {
-    type: "테스터",
+    type: "테스트용 inst",
     typeDetail: "1GPU, 14CPU, MEM 122GiB, DISK 80GiB",
     useHours: "128.04시간",
     useageFee: "283,292원"
   },
   {
-    type: "테스터",
+    type: "테스트용 inst",
     typeDetail: "1GPU, 14CPU, MEM 122GiB, DISK 80GiB",
     useHours: "128.04시간",
     useageFee: "283,292원"
   },
 ];
+/**
+ * 버튼 및 checkbox 에 대한 이벤트 존재할 시 class 삽입
+ */
+const bodyRowClassNameFunction = (item) => {
+  const classList = [];
+  if (item.buttons) classList.push("row-button");
+  if (item.checkbox) classList.push("row-selected");
+  return classList.join(" ");
+};
+
 // Date Picker
 const date = ref(null);
 const dateRange = ref(

@@ -116,6 +116,40 @@
           <CPagination />
         </div>
       </template>
+      <!-- 서비스 준비중입니다. -->
+      <template v-else>
+        <div class="group">
+          <div class="table_set">
+            <q-select
+              outlined
+              placeholder="이름, 이메일 검색"
+              use-input
+              clearable
+              class="c_inpchip default_size"
+            >
+              <template v-slot:prepend>
+                <q-icon name="search" class="ico_search" />
+              </template>
+            </q-select>
+            <CDropdown
+              v-model:selected="selectedBasic"
+              :label="optLabel"
+              :options="optNumber"
+              class="auto_size"
+            />
+          </div>
+        </div>
+        <section class="section">
+          <EasyDataTable
+            :headers="headers"
+            :items="nodata"
+            :hide-footer="true"
+            :body-row-class-name="bodyRowClassNameFunction"
+            empty-message="서비스 준비중입니다."
+          >
+          </EasyDataTable>
+        </section>
+      </template>
     </div>
   </q-page>
 </template>
@@ -126,9 +160,9 @@ import CButton from "components/common/CButton.vue";
 import CDropdown from "components/common/CDropdown.vue";
 import CPagination from "components/common/CPagination.vue";
 
+const defaultData = ref(true);
 const title = ref("워크스페이스 이용 요금");
 const btnName = ref("CSV 다운로드");
-const defaultData = ref(true);
 
 useMeta(() => ({
   title: title.value,
@@ -143,15 +177,16 @@ const optNumber = ref([
 ]);
 
 // Table
+const nodata = [];
 const headers = [
   {
-    text: "이름", value: "name", width: "260", sortable: true
+    text: "이름", value: "name", width: 280, sortable: true
   },
   {
     text: "이메일", value: "email", sortable: true
   },
   {
-    text: "이용요금", value: "useageFee", sortable: true
+    text: "이용요금", value: "useageFee", width: 300, sortable: true
   },
 ];
 const items = [
@@ -171,6 +206,15 @@ const items = [
     useageFee: "283,292원"
   },
 ];
+/**
+ * 버튼 및 checkbox 에 대한 이벤트 존재할 시 class 삽입
+ */
+const bodyRowClassNameFunction = (item) => {
+  const classList = [];
+  if (item.buttons) classList.push("row-button");
+  if (item.checkbox) classList.push("row-selected");
+  return classList.join(" ");
+};
 
 // Date Picker
 const date = ref(null);

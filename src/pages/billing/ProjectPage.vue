@@ -126,9 +126,9 @@ import CButton from "components/common/CButton.vue";
 import CDropdown from "components/common/CDropdown.vue";
 import CPagination from "components/common/CPagination.vue";
 
+const defaultData = ref(true);
 const title = ref("워크스페이스 이용 요금");
 const btnName = ref("CSV 다운로드");
-const defaultData = ref(true);
 
 useMeta(() => ({
   title: title.value,
@@ -144,13 +144,13 @@ const optNumber = ref([
 // Table
 const headers = [
   {
-    text: "프로젝트 이름", value: "projectName", width: "260", sortable: true
+    text: "프로젝트 이름", value: "projectName", width: "280", sortable: true
   },
   {
     text: "프로젝트 설명", value: "proExplain", sortable: false
   },
   {
-    text: "이용요금", value: "useageFee", sortable: true
+    text: "이용요금", value: "useageFee", width: "300", sortable: true
   },
 ];
 const items = [

@@ -160,7 +160,7 @@ const optNumber = ref([
 // Table
 const headers = [
   {
-    text: "인스턴스/태스크 이름", value: "title", width: "300", sortable: true
+    text: "인스턴스/태스크 그룹 이름", value: "title", width: "300", sortable: true
   },
   {
     text: "서비스", value: "service", sortable: true
