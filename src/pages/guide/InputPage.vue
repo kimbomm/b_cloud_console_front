@@ -351,6 +351,92 @@
             </q-input>
           </div>
         </div>
+        <div class="group">
+          <div class="fakebg">
+            <div class="from">
+              <q-input
+                outlined
+                v-model="dateFrom"
+                placeholder="2023.01.01"
+                class="inp_calendar"
+              >
+                <template v-slot:prepend>
+                  <q-icon class="ico_calendar">
+                    <q-popup-proxy :offset="[0, 0]" class="c_datepicker">
+                      <q-date
+                        v-model="dateFrom"
+                        mask="YYYY.MM.DD"
+                        class="datepicker"
+                      />
+                    </q-popup-proxy>
+                  </q-icon>
+                </template>
+              </q-input>
+              <q-input
+                outlined
+                v-model="timeFrom"
+                placeholder="12:00"
+                class="inp_time"
+              >
+                <template v-slot:append>
+                  <q-icon name="access_time">
+                    <q-popup-proxy
+                      :offset="[100, 0]"
+                      class="c_time"
+                    >
+                      <q-time v-model="timeFrom" mask="HH:mm">
+                        <q-btn v-close-popup label="확인" color="primary" flat />
+                      </q-time>
+                    </q-popup-proxy>
+                  </q-icon>
+                </template>
+              </q-input>
+            </div>
+            <i class="bar" />
+            <div class="to">
+              <q-input
+                outlined
+                v-model="dateTo"
+                placeholder="2023.01.01"
+                class="inp_calendar"
+              >
+                <template v-slot:prepend>
+                  <q-icon class="ico_calendar">
+                    <q-popup-proxy
+                      :offset="[150, 0]"
+                      class="c_datepicker"
+                    >
+                      <q-date
+                        v-model="dateTo"
+                        mask="YYYY.MM.DD"
+                        class="datepicker"
+                      />
+                    </q-popup-proxy>
+                  </q-icon>
+                </template>
+              </q-input>
+              <q-input
+                outlined
+                v-model="timeTo"
+                placeholder="12:00"
+                class="inp_time"
+              >
+                <template v-slot:append>
+                  <q-icon name="access_time">
+                    <q-popup-proxy
+                      :offset="[240, 0]"
+                      class="c_time"
+                    >
+                      <q-time v-model="timeTo" mask="HH:mm">
+                        <q-btn v-close-popup label="확인" color="primary" flat />
+                      </q-time>
+                    </q-popup-proxy>
+                  </q-icon>
+                </template>
+              </q-input>
+            </div>
+          </div>
+        </div>
       </section>
     </div>
   </div>
@@ -386,6 +472,12 @@ const date = ref(null);
 const dateRange = ref(
   { from: "2023.01.09", to: "2023.01.30" }
 );
+
+const dateFrom = ref(null);
+const timeFrom = ref(null);
+const dateTo = ref(null);
+const timeTo = ref(null);
+
 const options1 = [
   "읽기쓰기", "읽기", "삭제",
 ];

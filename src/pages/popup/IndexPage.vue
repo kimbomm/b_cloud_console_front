@@ -125,13 +125,13 @@
             @click="workspaceHistoryAModal = true"
           >
             <span class="txt">A 워크스페이스 리소스 사용 이력(꺽은선 그래프 + 달력 + 시계)(TBD)</span>
-          </q-btn>
+          </q-btn> -->
           <q-btn
             class="c_btn"
             @click="workspaceHistoryBModal = true"
           >
             <span class="txt">B 워크스페이스 리소스 사용 이력(꺽은선 그래프 + 달력 + 시계)(TBD)</span>
-          </q-btn> -->
+          </q-btn>
         </div>
       </section>
 
@@ -1163,7 +1163,7 @@
     <!-- Start : [프로젝트 - 인스턴스] A 워크스페이스 리소스 사용 이력(꺽은선 그래프 + 달력 + 시계) 팝업 -->
     <q-dialog
       v-model="workspaceHistoryAModal"
-      class="c_dialog medium"
+      class="c_dialog large"
     >
       <q-card>
         <q-card-section class="c_dialog_body">
@@ -1195,7 +1195,7 @@
     <!-- Start : [프로젝트 - 인스턴스] B 워크스페이스 리소스 사용 이력(꺽은선 그래프 + 달력 + 시계) 팝업 -->
     <q-dialog
       v-model="workspaceHistoryBModal"
-      class="c_dialog medium"
+      class="c_dialog large"
     >
       <q-card>
         <q-card-section class="c_dialog_body">
@@ -1208,9 +1208,129 @@
           >
             <p class="sub_title">인스턴스 이름</p>
             <p class="desc">V1.Xlarge(v100 GPU 1 / CPU 14 / MEM 122GB / DISK 80GB)</p>
-            <div class="chartarea">
-              chart area
+            <div class="searcharea">
+              <CDropdown
+                v-model:selected="chartSelectedBasic"
+                :label="chartOptlabel"
+                :options="chartSelOpt"
+              />
+              <CDropdown
+                v-model:selected="chartSelectedBasic2"
+                :label="chartOptlabel2"
+                :options="chartSelOpt2"
+              />
+              <div class="fakebg">
+                <div class="from">
+                  <q-input
+                    outlined
+                    v-model="dateFrom"
+                    placeholder="2023.01.01"
+                    class="inp_calendar"
+                  >
+                    <template v-slot:prepend>
+                      <q-icon class="ico_calendar">
+                        <q-popup-proxy :offset="[0, 0]" class="c_datepicker">
+                          <q-date
+                            v-model="dateFrom"
+                            mask="YYYY.MM.DD"
+                            class="datepicker"
+                          />
+                        </q-popup-proxy>
+                      </q-icon>
+                    </template>
+                  </q-input>
+                  <q-input
+                    outlined
+                    v-model="timeFrom"
+                    placeholder="12:00"
+                    class="inp_time"
+                  >
+                    <template v-slot:append>
+                      <q-icon name="access_time">
+                        <q-popup-proxy
+                          :offset="[100, 0]"
+                          class="c_time"
+                        >
+                          <q-time v-model="timeFrom" mask="HH:mm">
+                            <q-btn v-close-popup label="확인" color="primary" flat />
+                          </q-time>
+                        </q-popup-proxy>
+                      </q-icon>
+                    </template>
+                  </q-input>
+                </div>
+                <i class="bar" />
+                <div class="to">
+                  <q-input
+                    outlined
+                    v-model="dateTo"
+                    placeholder="2023.01.01"
+                    class="inp_calendar"
+                  >
+                    <template v-slot:prepend>
+                      <q-icon class="ico_calendar">
+                        <q-popup-proxy
+                          :offset="[150, 0]"
+                          class="c_datepicker"
+                        >
+                          <q-date
+                            v-model="dateTo"
+                            mask="YYYY.MM.DD"
+                            class="datepicker"
+                          />
+                        </q-popup-proxy>
+                      </q-icon>
+                    </template>
+                  </q-input>
+                  <q-input
+                    outlined
+                    v-model="timeTo"
+                    placeholder="12:00"
+                    class="inp_time"
+                  >
+                    <template v-slot:append>
+                      <q-icon name="access_time">
+                        <q-popup-proxy
+                          :offset="[240, 0]"
+                          class="c_time"
+                        >
+                          <q-time v-model="timeTo" mask="HH:mm">
+                            <q-btn v-close-popup label="확인" color="primary" flat />
+                          </q-time>
+                        </q-popup-proxy>
+                      </q-icon>
+                    </template>
+                  </q-input>
+                </div>
+              </div>
             </div>
+            <q-card
+              v-model="chartModel"
+              class="apexchart"
+            >
+              <div class="chart_head">
+                <div class="chart_legend">
+                  <div class="blue">GPU(%)</div>
+                  <div class="coral">GPU Memory (Cache+PSS, %)</div>
+                  <div class="mint">RSS Memory (%)</div>
+                </div>
+                <q-btn class="ibtn">
+                  <i class="ico refresh" /><span class="hidden">재설정</span>
+                </q-btn>
+              </div>
+              <div class="chart_body">
+                <apexchart
+                  v-if="chartModel === chartModel"
+                  height="324"
+                  type="line"
+                  :options="chartOptions"
+                  :series="series"
+                ></apexchart>
+                <div v-else class="loading">
+                  <div class="loading_text" />
+                </div>
+              </div>
+            </q-card>
           </section>
         </q-card-section>
         <q-card-actions class="c_dialog_foot">
@@ -3700,9 +3820,77 @@
           </p>
           <section class="section">
             <p class="sub_title">카카오 모빌리티(Public)</p>
-            <div class="chartarea">
-              chart area
+
+            <div class="searcharea type2">
+              <CDropdown
+                v-model:selected="chartSelectedBasic"
+                :label="chartOptlabel"
+                :options="chartSelOpt"
+              />
+              <div class="fakebg">
+                <div class="from">
+                  <q-input
+                    outlined
+                    v-model="dateFrom"
+                    placeholder="2023.01.01"
+                    class="inp_calendar"
+                  >
+                    <template v-slot:prepend>
+                      <q-icon class="ico_calendar">
+                        <q-popup-proxy :offset="[50, 0]" class="c_datepicker">
+                          <q-date
+                            v-model="dateFrom"
+                            mask="YYYY.MM.DD"
+                            class="datepicker"
+                          />
+                        </q-popup-proxy>
+                      </q-icon>
+                    </template>
+                  </q-input>
+                </div>
+                <i class="bar" />
+                <div class="to">
+                  <q-input
+                    outlined
+                    v-model="dateTo"
+                    placeholder="2023.01.01"
+                    class="inp_calendar"
+                  >
+                    <template v-slot:prepend>
+                      <q-icon class="ico_calendar">
+                        <q-popup-proxy
+                          :offset="[180, 0]"
+                          class="c_datepicker"
+                        >
+                          <q-date
+                            v-model="dateTo"
+                            mask="YYYY.MM.DD"
+                            class="datepicker"
+                          />
+                        </q-popup-proxy>
+                      </q-icon>
+                    </template>
+                  </q-input>
+                </div>
+              </div>
             </div>
+            <q-card
+              v-model="chartModel"
+              class="apexchart"
+            >
+              <div class="chart_body">
+                <apexchart
+                  v-if="chartModel === chartModel"
+                  height="324"
+                  type="line"
+                  :options="chartOptions"
+                  :series="series"
+                ></apexchart>
+                <div v-else class="nodata">
+                  <div class="text">이용기록이 없습니다.</div>
+                </div>
+              </div>
+            </q-card>
           </section>
         </q-card-section>
         <q-card-actions class="c_dialog_foot">
@@ -4361,6 +4549,31 @@ const mngStorageChangeRequestModal = ref(false);
 const mngStorageQuotaChangeModal = ref(false);
 const mngStorageShareModal = ref(false);
 
+const chartSelectedBasic = ref(null);
+const chartSelectedBasic2 = ref(null);
+
+const chartOptlabel = ref("선택");
+const chartOptlabel2 = ref("선택");
+const chartSelOpt = ref([
+  { label: "GPU", value: 0 },
+  { label: "GPU Memory (Cache+PSS, %)", value: 1 },
+  { label: "RSS Memory (%)", value: 2 },
+]);
+const chartSelOpt2 = ref([
+  { label: "직접입력", value: 1 },
+  { label: "최근 1시간", value: 2 },
+  { label: "최근 3시간", value: 3 },
+  { label: "최근 6시간", value: 4 },
+  { label: "최근 12시간", value: 5 },
+  { label: "최근 24시간", value: 6 },
+  { label: "최근 7일", value: 7 },
+  { label: "최근 30일", value: 8 },
+]);
+const dateFrom = ref(null);
+const timeFrom = ref(null);
+const dateTo = ref(null);
+const timeTo = ref(null);
+
 const ldapID = ref(null);
 const ldapPW = ref(null);
 const textName = ref(null);
@@ -4713,9 +4926,141 @@ const triggerInstanceWarning = (position) => {
     });
   }, 100);
 };
+
+const chartOptions = {
+  chart: {
+    height: 350,
+    type: "line",
+    dropShadow: {
+      enabled: true,
+      color: "#000",
+      top: 0,
+      left: 0,
+      blur: 10,
+      opacity: 0,
+    },
+    toolbar: {
+      show: false,
+    },
+    fontFamily: "Inter, 'Noto Sans KR'",
+  },
+  title: {
+    text: ".",
+    align: "right",
+  },
+  subtitle: {
+    text: undefined,
+    align: "center",
+    margin: 10,
+    offsetX: 0,
+    offsetY: 0,
+    floating: false,
+    style: {
+      fontSize: "12px",
+      fontWeight: "normal",
+      fontFamily: undefined,
+      color: "#9699a2"
+    },
+  },
+  legend: {
+    show: false,
+    showForSingleSeries: false,
+    showForNullSeries: true,
+    showForZeroSeries: true,
+    position: "top",
+    horizontalAlign: "left",
+    floating: true,
+    offsetY: -30,
+    offsetX: -20,
+    labels: {
+      colors: "#000000",
+    },
+  },
+  colors: ["#FF6955", "#363CE5", "#63D8CF"],
+  dataLabels: {
+    enabled: false,
+  },
+  stroke: {
+    width: 1,
+    curve: "straight",
+  },
+  grid: {
+    borderColor: "#E8ECF1",
+    row: {
+      colors: ["#E8ECF1", "transparent"], // takes an array which will be repeated on columns
+      opacity: 0,
+    },
+  },
+  markers: {
+    size: 0,
+  },
+  xaxis: {
+    categories: ["", "10/1", "", "10/5", "", "10/10", "", "10/20", "", "10/28", ""],
+    title: {
+      text: "",
+    },
+    labels: {
+      show: true,
+      style: {
+        colors: ["#000"],
+        fontSize: "12px",
+        fontFamily: "Inter, 'Noto Sans KR'",
+        fontWeight: 400,
+      },
+    },
+    tooltip: {
+      enabled: false,
+      formatter: undefined,
+      offsetY: 0,
+      style: {
+        fontSize: 0,
+        fontFamily: 0,
+      },
+    },
+  },
+  yaxis: [
+    {
+      seriesName: "GPU(%)",
+      show: true,
+      tickAmount: 5,
+      min: 0,
+      max: 250,
+    },
+    {
+      seriesName: "GPU Memory (Cache+PSS, %)",
+      show: false,
+      tickAmount: 5,
+      min: 0,
+      max: 250,
+    },
+    {
+      opposite: true,
+      seriesName: "RSS Memory (%)",
+      show: false,
+      tickAmount: 5,
+      min: 0,
+      max: 250,
+    },
+  ],
+};
+const series = [
+  {
+    name: "GPU(%)",
+    data: [200, 240, 240, 240, 230, 200, 240, 240, 240, 230, 230],
+  },
+  {
+    name: "GPU Memory (Cache+PSS, %)",
+    data: [80, 100, 150, 80, 230, 80, 100, 150, 80, 180, 150],
+  },
+  {
+    name: "RSS Memory (%)",
+    data: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
+  },
+];
 </script>
 
 <style lang="scss" scoped>
+@import "./src/css/table";
 .psection:not(:first-child) {
   margin-top: 78px;
 }

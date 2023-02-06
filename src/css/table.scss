@@ -282,3 +282,27 @@ $padding: 16px;
     }
   }
 }
+// apexchart
+::v-deep{
+  .apexcharts-title-text{
+    opacity: 0!important;
+  }
+  .apexcharts-legend.apexcharts-align-right .apexcharts-legend-series,
+  .apexcharts-legend.apexcharts-align-left .apexcharts-legend-series{
+    display:inline-flex;
+    align-items: center;
+    margin:0!important;
+    margin-left:48px!important;
+    &:first-child{
+      margin-left:0!important;
+    }
+  }
+  .apexcharts-legend-marker{
+    width:20px!important;height:1px!important;
+    border-radius:0!important;
+  }
+  .apexcharts-legend-text{
+    margin-left:8px!important;
+    padding-left:0!important;
+  }
+}
