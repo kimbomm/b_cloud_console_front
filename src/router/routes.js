@@ -60,6 +60,7 @@ const routes = [
       // 샘플
       { path: "/sample/table", component: () => import("pages/sample/TablePage2.vue") },
       { path: "/sample/temp", component: () => import("pages/sample/TempPage.vue") },
+      { path: "/sample/api", component: () => import("pages/sample/AxiosPage.vue") },
     ],
   },
   {

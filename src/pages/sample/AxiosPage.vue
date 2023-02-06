@@ -3,15 +3,15 @@
     <h6>
       Axios TEST
     </h6>
-    <button @click="onClick">sampleAuth</button>
+    <button @click="onClick">getMe</button>
   </div>
 </template>
 <script setup>
-import { AuthService } from "src/services";
+import { UserService } from "src/services";
 
 const onClick = async () => {
   try {
-    await AuthService.sampleAuth();
+    await UserService.getMe();
   } catch (e) {
     console.log(e.response);
   }
