@@ -1088,6 +1088,9 @@ body.desktop .q-radio,
   }
   .q-input.inp_time{
     max-width:50px;
+    .q-field__append{
+      padding-left:0;
+    }
   }
   .q-input.inp_calendar,
   .q-input.inp_time{
@@ -1110,6 +1113,7 @@ body.desktop .q-radio,
         // display:none;
         width:100%;height:100%;
         background:none;
+        cursor:pointer;
       }
     }
     .q-time__actions{
