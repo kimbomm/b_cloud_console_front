@@ -1,6 +1,7 @@
 /* Billing */
 .p-billing{
-
+  .txt{color: $gray800;}
+  .section{margin-top: 20px;}
   /* Billing 공통 css */
   .top-btn{
     width: 100%;
@@ -54,6 +55,7 @@
   }
   .group-page{
     display: flex; justify-content: center; align-items: center;
+    margin-top: 50px;
   }
   .preparing{
     width: 100%; height: 868px;

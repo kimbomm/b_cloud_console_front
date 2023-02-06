@@ -66,6 +66,7 @@
 }
 .mt32{margin-top: 32px;}
 .mt40{margin-top: 40px;}
+.mt50{margin-top: 50px;}
 .mt60{margin-top: 60px;}
 .mb20{margin-bottom: 20px !important;}
 .mb24{margin-bottom: 24px;}
@@ -146,6 +147,13 @@
         .ico{
           background-image: url(/src/assets/images/icon/16/ico_minus_pressed.svg);
         }
+      }
+    }
+  }
+  &.p-detail{
+    .p-body{
+      .q-select--without-input .q-field__control{
+        background-color: $bg;
       }
     }
   }
