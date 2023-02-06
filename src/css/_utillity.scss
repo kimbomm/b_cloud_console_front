@@ -351,6 +351,10 @@
         width:32px;height:32px;
         background:url($iconUrl + '32/ico_copy_normal.svg') no-repeat 50% 50%;
       }
+      &.refresh{
+        width:16px;height:16px;
+        background:url($iconUrl + '16/ico_refresh_white.svg') no-repeat 50% 50%;
+      }
     }
     &::before{
       display:none;
@@ -1052,6 +1056,82 @@ body.desktop .q-radio,
     }
   }
 }
+.fakebg{
+  display:flex;
+  align-items: center;
+  flex:1 auto;
+  position:relative;
+  max-width:356px;
+  height:48px;
+  padding:0 18px;
+  border:1px solid $surface10;
+  border-radius:8px;
+  &::before{
+    content: "";
+    display:inline-flex;
+    align-self: center;
+    flex:none;
+    margin-right:16px;
+    width:16px;height:16px;
+    background:url($iconUrl + '16/ico_calendar_black.svg') no-repeat 50% 50%;
+  }
+  .bar{
+    display:inline-flex;
+    flex:none;
+    align-self: center;
+    width:16px;height:16px;
+    margin:0 4px;
+    background:url($iconUrl + '16/ico_arrow_right_gray.svg') no-repeat 50% 50%;
+  }
+  .q-input.inp_calendar{
+    min-width:82px;
+  }
+  .q-input.inp_time{
+    max-width:50px;
+    .q-field__append{
+      padding-left:0;
+    }
+  }
+  .q-input.inp_calendar,
+  .q-input.inp_time{
+    width:auto;
+    &.q-field--outlined .q-field__control{
+      padding:0;
+      border-radius:0;
+    }
+    .q-field__control {
+      height: auto;
+      &::before,
+      &::after{
+        border:0;
+      }
+    }
+    .q-field__marginal{
+      position:absolute;z-index:1;
+      width:100%;height:100%;
+      .q-icon{
+        // display:none;
+        width:100%;height:100%;
+        background:none;
+        cursor:pointer;
+      }
+    }
+    .q-time__actions{
+      width:100%;
+      text-align:right;
+    }
+  }
+  .from{
+    display:flex;
+    align-items: center;
+    flex:1 auto;
+  }
+  .to{
+    display:flex;
+    align-items: center;
+    flex:1 auto;
+  }
+}
 /* Component - Popup(Dialog) .c_dialog */
 $dialog_foot:90px;
 @media (min-width: 600px){
@@ -1131,6 +1211,12 @@ $dialog_foot:90px;
     + .p_list{
       margin-top:-8px;
     }
+    + .searcharea{
+      margin-top:30px;
+    }
+    + .apexchart{
+      margin-top:30px;
+    }
   }
   .desc{
     color:$gray800;font-size:$fs16;
@@ -1142,6 +1228,45 @@ $dialog_foot:90px;
     }
     &.mt10{
       margin-top:10px;
+    }
+    + .searcharea{
+      margin-top:30px;
+    }
+    + .apexchart{
+      margin-top:30px;
+    }
+  }
+  .searcharea{
+    display:flex;
+    align-items: center;
+    .q-select{
+      flex:none;
+      width:150px;
+      &:not(:first-child){
+        width:calc(150px + 41px);
+        margin-right:9px;
+        &::before{
+          content: "";
+          flex:none;
+          display:inline-flex;
+          align-self: center;
+          width:1px;height:26px;
+          margin:0 20px;
+          background:$surface05;
+        }
+      }
+    }
+    + .apexchart{
+      margin-top:30px;
+    }
+    &.type2{
+      justify-content: space-between;
+      .q-select{
+        width:180px;
+      }
+      .fakebg{
+        max-width:292px;
+      }
     }
   }
   .info{
@@ -2049,13 +2174,6 @@ $dialog_foot:90px;
       animation: spin 2s linear infinite;
     }
   }
-}
-@keyframes spin {
-  0% {transform: rotate3d(0, 0, 1, 0deg)}
-  25% {transform: rotate3d(0, 0, 1, 90deg)}
-  50% {transform: rotate3d(0, 0, 1, 180deg)}
-  75% {transform: rotate3d(0, 0, 1, 270deg)}
-  100% {transform: rotate3d(0, 0, 1, 359deg)}
 }
 .inner_loading{
   .q-inner-loading{
@@ -3305,6 +3423,46 @@ $qhsize:48px;
       justify-content: space-between;
     }
   }
+  &.c_time{
+    max-width:292px;
+    padding:0;
+    .q-time{
+      box-shadow: 2px 4px 24px rgb(227, 227, 227, .5);
+      &__header{
+        min-height:80px;
+        background:$white;
+        color:$black;
+        font-weight:$regular;
+        &-label{
+          font-size:$fs20;font-weight:$bold;
+        }
+        &-ampm{
+          color:$gray500;font-size:$fs14;font-weight:$regular;
+        }
+      }
+      &__main{
+        border-top:1px solid $surface02;
+      }
+      &__content{
+        height:284px;
+        padding:0;
+      }
+      &__container-parent {
+        padding:20px 0 0;
+      }
+      &__container-child{
+        width:234px!important;height:234px!important;
+        margin:0 auto;
+      }
+      &__actions{
+        width:100%;
+        text-align:right;
+        .q-btn{
+          color:$white!important;
+        }
+      }
+    }
+  }
 }
 .q-date{
   width:100%;
@@ -3787,4 +3945,106 @@ $qhsize:48px;
 }
 .slotopt{
   width:100px;
+}
+
+// apexchart
+.apexchart{
+  overflow:auto;
+  position:relative;
+  min-width: 100%!important;
+  padding:0;
+  border-radius: 8px!important;
+  background: $surface01;
+  box-shadow:none;
+  @include scrollbar;
+  .ibtn{
+    flex:none;
+    position:absolute;top:20px;right:20px;z-index:1;
+    width:32px;height:32px;
+    border-radius:8px;
+    background:$surface03
+  }
+  .chart_head{
+    display:flex;
+    align-items: center;
+    padding:20px 20px 0;
+  }
+  .chart_legend{
+    display:flex;
+    align-items: center;
+    color:$black;font-size:$fs12;
+    > div{
+      display:flex;
+      align-items: center;
+      padding:8px 0;
+      &::before{
+        content:"";
+        display:inline-block;
+        width:20px;height:1px;
+        margin-right:8px;
+      }
+      &:not(:first-child){
+        margin-left:20px;
+      }
+    }
+    .blue{
+      &::before{
+        background:$primary;
+      }
+    }
+    .coral{
+      &::before{
+        background:$secondary-coral;
+      }
+    }
+    .mint{
+      &::before{
+        background:$secondary-mint;
+      }
+
+    }
+  }
+  .chart_body{
+    padding:0 5px 10px;
+  }
+  .loading{
+    min-height:324px;
+  }
+  .nodata{
+    height:378px;
+  }
+}
+// Loading
+.loading{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  width:100%;
+  .loading_text{
+    position:relative;
+    width:40px;height:40px;
+    margin:0;padding-left:32px;
+    color:$primary;font-size:$fs14;
+    &::before{
+      content:"";
+      display:inline-block;
+      position:absolute;top:-3px;left:0;
+      width:20px;height:20px;
+      border-radius: 50%;
+      background-repeat: no-repeat;
+      background-position:50% 50%;
+      background-size:20px;
+    }
+    &::before{
+      background-image:url($iconUrl + '20/ico_loading.svg');
+      animation: spin 2s linear infinite;
+    }
+  }
+}
+@keyframes spin {
+  0% {transform: rotate3d(0, 0, 1, 0deg)}
+  25% {transform: rotate3d(0, 0, 1, 90deg)}
+  50% {transform: rotate3d(0, 0, 1, 180deg)}
+  75% {transform: rotate3d(0, 0, 1, 270deg)}
+  100% {transform: rotate3d(0, 0, 1, 359deg)}
 }

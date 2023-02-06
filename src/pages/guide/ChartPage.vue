@@ -20,14 +20,39 @@
             style="font-size: 20px; color: blue;"
           >chart Docs 바로가기</a>
         </div>
-        <apexchart
-          height="400"
-          type="line"
-          :options="options"
-          :series="series"
-        ></apexchart>
+        <br />
+        <br />
+        <br />
+        <br />
+        <q-card
+          v-model="chartModel"
+          class="apexchart"
+        >
+          <div class="chart_head">
+            <div class="chart_legend">
+              <div class="blue">GPU(%)</div>
+              <div class="coral">GPU Memory (Cache+PSS, %)</div>
+              <div class="mint">RSS Memory (%)</div>
+            </div>
+            <q-btn class="ibtn">
+              <i class="ico refresh" /><span class="hidden">재설정</span>
+            </q-btn>
+          </div>
+          <div class="chart_body">
+            <apexchart
+              v-if="chartModel === chartModel"
+              height="324"
+              type="line"
+              :options="options"
+              :series="series"
+            ></apexchart>
+            <div v-else class="loading">
+              <div class="loading_text" />
+            </div>
+          </div>
+        </q-card>
       </section>
-      <section class="section">
+      <section class="section" style="display:none">
         <h3>Circular Gauage</h3>
         <div id="chart"></div>
         <apexchart
@@ -57,76 +82,6 @@
           </div>
         </div>
       </section>
-
-      <!-- <section class="section">
-        <h3>Circular Gauage</h3>
-        <div class="semi-circle-chart">
-          <svg width="200" height="140" class="chart-svg" xmlns="http://www.w3.org/2000/svg">
-            <g transform="rotate(170 100 100)">
-            <circle class="circle-background" stroke-dasharray="280,1000000" stroke-width="7"
-              stroke-linecap="round" r="80" cx="115" cy="90" fill="none"></circle>
-            <circle class="circle-chart" stroke-dasharray="80,1000000" stroke-width="7"
-              stroke-linecap="round" r="80" cx="115" cy="90" fill="none"></circle>
-            </g>
-          </svg>
-          <div class="chart-price">
-            <div class="chart-final-price">750</div>
-            <div class="chart-from-price-text">
-              <span class="chart-from-price">1500</span> MB
-            </div>
-          </div>
-          <div class="added-text-chart">300MB</div>
-        </div>
-      </section>
-      <section class="section">
-        <h3>Circular Gauage</h3>
-        <div class="semi-circle" data-value="66">
-          <div class="arc">
-          </div>
-        </div>
-      </section>
-      <section class="section">
-        <h3>Circular Gauage</h3>
-        <svg width="30%" height="30%" viewBox="0 0 70 70" class="donut">
-          <circle class="donut-hole" cx="21" cy="21" r="15.91549430918954" fill="#fff"></circle>
-          <circle class="donut-ring" cx="21" cy="21" r="15.91549430918954" fill="transparent"
-          stroke="#d2d3d4" stroke-width="3"></circle>
-          <circle class="donut-segment" cx="21" cy="21" r="15.91549430918954" fill="transparent"
-          stroke="#ce4b99" stroke-width="3" stroke-dasharray="85 15" stroke-linecap="round"
-          stroke-dashoffset="25"></circle>
-        </svg>
-      </section>
-      <section class="section">
-        <h3>Circular Gauage</h3>
-        <svg class="circle-chart" viewBox="0 0 100 100" width="140" height="140" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient id="myGradient2">
-              <stop offset="0%" stop-color="#FF0000"></stop>
-              <stop offset="100%" stop-color="#4992FF"></stop>
-            </linearGradient>
-          </defs>
-          <circle
-            class="circle-chart__background"
-            stroke="#1C2142"
-            stroke-width="8"
-            fill="none"
-            cx="50"
-            cy="50"
-            r="45">
-          </circle>
-          <circle
-            class="circle-chart__circle"
-            stroke="url('#myGradient2')"
-            stroke-width="8"
-            stroke-dasharray="274,280"
-            stroke-linecap="round"
-            fill="none"
-            cx="50"
-            cy="50"
-            r="45">
-          </circle>
-        </svg>
-      </section> -->
     </div>
   </div>
 </template>
@@ -139,6 +94,7 @@ useMeta(() => ({
   title: title.value,
 }));
 
+const chartModel = true;
 const options = {
   chart: {
     height: 350,
@@ -146,65 +102,144 @@ const options = {
     dropShadow: {
       enabled: true,
       color: "#000",
-      top: 18,
-      left: 7,
+      top: 0,
+      left: 0,
       blur: 10,
-      opacity: 0.2,
+      opacity: 0,
     },
     toolbar: {
       show: false,
     },
-  },
-  colors: ["#77B6EA", "#545454"],
-  dataLabels: {
-    enabled: true,
-  },
-  stroke: {
-    curve: "smooth",
+    fontFamily: "Inter, 'Noto Sans KR'",
   },
   title: {
-    text: "Chart Sample Title",
-    align: "left",
+    text: ".",
+    align: "right",
+  },
+  subtitle: {
+    text: undefined,
+    align: "center",
+    margin: 10,
+    offsetX: 0,
+    offsetY: 0,
+    floating: false,
+    style: {
+      fontSize: "12px",
+      fontWeight: "normal",
+      fontFamily: undefined,
+      color: "#9699a2"
+    },
+  },
+  legend: {
+    show: false,
+    showForSingleSeries: false,
+    showForNullSeries: true,
+    showForZeroSeries: true,
+    position: "top",
+    horizontalAlign: "left",
+    floating: true,
+    offsetY: -30,
+    offsetX: -20,
+    labels: {
+      colors: "#000000",
+    },
+  },
+  colors: ["#FF6955", "#363CE5", "#63D8CF"],
+  dataLabels: {
+    enabled: false,
+  },
+  stroke: {
+    width: 1,
+    curve: "straight",
   },
   grid: {
-    borderColor: "#e7e7e7",
+    borderColor: "#E8ECF1",
     row: {
-      colors: ["#f3f3f3", "transparent"], // takes an array which will be repeated on columns
-      opacity: 0.5,
+      colors: ["#E8ECF1", "transparent"], // takes an array which will be repeated on columns
+      opacity: 0,
     },
   },
   markers: {
-    size: 1,
+    size: 0,
   },
   xaxis: {
-    categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
+    categories: ["", "10/1", "", "10/5", "", "10/10", "", "10/20", "", "10/28", ""],
     title: {
-      text: "Month",
+      text: "",
+    },
+    labels: {
+      show: true,
+      style: {
+        colors: ["#000"],
+        fontSize: "12px",
+        fontFamily: "Inter, 'Noto Sans KR'",
+        fontWeight: 400,
+      },
+    },
+    tooltip: {
+      enabled: false,
+      formatter: undefined,
+      offsetY: 0,
+      style: {
+        fontSize: 0,
+        fontFamily: 0,
+      },
     },
   },
-  yaxis: {
-    title: {
-      text: "Temperature",
+  yaxis: [
+    {
+      seriesName: "GPU(%)",
+      show: true,
+      tickAmount: 5,
+      min: 0,
+      max: 250,
     },
-    min: 5,
-    max: 40,
+    {
+      seriesName: "GPU Memory (Cache+PSS, %)",
+      show: false,
+      tickAmount: 5,
+      min: 0,
+      max: 250,
+    },
+    {
+      opposite: true,
+      seriesName: "RSS Memory (%)",
+      show: false,
+      tickAmount: 5,
+      min: 0,
+      max: 250,
+    },
+  ],
+  tooltip: {
+    x: {
+      show: false
+    },
   },
-  legend: {
-    position: "top",
-    horizontalAlign: "right",
-    floating: true,
-    offsetY: -25,
-    offsetX: -5,
-  },
+  noData: {
+    text: undefined,
+    align: "center",
+    verticalAlign: "middle",
+    offsetX: 0,
+    offsetY: 0,
+    style: {
+      color: undefined,
+      fontSize: "14px",
+      fontFamily: undefined
+    }
+  }
 };
 const series = [
   {
-    name: "High - 2013",
-    data: [28, 29, 33, 36, 32, 32, 33],
+    name: "GPU(%)",
+    data: [200, 240, 240, 240, 230, 200, 240, 240, 240, 230, 230],
   },
   {
-    name: "Low - 2013",
-    data: [12, 11, 14, 18, 17, 13, 13],
+    name: "GPU Memory (Cache+PSS, %)",
+    data: [80, 100, 150, 80, 230, 80, 100, 150, 80, 180, 150],
+  },
+  {
+    name: "RSS Memory (%)",
+    data: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
   },
 ];
 
@@ -288,6 +323,7 @@ const radiaBarSeries = [75];
 
 </script>
 <style lang="scss" scoped>
+@import "./src/css/table";
 .section:not(:first-child){margin-top:50px}
 
 .chart_circle{
@@ -327,6 +363,37 @@ const radiaBarSeries = [75];
   to {
     stroke-dashoffset: 0;
   }
+}
+
+// Loading
+.loading{
+  &.loading_text{
+    position:relative;
+    width:40px;height:40px;
+    margin:0;padding-left:32px;
+    color:$primary;font-size:$fs14;
+    &::before{
+      content:"";
+      display:inline-block;
+      position:absolute;top:-3px;left:0;
+      width:20px;height:20px;
+      border-radius: 50%;
+      background-repeat: no-repeat;
+      background-position:50% 50%;
+      background-size:20px;
+    }
+    &::before{
+      background-image:url($iconUrl + '20/ico_loading.svg');
+      animation: spin 2s linear infinite;
+    }
+  }
+}
+@keyframes spin {
+  0% {transform: rotate3d(0, 0, 1, 0deg)}
+  25% {transform: rotate3d(0, 0, 1, 90deg)}
+  50% {transform: rotate3d(0, 0, 1, 180deg)}
+  75% {transform: rotate3d(0, 0, 1, 270deg)}
+  100% {transform: rotate3d(0, 0, 1, 359deg)}
 }
 .circle-background {
   stroke: #efefef;
