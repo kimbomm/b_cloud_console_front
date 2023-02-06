@@ -65,7 +65,7 @@
             class="request-input"
             aria-label="프로젝트 설명"
           >
-            <p class="sub_title">요청 내용</p>
+            <p class="req_title" style="margin-bottom: 8px">요청 내용</p>
             <div class="c_inpgroup">
               <q-input
                 outlined
@@ -362,6 +362,7 @@ const triggerSuccess3 = (position) => {
 </script>
 
 <style lang="scss" scoped>
+@import 'src/css/support';
 .q_btngroup {
   display: flex;
   justify-content: flex-end;

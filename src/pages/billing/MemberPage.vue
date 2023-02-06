@@ -80,39 +80,76 @@
           <q-tab name="tabs4" label="스토리지"></q-tab>
         </q-tabs>
       </div>
-      <div class="group">
-        <div class="table_set">
-          <q-select
-            outlined
-            placeholder="이름, 이메일 검색"
-            use-input
-            clearable
-            class="c_inpchip default_size"
-          >
-            <template v-slot:prepend>
-              <q-icon name="search" class="ico_search" />
-            </template>
-          </q-select>
-          <CDropdown
-            v-model:selected="selectedBasic"
-            :label="optLabel"
-            :options="optNumber"
-            class="auto_size"
-          />
+      <template v-if="defaultData == true">
+        <div class="group">
+          <div class="table_set">
+            <q-select
+              outlined
+              placeholder="이름, 이메일 검색"
+              use-input
+              clearable
+              class="c_inpchip default_size"
+            >
+              <template v-slot:prepend>
+                <q-icon name="search" class="ico_search" />
+              </template>
+            </q-select>
+            <CDropdown
+              v-model:selected="selectedBasic"
+              :label="optLabel"
+              :options="optNumber"
+              class="auto_size"
+            />
+          </div>
         </div>
-      </div>
-      <div class="group-table">
-        <CTable
-          :title="title"
-          :columns="columns"
-          :data="data"
-          :action-buttons="actionButtons"
-          @action="respAction"
-        />
-      </div>
-      <div class="group-page">
-        <CPagination />
-      </div>
+        <section class="section">
+          <EasyDataTable
+            :headers="headers"
+            :items="items"
+            :hide-footer="true"
+            empty-message="정보가 없습니다."
+            @click-row="showRow"
+          >
+          </EasyDataTable>
+        </section>
+        <div class="group-page">
+          <CPagination />
+        </div>
+      </template>
+      <!-- 서비스 준비중입니다. -->
+      <template v-else>
+        <div class="group">
+          <div class="table_set">
+            <q-select
+              outlined
+              placeholder="이름, 이메일 검색"
+              use-input
+              clearable
+              class="c_inpchip default_size"
+            >
+              <template v-slot:prepend>
+                <q-icon name="search" class="ico_search" />
+              </template>
+            </q-select>
+            <CDropdown
+              v-model:selected="selectedBasic"
+              :label="optLabel"
+              :options="optNumber"
+              class="auto_size"
+            />
+          </div>
+        </div>
+        <section class="section">
+          <EasyDataTable
+            :headers="headers"
+            :items="nodata"
+            :hide-footer="true"
+            :body-row-class-name="bodyRowClassNameFunction"
+            empty-message="서비스 준비중입니다."
+          >
+          </EasyDataTable>
+        </section>
+      </template>
     </div>
   </q-page>
 </template>
@@ -121,11 +158,12 @@ import { ref } from "vue";
 import { useMeta } from "quasar";
 import CButton from "components/common/CButton.vue";
 import CDropdown from "components/common/CDropdown.vue";
-import CTable from "src/components/common/CTable.vue";
 import CPagination from "components/common/CPagination.vue";
 
+const defaultData = ref(true);
 const title = ref("워크스페이스 이용 요금");
 const btnName = ref("CSV 다운로드");
+
 useMeta(() => ({
   title: title.value,
 }));
@@ -135,154 +173,47 @@ const optLabel = ref("10");
 const optNumber = ref([
   { label: "10", value: 0 },
   { label: "25", value: 1 },
-  { label: "50", value: 1 },
+  { label: "50", value: 2 },
 ]);
 
-const columns = [
+// Table
+const nodata = [];
+const headers = [
   {
-    name: "id",
-    field: "id",
-    label: "ID",
-    required: true,
-    align: "center",
-    sortable: true,
+    text: "이름", value: "name", width: 280, sortable: true
   },
   {
-    name: "instance",
-    field: "instance",
-    label: "인스턴스 이름",
-    align: "left",
-    sortable: true,
-    type: "link",
+    text: "이메일", value: "email", sortable: true
   },
   {
-    name: "status",
-    field: "status",
-    label: "상태",
-    align: "left",
-    sortable: true,
-    type: "tag",
-  },
-  {
-    name: "ssh",
-    field: "ssh",
-    label: "ssh",
-    align: "left",
-    sortable: false,
-    type: "copy",
-  },
-  {
-    name: "JupyterLab",
-    field: "JupyterLab",
-    label: "JupyterLab",
-    align: "left",
-    sortable: false,
-    type: "copy",
-  },
-  {
-    name: "instanceType",
-    field: "instanceType",
-    label: "인스턴스 타입",
-    align: "left",
-    sortable: true,
-    type: "tooltip",
-  },
-  {
-    name: "gpu",
-    field: "gpu",
-    label: "GPU",
-    align: "left",
-    sortable: false,
-  },
-  {
-    name: "cpu",
-    field: "cpu",
-    label: "CPU",
-    align: "left",
-    sortable: false,
-  },
-  {
-    name: "createdAt",
-    field: "createdAt",
-    label: "생성일시",
-    align: "left",
-    sortable: true,
-    type: "datetime"
-  },
-  {
-    name: "createdBy",
-    field: "createdBy",
-    label: "생성자",
-    align: "left",
-    sortable: false,
+    text: "이용요금", value: "useageFee", width: 300, sortable: true
   },
 ];
-const data = [
+const items = [
   {
-    id: 1,
-    instance: "인스턴스 이름 인스턴스 이름 인스턴스 이름",
-    status: "running",
-    ssh: "ssh",
-    JupyterLab: "JupyterLab",
-    instanceType: "V1.XLARGE",
-    gpu: "49.5%",
-    cpu: "100%",
-    createdAt: "2023.01.12 10:33:21",
-    createdBy: "Root.choi",
-    resource: {
-      cpus: 28,
-      gpu_device_model: "TESLA_V100",
-      gpus: 2,
-      mem: 249856,
-      zone: "public:normal"
-    }
+    name: "Tester2",
+    email: "root.choi@kakaobrain.com",
+    useageFee: "283,292원"
   },
   {
-    id: 2,
-    instance: "인스턴스 이름 인스턴스 이름 인스턴스 이름",
-    status: "stopped",
-    ssh: "ssh",
-    JupyterLab: "JupyterLab",
-    instanceType: "V1.XLARGE",
-    gpu: "49.5%",
-    cpu: "100%",
-    createdAt: "2023.01.12 10:33:21",
-    createdBy: "Root.choi",
-    resource: {
-      cpus: 28,
-      gpu_device_model: "TESLA_V100",
-      gpus: 2,
-      mem: 249856,
-      zone: "public:normal"
-    }
+    name: "테스터",
+    email: "root.choi@kakaobrain.com",
+    useageFee: "283,292원"
+  },
+  {
+    name: "테스터",
+    email: "root.choi@kakaobrain.com",
+    useageFee: "283,292원"
   },
 ];
-
-const actionButtons = [
-  { name: "이용현황", event: "state" },
-  { name: "공유관리", event: "share" },
-  { name: "스냅샷 관리", event: "mngSnap" },
-  { name: "스냅샷 생성", event: "crtSnap" },
-  { name: "삭제", event: "delete" },
-];
-const respAction = (eventObj) => {
-  const eventName = eventObj.event;
-  // const rowData = eventObj.data;
-  // console.log(rowData);
-  switch (eventName) {
-    case "state":
-      break;
-    case "share":
-      break;
-    case "mngSnap":
-      break;
-    case "crtSnap":
-      break;
-    case "delete":
-      break;
-    default:
-      break;
-  }
+/**
+ * 버튼 및 checkbox 에 대한 이벤트 존재할 시 class 삽입
+ */
+const bodyRowClassNameFunction = (item) => {
+  const classList = [];
+  if (item.buttons) classList.push("row-button");
+  if (item.checkbox) classList.push("row-selected");
+  return classList.join(" ");
 };
 
 // Date Picker
@@ -295,5 +226,6 @@ const ptitle = ref(title);
 </script>
 
 <style lang="scss" scoped>
+@import 'src/css/table';
 @import 'src/css/billing';
 </style>

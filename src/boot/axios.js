@@ -7,7 +7,9 @@ import axios from "axios";
 // good idea to move this instance creation inside of the
 // "export default () => {}" function below (which runs individually
 // for each client)
-const api = axios.create({ baseURL: "https://api.example.com" });
+const api = axios.create({
+  baseURL: "http://api.bcloud.dev.kakaobrain.com/v1"
+});
 
 export default boot(({ app }) => {
   // for use inside Vue files (Options API) through this.$axios and this.$api
@@ -20,5 +22,26 @@ export default boot(({ app }) => {
   // ^ ^ ^ this will allow you to use this.$api (for Vue Options API form)
   //       so you can easily perform requests against your app's API
 });
+
+api.interceptors.request.use(
+  (config) => {
+    console.log("request config::", config);
+    return config;
+  },
+  (error) => {
+    console.log("request error::", error);
+    return Promise.reject(error);
+  }
+);
+api.interceptors.response.use(
+  (response) => {
+    console.log("response response::", response);
+    return response;
+  },
+  (error) => {
+    console.log("response error::", error);
+    return Promise.reject(error);
+  }
+);
 
 export { api };

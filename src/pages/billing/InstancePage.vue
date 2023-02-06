@@ -68,32 +68,20 @@
         <p class="pay-amount">워크스페이스 총 비용</p>
         <p class="pay"><span>39,220,000</span>&nbsp;원</p>
       </div>
-      <div class="group-tabs mb30">
-        <q-tabs
-          v-model="tab"
-          align="left"
-          class="c_tabs"
-        >
-          <q-tab name="tabs1" label="멤버"></q-tab>
-          <q-tab name="tabs2" label="프로젝트"></q-tab>
-          <q-tab name="tabs3" label="인스턴스 타입"></q-tab>
-          <q-tab name="tabs4" label="스토리지"></q-tab>
-        </q-tabs>
-      </div>
-
-      <div class="group-load">
-        <div class="table_set">
-          <q-select
-            outlined
-            placeholder="프로젝트 이름 설명 검색 "
-            use-input
-            clearable
-            class="c_inpchip default_size"
+      <div class="ins-wrap">
+        <div class="group-tabs">
+          <q-tabs
+            v-model="tab"
+            align="left"
+            class="c_tabs"
           >
-            <template v-slot:prepend>
-              <q-icon name="search" class="ico_search" />
-            </template>
-          </q-select>
+            <q-tab name="tabs1" label="멤버"></q-tab>
+            <q-tab name="tabs2" label="프로젝트"></q-tab>
+            <q-tab name="tabs3" label="인스턴스 타입"></q-tab>
+            <q-tab name="tabs4" label="스토리지"></q-tab>
+          </q-tabs>
+        </div>
+        <div class="table_set">
           <CDropdown
             v-model:selected="selectedBasic"
             :label="optLabel"
@@ -101,24 +89,43 @@
             class="auto_size"
           />
         </div>
-        <div class="group-table">
-          <CTable
-            :title="title"
-            :columns="columns"
-            :data="data"
-            :action-buttons="actionButtons"
-            @action="respAction"
-          />
-          <div class="group-table_page">
-            <CPagination />
+      </div>
+      <template v-if="defaultData == true">
+        <div class="group-load">
+          <div class="group-table">
+            <section class="section">
+              <EasyDataTable
+                :headers="headers"
+                :items="items"
+                :hide-footer="true"
+                empty-message="정보가 없습니다."
+                @click-row="showRow"
+              >
+              </EasyDataTable>
+            </section>
+            <div class="group-table_page">
+              <CPagination />
+            </div>
           </div>
         </div>
-      </div>
-
-      <!-- 오픈시, 서비스 준비중 안내 문구 표기 -->
-      <!-- <div class="group-table preparing">
-        <p>서비스 준비중입니다.</p>
-      </div> -->
+      </template>
+      <!-- 서비스 준비중입니다. -->
+      <template v-else>
+        <div class="group-load">
+          <div class="group-table">
+            <section class="section">
+              <EasyDataTable
+                :headers="headers"
+                :items="nodata"
+                :hide-footer="true"
+                :body-row-class-name="bodyRowClassNameFunction"
+                empty-message="서비스 준비중입니다."
+              >
+              </EasyDataTable>
+            </section>
+          </div>
+        </div>
+      </template>
     </div>
   </q-page>
 </template>
@@ -127,11 +134,12 @@ import { ref } from "vue";
 import { useMeta } from "quasar";
 import CButton from "components/common/CButton.vue";
 import CDropdown from "components/common/CDropdown.vue";
-import CTable from "src/components/common/CTable.vue";
 import CPagination from "components/common/CPagination.vue";
 
+const defaultData = ref(true);
 const title = ref("워크스페이스 이용 요금");
 const btnName = ref("CSV 다운로드");
+
 useMeta(() => ({
   title: title.value,
 }));
@@ -141,154 +149,52 @@ const optLabel = ref("10");
 const optNumber = ref([
   { label: "10", value: 0 },
   { label: "25", value: 1 },
-  { label: "50", value: 1 },
+  { label: "50", value: 2 },
 ]);
-
-const columns = [
+// Table
+const nodata = [];
+const headers = [
   {
-    name: "id",
-    field: "id",
-    label: "ID",
-    required: true,
-    align: "center",
-    sortable: true,
+    text: "타입", value: "type", width: "350", sortable: true
   },
   {
-    name: "instance",
-    field: "instance",
-    label: "인스턴스 이름",
-    align: "left",
-    sortable: true,
-    type: "link",
+    text: "타입상세", value: "typeDetail", sortable: true
   },
   {
-    name: "status",
-    field: "status",
-    label: "상태",
-    align: "left",
-    sortable: true,
-    type: "tag",
+    text: "이용시간", value: "useHours", width: "230", sortable: true
   },
   {
-    name: "ssh",
-    field: "ssh",
-    label: "ssh",
-    align: "left",
-    sortable: false,
-    type: "copy",
-  },
-  {
-    name: "JupyterLab",
-    field: "JupyterLab",
-    label: "JupyterLab",
-    align: "left",
-    sortable: false,
-    type: "copy",
-  },
-  {
-    name: "instanceType",
-    field: "instanceType",
-    label: "인스턴스 타입",
-    align: "left",
-    sortable: true,
-    type: "tooltip",
-  },
-  {
-    name: "gpu",
-    field: "gpu",
-    label: "GPU",
-    align: "left",
-    sortable: false,
-  },
-  {
-    name: "cpu",
-    field: "cpu",
-    label: "CPU",
-    align: "left",
-    sortable: false,
-  },
-  {
-    name: "createdAt",
-    field: "createdAt",
-    label: "생성일시",
-    align: "left",
-    sortable: true,
-    type: "datetime"
-  },
-  {
-    name: "createdBy",
-    field: "createdBy",
-    label: "생성자",
-    align: "left",
-    sortable: false,
+    text: "이용금액", value: "useageFee", width: "230", sortable: true
   },
 ];
-const data = [
+const items = [
   {
-    id: 1,
-    instance: "인스턴스 이름 인스턴스 이름 인스턴스 이름",
-    status: "running",
-    ssh: "ssh",
-    JupyterLab: "JupyterLab",
-    instanceType: "V1.XLARGE",
-    gpu: "49.5%",
-    cpu: "100%",
-    createdAt: "2023.01.12 10:33:21",
-    createdBy: "Root.choi",
-    resource: {
-      cpus: 28,
-      gpu_device_model: "TESLA_V100",
-      gpus: 2,
-      mem: 249856,
-      zone: "public:normal"
-    }
+    type: "테스트용 inst",
+    typeDetail: "1GPU, 14CPU, MEM 122GiB, DISK 80GiB",
+    useHours: "128.04시간",
+    useageFee: "283,292원"
   },
   {
-    id: 2,
-    instance: "인스턴스 이름 인스턴스 이름 인스턴스 이름",
-    status: "stopped",
-    ssh: "ssh",
-    JupyterLab: "JupyterLab",
-    instanceType: "V1.XLARGE",
-    gpu: "49.5%",
-    cpu: "100%",
-    createdAt: "2023.01.12 10:33:21",
-    createdBy: "Root.choi",
-    resource: {
-      cpus: 28,
-      gpu_device_model: "TESLA_V100",
-      gpus: 2,
-      mem: 249856,
-      zone: "public:normal"
-    }
+    type: "테스트용 inst",
+    typeDetail: "1GPU, 14CPU, MEM 122GiB, DISK 80GiB",
+    useHours: "128.04시간",
+    useageFee: "283,292원"
+  },
+  {
+    type: "테스트용 inst",
+    typeDetail: "1GPU, 14CPU, MEM 122GiB, DISK 80GiB",
+    useHours: "128.04시간",
+    useageFee: "283,292원"
   },
 ];
-
-const actionButtons = [
-  { name: "이용현황", event: "state" },
-  { name: "공유관리", event: "share" },
-  { name: "스냅샷 관리", event: "mngSnap" },
-  { name: "스냅샷 생성", event: "crtSnap" },
-  { name: "삭제", event: "delete" },
-];
-const respAction = (eventObj) => {
-  const eventName = eventObj.event;
-  // const rowData = eventObj.data;
-  // console.log(rowData);
-  switch (eventName) {
-    case "state":
-      break;
-    case "share":
-      break;
-    case "mngSnap":
-      break;
-    case "crtSnap":
-      break;
-    case "delete":
-      break;
-    default:
-      break;
-  }
+/**
+ * 버튼 및 checkbox 에 대한 이벤트 존재할 시 class 삽입
+ */
+const bodyRowClassNameFunction = (item) => {
+  const classList = [];
+  if (item.buttons) classList.push("row-button");
+  if (item.checkbox) classList.push("row-selected");
+  return classList.join(" ");
 };
 
 // Date Picker
@@ -301,5 +207,6 @@ const ptitle = ref(title);
 </script>
 
 <style lang="scss" scoped>
+@import 'src/css/table';
 @import 'src/css/billing';
 </style>

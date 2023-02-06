@@ -41,16 +41,16 @@
             <td>로그인</td>
             <td>
               <router-link
-                to="common/login"
+                to="login"
                 target="_blank"
               />
             </td>
             <td>
-              <q-badge class="c_badge">
-                <span class="txt">진행중</span>
+              <q-badge class="c_badge green">
+                <span class="txt">완료</span>
               </q-badge>
             </td>
-            <td>LoginPage - 로그인 SubLayout 생성 후 좌측 메뉴 없는 구조 생성</td>
+            <td>IndexPage - 로그인 LoginLayout 생성 후 상단/좌측 메뉴 없는 구조 생성</td>
           </tr>
           <tr>
             <td>회원탈퇴(TBD)</td>
@@ -61,8 +61,8 @@
               />
             </td>
             <td>
-              <q-badge class="c_badge">
-                <span class="txt">진행중</span>
+              <q-badge class="c_badge green">
+                <span class="txt">완료</span>
               </q-badge>
             </td>
             <td>WithdrawalPage - 회원탈퇴 SubLayout 생성 후 좌측 메뉴 없는 구조 생성</td>
@@ -526,8 +526,8 @@
               />
             </td>
             <td>
-              <q-badge class="c_badge">
-                <span class="txt">진행중</span>
+              <q-badge class="c_badge green">
+                <span class="txt">완료</span>
               </q-badge>
             </td>
             <td>IndexPage</td>

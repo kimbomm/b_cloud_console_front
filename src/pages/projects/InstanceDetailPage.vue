@@ -21,31 +21,6 @@
       <h1 class="p-title">
         {{ ptitle }}
       </h1>
-      <q-btn class="ibtn setmenu">
-        <i class="ico set" /><span class="hidden">설정</span>
-        <q-menu class="set_menu">
-          <q-list style="min-width: 100px">
-            <q-item>
-              <q-btn class="item">
-                <span class="txt">이름/설명 편집</span>
-              </q-btn>
-            </q-item>
-            <q-item>
-              <q-btn class="item">
-                <span class="txt">할당량 변경 요청</span>
-              </q-btn>
-            </q-item>
-            <q-item>
-              <q-btn class="item">
-                <span class="txt">프로젝트 삭제</span>
-              </q-btn>
-            </q-item>
-          </q-list>
-        </q-menu>
-      </q-btn>
-      <p class="desc">
-        <span class="txt">Your Summary Information Of The Workspace</span>
-      </p>
     </div>
     <!-- //.chead -->
     <div class="p-body">
@@ -105,15 +80,33 @@
                   ></q-tab>
                 </q-tabs>
               </div>
-
               <div class="s_03_table">
-                <CTable
-                  :title="title"
-                  :columns="columns"
-                  :data="data"
-                  row-click
-                  @rowClick="onRowClick"
-                />
+                <EasyDataTable
+                  v-model:items-selected="itemsSelected"
+                  :headers="instanceHeaders"
+                  :items="instanceItems"
+                  :hide-footer="true"
+                  :body-row-class-name="bodyRowClassNameFunction"
+                  empty-message="정보가 없습니다."
+                >
+                  <!-- title -->
+                  <template #item-title="item">
+                    <a href="#">
+                      <span class="txt">{{ item.title }}</span>
+                      <q-tooltip anchor="bottom middle" class="c_tooltip">
+                        <div class="inner">
+                          {{ item.title }}
+                        </div>
+                      </q-tooltip>
+                    </a>
+                  </template>
+                  <!-- 버튼 그룹 -->
+                  <template #item-buttons="item">
+                    <q-btn v-if="item.checkbox" class="text">
+                      <span class="txt">선택 취소하기</span>
+                      </q-btn>
+                  </template>
+                </EasyDataTable>
               </div>
               <div class="s_03_pagenav disflex_C mt32">
                 <CPagination />
@@ -143,19 +136,335 @@
                   ></q-tab>
                 </q-tabs>
               </div>
+              <template v-if="tab2 === 'tabs1'">
+                <div class="s_04_table">
+                  <EasyDataTable
+                    v-model:items-selected="itemsSelected"
+                    :headers="imgHeader1"
+                    :items="imgItems1"
+                    :hide-footer="true"
+                    :body-row-class-name="bodyRowClassNameFunction"
+                    empty-message="정보가 없습니다."
+                  >
+                    <!-- title -->
+                    <template #item-title="item">
+                      <a href="#">
+                        <span class="txt">{{ item.title }}</span>
+                        <q-tooltip anchor="bottom middle" class="c_tooltip">
+                          <div class="inner">
+                            {{ item.title }}
+                          </div>
+                        </q-tooltip>
+                      </a>
+                    </template>
+                    <!-- 버튼 그룹 -->
+                    <template #item-buttons="item">
+                      <q-btn v-if="item.checkbox" class="text">
+                        <span class="txt">선택 취소하기</span>
+                        </q-btn>
+                    </template>
+                  </EasyDataTable>
+                </div>
+                <div class="s_04_pagenav disflex_C mt32">
+                  <CPagination />
+                </div>
+              </template>
+              <template v-if="tab2 === 'tabs2'">
+                <template v-if="defaultData == true">
+                  <div class="s_04_table">
+                    <EasyDataTable
+                      v-model:items-selected="itemsSelected"
+                      :headers="imgHeader2"
+                      :items="imgItems2"
+                      :hide-footer="true"
+                      :body-row-class-name="bodyRowClassNameFunction"
+                      empty-message="정보가 없습니다."
+                    >
+                      <!--
+                        상태값(status)
+                        1. sharing, 저장(공유)
+                        2. error, 오류
+                        3. inStorage, 저장중
+                      -->
+                      <template #item-status="item">
+                        <q-badge v-if="item.status === 'sharing'" class="green">
+                          <span class="txt">저장(공유)</span>
+                        </q-badge>
+                        <q-badge v-else-if="item.status === 'error'" class="orange">
+                          <span class="txt">오류</span>
+                        </q-badge>
+                        <q-badge v-else-if="item.status === 'inStorage'">
+                          <span class="txt">저장중</span>
+                        </q-badge>
+                        <q-item v-else-if="item.status === 'group'" class="badge_group">
+                          <div class="badge">
+                            <q-badge class="green">
+                              <span class="txt">7</span>
+                            </q-badge>
+                            <q-badge class="orange">
+                              <span class="txt">20</span>
+                            </q-badge>
+                            <q-badge class="c_badge">
+                              <span class="txt">27</span>
+                            </q-badge>
+                          </div>
 
-              <div class="s_04_table">
-                <CTable
-                  :title="title"
-                  :columns="columns2"
-                  :data="data2"
-                  row-click
-                  @rowClick="onRowClick"
-                />
-              </div>
-              <div class="s_04_pagenav disflex_C mt32">
-                <CPagination />
-              </div>
+                          <q-popup-edit v-model="badgeGroup"
+                          self="bottom middle" class="badge_menu">
+                            <div class="inner">
+                              <q-list>
+                                <q-item>
+                                  <q-item-section>
+                                    <div class="badge_item">
+                                      <q-badge class="green">
+                                        <span class="txt">실행중</span>
+                                      </q-badge>
+                                      <span class="count">2</span>
+                                    </div>
+                                  </q-item-section>
+                                  <q-item-section>
+                                    <div class="badge_item">
+                                      <q-badge>
+                                        <span class="txt">생성중</span>
+                                      </q-badge>
+                                      <span class="count">2</span>
+                                    </div>
+                                  </q-item-section>
+                                </q-item>
+                                <q-item>
+                                  <q-item-section>
+                                    <div class="badge_item">
+                                      <q-badge class="green">
+                                        <span class="txt">완료</span>
+                                      </q-badge>
+                                      <span class="count">5</span>
+                                    </div>
+                                  </q-item-section>
+                                  <q-item-section>
+                                    <div class="badge_item">
+                                      <q-badge>
+                                        <span class="txt">재시작중</span>
+                                      </q-badge>
+                                      <span class="count">5</span>
+                                    </div>
+                                  </q-item-section>
+                                </q-item>
+                                <q-item>
+                                  <q-item-section>
+                                    <div class="badge_item">
+                                      <q-badge class="orange">
+                                        <span class="txt">취소</span>
+                                      </q-badge>
+                                      <span class="count">10</span>
+                                    </div>
+                                  </q-item-section>
+                                  <q-item-section>
+                                    <div class="badge_item">
+                                      <q-badge>
+                                        <span class="txt">취소중</span>
+                                      </q-badge>
+                                      <span class="count">10</span>
+                                    </div>
+                                  </q-item-section>
+                                </q-item>
+                                <q-item>
+                                  <q-item-section>
+                                    <div class="badge_item">
+                                      <q-badge class="orange">
+                                        <span class="txt">실패</span>
+                                      </q-badge>
+                                      <span class="count">10</span>
+                                    </div>
+                                  </q-item-section>
+                                  <q-item-section>
+                                    <div class="badge_item">
+                                      <q-badge>
+                                        <span class="txt">삭제중</span>
+                                      </q-badge>
+                                      <span class="count">10</span>
+                                    </div>
+                                  </q-item-section>
+                                </q-item>
+                              </q-list>
+                            </div>
+                          </q-popup-edit>
+                        </q-item>
+                        <q-badge v-else class="c_badge">
+                          <span class="txt">생성중</span>
+                        </q-badge>
+                      </template>
+                      <!-- 버튼 그룹 -->
+                      <template #item-buttons="item">
+                        <q-btn v-if="item.checkbox" class="text">
+                          <span class="txt">선택 취소하기</span>
+                          </q-btn>
+                      </template>
+                    </EasyDataTable>
+                  </div>
+                  <div class="s_04_pagenav disflex_C mt32">
+                    <CPagination />
+                  </div>
+                </template>
+                <template v-else>
+                  <div class="com_nondata_area">
+                    <div class="nondata_box">
+                      <p class="nondata_txt">생성된 이미지가 없습니다.</p>
+                    </div>
+                  </div>
+                </template>
+              </template>
+              <template v-if="tab2 === 'tabs3'">
+                <template v-if="defaultData == !true">
+                  <div class="s_04_table">
+                    <EasyDataTable
+                      v-model:items-selected="itemsSelected"
+                      :headers="imgHeader3"
+                      :items="imgItems3"
+                      :hide-footer="true"
+                      :body-row-class-name="bodyRowClassNameFunction"
+                      empty-message="정보가 없습니다."
+                    >
+                      <!-- title -->
+                      <template #item-title="item">
+                        <a href="#">
+                          <span class="txt">{{ item.title }}</span>
+                          <q-tooltip anchor="bottom middle" class="c_tooltip">
+                            <div class="inner">
+                              {{ item.title }}
+                            </div>
+                          </q-tooltip>
+                        </a>
+                      </template>
+                      <!--
+                        상태값(status)
+                        1. running, 운영중, 실행중
+                        2. stopped, 정지 | 오류 | 취소 | 실패
+                        3. 생성중 | 삭제중 | 대기중 | 재시작중
+                      -->
+                      <template #item-status="item">
+                        <q-badge v-if="item.status === 'running'" class="green">
+                          <span class="txt">운영중</span>
+                        </q-badge>
+                        <q-badge v-else-if="item.status === 'stopped'" class="orange">
+                          <span class="txt">정지</span>
+                        </q-badge>
+                        <q-item v-else-if="item.status === 'group'" class="badge_group">
+                          <div class="badge">
+                            <q-badge class="green">
+                              <span class="txt">7</span>
+                            </q-badge>
+                            <q-badge class="orange">
+                              <span class="txt">20</span>
+                            </q-badge>
+                            <q-badge class="c_badge">
+                              <span class="txt">27</span>
+                            </q-badge>
+                          </div>
+
+                          <q-popup-edit v-model="badgeGroup"
+                          self="bottom middle" class="badge_menu">
+                            <div class="inner">
+                              <q-list>
+                                <q-item>
+                                  <q-item-section>
+                                    <div class="badge_item">
+                                      <q-badge class="green">
+                                        <span class="txt">실행중</span>
+                                      </q-badge>
+                                      <span class="count">2</span>
+                                    </div>
+                                  </q-item-section>
+                                  <q-item-section>
+                                    <div class="badge_item">
+                                      <q-badge>
+                                        <span class="txt">생성중</span>
+                                      </q-badge>
+                                      <span class="count">2</span>
+                                    </div>
+                                  </q-item-section>
+                                </q-item>
+                                <q-item>
+                                  <q-item-section>
+                                    <div class="badge_item">
+                                      <q-badge class="green">
+                                        <span class="txt">완료</span>
+                                      </q-badge>
+                                      <span class="count">5</span>
+                                    </div>
+                                  </q-item-section>
+                                  <q-item-section>
+                                    <div class="badge_item">
+                                      <q-badge>
+                                        <span class="txt">재시작중</span>
+                                      </q-badge>
+                                      <span class="count">5</span>
+                                    </div>
+                                  </q-item-section>
+                                </q-item>
+                                <q-item>
+                                  <q-item-section>
+                                    <div class="badge_item">
+                                      <q-badge class="orange">
+                                        <span class="txt">취소</span>
+                                      </q-badge>
+                                      <span class="count">10</span>
+                                    </div>
+                                  </q-item-section>
+                                  <q-item-section>
+                                    <div class="badge_item">
+                                      <q-badge>
+                                        <span class="txt">취소중</span>
+                                      </q-badge>
+                                      <span class="count">10</span>
+                                    </div>
+                                  </q-item-section>
+                                </q-item>
+                                <q-item>
+                                  <q-item-section>
+                                    <div class="badge_item">
+                                      <q-badge class="orange">
+                                        <span class="txt">실패</span>
+                                      </q-badge>
+                                      <span class="count">10</span>
+                                    </div>
+                                  </q-item-section>
+                                  <q-item-section>
+                                    <div class="badge_item">
+                                      <q-badge>
+                                        <span class="txt">삭제중</span>
+                                      </q-badge>
+                                      <span class="count">10</span>
+                                    </div>
+                                  </q-item-section>
+                                </q-item>
+                              </q-list>
+                            </div>
+                          </q-popup-edit>
+                        </q-item>
+                        <q-badge v-else class="c_badge">
+                          <span class="txt">생성중</span>
+                        </q-badge>
+                      </template>
+                      <!-- 버튼 그룹 -->
+                      <template #item-buttons="item">
+                        <q-btn v-if="item.checkbox" class="text">
+                          <span class="txt">선택 취소하기</span>
+                          </q-btn>
+                      </template>
+                    </EasyDataTable>
+                  </div>
+                  <div class="s_04_pagenav disflex_C mt32">
+                    <CPagination />
+                  </div>
+                </template>
+                <template v-else>
+                  <div class="com_nondata_area">
+                    <div class="nondata_box">
+                      <p class="nondata_txt">공유받은 이미지가 없습니다.</p>
+                    </div>
+                  </div>
+                </template>
+              </template>
             </div>
           </div>
           <div class="s_05 pb78">
@@ -168,13 +477,49 @@
                 선택
               </div>
               <div class="s_05_table">
-                <CTable
-                  :title="title"
-                  :columns="columns3"
-                  :data="data3"
-                  row-click
-                  @rowClick="onRowClick"
-                />
+                <EasyDataTable
+                  v-model:items-selected="itemsSelected"
+                  :headers="storageHeader"
+                  :items="storageItems"
+                  :hide-footer="true"
+                  :body-row-class-name="bodyRowClassNameFunction"
+                  empty-message="정보가 없습니다."
+                >
+                  <!-- description -->
+                  <template #item-description="item">
+                    <a href="#">
+                      <span class="txt">{{ item.description }}</span>
+                      <q-tooltip anchor="bottom middle" class="c_tooltip">
+                        <div class="inner">
+                          {{ item.description }}
+                        </div>
+                      </q-tooltip>
+                    </a>
+                  </template>
+                  <!--
+                    상태값(status)
+                    1. running, 운영중
+                    2. deleting, 삭제중
+                    3. restoring, 복구중
+                  -->
+                  <template #item-status="item">
+                    <q-badge v-if="item.status === 'running'" class="green">
+                      <span class="txt">운영중</span>
+                    </q-badge>
+                    <q-badge v-else-if="item.status === 'deleting'">
+                      <span class="txt">삭제중</span>
+                    </q-badge>
+                    <q-badge v-else-if="item.status === 'restoring'">
+                      <span class="txt">복구중</span>
+                    </q-badge>
+                  </template>
+                  <!-- 버튼 그룹 -->
+                  <template #item-buttons="item">
+                    <q-btn v-if="item.checkbox" class="text">
+                      <span class="txt">선택 취소하기</span>
+                      </q-btn>
+                  </template>
+                </EasyDataTable>
               </div>
               <div class="s_05_pagenav disflex_C mt32">
                 <CPagination />
@@ -184,15 +529,39 @@
           <div class="s_06 pb78">
             <p class="sub_title2">SSH Key<i class="ess">*</i></p>
             <div class="s_06_main">
-              <div class="s_06_table">
-                <CTable
-                  :title="title"
-                  :columns="columns4"
-                  :data="data4"
-                  row-click
-                  @rowClick="onRowClick"
-                />
-              </div>
+              <template v-if="defaultData == true">
+                <div class="s_06_table">
+                  <EasyDataTable
+                    v-model:items-selected="itemsSelected"
+                    :headers="sshKeyHeader"
+                    :items="sshKeyItems"
+                    :hide-footer="true"
+                    :body-row-class-name="bodyRowClassNameFunction"
+                    empty-message="정보가 없습니다."
+                  >
+                    <!-- 버튼 그룹 -->
+                    <template #item-buttons="item">
+                      <q-btn v-if="item.checkbox" class="text">
+                        <span class="txt">선택 취소하기</span>
+                        </q-btn>
+                    </template>
+                  </EasyDataTable>
+                </div>
+              </template>
+              <template v-else>
+                <div class="com_nondata_area">
+                  <div class="nondata_box">
+                    <p class="nondata_txt">생성된 인스턴스가 없습니다.</p>
+                    <div class="nondata_btn">
+                      <CButton
+                        :size-types="2"
+                        :btn-types="1"
+                        :btn-names="dataRegister"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </template>
             </div>
           </div>
           <div class="s_07">
@@ -270,11 +639,20 @@
               </li>
             </ul>
             <div class="make_btn">
-              <CButton
-                :size-types="2"
-                :btn-types="11"
-                :btn-names="btnDis"
-              />
+              <template v-if="datacheck === datacheck">
+                <CButton
+                  :size-types="2"
+                  :btn-types="11"
+                  :btn-names="btnDis"
+                />
+              </template>
+              <template v-else>
+                <CButton
+                  :size-types="2"
+                  :btn-types="1"
+                  :btn-names="btnName"
+                />
+              </template>
             </div>
           </div>
         </div>
@@ -287,7 +665,6 @@ import { ref } from "vue";
 import { useMeta } from "quasar";
 import CPagination from "components/common/CPagination.vue";
 import CButton from "components/common/CButton.vue";
-import CTable from "src/components/common/CTable.vue";
 
 const title = ref("인스턴스 생성");
 useMeta(() => ({
@@ -297,180 +674,247 @@ useMeta(() => ({
 const ptitle = ref(title);
 const tab = ref("tabs1");
 const tab2 = ref("tabs1");
+const datacheck = ref(false);
+const btnName = ref("인스턴스 생성");
 const btnDis = ref("인스턴스 생성");
 const textName = ref(null);
 const textName2 = ref(null);
+const defaultData = ref(true);
+const dataRegister = ref("등록하기");
+
+const itemsSelected = ref([]);
 
 // 인스턴스 타입 테이블
-const columns = [
+const instanceHeaders = [
   {
-    name: "name",
-    field: "name",
-    label: "이름",
-    required: true,
-    align: "left",
+    text: "이름", value: "title", width: 400, sortable: false
   },
   {
-    name: "cpu",
-    field: "cpu",
-    label: "CPU",
-    align: "left",
+    text: "CPU", value: "cpu", width: 80, sortable: false
   },
   {
-    name: "memory",
-    field: "memory",
-    label: "Memory",
-    align: "left",
+    text: "Memory", value: "memory", width: 180, sortable: false
   },
   {
-    name: "disk",
-    field: "disk",
-    label: "Disk",
-    align: "left",
+    text: "Disk", value: "disk", width: 100, sortable: false
   },
+  { text: "", value: "buttons", width: 150 },
 ];
-const data = [
+const instanceItems = [
   {
-    name: "CG.nano",
-    cpu: 7,
+    title: "CG.nano",
+    cpu: "7",
     memory: "18GiB",
     disk: "80GiB",
+    resource: {
+      cpus: 28,
+      gpu_device_model: "TESLA_V100",
+      gpus: 2,
+      mem: 249856,
+      zone: "public:normal",
+    },
   },
   {
-    name: "CG.nano",
-    cpu: 7,
+    title: "CG.nano",
+    cpu: "7",
     memory: "18GiB",
     disk: "80GiB",
+    resource: {
+      cpus: 28,
+      gpu_device_model: "TESLA_V100",
+      gpus: 2,
+      mem: 249856,
+      zone: "public:normal",
+    },
+  },
+  {
+    title: "CG.nano",
+    cpu: "7",
+    memory: "18GiB",
+    disk: "80GiB",
+    resource: {
+      cpus: 28,
+      gpu_device_model: "TESLA_V100",
+      gpus: 2,
+      mem: 249856,
+      zone: "public:normal",
+    },
   },
 ];
-
-// 이미지 테이블
-const columns2 = [
+// 이미지 테이블_기본이미지
+const imgHeader1 = [
   {
-    name: "name",
-    field: "name",
-    label: "이름",
-    required: true,
-    align: "left",
+    text: "이름", value: "title", width: 580, sortable: false
   },
   {
-    name: "nvida",
-    field: "nvida",
-    label: "NVIDA 드라이브 최소버전",
-    align: "left",
-    sortable: false,
+    text: "NVIDA 드라이브 최소버전", value: "nvida", width: 382, sortable: false
   },
 ];
-const data2 = [
+const imgItems1 = [
   {
-    name: "tensorflow 2.9.0  (python3, cuda11.2, ubuntu20.04)",
-    nvida: "450.0008",
+    title: "tensorflow 2.9.0  (python3, cuda11.2, ubuntu20.04)",
+    nvida: "400.0008",
   },
   {
-    name: "tensorflow 2.9.0  (python3, cuda11.2, ubuntu20.04)",
+    title: "tensorflow 2.9.0  (python3, cuda11.2, ubuntu20.04)",
     nvida: "450.0008",
+  },
+];
+// 이미지 테이블_내이미지
+const imgHeader2 = [
+  {
+    text: "이름", value: "title", width: 190, sortable: false
+  },
+  {
+    text: "설명", value: "description", width: 274, sortable: false
+  },
+  {
+    text: "상태", value: "status", width: 190, sortable: false
+  },
+  {
+    text: "생성일시", value: "createdAt", width: 276, sortable: false
+  },
+];
+const imgItems2 = [
+  {
+    title: "내 이미지 1",
+    description: "내 이미지 1",
+    status: "sharing",
+    createdAt: "2023.09.02 07:30:44",
+  },
+  {
+    title: "내 이미지 1",
+    description: "내 이미지 1",
+    status: "inStorage",
+    createdAt: "2023.09.02 07:30:44",
+  },
+  {
+    title: "내 이미지 1",
+    description: "내 이미지 1",
+    status: "error",
+    createdAt: "2023.09.02 07:30:44",
+  },
+];
+// 이미지 테이블_공유받은 이미지
+const imgHeader3 = [
+  {
+    text: "이름", value: "title", width: 190, sortable: false
+  },
+  {
+    text: "설명", value: "description", width: 480, sortable: false
+  },
+  {
+    text: "공유자", value: "owner", width: 276, sortable: false
+  },
+];
+const imgItems3 = [
+  {
+    title: "내 이미지1",
+    description: "내 이미지 1",
+    owner: "Kayle(kayle.k@kakaobrain.com)",
+  },
+  {
+    title: "내 이미지1",
+    description: "택스트용 내 이미지 생성 테스트 텍스트",
+    owner: "Kayle(kayle.k@kakaobrain.com)",
+  },
+  {
+    title: "내 이미지1",
+    description: "내 이미지 3",
+    owner: "Kayle(kayle.k@kakaobrain.com)",
   },
 ];
 
 // 스토리지 테이블
-const columns3 = [
+const storageHeader = [
   {
-    name: "name",
-    field: "name",
-    label: "이름",
-    required: true,
-    align: "left",
+    text: "이름", value: "title", width: 150, sortable: false
   },
   {
-    name: "account",
-    field: "account",
-    label: "설명",
-    align: "left",
-    type: "link",
+    text: "설명", value: "description", width: 400, sortable: false
   },
   {
-    name: "status",
-    field: "status",
-    label: "상태",
-    align: "left",
-    type: "tag",
+    text: "상태", value: "status", width: 100, sortable: false
   },
   {
-    name: "user",
-    field: "user",
-    label: "소유자",
-    align: "left",
+    text: "소유자", value: "user", width: 150, sortable: false
   },
   {
-    name: "authority",
-    field: "authority",
-    label: "접근권한",
-    align: "left",
-    sortable: false,
+    text: "접근권한", value: "authority", width: 150, sortable: false
   },
 ];
-const data3 = [
+const storageItems = [
   {
-    name: "프로젝트",
-    account: "aa개인 스토리지",
+    title: "프로젝트",
+    description: "aa개인 스토리지1",
     status: "running",
     user: "root.choi",
     authority: "읽기쓰기",
   },
   {
-    name: "프로젝트",
-    account: "aa개인 스토리지",
-    status: "stopped",
+    title: "프로젝트",
+    description: "aa개인 스토리지aa개인 스토리지aa개인 스토리지aa개인 스토리지",
+    status: "deleting",
     user: "root.choi",
     authority: "읽기쓰기",
   },
   {
-    name: "프로젝트",
-    account: "aa개인 스토리지",
-    status: "running",
+    title: "프로젝트2",
+    description: "aa개인 스토리지",
+    status: "restoring",
     user: "root.choi",
     authority: "읽기쓰기",
   },
 ];
 
 // SSH Key 테이블
-const columns4 = [
+const sshKeyHeader = [
   {
-    name: "name",
-    field: "name",
-    label: "이름",
-    required: true,
-    align: "left",
+    text: "이름", value: "title", width: 190, sortable: false
   },
   {
-    name: "fingerprint",
-    field: "fingerprint",
-    label: "Fingerprint",
-    align: "left",
-    sortable: false,
+    text: "Fingerprint", value: "fingerprint", width: 430, sortable: false
   },
   {
-    name: "registrationDat",
-    field: "registrationDat",
-    label: "등록일시",
-    align: "left",
-    sortable: false,
+    text: "등록일시", value: "registrationDat", width: 330, sortable: false
   },
 ];
-const data4 = [
+const sshKeyItems = [
   {
-    name: "개인용",
+    title: "개인용",
     fingerprint: "61:a2:62:d0:7e:3d:c9:0a:4e:fe:83:6c:14:bc:fa:0f",
     registrationDat: "2023.11.21  04:33:34",
   },
   {
-    name: "개인용",
+    title: "기업용",
     fingerprint: "61:a2:62:d0:7e:3d:c9:0a:4e:fe:83:6c:14:bc:fa:0f",
     registrationDat: "2023.11.21  04:33:34",
   },
 ];
+
+/**
+ * 버튼 및 checkbox 에 대한 이벤트 존재할 시 class 삽입
+ */
+const bodyRowClassNameFunction = (item) => {
+  const classList = [];
+  if (item.buttons) classList.push("row-button");
+  if (item.checkbox) classList.push("row-selected");
+  return classList.join(" ");
+};
+
+/**
+ * 설명: 복사하기 버튼 이벤트
+ * @param { object } rowData get table row data
+ */
+
+/**
+ * 설명: row Action 버튼 이벤트
+ * @param { string } eventName action event name
+ * @param { object } rowData get table row data
+ */
 </script>
 
 <style lang="scss" scoped>
 @import "./src/css/projects";
+@import "./src/css/table";
 </style>

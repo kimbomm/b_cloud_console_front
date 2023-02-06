@@ -65,7 +65,7 @@
             class="request-input"
             aria-label="프로젝트 설명"
           >
-            <p class="sub_title">요청 내용</p>
+            <p class="req_title">요청 내용</p>
             <div class="c_inpgroup">
               <q-input
                 outlined
@@ -104,7 +104,7 @@
             <div class="unit_type">
               <span class="tit">현재 할당량</span>
               <span class="counter">
-                <em class="usage">190</em>
+                <em class="usage2">190</em>
               </span>
             </div>
             <div class="req-box">
@@ -126,7 +126,7 @@
             <div class="unit_type">
               <span class="tit">현재 할당량</span>
               <span class="counter">
-                <em class="usage">190</em>
+                <em class="usage2">190</em>
               </span>
             </div>
             <div class="req-box">
@@ -147,7 +147,7 @@
               class="request-input"
               aria-label="프로젝트 설명"
             >
-              <p class="sub_title">요청 내용</p>
+              <p class="req_title">요청 내용</p>
               <div class="c_inpgroup">
                 <q-input
                   outlined
@@ -362,6 +362,7 @@ const triggerSuccess3 = (position) => {
 </script>
 
 <style lang="scss" scoped>
+@import 'src/css/support';
 .q_btngroup {
   display: flex;
   justify-content: flex-end;

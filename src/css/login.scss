@@ -1,0 +1,37 @@
+.p-login{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  margin:0;
+  padding:0 40px 96px 40px;
+  background:$surface01 url($imgUrl + 'common/bg_login.png') repeat-x 50% 100%;
+  &::after{
+    bottom:calc(96px + 24px);
+  }
+  .login_group{
+    width:340px;
+    text-align:center;
+  }
+  .text{
+    margin-top:35px;
+    color:$gray800;font-size:$fs20;
+    letter-spacing:-1px;
+  }
+  .q-btn{
+    &.google{
+      width:100%;max-width:340px;
+      height:48px;min-height:48px;
+      margin-top:60px;
+      border:0;
+      border-radius:8px;
+      background:$white;
+      color:$black;font-size:$fs14;
+      font-family: "Roboto";font-weight:500;
+    }
+    img{
+      + .txt{
+        margin-left:24px;
+      }
+    }
+  }
+}

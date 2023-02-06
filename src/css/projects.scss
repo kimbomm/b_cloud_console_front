@@ -1,6 +1,7 @@
 /* Projects */
 .p-projects{
   &.p-index{
+    .p-body{display: flex;}
     .com_h_cont{
       display: flex;
       height: 330px;
@@ -68,18 +69,64 @@
             .now_quota{
               display: flex;
               flex-wrap: wrap;
+              margin-top: 40px;
               li{
                 display: flex;
                 align-items: center;
                 // width: 246px;
                 width: 47%;
                 &:last-child{margin-top: 27px;}
-                .circle_progress{
+                /* .circle_progress{
                   width: 52px;
                   height: 52px;
                   margin-right: 24px;
                   background: linear-gradient(5.06deg, #E50F1C -7.42%, #4992FF 93.19%, #363CE5 93.19%);
                   border-radius: 100px;
+                } */
+                .circle_chart{
+                  &.small{
+                    display:flex;
+                    align-items: center;
+                    justify-content: center;
+                    flex-direction: column;
+                    flex:none;
+                    width:52px;height:52px;
+                    margin-right:24px;
+                    border-radius:50%;
+                    background:$secondary-dark;
+                    .circle-svg {
+                      position: absolute;
+                      width: 52px;height: 52px;
+                      border-radius:50%;
+                      stroke: $secondary-dark;
+                      stroke-dashoffset: 100;
+                      svg {
+                        width: 100%;
+                        display: block;
+                      }
+                      &__bg{
+                        stroke:$secondary-dark;
+                        stroke-width:60px;
+                        stroke-linecap:round;
+                        opacity:1;
+                      }
+                      &__stroke {
+                        stroke:url(#paint2_linear);
+                        stroke-linecap:round;
+                        stroke-width:60px;
+                        stroke-dasharray: 100px;
+                        stroke-dashoffset: calc((104 - var(--value, 0)) * 1px);
+                        transform-origin: 50% 50%;
+                        transform: rotate(-90deg);
+                        transition: stroke-dashoffset 0.7s ease-in-out;
+                      }
+                    }
+                    .circle_in{
+                      width:100%;height:100%;
+                      border-radius:50%;
+                      background:$secondary;
+                    }
+                  }
                 }
                 .progress_info{
                   color:$secondary-light;
@@ -143,8 +190,17 @@
             .progress_bar_area{
               display: block;
               height: 4px;
-              border-radius: 2px;
-              background: linear-gradient(-296.32deg, #E50F1C 16.69%, #4992FF 83.45%, #363CE5 83.45%);
+              progress{
+                width: 100% !important;
+              }
+              ::-webkit-progress-bar {
+                width:100%; height:4px;
+                border-radius:2px;
+              }
+              ::-webkit-progress-value {
+                border-radius:100px;
+                background: linear-gradient(270deg, #FF0000 -35.71%, #4992FF 100%);;
+              }
             }
           }
         }
@@ -170,6 +226,11 @@
               color:$primary-light;
             }
           }
+          .cont_footer{
+            .progress_bar_area{
+              ::-webkit-progress-bar {background-color: $primary-dark;}
+            }
+          }
         }
         &.gpu_rate{
           background-color: $secondary-purple;
@@ -191,6 +252,11 @@
                 background: url(/src/assets/images/icon/20/ico_clock_purple.svg) no-repeat 50% 50%;
               }
               color:$secondary-purple-light;
+            }
+          }
+          .cont_footer{
+            .progress_bar_area{
+              ::-webkit-progress-bar {background-color: $secondary-purple-dark;}
             }
           }
         }
@@ -243,6 +309,7 @@
               vertical-align: middle;
               background-color: $surface05;
             }
+            .wsize292{width: 292px;}
           }
           .c_segmentedTab{
             display: inline-block;
@@ -283,13 +350,16 @@
     }
   }
   &.p-make{
+    .p-body{display: flex;}
     position: relative;
     .make_main_cont{
       width: calc(100% - 474px);
-      float: left;
+      display: flex;
+      flex-direction: column;
       .sub_title{
         margin-bottom: 8px;
         font-size: 16px;
+        font-weight: $regular;
       }
       .sub_title2{
         margin-bottom: 32px;
@@ -303,9 +373,9 @@
       .s_02{padding-bottom: 74px;}
       .pb78{padding-bottom: 78px;}
       .s_03_tab,.s_04_tab{
-        // padding-bottom: 20px;
-        padding-bottom: 8px;
+        padding-bottom: 20px;
       }
+      .com_nondata_area{margin-top: 20px;}
       .s_05{
         .s_05_main{
           .select_now_view{
@@ -418,8 +488,18 @@
             }
           }
         }
+        .s_task_01_2{
+          padding-bottom: 74px;
+          .wsize544{width: 544px;}
+        }
       }
       .s_task_02,.s_task_04{margin-bottom: 78px;}
+      .s_task_02,.s_task_03{
+        .ibtn.help{
+          margin-left: 10px;
+          vertical-align: top;
+        }
+      }
       .s_task_03{
         margin-bottom: 78px;
         .wsize608{
@@ -441,16 +521,21 @@
     }
 
     .p-inst-detail{
+      display: flex;
+      justify-content: space-between;
       .aside_cont{margin-top: -10%;}
     }
     .p-task-detail{
+      display: flex;
+      justify-content: space-between;
       .aside_cont{margin-top: -8%;}
     }
     .aside_cont{
       width: 450px;
-      float: right;
       position: sticky;
       top: 10%;
+      align-self: flex-start;
+
       .aside_box{
         padding:30px;
         background-color: $surface01;
@@ -461,7 +546,7 @@
           font-weight: $bold;
         }
         .instance_data{
-          padding-bottom: 7px;
+          padding-bottom: 24px;
           li{
             display: flex;
             justify-content: space-between;
@@ -484,18 +569,26 @@
             li{padding:12px 0;}
           }
         }
-        .make_btn{
-          button{width: 100%;}
-        }
       }
     }
-    &::after{content: ''; display: block; clear: both;}
   }
   &.p-detail{
     .sub_title{
       margin-bottom: 30px;
       font-weight: $bold;
       font-size:$fs20;
+    }
+    .p-instanceview,.p-taskView{
+      .user_info{
+        .user_box{
+          .user_box_main{
+            li{
+              margin-bottom: 24px;
+              &:last-child{margin-bottom: 0;}
+            }
+          }
+        }
+      }
     }
     .user_info{
       margin-bottom: 24px;
@@ -514,6 +607,7 @@
                 border:1px solid $surface05;
                 border-radius: 50%;
                 background: url(/src/assets/images/icon/16/ico_edit_gray.svg) no-repeat 50% 50%;
+                cursor: pointer;
               }
             }
             .text{
@@ -549,13 +643,12 @@
           padding:30px;
           li{
             width: 50%;
-            margin-bottom: 24px;
             font-size: $fs16;
             .user_data_title{
               margin-bottom: 8px;
               color: $gray500;
             }
-            &:last-child{margin-bottom: 0;}
+            &:first-child{margin-bottom: 24px;}
             &.making_user_data{
               .user_data_value{
                 p{
@@ -660,11 +753,11 @@
         >div{
           display: inline-block;
           &.com_box{
-            width:49.4%;
+            width:calc(100%/2 - 12px);
             height: 320px;
           }
-          &:first-child{margin-bottom: 18px;}
-          &:nth-child(2n){margin-left: 18px;}
+          &:first-child{margin-bottom: 24px;}
+          &:nth-child(2n){margin-left: 24px;}
 
           &.ins_img{
             .ins_img_cont{
@@ -735,6 +828,7 @@
           &.ins_etc{
             .etc_cont{
               width: 100%;
+              border-spacing: 0;
               font-size: $fs16;
               tr{
                 th{
@@ -776,7 +870,7 @@
         margin-bottom: 50px;
         .ins_data_inner{
           .com_box{
-            width: 32.38%;
+            width: calc(100%/3 - 15px);
             margin-left: 22px;
             &:first-child{margin-bottom: 0;}
             &:first-child{margin-left: 0;}
@@ -786,7 +880,7 @@
       .task_pagenav{
         display: flex;
         justify-content: center;
-        margin-top: 73px;
+        margin-top: 69px;
       }
     }
     .p-taskView{
@@ -835,5 +929,14 @@
         }
       }
     }
+  }
+}
+
+
+::v-deep{
+  table{
+    table-layout:fixed;
+    .cell.btngroup{min-width: 50px !important;}
+    .txt.clip{max-width: inherit;}
   }
 }

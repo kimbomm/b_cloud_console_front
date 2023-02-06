@@ -34,6 +34,8 @@
             <div>
               <p class="g-txt">가입일자</p>
               <p class="b-txt">2022.11.22</p>
+              <!-- 회원가입 일자 정보가 없는 경우 '미가입' 표기 -->
+              <!-- <p class="b-txt">미가입</p> -->
             </div>
             <div>
               <p class="g-txt">LDAP 계정</p>
@@ -49,7 +51,7 @@
                 <CButton
                   :size-types="2"
                   :btn-types="1"
-                  :btn-names="btnName"
+                  :btn-names="'편집'"
                 />
               </div>
             </div>
@@ -87,7 +89,11 @@
               <span class="amount_useable">200GiB</span>
             </p>
             <div class="cont_footer">
-              <div class="progress_bar_area"></div>
+              <progress
+                value="150"
+                max="200"
+                class="stor_progress"
+                />
             </div>
           </div>
         </div>
@@ -157,42 +163,58 @@
           </div>
           <div class="w-info_proj line pb">
             <p class="title mt40">프로젝트</p>
-            <div class="work-wrap">
-              <div class="w-name">
-                <p class="g-txt">프로젝트 이름</p>
-                <div class="c_selectgroup mb24 w216">
+            <div class="p-tWrap">
+              <p class="p-name">프로젝트 이름</p>
+              <p class="p-auth">프로젝트 권한</p>
+            </div>
+            <div class="sel-box">
+              <div class="sel-wrap">
+                <div class="c_selectgroup w216">
                   <CDropdown
                     v-model:selected="selectedBasic"
                     :label="label"
                     :options="options2"
                   />
                 </div>
-                <div class="c_selectgroup w216">
+                <div class="c_selectgroup w250">
                   <CDropdown
-                    v-model:selected="selectedBasic"
-                    :label="label"
-                    :options="options"
+                  v-model:selected="selectedBasic"
+                  :label="label2"
+                  :options="options"
                   />
                 </div>
               </div>
-              <div class="w-char">
-                <p class="g-txt">프로젝트 권한</p>
-                <div class="c_selectgroup mb24 w216">
-                  <CDropdown
-                    v-model:selected="selectedBasic"
-                    :label="label"
-                    :options="options2"
-                  />
-                </div>
+              <div class="sel-wrap">
                 <div class="c_selectgroup w216">
                   <CDropdown
                     v-model:selected="selectedBasic"
                     :label="label"
+                    :options="options2"
+                    />
+                  </div>
+                  <div class="c_selectgroup w250">
+                    <CDropdown
+                    v-model:selected="selectedBasic"
+                    :label="label2"
                     :options="options"
-                  />
-                </div>
+                    />
+                  </div>
+                  <!-- <p class="essential">관리자 1명 이상 지정 필요</p> -->
               </div>
             </div>
+            <div class="delete-btn">
+              <q-btn type="button" class="c_btn c_icon medium line">
+                <i class="ico plus" /><span class="txt">Hover</span>
+              </q-btn>
+            </div>
+          </div>
+          <div class="add-pro">
+            <a href="#">
+              <span>
+                프로젝트 추가 아이콘
+              </span>
+              <p>프로젝트 추가</p>
+            </a>
           </div>
           <div class="w-info_stor line">
             <p class="title mt40">개인 스토리지</p>
@@ -231,11 +253,14 @@ import { useMeta } from "quasar";
 import CButton from "components/common/CButton.vue";
 import CDropdown from "components/common/CDropdown.vue";
 
-const visible = ref("A");
+const visible = ref("");
 const title = ref("Member");
 const btnName = ref("삭제");
 const btnCancle = ref("취소");
 const btnSave = ref("저장");
+
+const label = ref("프로젝트 전체");
+const label2 = ref("전체");
 
 useMeta(() => ({
   title: title.value,
@@ -244,9 +269,8 @@ useMeta(() => ({
 
 const options = ref([
   { label: "전체", value: 0 },
-  { label: "워크스페이스 관리자", value: 1 },
-  { label: "워크스페이스 멤버", value: 2 },
-  { label: "정산 관리자", value: 3 },
+  { label: "프로젝트 관리자", value: 1 },
+  { label: "멤버", value: 2 },
 ]);
 
 const options2 = ref([

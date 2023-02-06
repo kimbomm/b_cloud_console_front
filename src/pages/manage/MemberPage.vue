@@ -29,8 +29,7 @@
                   </h3>
 
                   <div class="cont_head_inner">
-                    <p class="head_txt">스토리지 생성 개수
-                      <q-btn class="ibtn help">
+                    <p class="head_txt">스토리지 생성 개수<q-btn class="ibtn help">
                         <i class="ico help" /><span class="hidden">도움말</span>
                         <q-popup-edit
                           v-model="helpShow"
@@ -55,7 +54,12 @@
                 </div>
                 <div class="cont_footer">
                   <p class="progress_percentage_txt">75%</p>
-                  <div class="progress_bar_area"></div>
+                  <div class="progress_bar_area">
+                    <progress
+                      value="75"
+                      max="100"
+                    />
+                  </div>
                 </div>
               </div>
             </li>
@@ -76,7 +80,12 @@
                 </div>
                 <div class="cont_footer">
                   <p class="progress_percentage_txt">75%</p>
-                  <div class="progress_bar_area"></div>
+                  <div class="progress_bar_area">
+                    <progress
+                      value="75"
+                      max="100"
+                    />
+                  </div>
                 </div>
               </div>
             </li>
@@ -146,13 +155,41 @@
             </div>
           </div>
           <div class="table_inner">
-            <CTable
-              :title="title"
-              :columns="columns"
-              :data="data"
-              :action-buttons="actionButtons"
-              @action="respAction"
-            />
+            <EasyDataTable
+              :headers="headers"
+              :items="items"
+              :hide-footer="true"
+              empty-message="정보가 없습니다."
+              @click-row="showRow"
+            >
+              <!-- 버튼 그룹 -->
+              <template #item-buttons="item">
+                <div v-if="actionButtons" class="cell btngroup">
+                  <q-btn class="c_btn ibtn dot">
+                    <i class="ico dots" /><span class="txt">클릭</span>
+                    <q-popup-edit
+                      v-model="item.id"
+                      class="dots_menu"
+                      anchor="top right"
+                    >
+                      <q-list style="min-width: 100px">
+                        <q-item
+                          v-for="button in actionButtons"
+                          :key="button.name"
+                        >
+                          <q-btn
+                            class="item"
+                            @click="onActions(button.event, item)"
+                          >
+                            <span class="txt">{{ button.name }}</span>
+                          </q-btn>
+                        </q-item>
+                      </q-list>
+                    </q-popup-edit>
+                  </q-btn>
+                </div>
+              </template>
+            </EasyDataTable>
           </div>
           <div class="table_pagenav disflex_C">
             <CPagination />
@@ -167,7 +204,6 @@ import { ref } from "vue";
 import { useMeta } from "quasar";
 import CDropdown from "components/common/CDropdown.vue";
 import CPagination from "components/common/CPagination.vue";
-import CTable from "src/components/common/CTable.vue";
 
 const title = ref("Storage");
 useMeta(() => ({
@@ -185,46 +221,27 @@ const options = ref([
   { label: "50", value: 2 },
 ]);
 
-const columns = [
+const headers = [
   {
-    name: "name",
-    field: "name",
-    label: "이름",
-    align: "left",
-    sortable: true,
+    text: "이름", value: "title", width: 200, sortable: true
   },
   {
-    name: "email",
-    field: "email",
-    label: "이메일",
-    align: "left",
-    sortable: true,
+    text: "이메일", value: "email", width: 300, sortable: true
   },
   {
-    name: "generated",
-    field: "generated",
-    label: "생성개수",
-    align: "left",
-    sortable: false,
+    text: "생성개수", value: "generated", width: 200, sortable: false
   },
   {
-    name: "usage",
-    field: "usage",
-    label: "사용량",
-    align: "left",
-    sortable: true,
+    text: "사용량", value: "usage", width: 200, sortable: true
   },
   {
-    name: "quota",
-    field: "quota",
-    label: "할당량",
-    align: "left",
-    sortable: true,
+    text: "할당량", value: "quota", width: 200, sortable: true
   },
+  { text: "", value: "buttons", width: 150 },
 ];
-const data = [
+const items = [
   {
-    name: "root.choi",
+    title: "root.choi",
     email: "root.choi@kakaobrain.com",
     generated: "3 / 5",
     usage: "100GiB",
@@ -238,7 +255,7 @@ const data = [
     },
   },
   {
-    name: "root.choi",
+    title: "root.choi",
     email: "root.choi@kakaobrain.com",
     generated: "3 / 5",
     usage: "100GiB",
@@ -252,21 +269,7 @@ const data = [
     },
   },
   {
-    name: "root.choi",
-    email: "root.choi@kakaobrain.com",
-    generated: "3 / 5",
-    usage: "100GiB",
-    quota: "100GiB",
-    resource: {
-      cpus: 28,
-      gpu_device_model: "TESLA_V100",
-      gpus: 2,
-      mem: 249856,
-      zone: "public:normal",
-    },
-  },
-  {
-    name: "root.choi",
+    title: "root.choi",
     email: "root.choi@kakaobrain.com",
     generated: "3 / 5",
     usage: "100GiB",
@@ -288,27 +291,9 @@ const actionButtons = [
   { name: "스냅샷 생성", event: "crtSnap" },
   { name: "삭제", event: "delete" },
 ];
-const respAction = (eventObj) => {
-  const eventName = eventObj.event;
-  // const rowData = eventObj.data;
-  // console.log(rowData);
-  switch (eventName) {
-    case "state":
-      break;
-    case "share":
-      break;
-    case "mngSnap":
-      break;
-    case "crtSnap":
-      break;
-    case "delete":
-      break;
-    default:
-      break;
-  }
-};
 </script>
 
 <style lang="scss" scoped>
 @import "./src/css/manage";
+@import "./src/css/table";
 </style>

@@ -1,8 +1,16 @@
 /* Support */
 .p-support{
+  .group-page{
+    display: flex; justify-content: center; align-items: center;
+    margin-top: 50px;
+  }
   .essential{ color: $secondary-coral;}
   &.p-index{
     .p-body{
+      td a .txt{color: $gray800;}
+      .c_btngroup{
+        margin-top: 20px;;
+      }
       .sub-text{
         font-size: $fs24; font-weight: $bold;
       }
@@ -104,9 +112,16 @@
         }
         .unit_type{
           margin-bottom: 12px;
+          .counter{
+            .usage{color:$gray800;}
+          }
         }
         .req{
           margin-right: 50px;
+          color: $gray500; font-size: $fs16;
+        }
+        .req_title{
+          margin-bottom: 8px;
           font-size: $fs16;
         }
         .req-box{
@@ -211,7 +226,7 @@
 
       /** 답변 폼 **/
       .check-reply{
-        padding: 30px;
+        padding: 30px; margin-bottom: 24px;
         width: 100%;
         border-radius: 12px;
         background-color: $surface01;
@@ -245,7 +260,8 @@
         &_req-box2{
           padding: 20px;
           margin-right: 16px; margin-bottom: 16px;
-          width: 362px; height: 139px;
+          width: calc(100% / 4 - 12px);
+          min-height: 139px;
           border-radius: 12px;
           background-color: $surface01;
           &:nth-child(4n){
@@ -258,7 +274,7 @@
         .req-wrap{
           display: flex;
           flex-wrap: wrap;
-          width: 1496px;
+          // width: 1496px;
           font-size: 0;
           &::after{
             content: "";

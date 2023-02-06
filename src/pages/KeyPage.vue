@@ -23,7 +23,7 @@
           <q-tab name="tabs3" label="SSH key & API key"></q-tab>
         </q-tabs>
       </div>
-      <div v-if="visible === 'A'">
+      <template v-if="visible === 'A'">
         <div class="key-box">
           <p class="key-box_title mt40">SSH Key</p>
           <div class="sign-up">
@@ -47,12 +47,12 @@
               />
             </div>
           </div>
-      </div>
+      </template>
       <template v-else>
         <div class="flex-top mt40">
           <div class="notice-txt">
             <p class="name">SSH Key</p>
-            <!-- 비활성화시 문구 -->
+            <!-- 5개가 등록된 경우 (비활성화) -->
             <!-- <p class="disabled-txt">최대 5개까지 등록 가능합니다</p> -->
           </div>
           <CButton
@@ -61,16 +61,45 @@
             :btn-names="btnSign"
           />
         </div>
-        <div class="group">
-          <CTable
-            :title="title"
-            :columns="columns"
-            :data="data"
-            :action-buttons="actionButtons"
-            @action="respAction"
-          />
-        </div>
-        <div class="flex-top mt60">
+        <template v-if="defaultData == true">
+          <section class="section">
+            <EasyDataTable
+              :headers="headers"
+              :items="items"
+              :hide-footer="true"
+              empty-message="정보가 없습니다."
+              @click-row="showRow"
+            >
+              <!-- 버튼 그룹 -->
+              <template #item-buttons="item">
+                <div v-if="actionButtons" class="cell btngroup">
+                  <q-btn class="c_btn ibtn dot">
+                    <i class="ico dots" /><span class="txt">클릭</span>
+                    <q-popup-edit
+                      v-model="item.id"
+                      class="dots_menu"
+                      anchor="top right"
+                    >
+                      <q-list style="min-width: 100px">
+                        <q-item
+                          v-for="button in actionButtons"
+                          :key="button.name"
+                        >
+                          <q-btn
+                            class="item"
+                            @click="onActions(button.event, item)"
+                          >
+                            <span class="txt">{{ button.name }}</span>
+                          </q-btn>
+                        </q-item>
+                      </q-list>
+                    </q-popup-edit>
+                  </q-btn>
+                </div>
+              </template>
+            </EasyDataTable>
+        </section>
+        <div class="flex-top mt50">
           <p class="name">API Key</p>
           <div>
             <CButton
@@ -93,6 +122,7 @@
             <span>2023.11.21 04:33pm</span>
           </p>
         </div>
+        </template>
       </template>
     </div>
   </q-page>
@@ -101,160 +131,65 @@
 import { ref } from "vue";
 import { useMeta } from "quasar";
 import CButton from "components/common/CButton.vue";
-import CTable from "src/components/common/CTable.vue";
 
-const visible = ref("B");
+const defaultData = ref(true);
+const visible = ref("");
+
+const tab = ref("tabs3");
 const title = ref("Account");
 useMeta(() => ({
   title: title.value,
   visible,
 }));
+// Table
+const headers = [
+  {
+    text: "이름", value: "name", width: 240, sortable: false
+  },
+  {
+    text: "Fingerprint", value: "finger", sortable: false
+  },
+  {
+    text: "등록일시", value: "registDate", sortable: false
+  },
+  { text: "", value: "buttons", width: 50 },
+];
+const items = [
+  {
+    name: "개인용",
+    finger: "61:a2:62:d0:7e:3d:c9:0a:4e:fe:83:6c:14:bc:fa:0f",
+    registDate: "2023.11.21 04:33:34",
+  },
+  {
+    name: "개인용",
+    finger: "61:a2:62:d0:7e:3d:c9:0a:4e:fe:83:6c:14:bc:fa:0f",
+    registDate: "2023.11.21 04:33:34",
+  },
+  {
+    name: "개인용",
+    finger: "61:a2:62:d0:7e:3d:c9:0a:4e:fe:83:6c:14:bc:fa:0f",
+    registDate: "2023.11.21 04:33:34",
+  },
+];
 
-const tab = ref("tabs3");
-const columns = [
-  {
-    name: "id",
-    field: "id",
-    label: "ID",
-    required: true,
-    align: "center",
-    sortable: true,
-  },
-  {
-    name: "instance",
-    field: "instance",
-    label: "인스턴스 이름",
-    align: "left",
-    sortable: true,
-    type: "link",
-  },
-  {
-    name: "status",
-    field: "status",
-    label: "상태",
-    align: "left",
-    sortable: true,
-    type: "tag",
-  },
-  {
-    name: "ssh",
-    field: "ssh",
-    label: "ssh",
-    align: "left",
-    sortable: false,
-    type: "copy",
-  },
-  {
-    name: "JupyterLab",
-    field: "JupyterLab",
-    label: "JupyterLab",
-    align: "left",
-    sortable: false,
-    type: "copy",
-  },
-  {
-    name: "instanceType",
-    field: "instanceType",
-    label: "인스턴스 타입",
-    align: "left",
-    sortable: true,
-    type: "tooltip",
-  },
-  {
-    name: "gpu",
-    field: "gpu",
-    label: "GPU",
-    align: "left",
-    sortable: false,
-  },
-  {
-    name: "cpu",
-    field: "cpu",
-    label: "CPU",
-    align: "left",
-    sortable: false,
-  },
-  {
-    name: "createdAt",
-    field: "createdAt",
-    label: "생성일시",
-    align: "left",
-    sortable: true,
-    type: "datetime"
-  },
-  {
-    name: "createdBy",
-    field: "createdBy",
-    label: "생성자",
-    align: "left",
-    sortable: false,
-  },
-];
-const data = [
-  {
-    id: 1,
-    instance: "인스턴스 이름 인스턴스 이름 인스턴스 이름",
-    status: "running",
-    ssh: "ssh",
-    JupyterLab: "JupyterLab",
-    instanceType: "V1.XLARGE",
-    gpu: "49.5%",
-    cpu: "100%",
-    createdAt: "2023.01.12 10:33:21",
-    createdBy: "Root.choi",
-    resource: {
-      cpus: 28,
-      gpu_device_model: "TESLA_V100",
-      gpus: 2,
-      mem: 249856,
-      zone: "public:normal"
-    }
-  },
-  {
-    id: 2,
-    instance: "인스턴스 이름 인스턴스 이름 인스턴스 이름",
-    status: "stopped",
-    ssh: "ssh",
-    JupyterLab: "JupyterLab",
-    instanceType: "V1.XLARGE",
-    gpu: "49.5%",
-    cpu: "100%",
-    createdAt: "2023.01.12 10:33:21",
-    createdBy: "Root.choi",
-    resource: {
-      cpus: 28,
-      gpu_device_model: "TESLA_V100",
-      gpus: 2,
-      mem: 249856,
-      zone: "public:normal"
-    }
-  },
-];
+/**
+ * 버튼 및 checkbox 에 대한 이벤트 존재할 시 class 삽입
+ */
 const actionButtons = [
-  { name: "이용현황", event: "state" },
-  { name: "공유관리", event: "share" },
-  { name: "스냅샷 관리", event: "mngSnap" },
-  { name: "스냅샷 생성", event: "crtSnap" },
   { name: "삭제", event: "delete" },
 ];
-const respAction = (eventObj) => {
-  const eventName = eventObj.event;
-  // const rowData = eventObj.data;
-  // console.log(rowData);
-  switch (eventName) {
-    case "state":
-      break;
-    case "share":
-      break;
-    case "mngSnap":
-      break;
-    case "crtSnap":
-      break;
-    case "delete":
-      break;
-    default:
-      break;
-  }
+
+/**
+ * 설명: row Action 버튼 이벤트
+ * @param { string } eventName action event name
+ * @param { object } rowData get table row data
+ */
+const onActions = (eventName, rowData) => {
+  console.log(eventName, rowData);
+};
+
+const showRow = (item) => {
+  console.log(item);
 };
 
 /* Btn Group */
@@ -266,5 +201,6 @@ const btnDelete = ref("삭제");
 </script>
 
 <style lang="scss" scoped>
+@import "./src/css/table";
 @import 'src/css/key';
 </style>

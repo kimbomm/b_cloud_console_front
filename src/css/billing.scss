@@ -1,26 +1,30 @@
 /* Billing */
 .p-billing{
-
+  .txt{color: $gray800;}
+  .section{margin-top: 20px;}
   /* Billing 공통 css */
   .top-btn{
     width: 100%;
     display: flex; justify-content: space-between; align-items: center;
-  }
-  .csv_btn{
-    .c_btn.line{
-      .ico{
-        background-image: url(/src/assets/images/icon/16/ico_download_normal.svg);
-      }
-    }
-    &:hover{
-      background-image: url(/src/assets/images/icon/16/ico_download_disabled.svg);
-    }
   }
   .group-date{
     margin-bottom: 40px;
     .inp_calendar{
       margin-right: 10px;
     }
+  }
+  .group{
+    .c_inpchip{
+      width: 450px;
+    }
+  }
+  .group-tabs{
+    .c_tabs{
+      min-height: 48px;
+    }
+  }
+  .table_set{
+    margin-bottom: 0;
   }
   .pay-info{
     padding: 30px;
@@ -51,6 +55,7 @@
   }
   .group-page{
     display: flex; justify-content: center; align-items: center;
+    margin-top: 50px;
   }
   .preparing{
     width: 100%; height: 868px;
@@ -71,6 +76,9 @@
         margin-top: 50px;
       }
     }
+  }
+  .table_set{
+    .wsize450{width: 450px;}
   }
   /*  // instance, storage 공통 css */
 
@@ -96,5 +104,13 @@
   &.p-member{
   }
   &.p-storage{
+  }
+  &.p-instance{
+    .p-body{
+      .ins-wrap{
+        display: flex; justify-content: space-between;
+align-items: center;
+      }
+    }
   }
 }

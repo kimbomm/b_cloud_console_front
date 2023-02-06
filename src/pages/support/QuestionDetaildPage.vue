@@ -9,11 +9,11 @@
           <q-icon />
         </template>
         <q-breadcrumbs-el
-          label="Workspace Manager"
+          label="Account"
           to="/support"
         />
         <q-breadcrumbs-el
-          label="Support"
+          label="내 정보"
           to="/support"
         />
       </q-breadcrumbs>
@@ -262,6 +262,7 @@ const listBtn = ref("목록");
 </script>
 
 <style lang="scss" scoped>
+@import 'src/css/support';
 .c_btngroup {
   display: flex;
   justify-content: flex-end;

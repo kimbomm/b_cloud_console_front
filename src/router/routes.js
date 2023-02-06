@@ -58,16 +58,23 @@ const routes = [
       // 팝업
       { path: "/popup/", component: () => import("pages/popup/IndexPage.vue") },
       // 샘플
-      { path: "/sample/table", component: () => import("pages/sample/TablePage.vue") },
+      { path: "/sample/table", component: () => import("pages/sample/TablePage2.vue") },
       { path: "/sample/temp", component: () => import("pages/sample/TempPage.vue") },
+      { path: "/sample/api", component: () => import("pages/sample/AxiosPage.vue") },
+    ],
+  },
+  {
+    path: "/login",
+    component: () => import("layouts/LoginLayout.vue"),
+    children: [
+      // 로그인
+      { path: "/login", component: () => import("pages/login/IndexPage.vue") },
     ],
   },
   {
     path: "/common",
     component: () => import("layouts/SubLayout.vue"),
     children: [
-      // 로그인
-      { path: "/common/login", component: () => import("pages/common/LoginPage.vue") },
       // 회원탈퇴
       { path: "/common/withdrawal", component: () => import("pages/common/WithdrawalPage.vue") },
     ],
@@ -86,7 +93,7 @@ const routes = [
       { path: "radio", component: () => import("pages/guide/RadioPage.vue") },
       { path: "pagination", component: () => import("pages/guide/PaginationPage.vue") },
       { path: "segmented", component: () => import("pages/guide/SegmentedPage.vue") },
-      { path: "table", component: () => import("pages/guide/TablePage.vue") },
+      { path: "table", component: () => import("pages/guide/Table2Page.vue") },
       { path: "dropdown", component: () => import("pages/guide/DropDwonPage.vue") },
       { path: "tabs", component: () => import("pages/guide/TabsPage.vue") },
       { path: "breadcrumb", component: () => import("pages/guide/BreadcrumbPage.vue") },

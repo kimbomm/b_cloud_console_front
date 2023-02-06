@@ -1,0 +1,313 @@
+// vue3-easy-data-table c_table
+
+$easy-table-border:0;
+$easy-table-row-border: 1px solid #E8ECF1;
+$easy-table-header-font-size: 14px;
+$easy-table-header-height: 68px;
+$easy-table-header-font-color: #333;
+$easy-table-header-background-color: #fff;
+$easy-table-header-item-padding: 0px 32px;
+$easy-table-body-row-height: 68px;
+$easy-table-body-row-font-size: 14px;
+$easy-table-body-row-font-color: #5A5A5B;
+$easy-table-body-row-background-color: #fff;
+$easy-table-body-row-hover-font-color: #5A5A5B;
+$easy-table-body-row-hover-background-color: #FAFBFC;
+$easy-table-body-even-row-font-color: #5A5A5B;
+$easy-table-body-even-row-background-color: #FAFBFC;
+$easy-table-body-item-padding: 0px 32px;
+$easy-table-footer-background-color: #fff;
+$easy-table-footer-font-color: #333;
+$easy-table-footer-font-size: 14px;
+$easy-table-footer-padding: 0px 32px;
+$easy-table-footer-height: 68px;
+$easy-table-rows-per-page-selector-width: auto;
+$easy-table-rows-per-page-selector-option-padding: 5px;
+$easy-table-rows-per-page-selector-z-index: auto;
+$easy-table-message-font-color: #333;
+$easy-table-message-font-size: 14px;
+$easy-table-message-padding: 20px;
+$easy-table-loading-mask-background-color: #fff;
+$easy-table-loading-mask-opacity: .5;
+$easy-table-scrollbar-track-color: #fff;
+$easy-table-scrollbar-color: #fff;
+$easy-table-scrollbar-thumb-color: #c1c1c1;
+$easy-table-scrollbar-corner-color: #fff;
+$easy-table-buttons-pagination-border: 1px solid #e0e0e0;
+$padding: 16px;
+.vue3-easy-data-table{
+  width:100%;
+  margin-top:-2px;
+  margin-bottom:-2px;
+  border:0;
+  .q-btn{
+    &.text{
+      width:auto;height:auto;
+      min-width:100px;
+      min-height:auto;
+      padding:0;
+      border-radius:0;
+      background:$color;
+      color:$primary;
+    }
+  }
+  .badge_group{
+    cursor:pointer;
+  }
+  .usage{
+    display:flex;
+    align-items: center;
+    .ico{
+      display:inline-block;
+      width:8px;height:8px;
+      border-radius:50%;
+      margin-right:8px;
+      &.row{
+        background:$blue;
+      }
+      &.middle{
+        background:$yellow;
+      }
+      &.high{
+        background:$red;
+      }
+    }
+  }
+  .q-item{
+    &.cell{
+      min-height:auto;
+      padding:0;
+    }
+  }
+}
+::v-deep{
+
+  table{
+    border-spacing: 0 2px;
+  }
+  .badge{
+    display:flex;
+  }
+  .txt.clip{
+    max-width:150px;
+  }
+  .q-checkbox{
+    overflow:hidden;
+    max-width:300px;
+  }
+  .q-checkbox .q-checkbox__label{
+    overflow:hidden;
+    max-width:calc(100% - 1px);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color:$gray500;
+  }
+  .easy-checkbox{
+    display:inline-flex;
+    align-items: center;
+    justify-content: flex-start;
+    width:100%;height:100%;
+    margin:0;
+    input[type=checkbox]{
+      position:absolute;top:0;left:0;z-index:-1;
+    }
+    label{
+      width:24px;height:24px;
+      border:1px solid $surface10;
+      border-radius:4px;
+      background:$white;
+      &::before,
+      &::after{
+        display:none;
+      }
+    }
+    input[type=checkbox]:checked + label{
+      border-color:$primary;
+      background:$primary url($iconUrl + '16/ico_check_white.svg') no-repeat 50% 50%;
+    }
+    input[type=checkbox]:disabled + label{
+      border-color:$surface05;
+      background:$surface02;
+    }
+    input[type=checkbox]:checked:disabled + label{
+      border-color:#B6B8FC;
+      background:#B6B8FC url($iconUrl + '16/ico_check_white.svg') no-repeat 50% 50%;
+    }
+  }
+  .vue3-easy-data-table__message{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    position:sticky;left:0;
+    height:278px;
+    border-radius:8px;
+    background:$surface01;
+    color:$gray500;font-size:$fs14;
+  }
+  .vue3-easy-data-table__main{
+    min-height:auto;
+    &.hoverable tr:hover td{
+      background-color: $easy-table-body-row-hover-background-color;
+      color: $easy-table-body-row-hover-font-color;
+    }
+  }
+  .vue3-easy-data-table__header,
+  .vue3-easy-data-table__body{
+    .cell{
+      white-space: nowrap;
+      text-align:right;
+      &.btngroup{
+        min-width:170px;
+        text-align:right;
+      }
+      .q-btn:not(:first-child){
+        margin-left:12px;
+      }
+    }
+
+    tr{
+      th:first-child,
+      td:first-child{
+        padding-left:32px;
+        border-radius:8px 0 0 8px;
+      }
+      th:last-child,
+      td:last-child{
+        padding-right:32px;
+        border-radius:0 8px 8px 0;
+      }
+    }
+  }
+  .vue3-easy-data-table__header{
+    tr{
+      height:$easy-table-header-height;
+      font-size:$easy-table-header-font-size;
+      th:first-child{
+        width:80px;
+        border-left:1px solid $surface03;
+      }
+      th:last-child{
+        border-right:1px solid $surface03;
+      }
+    }
+    th{
+      padding:0 $padding;
+      border-top:1px solid $surface03;
+      border-bottom:1px solid $surface03;
+      color:$easy-table-header-font-color;
+      font-size:$easy-table-header-font-size;
+      &.sortable{
+        .sortType-icon{
+          width:24px;height:24px;
+          margin:0;
+          border:0;
+          background-repeat:no-repeat;
+          background-position:50% 50%;
+        }
+        &.none{
+          .sortType-icon{
+            opacity:1;
+            background-image:url($iconUrl + '24/ico_descending_normal.svg');
+          }
+        }
+        &.asc{
+          .sortType-icon{
+            margin:0;
+            background-image:url($iconUrl + '24/ico_descending_up_pressed.svg');
+          }
+        }
+        &.desc{
+          .sortType-icon{
+            margin-top:0;
+            transform: rotate(0deg);
+            background-image:url($iconUrl + '24/ico_descending_down_pressed.svg');
+          }
+        }
+      }
+      .header-text{
+
+      }
+
+    }
+  }
+  .vue3-easy-data-table__body{
+    tr{
+      height: $easy-table-body-row-height;
+      color: $easy-table-body-row-font-color;
+      font-size: $easy-table-body-row-font-size;
+      &:nth-child(-n+3) td {
+        border-bottom: 0!important;
+      }
+      &.row-button{
+        td{
+          background: rgba(54, 60, 229, 0.04);
+        }
+        &:hover{
+          td{
+            background: rgba(54, 60, 229, 0.04);
+          }
+        }
+      }
+      &.row-selected{
+        td{
+          border-top:1px solid $primary!important;
+          border-bottom:1px solid $primary!important;
+          background:#FBFBFF;
+          &:first-child{
+            border-left:1px solid $primary!important;
+          }
+          &:last-child{
+            border-right:1px solid $primary!important;
+          }
+        }
+        &:hover{
+          td{
+            background:#FBFBFF;
+          }
+        }
+      }
+      td:first-child{
+        width:80px;
+      }
+    }
+    td{
+      padding:0 $padding;
+      border:0!important;
+      a{
+        display:inline-block;
+        max-width:calc(100% - 1px);
+        .txt{
+          display:inline-block;
+          overflow:hidden;
+          text-overflow:ellipsis;
+          white-space: nowrap;
+          max-width:100%;
+        }
+      }
+    }
+  }
+}
+// apexchart
+::v-deep{
+  .apexcharts-title-text{
+    opacity: 0!important;
+  }
+  .apexcharts-legend.apexcharts-align-right .apexcharts-legend-series,
+  .apexcharts-legend.apexcharts-align-left .apexcharts-legend-series{
+    display:inline-flex;
+    align-items: center;
+    margin:0!important;
+    margin-left:48px!important;
+    &:first-child{
+      margin-left:0!important;
+    }
+  }
+  .apexcharts-legend-marker{
+    width:20px!important;height:1px!important;
+    border-radius:0!important;
+  }
+  .apexcharts-legend-text{
+    margin-left:8px!important;
+    padding-left:0!important;
+  }
+}
