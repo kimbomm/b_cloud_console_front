@@ -35,12 +35,13 @@
                           v-model="helpShow"
                           anchor="top middle"
                           self="top middle"
-                          class="c_popover"
+                          class="c_popover storage_popover"
                         >
                           <div class="inner">
                             <p class="list_dot">스토리지는 개인당 최대 5개 생성할 수 있습니다. </p>
-                            <p class="list_dot">워크스페이스 관리자는 워크스페이스당 최대 50개의 스토리지를 개인 스토리지와 별개로</p>
-                            <!-- 생성할 수 있습니다. 최대 100자 제한 작성불가 확인 -->
+                            <p class="list_dot">
+                              워크스페이스 관리자는 워크스페이스당 최대 50개의 스토리지를 개인 스토리지와 별개로 생성할 수 있습니다.
+                            </p>
                           </div>
                         </q-popup-edit>
                       </q-btn>

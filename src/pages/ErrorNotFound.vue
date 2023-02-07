@@ -1,21 +1,22 @@
 <template>
-  <div class="fullscreen bg-blue text-white text-center q-pa-md flex flex-center">
+  <div class="fullscreen text-center q-pa-md flex flex-center">
     <div>
-      <div style="font-size: 30vh">
-        404
+      <div>
+        <img src="src/assets/images/common/404_img.gif" alt="">
       </div>
 
-      <div class="text-h2" style="opacity:.4">
-        Oops. Nothing here...
+      <div class="txt_404main">
+        <p class="txt_h2">죄송합니다.<br>요청하신 페이지를 찾을 수 없습니다.</p>
+        <span>주소가 잘못 입력되거나, 변경 혹은 삭제되어 페이지를 찾을 수 없습니다.</span>
       </div>
 
       <q-btn
         class="q-mt-xl"
-        color="white"
-        text-color="blue"
+        color="blue"
+        text-color="white"
         unelevated
         to="/"
-        label="Go Home"
+        label="이전 화면으로"
         no-caps
       />
 
@@ -25,3 +26,18 @@
 
 <script setup>
 </script>
+
+<style lang="scss" scoped>
+  .fullscreen{background-color: $surface01;}
+  .txt_404main{
+    margin:40px 0;
+    .txt_h2{
+      margin-bottom:16px;
+      font-weight:$bold;
+      font-size:$fs24;
+      color:$gray800;
+    }
+    span{color:$gray500;}
+  }
+  .q-mt-xl{min-width: 133px; min-height: 48px;}
+</style>

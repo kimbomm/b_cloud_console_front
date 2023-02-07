@@ -98,6 +98,7 @@
 .c_popover{
   .inner{
     b{display: block; margin-top: 1rem;}
+    word-break: break-word;
     .list_dot{
       margin-left: 1rem;
       display: list-item;
@@ -140,6 +141,14 @@
     }
   }
 }
+.c_popover.task02_pop{max-width: 270px;}
+.c_popover.task03_pop{
+  max-width: 380px;
+  .inner{
+    max-width: 380px;
+    .list_dot{margin-left:2rem;}
+  }
+}
 
 /* Member */
 .p-member{
@@ -167,6 +176,25 @@
       }
     }
   }
+}
+
+/* storage */
+.c_popover.storage_pop{
+  max-width: 200px;
+  top:155px !important;
+  .inner{
+    &::after{top:55px;}
+  }
+}
+
+/* manage */
+.c_popover.manage_pj_pop{
+  max-width: 290px;
+  .inner{max-width: 290px;}
+}
+.c_popover.storage_popover{
+  max-width: 269px;
+  .inner{max-width: 269px;}
 }
 
 /* ico common */
