@@ -387,7 +387,7 @@ const items = [
     gpu: "50.5%",
     cpu: "100%",
     createdAt: "2023.01.12 10:33:21",
-    createdBy: "Root.choi",
+    createdBy: "root.choi (root.choi@kakaobrain.com)",
     resource: {
       cpus: 28,
       gpu_device_model: "TESLA_V100",
