@@ -45,7 +45,7 @@ const triggerInfo = (position) => {
       actions: [
         { label: "닫기", class: "xclose", handler: () => { /* console.log('') */ } }
       ],
-      timeout: 3000
+      timeout: 500
     });
   }, 100);
 };
@@ -59,7 +59,7 @@ const triggerSuccess = (position) => {
       actions: [
         { label: "닫기", class: "xclose", handler: () => { /* console.log('') */ } }
       ],
-      timeout: 3000
+      timeout: 500
     });
   }, 100);
 };
@@ -73,7 +73,7 @@ const triggerWarning = (position) => {
       actions: [
         { label: "닫기", class: "xclose", handler: () => { /* console.log('') */ } }
       ],
-      timeout: 3000
+      timeout: 500
     });
   }, 100);
 };
@@ -89,7 +89,7 @@ const triggerButton = (position) => {
         { label: "닫기", class: "xclose", handler: () => { /* console.log('') */ } }
       ],
       html: true,
-      timeout: 3000
+      timeout: 500
     });
   }, 100);
 };
