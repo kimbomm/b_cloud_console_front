@@ -1,6 +1,25 @@
 /* SSH Key & API Key */
 .p-index{
   .key-body{
+    ::v-deep{
+      .vue3-easy-data-table__message{
+        color: $gray800;
+      }
+      .test{
+        .vue3-easy-data-table__message{
+          position: relative;
+          &::after{
+            position: absolute;
+            top: 60%;
+            left: 50%;
+            transform: translate(-50%, -90%);
+            content: "생성시 Secret key는 팝업에서 1회만 확인 가능합니다.";
+            color: $gray500;
+          }
+        }
+      }
+    }
+    .section{margin-top: 32px;}
     .key-box{
       &_title{
         margin-bottom: 32px;
@@ -27,7 +46,7 @@
       }
     }
     .key-create{
-      margin-top: 20px; padding: 30px;
+      margin-top: 32px; padding: 30px;
       width: 100%;
       border-radius: 8px;
       background-color: $surface01;
