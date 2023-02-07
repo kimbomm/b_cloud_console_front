@@ -200,7 +200,7 @@
               v-model="textDesc"
               bottom-slots
               type="textarea"
-              placeholder="문의내용을 입력해주세요."
+              placeholder="오류/버그 내용을 입력해주세요."
               counter
               :count="10"
               maxlength="1000"
@@ -245,7 +245,7 @@
               v-model="textDesc"
               bottom-slots
               type="textarea"
-              placeholder="문의내용을 입력해주세요."
+              placeholder="오류/버그 내용을 입력해주세요."
               counter
               :count="10"
               maxlength="1000"
@@ -274,7 +274,7 @@ import { useMeta, useQuasar } from "quasar";
 import CDropdown from "components/common/CDropdown.vue";
 import CUploader from "components/common/CUploader.vue";
 
-const visible = ref("A");
+const visible = ref("E");
 const title = ref("Support");
 const label = ref("유형선택");
 

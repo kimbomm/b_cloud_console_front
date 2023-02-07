@@ -69,6 +69,21 @@
             :body-row-class-name="bodyRowClassNameFunction"
             empty-message="정보가 없습니다."
           >
+            <!-- 회원가입 미완료 -->
+            <template #item-status="item">
+              <q-badge
+              v-if="item.status === 'incomplete'"
+              class="c_badge"
+              >
+                <span class="txt">회원가입 미완료</span>
+              </q-badge>
+              <q-badge
+              v-else
+              class="disNone"
+              >
+                <span class="txt">회원가입 완료</span>
+              </q-badge>
+            </template>
             <!-- 버튼 그룹 -->
             <template #item-buttons="item">
               <div v-if="actionButtons || item.buttons" class="cell btngroup">
@@ -138,20 +153,6 @@
             empty-message="정보가 없습니다."
             @click-row="showRow"
           >
-            <!--
-              상태값(status)
-              1. running, 운영중, 실행중
-              2. stopped, 정지 | 오류 | 취소 | 실패
-              3. 생성중 | 삭제중 | 대기중 | 재시작중
-            -->
-            <template #item-status="item">
-              <q-badge
-                v-if="item.status === 'incomplete'"
-                class="c_badge"
-              >
-                <span class="txt">회원가입 미완료</span>
-              </q-badge>
-            </template>
             <!-- 버튼 그룹 -->
             <template #item-buttons="item">
               <div v-if="actionButtons || item.buttons" class="cell btngroup">
@@ -208,7 +209,7 @@ const itemsSelected = ref([]);
 
 const headers = [
   {
-    text: "이름", value: "name", width: 300, sortable: true, checkbox: true
+    text: "이름", value: "name", width: 270, sortable: true, checkbox: true
   },
   {
     text: "이메일", value: "email", width: 370, sortable: true
@@ -224,7 +225,6 @@ const headers = [
 const items = [
   {
     name: "billing",
-    status: "incomplete",
     email: "billing@workspace1.com",
     workspaceChar: "정산 관리자",
     introduce: "안녕하세요",

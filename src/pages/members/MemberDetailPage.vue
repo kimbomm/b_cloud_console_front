@@ -259,7 +259,7 @@ const btnName = ref("삭제");
 const btnCancle = ref("취소");
 const btnSave = ref("저장");
 
-const label = ref("프로젝트 전체");
+const label = ref("프로젝트 이름");
 const label2 = ref("전체");
 
 useMeta(() => ({

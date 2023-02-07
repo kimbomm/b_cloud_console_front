@@ -2,28 +2,8 @@
 .p-member{
   &.p-index{
     .p-body{
-      ::v-deep{
-        /** 회원가입 미완료 **/
-        // table{
-        //   &:first-child{
-        //     tr{
-        //       color: $gray500;
-        //       td{
-        //         &:nth-child(2){
-        //           &::after{
-        //             position: relative;
-        //             left: 6px;
-        //             content: "회원가입 미완료";
-        //             padding: 4px 10px;
-        //             border-radius: 16px;
-        //             font-size: $fs12; color: $surface12;
-        //             background-color: $surface02;
-        //           }
-        //         }
-        //       }
-        //     }
-        //   }
-        // }
+      .section{
+        margin-top: 20px;
       }
       // 멤버 - 메인(워크스페이스 관리자)
       .table-set{
