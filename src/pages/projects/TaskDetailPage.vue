@@ -152,7 +152,7 @@
                 <q-popup-edit
                   v-model="helpShow"
                   anchor="top middle" self="top middle"
-                  class="c_popover"
+                  class="c_popover task02_pop"
                 >
                   <div class="inner">
                     태스크 그룹 내 모든 태스크의 호스트가 인식될 때까지 대기하였다가, 모두 완료되면 태스크가 실행됩니다.
@@ -168,7 +168,7 @@
                 <q-popup-edit
                   v-model="helpShow"
                   anchor="top middle" self="top middle"
-                  class="c_popover"
+                  class="c_popover task03_pop"
                 >
                   <div class="inner">
                     동시 실행되는 태스크 최대 개수를 설정합니다.
