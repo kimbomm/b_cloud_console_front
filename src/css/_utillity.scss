@@ -34,7 +34,7 @@
 }
 @mixin shadow{
   border-radius: 8px;
-  box-shadow: 2px 4px 24px rgb(227, 227, 227, 0.5);
+  box-shadow: 2px 4px 24px #e3e3e3;
 }
 @mixin ellipsis{
   overflow: hidden;
@@ -578,6 +578,11 @@
     background-size:16px;
     background-image: url($iconUrl + '16/ico_check_white.svg');
   }
+  .q-checkbox__inner--truthy{
+    .q-checkbox__bg{
+      border:0;
+    }
+  }
   .q-checkbox__label{
     margin-left:16px;
   }
@@ -1008,7 +1013,7 @@ body.desktop .q-radio,
     }
   }
   &.ldap{
-    transform:translateY(-120%);
+    transform:translateY(-120%) translateX(4px);
     max-width:350px;
     .inner{
       max-width:350px;
@@ -1568,12 +1573,13 @@ $dialog_foot:90px;
   // z-index: 9500;
   min-width: 424px;
   max-width: 424px;
-  margin: 10px 10px 0;
+  // margin: 10px 10px 0;
   padding:15px 16px;
   border-radius: 8px;
   background: $secondary;
   font-size: $fs14;
   box-shadow: none;
+  transition: transform .5s, opacity .5s;
 }
 .q-notification__content{
   &.items-center{
@@ -3427,7 +3433,7 @@ $qhsize:48px;
     max-width:292px;
     padding:0;
     .q-time{
-      box-shadow: 2px 4px 24px rgb(227, 227, 227, .5);
+      box-shadow: 2px 4px 24px rgb(227, 227, 227, .3);
       &__header{
         min-height:80px;
         background:$white;
