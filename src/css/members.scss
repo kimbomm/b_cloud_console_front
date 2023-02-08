@@ -1,5 +1,6 @@
 /* Member */
 .p-member{
+  .q-input{font-size: $fs16;}
   &.p-index{
     .p-body{
       .section{
@@ -164,13 +165,11 @@
           position: relative;
           width: 250px;
         }
-        .essential{
-          position: absolute;
-          bottom: 10px; left: 240px;
-          // transform: translate(-50%, 50%);
-          // transform: translateY(100%);
-          color: $red; font-size: $fs14;
-        }
+      }
+      .error-txt{
+        position: absolute;
+        bottom: 19px; left: 240px;
+        color: $red; font-size: $fs14;
       }
       .delete-btn{
         position: absolute;
