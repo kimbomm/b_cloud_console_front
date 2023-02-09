@@ -67,44 +67,44 @@
               <p class="amount-title">CPU</p>
               <p class="current-amount">
                 현재 할당량
-                <span>3,000</span>&nbsp;/&nbsp;<span>2,750</span>
+                <span class="c-span">3,000</span>
               </p>
               <p class="request-amount">
                 요청량
-                <span>5,000</span>&nbsp;GiB
+                <span>5,000</span>
               </p>
             </div>
             <div class="amount-check_req-box2">
               <p class="amount-title">Tesla A100</p>
               <p class="current-amount">
                 현재 할당량
-                <span>3,000</span>&nbsp;/&nbsp;<span>2,750</span>
+                <span class="c-span">3,000</span>
               </p>
               <p class="request-amount">
                 요청량
-                <span>5,000</span>&nbsp;GiB
+                <span>5,000</span>
               </p>
             </div>
             <div class="amount-check_req-box2">
               <p class="amount-title">Tesla V100</p>
               <p class="current-amount">
                 현재 할당량
-                <span>3,000</span>&nbsp;/&nbsp;<span>2,750</span>
+                <span class="c-span">3,000</span>
               </p>
               <p class="request-amount">
                 요청량
-                <span>5,000</span>&nbsp;GiB
+                <span>5,000</span>
               </p>
             </div>
             <div class="amount-check_req-box2">
               <p class="amount-title">Tesla P40</p>
               <p class="current-amount">
                 현재 할당량
-                <span>3,000</span>&nbsp;/&nbsp;<span>2,750</span>
+                <span class="c-span">3,000</span>
               </p>
               <p class="request-amount">
                 요청량
-                <span>5,000</span>&nbsp;GiB
+                <span>5,000</span>
               </p>
             </div>
           </div>

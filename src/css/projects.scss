@@ -1,7 +1,6 @@
 /* Projects */
 .p-projects{
   &.p-index{
-    .p-body{display: flex;}
     .com_h_cont{
       display: flex;
       height: 330px;
@@ -25,8 +24,10 @@
           }
         }
         &.quota_cont{
-          width: 35%;
-          min-width: 578px;
+          // width: 35%;
+          // min-width: 578px;
+          width: 30%;
+          min-width: 460px;
           height: 100%;
           padding:30px;
           background-color: $secondary;
@@ -73,8 +74,9 @@
               li{
                 display: flex;
                 align-items: center;
-                // width: 246px;
                 width: 47%;
+                min-width: 220px;
+                &:nth-child(2){width: 30%; min-width: 155px;}
                 &:last-child{margin-top: 27px;}
                 /* .circle_progress{
                   width: 52px;
@@ -151,8 +153,10 @@
           }
         }
         &.com_area{
-          width: 22%;
-          min-width: 314px;
+          // width: 22%;
+          // min-width: 314px;
+          width: calc((100% - 30%)/3 - 12px);;
+          min-width: 306px;
           height: 100%;
           display: flex;
           align-content: space-between;
@@ -205,6 +209,7 @@
           }
         }
         &.cpu_rate{
+          min-width: 250px;
           background-color: $primary;
           .cont_head{
             h3{
@@ -233,6 +238,7 @@
           }
         }
         &.gpu_rate{
+          min-width: 250px;
           background-color: $secondary-purple;
           .cont_head{
             h3{

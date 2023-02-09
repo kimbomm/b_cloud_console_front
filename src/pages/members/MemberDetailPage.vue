@@ -199,52 +199,52 @@
                     :options="options"
                     />
                   </div>
-                  <!-- <p class="essential">관리자 1명 이상 지정 필요</p> -->
+                </div>
+              </div>
+              <!-- <p class="error-txt">관리자 1명 이상 지정 필요</p> -->
+              <div class="delete-btn">
+                <q-btn type="button" class="c_btn c_icon medium line">
+                  <i class="ico plus" /><span class="txt">Hover</span>
+                </q-btn>
               </div>
             </div>
-            <div class="delete-btn">
-              <q-btn type="button" class="c_btn c_icon medium line">
-                <i class="ico plus" /><span class="txt">Hover</span>
-              </q-btn>
-            </div>
-          </div>
-          <div class="add-pro">
-            <a href="#">
-              <span>
-                프로젝트 추가 아이콘
-              </span>
-              <p>프로젝트 추가</p>
-            </a>
-          </div>
-          <div class="w-info_stor line">
-            <p class="title mt40">개인 스토리지</p>
-            <div class="unit_type">
-                <span class="tit">현재 사용량</span>
-                <span class="counter">
-                  <em class="usage">190</em>
-                  <i class="bar">/</i>
-                  <strong class="quota">450</strong>
+            <div class="add-pro">
+              <a href="#">
+                <span>
+                  프로젝트 추가 아이콘
                 </span>
+                <p>프로젝트 추가</p>
+              </a>
+            </div>
+            <div class="w-info_stor line">
+              <p class="title mt40">개인 스토리지</p>
+              <div class="unit_type">
+                  <span class="tit">현재 사용량</span>
+                  <span class="counter">
+                    <em class="usage">190</em>
+                    <i class="bar">/</i>
+                    <strong class="quota">450</strong>
+                  </span>
+                </div>
+              <div class="c_inpgroup flex-end">
+                <q-input
+                  outlined
+                  v-model="quota1"
+                  type="number"
+                  placeholder="50GiB 단위 입력"
+                  clearable
+                  class="inp_unit"
+                >
+                  <template v-slot:append>
+                    <span class="unit">GiB</span>
+                  </template>
+                </q-input>
+                <span class="desc">최대 50,000</span>
               </div>
-            <div class="c_inpgroup flex-end">
-              <q-input
-                outlined
-                v-model="quota1"
-                type="number"
-                placeholder="50GiB 단위 입력"
-                clearable
-                class="inp_unit"
-              >
-                <template v-slot:append>
-                  <span class="unit">GiB</span>
-                </template>
-              </q-input>
-              <span class="desc">최대 50,000</span>
             </div>
           </div>
-        </div>
-      </template>
-    </div>
+        </template>
+      </div>
   </q-page>
 </template>
 <script setup>
@@ -253,13 +253,13 @@ import { useMeta } from "quasar";
 import CButton from "components/common/CButton.vue";
 import CDropdown from "components/common/CDropdown.vue";
 
-const visible = ref("");
+const visible = ref("true");
 const title = ref("Member");
 const btnName = ref("삭제");
 const btnCancle = ref("취소");
 const btnSave = ref("저장");
 
-const label = ref("프로젝트 전체");
+const label = ref("프로젝트 이름");
 const label2 = ref("전체");
 
 useMeta(() => ({

@@ -44,9 +44,9 @@
                     <i class="ico help" /><span class="hidden">도움말</span>
                     <q-popup-edit
                       v-model="helpShow"
-                      anchor="top middle"
-                      self="top middle"
-                      class="c_popover"
+                      anchor="bottom middle"
+                      self="bottom middle"
+                      class="c_popover storage_pop"
                     >
                       <div class="inner">
                         <p>스토리지는 개인당 최대 5개 생성할 수 있습니다.</p>

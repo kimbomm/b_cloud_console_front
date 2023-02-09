@@ -1,5 +1,6 @@
 /* Support */
 .p-support{
+  .section{margin-top: 20px;}
   .group-page{
     display: flex; justify-content: center; align-items: center;
     margin-top: 50px;
@@ -69,7 +70,7 @@
       // 고객지원-1:1문의
       .type-area{
         height: calc(100vh - 504px);
-        background-color: $surface00;
+        background-color: $surface01;
         &_text{
           position: relative;
           top: 50%;
@@ -226,7 +227,8 @@
 
       /** 답변 폼 **/
       .check-reply{
-        padding: 30px; margin-bottom: 24px;
+        padding: 30px;
+        // margin-bottom: 24px;
         width: 100%;
         border-radius: 12px;
         background-color: $surface01;
@@ -296,6 +298,7 @@
             }
           }
         }
+        .c-span{color: $black;}
         .request-amount{
           margin-top: 16px;
           span{

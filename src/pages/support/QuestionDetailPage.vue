@@ -87,51 +87,51 @@
             <p class="check-date">2023.04.01&nbsp;11:30:44</p>
             <p class="check-contents">워크스페이스 스토리지 중량 요청 드립니다.</p>
             <div class="req-wrap">
-              <div class="amount-check_req-box2">
-                <p class="amount-title">CPU</p>
-                <p class="current-amount">
-                  현재 할당량
-                  <span>3,000</span>&nbsp;/&nbsp;<span>2,750</span>
-                </p>
-                <p class="request-amount">
-                  요청량
-                  <span>5,000</span>&nbsp;GiB
-                </p>
-              </div>
-              <div class="amount-check_req-box2">
-                <p class="amount-title">Tesla A100</p>
-                <p class="current-amount">
-                  현재 할당량
-                  <span>3,000</span>&nbsp;/&nbsp;<span>2,750</span>
-                </p>
-                <p class="request-amount">
-                  요청량
-                  <span>5,000</span>&nbsp;GiB
-                </p>
-              </div>
-              <div class="amount-check_req-box2">
-                <p class="amount-title">Tesla V100</p>
-                <p class="current-amount">
-                  현재 할당량
-                  <span>3,000</span>&nbsp;/&nbsp;<span>2,750</span>
-                </p>
-                <p class="request-amount">
-                  요청량
-                  <span>5,000</span>&nbsp;GiB
-                </p>
-              </div>
-              <div class="amount-check_req-box2">
-                <p class="amount-title">Tesla P40</p>
-                <p class="current-amount">
-                  현재 할당량
-                  <span>3,000</span>&nbsp;/&nbsp;<span>2,750</span>
-                </p>
-                <p class="request-amount">
-                  요청량
-                  <span>5,000</span>&nbsp;GiB
-                </p>
-              </div>
+            <div class="amount-check_req-box2">
+              <p class="amount-title">CPU</p>
+              <p class="current-amount">
+                현재 할당량
+                <span class="c-span">3,000</span>
+              </p>
+              <p class="request-amount">
+                요청량
+                <span>5,000</span>
+              </p>
             </div>
+            <div class="amount-check_req-box2">
+              <p class="amount-title">Tesla A100</p>
+              <p class="current-amount">
+                현재 할당량
+                <span class="c-span">3,000</span>
+              </p>
+              <p class="request-amount">
+                요청량
+                <span>5,000</span>
+              </p>
+            </div>
+            <div class="amount-check_req-box2">
+              <p class="amount-title">Tesla V100</p>
+              <p class="current-amount">
+                현재 할당량
+                <span class="c-span">3,000</span>
+              </p>
+              <p class="request-amount">
+                요청량
+                <span>5,000</span>
+              </p>
+            </div>
+            <div class="amount-check_req-box2">
+              <p class="amount-title">Tesla P40</p>
+              <p class="current-amount">
+                현재 할당량
+                <span class="c-span">3,000</span>
+              </p>
+              <p class="request-amount">
+                요청량
+                <span>5,000</span>
+              </p>
+            </div>
+          </div>
           </div>
           <div class="check-reply">
             <p class="check-reply_title">답변</p>

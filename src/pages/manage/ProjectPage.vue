@@ -212,10 +212,10 @@
                         v-model="helpShow"
                         anchor="top middle"
                         self="top middle"
-                        class="c_popover"
+                        class="c_popover manage_pj_pop"
                       >
                         <div class="inner">
-                          <p class="list_dot">할당량 대비 사용량을 표기합니다.(현재 사용량 / 할당량)</p>
+                          <p class="list_dot">할당량 대비 사용량을 표기합니다.<br>(현재 사용량 / 할당량)</p>
                           <p class="list_dot">할당량 OFF시 현재 사용량만 표기됩니다.</p>
                         </div>
                       </q-popup-edit>

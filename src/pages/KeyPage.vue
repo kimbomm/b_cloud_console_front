@@ -47,6 +47,42 @@
               />
             </div>
           </div>
+          <!-- <div class="key-box">
+            <p class="key-box_title mt40">SSH Key</p>
+            <section class="section">
+              <EasyDataTable
+                :headers="nodata"
+                :items="nodata"
+                :hide-footer="true"
+                :body-row-class-name="bodyRowClassNameFunction"
+                empty-message="SSH Key를 등록해주세요."
+              />
+              <CButton
+                :size-types="2"
+                :btn-types="1"
+                :btn-names="btnSign"
+              />
+            </section>
+          </div>
+          <div class="key-box">
+            <p class="key-box_title mt60">API Key</p>
+            <section class="section">
+              <div class="test">
+                <EasyDataTable
+                  :headers="nodata"
+                  :items="nodata"
+                  :hide-footer="true"
+                  :body-row-class-name="bodyRowClassNameFunction"
+                  empty-message="API Key를 생성해주세요."
+                />
+                  <CButton
+                  :size-types="2"
+                  :btn-types="1"
+                  :btn-names="btnCreate"
+                  />
+                </div>
+            </section>
+          </div> -->
       </template>
       <template v-else>
         <div class="flex-top mt40">
@@ -99,7 +135,7 @@
               </template>
             </EasyDataTable>
         </section>
-        <div class="flex-top mt50">
+        <div class="flex-top mt60">
           <p class="name">API Key</p>
           <div>
             <CButton
@@ -116,10 +152,10 @@
           </div>
         </div>
         <div class="key-create">
-          <p>689fd66a-b2c1-44bd-88d8-f0753fcb234b</p>
+          <p>{{ apiAmount }}</p>
           <p>
             생성일시
-            <span>2023.11.21 04:33pm</span>
+            <span>{{ createDate }}</span>
           </p>
         </div>
         </template>
@@ -133,15 +169,21 @@ import { useMeta } from "quasar";
 import CButton from "components/common/CButton.vue";
 
 const defaultData = ref(true);
-const visible = ref("");
+const visible = ref("A");
 
 const tab = ref("tabs3");
 const title = ref("Account");
+
 useMeta(() => ({
   title: title.value,
   visible,
 }));
+// API Key값
+const apiAmount = ref("689fd66a-b2c1-44bd-88d8-f0753fcb234b");
+// 생성일시
+const createDate = ref("2023.11.21 04:33pm");
 // Table
+// const nodata = [];
 const headers = [
   {
     text: "이름", value: "name", width: 240, sortable: false
@@ -175,6 +217,13 @@ const items = [
 /**
  * 버튼 및 checkbox 에 대한 이벤트 존재할 시 class 삽입
  */
+// const bodyRowClassNameFunction = (item) => {
+//   const classList = [];
+//   if (item.buttons) classList.push("row-button");
+//   if (item.checkbox) classList.push("row-selected");
+//   return classList.join(" ");
+// };
+
 const actionButtons = [
   { name: "삭제", event: "delete" },
 ];

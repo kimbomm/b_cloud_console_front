@@ -577,6 +577,11 @@
         <q-card-actions class="c_dialog_foot">
           <q-btn
             label="서비스 이용문의"
+            class="primary line"
+            v-close-popup
+          />
+          <q-btn
+            label="확인"
             class="primary"
             v-close-popup
           />
@@ -4662,7 +4667,7 @@ const triggerSuccess = (position) => {
           },
         },
       ],
-      timeout: 3000,
+      timeout: 500,
     });
   }, 100);
 };
@@ -4682,7 +4687,7 @@ const triggerImgSuccess = (position) => {
           },
         },
       ],
-      timeout: 3000,
+      timeout: 500,
     });
   }, 100);
 };
@@ -4702,7 +4707,7 @@ const triggerSuccess1 = (position) => {
           },
         },
       ],
-      timeout: 3000,
+      timeout: 500,
     });
   }, 100);
 };
@@ -4722,7 +4727,7 @@ const triggerProjectSuccess = (position) => {
           },
         },
       ],
-      timeout: 3000,
+      timeout: 500,
     });
   }, 100);
 };
@@ -4742,7 +4747,7 @@ const triggerTaskGroupSuccess = (position) => {
           },
         },
       ],
-      timeout: 3000,
+      timeout: 500,
     });
   }, 100);
 };
@@ -4762,7 +4767,7 @@ const triggerTaskSuccess = (position) => {
           },
         },
       ],
-      timeout: 3000,
+      timeout: 500,
     });
   }, 100);
 };
@@ -4782,7 +4787,7 @@ const triggerStorageSuccess = (position) => {
           },
         },
       ],
-      timeout: 3000,
+      timeout: 500,
     });
   }, 100);
 };
@@ -4802,7 +4807,7 @@ const triggerInstanceSuccess = (position) => {
           },
         },
       ],
-      timeout: 3000,
+      timeout: 500,
     });
   }, 100);
 };
@@ -4822,7 +4827,7 @@ const triggerImgWarning = (position) => {
           },
         },
       ],
-      timeout: 3000,
+      timeout: 500,
     });
   }, 100);
 };
@@ -4842,7 +4847,7 @@ const triggerProjectWarning = (position) => {
           },
         },
       ],
-      timeout: 3000,
+      timeout: 500,
     });
   }, 100);
 };
@@ -4862,7 +4867,7 @@ const triggerTaskGroupWarning = (position) => {
           },
         },
       ],
-      timeout: 3000,
+      timeout: 500,
     });
   }, 100);
 };
@@ -4882,7 +4887,7 @@ const triggerTaskWarning = (position) => {
           },
         },
       ],
-      timeout: 3000,
+      timeout: 500,
     });
   }, 100);
 };
@@ -4902,7 +4907,7 @@ const triggerStorageWarning = (position) => {
           },
         },
       ],
-      timeout: 3000,
+      timeout: 500,
     });
   }, 100);
 };
@@ -4922,7 +4927,7 @@ const triggerInstanceWarning = (position) => {
           },
         },
       ],
-      timeout: 3000,
+      timeout: 500,
     });
   }, 100);
 };
