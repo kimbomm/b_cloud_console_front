@@ -16,59 +16,105 @@ $side-minw: 80px;
     .q-drawer--left{
       width:80px!important;
       transform: translateX(0)!important;
+      z-index:1000;
     }
+    // sidebar
     .l-sidebar{
-      .textmenu,
-      .txt,
-      .sub_menu,
-      .c_btn{
-        display:none;
+      a > span,
+      .link > span,
+      .label > span{
+        width:0;height:0;
+        max-width:0;
+        margin:0;padding:0;
       }
-      .iconmenu{
-        display:flex;
+      .ico_projects{
+        opacity:0;
       }
-      .menu-link,
-      .menu-item{
-        width:48px;height:48px;
-        &.router-link-exact-active{
-          background-color:$surface03;
+      .q-btn{
+        &.add{
+          display:none;
+          z-index:-1;
+          opacity: 0;
+          transition: 1s all;
+        }
+        &.toggle{
+          z-index:1;
+          opacity:1;
+          .ico{
+            opacity:1;
+          }
         }
       }
-      .menu-link .ico,
-      .menu-item .ico{
-        margin-right:0;
+      .q-scrollarea{
+        // contain: strict;
       }
-      .side_foot{
-        .support_menu{
-          .menu-link{
-            .txt,
-            .desc{
-              display:none;
-            }
-            &.router-link-exact-active{
-              background:$surface03;
-              .ico{
-                &.support{
-                  background-image:url($iconUrl + '32/ico_support_pressed.svg');
-                }
+      .q-scrollarea__container{
+        // overflow:none;
+      }
+      .q-tree__node-collapsible{
+        display:none;
+        position:absolute;top:2px;left:48px;z-index:10;
+        width:178px;min-height:114px;
+        padding:4px;
+        border-radius: 8px;
+        background:$white;
+        box-shadow: 2px 4px 24px #E3E3E3;
+      }
+      .snb{
+        &_base{
+          .q-tree__children{
+            .q-tree__node--child{
+              &:nth-last-child(1){
+                display:block;
               }
             }
           }
         }
-        .mybox{
-          background:$color;
-        }
-        .myinfo{
-          justify-content: flex-start;
-          height:100%;
-          margin-right: 0;
-          padding-left: 0;
-          &:before{
-            margin-top:11px;
+      }
+      .caption{
+        overflow:hidden;
+        width:0;
+      }
+      .support_menu{
+        .link{
+          span{
+            overflow: hidden;
+            width:0;
+          }
+          &.current{
+            border-radius:8px;
+            background:$surface03;
+            .ico_support{
+              background-image:url($iconUrl + '32/ico_support_pressed.svg');
+            }
           }
         }
-        .name,.mail{
-          display:none;
+      }
+      .item_card{
+        &.member{
+          background:$color;
+          .name,
+          .mail{
+            overflow:hidden;
+            width:0;
+          }
+          .more{
+            top:4px;right:auto;left:0;
+            width:48px;height:48px;
+            background-color:$color;
+            .ico_more{
+              width:32px;height:32px;
+              background-image:url($iconUrl + '32/ico_profile_normal.svg');
+            }
+            &:focus,
+            &:active{
+              background-color:$surface03;
+              .ico_more{
+                width:32px;height:32px;
+                background-image:url($iconUrl + '32/ico_profile_pressed.svg');
+              }
+            }
+          }
         }
       }
     }
@@ -192,103 +238,14 @@ $side-minw: 80px;
   }
 }
 .l-sidebar{
-  .iconmenu{
-    display:none;
-    flex:1;
-    height:100%;
-  }
-  .ibtn{
-    width:48px;height:48px;
-    padding:0;
-    border:0;
-    border-radius:8px;
-    background:$color;
-    .ico{
-      width:32px;height:32px;
-      &.projects{
-        background-image:url($iconUrl + '32/ico_projects_normal.svg');
-      }
-      &.workspace{
-        background-image:url($iconUrl + '32/ico_manager_normal.svg');
-      }
-    }
-    @at-root .q-layout.sm-sidemenu .l-sidebar .ibtn{
-      &:focus,
-      &:active{
-        background:$surface03!important;
-        .ico{
-          &.projects{
-            background-image:url($iconUrl + '32/ico_projects_pressed.svg');
-          }
-          &.workspace{
-            background-image:url($iconUrl + '32/ico_manager_pressed.svg');
-          }
-        }
-      }
-    }
-  }
-  .q-item{
-    align-items: center;
-    position:relative;
-    min-height: 48px;
-    padding: 0 16px;
-  }
-  .menu-link,
-  .menu-item{
-    display:flex;
-    align-items: center;
-    width:100%;height:48px;
-    padding:0 8px;
-    border-radius: 8px;
-    background-repeat:no-repeat;
-    background-position:50% 50%;
-    color:$surface12;font-size:$fs14;
-    .q-focus-helper{
-      display:none;
-    }
-    .ico{
-      width:32px;height:32px;
-      margin-right:8px;
-      background-repeat:no-repeat;
-      background-position:50% 50%;
-    }
-    &.router-link-exact-active{
-      background-color:#E8ECF1;
-      color:$primary;
-    }
-    &.toggle{
-      width:100%;height:48px;
-      padding:0 8px;
-      border-radius: 8px;
-      background:none;
-      color:$surface12;font-size:$fs14;
-      &[modelvalue="true"]{
-        background-color:$surface03;
-        color:$primary;
-      }
-      &.router-link-exact-active{
-        background:none;
-        // color:$primary;
-        &[modelvalue="true"]{
-          color:$primary;
-        }
-      }
-    }
-  }
-  .q-btn--actionable.q-btn--standard:active:before,
-  .q-btn--actionable.q-btn--standard.q-btn--active:before{
-    box-shadow: none;
-  }
+  $sideMenuH:176px;
+  .q-checkbox{display:none;}
   .q-btn{
-    &:before{
-      box-shadow:none;
-    }
-    .ico + .txt{
-      margin-left:0;
-    }
+    .ico + .txt{margin-left:0;}
+    &:before{box-shadow:none;}
     &.add{
       flex:none;
-      position:absolute;top:12px;right:28px;
+      position:absolute;top:12px;right:12px;
       width:24px;
       min-height:24px;
       height:24px;
@@ -299,346 +256,428 @@ $side-minw: 80px;
         width:16px;height:16px;
         background-image:url($iconUrl + '16/ico_plus_white.svg');
       }
+      .txt{display:none;}
+    }
+    &.toggle{
+      display:inline-block;
+      position:absolute;left:8px;z-index:-1;
+      flex:none;
+      width:32px;height:32px;
+      min-height:32px;
+      background:$color;
+      background-repeat:no-repeat;
+      background-position:50% 50%;
+      opacity: 0;
+      .ico{
+        opacity:0;
+      }
       .txt{
         display:none;
       }
     }
-    &.menu-item{
-      align-items: flex-start;
-      width:100%;height:48px;
+    &.more{
+      flex:none;
+      width:36px;height:36px;
+      min-height:36px;
       padding:0 8px;
-      border-radius: 8px;
-      background:none;
-      color:$surface12;font-size:$fs14;
-      &[modelvalue="true"]{
-        color:$primary;
+      border-radius: 4px;
+      background:$surface02;
+      &:hover{
+        background:$surface04;
+      }
+      .ico_more{
+        position:static;
+        width:20px;height:20px;
+        background:url($iconUrl + '20/ico_more_normal.svg') no-repeat 50% 50%;
       }
       .txt{
-        position:relative;
-        padding-right:16px;
-        &:after{
-          content:"";
-          display:inline-block;
-          position:absolute;top:-1px;right:0;
-          transition: .3s;
-          width:16px;height:16px;
-          background:url($iconUrl + '16/ico_arrow_down_gray.svg') no-repeat 50% 50%;
-          @at-root .l-sidebar .q-btn.menu-item[modelvalue="true"] .txt:after{
-            transform:rotate(180deg) translateY(-2px);
-            background-image:url($iconUrl + '16/ico_arrow_down_blue.svg');
+        display:none;
+      }
+      /* @at-root .q-layout.sm-sidemenu .l-sidebar .side_foot .q-btn.more{
+        width:48px;height:48px;
+        background:$color;
+        .ico{
+          width:32px;height:32px;
+          background-image:url($iconUrl + '32/ico_profile_normal.svg');
+        }
+        &:focus,
+        &:active{
+          background:$surface03;
+          .ico{
+            background-image:url($iconUrl + '32/ico_profile_pressed.svg');
+          }
+        }
+      } */
+    }
+  }
+  .q-icon{
+    position:absolute;top:0;left:0;
+    width:0px;height:0px;
+    &.q-tree__arrow{
+      width:100%;height:48px;
+      margin:0;
+      border-radius:8px;
+      font-size:0;
+      &.q-tree__arrow--rotate {
+        transform: rotate3d(0, 0, 0, 0deg);
+        + .q-tree__node-header-content{
+          background:$surface03;
+          .ico_projects{
+            background-image:url($iconUrl + '32/ico_projects_pressed.svg');
+          }
+          .ico_set{
+            background-image:url($iconUrl + '32/ico_manager_pressed.svg');
+          }
+          .label{
+            color:$primary;
+            span{
+              &::after{
+                background-image:url($iconUrl + '16/ico_arrow_down_blue.svg');
+                transform: rotate(180deg) translateY(-1px);
+              }
+            }
           }
         }
       }
     }
+    &.q-tree__icon{
+      position:static;
+      width:32px;height:32px;
+      margin-right:8px;
+    }
   }
-  .menu-list{
+  .ico{
+    display:inline-block;
+    flex:none;
+    width:32px;height:32px;
+    background-repeat:no-repeat;
+    background-position:50% 50%;
+    + span{margin-left:8px;}
+    &_dashboard{
+      background-image:url($iconUrl + '32/ico_dashboard_normal.svg');
+    }
+    &_projects{
+      background-image:url($iconUrl + '32/ico_projects_normal.svg');
+    }
+    &_storage{
+      background-image:url($iconUrl + '32/ico_storage_normal.svg');
+    }
+    &_image{
+      background-image:url($iconUrl + '32/ico_image_normal.svg');
+    }
+    &_member{
+      background-image:url($iconUrl + '32/ico_member_normal.svg');
+    }
+    &_billing{
+      background-image:url($iconUrl + '32/ico_brlling_normal.svg');
+    }
+    &_set{
+      background-image:url($iconUrl + '32/ico_manager_normal.svg');
+    }
+    &_support{
+      background-image:url($iconUrl + '32/ico_support_normal.svg');
+    }
+  }
+  a,
+  .link,
+  .label{
+    overflow:hidden;
     display:flex;
-    flex-direction: column;
-    flex:1;
-    margin:auto 0;
-    padding:24px 0 calc(176px + 16px);
+    align-items: center;
+    width:100%;height:48px;
+    padding:0 8px;
+    border-radius:8px;
+    color:inherit;
+    cursor:pointer;
+    transition: .3s all;
+    >span{
+      overflow:hidden;
+      display:inline-block;
+      max-width:100%;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    &.current{
+      background:$surface03;
+      color:$primary;
+      .ico{
+        &_dashboard{
+          background-image:url($iconUrl + '32/ico_dashboard_pressed.svg');
+        }
+        &_projects{
+          background-image:url($iconUrl + '32/ico_projects_pressed.svg');
+        }
+        &_storage{
+          background-image:url($iconUrl + '32/ico_storage_pressed.svg');
+        }
+        &_image{
+          background-image:url($iconUrl + '32/ico_image_pressed.svg');
+        }
+        &_member{
+          background-image:url($iconUrl + '32/ico_member_pressed.svg');
+        }
+        &_billing{
+          background-image:url($iconUrl + '32/ico_brlling_pressed.svg');
+        }
+        &_set{
+          background-image:url($iconUrl + '32/ico_manager_pressed.svg');
+        }
+        &_support{
+          background-image:url($iconUrl + '32/ico_support_pressed.svg');
+        }
+      }
+    }
+  }
+  .label{
+    span{
+      &::after{
+        content: "";
+        display:inline-block;
+        width:16px;height:16px;
+        background:url($iconUrl + '16/ico_arrow_down_gray.svg') no-repeat 50% 50%;
+        vertical-align: middle;
+        transform: translateY(-1px);
+        transition: .3s transform;
+      }
+    }
+  }
+  .caption{
+    display:flex;
+    align-items: center;
+    height:48px;
+    padding-left:60px;
+    color:$gray300;font-size:$fs12;
+  }
+  .support_menu{
+    position:relative;
+    .ico{
+      position:absolute;top:0;left:0;
+      width:48px;height:48px;
+      &_support{
+        background-image:url($iconUrl + '32/ico_support_normal.svg');
+      }
+    }
+    .link{
+      overflow:visible;
+      flex:none;
+      position:absolute;top:0;left:0;
+      width:48px;height:48px;
+      background:none;
+      color:$gray600;font-size:$fs12;
+      >span{
+        position:absolute;top:48px;left:54px;
+        text-decoration:underline;
+      }
+      &.current{
+        border-radius:0;
+        background:$color;
+        .ico_support{
+          background-image:url($iconUrl + '32/ico_support_normal.svg');
+        }
+      }
+    }
+  }
+  .item_card{
+    &.member{
+      flex:none;
+      position:absolute;bottom:16px;left:16px;
+      width:calc(100% - 32px);height:56px;
+      margin:0;padding:10px 52px 8px 48px;
+      border-radius:4px;
+      background:$white;
+      &::before{
+        top:0;left:0;
+        width:48px;height:48px;
+        background-image:url($iconUrl + '32/ico_profile_normal.svg');
+        background-size:32px;
+      }
+      .name{
+        color:$gray800;font-size:$fs14;font-weight:$bold;
+        + .mail{
+          margin-top:2px!important;
+        }
+      }
+      .mail{
+        overflow:hidden;
+        white-space: nowrap;
+        text-overflow:ellipsis;
+        color:$gray500;font-size:$fs12;font-weight:$regular;
+      }
+      .more{
+        position:absolute;top:10px;right:8px;
+      }
+    }
   }
   .q-scrollarea__content{
     display:flex;
     flex-direction: column;
     max-width:100%;
   }
-  .side_menulist{
+  .menu-list{
     display:flex;
     flex-direction: column;
     flex:1;
-    width:100%;
     margin:auto 0;
+    padding:24px 0 calc(#{$sideMenuH} + 16px);
   }
-  .sub_menu{
-    padding: 0 16px;
-    .menu-link{
-      padding:0 8px;
-      background-color:$color;
-      color:$gray800;
-      &:before{
-        content:"";
-        flex:none;
-        display:inline-block;
-        width:32px;height:32px;
-        margin-right:8px;
-        background:url($iconUrl + '32/ico_menuopen_gray.svg') no-repeat 0 50%;
-      }
-      >span{
-        display:inline-block;
-        max-width:100%;
-        @include ellipsis;
-      }
-      &.router-link-exact-active{
-        color:$primary;
-      }
-    }
-  }
-  .workspace_area{
-    margin-top:16px;
-    padding:16px;
-    border-top:1px solid $surface03;
-    .sub_menu{
-      padding:0;
-    }
-    >.menu-link{
-      .ico{
-        background-image:url($iconUrl + '32/ico_manager_normal.svg');
-      }
-      &.router-link-exact-active{
-        .ico{
-          background-image:url($iconUrl + '32/ico_manager_pressed.svg');
-        }
-      }
-      &[modelvalue="false"]{
-        .ico{
-          background-image:url($iconUrl + '32/ico_manager_normal.svg');
-        }
-      }
-      &[modelvalue="true"]{
-        .ico{
-          background-image:url($iconUrl + '32/ico_manager_pressed.svg');
-        }
-      }
-    }
-    .q-btn{
-      &.menu-item{
-        .ico{
-          background-image:url($iconUrl + '32/ico_manager_normal.svg');
-        }
-        &[modelvalue="true"]{
-          .ico{
-            background-image:url($iconUrl + '32/ico_manager_pressed.svg');
-          }
-        }
-      }
-    }
-  }
-  .dashboard{
-    .menu-link{
-      .ico{
-        background-image:url($iconUrl + '32/ico_dashboard_normal.svg');
-      }
-      &.router-link-exact-active{
-        .ico{
-          background-image:url($iconUrl + '32/ico_dashboard_pressed.svg');
-        }
-      }
-    }
-  }
-  .projects{
-    .iconmenu{
-      padding:0 16px;
-    }
-    .menu-link{
-      .ico{
-        background-image:url($iconUrl + '32/ico_projects_normal.svg');
-      }
-      &.router-link-exact-active{
-        .ico{
-          background-image:url($iconUrl + '32/ico_projects_pressed.svg');
-        }
-      }
-      &.toggle{
-        &[modelvalue="true"],
-        &[modelvalue="true"].router-link-exact-active{
-          .ico{
-            // background-image:url($iconUrl + '32/ico_projects_pressed.svg');
-          }
-        }
-      }
-    }
-    .q-btn{
-      &.c_icon{
-        margin-right:12px;
-      }
-      &.menu-item{
-        .ico{
-          background-image:url($iconUrl + '32/ico_projects_normal.svg');
-        }
-        &[modelvalue="true"]{
-          .ico{
-            background-image:url($iconUrl + '32/ico_projects_pressed.svg');
-          }
-        }
-      }
-    }
-  }
-  .storage{
-    .menu-link{
-      .ico{
-        background-image:url($iconUrl + '32/ico_storage_normal.svg');
-      }
-      &.router-link-exact-active{
-        .ico{
-          background-image:url($iconUrl + '32/ico_storage_pressed.svg');
-        }
-      }
-    }
-  }
-  .images{
-    .menu-link{
-      .ico{
-        background-image:url($iconUrl + '32/ico_image_normal.svg');
-      }
-      &.router-link-exact-active{
-        .ico{
-          background-image:url($iconUrl + '32/ico_image_pressed.svg');
-        }
-      }
-    }
-  }
-  .members{
-    .menu-link{
-      .ico{
-        background-image:url($iconUrl + '32/ico_member_normal.svg');
-      }
-      &.router-link-exact-active{
-        .ico{
-          background-image:url($iconUrl + '32/ico_member_pressed.svg');
-        }
-      }
-    }
-  }
-  .billing{
-    .menu-link{
-      .ico{
-        background-image:url($iconUrl + '32/ico_brlling_normal.svg');
-      }
-      &.router-link-exact-active{
-        .ico{
-          background-image:url($iconUrl + '32/ico_brlling_pressed.svg');
-        }
-      }
-    }
-  }
-
-  .side_foot{
-    display:flex;
-    flex-direction: column;
-    flex:1;
-    position:absolute;bottom:0;
-    width:100%;height:176px;
-    margin-bottom:auto;
-    padding:8px 16px 16px;
-    border-top:1px solid $surface03;
-    .support_menu{
-      display:flex;
-      align-items: flex-start;
-      height:66.8px;
-      .q-item{
-        flex-direction: column;
-        align-items: flex-start;
-        min-height:auto;
-        padding:0;
-      }
-      .menu-link{
-        flex-direction: row;
-        position:relative;
-        margin:0;padding:0;
-        .ico{
-          &.support{
-            flex:none;
-            display:inline-block;
-            width:48px;height:48px;
-            background:url($iconUrl + '32/ico_support_normal.svg') no-repeat 50% 50%;
-          }
-        }
-        .txt{
-          position:absolute;bottom:-16px;left:56px;
-          height:auto;
-          padding:0;
-          border-radius:0;
-          background:none;
-          color:$gray600;font-size:$fs12;
-          text-decoration: underline;
-        }
-        .desc{
-          display:inline-flex;
-          flex:1 auto;
-          margin-top:8px;
-          color:$gray300;font-size:$fs12;
-        }
-        &.router-link-exact-active{
-          background:$color;
-        }
-      }
-    }
-    .mybox{
-      display:flex;
-      align-items: center;
-      height:56px;
-      margin-top:28px;
-      padding:0 8px;
-      border-radius:8px;
-      background:$white;
-      @at-root .q-layout.sm-sidemenu .l-sidebar .side_foot .mybox{
-        padding:0;
-      }
-    }
-    .myinfo{
+  .side{
+    &_menulist{
       display:flex;
       flex-direction: column;
-      align-items: flex-start;
-      justify-content: center;
-      flex:1 auto;
-      position:relative;
-      max-width:calc(100% - 44px);
-      margin-right:8px;
-      padding-left:40px;
-      &:before{
-        content:"";
-        display:inline-block;
-        position:absolute;top:0;left:0;
-        width:32px;height:32px;
-        background:url($iconUrl + '32/ico_profile_normal.svg') no-repeat 50% 50%;
-        @at-root .q-layout.sm-sidemenu .l-sidebar .side_foot .myinfo:before{
-          display:none;
+      flex:1;
+      width:100%;
+      margin:auto 0;
+    }
+    &_body{
+      display:flex;
+      flex-direction: column;
+      flex:1;
+      width:100%;
+      margin:auto 0;
+    }
+    &_foot{
+      display:flex;
+      flex-direction: column;
+      flex:1;
+      position:absolute;bottom:0;
+      width:100%;height:$sideMenuH;
+      margin-bottom:auto;
+      padding:8px 16px 16px;
+      border-top:1px solid $surface03;
+    }
+  }
+  .q-tree{
+    padding:0 16px;
+    color:$surface12;
+    .q-focus-helper{display:none;}
+    .q-tree__node:after{
+      display:none;
+    }
+    >.q-tree{
+      &__node{
+        &--child{
+          .q-tree__node-header{
+            padding-left:0;
+          }
+        }
+        &--parent{
+          .q-tree__node-header{
+            padding-left:0;
+          }
         }
       }
     }
-    .name{
-      color:$gray800;font-size:$fs14;font-weight:700;
+    .q-tree__node{
+      padding:0;
+      border-radius:8px;
+      color:$surface12;
+      &-header {
+        margin-top: 0;
+        padding: 0;
+        border-radius: 0;
+        outline: 0;
+      }
+      &-header-content{
+        color:inherit;
+      }
     }
-    .mail{
-      max-width:100%;
-      color:$gray500;font-size:$fs12;font-weight:400;
-      @include ellipsis;
-    }
-    .q-btn{
-      &.more{
-        flex:none;
-        width:36px;height:36px;
-        min-height:36px;
+    .q-tree__node--parent{
+      .q-tree__node-header-content{
+        width:100%;height:48px;
         padding:0 8px;
-        border-radius: 4px;
-        background:$surface02;
-        &:hover{
-          background:$surface04;
+        border-radius:8px;
+      }
+    }
+    .q-tree__children{
+      padding-left:0;
+      .q-tree__node-header{
+        position:relative;
+        &:before{
+          top:0;left:8px;bottom:0;
+          width:32px;height:32px;
+          margin:auto;
+          border:0;
+          background:url($iconUrl + '32/ico_menuopen_gray.svg') no-repeat 50% 50%;
         }
-        .ico{
-          width:20px;height:20px;
-          background-image:url($iconUrl + '20/ico_more_normal.svg');
-        }
-        .txt{
-          display:none;
-        }
-        @at-root .q-layout.sm-sidemenu .l-sidebar .side_foot .q-btn.more{
-          width:48px;height:48px;
-          background:$color;
-          .ico{
-            width:32px;height:32px;
-            background-image:url($iconUrl + '32/ico_profile_normal.svg');
+      }
+      .q-tree__node-header-content{
+        padding:0;
+        .link{
+          padding-left:48px;
+          &.current{
+            background:none;
           }
-          &:focus,
-          &:active{
-            background:$surface03;
-            .ico{
-              background-image:url($iconUrl + '32/ico_profile_pressed.svg');
+        }
+      }
+    }
+    .q-tree__node--selected{
+      + .q-tree__node-collapsible{
+        // display:block!important;
+        // height:auto;
+      }
+    }
+  }
+  .q-tree__node-collapsible{
+    overflow:hidden;
+    // height:0;
+  }
+  .snb{
+    &_base{
+      .q-tree__node--parent{
+        .q-tree__node-header-content{
+          >.q-icon{
+            &.q-tree__icon{
+              background-image:url($iconUrl + '32/ico_projects_normal.svg');
             }
           }
         }
       }
+      .q-tree__children{
+        .q-tree__node--child{
+          &:nth-last-child(1){
+            display:none;
+            .q-tree__node-header{
+              &::before{
+                display:none;
+              }
+            }
+            .q-btn{
+              &.add{
+                align-items: flex-start;
+                position:static;
+                width:100%;height:100%;
+                background:$color;
+                border-radius:0;
+                color:$gray500;font-size:$fs12;
+                .ico.plus{
+                  display:none;
+                }
+                .txt{
+                  display:block;
+                  color:$gray500;font-size:$fs12;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    &_mng{
+      margin-top:16px;
+      padding:16px;
+      border-top:1px solid $surface03;
+
+      .q-tree__node--parent{
+        .q-tree__node-header-content{
+          >.q-icon{
+            &.q-tree__icon{
+              background-image:url($iconUrl + '32/ico_manager_pressed.svg');
+            }
+          }
+        }
+      }
+    }
+    &_my{
     }
   }
 }
