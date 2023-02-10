@@ -148,6 +148,10 @@
                   empty-message="정보가 없습니다."
                   @click-row="showRow"
                 >
+                  <!-- id -->
+                  <template #item-id="item">
+                    <span class="txt clip">{{ item.id }}</span>
+                  </template>
                   <!-- groupTitle -->
                   <template #item-groupTitle="item">
                     <a href="#">
@@ -161,6 +165,10 @@
                         </div>
                       </q-tooltip>
                     </a>
+                  </template>
+                  <!-- description -->
+                  <template #item-description="item">
+                    <span class="txt clip">{{ item.description }}</span>
                   </template>
                   <!--
                     상태값(status)
@@ -271,6 +279,10 @@
                       <span class="txt">생성중</span>
                     </q-badge>
                   </template>
+                  <!-- createdAt -->
+                  <template #item-createdAt="item">
+                    <span class="txt clip">{{ item.createdAt }}</span>
+                  </template>
                   <!-- createdBy -->
                   <template #item-createdBy="item">
                     <span class="txt clip">{{ item.createdBy }}</span>
@@ -312,6 +324,10 @@
                   empty-message="정보가 없습니다."
                   @click-row="showRow"
                 >
+                  <!-- groupTitle -->
+                  <template #item-groupTitle="item">
+                    <span class="txt clip">{{ item.groupTitle }}</span>
+                  </template>
                   <!-- title -->
                   <template #item-title="item">
                     <a href="#">
@@ -430,9 +446,31 @@
                       </q-tooltip>
                     </q-badge>
                   </template>
+                  <!-- gpu -->
+                  <template #item-gpu="item">
+                    <span class="txt">{{ item.gpu }}</span>
+                  </template>
+                  <!-- cpu -->
+                  <template #item-cpu="item">
+                    <span class="txt">{{ item.cpu }}</span>
+                  </template>
                   <!-- createdBy -->
                   <template #item-createdBy="item">
-                    <span class="txt clip">{{ item.createdBy }}</span>
+                    <span class="txt">{{ item.createdBy }}</span>
+                  </template>
+                  <!-- startDate -->
+                  <template #item-startDate="item">
+                    <span class="txt">{{ item.startDate }}</span>
+                  </template>
+                  <!-- endDate -->
+                  <template #item-endDate="item">
+                    <span class="txt">{{ item.endDate }}</span>
+                  </template>
+                  <!-- logCheck -->
+                  <template #item-logCheck="item">
+                    <a href="#">
+                      <span class="txt logbadge">{{ item.logCheck }}</span>
+                    </a>
                   </template>
                   <!-- 버튼 그룹 -->
                   <template #item-buttons="item">
@@ -559,7 +597,7 @@ const items = [
   },
   {
     id: 21,
-    groupTitle: "Taskgroup1",
+    groupTitle: "Taskgroup1Taskgroup1Taskgroup1Taskgroup1Taskgroup1Taskgroup1Taskgroup1Taskgroup1Taskgroup1",
     status: "group",
     description: "태스크 그룹 설명",
     createdAt: "2023.01.12 10:33:21",
@@ -603,33 +641,33 @@ const headers2 = [
     text: "태스크 이름", value: "title", width: 300, sortable: true
   },
   {
-    text: "상태", value: "status", width: 120, sortable: true
+    text: "상태", value: "status", width: 110, sortable: true
   },
   {
     text: "ssh", value: "ssh", width: 80, sortable: false
   },
   {
-    text: "인스턴스 타입", value: "instanceType", width: 150, sortable: true
+    text: "인스턴스 타입", value: "instanceType", width: 138, sortable: true
   },
   {
-    text: "GPU", value: "gpu", width: 80, sortable: false
+    text: "GPU", value: "gpu", width: 75, sortable: false
   },
   {
-    text: "CPU", value: "cpu", width: 80, sortable: false
+    text: "CPU", value: "cpu", width: 75, sortable: false
   },
   {
     text: "생성자", value: "createdBy", width: 100, sortable: true
   },
   {
-    text: "시작일시", value: "startDate", width: 180, sortable: true
+    text: "시작일시", value: "startDate", width: 170, sortable: true
   },
   {
-    text: "완료일시", value: "endDate", width: 180, sortable: true
+    text: "완료일시", value: "endDate", width: 170, sortable: true
   },
   {
-    text: "로그확인", value: "logCheck", width: 80, sortable: false
+    text: "로그확인", value: "logCheck", width: 80, sortable: false,
   },
-  { text: "", value: "buttons", width: 80 },
+  { text: "", value: "buttons", width: 70 },
 ];
 const items2 = [
   {
@@ -680,7 +718,7 @@ const items2 = [
   },
   {
     groupTitle: "그룹12",
-    title: "asdasdasdsaasdasdasdsaasdasdasdsaasdasdasdsa",
+    title: "asdasdasdsaasdasdasdsaasdasdasdsaasdasdasdsaasdasdasdsaasdasdasdsaasdasdasdsaasdasdasdsaasdasdasdsaasdasdasdsaasdasdasdsaasdasdasdsaasdasdasdsaasdasdasdsaasdasdasdsaasdasdasdsa",
     status: "stopped",
     ssh: "ssh",
     instanceType: "V1.XLARGE",

@@ -97,6 +97,18 @@
           empty-message="정보가 없습니다."
           @click-row="showRow"
         >
+          <!-- title -->
+          <template #item-title="item">
+            <span class="txt">{{ item.title }}</span>
+          </template>
+          <!-- description -->
+          <template #item-description="item">
+            <span class="txt">{{ item.description }}</span>
+          </template>
+          <!-- user -->
+          <template #item-user="item">
+            <span class="txt">{{ item.user }}</span>
+          </template>
           <!--
             상태값(status)
             1. running, 운영중(개인)
@@ -136,6 +148,18 @@
             >
               <span class="txt">복원중</span>
             </q-badge>
+          </template>
+          <!-- usingData -->
+          <template #item-usingData="item">
+            <span class="txt">{{ item.usingData }}</span>
+          </template>
+          <!-- createdAt -->
+          <template #item-createdAt="item">
+            <span class="txt">{{ item.createdAt }}</span>
+          </template>
+          <!-- authority -->
+          <template #item-authority="item">
+            <span class="txt">{{ item.authority }}</span>
           </template>
           <!-- 버튼 그룹 -->
           <template #item-buttons="item">

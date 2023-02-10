@@ -1,38 +1,8 @@
 ::v-deep{
-[data-v-62a3bb0e] .vue3-easy-data-table__body td a .txt {
-    display: inline-block;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    width: 422px;
-}
-[data-v-62a3bb0e] .txt.clip {
-    width: 200px;
-}
-[data-v-62a3bb0e] .vue3-easy-data-table__header .cell.btngroup, [data-v-62a3bb0e] .vue3-easy-data-table__body .cell.btngroup {
-    min-width: 36px;
-    text-align: left;
-}
-[data-v-06611552] .vue3-easy-data-table__body td a .txt {
-    display: inline-block;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    width: 410px;
-}
-[data-v-06611552] .vue3-easy-data-table__body td a .txt {
-    display: inline-block;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    width: 376px;
-}
-[data-v-06611552] .vue3-easy-data-table__body td a {
-    display: inline-block;
-    width: 286px;
-}
-[data-v-06611552] .txt.clip {
-    width: 150px;
+table{
+  table-layout:fixed;
+  .cell.btngroup{min-width: 50px !important;}
+  .txt.clip{max-width: inherit;}
 }
 
 }
@@ -51,13 +21,6 @@
         }
         .c_tooltip{
           width: 438px;
-        }
-
-        .c_pagination{
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          margin-top: 50px;
         }
       }
     }

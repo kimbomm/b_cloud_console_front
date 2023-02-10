@@ -121,6 +121,14 @@
               empty-message="정보가 없습니다."
               @click-row="showRow"
             >
+              <!-- pjName -->
+              <template #item-pjName="item">
+                <span class="txt">{{ item.pjName }}</span>
+              </template>
+              <!-- groupid -->
+              <template #item-groupid="item">
+                <span class="txt">{{ item.groupid }}</span>
+              </template>
               <!-- groupName -->
               <template #item-groupName="item">
                 <a href="#">
@@ -134,6 +142,10 @@
                     </div>
                   </q-tooltip>
                 </a>
+              </template>
+              <!-- desc -->
+              <template #item-desc="item">
+                <span class="txt">{{ item.desc }}</span>
               </template>
               <!--
                 상태값(status)
@@ -244,6 +256,14 @@
                   <span class="txt">생성중</span>
                 </q-badge>
               </template>
+              <!-- createdAt -->
+              <template #item-createdAt="item">
+                <span class="txt">{{ item.createdAt }}</span>
+              </template>
+              <!-- constructor -->
+              <template #item-constructor="item">
+                <span class="txt">{{ item.constructor }}</span>
+              </template>
               <!-- 버튼 그룹 -->
               <template #item-buttons="item">
                 <div v-if="actionButtons" class="cell btngroup">
@@ -281,19 +301,13 @@
               empty-message="정보가 없습니다."
               @click-row="showRow"
             >
-              <!-- title -->
-              <template #item-title="item">
-                <a href="#">
-                  <span class="txt">{{ item.title }}</span>
-                  <q-tooltip
-                    anchor="bottom middle"
-                    class="c_tooltip"
-                  >
-                    <div class="inner">
-                      {{ item.title }}
-                    </div>
-                  </q-tooltip>
-                </a>
+              <!-- pjName -->
+              <template #item-pjName="item">
+                <span class="txt">{{ item.pjName }}</span>
+              </template>
+              <!-- groupName -->
+              <template #item-groupName="item">
+                <span class="txt">{{ item.groupName }}</span>
               </template>
               <!-- taskname -->
               <template #item-taskName="item">
@@ -418,9 +432,31 @@
                   </q-tooltip>
                 </q-badge>
               </template>
+              <!-- cpu -->
+              <template #item-cpu="item">
+                <span class="txt">{{ item.cpu }}</span>
+              </template>
+              <!-- gpu -->
+              <template #item-gpu="item">
+                <span class="txt">{{ item.gpu }}</span>
+              </template>
               <!-- createdBy -->
               <template #item-createdBy="item">
-                <span class="txt clip">{{ item.createdBy }}</span>
+                <span class="txt">{{ item.createdBy }}</span>
+              </template>
+              <!-- createdAt -->
+              <template #item-createdAt="item">
+                <span class="txt">{{ item.createdAt }}</span>
+              </template>
+              <!-- endDate -->
+              <template #item-endDate="item">
+                <span class="txt">{{ item.endDate }}</span>
+              </template>
+              <!-- log -->
+              <template #item-log="item">
+                <a href="#">
+                  <span class="txt logbadge">{{ item.log }}</span>
+                </a>
               </template>
               <!-- 버튼 그룹 -->
               <template #item-buttons="item">
@@ -601,7 +637,6 @@ const taskItems = [
     taskName: "aatask1",
     status: "running",
     ssh: "ssh",
-    JupyterLab: "JupyterLab",
     instanceType: "V1.XLARGE",
     gpu: "49.5%",
     cpu: "100%",
@@ -623,7 +658,6 @@ const taskItems = [
     taskName: "aatask1aatask1aatask1aatask1",
     status: "error",
     ssh: "ssh",
-    JupyterLab: "JupyterLab",
     instanceType: "V1.XLARGE",
     gpu: "49.5%",
     cpu: "100%",
@@ -645,7 +679,6 @@ const taskItems = [
     taskName: "aatask1",
     status: "cancel",
     ssh: "ssh",
-    JupyterLab: "JupyterLab",
     instanceType: "V1.XLARGE",
     gpu: "49.5%",
     cpu: "100%",
@@ -667,7 +700,6 @@ const taskItems = [
     taskName: "aatask1",
     status: "deleting",
     ssh: "ssh",
-    JupyterLab: "JupyterLab",
     instanceType: "V1.XLARGE",
     gpu: "49.5%",
     cpu: "100%",
@@ -689,7 +721,6 @@ const taskItems = [
     taskName: "aatask1aatask1aatask1aatask1",
     status: "stopped",
     ssh: "ssh",
-    JupyterLab: "JupyterLab",
     instanceType: "V1.XLARGE",
     gpu: "49.5%",
     cpu: "100%",
@@ -711,7 +742,6 @@ const taskItems = [
     taskName: "aatask1",
     status: "canceling",
     ssh: "ssh",
-    JupyterLab: "JupyterLab",
     instanceType: "V1.XLARGE",
     gpu: "49.5%",
     cpu: "100%",
@@ -733,7 +763,6 @@ const taskItems = [
     taskName: "aatask1",
     status: "group",
     ssh: "ssh",
-    JupyterLab: "JupyterLab",
     instanceType: "V1.XLARGE",
     gpu: "49.5%",
     cpu: "100%",
@@ -755,7 +784,6 @@ const taskItems = [
     taskName: "aatask1aatask1aatask1aatask1",
     status: "finished",
     ssh: "ssh",
-    JupyterLab: "JupyterLab",
     instanceType: "V1.XLARGE",
     gpu: "49.5%",
     cpu: "100%",
@@ -777,7 +805,6 @@ const taskItems = [
     taskName: "aatask1",
     status: "making",
     ssh: "ssh",
-    JupyterLab: "JupyterLab",
     instanceType: "V1.XLARGE",
     gpu: "49.5%",
     cpu: "100%",
@@ -799,7 +826,6 @@ const taskItems = [
     taskName: "aatask1aatask1aatask1aatask1",
     status: "failure",
     ssh: "ssh",
-    JupyterLab: "JupyterLab",
     instanceType: "V1.XLARGE",
     gpu: "49.5%",
     cpu: "100%",
@@ -821,7 +847,6 @@ const taskItems = [
     taskName: "aatask1aatask1aatask1aatask1",
     status: "pending",
     ssh: "ssh",
-    JupyterLab: "JupyterLab",
     instanceType: "V1.XLARGE",
     gpu: "49.5%",
     cpu: "100%",

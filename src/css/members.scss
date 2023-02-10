@@ -72,7 +72,7 @@
         width: 100%;
         border-radius: 12px; background-color: $surface01;
         .t-flex{
-          display: flex; justify-content: space-between; align-items: baseline;
+          display: flex; justify-content: space-between; align-items: center;
         }
         .btnWrap{
           display: flex;
@@ -80,6 +80,7 @@
             margin-right: 10px;
             &:last-child{margin-right: 0;}
           }
+          .q-btn{min-height: 48px;}
         }
         .pb{
           padding-bottom: 40px;
@@ -289,7 +290,7 @@
         width: 100%;
         border-radius: 12px; background-color: $surface01;
         .t-flex{
-          display: flex; justify-content: space-between; align-items: baseline;
+          display: flex; justify-content: space-between; align-items: center;
         }
         .btnWrap{
           display: flex;
