@@ -163,6 +163,26 @@
               empty-message="정보가 없습니다."
               @click-row="showRow"
             >
+              <!-- title -->
+              <template #item-title="item">
+                <span class="txt">{{ item.title }}</span>
+              </template>
+              <!-- email -->
+              <template #item-email="item">
+                <span class="txt">{{ item.email }}</span>
+              </template>
+              <!-- generated -->
+              <template #item-generated="item">
+                <span class="txt">{{ item.generated }}</span>
+              </template>
+              <!-- usage -->
+              <template #item-usage="item">
+                <span class="txt">{{ item.usage }}</span>
+              </template>
+              <!-- quota -->
+              <template #item-quota="item">
+                <span class="txt">{{ item.quota }}</span>
+              </template>
               <!-- 버튼 그룹 -->
               <template #item-buttons="item">
                 <div v-if="actionButtons" class="cell btngroup">

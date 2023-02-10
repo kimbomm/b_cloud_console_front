@@ -199,6 +199,10 @@
               empty-message="정보가 없습니다."
               @click-row="showRow"
             >
+              <!-- id -->
+              <template #item-id="item">
+                <span class="txt clip">{{ item.id }}</span>
+              </template>
               <!-- title -->
               <template #item-title="item">
                 <a href="#">
@@ -307,6 +311,28 @@
                     </div>
                   </q-tooltip>
                 </q-badge>
+              </template>
+              <!-- cpu -->
+              <template #item-cpu="item">
+                <span class="txt">{{ item.cpu }}</span>
+              </template>
+              <!-- gpu -->
+              <template #item-gpu="item">
+                <span class="txt">{{ item.gpu }}</span>
+              </template>
+              <!-- createdAt -->
+              <template #item-createdAt="item">
+                <span class="txt">{{ item.createdAt }}</span>
+              </template>
+              <!-- endDate -->
+              <template #item-endDate="item">
+                <span class="txt">{{ item.endDate }}</span>
+              </template>
+              <!-- logCheck -->
+              <template #item-logCheck="item">
+                <a href="#">
+                  <span class="txt logbadge">{{ item.logCheck }}</span>
+                </a>
               </template>
               <!-- 버튼 그룹 -->
               <template #item-buttons="item">

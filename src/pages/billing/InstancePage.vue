@@ -101,6 +101,22 @@
                 empty-message="정보가 없습니다."
                 @click-row="showRow"
               >
+                <!-- type -->
+                <template #item-type="item">
+                  <span class="txt">{{ item.type }}</span>
+                </template>
+                <!-- typeDetail -->
+                <template #item-typeDetail="item">
+                  <span class="txt">{{ item.typeDetail }}</span>
+                </template>
+                <!-- useHours -->
+                <template #item-useHours="item">
+                  <span class="txt">{{ item.useHours }}</span>
+                </template>
+                <!-- useageFee -->
+                <template #item-useageFee="item">
+                  <span class="txt">{{ item.useageFee }}</span>
+                </template>
               </EasyDataTable>
             </section>
             <div class="group-table_page">

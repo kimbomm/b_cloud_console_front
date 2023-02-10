@@ -19,39 +19,39 @@
     </div>
     <!-- //.chead -->
     <div class="p-body">
-      <div v-if='visible === "A"'>
-        <div class="m-info">
-          <div class="u-info">
-            <p class="u-info_name">박카브</p>
-            <p class="u-info_email">we.dot@kakaobrain.com</p>
-            <p class="u-info_intro">소개글 Text소개글 Text소개글 Text소개글 Text소개글 Text소개글 Text</p>
+      <div class="m-info">
+        <div class="u-info">
+          <p class="u-info_name">박카브</p>
+          <p class="u-info_email">we.dot@kakaobrain.com</p>
+          <p class="u-info_intro">소개글 Text소개글 Text소개글 Text소개글 Text소개글 Text소개글 Text</p>
+        </div>
+        <div class="u-info2">
+          <div>
+            <p class="g-txt">마지막 로그인</p>
+            <p class="b-txt">2022.11.22<span>12:32:33</span></p>
           </div>
-          <div class="u-info2">
-            <div>
-              <p class="g-txt">마지막 로그인</p>
-              <p class="b-txt">2022.11.22<span>12:32:33</span></p>
-            </div>
-            <div>
-              <p class="g-txt">가입일자</p>
-              <p class="b-txt">2022.11.22</p>
-              <!-- 회원가입 일자 정보가 없는 경우 '미가입' 표기 -->
-              <!-- <p class="b-txt">미가입</p> -->
-            </div>
-            <div>
-              <p class="g-txt">LDAP 계정</p>
-              <p class="b-txt">-</p>
-            </div>
+          <div>
+            <p class="g-txt">가입일자</p>
+            <p class="b-txt">2022.11.22</p>
+            <!-- 회원가입 일자 정보가 없는 경우 '미가입' 표기 -->
+            <!-- <p class="b-txt">미가입</p> -->
+          </div>
+          <div>
+            <p class="g-txt">LDAP 계정</p>
+            <p class="b-txt">-</p>
           </div>
         </div>
+      </div>
+      <div v-if='visible !== true'>
         <div class="w-info">
           <div class="w-info_work line pb">
             <div class="t-flex">
               <p class="title">워크스페이스</p>
-              <div>
-                <CButton
-                  :size-types="2"
-                  :btn-types="1"
-                  :btn-names="'편집'"
+              <div class="btnWrap">
+                <q-btn
+                  label="편집"
+                  class="primary"
+                  @click="visible = true"
                 />
               </div>
             </div>
@@ -99,44 +99,23 @@
         </div>
       </div>
       <template v-else>
-        <div class="m-info">
-          <div class="u-info">
-            <p class="u-info_name">박카브</p>
-            <p class="u-info_email">we.dot@kakaobrain.com</p>
-            <p class="u-info_intro">소개글 Text소개글 Text소개글 Text소개글 Text소개글 Text소개글 Text</p>
-          </div>
-          <div class="u-info2">
-            <div>
-              <p class="g-txt">마지막 로그인</p>
-              <p class="b-txt">2022.11.22<span>12:32:33</span></p>
-            </div>
-            <div>
-              <p class="g-txt">가입일자</p>
-              <p class="b-txt">2022.11.22</p>
-            </div>
-            <div>
-              <p class="g-txt">LDAP 계정</p>
-              <p class="b-txt">-</p>
-            </div>
-          </div>
-        </div>
         <div class="w-info">
           <div class="w-info_work line pb">
             <div class="t-flex">
               <p class="title">워크스페이스</p>
               <div class="btnWrap">
                 <div>
-                  <CButton
-                    :size-types="2"
-                    :btn-types="4"
-                    :btn-names="btnCancle"
+                  <q-btn
+                    label="취소"
+                    class="line"
+                    @click="visible = false"
                   />
                 </div>
                 <div>
-                  <CButton
-                    :size-types="2"
-                    :btn-types="1"
-                    :btn-names="btnSave"
+                  <q-btn
+                    label="저장"
+                    class="primary"
+                    @click="visible = false"
                   />
                 </div>
               </div>
@@ -242,9 +221,9 @@
                 <span class="desc">최대 50,000</span>
               </div>
             </div>
-          </div>
-        </template>
-      </div>
+        </div>
+      </template>
+    </div>
   </q-page>
 </template>
 <script setup>
@@ -253,18 +232,15 @@ import { useMeta } from "quasar";
 import CButton from "components/common/CButton.vue";
 import CDropdown from "components/common/CDropdown.vue";
 
-const visible = ref("true");
+const visible = ref(false);
 const title = ref("Member");
 const btnName = ref("삭제");
-const btnCancle = ref("취소");
-const btnSave = ref("저장");
 
 const label = ref("프로젝트 이름");
 const label2 = ref("전체");
 
 useMeta(() => ({
   title: title.value,
-  visible,
 }));
 
 const options = ref([

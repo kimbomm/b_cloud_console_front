@@ -181,7 +181,8 @@
 /* storage */
 .c_popover.storage_pop{
   max-width: 200px;
-  top:155px !important;
+  left:682.9px !important;
+  top:157px !important;
   .inner{
     &::after{top:55px;}
   }
@@ -194,6 +195,8 @@
 }
 .c_popover.storage_popover{
   max-width: 269px;
+  top: 345px !important;
+  left: 360px !important;
   .inner{max-width: 269px;}
 }
 

@@ -1,7 +1,10 @@
 <template>
   <q-page class="p-content p-images p-index">
     <div class="p-head">
-      <q-breadcrumbs class="c_breadcrumb" gutter="none">
+      <q-breadcrumbs
+        class="c_breadcrumb"
+        gutter="none"
+      >
         <template v-slot:separator>
           <q-icon />
         </template>
@@ -15,173 +18,127 @@
     <div class="p-body">
       <div class="container">
         <div class="header">
-          <q-tabs
-           v-model="tab"
-           align="left"
-           class="c_tabs"
-            >
-    <q-tab name="tabs1" label="내이미지"/>
-    <q-tab name="tabs2" label="기본 이미지" />
-    <q-tab name="tabs3" label="공유받은 이미지" />
-  </q-tabs>
-         </div>
-       <template v-if="defaultData == true">
-           <div class="table_set">
-            <div class="c_inpgroup">
-           <q-input
-                outlined
+            <q-tabs v-model="tab" align="left" class="c_tabs">
+                <q-tab name="tabs1" label="내이미지"/>
+                <q-tab name="tabs2" label="기본 이미지"/>
+                <q-tab name="tabs3" label="공유받은 이미지"/>
+            </q-tabs>
+        </div>
+        <div class="table_set">
+          <div class="c_inpgroup">
+            <q-input
+                outlined="outlined"
                 v-model="suffix"
                 placeholder="이름, 설명, 공유자 검색"
-                clearable
-                class="wsize_full"
-              >
-            <template v-slot:prepend>
-              <q-icon name="search" class="ico_search" />
+                clearable="clearable"
+                class="wsize_full">
+                <template v-slot:prepend>
+                    <q-icon name="search" class="ico_search"/>
+                </template>
+            </q-input>
+          </div>
+          <div class="select_drop">
+            <CDropdown :label="optLabel" :options="optNumber" class="auto_size"/>
+          </div>
+        </div>
+        <section class="section">
+          <EasyDataTable
+            :headers="headers"
+            :items="items"
+            :hide-footer="true"
+            empty-message="정보가 없습니다."
+            @click-row="showRow"
+          >
+            <!-- id -->
+            <template #item-id="item">
+              <span class="txt">{{ item.id }}</span>
             </template>
-             </q-input>
-             </div>
-             <div class="select_drop">
-              <CDropdown
-                :label="optLabel"
-                :options="optNumber"
-                class="auto_size"
-              />
-              </div>
-              </div>
-              <section class="section">
-        <EasyDataTable
-          :headers="headers"
-          :items="items"
-          :hide-footer="true"
-          empty-message="정보가 없습니다."
-          @click-row="showRow"
-        >
-          <!-- title -->
-          <template #item-title="item">
-            <a href="#">
-              <span class="txt">{{ item.title }}</span>
-              <q-tooltip
-                anchor="bottom middle"
-                class="c_tooltip"
-              >
-                <div class="inner">
-                  {{ item.title }}
-                </div>
-              </q-tooltip>
-            </a>
-          </template>
-           <!-- image -->
+            <!-- title -->
+            <template #item-title="item">
+              <a href="#">
+                <span class="txt">{{ item.title }}</span>
+                <q-tooltip anchor="bottom middle" class="c_tooltip">
+                  <div class="inner">{{ item.title }}</div>
+                </q-tooltip>
+              </a>
+            </template>
+            <!-- image -->
             <template #item-image="item">
-            <a href="#">
               <span class="txt">{{ item.image }}</span>
-              <q-tooltip
-                anchor="bottom middle"
-                class="c_tooltip_image"
-              >
-                <div class="inner">
-                  {{ item.image }}
-                </div>
-              </q-tooltip>
-            </a>
-          </template>
+            </template>
 
-          <!-- sharedBy -->
-           <template #item-sharedBy="item">
-            <a href="#">
+            <!-- sharedBy -->
+            <template #item-sharedBy="item">
               <span class="txt">{{ item.sharedBy }}</span>
-              <q-tooltip
-                anchor="bottom middle"
-                class="c_tooltip"
-              >
-                <div class="inner">
-                  {{ item.sharedBy }}
-                </div>
-              </q-tooltip>
-            </a>
-          </template>
-           <!-- sharedAt -->
-          <template #item-sharedAt="item">
-            <span class="txt clip">{{ item.sharedAt }}</span>
-          </template>
-        </EasyDataTable>
+            </template>
+            <!-- sharedAt -->
+            <template #item-sharedAt="item">
+              <span class="txt clip">{{ item.sharedAt }}</span>
+            </template>
+          </EasyDataTable>
         </section>
-            <div class="c_pagination">
-            <CPagination></CPagination>
-            </div>
-         </template>
-         <template v-else>
-            <div class="com_nondata_area">
-              <div class="nondata_box">
-                <p class="nondata_txt">검색 결과가 없습니다.</p>
-              </div>
-            </div>
-          </template>
+        <div class="table_pagenav disflex_C">
+          <CPagination />
+        </div>
       </div>
     </div>
   </q-page>
 </template>
-<script setup>
+<script setup="setup">
 import { ref } from "vue";
 import { useMeta } from "quasar";
 import CDropdown from "components/common/CDropdown.vue";
 import CPagination from "src/components/common/CPagination.vue";
 
 const title = ref("Image");
-useMeta(() => ({
-  title: title.value,
-}));
+useMeta(() => ({ title: title.value }));
 
 const ptitle = ref(title);
 const tab = ref("tabs3");
 const optLabel = ref("10");
 
-const defaultData = ref(true);
-
 const headers = [
   {
-    text: "이름", value: "id", width: 222, sortable: true
+    text: "이름", value: "id", width: 180, sortable: true
   },
   {
-    text: "설명", value: "title", width: 426,
+    text: "설명", value: "title", width: 350
   },
   {
-    text: "이미지", value: "image", width: 392, sortable: true
+    text: "이미지", value: "image", width: 350, sortable: true
   },
   {
-    text: "공유자", value: "sharedBy", width: 270, sortable: true
+    text: "공유자", value: "sharedBy", width: 280, sortable: true
   },
   {
     text: "공유일시", value: "sharedAt", width: 150, sortable: true
-  },
+  }
 ];
 const items = [
   {
     id: "내이미지01",
-    title: "테스트용 이미지 생성 테스트 테스트테스트용 테스트용 이미지 생성   ",
-    image: "tensorflow 2.9.0(python3, cuda11.2, ubutun20.04)  tensorflow 2.9.0(python3, cuda11.2, ubutun20.04)",
+    title: "테스트용 이미지 생성 테스트 테스트테스트용 테스트용 이미지 생성테스트용 이미지 생성테스트용 이미지 생성 ",
+    image: "tensorflow 2.9.0(python3, cuda11.2, ubutun20.04) ",
     sharedBy: "김카브(root.choi@kakaobrain.com)",
-    sharedAt: "2023.10.11 12:30:31",
-  },
-  {
+    sharedAt: "2023.10.11 12:30:31"
+  }, {
     id: "내이미지02",
-    title: "테스트용 이미지 생성 테스트 테스트테스트용 이미지 생성 테스트 테스트테스트용 이미지테스트용 이미지 생성 테스트 테스트테스트용 이미지 생성 테스트 테스트테스트용 이미지 ",
+    title: "테스트용 이미지 생성 테스트 테스트테스트용 이미지 생성 테스트 테스트테스트용 이미지테스트용 이미지 생성 테스트 테스트테스트용 이미지 생성",
     image: "tensorflow 2.9.0(python3, cuda11.2, ubutun20.04)",
     sharedBy: "ewa(ewa.e@gmail.com)",
-    sharedAt: "2023.10.11 12:30:31",
-  },
-  {
+    sharedAt: "2023.10.11 12:30:31"
+  }, {
     id: "내이미지03",
     title: "테스트용 이미지 생성 테스트 테스트테스트용 테스트용 이미지 생성 ",
     image: "tensorflow 2.9.0(python3, cuda11.2, ubutun20.04)",
     sharedBy: "ewa(ewa.e@gmail.com)",
-    sharedAt: "2023.10.11 12:30:31",
-  },
-
+    sharedAt: "2023.10.11 12:30:31"
+  }
 ];
 const optNumber = ref([
   { label: "10", value: 0 },
   { label: "25", value: 1 },
-  { label: "50", value: 2 },
+  { label: "50", value: 2 }
 ]);
 
 /**
@@ -197,11 +154,9 @@ const optNumber = ref([
 const showRow = (item) => {
   console.log(item);
 };
-
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped="scoped">
 @import "src/css/images.scss";
 @import "src/css/table.scss";
-@import "src/css/page.scss"
 </style>
