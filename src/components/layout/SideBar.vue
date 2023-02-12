@@ -1,165 +1,208 @@
 <template>
   <q-scroll-area class="fit">
     <q-list class="menu-list">
-      <div class="side_body">
-        <!-- Base Menu -->
-        <q-tree
-          class="snb_base"
-          :nodes="menuData"
-          node-key="label"
-          v-model:selected="selected"
+      <template v-for="(menu, i) in menuData" :key="i">
+        <q-item
+          v-if="menu.type === 'dash'"
+          clickable
+          class="menu dashboard"
+          :class="{ active: itemSelected === i }"
+          @click="itemSelected = i"
         >
-          <template v-slot:header-dash="menu">
-            <router-link :to="`/${menu.node.path}`" class="link" exact-active-class="current">
-              <i :class="`ico ${menu.node.icon}`" />
-              <span>{{ menu.node.label }}</span>
+          <q-item-section class="menu_section">
+            <router-link :to="`/${menu.path}`" class="item">
+              <i :class="`ico ${menu.icon}`" />
+              <span class="txt">{{ menu.label }}</span>
             </router-link>
-          </template>
-          <template v-slot:header-pjt="menu">
-            <i :class="`ico ${menu.node.icon}`" />
-            <div class="label">
-              <span>{{ menu.node.label }}</span>
-            </div>
-            <q-btn class="add"
-              @click.stop="projectCreateModal = true"
-            >
-              <i class="ico plus" /><span class="txt">프로젝트 추가하기</span>
-            </q-btn>
+          </q-item-section>
+        </q-item>
 
-            <!-- Start : 접혔을 때 나오는 Projects 하위 메뉴 -->
-            <q-btn class="toggle" @click="pjtToggle = !pjtToggle">
-              <i :class="`ico ${menu.node.icon}`" />
-              <span class="txt">프로젝트 메뉴</span>
-              <q-menu :offset="[-40, -35]" class="submenu" :class="{ pjtshow: pjtToggle }">
-                <q-list style="min-width: 178px">
-                  <q-item>
-                    <router-link to="/projects/task" class="menu-link">
-                      <span class="txt">Test project</span>
-                    </router-link>
-                  </q-item>
-                  <q-item>
-                    <router-link to="/projects/instance" class="menu-link">
-                      <span class="txt">Test project - Test012 Test012 Test012 Test012</span>
-                    </router-link>
-                  </q-item>
-                  <q-separator />
-                  <q-item>
-                    <q-btn
-                      class="menu-link add"
-                      @click.stop="projectCreateModal = true"
+        <q-item
+          v-if="menu.type === 'pjt'"
+          clickable
+          class="menu projects"
+          :class="{ active: itemSelected === i, open: pjtToggle }"
+        >
+          <q-item-section class="menu_section">
+            <div class="item arrow" @click="pjtToggle = !pjtToggle">
+              <i :class="`ico ${menu.icon}`" />
+              <span>{{ menu.label }}</span>
+
+              <q-btn class="add" @click.stop="projectCreateModal = true">
+                <i class="ico plus" /><span class="txt">프로젝트 추가하기</span>
+              </q-btn>
+
+              <!-- Start : 접혔을 때 나오는 Projects 하위 메뉴 -->
+              <q-btn
+                class="toggle"
+                :class="{ active: itemSelected === i, open: pjtToggle }"
+                @click="itemSelected = i, pjtToggle = !pjtToggle"
+              >
+                <i :class="`ico ${menu.icon}`" />
+                <span class="txt">프로젝트 메뉴</span>
+                <q-menu :offset="[-40, -35]" class="submenu" :class="{ open: pjtToggle }">
+                  <q-list style="min-width: 178px">
+                    <q-item v-for="(pjt, index) in menu.children" :key="index.label">
+                      <router-link
+                        :to="`/${pjt.path}`"
+                        class="menu-link"
+                        @click="itemSelected = i"
+                      >
+                        <span class="txt">{{ pjt.label }}</span>
+                      </router-link>
+                    </q-item>
+                    <q-separator />
+                    <q-item>
+                      <q-btn class="menu-link add" @click.stop="projectCreateModal = true">
+                        <span class="txt">프로젝트 추가하기</span>
+                      </q-btn>
+                    </q-item>
+                  </q-list>
+                </q-menu>
+              </q-btn>
+              <!-- End : 접혔을 때 나오는 Projects 하위 메뉴 -->
+            </div>
+          </q-item-section>
+          <!-- Start : 펼쳤을 때 나오는 Projects 하위 메뉴 -->
+          <q-slide-transition>
+            <q-card class="submenu">
+              <q-item
+                class="subitem"
+                v-for="(pjt, index) in menu.children"
+                :key="index.label"
+              >
+                <router-link :to="`/${pjt.path}`" class="link" @click="itemSelected = i">
+                  <span class="txt">{{ pjt.label }}</span>
+                </router-link>
+              </q-item>
+            </q-card>
+          </q-slide-transition>
+          <!-- End : 펼쳤을 때 나오는 Projects 하위 메뉴 -->
+        </q-item>
+
+        <q-item
+          v-if="menu.type === 'base'"
+          clickable
+          class="menu base"
+          :class="{ active: itemSelected === i }"
+          @click="itemSelected = i"
+        >
+          <q-item-section class="menu_section">
+            <router-link :to="`/${menu.path}`" class="item">
+              <i :class="`ico ${menu.icon}`" />
+              <span class="txt">{{ menu.label }}</span>
+            </router-link>
+          </q-item-section>
+        </q-item>
+
+        <q-item
+          v-if="menu.type === 'mng'"
+          clickable
+          class="menu workspace"
+          :class="{ active: itemSelected === i, open: setToggle }"
+        >
+          <q-item-section class="menu_section">
+            <div class="item arrow" @click="setToggle = !setToggle">
+              <i :class="`ico ${menu.icon}`" />
+              <span>{{ menu.label }}</span>
+              <!-- Start : 접혔을 때 나오는 Workspace 하위 메뉴 -->
+              <q-btn
+                class="toggle"
+                :class="{ active: itemSelected === i, current: setToggle }"
+                @click="itemSelected = i, setToggle = !setToggle"
+              >
+                <i :class="`ico ${menu.icon}`" />
+                <span class="txt">워크스페이스 메뉴</span>
+                <q-menu :offset="[-40, -35]" class="submenu" :class="{ open: setToggle }">
+                  <q-list style="min-width: 178px">
+                    <q-item
+                      class="subitem"
+                      v-for="(mng, index) in menu.children"
+                      :key="index.label"
                     >
-                      <span class="txt">프로젝트 추가하기</span>
-                    </q-btn>
-                  </q-item>
-                </q-list>
-              </q-menu>
-            </q-btn>
-            <!-- End : 접혔을 때 나오는 Projects 하위 메뉴 -->
-          </template>
-          <template v-slot:header-pjtsub="submenu">
-            <router-link :to="`/${submenu.node.path}`" class="link" exact-active-class="current">
-              <span>{{ submenu.node.label }}</span>
-            </router-link>
-          </template>
-          <template v-slot:header-pjtbtn="menu">
-            <q-btn class="c_btn add"
-              @click="projectCreateModal = true"
-            >
-              <i class="ico plus" /><span class="txt">{{ menu.node.label }}</span>
-            </q-btn>
-          </template>
-          <template v-slot:header-base="menu">
-            <router-link :to="`/${menu.node.path}`" class="link" exact-active-class="current">
-              <i :class="`ico ${menu.node.icon}`" />
-              <span>{{ menu.node.label }}</span>
-            </router-link>
-          </template>
-        </q-tree>
-
-        <!-- Workspace Manager Menu -->
-        <q-tree
-          class="snb_mng"
-          :nodes="mngMenuData"
-          node-key="label"
-          v-model:selected="selected"
-        >
-          <template v-slot:header-mng="menu">
-            <i :class="`ico ${menu.node.icon}`" />
-            <div class="label">
-              <span>{{ menu.node.label }}</span>
+                      <router-link :to="`/${mng.path}`" class="menu-link" @click="itemSelected = i">
+                        <span class="txt">{{ mng.label }}</span>
+                      </router-link>
+                    </q-item>
+                  </q-list>
+                </q-menu>
+              </q-btn>
+              <!-- End : 접혔을 때 나오는 Workspace 하위 메뉴 -->
             </div>
+          </q-item-section>
+          <!-- Start : 펼쳤을 때 나오는 Workspace 하위 메뉴 -->
+          <q-slide-transition>
+            <q-card class="submenu">
+              <q-item
+                class="subitem"
+                v-for="(mng, index) in menu.children"
+                :key="index.label"
+              >
+                <router-link :to="`/${mng.path}`" class="link" @click="itemSelected = i">
+                  <span class="txt">{{ mng.label }}</span>
+                </router-link>
+              </q-item>
+            </q-card>
+          </q-slide-transition>
+          <!-- End : 펼쳤을 때 나오는 Workspace 하위 메뉴 -->
+        </q-item>
 
-            <!-- Start : 접혔을 때 나오는 Workspace 하위 메뉴 -->
-            <q-btn class="toggle" @click="setToggle = !setToggle" :class="{ current: setToggle }">
-              <i :class="`ico ${menu.node.icon}`" />
-              <span class="txt">워크스페이스 메뉴</span>
-              <q-menu :offset="[-50, -40]" class="submenu" :class="{ setshow: setToggle }">
-                <q-list style="min-width: 178px">
-                  <q-item>
-                    <router-link to="/manage/project" class="menu-link">
-                      <span class="txt">Projects</span>
-                    </router-link>
-                  </q-item>
-                  <q-item>
-                    <router-link to="/manage/instance" class="menu-link">
-                      <span class="txt">Instance & Task</span>
-                    </router-link>
-                  </q-item>
-                  <q-item>
-                    <router-link to="/manage/storage" class="menu-link">
-                      <span class="txt">Storage</span>
-                    </router-link>
-                  </q-item>
-                </q-list>
-              </q-menu>
-            </q-btn>
-            <!-- End : 접혔을 때 나오는 Workspace 하위 메뉴 -->
-          </template>
-          <template v-slot:header-mngsub="menu">
-            <router-link :to="`/${menu.node.path}`" class="link" exact-active-class="current">
-              <span>{{ menu.node.label }}</span>
-            </router-link>
-          </template>
-        </q-tree>
-      </div>
-
-      <div class="side_foot">
-        <div class="support_menu">
-          <p class="caption">궁금하신 사항은 아래 문의하기를<br />이용해주세요.</p>
-          <router-link
-            to="/support"
-            class="link"
-            exact-active-class="current"
-          >
-            <i class="ico ico_support" />
-            <span>문의하기</span>
+        <q-item
+          v-if="menu.type === 'support'"
+          clickable
+          class="menu support"
+          :class="{ active: itemSelected === i }"
+          @click="itemSelected = i"
+        >
+          <i :class="`ico ${menu.icon}`" />
+          <router-link :to="`/${menu.path}`" class="link link_close">
+            <span class="txt">{{ menu.label }}</span>
           </router-link>
-        </div>
-        <q-item-section class="item_card member">
-          <q-item-label class="name">김카브</q-item-label>
-          <q-item-label class="mail">root.choi@kakaobrainkakaobrainkakaobrain.com</q-item-label>
-          <q-btn class="more" @click="moreToggle = !moreToggle" :class="{ current: moreToggle }">
-            <i class="ico ico_more" /><span class="txt">메뉴</span>
-            <q-menu :offset="[-40, -35]" class="more_menu" :class="{ moreshow: moreToggle }">
+          <q-item-section class="menu_section">
+            <p class="caption">{{ menu.caption }}</p>
+            <router-link :to="`/${menu.path}`" class="link">
+              <span class="txt">{{ menu.label }}</span>
+            </router-link>
+          </q-item-section>
+        </q-item>
+
+        <q-item
+          v-if="menu.type === 'mymenu'"
+          clickable
+          class="menu my"
+          :class="{ active: itemSelected === i }"
+          @click="itemSelected = i"
+        >
+          <i :class="`ico ${menu.icon}`" />
+          <q-item-section class="menu_section">
+            <q-item-label class="name">{{ menu.name }}</q-item-label>
+            <q-item-label class="mail">{{ menu.mail }}</q-item-label>
+          </q-item-section>
+          <!-- Start : 메뉴 클릭시 나오는 팝업 My Menu 하위 메뉴 -->
+          <q-btn class="more" @click="moreToggle = !moreToggle">
+            <i :class="`ico ico_more`" /><span class="txt">메뉴</span>
+            <q-menu
+              anchor="top right"
+              self="bottom right"
+              class="more_menu"
+              :class="{ open: moreToggle }"
+            >
               <q-list style="min-width: 100px">
-                <q-item clickable v-close-popup>
-                  <router-link to="/my/" class="menu-link">
-                    <span class="txt">내정보</span>
+                <q-item
+                  class="subitem"
+                  v-for="(my, index) in menu.children"
+                  :key="index.label"
+                >
+                  <router-link :to="`/${my.path}`" class="menu-link">
+                    <span class="txt">{{ my.label }}</span>
                   </router-link>
-                </q-item>
-                <q-item clickable v-close-popup>
-                  <router-link to="/key" class="menu-link">
-                    <span class="txt">SSH Key & API Key</span>
-                  </router-link>
-                </q-item>
-                <q-item clickable v-close-popup>
-                  <q-btn class="menu-link"><span class="txt">로그아웃</span></q-btn>
                 </q-item>
               </q-list>
             </q-menu>
           </q-btn>
-        </q-item-section>
-      </div>
+          <!-- End : 메뉴 클릭시 나오는 팝업 My Menu 하위 메뉴 -->
+        </q-item>
+      </template>
     </q-list>
 
     <!-- Start : 프로젝트 생성 팝업 -->
@@ -224,107 +267,115 @@ import { useQuasar } from "quasar";
 
 const $q = useQuasar();
 
+const itemSelected = ref(false);
 const projectCreateModal = ref(false);
 const textName = ref(null);
 const textDesc = ref(null);
-const selected = ref(null);
-const setToggle = ref(false);
 const pjtToggle = ref(false);
+const setToggle = ref(false);
 const moreToggle = ref(false);
 const menuData = [
   {
-    header: "dash",
+    type: "dash",
     label: "Dashboard",
     icon: "ico_dashboard",
     path: "",
   },
   {
-    header: "pjt",
+    type: "pjt",
     label: "Projects",
     icon: "ico_projects",
     children: [
       {
-        header: "pjtsub",
+        type: "pjtsub",
         label: "Test project",
         path: "projects/task",
       },
       {
-        header: "pjtsub",
+        type: "pjtsub",
         label: "Test project - Test012 Test012 Test012 Test012",
         path: "projects/instance",
       },
-      {
-        header: "pjtbtn",
-        label: "프로젝트 추가하기",
-      }
     ]
   },
   {
-    header: "base",
+    type: "base",
     label: "Srorage",
-    path: "storage",
     icon: "ico_storage",
+    path: "storage",
   },
   {
-    header: "base",
+    type: "base",
     label: "Image",
-    path: "images",
     icon: "ico_image",
+    path: "images",
   },
   {
-    header: "base",
+    type: "base",
     label: "Member",
-    path: "members",
     icon: "ico_member",
+    path: "members",
   },
   {
-    header: "base",
+    type: "base",
     label: "Billing",
     path: "billing",
     icon: "ico_billing",
   },
-];
-const mngMenuData = [
   {
-    header: "mng",
+    type: "mng",
     label: "Workspace Manager",
     icon: "ico_set",
     children: [
       {
-        header: "mngsub",
+        type: "mngsub",
         label: "Projects",
         path: "manage/project",
       },
       {
-        header: "mngsub",
+        type: "mngsub",
         label: "Instance & Task",
         path: "manage/instance",
       },
       {
-        header: "mngsub",
+        type: "mngsub",
         label: "Storage",
         path: "manage/storage",
       }
     ]
-  }
+  },
+  {
+    type: "support",
+    label: "문의하기",
+    icon: "ico_support",
+    caption: "궁금하신 사항은 아래 문의하기를 이용해주세요.",
+    path: "support",
+  },
+  {
+    type: "mymenu",
+    label: "",
+    name: "김카브",
+    mail: "root.choi@kakaobrainsddddf.sss",
+    icon: "ico_my",
+    children: [
+      {
+        type: "mysub",
+        label: "내정보",
+        path: "my",
+      },
+      {
+        type: "mysub",
+        label: "SSH Key & API Key",
+        path: "key",
+      },
+      {
+        type: "mysub",
+        label: "로그아웃",
+        path: "login",
+      },
+    ]
+  },
 ];
-/* const myMenuData = [
-  {
-    header: "mymenu",
-    label: "내정보",
-    path: "my",
-  },
-  {
-    header: "mymenu",
-    label: "SSH Key & API Key",
-    path: "key",
-  },
-  {
-    header: "mymenu",
-    label: "로그아웃",
-    path: "",
-  },
-]; */
 const triggerSuccess = (position) => {
   setTimeout(() => {
     $q.notify({
@@ -333,7 +384,7 @@ const triggerSuccess = (position) => {
       icon: "positive",
       position,
       actions: [
-        { label: "닫기", class: "xclose", handler: () => { /* console.log('') */ } }
+        { label: "닫기", class: "xclose", handler: () => { console.log(""); } }
       ],
       timeout: 500
     });
@@ -341,4 +392,6 @@ const triggerSuccess = (position) => {
 };
 
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+
+</style>
