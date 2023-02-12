@@ -676,7 +676,7 @@
 </template>
 
 <script setup>
-import { ref, inject, onMounted } from "vue";
+import { ref } from "vue";
 import { useMeta } from "quasar";
 
 const title = ref("Dashboard");
@@ -714,20 +714,6 @@ const stores = ref([
     title: "삭제중", caption: "스토리지 설명", current: "3,000", total: "10,000", value: 100
   },
 ]);
-
-/**
- * 공통 composable method 가져오기
- */
-const $useCmFn = inject("$useCmFn");
-
-onMounted(() => {
-  setTimeout(() => {
-    $useCmFn.onMessage({
-      message: "title",
-      description: "description"
-    });
-  }, 2000);
-});
 </script>
 
 <style lang="scss" scoped>

@@ -197,7 +197,6 @@ const ptitle = ref(title);
  * 공통 composable method 가져오기
  */
 const $useCmFn = inject("$useCmFn");
-
 const onlyTitleAlert = () => {
   $useCmFn.onMessage({
     message: "타이틀 O, 설명문구 X, only 확인버튼",
