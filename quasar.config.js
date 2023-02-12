@@ -34,6 +34,7 @@ module.exports = configure((/* ctx */) => ({
     "axios",
     "apex-chart.js",
     "vue3-easy-data-table.js",
+    "common-function.js",
   ],
 
   // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#css

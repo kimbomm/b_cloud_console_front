@@ -117,6 +117,14 @@ const routes = [
     path: "/:catchAll(.*)*",
     component: () => import("pages/ErrorNotFound.vue"),
   },
+  // sample page
+  {
+    path: "/sample",
+    component: () => import("layouts/MainLayout.vue"),
+    children: [
+      { path: "/sample/popup", component: () => import("pages/sample/PopupPage.vue") }
+    ]
+  }
 ];
 
 export default routes;
