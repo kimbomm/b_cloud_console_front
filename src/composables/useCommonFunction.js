@@ -4,7 +4,7 @@ import { Notify } from "quasar";
 
 const { setMessageInfo } = useCommonStore();
 
-export class CommonFunction {
+class CommonFunction {
   /**
    * 설명: 공통 메세지박스 On
    * @param { object } msgObj

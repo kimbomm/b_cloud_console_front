@@ -25,8 +25,9 @@
   </div>
 </template>
 <script setup>
-import { ref, inject } from "vue";
+import { ref } from "vue";
 import { useMeta } from "quasar";
+import { $useCmFn } from "src/composables/useCommonFunction.js";
 
 const title = ref("Notify(Toast)");
 useMeta(() => ({
@@ -34,10 +35,6 @@ useMeta(() => ({
 }));
 const ptitle = ref(title);
 
-/**
- * 공통 composable method 가져오기
- */
-const $useCmFn = inject("$useCmFn");
 const triggerInfo = () => {
   $useCmFn.onNotify({
     message: "안내 메시지 입니다.",
