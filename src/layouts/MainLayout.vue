@@ -19,6 +19,7 @@
     <q-page-container class="l-container">
       <router-view />
     </q-page-container>
+    <c-message-box />
   </q-layout>
 </template>
 
@@ -27,6 +28,7 @@ import { ref } from "vue";
 import { useMeta } from "quasar";
 import TopNav from "components/layout/TopNav.vue";
 import SideBar from "components/layout/SideBar.vue";
+import CMessageBox from "components/common/CMessageBox.vue";
 
 const metaData = {
   title: "Brain Cloud",

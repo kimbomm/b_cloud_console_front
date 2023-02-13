@@ -108,6 +108,10 @@
             empty-message="정보가 없습니다."
             @click-row="showRow"
           >
+            <!-- phName -->
+            <template #item-phName="item">
+              <span class="txt clip">{{ item.phName }}</span>
+            </template>
             <!-- title -->
             <template #item-title="item">
               <a href="#">
@@ -219,6 +223,18 @@
                 </q-tooltip>
               </q-badge>
             </template>
+            <!-- cpu -->
+            <template #item-cpu="item">
+              <span class="txt">{{ item.cpu }}</span>
+            </template>
+            <!-- gpu -->
+            <template #item-gpu="item">
+              <span class="txt">{{ item.gpu }}</span>
+            </template>
+            <!-- createdAt -->
+            <template #item-createdAt="item">
+              <span class="txt clip">{{ item.createdAt }}</span>
+            </template>
             <!-- createdBy -->
             <template #item-createdBy="item">
               <span class="txt clip">{{ item.createdBy }}</span>
@@ -307,7 +323,7 @@ const headers = [
     text: "인스턴스 이름", value: "title", width: 300, sortable: true
   },
   {
-    text: "상태", value: "status", width: 120, sortable: true
+    text: "상태", value: "status", width: 160, sortable: true
   },
   {
     text: "ssh", value: "ssh", width: 80, sortable: false
@@ -335,7 +351,7 @@ const headers = [
 const items = [
   {
     phName: "aa프로젝트",
-    title: "A인스턴스A인스턴스A인스턴스A인스턴스A인스턴스A인 30자",
+    title: "A인스턴스A인스턴스A인스턴스A인스턴스A인스턴스A인A인스턴스A인스턴스A인스턴스A인스턴스A인스턴스A인A인스턴스A인스턴스A인스턴스A인스턴스A인스턴스A인 30자",
     status: "running",
     ssh: "ssh",
     jupyterLab: "JupyterLab",
@@ -395,7 +411,7 @@ const items = [
   },
   {
     phName: "aa프로젝트",
-    title: "A인스턴스A인스턴스A인스턴스A인스턴스A인스턴스A인 30자",
+    title: "A인스턴스A인스턴스A인스턴스A인스턴스A인스턴스A인A인스턴스A인스턴스A인스턴스A인스턴스A인스턴스A인 30자",
     status: "error",
     ssh: "ssh",
     jupyterLab: "JupyterLab",

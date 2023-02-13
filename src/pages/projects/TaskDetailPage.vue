@@ -222,6 +222,22 @@
                   :body-row-class-name="bodyRowClassNameFunction"
                   empty-message="정보가 없습니다."
                 >
+                  <!-- title -->
+                  <template #item-title="item">
+                    <span class="txt">{{ item.title }}</span>
+                  </template>
+                  <!-- cpu -->
+                  <template #item-cpu="item">
+                    <span class="txt">{{ item.cpu }}</span>
+                  </template>
+                  <!-- memory -->
+                  <template #item-memory="item">
+                    <span class="txt">{{ item.memory }}</span>
+                  </template>
+                  <!-- disk -->
+                  <template #item-disk="item">
+                    <span class="txt">{{ item.disk }}</span>
+                  </template>
                   <!-- 버튼 그룹 -->
                   <template #item-buttons="item">
                     <q-btn v-if="item.checkbox" class="text">
@@ -230,7 +246,7 @@
                   </template>
                 </EasyDataTable>
               </div>
-              <div class="s_03_pagenav disflex_C mt32">
+              <div class="disflex_C mt32">
                 <CPagination />
               </div>
             </div>
@@ -268,6 +284,14 @@
                     :body-row-class-name="bodyRowClassNameFunction"
                     empty-message="정보가 없습니다."
                   >
+                    <!-- title -->
+                    <template #item-title="item">
+                      <span class="txt">{{ item.title }}</span>
+                    </template>
+                    <!-- nvida -->
+                    <template #item-nvida="item">
+                      <span class="txt">{{ item.nvida }}</span>
+                    </template>
                     <!-- 버튼 그룹 -->
                     <template #item-buttons="item">
                       <q-btn v-if="item.checkbox" class="text">
@@ -276,7 +300,7 @@
                     </template>
                   </EasyDataTable>
                 </div>
-                <div class="s_04_pagenav disflex_C mt32">
+                <div class="disflex_C mt32">
                   <CPagination />
                 </div>
               </template>
@@ -291,6 +315,14 @@
                       :body-row-class-name="bodyRowClassNameFunction"
                       empty-message="정보가 없습니다."
                     >
+                      <!-- title -->
+                      <template #item-title="item">
+                        <span class="txt">{{ item.title }}</span>
+                      </template>
+                      <!-- description -->
+                      <template #item-description="item">
+                        <span class="txt">{{ item.description }}</span>
+                      </template>
                       <!--
                         상태값(status)
                         1. sharing, 저장(공유)
@@ -404,6 +436,10 @@
                           <span class="txt">생성중</span>
                         </q-badge>
                       </template>
+                      <!-- createdAt -->
+                      <template #item-createdAt="item">
+                        <span class="txt">{{ item.createdAt }}</span>
+                      </template>
                       <!-- 버튼 그룹 -->
                       <template #item-buttons="item">
                         <q-btn v-if="item.checkbox" class="text">
@@ -412,7 +448,7 @@
                       </template>
                     </EasyDataTable>
                   </div>
-                  <div class="s_04_pagenav disflex_C mt32">
+                  <div class="disflex_C mt32">
                     <CPagination />
                   </div>
                 </template>
@@ -435,6 +471,18 @@
                       :body-row-class-name="bodyRowClassNameFunction"
                       empty-message="정보가 없습니다."
                     >
+                      <!-- title -->
+                      <template #item-title="item">
+                        <span class="txt">{{ item.title }}</span>
+                      </template>
+                      <!-- description -->
+                      <template #item-description="item">
+                        <span class="txt">{{ item.description }}</span>
+                      </template>
+                      <!-- owner -->
+                      <template #item-owner="item">
+                        <span class="txt">{{ item.owner }}</span>
+                      </template>
                       <!-- 버튼 그룹 -->
                       <template #item-buttons="item">
                         <q-btn v-if="item.checkbox" class="text">
@@ -443,7 +491,7 @@
                       </template>
                     </EasyDataTable>
                   </div>
-                  <div class="s_04_pagenav disflex_C mt32">
+                  <div class="disflex_C mt32">
                     <CPagination />
                   </div>
                 </template>
@@ -469,6 +517,14 @@
                   :body-row-class-name="bodyRowClassNameFunction"
                   empty-message="정보가 없습니다."
                 >
+                  <!-- title -->
+                  <template #item-title="item">
+                    <span class="txt">{{ item.title }}</span>
+                  </template>
+                  <!-- description -->
+                  <template #item-description="item">
+                    <span class="txt">{{ item.description }}</span>
+                  </template>
                   <!--
                     상태값(status)
                     1. running, 운영중
@@ -486,6 +542,14 @@
                       <span class="txt">복구중</span>
                     </q-badge>
                   </template>
+                  <!-- user -->
+                  <template #item-user="item">
+                    <span class="txt">{{ item.user }}</span>
+                  </template>
+                  <!-- authority -->
+                  <template #item-authority="item">
+                    <span class="txt">{{ item.authority }}</span>
+                  </template>
                   <!-- 버튼 그룹 -->
                   <template #item-buttons="item">
                     <q-btn v-if="item.checkbox" class="text">
@@ -494,7 +558,7 @@
                   </template>
                 </EasyDataTable>
               </div>
-              <div class="s_05_pagenav disflex_C mt32">
+              <div class="disflex_C mt32">
                 <CPagination />
               </div>
             </div>
@@ -511,6 +575,18 @@
                   :body-row-class-name="bodyRowClassNameFunction"
                   empty-message="정보가 없습니다."
                 >
+                  <!-- title -->
+                  <template #item-title="item">
+                    <span class="txt">{{ item.title }}</span>
+                  </template>
+                  <!-- fingerprint -->
+                  <template #item-fingerprint="item">
+                    <span class="txt">{{ item.fingerprint }}</span>
+                  </template>
+                  <!-- registrationDat -->
+                  <template #item-registrationDat="item">
+                    <span class="txt">{{ item.registrationDat }}</span>
+                  </template>
                   <!-- 버튼 그룹 -->
                   <template #item-buttons="item">
                     <q-btn v-if="item.checkbox" class="text">
@@ -547,28 +623,84 @@
             <div class="s_07_main wsize608">
               <div class="port_num_input">
                 <div class="c_inpgroup">
-                  <q-input
+                  <q-select
                     outlined
-                    v-model="portNum"
+                    v-model="shareChipModel"
                     placeholder="포트 번호 입력"
-                    clearable
-                    class="wsize_full"
-                  />
+                    use-input
+                    use-chips
+                    multiple
+                    input-debounce="0"
+                    @new-value="createValue"
+                    :options="filterOptions"
+                    @filter="chipFilterFn"
+                    class="c_inpchip wsize_full"
+                  >
+                    <template v-slot:prepend>
+                      <q-icon
+                        name="search"
+                        class="ico_search"
+                      />
+                    </template>
+                    <template v-slot:append>
+                      <div class="slotopt"></div>
+                    </template>
+                    <template v-slot:no-option>
+                      <q-item class="no_data">
+                        <q-item-section>
+                          검색 결과 없습니다.
+                        </q-item-section>
+                      </q-item>
+                    </template>
+                  </q-select>
                 </div>
-                <q-btn
-                  type="button"
-                  class="c_btn c_icon medium"
-                  disabled
-                >
-                  <i class="ico plus" /><span class="txt">Disabled</span>
-                </q-btn>
+                <template v-if="filterOptions == false">
+                  <q-btn
+                    type="button"
+                    class="c_btn c_icon medium"
+                    disabled
+                  >
+                    <i class="ico plus" /><span class="txt">Disabled</span>
+                  </q-btn>
+                </template>
+                <template v-else>
+                  <q-btn
+                    type="button"
+                    class="c_btn c_icon medium"
+                  >
+                    <i class="ico plus" /><span class="txt">Button</span>
+                  </q-btn>
+                </template>
               </div>
               <div class="port_list_area">
-                <ul class="port_list_box com_border_box">
-                  <li>
-                    <p>등록된 포트 번호가 없습니다.</p>
-                  </li>
-                </ul>
+                <template v-if="noMemberList == true">
+                  <ul class="port_list_box com_border_box">
+                    <li>
+                      <p>등록된 포트 번호가 없습니다.</p>
+                    </li>
+                  </ul>
+                </template>
+                <template v-else>
+                  <ul class="port_list_box add_port_box com_border_box">
+                    <li><span class="port_badge">32233<i class="ico cancel" /></span></li>
+                    <li><span class="port_badge">32233<i class="ico cancel" /></span></li>
+                    <li><span class="port_badge">08~65535<i class="ico cancel" /></span></li>
+                    <li><span class="port_badge">32233<i class="ico cancel" /></span></li>
+                    <li><span class="port_badge">32233<i class="ico cancel" /></span></li>
+                    <li><span class="port_badge">32233<i class="ico cancel" /></span></li>
+                    <li><span class="port_badge">32233<i class="ico cancel" /></span></li>
+                    <li><span class="port_badge">32233<i class="ico cancel" /></span></li>
+                    <li><span class="port_badge">32233<i class="ico cancel" /></span></li>
+                    <li><span class="port_badge">32233<i class="ico cancel" /></span></li>
+                    <li><span class="port_badge">132135<i class="ico cancel" /></span></li>
+                    <li><span class="port_badge">32233<i class="ico cancel" /></span></li>
+                    <li><span class="port_badge">08~65535<i class="ico cancel" /></span></li>
+                    <li><span class="port_badge">32233<i class="ico cancel" /></span></li>
+                    <li><span class="port_badge">08~65535<i class="ico cancel" /></span></li>
+                    <li><span class="port_badge">32233<i class="ico cancel" /></span></li>
+                    <li><span class="port_badge">08~65535<i class="ico cancel" /></span></li>
+                  </ul>
+                </template>
               </div>
             </div>
           </div>
@@ -579,64 +711,64 @@
             <p class="section_title">태스크</p>
             <ul class="instance_data task_data">
               <li class="i_d01">
-                <p class="i_data_title">그룹 이름</p>
-                <p class="i_data_value">태스크 그룹 이름</p>
+                <div class="i_data_title">그룹 이름</div>
+                <div class="i_data_value"><p>태스크 그룹 이름</p></div>
               </li>
               <li class="i_d02">
-                <p class="i_data_title">태스크 개수</p>
-                <p class="i_data_value">3</p>
+                <div class="i_data_title">태스크 개수</div>
+                <div class="i_data_value"><p>3</p></div>
               </li>
               <li class="i_d03">
-                <p class="i_data_title">작업경로</p>
-                <p class="i_data_value">/working_dir</p>
+                <div class="i_data_title">작업경로</div>
+                <div class="i_data_value"><p>/working_dir</p></div>
               </li>
               <li class="i_d04">
-                <p class="i_data_title">호스트 전체 준비 완료시 실행</p>
-                <p class="i_data_value">Off</p>
+                <div class="i_data_title">호스트 전체 준비 완료시 실행</div>
+                <div class="i_data_value"><p>Off</p></div>
               </li>
               <li class="i_d05">
-                <p class="i_data_title">동시실행 최대 개수</p>
-                <p class="i_data_value">3</p>
+                <div class="i_data_title">동시실행 최대 개수</div>
+                <div class="i_data_value"><p>3</p></div>
               </li>
               <li class="i_d06">
-                <p class="i_data_title">인스턴스 타입</p>
-                <p class="i_data_value">V100</p>
+                <div class="i_data_title">인스턴스 타입</div>
+                <div class="i_data_value"><p>V100</p></div>
               </li>
               <li class="i_d07">
-                <p class="i_data_title">GPU</p>
-                <p class="i_data_value">1</p>
+                <div class="i_data_title">GPU</div>
+                <div class="i_data_value"><p>1</p></div>
               </li>
               <li class="i_d08">
-                <p class="i_data_title">CPU</p>
-                <p class="i_data_value">14</p>
+                <div class="i_data_title">CPU</div>
+                <div class="i_data_value"><p>14</p></div>
               </li>
               <li class="i_d09">
-                <p class="i_data_title">Memory</p>
-                <p class="i_data_value">122GB</p>
+                <div class="i_data_title">Memory</div>
+                <div class="i_data_value"><p>122GB</p></div>
               </li>
               <li class="i_d10">
-                <p class="i_data_title">Disk</p>
-                <p class="i_data_value">80GiB</p>
+                <div class="i_data_title">Disk</div>
+                <div class="i_data_value"><p>80GiB</p></div>
               </li>
               <li class="i_d11">
-                <p class="i_data_title">스토리지</p>
-                <p class="i_data_value">aa프로젝트 1 스토리지 외 4개</p>
+                <div class="i_data_title">스토리지</div>
+                <div class="i_data_value"><p>aa프로젝트 1 스토리지 외 4개</p></div>
               </li>
               <li class="i_d12">
-                <p class="i_data_title">Http proxy</p>
-                <p class="i_data_value">On</p>
+                <div class="i_data_title">Http proxy</div>
+                <div class="i_data_value"><p>On</p></div>
               </li>
               <li class="i_d13">
-                <p class="i_data_title">재시도 횟수</p>
-                <p class="i_data_value">0</p>
+                <div class="i_data_title">재시도 횟수</div>
+                <div class="i_data_value"><p>0</p></div>
               </li>
               <li class="i_d14">
-                <p class="i_data_title">추가 포트 번호</p>
-                <p class="i_data_value">-</p>
+                <div class="i_data_title">추가 포트 번호</div>
+                <div class="i_data_value"><p>-</p></div>
               </li>
             </ul>
             <div class="make_btn">
-              <template v-if="datacheck === datacheck">
+              <template v-if="datacheck === false">
                 <CButton
                   :size-types="2"
                   :btn-types="11"
@@ -672,7 +804,6 @@ const ptitle = ref(title);
 const tab = ref("tabs1");
 const tab2 = ref("tabs1");
 const taskName = ref(null);
-const portNum = ref(null);
 const textName = ref(null);
 const textName2 = ref(null);
 const textName3 = ref(null);
@@ -688,6 +819,30 @@ const btnName = ref("태스크 생성");
 const defaultData = ref(true);
 
 const itemsSelected = ref([]);
+const noMemberList = ref(true);
+const shareChipModel = ref(null);
+const stringOptions = [];
+const filterOptions = ref(stringOptions);
+const createValue = (val, done) => {
+  if (val.length > 0) {
+    if (!stringOptions.includes(val)) {
+      stringOptions.push(val);
+    }
+    done(val, "toggle");
+  }
+};
+const chipFilterFn = (val, update) => {
+  update(() => {
+    if (val === "") {
+      filterOptions.value = stringOptions;
+    } else {
+      const needle = val.toLowerCase();
+      filterOptions.value = stringOptions.filter(
+        (v) => v.toLowerCase().indexOf(needle) > -1
+      );
+    }
+  });
+};
 
 // 인스턴스 타입 테이블
 const instanceHeaders = [
@@ -721,7 +876,7 @@ const instanceItems = [
   },
   {
     title: "CG.nano",
-    cpu: "7",
+    cpu: "8",
     memory: "18GiB",
     disk: "80GiB",
     resource: {
@@ -734,7 +889,7 @@ const instanceItems = [
   },
   {
     title: "CG.nano",
-    cpu: "7",
+    cpu: "9",
     memory: "18GiB",
     disk: "80GiB",
     resource: {

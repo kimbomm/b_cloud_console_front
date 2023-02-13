@@ -78,19 +78,21 @@
             empty-message="정보가 없습니다."
             @click-row="showRow"
           >
-            <!-- title -->
-            <template #item-title="item">
-              <a href="#">
-                <span class="txt">{{ item.title }}</span>
-                <q-tooltip
-                  anchor="bottom middle"
-                  class="c_tooltip"
-                >
-                  <div class="inner">
-                    {{ item.title }}
-                  </div>
-                </q-tooltip>
-              </a>
+            <!-- category -->
+            <template #item-category="item">
+              <span class="txt">{{ item.category }}</span>
+            </template>
+            <!-- content -->
+            <template #item-content="item">
+              <span class="txt">{{ item.content }}</span>
+            </template>
+            <!-- sendingTime -->
+            <template #item-sendingTime="item">
+              <span class="txt">{{ item.sendingTime }}</span>
+            </template>
+            <!-- readStatus -->
+            <template #item-readStatus="item">
+              <span class="txt">{{ item.readStatus }}</span>
             </template>
           </EasyDataTable>
         </div>
