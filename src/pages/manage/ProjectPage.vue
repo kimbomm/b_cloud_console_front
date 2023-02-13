@@ -287,13 +287,13 @@
               <template #item-gpu="item">
                 <!--
                   사용량(usage)
-                  1. row : 0% ~ 50%
+                  1. low : 0% ~ 50%
                   2. middle : 51% ~ 90%
                   3. high : 91% ~ 100%
                 -->
                 <q-item v-if="item.status === 'running'" class="cell">
-                  <div v-if="item.gpu === 'row'" class="usage">
-                    <i class="ico row" />
+                  <div v-if="item.gpu === 'low'" class="usage">
+                    <i class="ico low" />
                     <span class="txt">44 / 100</span>
                   </div>
                   <div v-else-if="item.gpu === 'middle'" class="usage">
@@ -309,7 +309,7 @@
                   </div>
                 </q-item>
                 <q-item v-else class="cell">
-                  <div v-if="item.gpu === 'row'" class="usage">
+                  <div v-if="item.gpu === 'low'" class="usage">
                     <span class="txt">543</span>
                   </div>
                   <div v-else-if="item.gpu === 'middle'" class="usage">
@@ -327,13 +327,13 @@
               <template #item-v100="item">
                 <!--
                   사용량(usage)
-                  1. row : 0% ~ 50%
+                  1. low : 0% ~ 50%
                   2. middle : 51% ~ 90%
                   3. high : 91% ~ 100%
                 -->
                 <q-item v-if="item.status === 'running'" class="cell">
-                  <div v-if="item.v100 === 'row'" class="usage">
-                    <i class="ico row" />
+                  <div v-if="item.v100 === 'low'" class="usage">
+                    <i class="ico low" />
                     <span class="txt">2 / 100</span>
                   </div>
                   <div v-else-if="item.v100 === 'middle'" class="usage">
@@ -349,7 +349,7 @@
                   </div>
                 </q-item>
                 <q-item v-else class="cell">
-                  <div v-if="item.v100 === 'row'" class="usage">
+                  <div v-if="item.v100 === 'low'" class="usage">
                     <span class="txt">12</span>
                   </div>
                   <div v-else-if="item.v100 === 'middle'" class="usage">
@@ -367,13 +367,13 @@
               <template #item-g400="item">
                 <!--
                   사용량(usage)
-                  1. row : 0% ~ 50%
+                  1. low : 0% ~ 50%
                   2. middle : 51% ~ 90%
                   3. high : 91% ~ 100%
                 -->
                 <q-item v-if="item.status === 'running'" class="cell">
-                  <div v-if="item.g400 === 'row'" class="usage">
-                    <i class="ico row" />
+                  <div v-if="item.g400 === 'low'" class="usage">
+                    <i class="ico low" />
                     <span class="txt">44 / 100</span>
                   </div>
                   <div v-else-if="item.g400 === 'middle'" class="usage">
@@ -389,7 +389,7 @@
                   </div>
                 </q-item>
                 <q-item v-else class="cell">
-                  <div v-if="item.g400 === 'row'" class="usage">
+                  <div v-if="item.g400 === 'low'" class="usage">
                     <span class="txt">543</span>
                   </div>
                   <div v-else-if="item.g400 === 'middle'" class="usage">
@@ -407,13 +407,13 @@
               <template #item-g80="item">
                 <!--
                   사용량(usage)
-                  1. row : 0% ~ 50%
+                  1. low : 0% ~ 50%
                   2. middle : 51% ~ 90%
                   3. high : 91% ~ 100%
                 -->
                 <q-item v-if="item.status === 'running'" class="cell">
-                  <div v-if="item.g80 === 'row'" class="usage">
-                    <i class="ico row" />
+                  <div v-if="item.g80 === 'low'" class="usage">
+                    <i class="ico low" />
                     <span class="txt">44 / 100</span>
                   </div>
                   <div v-else-if="item.g80 === 'middle'" class="usage">
@@ -429,7 +429,7 @@
                   </div>
                 </q-item>
                 <q-item v-else class="cell">
-                  <div v-if="item.g80 === 'row'" class="usage">
+                  <div v-if="item.g80 === 'low'" class="usage">
                     <span class="txt">543</span>
                   </div>
                   <div v-else-if="item.g80 === 'middle'" class="usage">
@@ -532,8 +532,8 @@ const mngTaskItems = [
     title: "aa프로젝트1",
     desc: "프로젝트 설명프로젝트 설명프로젝트 설명",
     status: "running",
-    gpu: "row",
-    v100: "row",
+    gpu: "low",
+    v100: "low",
     g400: "middle",
     g80: "high",
     buttons: {
@@ -544,8 +544,8 @@ const mngTaskItems = [
     title: "aa프로젝트1",
     desc: "프로젝트 설명프로젝트 설명프로젝트 설명",
     status: "",
-    gpu: "row",
-    v100: "row",
+    gpu: "low",
+    v100: "low",
     g400: "middle",
     g80: "high",
     buttons: {

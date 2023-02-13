@@ -158,6 +158,9 @@
                   6. deleting, 삭제중
                   7. starting, 시작중
                   8. unknown
+                  //TBD
+                  9. delete_cont, 삭제예정 D-n
+                  10. delete_day, 삭제예정 D-Day
                 -->
                 <template #item-status="item">
                   <q-badge
@@ -201,6 +204,18 @@
                     class="c_badge"
                   >
                     <span class="txt">시작중</span>
+                  </q-badge>
+                  <q-badge
+                    v-else-if="item.status === 'delete_cont'"
+                    class="orange"
+                  >
+                    <span class="txt">삭제예정 D-{{nDay}}</span>
+                  </q-badge>
+                  <q-badge
+                    v-else-if="item.status === 'delete_day'"
+                    class="orange"
+                  >
+                    <span class="txt">삭제예정 D-Day</span>
                   </q-badge>
                   <q-badge
                     v-else
@@ -278,7 +293,7 @@
                 </template>
               </EasyDataTable>
             </div>
-            <div class="group">
+            <div class="table_pagenav disflex_C">
               <CPagination />
             </div>
           </template>
@@ -312,8 +327,9 @@ const tab = ref("tabs1");
 const label = ref("전체");
 const label2 = ref("10");
 const selectedCheck = ref(null);
-// const viewTab = ref("0");
 const defaultData = ref(true);
+const nDay = ref(7);
+
 const headers = [
   {
     text: "ID", value: "id", width: 80, sortable: false, checkbox: true
@@ -322,13 +338,13 @@ const headers = [
     text: "이름", value: "title", width: 400, sortable: true
   },
   {
-    text: "상태", value: "status", width: 130, sortable: true
+    text: "상태", value: "status", width: 160, sortable: true
   },
   {
-    text: "ssh", value: "ssh", width: 100, sortable: false
+    text: "ssh", value: "ssh", width: 90, sortable: false
   },
   {
-    text: "JupyterLab", value: "jupyterLab", width: 150, sortable: false
+    text: "JupyterLab", value: "jupyterLab", width: 140, sortable: false
   },
   {
     text: "인스턴스 타입", value: "instanceType", width: 140, sortable: true
@@ -507,6 +523,44 @@ const items = [
     },
     buttons: {
       name: "초대요청 확인"
+    }
+  },
+  {
+    id: 99999,
+    title: "A인스턴스A인스턴스A인스턴스A인A인스턴스A인스턴스A인스턴스A인A인스턴스A인스턴스A인스턴스A인A인스턴스A인스턴스A인스턴스A인 20자",
+    status: "delete_cont",
+    ssh: "ssh",
+    jupyterLab: "JupyterLab",
+    instanceType: "V1.XLARGE",
+    gpu: "49.5%",
+    cpu: "100%",
+    createdAt: "2023.01.12 10:33:21",
+    createdBy: "root.choi",
+    resource: {
+      cpus: 28,
+      gpu_device_model: "TESLA_V100",
+      gpus: 2,
+      mem: 249856,
+      zone: "public:normal",
+    }
+  },
+  {
+    id: 99999,
+    title: "A인스턴스A인스턴스A인스턴스A인 20자",
+    status: "delete_day",
+    ssh: "ssh",
+    jupyterLab: "JupyterLab",
+    instanceType: "V1.XLARGE",
+    gpu: "49.5%",
+    cpu: "100%",
+    createdAt: "2023.01.12 10:33:21",
+    createdBy: "root.choi",
+    resource: {
+      cpus: 28,
+      gpu_device_model: "TESLA_V100",
+      gpus: 2,
+      mem: 249856,
+      zone: "public:normal",
     }
   },
 ];

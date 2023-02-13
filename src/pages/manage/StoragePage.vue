@@ -189,6 +189,10 @@
                     </q-tooltip>
                 </a>
               </template>
+              <!-- user -->
+              <template #item-user="item">
+                <span class="txt">{{ item.user }}</span>
+              </template>
               <!--
                 상태값(status)
                 1. running, 운영중(개인)
@@ -229,45 +233,13 @@
                   <span class="txt">복원중</span>
                 </q-badge>
               </template>
-              <!-- ssh -->
-              <template #item-ssh="item">
-                <q-badge
-                  class="copy square ssh icon"
-                  @click="onCopy(item)"
-                >
-                  <span class="txt">{{ item.ssh }}</span>
-                </q-badge>
+              <!-- usage -->
+              <template #item-usage="item">
+                <span class="txt">{{ item.usage }}</span>
               </template>
-              <!-- jupyterLab -->
-              <template #item-jupyterLab="item">
-                <q-badge
-                  class="copy square lab icon"
-                  @click="onCopy(item)"
-                >
-                  <span class="txt">{{ item.jupyterLab }}</span>
-                </q-badge>
-              </template>
-              <!-- 인스턴스 타입 -->
-              <template #item-instanceType="item">
-                <q-badge
-                  class="text instance icon"
-                  @click="onCopy(item)"
-                >
-                  <span class="txt">{{ item.instanceType }}</span>
-
-                  <q-tooltip
-                    anchor="bottom middle"
-                    class="c_tooltip"
-                  >
-                    <div class="inner">
-                      {{ item.instanceType }}
-                    </div>
-                  </q-tooltip>
-                </q-badge>
-              </template>
-              <!-- createdBy -->
-              <template #item-createdBy="item">
-                <span class="txt clip">{{ item.createdBy }}</span>
+              <!-- createdAt -->
+              <template #item-createdAt="item">
+                <span class="txt">{{ item.createdAt }}</span>
               </template>
               <!-- 버튼 그룹 -->
               <template #item-buttons="item">

@@ -16,7 +16,7 @@
           label="Test Project"
           to="/"
         />
-        <q-breadcrumbs-el label="인스턴스" />
+        <q-breadcrumbs-el label="멤버" />
       </q-breadcrumbs>
       <h1 class="p-title">
         {{ ptitle }}
@@ -124,6 +124,22 @@
                 :body-row-class-name="bodyRowClassNameFunction"
                 empty-message="정보가 없습니다."
               >
+                <!-- title -->
+                <template #item-title="item">
+                  <span class="txt">{{ item.title }}</span>
+                </template>
+                <!-- email -->
+                <template #item-email="item">
+                  <span class="txt">{{ item.email }}</span>
+                </template>
+                <!-- authority -->
+                <template #item-authority="item">
+                  <span class="txt">{{ item.authority }}</span>
+                </template>
+                <!-- costumer -->
+                <template #item-costumer="item">
+                  <span class="txt">{{ item.costumer }}</span>
+                </template>
                 <!-- 버튼 그룹 -->
                 <template #item-buttons="item">
                   <div v-if="actionButtons" class="cell btngroup">
@@ -153,7 +169,7 @@
                 </template>
               </EasyDataTable>
             </div>
-            <div class="group">
+            <div class="table_pagenav disflex_C">
               <CPagination />
             </div>
         </div>

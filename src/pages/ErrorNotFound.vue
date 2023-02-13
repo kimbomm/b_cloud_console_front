@@ -2,7 +2,7 @@
   <div class="fullscreen text-center q-pa-md flex flex-center">
     <div>
       <div>
-        <img src="src/assets/images/common/404_img.gif" alt="">
+        <img src="~/assets/images/common/404_img.gif" alt="">
       </div>
 
       <div class="txt_404main">
