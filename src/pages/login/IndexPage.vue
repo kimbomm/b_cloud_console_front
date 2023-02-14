@@ -9,7 +9,7 @@
       <p class="text">
         AI 연구와 머신러닝을 위한 최적의 환경을<br />제공합니다.
       </p>
-      <q-btn class="google">
+      <q-btn class="google" @click="login">
         <img
           alt="Google logo"
           src="~assets/images/common/logo_googleg_48dp.svg"
@@ -23,11 +23,24 @@
 <script setup>
 import { ref } from "vue";
 import { useMeta } from "quasar";
+import { googleTokenLogin } from "vue3-google-login";
 
 const title = ref("로그인");
 useMeta(() => ({
   title: title.value,
 }));
+
+const login = () => {
+  googleTokenLogin().then((response) => {
+    // access_token: string,
+    // token_type: Bearer,
+    // expires_in: number,
+    // scope: string,
+    // authuser: string
+    // prompt: string
+    console.log("Handle the response", response);
+  });
+};
 </script>
 
 <style lang="scss" scoped>
