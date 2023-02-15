@@ -248,19 +248,19 @@
                 <!-- 인스턴스 타입 -->
                 <template #item-instanceType="item">
                   <q-badge
-                    class="text instance icon"
+                    class="text instance"
                     @click="onCopy(item)"
                   >
-                    <span class="txt">{{ item.instanceType }}</span>
-
-                    <q-tooltip
-                      anchor="bottom middle"
-                      class="c_tooltip"
-                    >
-                      <div class="inner">
-                        {{ item.instanceType }}
-                      </div>
-                    </q-tooltip>
+                    <span class="txt">{{ item.instanceType }}<i class="ico details">
+                      <q-tooltip
+                        anchor="bottom middle"
+                        class="c_tooltip insTypeTool"
+                      >
+                        <div class="inner">
+                          {{ item.instanceType }}
+                        </div>
+                      </q-tooltip></i>
+                    </span>
                   </q-badge>
                 </template>
                 <!-- createdBy -->
@@ -334,13 +334,13 @@ const nDay = ref(7);
 
 const headers = [
   {
-    text: "ID", value: "id", width: 80, sortable: false, checkbox: true
+    text: "ID", value: "id", width: 90, sortable: false, checkbox: true
   },
   {
     text: "이름", value: "title", width: 400, sortable: true
   },
   {
-    text: "상태", value: "status", width: 160, sortable: true
+    text: "상태", value: "status", width: 150, sortable: true
   },
   {
     text: "ssh", value: "ssh", width: 90, sortable: false
@@ -361,7 +361,7 @@ const headers = [
     text: "생성일시", value: "createdAt", width: 170, sortable: true
   },
   {
-    text: "생성자", value: "createdBy", width: 120, sortable: true
+    text: "생성자", value: "createdBy", width: 100, sortable: true
   },
   { text: "", value: "buttons", width: 80 },
 ];
