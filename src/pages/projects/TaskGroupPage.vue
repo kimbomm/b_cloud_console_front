@@ -298,19 +298,22 @@
               <!-- 인스턴스 타입 -->
               <template #item-instanceType="item">
                 <q-badge
-                  class="text instance icon"
+                  class="text instance"
                   @click="onCopy(item)"
                 >
-                  <span class="txt">{{ item.instanceType }}</span>
+                  <span class="txt">{{ item.instanceType }}<i class="ico details">
+                    <q-tooltip
+                      anchor="bottom middle"
+                      class="c_tooltip insTypeTool"
+                    >
+                      <div class="inner">
+                        {{ item.instanceType }}
+                        {{ item.instanceType }}
+                        {{ item.instanceType }}
+                      </div>
+                    </q-tooltip></i>
+                  </span>
 
-                  <q-tooltip
-                    anchor="bottom middle"
-                    class="c_tooltip"
-                  >
-                    <div class="inner">
-                      {{ item.instanceType }}
-                    </div>
-                  </q-tooltip>
                 </q-badge>
               </template>
               <!-- cpu -->
