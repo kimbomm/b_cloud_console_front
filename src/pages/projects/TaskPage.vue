@@ -123,11 +123,14 @@
 
               <div class="r_set_inner">
                 <div class="instance_make_btn">
-                  <CButton
-                    :size-types="2"
-                    :btn-types="4"
-                    :btn-names="'태스크 생성하기'"
-                  />
+                  <q-btn
+                    btnTypes=4
+                    type="button"
+                    class="c_btn line medium"
+                    to="/projects/taskdetail"
+                  >
+                    <span class="txt">태스크 생성하기</span>
+                  </q-btn>
                 </div>
 
                 <div class="view_cont_num">
@@ -525,7 +528,6 @@ import ProjectDashboard from "src/components/pages/ProjectDashboard.vue";
 // import CTable from "src/components/common/CTable.vue";
 import CPagination from "components/common/CPagination.vue";
 import CDropdown from "components/common/CDropdown.vue";
-import CButton from "components/common/CButton.vue";
 
 const title = ref("Test Projects");
 useMeta(() => ({
