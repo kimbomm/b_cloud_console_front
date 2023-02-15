@@ -21,11 +21,13 @@
       <div class="p-detail-head">
         <h1 class="p-title">{{ ptitle }}</h1>
         <div class="resource_employ_btn">
-          <CButton
-            :size-types="2"
-            :btn-types="5"
-            :btn-names="btnName"
-          />
+          <q-btn
+            btnTypes=4
+            type="button"
+            class="c_btn line medium"
+          >
+            <i class="ico plus" /><span class="txt">리소스 사용이력</span>
+          </q-btn>
         </div>
       </div>
     </div>
@@ -208,19 +210,19 @@
             <!-- 인스턴스 타입 -->
             <template #item-instanceType="item">
               <q-badge
-                class="text instance icon"
+                class="text instance"
                 @click="onCopy(item)"
               >
-                <span class="txt">{{ item.instanceType }}</span>
-
-                <q-tooltip
-                  anchor="bottom middle"
-                  class="c_tooltip"
-                >
-                  <div class="inner">
-                    {{ item.instanceType }}
-                  </div>
-                </q-tooltip>
+                <span class="txt">{{ item.instanceType }}<i class="ico details">
+                  <q-tooltip
+                    anchor="bottom middle"
+                    class="c_tooltip insTypeTool"
+                  >
+                    <div class="inner">
+                      {{ item.instanceType }}
+                    </div>
+                  </q-tooltip></i>
+                </span>
               </q-badge>
             </template>
             <!-- cpu -->
@@ -278,7 +280,6 @@
 <script setup>
 import { ref } from "vue";
 import { useMeta } from "quasar";
-import CButton from "components/common/CButton.vue";
 import CDropdown from "components/common/CDropdown.vue";
 import CPagination from "components/common/CPagination.vue";
 
@@ -309,7 +310,6 @@ const optNumber3 = ref([
 ]);
 
 const ptitle = ref(title);
-const btnName = ref("리소스 사용이력");
 const tab = ref("tabs1");
 const optLabel = ref("10");
 const optLabel2 = ref("프로젝트 전체");

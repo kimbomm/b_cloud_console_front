@@ -146,11 +146,14 @@
 
             <div class="r_set_inner">
               <div class="quota_set_btn">
-                <CButton
-                  :size-types="2"
-                  :btn-types="4"
-                  :btn-names="btnName"
-                />
+                <q-btn
+                  btnTypes=4
+                  type="button"
+                  class="c_btn line medium"
+                  @click = "mngStorageAddModal = true"
+                >
+                  <span class="txt">스토리지 추가</span>
+                </q-btn>
               </div>
               <div class="view_cont_num">
                 <CDropdown
@@ -286,11 +289,92 @@
       </div>
     </div>
   </q-page>
+
+  <!-- Start : [관리 - 스토리지] 관리자 스토리지 추가 팝업 -->
+  <q-dialog
+    v-model="mngStorageAddModal"
+    class="c_dialog large"
+  >
+    <q-card>
+      <q-card-section class="c_dialog_body">
+        <p class="title">
+          <strong>관리자 스토리지 추가</strong>
+        </p>
+        <section class="section">
+          <p class="sub_title">이름<i class="ess">*</i></p>
+          <div class="c_inpgroup">
+            <q-input
+              outlined
+              v-model="textName"
+              placeholder="최소 2자 최대 30자"
+              clearable
+              class="wsize_full"
+            />
+          </div>
+        </section>
+        <section class="section">
+          <p class="sub_title">설명</p>
+          <div class="c_inpgroup">
+            <q-input
+              outlined
+              v-model="textDesc"
+              bottom-slots
+              type="textarea"
+              placeholder="스토리지 설명"
+              clearable
+              counter
+              :count="10"
+              maxlength="500"
+              class="wsize_full hsize244"
+              :input-style="{height: '100%'}"
+            >
+              <!-- <template v-slot:hint>
+                  Description
+                </template> -->
+            </q-input>
+          </div>
+        </section>
+        <section class="section">
+          <p class="sub_title">스토리지 용량</p>
+          <div class="c_inpgroup flex-end">
+            <q-input
+              outlined
+              v-model="quota2"
+              type="number"
+              placeholder="50GiB 단위 입력"
+              clearable
+              class="inp_unit"
+            >
+              <template v-slot:append>
+                <span class="unit">GiB</span>
+              </template>
+            </q-input>
+            <span class="desc"> / 20,000 GiB</span>
+          </div>
+        </section>
+      </q-card-section>
+      <q-card-actions class="c_dialog_foot">
+        <q-btn
+          label="취소"
+          class="line"
+          @click="triggerStorageWarning('top-right')"
+          v-close-popup
+        />
+        <q-btn
+          label="확인"
+          class="primary"
+          @click="triggerStorageSuccess('top-right')"
+          v-close-popup
+          disable
+        />
+      </q-card-actions>
+    </q-card>
+  </q-dialog>
+  <!-- End : [관리 - 스토리지] 관리자 스토리지 추가 팝업 -->
 </template>
 <script setup>
 import { ref } from "vue";
 import { useMeta } from "quasar";
-import CButton from "components/common/CButton.vue";
 import CDropdown from "components/common/CDropdown.vue";
 import CPagination from "components/common/CPagination.vue";
 
@@ -301,7 +385,6 @@ useMeta(() => ({
 
 const ptitle = ref(title);
 const label = ref("10");
-const btnName = ref("스토리지 추가");
 const helpShow = ref(false);
 const tab = ref("tabs1");
 
@@ -430,6 +513,9 @@ const bodyRowClassNameFunction = (item) => {
   return classList.join(" ");
 };
 
+const mngStorageAddModal = ref(false);
+const textName = ref(null);
+const textDesc = ref(null);
 </script>
 
 <style lang="scss" scoped>
