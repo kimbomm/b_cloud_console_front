@@ -96,51 +96,6 @@
               margin-bottom:16px;
             }
           }
-          .circle_chart{
-            &.small{
-              display:flex;
-              align-items: center;
-              justify-content: center;
-              flex-direction: column;
-              flex:none;
-              width:48px;height:48px;
-              margin-right:12px;
-              border-radius:50%;
-              background:$surface04;
-              .circle-svg {
-                position: absolute;
-                width: 48px;height: 48px;
-                border-radius:50%;
-                stroke: $surface04;
-                stroke-dashoffset: 100;
-                svg {
-                  width: 100%;
-                  display: block;
-                }
-                &__bg{
-                  stroke:$surface04;
-                  stroke-width:60px;
-                  stroke-linecap:round;
-                  opacity:1;
-                }
-                &__stroke {
-                  stroke:url(#paint1_linear);
-                  stroke-linecap:round;
-                  stroke-width:60px;
-                  stroke-dasharray: 100px;
-                  stroke-dashoffset: calc((104 - var(--value, 0)) * 1px);
-                  transform-origin: 50% 50%;
-                  transform: rotate(-90deg);
-                  transition: stroke-dashoffset 0.7s ease-in-out;
-                }
-              }
-              .circle_in{
-                width:100%;height:100%;
-                border-radius:50%;
-                background:$surface02;
-              }
-            }
-          }
           .state{
             display: flex;
             align-items: center;

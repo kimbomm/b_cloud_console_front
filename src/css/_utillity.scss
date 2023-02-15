@@ -2973,79 +2973,6 @@ $qhsize:48px;
       }
     }
   }
-  .circle_chart{
-    $linew:15px;
-    display:flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    position:relative;
-    width:140px;height:140px;
-    margin:0;
-    padding:$linew;
-    border-radius:50%;
-    background:$secondary-dark;
-    &.small{
-      width:48px;height:48px;
-      background:$surface04;
-      .circle-svg {
-        position: relative;
-        width: 48px;height: 48px;
-        stroke: #E2E6ED;
-        stroke-dashoffset: 20;
-        &__bg{
-          stroke:$surface04;
-          stroke-width:10px;
-          opacity:1;
-        }
-        &__stroke {
-          stroke:url(#paint1_linear);
-          stroke-linecap:round;
-          stroke-width:10px;
-          stroke-dasharray: 100px;
-          stroke-dashoffset: calc((102 - var(--value, 0)) * 1px);
-          transform-origin: 300px 300px;
-          transform: rotate(-90deg);
-          transition: stroke-dashoffset 0.7s ease-in-out;
-        }
-      }
-    }
-    em{
-      display:inline-block;
-      color:#3C4477;font-size:$fs12;
-    }
-    strong{
-      display:inline-block;
-      margin-top:4px;
-      color:$white;font-size:$fs24;font-weight:$bold;
-      &::before{
-        content:attr(data-rate);
-        margin-right:2px;
-        color:$white;font-size:$fs24;font-weight:$bold;
-      }
-      &::after{
-        content:"%";
-        color:$white;font-size:$fs16;font-weight:$bold;
-      }
-    }
-    .circle_in{
-      display:flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      flex:none;
-      position:absolute;z-index:1;
-      width:calc(140px - #{$linew});height:calc(140px - #{$linew});
-      border-radius:50%;
-      background:$secondary;
-    }
-    .circle_line{
-      position:absolute;top:0;left:0;
-      width:140px;height:140px;
-      border-radius:50%;
-      background:linear-gradient(336.21deg, #FF0000 20.46%, #4992FF 84.7%);
-    }
-  }
   .carousel_time{
     display: flex;
     align-items: center;
@@ -3053,33 +2980,6 @@ $qhsize:48px;
     color:$secondary-light;
     .ico{
       margin-right:4px;
-    }
-  }
-  .circle-svg {
-    position: absolute;
-    width: 140px;height: 140px;
-    border-radius:50%;
-    stroke: #1C2142;
-    stroke-dashoffset: 140;
-    svg {
-      width: 100%;
-      display: block;
-    }
-    &__bg{
-      stroke:rgb(28, 33, 66);
-      stroke-width:30px;
-      stroke-linecap:round;
-      opacity:1;
-    }
-    &__stroke {
-      stroke:url(#paint0_linear);
-      stroke-linecap:round;
-      stroke-width:30px;
-      stroke-dasharray: 100px;
-      stroke-dashoffset: calc((101.5 - var(--value, 0)) * 1px);
-      transform-origin: 300px 300px;
-      transform: rotate(-90deg);
-      transition: stroke-dashoffset 0.7s ease-in-out;
     }
   }
 }
@@ -4003,6 +3903,250 @@ $qhsize:48px;
 .slotopt{
   width:100px;
 }
+// Chart
+/* Circle Chart */
+$dashoffset:100;
+$stroke-width:30px;
+$storke-dash:calc((#{$dashoffset} - var(--value, #{$dashoffset})) * 1px);
+$linew:15px;
+.circle_chart{
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  flex:none;
+  position:relative;
+  width:140px;height:140px;
+  margin: 0;
+  padding:0;
+  border-radius:50%;
+  background: $secondary-dark;
+  .circle{
+    position: absolute;
+    width:100%;height:100%;
+    border-radius:50%;
+    stroke:$secondary;
+    stroke-dashoffset: $dashoffset;
+    svg {
+      fill:none;
+      width: 100%;
+      display: block;
+    }
+    circle{
+      stroke-width:$stroke-width;
+      stroke-linecap:round;
+      cx:50%;
+      cy:50%;
+      r:280;
+      stroke:url(#paint0_linear);
+      stroke-dasharray: #{$dashoffset}px;
+      stroke-dashoffset: $storke-dash;
+      transform-origin: 50% 50%;
+      transform: rotate(-90deg);
+      // transition: stroke-dashoffset 0.7s ease-in;
+      animation: strokeDash .5s linear forwards;
+    }
+  }
+  .circle_in{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    flex:none;
+    position:absolute;z-index:1;
+    width:calc(140px - #{$linew});height:calc(140px - #{$linew});
+    border-radius:50%;
+    background:$secondary;
+    em{
+      display:inline-block;
+      color:#3C4477;font-size:$fs12;
+    }
+    strong{
+      display:inline-block;
+      margin-top:4px;
+      color:$white;font-size:$fs24;font-weight:$bold;
+      &::before{
+        content:attr(data-rate);
+        margin-right:2px;
+        color:$white;font-size:$fs24;font-weight:$bold;
+      }
+      &::after{
+        content:"%";
+        color:$white;font-size:$fs16;font-weight:$bold;
+      }
+    }
+  }
+  &.small{
+    position:relative;
+    width:52px;height:52px;
+    background:$secondary-dark;
+    .circle{
+      &::after{
+        content:"";
+        display:block;
+        position:absolute;top:0;right:0;bottom:0;left:0;
+        width:calc(100% - 10px);height:calc(100% - 10px);
+        margin:auto;
+        border-radius:50%;
+        background:$secondary;
+      }
+      circle{
+        stroke-width:60px;
+        r:270;
+      }
+    }
+    + .progress_info{
+      margin-left:24px;
+    }
+  }
+  &.xsmall{
+    width:48px;height:48px;
+    background:$surface04;
+    .circle{
+      &::after{
+        content:"";
+        display:block;
+        position:absolute;top:0;right:0;bottom:0;left:0;
+        width:calc(100% - 10px);height:calc(100% - 10px);
+        margin:auto;
+        border-radius:50%;
+        background:$surface02;
+      }
+      circle{
+        stroke-width:60px;
+        r:270;
+      }
+    }
+    + .info{
+      margin-left:12px;
+    }
+  }
+  @keyframes strokeDash {
+    from { stroke-dashoffset: -$storke-dash; }
+    to { stroke-dashoffset: $storke-dash; }
+  }
+}
+/*
+.circle_chart{
+  $linew:15px;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  position:relative;
+  width:140px;height:140px;
+  margin:0;
+  padding:$linew;
+  border-radius:50%;
+  background:$secondary-dark;
+  em{
+    display:inline-block;
+    color:#3C4477;font-size:$fs12;
+  }
+  strong{
+    display:inline-block;
+    margin-top:4px;
+    color:$white;font-size:$fs24;font-weight:$bold;
+    &::before{
+      content:attr(data-rate);
+      margin-right:2px;
+      color:$white;font-size:$fs24;font-weight:$bold;
+    }
+    &::after{
+      content:"%";
+      color:$white;font-size:$fs16;font-weight:$bold;
+    }
+  }
+  .circle {
+    position: absolute;
+    width: 140px;height: 140px;
+    border-radius:50%;
+    stroke: #1C2142;
+    stroke-dashoffset: 140;
+    svg {
+      width: 100%;
+      display: block;
+    }
+    &__bg{
+      stroke:rgb(28, 33, 66);
+      stroke-width:30px;
+      stroke-linecap:round;
+      opacity:1;
+    }
+    &__stroke {
+      stroke:url(#paint0_linear);
+      stroke-linecap:round;
+      stroke-width:30px;
+      stroke-dasharray: 100px;
+      stroke-dashoffset: calc((101.5 - var(--value, 0)) * 1px);
+      transform-origin: 300px 300px;
+      transform: rotate(-90deg);
+      transition: stroke-dashoffset 0.7s ease-in-out;
+    }
+  }
+  .circle_in{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    flex:none;
+    position:absolute;z-index:1;
+    width:calc(140px - #{$linew});height:calc(140px - #{$linew});
+    border-radius:50%;
+    background:$secondary;
+  }
+  .circle_line{
+    position:absolute;top:0;left:0;
+    width:140px;height:140px;
+    border-radius:50%;
+    background:linear-gradient(336.21deg, #FF0000 20.46%, #4992FF 84.7%);
+  }
+
+  &.small{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    flex:none;
+    width:48px;height:48px;
+    margin-right:12px;
+    border-radius:50%;
+    background:$surface04;
+    .circle {
+      position: absolute;
+      width: 48px;height: 48px;
+      border-radius:50%;
+      stroke: $surface04;
+      stroke-dashoffset: 100;
+      svg {
+        width: 100%;
+        display: block;
+      }
+      &__bg{
+        stroke:$surface04;
+        stroke-width:60px;
+        stroke-linecap:round;
+        opacity:1;
+      }
+      &__stroke {
+        stroke:url(#paint1_linear);
+        stroke-linecap:round;
+        stroke-width:60px;
+        stroke-dasharray: 100px;
+        stroke-dashoffset: calc((104 - var(--value, 0)) * 1px);
+        transform-origin: 50% 50%;
+        transform: rotate(-90deg);
+        transition: stroke-dashoffset 0.7s ease-in-out;
+      }
+    }
+    .circle_in{
+      width:100%;height:100%;
+      border-radius:50%;
+      background:$surface02;
+    }
+  }
+}
+*/
 
 // apexchart
 .apexchart{
