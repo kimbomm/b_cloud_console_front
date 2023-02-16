@@ -593,7 +593,7 @@ const groupItems = [
 // 테스크보기
 const taskHeaders = [
   {
-    text: "프로젝트 이름", value: "pjName", width: 140, sortable: false
+    text: "프로젝트 이름", value: "pjName", width: 130, sortable: false
   },
   {
     text: "그룹 이름", value: "groupName", width: 120, sortable: true
@@ -620,10 +620,10 @@ const taskHeaders = [
     text: "생성자", value: "createdBy", width: 100, sortable: true
   },
   {
-    text: "생성일시", value: "createdAt", width: 170, sortable: true
+    text: "생성일시", value: "createdAt", width: 160, sortable: true
   },
   {
-    text: "완료일시", value: "endDate", width: 170, sortable: true
+    text: "완료일시", value: "endDate", width: 160, sortable: true
   },
   {
     text: "로그확인", value: "log", width: 80, sortable: false
