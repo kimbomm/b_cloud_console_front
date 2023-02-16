@@ -116,15 +116,15 @@
 .p-manage{
   .resource_employ_btn{
     .q-btn.line,.c_btn.line{
-      .ico{background-image: url(/src/assets/images/icon/16/ico_receipt_normal.svg);}
+      .ico{background-image: url($iconUrl + '16/ico_receipt_normal.svg');}
       &:disabled{
         .ico{
-          background-image: url(/src/assets/images/icon/16/ico_receipt_disabled.svg);
+          background-image: url($iconUrl + '16/ico_receipt_disabled.svg');
         }
       }
       &:hover{
         .ico{
-          background-image: url(/src/assets/images/icon/16/ico_receipt_pressed.svg);
+          background-image: url($iconUrl + '16/ico_receipt_pressed.svg');
         }
       }
     }
@@ -155,16 +155,16 @@
   .remove_member_btn{
     .q-btn.line,.c_btn.line{
       .ico{
-        background-image: url(/src/assets/images/icon/16/ico_minus_normal.svg);
+        background-image: url($iconUrl + '16/ico_minus_normal.svg');
       }
       &:disabled{
         .ico{
-          background-image: url(/src/assets/images/icon/16/ico_minus_disabled.svg);
+          background-image: url($iconUrl + '16/ico_minus_disabled.svg');
         }
       }
       &:hover{
         .ico{
-          background-image: url(/src/assets/images/icon/16/ico_minus_pressed.svg);
+          background-image: url($iconUrl + '16/ico_minus_pressed.svg');
         }
       }
     }
@@ -206,21 +206,21 @@
   width: 8px; height: 8px;
   margin-right: 8px;
   vertical-align: unset;
-  background:url(/src/assets/images/icon/8/ico_low.svg) no-repeat 50% 50%;
+  background:url($iconUrl + '8/ico_low.svg') no-repeat 50% 50%;
 }
 .ico.middle{
   display: inline-block;
   width: 8px; height: 8px;
   margin-right: 8px;
   vertical-align: unset;
-  background:url(/src/assets/images/icon/8/ico_middle.svg) no-repeat 50% 50%;
+  background:url($iconUrl + '8/ico_middle.svg') no-repeat 50% 50%;
 }
 .ico.high{
   display: inline-block;
   width: 8px; height: 8px;
   margin-right: 8px;
   vertical-align: unset;
-  background:url(/src/assets/images/icon/8/ico_high.svg) no-repeat 50% 50%;
+  background:url($iconUrl + '8/ico_high.svg') no-repeat 50% 50%;
 }
 
 /* common no-data table */

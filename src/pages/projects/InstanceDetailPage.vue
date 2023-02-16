@@ -507,11 +507,13 @@
                   <div class="nondata_box">
                     <p class="nondata_txt">생성된 인스턴스가 없습니다.</p>
                     <div class="nondata_btn">
-                      <CButton
-                        :size-types="2"
-                        :btn-types="1"
-                        :btn-names="dataRegister"
-                      />
+                      <q-btn
+                      btnTypes=1
+                      type="button"
+                      class="c_btn medium"
+                      >
+                        <span class="txt">등록하기</span>
+                      </q-btn>
                     </div>
                   </div>
                 </div>
@@ -537,12 +539,6 @@
                     @filter="chipFilterFn"
                     class="c_inpchip wsize_full"
                   >
-                    <template v-slot:prepend>
-                      <q-icon
-                        name="search"
-                        class="ico_search"
-                      />
-                    </template>
                     <template v-slot:append>
                       <div class="slotopt"></div>
                     </template>
@@ -650,18 +646,23 @@
             </ul>
             <div class="make_btn">
               <template v-if="datacheck === false">
-                <CButton
-                  :size-types="2"
-                  :btn-types="11"
-                  :btn-names="btnDis"
-                />
+                <q-btn
+                  btnTypes=1
+                  type="button"
+                  disabled
+                  class="c_btn medium"
+                >
+                  <span class="txt">태스크 생성</span>
+                </q-btn>
               </template>
               <template v-else>
-                <CButton
-                  :size-types="2"
-                  :btn-types="1"
-                  :btn-names="btnName"
-                />
+                <q-btn
+                  btnTypes=1
+                  type="button"
+                  class="c_btn medium"
+                >
+                  <span class="txt">태스크 생성</span>
+                </q-btn>
               </template>
             </div>
           </div>
@@ -674,7 +675,6 @@
 import { ref } from "vue";
 import { useMeta } from "quasar";
 import CPagination from "components/common/CPagination.vue";
-import CButton from "components/common/CButton.vue";
 
 const title = ref("인스턴스 생성");
 useMeta(() => ({
@@ -685,11 +685,8 @@ const ptitle = ref(title);
 const tab = ref("tabs1");
 const tab2 = ref("tabs1");
 const datacheck = ref(false);
-const btnName = ref("인스턴스 생성");
-const btnDis = ref("인스턴스 생성");
 const textName = ref(null);
 const defaultData = ref(true);
-const dataRegister = ref("등록하기");
 const noMemberList = ref(true);
 
 const itemsSelected = ref([]);

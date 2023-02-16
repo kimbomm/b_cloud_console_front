@@ -26,6 +26,7 @@
         &.quota_cont{
           // width: 35%;
           // min-width: 578px;
+          position:relative;
           width: 30%;
           min-width: 460px;
           height: 100%;
@@ -35,7 +36,7 @@
             h3{
               background-color: $secondary-dark;
               i{
-                background: url(/src/assets/images/icon/20/ico_project_white.svg) no-repeat 50% 50%;
+                background: url($iconUrl + '20/ico_project_white.svg') no-repeat 50% 50%;
               }
             }
           }
@@ -67,70 +68,38 @@
             }
           }
           .cont_main{
+            position:absolute;left:0;
+            width:100%;
+            padding:0 30px;
             .now_quota{
               display: flex;
               flex-wrap: wrap;
-              margin-top: 40px;
+              position:absolute;top:0;
+              width:calc(100% - 30px);max-height:144px;
+              // margin-top: 40px;
+              margin-top: 0;
               li{
                 display: flex;
-                align-items: center;
-                width: 47%;
+                width: 50%;height:58px;
                 min-width: 220px;
-                &:nth-child(2){width: 30%; min-width: 155px;}
-                &:last-child{margin-top: 27px;}
-                /* .circle_progress{
-                  width: 52px;
-                  height: 52px;
-                  margin-right: 24px;
-                  background: linear-gradient(5.06deg, #E50F1C -7.42%, #4992FF 93.19%, #363CE5 93.19%);
-                  border-radius: 100px;
-                } */
-                .circle_chart{
-                  &.small{
-                    display:flex;
-                    align-items: center;
-                    justify-content: center;
-                    flex-direction: column;
-                    flex:none;
-                    width:52px;height:52px;
-                    margin-right:24px;
-                    border-radius:50%;
-                    background:$secondary-dark;
-                    .circle-svg {
-                      position: absolute;
-                      width: 52px;height: 52px;
-                      border-radius:50%;
-                      stroke: $secondary-dark;
-                      stroke-dashoffset: 100;
-                      svg {
-                        width: 100%;
-                        display: block;
-                      }
-                      &__bg{
-                        stroke:$secondary-dark;
-                        stroke-width:60px;
-                        stroke-linecap:round;
-                        opacity:1;
-                      }
-                      &__stroke {
-                        stroke:url(#paint2_linear);
-                        stroke-linecap:round;
-                        stroke-width:60px;
-                        stroke-dasharray: 100px;
-                        stroke-dashoffset: calc((104 - var(--value, 0)) * 1px);
-                        transform-origin: 50% 50%;
-                        transform: rotate(-90deg);
-                        transition: stroke-dashoffset 0.7s ease-in-out;
-                      }
-                    }
-                    .circle_in{
-                      width:100%;height:100%;
-                      border-radius:50%;
-                      background:$secondary;
-                    }
-                  }
+                margin-right:0;
+                &:nth-child(even){
+                  width:calc(50% - 24px);
+                  min-width:182px;
+                  margin-left:12px;
+                }
+                // &:nth-child(2){width: 30%; min-width: 155px;}
+                // &:last-child{margin-top: 28px;}
+                &:nth-child(n+3){
+                  margin-top:28px;
+                }
+                .circle_chart.small{
+                  align-self: center;
                 }
                 .progress_info{
+                  display:flex;
+                  flex-direction: column;
+                  justify-content: space-between;
                   color:$secondary-light;
                   p{
                     &.pro_info_name{
@@ -173,6 +142,7 @@
               }
               .time_info{
                 float: right;
+                i{margin-top: 1.5px;}
               }
               &::after{content: ''; display: block; clear: both;}
             }
@@ -215,7 +185,7 @@
             h3{
               background-color: $primary-dark;
               i{
-                background: url(/src/assets/images/icon/20/ico_gpu_white.svg) no-repeat 50% 50%;
+                background: url($iconUrl + '20/ico_gpu_white.svg') no-repeat 50% 50%;
               }
             }
           }
@@ -226,7 +196,7 @@
                 margin-right: 6.5px;
                 width: 15px;
                 height: 15px;
-                background: url(/src/assets/images/icon/20/ico_clock_blue.svg) no-repeat 50% 50%;
+                background: url($iconUrl + '20/ico_clock_blue.svg') no-repeat 50% 50%;
               }
               color:$primary-light;
             }
@@ -244,7 +214,7 @@
             h3{
               background-color: $secondary-purple-dark;
               i{
-                background: url(/src/assets/images/icon/20/ico_gpu_white.svg) no-repeat 50% 50%;
+                background: url($iconUrl + '20/ico_gpu_white.svg') no-repeat 50% 50%;
               }
             }
           }
@@ -255,7 +225,7 @@
                 margin-right: 6.5px;
                 width: 15px;
                 height: 15px;
-                background: url(/src/assets/images/icon/20/ico_clock_purple.svg) no-repeat 50% 50%;
+                background: url($iconUrl + '20/ico_clock_purple.svg') no-repeat 50% 50%;
               }
               color:$secondary-purple-light;
             }
@@ -272,7 +242,7 @@
             h3{
               background-color: $secondary-mint-dark;
               i{
-                background: url(/src/assets/images/icon/20/ico_money_white.svg) no-repeat 50% 50%;
+                background: url($iconUrl + '20/ico_money_white.svg') no-repeat 50% 50%;
               }
             }
           }
@@ -387,6 +357,7 @@
           .select_now_view{
             text-align: right;
             font-size: $fs16;
+            margin-bottom: 16px;
             p{
               display: inline-block;
               font-weight: $bold;
@@ -450,7 +421,7 @@
                   .ico.cancel{
                     width: 12px; height: 12px;
                     margin-left: 12px;
-                    background:url(/src/assets/images/icon/32/ico_cancel_gray.svg) no-repeat 50% 50%;
+                    background:url($iconUrl + '32/ico_cancel_gray.svg') no-repeat 50% 50%;
                   }
                 }
               }
@@ -509,9 +480,9 @@
                   .c_btn{margin-left: 16px;}
                   .c_btn.line{margin-left: 10px;}
 
-                  .line .minus{background: url(/src/assets/images/icon/32/ico_minus_normal.svg);}
-                  .line:disabled .minus{background: url(/src/assets/images/icon/32/ico_minus_disabled.svg);}
-                  .line:hover .minus{background: url(/src/assets/images/icon/32/ico_minus_pressed.svg);}
+                  .line .minus{background: url($iconUrl + '32/ico_minus_normal.svg');}
+                  .line:disabled .minus{background: url($iconUrl + '32/ico_minus_disabled.svg');}
+                  .line:hover .minus{background: url($iconUrl + '32/ico_minus_pressed.svg');}
                 }
               }
             }
@@ -635,7 +606,7 @@
                 vertical-align: text-bottom;
                 border:1px solid $surface05;
                 border-radius: 50%;
-                background: url(/src/assets/images/icon/16/ico_edit_gray.svg) no-repeat 50% 50%;
+                background: url($iconUrl + '16/ico_edit_gray.svg') no-repeat 50% 50%;
                 cursor: pointer;
               }
             }
@@ -670,6 +641,7 @@
           display: flex;
           flex-wrap: wrap;
           padding:30px;
+          .q-item{padding:0; height: auto; min-height: auto;}
           li{
             width: 50%;
             font-size: $fs16;
@@ -680,17 +652,19 @@
             &:first-child{margin-bottom: 24px;}
             &.making_user_data{
               .user_data_value{
-                p{
+                .q-item{
                   display: inline-block;
-                  &.user_name{
-                    margin-right: 10px;
-                    &::after{
-                      content: '';
-                      display: inline-block;
-                      width: 1px; height: 12px;
-                      vertical-align: initial;
-                      margin-left: 10px;
-                      background-color: $surface10;
+                  p{
+                    &.user_name{
+                      margin-right: 10px;
+                      &::after{
+                        content: '';
+                        display: inline-block;
+                        width: 1px; height: 12px;
+                        vertical-align: initial;
+                        margin-left: 10px;
+                        background-color: $surface10;
+                      }
                     }
                   }
                 }
@@ -710,29 +684,35 @@
             }
             &.tpye_data{
               .user_data_value{
-                p{
+                .q-btn{
                   display: inline-block;
-                  padding: 7px 10px;
-                  font-size: $fs14;
-                  color:$surface16;
-                  border-radius: 4px;
-                  background-color: $surface02;
-                  &.ssh_btn{margin-right: 12px;}
-                  &.ssh_btn::after{
-                    content: '';
-                    display: inline-block;
-                    width: 16px; height: 16px;
-                    margin-left: 2px;
-                    vertical-align: middle;
-                    background: url(/src/assets/images/icon/16/ico_sshcopy_normal.svg) no-repeat 50% 50%;
-                  }
-                  &.JupyterLab_btn::after{
-                    content: '';
-                    display: inline-block;
-                    margin-left: 6px;
-                    width: 16px; height: 16px;
-                    vertical-align: middle;
-                    background: url(/src/assets/images/icon/16/ico_jupyterlab_normal.svg) no-repeat 50% 50%;
+                  min-height: auto; height: auto;
+                  padding: 0;
+                  background: none;
+                  span{
+                    cursor: pointer;
+                    padding: 7px 10px;
+                    font-size: $fs14;
+                    color:$surface16;
+                    border-radius: 4px;
+                    background-color: $surface02;
+                    &.ssh_btn{margin-right: 12px;}
+                    &.ssh_btn::after{
+                      content: '';
+                      display: inline-block;
+                      width: 16px; height: 16px;
+                      margin-left: 2px;
+                      vertical-align: middle;
+                      background: url($iconUrl + '16/ico_sshcopy_normal.svg') no-repeat 50% 50%;
+                    }
+                    &.JupyterLab_btn::after{
+                      content: '';
+                      display: inline-block;
+                      margin-left: 6px;
+                      width: 16px; height: 16px;
+                      vertical-align: middle;
+                      background: url($iconUrl + '16/ico_jupyterlab_normal.svg') no-repeat 50% 50%;
+                    }
                   }
                 }
               }
@@ -755,17 +735,19 @@
           background-color: $white;
           border-radius: 8px;
           li{
-            width: 33%;
+            width: 50%;
             padding:30px;
             border-right: 1px solid $surface04;
+            .q-item{padding:0; min-height: auto; height: auto;}
             &:last-child{border-right: none;}
             .type_list_title{margin-bottom: 54px;}
-            .type_list_vlaue{
+            .type_list_value{
               font-size: $fs20;
               font-weight: $bold;
             }
             &.t_list05{
               .type_list_title{
+                width: 100%;
                 display: flex;
                 justify-content: space-between;
                 span{
@@ -856,17 +838,38 @@
           }
           &.ins_etc{
             .etc_cont{
+              display: table;
               width: 100%;
               border-spacing: 0;
               font-size: $fs16;
+              >div{
+                width: 100%; padding:0;
+                div{
+                  display: table-cell;
+                  padding:0 12px 24px 0 !important;
+                  font-size: $fs16;
+                  &.theadarea{
+                    min-width: 210px;
+                    font-weight: $regular;
+                    color:$gray500;
+                    text-align: left;
+                  }
+                  &.tbodyarea{
+                    width: calc(100% - 222px);
+                  }
+                }
+              }
               tr{
                 th{
-                  width: 200px;
+                  width: 210px;
                   font-weight: $regular;
                   color:$gray500;
                   text-align: left;
                 }
-                th,td{padding:0 12px 24px 0 !important;}
+                th,td{
+                  padding:0 12px 24px 0 !important;
+                  font-size: $fs16;
+                }
               }
             }
           }
@@ -942,13 +945,13 @@
                   .p_input_data{width: 33%;}
                   .p_external_data{
                     width: 67%;
-                    &::after{
-                      content: '';
+                    .copy{
                       display: inline-block;
                       width: 20px; height: 20px;
                       margin-left: 4px;
                       vertical-align: top;
-                      background: url(/src/assets/images/icon/20/ico_copy_normal.svg) no-repeat 50% 50%;
+                      cursor: pointer;
+                      background: url($iconUrl + '20/ico_copy_normal.svg') no-repeat 50% 50%;
                     }
                   }
                 }
@@ -967,5 +970,17 @@
     table-layout:fixed;
     .cell.btngroup{min-width: 50px !important;}
     .txt.clip{max-width: inherit;}
+  }
+}
+
+@media (max-width:1700px){
+  .p-projects.p-index .com_h_cont li.quota_cont{
+    padding:30px 15px;
+  }
+  .p-projects.p-index .com_h_cont li.quota_cont .cont_main{
+    padding:0 15px;
+  }
+  .circle_chart.small + .progress_info{
+    margin-left:20px;
   }
 }

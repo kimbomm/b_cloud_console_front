@@ -68,22 +68,16 @@
                     v-for="(chart, i) in charts" :key="`${i}`"
                     class="circle_chart"
                   >
-                    <div class="circle-svg" :style="`--value:${chart.value}`">
-                      <svg class="svg_dashboad" fill="none" viewBox="0 0 600 600">
+                    <div class="circle" :style="`--value:${chart.value}`">
+                      <svg viewBox="0 0 600 600">
                         <defs>
-                          <linearGradient id="paint0_linear" x1="50" x2="200" y1="100" y2="450"
-                            gradientUnits="userSpaceOnUse"
-                          >
-                            <stop stop-color="#FF0000"/>
-                            <stop offset="1" stop-color="#4992FF"/>
+                          <linearGradient id="paint0_linear" x1="50" x2="200" y1="200" y2="450"
+                            gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#FF0000" />
+                            <stop offset="1" stop-color="#4992FF" />
                           </linearGradient>
                         </defs>
-                        <circle pathLength="100"
-                        cx="300" cy="300" r="285"
-                        class="circle-svg__bg" />
-                        <circle pathLength="100"
-                        cx="300" cy="300" r="285"
-                        class="circle-svg__stroke" />
+                        <circle pathLength="100" />
                       </svg>
                     </div>
                     <div class="circle_in">
@@ -127,22 +121,16 @@
                     v-for="(chart, i) in charts" :key="`${i}`"
                     class="circle_chart"
                   >
-                    <div class="circle-svg" :style="`--value:${chart.value}`">
-                      <svg class="svg_dashboad" fill="none" viewBox="0 0 600 600">
+                    <div class="circle" :style="`--value:${chart.value}`">
+                      <svg viewBox="0 0 600 600">
                         <defs>
-                          <linearGradient id="paint0_linear" x1="50" x2="200" y1="100" y2="450"
-                            gradientUnits="userSpaceOnUse"
-                          >
-                            <stop stop-color="#FF0000"/>
-                            <stop offset="1" stop-color="#4992FF"/>
+                          <linearGradient id="paint0_linear" x1="50" x2="200" y1="200" y2="450"
+                            gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#FF0000" />
+                            <stop offset="1" stop-color="#4992FF" />
                           </linearGradient>
                         </defs>
-                        <circle pathLength="100"
-                        cx="300" cy="300" r="285"
-                        class="circle-svg__bg" />
-                        <circle pathLength="100"
-                        cx="300" cy="300" r="285"
-                        class="circle-svg__stroke" />
+                        <circle pathLength="100" />
                       </svg>
                     </div>
                     <div class="circle_in">
@@ -198,22 +186,16 @@
                     v-for="(chart, i) in charts" :key="`${i}`"
                     class="circle_chart"
                   >
-                    <div class="circle-svg" :style="`--value:${chart.value}`">
-                      <svg class="svg_dashboad" fill="none" viewBox="0 0 600 600">
+                    <div class="circle" :style="`--value:${chart.value}`">
+                      <svg viewBox="0 0 600 600">
                         <defs>
-                          <linearGradient id="paint0_linear" x1="50" x2="200" y1="100" y2="450"
-                            gradientUnits="userSpaceOnUse"
-                          >
-                            <stop stop-color="#FF0000"/>
-                            <stop offset="1" stop-color="#4992FF"/>
+                          <linearGradient id="paint0_linear" x1="50" x2="200" y1="200" y2="450"
+                            gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#FF0000" />
+                            <stop offset="1" stop-color="#4992FF" />
                           </linearGradient>
                         </defs>
-                        <circle pathLength="100"
-                        cx="300" cy="300" r="285"
-                        class="circle-svg__bg" />
-                        <circle pathLength="100"
-                        cx="300" cy="300" r="285"
-                        class="circle-svg__stroke" />
+                        <circle pathLength="100" />
                       </svg>
                     </div>
                     <div class="circle_in">
@@ -257,22 +239,16 @@
                     v-for="(chart, i) in charts" :key="`${i}`"
                     class="circle_chart"
                   >
-                    <div class="circle-svg" :style="`--value:${chart.value}`">
-                      <svg class="svg_dashboad" fill="none" viewBox="0 0 600 600">
+                    <div class="circle" :style="`--value:${chart.value}`">
+                      <svg viewBox="0 0 600 600">
                         <defs>
-                          <linearGradient id="paint0_linear" x1="50" x2="200" y1="100" y2="450"
-                            gradientUnits="userSpaceOnUse"
-                          >
-                            <stop stop-color="#FF0000"/>
-                            <stop offset="1" stop-color="#4992FF"/>
+                          <linearGradient id="paint0_linear" x1="50" x2="200" y1="200" y2="450"
+                            gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#FF0000" />
+                            <stop offset="1" stop-color="#4992FF" />
                           </linearGradient>
                         </defs>
-                        <circle pathLength="100"
-                        cx="300" cy="300" r="285"
-                        class="circle-svg__bg" />
-                        <circle pathLength="100"
-                        cx="300" cy="300" r="285"
-                        class="circle-svg__stroke" />
+                        <circle pathLength="100" />
                       </svg>
                     </div>
                     <div class="circle_in">
@@ -316,26 +292,19 @@
                   <p class="name">스토리지 이름</p>
                   <div class="state">
                     <!-- chart UI -->
-                    <div class="circle_chart small">
-                      <div class="circle-svg" :style="`--value:${store.value}`">
-                        <svg class="svg_dashboad" fill="none" viewBox="0 0 600 600">
+                    <div class="circle_chart xsmall">
+                      <div class="circle" :style="`--value:${store.value}`">
+                        <svg viewBox="0 0 600 600">
                           <defs>
-                            <linearGradient id="paint1_linear" x1="50" x2="200" y1="100" y2="450"
-                              gradientUnits="userSpaceOnUse"
-                            >
-                              <stop stop-color="#FF0000"/>
-                              <stop offset="1" stop-color="#4992FF"/>
+                            <linearGradient id="paint1_linear" x1="50" x2="200" y1="200" y2="450"
+                              gradientUnits="userSpaceOnUse">
+                              <stop stop-color="#FF0000" />
+                              <stop offset="1" stop-color="#4992FF" />
                             </linearGradient>
                           </defs>
-                          <circle pathLength="100"
-                          cx="300" cy="300" r="240"
-                          class="circle-svg__bg" />
-                          <circle pathLength="100"
-                          cx="300" cy="300" r="240"
-                          class="circle-svg__stroke" />
+                          <circle pathLength="100" />
                         </svg>
                       </div>
-                      <div class="circle_in" />
                     </div>
                     <div class="info">
                       <p class="title">{{ store.title }}</p>
