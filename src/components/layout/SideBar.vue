@@ -265,6 +265,7 @@
 import { ref } from "vue";
 import { useQuasar } from "quasar";
 import { AuthService } from "src/services";
+import { googleLogout } from "vue3-google-login";
 
 const $q = useQuasar();
 
@@ -394,6 +395,7 @@ const triggerSuccess = (position) => {
 
 const onMenuClick = (item) => {
   console.log(item);
+  googleLogout();
   AuthService.postLogout();
 };
 

@@ -32,13 +32,18 @@ useMeta(() => ({
 }));
 
 const login = () => {
+  /**
+   * @param { object } response
+   * @param { string } response.access_token
+   * @param { string } response.token_type
+   * @param { string } response.expires_in
+   * @param { string } response.scope
+   * @param { string } response.authuser
+   * @param { string } response.prompt
+   *
+   * @link https://yobaji.github.io/vue3-google-login/#installation
+   */
   googleTokenLogin().then(async (response) => {
-    // access_token: string,
-    // token_type: Bearer,
-    // expires_in: number,
-    // scope: string,
-    // authuser: string
-    // prompt: string
     console.log("Handle the response", response);
     await AuthService.postGoogleLogin({
       id_token: response.access_token
