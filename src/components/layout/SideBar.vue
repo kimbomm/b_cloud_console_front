@@ -190,11 +190,11 @@
               <q-list style="min-width: 100px">
                 <q-item
                   class="subitem"
-                  v-for="(my, index) in menu.children"
+                  v-for="(item, index) in menu.children"
                   :key="index.label"
                 >
-                  <router-link :to="`/${my.path}`" class="menu-link">
-                    <span class="txt">{{ my.label }}</span>
+                  <router-link :to="`/${item.path}`" class="menu-link" @click="onMenuClick(item)">
+                    <span class="txt">{{ item.label }}</span>
                   </router-link>
                 </q-item>
               </q-list>
@@ -264,6 +264,7 @@
 <script setup>
 import { ref } from "vue";
 import { useQuasar } from "quasar";
+import { AuthService } from "src/services";
 
 const $q = useQuasar();
 
@@ -389,6 +390,11 @@ const triggerSuccess = (position) => {
       timeout: 500
     });
   }, 100);
+};
+
+const onMenuClick = (item) => {
+  console.log(item);
+  AuthService.postLogout();
 };
 
 </script>

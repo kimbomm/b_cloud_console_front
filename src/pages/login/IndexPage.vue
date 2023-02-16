@@ -24,6 +24,7 @@
 import { ref } from "vue";
 import { useMeta } from "quasar";
 import { googleTokenLogin } from "vue3-google-login";
+import { AuthService } from "src/services";
 
 const title = ref("로그인");
 useMeta(() => ({
@@ -31,7 +32,7 @@ useMeta(() => ({
 }));
 
 const login = () => {
-  googleTokenLogin().then((response) => {
+  googleTokenLogin().then(async (response) => {
     // access_token: string,
     // token_type: Bearer,
     // expires_in: number,
@@ -39,6 +40,11 @@ const login = () => {
     // authuser: string
     // prompt: string
     console.log("Handle the response", response);
+    await AuthService.postGoogleLogin({
+      id_token: response.access_token
+    }).then((res) => {
+      console.log(res);
+    });
   });
 };
 </script>
