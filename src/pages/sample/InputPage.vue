@@ -10,40 +10,27 @@
         <div class="group">
           <div class="c_inpgroup">
             <!-- Base Text -->
-            <c-input-page
+            <c-input-text
               v-model:value="inputValue"
               placeholder="Placeholder Text"
               hint="Description"
             />
 
             <!-- Base Text Disabled -->
-            <c-input-page
+            <c-input-text
               v-model:value="inputValue"
               placeholder="Placeholder Text"
               hint="Description"
               disable
             />
 
-            <!-- Base Text Error -->
-            <c-input-page
+            <!-- Base Text validation -->
+            <c-input-text
               v-model:value="inputValue"
               placeholder="Placeholder Text"
               hint="Description"
               :rules="inputRules"
             />
-            <!-- Base Text Success -->
-            <q-input
-              outlined
-              v-model="comfirm"
-              placeholder="Placeholder Text"
-              hint="Comfirmed!"
-              clearable
-              class="c_inp q-field--positive"
-            >
-              <template v-slot:hint>
-                Comfirmed!
-              </template>
-            </q-input>
           </div>
         </div>
 
@@ -51,89 +38,31 @@
         <div class="group">
           <div class="c_inpgroup">
             <!-- Password -->
-            <q-input
-              outlined
-              v-model="password"
+            <c-input-text
+              v-model:value="password"
+              type="password"
               placeholder="비밀번호 입력"
               hint="Description"
               clearable
-              class="c_inp c_password"
-              :type="isPwd ? 'password' : 'text'"
-            >
-              <template v-slot:append>
-                <q-icon
-                  :name="isPwd ? 'visibility_off' : 'visibility'"
-                  :class="isPwd ? 'visibility_off' : 'visibility'"
-                  class="cursor-pointer"
-                  @click="isPwd = !isPwd"
-                />
-              </template>
-            </q-input>
+            />
 
             <!-- Password Disabled -->
-            <q-input
-              outlined
-              v-model="password"
-              placeholder="1q2w3e4r%T"
+            <c-input-text
+              v-model:value="password"
+              type="password"
+              placeholder="비밀번호 입력"
               hint="Description"
-              clearable
               disable
-              class="c_inp c_password"
-              :type="isPwd ? 'password' : 'text'"
-            >
-              <template v-slot:append>
-                <q-icon
-                  :name="isPwd ? 'visibility_off' : 'visibility'"
-                  :class="isPwd ? 'visibility_off' : 'visibility'"
-                  class="cursor-pointer"
-                  @click="isPwd = !isPwd"
-                />
-              </template>
-            </q-input>
+            />
 
             <!-- Password Error -->
-            <q-input
-              outlined
-              v-model="passworderror"
-              bottom-slots
+            <c-input-text
+              v-model:value="password"
+              type="password"
+              placeholder="비밀번호 입력"
               hint="Description"
-              placeholder="비밀번호 입력"
-              class="c_inp c_password"
-              :error="!isPwdValid"
-              :type="isPwd ? 'password' : 'text'"
-            >
-              <template v-slot:append>
-                <q-icon
-                  :name="isPwd ? 'visibility_off' : 'visibility'"
-                  :class="isPwd ? 'visibility_off' : 'visibility'"
-                  class="cursor-pointer"
-                  @click="isPwd = !isPwd"
-                />
-              </template>
-              <template v-slot:error>
-                Error!
-              </template>
-            </q-input>
-
-            <!-- Password Success -->
-            <q-input
-              outlined
-              v-model="password"
-              placeholder="비밀번호 입력"
-              hint="Comfirmed!"
-              clearable
-              class="c_inp c_password q-field--positive"
-              :type="isPwd ? 'password' : 'text'"
-            >
-              <template v-slot:append>
-                <q-icon
-                  :name="isPwd ? 'visibility_off' : 'visibility'"
-                  :class="isPwd ? 'visibility_off' : 'visibility'"
-                  class="cursor-pointer"
-                  @click="isPwd = !isPwd"
-                />
-              </template>
-            </q-input>
+              :rules="inputRules"
+            />
           </div>
         </div>
 
@@ -443,9 +372,9 @@
   </div>
 </template>
 <script setup>
-import { ref, computed, onMounted } from "vue";
+import { ref, onMounted } from "vue";
 import { useMeta } from "quasar";
-import CInputPage from "components/common/CInputPage.vue";
+import CInputText from "components/common/CInputText.vue";
 import CDropdown from "components/common/CDropdown.vue";
 
 const title = ref("Input");
@@ -458,12 +387,8 @@ const inputRules = [
   (value) => (!!value) || "required",
   (value) => (value.length <= 8) || "8자를 넘을 수 없습니다"
 ];
-const passworderror = ref("1q2w3e4r%T");
 const suffix = ref("");
-const comfirm = ref("Text");
 const password = ref("");
-const isPwd = ref(true);
-const isPwdValid = computed(() => passworderror.value.length <= 8);
 
 // Typing - dropdown - check
 const visible = ref(true);
