@@ -35,7 +35,7 @@
             <div class="c_inpgroup">
               <q-input
                 outlined
-                v-model="textName"
+                v-model="taskGroupName"
                 placeholder="최소 2자 최대 30자"
                 clearable
                 class="wsize608"
@@ -77,7 +77,7 @@
                     <p class="sub_title">태스크 이름</p>
                     <p class="sub_title">명령어</p>
                   </div>
-                  <div class="task01_box_main">
+                  <div class="task01_box_main" v-for="i in addBox" :key="i">
                     <div class="task_name_input">
                       <div class="c_inpgroup">
                         <q-input
@@ -94,7 +94,7 @@
                       <div class="c_inpgroup">
                         <q-input
                           outlined
-                          v-model="textName2"
+                          v-model="commandInput"
                           placeholder="명령어 입력"
                           clearable
                           class="wsize680"
@@ -102,14 +102,16 @@
                         <q-btn
                           type="button"
                           class="c_btn c_icon medium"
+                          @click="addBox++"
                         >
-                          <i class="ico plus" /><span class="txt">Disabled</span>
+                          <i class="ico plus" /><span class="txt">추가</span>
                         </q-btn>
                         <q-btn
                           type="button"
                           class="c_btn c_icon line medium"
+                          @click="addBox--"
                         >
-                          <i class="ico minus" /><span class="txt">Button</span>
+                          <i class="ico minus" /><span class="txt">삭제</span>
                         </q-btn>
                       </div>
                     </div>
@@ -138,7 +140,7 @@
               <div class="c_inpgroup">
                 <q-input
                   outlined
-                  v-model="textName3"
+                  v-model="workingDir"
                   placeholder="/"
                   clearable
                   class="wsize544"
@@ -183,9 +185,20 @@
             <q-toggle v-model="off2" />
             <q-input
               outlined
-              v-model="texterror"
+              v-model="taskConcurrencyNum"
               hint="최소 1, 최대 50 입력 가능"
               placeholder="50"
+              v-if="off2 == false"
+              disable
+              class="c_inp wsize608"
+            />
+            <q-input
+              outlined
+              v-model="taskConcurrencyNum"
+              hint="최소 1, 최대 50 입력 가능"
+              type="number"
+              placeholder="50"
+              v-if="off2 == true"
               class="c_inp wsize608"
             />
           </div>
@@ -607,8 +620,8 @@
               <p class="info_txt">최대 5회</p>
               <q-input
                 outlined
-                v-model="textName2"
-                placeholder="포트 번호 입력"
+                v-model="retryNum"
+                placeholder="0"
                 clearable
                 class="wsize_full"
               />
@@ -626,7 +639,7 @@
                   <q-select
                     outlined
                     v-model="shareChipModel"
-                    placeholder="포트 번호 입력"
+                    placeholder="추가 포트 번호 입력"
                     use-input
                     use-chips
                     multiple
@@ -636,12 +649,6 @@
                     @filter="chipFilterFn"
                     class="c_inpchip wsize_full"
                   >
-                    <template v-slot:prepend>
-                      <q-icon
-                        name="search"
-                        class="ico_search"
-                      />
-                    </template>
                     <template v-slot:append>
                       <div class="slotopt"></div>
                     </template>
@@ -673,7 +680,7 @@
                 </template>
               </div>
               <div class="port_list_area">
-                <template v-if="noMemberList == true">
+                <template v-if="noMemberList == !true">
                   <ul class="port_list_box com_border_box">
                     <li>
                       <p>등록된 포트 번호가 없습니다.</p>
@@ -769,18 +776,23 @@
             </ul>
             <div class="make_btn">
               <template v-if="datacheck === false">
-                <CButton
-                  :size-types="2"
-                  :btn-types="11"
-                  :btn-names="btnDis"
-                />
+                <q-btn
+                  btnTypes=1
+                  type="button"
+                  disabled
+                  class="c_btn medium"
+                >
+                  <span class="txt">태스크 생성</span>
+                </q-btn>
               </template>
               <template v-else>
-                <CButton
-                  :size-types="2"
-                  :btn-types="1"
-                  :btn-names="btnName"
-                />
+                <q-btn
+                  btnTypes=1
+                  type="button"
+                  class="c_btn medium"
+                >
+                  <span class="txt">태스크 생성</span>
+                </q-btn>
               </template>
             </div>
           </div>
@@ -793,7 +805,6 @@
 import { ref } from "vue";
 import { useMeta } from "quasar";
 import CPagination from "components/common/CPagination.vue";
-import CButton from "components/common/CButton.vue";
 
 const title = ref("태스크 생성");
 useMeta(() => ({
@@ -804,19 +815,19 @@ const ptitle = ref(title);
 const tab = ref("tabs1");
 const tab2 = ref("tabs1");
 const taskName = ref(null);
-const textName = ref(null);
-const textName2 = ref(null);
-const textName3 = ref(null);
+const taskGroupName = ref(null);
+const commandInput = ref(null);
+const retryNum = ref(null);
+const workingDir = ref(null);
 const textDesc = ref(null);
 const chk1 = ref(false);
 const off = ref(false);
 const off2 = ref(false);
 const off3 = ref(false);
-const texterror = ref("50");
+const taskConcurrencyNum = ref(null);
 const datacheck = ref(false);
-const btnDis = ref("태스크 생성");
-const btnName = ref("태스크 생성");
 const defaultData = ref(true);
+const addBox = ref(1);
 
 const itemsSelected = ref([]);
 const noMemberList = ref(true);
