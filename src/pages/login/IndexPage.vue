@@ -23,7 +23,7 @@
 <script setup>
 import { ref } from "vue";
 import { useMeta } from "quasar";
-import { googleTokenLogin } from "vue3-google-login";
+import { googleOneTap } from "vue3-google-login";
 import { AuthService } from "src/services";
 
 const title = ref("로그인");
@@ -31,22 +31,19 @@ useMeta(() => ({
   title: title.value,
 }));
 
-const login = () => {
+const login = async () => {
   /**
    * @param { object } response
-   * @param { string } response.access_token
-   * @param { string } response.token_type
-   * @param { string } response.expires_in
-   * @param { string } response.scope
-   * @param { string } response.authuser
-   * @param { string } response.prompt
+   * @param { string } response.clientId
+   * @param { string } response.client_id
+   * @param { string } response.credential
+   * @param { string } response.select_by
    *
    * @link https://yobaji.github.io/vue3-google-login/#installation
    */
-  googleTokenLogin().then(async (response) => {
-    console.log("Handle the response", response);
+  googleOneTap().then(async (response) => {
     await AuthService.postGoogleLogin({
-      id_token: response.access_token
+      id_token: response.credential
     }).then((res) => {
       console.log(res);
     });
