@@ -6,6 +6,6 @@ import vue3GoogleLogin from "vue3-google-login";
  */
 export default boot(({ app }) => {
   app.use(vue3GoogleLogin, {
-    clientId: "296155206721-ak8taimdc9o6jspdnfhmqpo1mhtdoa01.apps.googleusercontent.com"
+    clientId: "311277805069-1o5dr3l9e8hik3kdd4mefcf7hrtb883b.apps.googleusercontent.com"
   });
 });
