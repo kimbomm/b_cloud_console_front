@@ -10,8 +10,13 @@
     :type="lazyType"
     :hint="hint"
     :rules="rules"
+    :prefix="prefix"
+    :suffix="suffix"
     @update:model-value="onUpdateInput"
   >
+    <template v-slot:prepend>
+      <slot name="prepend" />
+    </template>
     <template v-if="type === 'password'" v-slot:append>
       <q-icon
         :name="isPasswordType ? 'visibility_off' : 'visibility'"
@@ -19,6 +24,7 @@
         class="cursor-pointer"
         @click="onChangeVisible"
       />
+      <slot name="append" />
     </template>
   </q-input>
 </template>
@@ -68,7 +74,15 @@ const props = defineProps({
      */
     type: Array,
     default: () => []
-  }
+  },
+  prefix: {
+    type: String,
+    default: ""
+  },
+  suffix: {
+    type: String,
+    default: ""
+  },
 });
 
 const inputRef = ref(null);

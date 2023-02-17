@@ -69,23 +69,19 @@
         <h2 class="h6">Input - type="Suffix"</h2>
         <div class="group">
           <div class="c_inpgroup">
-            <q-input
-              outlined
-              v-model="suffix"
+            <c-input-text
+              v-model:value="suffix"
               placeholder="Placeholder Text"
               hint="Description"
               prefix="Prefix"
               suffix="Suffix"
-              clearable
               class="wsize_full"
+              :clearable="true"
             >
               <template v-slot:prepend>
                 <q-icon name="search" class="ico_search" />
               </template>
-              <template v-slot:append>
-                <q-icon />
-              </template>
-            </q-input>
+            </c-input-text>
           </div>
         </div>
       </section>
