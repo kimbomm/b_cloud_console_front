@@ -9,8 +9,8 @@ class Utils {
   isBlank(target) {
     let isBlank = false;
     switch (typeof target) {
-      case "array":
-        isBlank = !target.length;
+      case "object":
+        isBlank = Array.isArray(target) ? !target.length : !target;
         break;
       default:
         isBlank = !target;
