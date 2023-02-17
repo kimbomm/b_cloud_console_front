@@ -1,7 +1,7 @@
 <template>
   <q-input
     ref="inputRef"
-    v-model="lazeValue"
+    v-model="lazyValue"
     :class="classList"
     :clearable="clearable"
     :disable="disable"
@@ -88,7 +88,7 @@ const props = defineProps({
 const inputRef = ref(null);
 const lazyType = ref("text");
 const emit = defineEmits(["update:value", "change"]);
-const lazeValue = ref(props.value);
+const lazyValue = ref(props.value);
 const classes = ref(["c_inp"]);
 const classList = computed(() => classes.value.join(" "));
 const isPasswordType = computed(() => lazyType.value === "password");
@@ -113,7 +113,7 @@ const onValidate = () => {
 };
 
 watch(() => props.value, (changedValue) => {
-  lazeValue.value = changedValue;
+  lazyValue.value = changedValue;
   onValidate();
 });
 
@@ -128,7 +128,7 @@ onMounted(async () => {
  * input update event
  */
 const onUpdateInput = async () => {
-  emit("update:value", lazeValue.value);
+  emit("update:value", lazyValue.value);
   emit("update");
   await nextTick();
   await onValidate();

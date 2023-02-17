@@ -39,7 +39,7 @@
           <div class="c_inpgroup">
             <!-- Password -->
             <c-input-text
-              v-model:value="password"
+              v-model:value="passwordValue"
               type="password"
               placeholder="비밀번호 입력"
               hint="Description"
@@ -48,7 +48,7 @@
 
             <!-- Password Disabled -->
             <c-input-text
-              v-model:value="password"
+              v-model:value="passwordValue"
               type="password"
               placeholder="비밀번호 입력"
               hint="Description"
@@ -57,7 +57,7 @@
 
             <!-- Password Error -->
             <c-input-text
-              v-model:value="password"
+              v-model:value="passwordValue"
               type="password"
               placeholder="비밀번호 입력"
               hint="Description"
@@ -70,7 +70,7 @@
         <div class="group">
           <div class="c_inpgroup">
             <c-input-text
-              v-model:value="suffix"
+              v-model:value="suffixValue"
               placeholder="Placeholder Text"
               hint="Description"
               prefix="Prefix"
@@ -90,70 +90,13 @@
         <h2 class="h6">Input - Search</h2>
         <div class="group">
           <div class="c_inpgroup">
-            <q-select
-              outlined
-              v-model="searchModel"
+            <c-search-select
               placeholder="사용자, 프로젝트, 워크스페이스 검색"
-              use-input
-              hide-selected
-              fill-input
-              input-debounce="0"
               :options="options"
-              @filter="filterFn"
-              clearable
-              class="c_inpchip"
-            >
-              <template v-slot:prepend>
-                <q-icon name="search" class="ico_search" />
-              </template>
-              <template v-slot:no-option>
-                <q-item class="inner_loading">
-                  <q-inner-loading
-                    :showing="visible"
-                    label="잠시만 기다려 주세요..."
-                    label-class="loading_text"
-                  />
-                </q-item>
-                <q-item class="no_data">
-                  <q-item-section>
-                    검색 결과 없습니다.
-                  </q-item-section>
-                </q-item>
-              </template>
-            </q-select>
-
-            <q-select
-              outlined
-              v-model="searchModel"
-              placeholder="사용자, 프로젝트, 워크스페이스 검색"
-              use-input
-              hide-selected
-              fill-input
-              input-debounce="0"
-              :options="options"
-              @filter="filterFn"
-              clearable
-              disable
-              class="c_inpchip"
-            >
-              <template v-slot:prepend>
-                <q-icon name="search" class="ico_search" />
-              </template>
-              <template v-slot:no-option>
-                <q-item class="inner_loading">
-                  <q-inner-loading
-                    :showing="visible"
-                    label="잠시만 기다려 주세요..."
-                    label-class="loading_text"
-                  />
-                </q-item>
-                <q-item class="no_data">
-                  <q-item-section>
-                    검색 결과 없습니다.
-                  </q-item-section>
-                </q-item>
-              </template>
-            </q-select>
+              :use-input="true"
+              :clearable="true"
+              :loading="true"
+            />
           </div>
         </div>
       </section>
@@ -162,30 +105,14 @@
         <h2 class="h6">Input - Search Typing - dropdown - check</h2>
         <div class="group">
           <div class="c_inpgroup">
-            <q-select
-              outlined
-              v-model="chipModel"
-              use-input
-              use-chips
-              multiple
-              input-debounce="0"
-              @new-value="createValue"
-              :options="filterOptions"
-              @filter="chipFilterFn"
-              clearable
-              class="c_inpchip"
-            >
-              <template v-slot:prepend>
-                <q-icon name="search" class="ico_search" />
-              </template>
-              <template v-slot:no-option>
-                <q-item class="no_data">
-                  <q-item-section>
-                    검색 결과 없습니다.
-                  </q-item-section>
-                </q-item>
-              </template>
-            </q-select>
+            <c-search-select
+              placeholder=""
+              :options="options"
+              :clearable="true"
+              :use-chips="true"
+              :use-input="true"
+              :multiple="true"
+            />
           </div>
         </div>
       </section>
@@ -194,32 +121,14 @@
         <h2 class="h6">Input - dropdown - check</h2>
         <div class="group">
           <div class="c_inpgroup">
-            <q-select
-              outlined
-              v-model="chipModel"
-              use-input
-              use-chips
-              multiple
-              input-debounce="0"
-              @new-value="createValue"
-              :options="filterOptions"
-              @filter="chipFilterFn"
-              class="c_inpchip"
-            >
-              <template v-slot:prepend>
-                <q-icon name="search" class="ico_search" />
-              </template>
-              <template v-slot:append>
-                <div class="slotopt"></div>
-              </template>
-              <template v-slot:no-option>
-                <q-item class="no_data">
-                  <q-item-section>
-                    검색 결과 없습니다.
-                  </q-item-section>
-                </q-item>
-              </template>
-            </q-select>
+            <c-search-select
+              placeholder=""
+              :options="options"
+              :clearable="true"
+              :use-chips="true"
+              :use-input="true"
+              :multiple="true"
+            />
             <div class="c_selectgroup">
               <CDropdown
                 v-model:selected="model1"
@@ -371,6 +280,7 @@
 import { ref, onMounted } from "vue";
 import { useMeta } from "quasar";
 import CInputText from "components/common/CInputText.vue";
+import CSearchSelect from "components/common/CSearchSelect.vue";
 import CDropdown from "components/common/CDropdown.vue";
 
 const title = ref("Input");
@@ -383,13 +293,9 @@ const inputRules = [
   (value) => (!!value) || "required",
   (value) => (value.length <= 8) || "8자를 넘을 수 없습니다"
 ];
-const suffix = ref("");
-const password = ref("");
+const suffixValue = ref("");
+const passwordValue = ref("");
 
-// Typing - dropdown - check
-const visible = ref(true);
-const searchModel = ref(null);
-const chipModel = ref(null);
 const model1 = ref("읽기쓰기");
 // const selectDate = ref(null);
 // const selectDateRange = ref(null);
@@ -410,33 +316,6 @@ const stringOptions = [
   "사용자", "프로젝트", "워크스페이스"
 ];
 const options = ref(stringOptions);
-const filterOptions = ref(stringOptions);
-const filterFn = (val, update) => {
-  update(() => {
-    const needle = val.toLowerCase();
-    options.value = stringOptions.filter((v) => v.toLowerCase().indexOf(needle) > -1);
-  });
-};
-const createValue = (val, done) => {
-  if (val.length > 0) {
-    if (!stringOptions.includes(val)) {
-      stringOptions.push(val);
-    }
-    done(val, "toggle");
-  }
-};
-const chipFilterFn = (val, update) => {
-  update(() => {
-    if (val === "") {
-      filterOptions.value = stringOptions;
-    } else {
-      const needle = val.toLowerCase();
-      filterOptions.value = stringOptions.filter(
-        (v) => v.toLowerCase().indexOf(needle) > -1
-      );
-    }
-  });
-};
 onMounted(() => {});
 </script>
 <style lang="scss" scoped>
