@@ -393,8 +393,7 @@ const triggerSuccess = (position) => {
   }, 100);
 };
 
-const onMenuClick = (item) => {
-  console.log(item);
+const onMenuClick = () => {
   googleLogout();
   AuthService.postLogout();
 };

@@ -23,6 +23,7 @@
 <script setup>
 import { ref } from "vue";
 import { useMeta } from "quasar";
+import { useRouter } from "vue-router";
 import { googleOneTap } from "vue3-google-login";
 import { AuthService } from "src/services";
 
@@ -31,6 +32,7 @@ useMeta(() => ({
   title: title.value,
 }));
 
+const router = useRouter();
 const login = async () => {
   /**
    * @param { object } response
@@ -45,7 +47,9 @@ const login = async () => {
     await AuthService.postGoogleLogin({
       id_token: response.credential
     }).then((res) => {
-      console.log(res);
+      const { id } = res;
+      console.log(id);
+      router.push("/workspace");
     });
   });
 };

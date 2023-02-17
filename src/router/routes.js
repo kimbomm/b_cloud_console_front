@@ -117,6 +117,7 @@ const routes = [
     path: "/",
     component: () => import("layouts/MainLayout.vue"),
     children: [
+      { path: "/workspace", component: () => import("pages/workspace/IndexPage.vue") },
       // Dashboard
       { path: "/workspace/:workspaceId/projects", component: () => import("pages/IndexPage.vue") },
       // 프로젝트
