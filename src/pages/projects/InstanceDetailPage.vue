@@ -80,6 +80,16 @@
                   ></q-tab>
                 </q-tabs>
               </div>
+              <div class="now_selected_area">
+                <div class="select_box">
+                  <q-item class="select_title">
+                    <p class="select_title_inner">선택된 타입</p>
+                  </q-item>
+                  <q-item class="select_value">
+                    <p class="select_value_inner">cg.nano (CPU 2 / MEM 122GB / DISK 80GiB)</p>
+                  </q-item>
+                </div>
+              </div>
               <div class="s_03_table">
                 <EasyDataTable
                   v-model:items-selected="itemsSelected"
@@ -149,39 +159,58 @@
                   ></q-tab>
                 </q-tabs>
               </div>
+              <div class="now_selected_area">
+                <div class="select_box">
+                  <q-item class="select_title">
+                    <p class="select_title_inner">선택된 타입</p>
+                  </q-item>
+                  <q-item class="select_value">
+                    <p class="select_value_inner">tensorflow 2.9.0 (python3, cuda11.2, ubuntu20.04)</p>
+                  </q-item>
+                </div>
+              </div>
               <template v-if="tab2 === 'tabs1'">
-                <div class="s_04_table">
-                  <EasyDataTable
-                    v-model:items-selected="itemsSelected"
-                    :headers="imgHeader1"
-                    :items="imgItems1"
-                    :hide-footer="true"
-                    :body-row-class-name="bodyRowClassNameFunction"
-                    empty-message="정보가 없습니다."
-                  >
-                    <!-- title -->
-                    <template #item-title="item">
-                      <a href="#">
-                        <span class="txt">{{ item.title }}</span>
-                      </a>
-                    </template>
-                    <!-- nvida -->
-                    <template #item-nvida="item">
-                      <a href="#">
-                        <span class="txt">{{ item.nvida }}</span>
-                      </a>
-                    </template>
-                    <!-- 버튼 그룹 -->
-                    <template #item-buttons="item">
-                      <q-btn v-if="item.checkbox" class="text">
-                        <span class="txt">선택 취소하기</span>
-                        </q-btn>
-                    </template>
-                  </EasyDataTable>
-                </div>
-                <div class="disflex_C mt32">
-                  <CPagination />
-                </div>
+                <template v-if="defaultData == true">
+                  <div class="s_04_table">
+                    <EasyDataTable
+                      v-model:items-selected="itemsSelected"
+                      :headers="imgHeader1"
+                      :items="imgItems1"
+                      :hide-footer="true"
+                      :body-row-class-name="bodyRowClassNameFunction"
+                      empty-message="정보가 없습니다."
+                    >
+                      <!-- title -->
+                      <template #item-title="item">
+                        <a href="#">
+                          <span class="txt">{{ item.title }}</span>
+                        </a>
+                      </template>
+                      <!-- nvida -->
+                      <template #item-nvida="item">
+                        <a href="#">
+                          <span class="txt">{{ item.nvida }}</span>
+                        </a>
+                      </template>
+                      <!-- 버튼 그룹 -->
+                      <template #item-buttons="item">
+                        <q-btn v-if="item.checkbox" class="text">
+                          <span class="txt">선택 취소하기</span>
+                          </q-btn>
+                      </template>
+                    </EasyDataTable>
+                  </div>
+                  <div class="disflex_C mt32">
+                    <CPagination />
+                  </div>
+                </template>
+                <template v-else>
+                  <div class="com_nondata_area">
+                    <div class="nondata_box">
+                      <p class="nondata_txt">생성된 이미지가 없습니다.</p>
+                    </div>
+                  </div>
+                </template>
               </template>
               <template v-if="tab2 === 'tabs2'">
                 <template v-if="defaultData == true">
@@ -608,40 +637,40 @@
             <p class="section_title">인스턴스</p>
             <ul class="instance_data">
               <li class="i_d01">
-                <div class="i_data_title">이름</div>
-                <div class="i_data_value"><p>인스턴스 이름</p></div>
+                <q-item class="i_data_title">이름</q-item>
+                <q-item class="i_data_value"><p>인스턴스 이름</p></q-item>
               </li>
               <li class="i_d02">
-                <div class="i_data_title">인스턴스 타입</div>
-                <div class="i_data_value"><p>Tesla V100</p></div>
+                <q-item class="i_data_title">인스턴스 타입</q-item>
+                <q-item class="i_data_value"><p>Tesla V100</p></q-item>
               </li>
               <li class="i_d03">
-                <div class="i_data_title">GPU</div>
-                <div class="i_data_value"><p>1</p></div>
+                <q-item class="i_data_title">GPU</q-item>
+                <q-item class="i_data_value"><p>1</p></q-item>
               </li>
               <li class="i_d04">
-                <div class="i_data_title">CPU</div>
-                <div class="i_data_value"><p>14</p></div>
+                <q-item class="i_data_title">CPU</q-item>
+                <q-item class="i_data_value"><p>14</p></q-item>
               </li>
               <li class="i_d05">
-                <div class="i_data_title">Memory</div>
-                <div class="i_data_value"><p>122GB</p></div>
+                <q-item class="i_data_title">Memory</q-item>
+                <q-item class="i_data_value"><p>122GB</p></q-item>
               </li>
               <li class="i_d06">
-                <div class="i_data_title">Disk</div>
-                <div class="i_data_value"><p>80GiB</p></div>
+                <q-item class="i_data_title">Disk</q-item>
+                <q-item class="i_data_value"><p>80GiB</p></q-item>
               </li>
               <li class="i_d07">
-                <div class="i_data_title">스토리지</div>
-                <div class="i_data_value"><p>개인 스토리지 외 3개</p></div>
+                <q-item class="i_data_title">스토리지</q-item>
+                <q-item class="i_data_value"><p>개인 스토리지 외 3개</p></q-item>
               </li>
               <li class="i_d08">
-                <div class="i_data_title">SSH/JupyterLab</div>
-                <div class="i_data_value"><p>SSH</p></div>
+                <q-item class="i_data_title">SSH/JupyterLab</q-item>
+                <q-item class="i_data_value"><p>SSH</p></q-item>
               </li>
               <li class="i_d09">
-                <div class="i_data_title">포트번호</div>
-                <div class="i_data_value"><p>-</p></div>
+                <q-item class="i_data_title">포트번호</q-item>
+                <q-item class="i_data_value"><p>-</p></q-item>
               </li>
             </ul>
             <div class="make_btn">
