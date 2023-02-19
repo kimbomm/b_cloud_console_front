@@ -149,99 +149,27 @@
               :value="dateInput"
               :placeholder="'2022.01.01'"
             />
-
+          </div>
+        </div>
+        <h2 class="h6">Input - datepicker-range</h2>
+        <div class="group">
             <c-datepicker-range
               :from-value="dateRange.from"
               :to-value="dateRange.to"
               :placeholder="'YYYY.MM.DD'"
             />
-          </div>
         </div>
+        <!-- TODO:
+          1. range-time popup 내부 레이아웃 수정 필요
+          2. from time 결정시 to time disabled 필요
+        -->
+        <h2 class="h6">Input - datepicker-range-time (팝업 수정 필요)</h2>
         <div class="group">
-          <div class="fakebg">
-            <div class="from">
-              <q-input
-                outlined
-                v-model="dateFrom"
-                placeholder="2023.01.01"
-                class="inp_calendar"
-              >
-                <template v-slot:prepend>
-                  <q-icon class="ico_calendar">
-                    <q-popup-proxy :offset="[0, 0]" class="c_datepicker">
-                      <q-date
-                        v-model="dateFrom"
-                        mask="YYYY.MM.DD"
-                        class="datepicker"
-                      />
-                    </q-popup-proxy>
-                  </q-icon>
-                </template>
-              </q-input>
-              <q-input
-                outlined
-                v-model="timeFrom"
-                placeholder="12:00"
-                class="inp_time"
-              >
-                <template v-slot:append>
-                  <q-icon name="access_time">
-                    <q-popup-proxy
-                      :offset="[100, 0]"
-                      class="c_time"
-                    >
-                      <q-time v-model="timeFrom" mask="HH:mm">
-                        <q-btn v-close-popup label="확인" color="primary" flat />
-                      </q-time>
-                    </q-popup-proxy>
-                  </q-icon>
-                </template>
-              </q-input>
-            </div>
-            <i class="bar" />
-            <div class="to">
-              <q-input
-                outlined
-                v-model="dateTo"
-                placeholder="2023.01.01"
-                class="inp_calendar"
-              >
-                <template v-slot:prepend>
-                  <q-icon class="ico_calendar">
-                    <q-popup-proxy
-                      :offset="[150, 0]"
-                      class="c_datepicker"
-                    >
-                      <q-date
-                        v-model="dateTo"
-                        mask="YYYY.MM.DD"
-                        class="datepicker"
-                      />
-                    </q-popup-proxy>
-                  </q-icon>
-                </template>
-              </q-input>
-              <q-input
-                outlined
-                v-model="timeTo"
-                placeholder="12:00"
-                class="inp_time"
-              >
-                <template v-slot:append>
-                  <q-icon name="access_time">
-                    <q-popup-proxy
-                      :offset="[240, 0]"
-                      class="c_time"
-                    >
-                      <q-time v-model="timeTo" mask="HH:mm">
-                        <q-btn v-close-popup label="확인" color="primary" flat />
-                      </q-time>
-                    </q-popup-proxy>
-                  </q-icon>
-                </template>
-              </q-input>
-            </div>
-          </div>
+          <c-datepicker-range-time
+            :from-value="dateTimeFrom"
+            :to-value="dateTimeTo"
+            :placeholder="'YYYY.MM.DD HH:mm'"
+          />
         </div>
       </section>
     </div>
@@ -255,6 +183,7 @@ import CSearchSelect from "components/common/CSearchSelect.vue";
 import CDropdown from "components/common/CDropdown.vue";
 import CDatepicker from "components/common/CDatepicker.vue";
 import CDatepickerRange from "src/components/common/CDatepickerRange.vue";
+import CDatepickerRangeTime from "src/components/common/CDatepickerRangeTime.vue";
 
 const title = ref("Input");
 useMeta(() => ({
@@ -278,10 +207,12 @@ const dateRange = ref({
   to: date.formatDate(new Date(), "YYYY.MM.DD")
 });
 
-const dateFrom = ref(null);
-const timeFrom = ref(null);
-const dateTo = ref(null);
-const timeTo = ref(null);
+// const dateFrom = ref(null);
+// const timeFrom = ref(null);
+// const dateTo = ref(null);
+// const timeTo = ref(null);
+const dateTimeFrom = ref(date.formatDate(new Date(), "YYYY.MM.DD"));
+const dateTimeTo = ref(date.formatDate(new Date(), "YYYY.MM.DD"));
 
 const options1 = [
   "읽기쓰기", "읽기", "삭제",
