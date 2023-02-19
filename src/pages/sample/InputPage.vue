@@ -145,45 +145,16 @@
         <h2 class="h6">Input - datepicker</h2>
         <div class="group">
           <div class="c_inpgroup">
-            <q-input
-              outlined
-              v-model="date"
-              placeholder="2022.01.01"
-              class="inp_calendar"
-            >
-              <template v-slot:prepend>
-                <q-icon class="ico_calendar">
-                  <q-popup-proxy :offset="[15, 18]" class="c_datepicker">
-                    <q-date
-                      v-model="date"
-                      mask="YYYY.MM.DD"
-                      class="datepicker"
-                    />
-                  </q-popup-proxy>
-                </q-icon>
-              </template>
-            </q-input>
+            <c-datepicker
+              :value="dateInput"
+              :placeholder="'2022.01.01'"
+            />
 
-            <q-input
-              outlined
-              v-model="date"
-              :value="dateRange"
-              class="inp_calendar"
-            >
-              <template v-slot:prepend>
-                <q-icon class="ico_calendar">
-                  <q-popup-proxy :offset="[15, 18]" class="c_datepicker">
-                    <q-date
-                      v-model="dateRange"
-                      mask="YYYY.MM.DD"
-                      range
-                      multiple
-                      class="datepicker"
-                    />
-                  </q-popup-proxy>
-                </q-icon>
-              </template>
-            </q-input>
+            <c-datepicker-range
+              :from-value="dateRange.from"
+              :to-value="dateRange.to"
+              :placeholder="'YYYY.MM.DD'"
+            />
           </div>
         </div>
         <div class="group">
@@ -278,10 +249,12 @@
 </template>
 <script setup>
 import { ref, onMounted } from "vue";
-import { useMeta } from "quasar";
+import { useMeta, date } from "quasar";
 import CInputText from "components/common/CInputText.vue";
 import CSearchSelect from "components/common/CSearchSelect.vue";
 import CDropdown from "components/common/CDropdown.vue";
+import CDatepicker from "components/common/CDatepicker.vue";
+import CDatepickerRange from "src/components/common/CDatepickerRange.vue";
 
 const title = ref("Input");
 useMeta(() => ({
@@ -299,10 +272,11 @@ const passwordValue = ref("");
 const model1 = ref("읽기쓰기");
 // const selectDate = ref(null);
 // const selectDateRange = ref(null);
-const date = ref(null);
-const dateRange = ref(
-  { from: "2023.01.09", to: "2023.01.30" }
-);
+const dateInput = ref(date.formatDate(new Date(), "YYYY.MM.DD"));
+const dateRange = ref({
+  from: date.formatDate(new Date(), "YYYY.MM.DD"),
+  to: date.formatDate(new Date(), "YYYY.MM.DD")
+});
 
 const dateFrom = ref(null);
 const timeFrom = ref(null);
