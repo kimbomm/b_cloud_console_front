@@ -5,7 +5,7 @@
     :class="`c_dialog ${size}`"
   >
     <q-card>
-      <q-card-section style="max-height:290px" class="c_dialog_body">
+      <q-card-section :style="`${$slots.contents ? '' : 'max-height:290px' }`" class="c_dialog_body">
         <p class="title">
           <strong>{{ message }}</strong>
         </p>
@@ -17,6 +17,7 @@
           <slot name="positive"></slot>
           <slot name="negative"></slot>
         </div>
+        <slot v-if="$slots.contents" name="contents" />
       </q-card-section>
       <q-card-actions class="c_dialog_foot">
         <q-btn
