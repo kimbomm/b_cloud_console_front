@@ -8,16 +8,15 @@
   >
     <!-- id -->
     <template #item-id="item">
-      <span class="txt">{{ item.base_image_name }}</span>
+      <span class="txt">{{ item.name }}</span>
     </template>
+
     <!-- title -->
     <template #item-title="item">
       <a href="#">
-        <span class="txt">{{ item.description }}</span>
+        <span class="txt">111{{ item.description }}</span>
         <q-tooltip anchor="bottom middle" class="c_tooltip">
-          <div class="inner">
-            {{ item.description }}
-          </div>
+          <div class="inner">1222 {{ item.description }}</div>
         </q-tooltip>
       </a>
     </template>
@@ -79,13 +78,13 @@
 const headers = [
   {
     text: "이름",
-    value: "id",
+    value: "name",
     width: 120,
     sortable: true,
   },
   {
     text: "설명",
-    value: "title",
+    value: "description",
     width: 350,
   },
   {
@@ -94,21 +93,20 @@ const headers = [
     width: 110,
   },
   {
-    text: "이미지",
-    value: "image",
+    text: "기본 이미지",
+    value: "base_image_name",
     width: 350,
     sortable: true,
   },
   {
     text: "생성일시",
-    value: "createdAt",
+    value: "created_at",
     width: 120,
     sortable: true,
   },
   { text: "", value: "buttons", width: 80 },
 ];
 defineProps({
-  headers: Array,
   imageList: Array,
   actionButtons: Array,
 });

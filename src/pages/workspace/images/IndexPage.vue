@@ -1,5 +1,5 @@
 <template>
-  {{ imageList }}
+  {{ test1 }}
   <q-page class="p-content p-images p-index">
     <div class="p-head">
       <q-breadcrumbs class="c_breadcrumb" gutter="none">
@@ -17,9 +17,9 @@
       <div class="container">
         <div class="header">
           <q-tabs v-model="tab" align="left" class="c_tabs">
-            <q-tab name="tabs1" label="내이미지" />
-            <q-tab name="tabs2" label="기본 이미지" />
-            <q-tab name="tabs3" label="공유받은 이미지" />
+            <q-tab name="myTab" label="내이미지" />
+            <q-tab name="baseTab" label="기본 이미지" />
+            <q-tab name="sharedTab" label="공유받은 이미지" />
           </q-tabs>
         </div>
         <template v-if="defaultData == true">
@@ -47,7 +47,7 @@
           </div>
 
           <section class="section">
-            <div v-if="tab === 'tabs1'">
+            <div v-if="tab === 'myTab'">
               <!-- 내이미지 -->
               <MyPage
                 :imageList="imageList"
@@ -55,9 +55,18 @@
                 @showRow="showRow"
                 @onActions="onActions"
               />
-
+            </div>
+            <div v-if="tab === 'baseTab'">
               <!-- 기본 이미지  -->
-              <!-- 공유받은 이미지  -->
+              <BasicPage :imageList="imageList" />
+            </div>
+            <!-- 공유받은 이미지  -->
+            <div v-if="tab === 'sharedTab'">
+              <SharedPage
+                :imageList="imageList"
+                :actionButtons="actionButtons"
+                @showRow="showRow"
+              />
             </div>
           </section>
           <div class="table_pagenav disflex_C">
@@ -83,16 +92,98 @@ import CPagination from "src/components/common/CPagination.vue";
 
 import { imageService } from "src/services";
 import { useRoute } from "vue-router";
+import { $utils } from "src/utils/utils";
 import MyPage from "./MyPage.vue";
-
-const imageList = ref([]);
+import BasicPage from "./BasicPage.vue";
+import SharedPage from "./SharedPage.vue";
 
 const route = useRoute();
+const { params } = route;
+const imageList = ref([]);
+const test1 = $utils.parseDate("2023-02-07T23:16:40Z");
+console.log("test1", test1);
+
+// const addr = [
+//   {
+//     base_image_name: "1111111",
+//     created_at: "2021-02-07T23:16:40Z",
+//     description: "common image",
+//     id: 3,
+//     name: "common_image",
+//     status: "saved",
+//     tag: "b3ba43af",
+//   },
+//   {
+//     base_image_name: "222222",
+//     created_at: "2023-02-07T23:16:40Z",
+//     description: "common image",
+//     id: 3,
+//     name: "common_image",
+//     status: "saved",
+//     tag: "b3ba43af",
+//   },
+//   {
+//     base_image_name: "33333",
+//     created_at: "2023-02-07T23:16:40Z",
+//     description: "common image",
+//     id: 3,
+//     name: "common_image",
+//     status: "saved",
+//     tag: "b3ba43af",
+//   },
+//   {
+//     base_image_name: "44444",
+//     created_at: "2023-02-07T23:16:40Z",
+//     description: "common image",
+//     id: 3,
+//     name: "common_image",
+//     status: "saved",
+//     tag: "b3ba43af",
+//   },
+
+//   {
+//     base_image_name: "555555",
+//     created_at: "2021-02-07T23:16:40Z",
+//     description: "common image",
+//     id: 3,
+//     name: "common_image",
+//     status: "saved",
+//     tag: "b3ba43af",
+//   },
+//   {
+//     base_image_name: "66666",
+//     created_at: "2023-02-07T23:16:40Z",
+//     description: "common image",
+//     id: 3,
+//     name: "common_image",
+//     status: "saved",
+//     tag: "b3ba43af",
+//   },
+//   {
+//     base_image_name: "777777",
+//     created_at: "2023-02-07T23:16:40Z",
+//     description: "common image",
+//     id: 3,
+//     name: "common_image",
+//     status: "saved",
+//     tag: "b3ba43af",
+//   },
+//   {
+//     base_image_name: "88888",
+//     created_at: "2023-02-07T23:16:40Z",
+//     description: "common image",
+//     id: 3,
+//     name: "common_image",
+//     status: "saved",
+//     tag: "b3ba43af",
+//   },
+// ];
+
 // 내 이미지 가져오기
 const getMyImge = async () => {
-  const { params } = route;
   try {
     const { images } = await imageService.getMyImages(params.workspaceId);
+
     imageList.value = images;
   } catch (e) {
     console.log(e.response);
@@ -101,30 +192,43 @@ const getMyImge = async () => {
 
 // 기본 이미지 가져오기
 const getBaseImge = async () => {
-  console.log(1);
-
   try {
     const response = await imageService.getBaseImages();
     imageList.value = response.base_images;
+    console.log("response", response.base_images);
   } catch (e) {
     console.log(e.response);
   }
 };
+
+// 공유받은 이미지 가져오기
+const getSharedImge = async () => {
+  try {
+    const response = await imageService.getSharedImages(params.workspaceId);
+    imageList.value = response.shared_images;
+  } catch (e) {
+    console.log(e.response);
+  }
+};
+
 /*
 탭
 */
-const tab = ref("tabs1");
+const tab = ref("myTab");
 const getTab = () => {
-  console.log("gettab");
-  if (tab.value === "tabs1") {
+  if (tab.value === "myTab") {
     getMyImge();
   }
-  if (tab.value === "tabs2") {
+  if (tab.value === "baseTab") {
     getBaseImge();
+  }
+  if (tab.value === "sharedTab") {
+    getSharedImge();
   }
 };
 watch(tab, getTab);
 getTab();
+
 /*
 ------------------------sample--------------------
 */
