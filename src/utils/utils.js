@@ -42,6 +42,22 @@ class Utils {
 
     return regExp.text(value);
   }
+
+  /**
+   * 설명: 날짜 YYYY-MM-YY 형식으로 출력
+   */
+  parseDate(value) {
+    const date = new Date(value);
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+
+    const formattedDate = `${year}-${month.toString().padStart(2, "0")}-${day
+      .toString()
+      .padStart(2, "0")}`;
+
+    return formattedDate;
+  }
 }
 
 export const $utils = new Utils();
