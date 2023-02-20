@@ -645,30 +645,34 @@
                 <q-item class="i_data_value"><p>Tesla V100</p></q-item>
               </li>
               <li class="i_d03">
+                <q-item class="i_data_title">이미지</q-item>
+                <q-item class="i_data_value"><p>tensorflow 2.9.0<br>(python3, cuda11.2, ubuntu20.04)</p></q-item>
+              </li>
+              <li class="i_d04">
                 <q-item class="i_data_title">GPU</q-item>
                 <q-item class="i_data_value"><p>1</p></q-item>
               </li>
-              <li class="i_d04">
+              <li class="i_d05">
                 <q-item class="i_data_title">CPU</q-item>
                 <q-item class="i_data_value"><p>14</p></q-item>
               </li>
-              <li class="i_d05">
+              <li class="i_d06">
                 <q-item class="i_data_title">Memory</q-item>
                 <q-item class="i_data_value"><p>122GB</p></q-item>
               </li>
-              <li class="i_d06">
+              <li class="i_d07">
                 <q-item class="i_data_title">Disk</q-item>
                 <q-item class="i_data_value"><p>80GiB</p></q-item>
               </li>
-              <li class="i_d07">
+              <li class="i_d08">
                 <q-item class="i_data_title">스토리지</q-item>
                 <q-item class="i_data_value"><p>개인 스토리지 외 3개</p></q-item>
               </li>
-              <li class="i_d08">
+              <li class="i_d09">
                 <q-item class="i_data_title">SSH/JupyterLab</q-item>
                 <q-item class="i_data_value"><p>SSH</p></q-item>
               </li>
-              <li class="i_d09">
+              <li class="i_d10">
                 <q-item class="i_data_title">포트번호</q-item>
                 <q-item class="i_data_value"><p>-</p></q-item>
               </li>
