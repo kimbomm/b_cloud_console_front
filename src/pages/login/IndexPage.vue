@@ -1,6 +1,6 @@
 <template>
-  <q-page v-model="login" class="p-content p-sub p-login">
-    <div v-if="login === login" class="login_group">
+  <q-page class="p-content p-sub p-login">
+    <div class="login_group">
       <img
         alt="B CLOUD logo"
         src="~assets/images/common/logo_122x146.svg"
@@ -17,9 +17,6 @@
         >
         <span class="txt">Google 계정으로 로그인</span>
       </q-btn>
-    </div>
-    <div v-else class="loading large">
-      <div class="loading_text" />
     </div>
   </q-page>
 </template>
