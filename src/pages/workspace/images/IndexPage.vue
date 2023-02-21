@@ -86,101 +86,53 @@
 <script setup>
 import { ref, watch } from "vue";
 import { useMeta } from "quasar";
-import CDropdown from "components/common/CDropdown.vue";
-import CPagination from "src/components/common/CPagination.vue";
-
 import { imageService } from "src/services";
 import { useRoute } from "vue-router";
+import { $utils } from "src/utils/utils";
+
+import CDropdown from "components/common/CDropdown.vue";
+import CPagination from "src/components/common/CPagination.vue";
 import MyPage from "./MyPage.vue";
 import BasicPage from "./BasicPage.vue";
 import SharedPage from "./SharedPage.vue";
 
 const route = useRoute();
 const { params } = route;
+
+const title = ref("Image");
+useMeta(() => ({
+  title: title.value,
+}));
+
+const ptitle = ref(title);
+const optLabel = ref("10");
+const defaultData = ref(true);
+
 const imageList = ref([]);
 
-// const addr = [
-//   {
-//     base_image_name: "1111111",
-//     created_at: "2021-02-07T23:16:40Z",
-//     description: "common image",
-//     id: 3,
-//     name: "common_image",
-//     status: "saved",
-//     tag: "b3ba43af",
-//   },
-//   {
-//     base_image_name: "222222",
-//     created_at: "2023-02-07T23:16:40Z",
-//     description: "common image",
-//     id: 3,
-//     name: "common_image",
-//     status: "saved",
-//     tag: "b3ba43af",
-//   },
-//   {
-//     base_image_name: "33333",
-//     created_at: "2023-02-07T23:16:40Z",
-//     description: "common image",
-//     id: 3,
-//     name: "common_image",
-//     status: "saved",
-//     tag: "b3ba43af",
-//   },
-//   {
-//     base_image_name: "44444",
-//     created_at: "2023-02-07T23:16:40Z",
-//     description: "common image",
-//     id: 3,
-//     name: "common_image",
-//     status: "saved",
-//     tag: "b3ba43af",
-//   },
+/**
+   * 설명 : object 안에 데이터 속성 명을 입력하면
+   * YYYY-MM-DD로 변경 후 새로운 object 생성
+   * @param { Object } value
+   * @param { Object } created_at
+   */
+const transformDate = (value) => {
+  const { images } = value;
+  const updateImage = images.map((item) => ({
+    ...item,
+    [value.created_at]: $utils.paseseDate(item[value.created_at], value.dateType)
+  }));
 
-//   {
-//     base_image_name: "555555",
-//     created_at: "2021-02-07T23:16:40Z",
-//     description: "common image",
-//     id: 3,
-//     name: "common_image",
-//     status: "saved",
-//     tag: "b3ba43af",
-//   },
-//   {
-//     base_image_name: "66666",
-//     created_at: "2023-02-07T23:16:40Z",
-//     description: "common image",
-//     id: 3,
-//     name: "common_image",
-//     status: "saved",
-//     tag: "b3ba43af",
-//   },
-//   {
-//     base_image_name: "777777",
-//     created_at: "2023-02-07T23:16:40Z",
-//     description: "common image",
-//     id: 3,
-//     name: "common_image",
-//     status: "saved",
-//     tag: "b3ba43af",
-//   },
-//   {
-//     base_image_name: "88888",
-//     created_at: "2023-02-07T23:16:40Z",
-//     description: "common image",
-//     id: 3,
-//     name: "common_image",
-//     status: "saved",
-//     tag: "b3ba43af",
-//   },
-// ];
+  return updateImage;
+};
 
 // 내 이미지 가져오기
 const getMyImge = async () => {
   try {
     const { images } = await imageService.getMyImages(params.workspaceId);
+    const updatedImages = transformDate({ images, created_at: "created_at", dateType: "YYYY-MM-DD" });
 
-    imageList.value = images;
+    imageList.value = updatedImages;
   } catch (e) {
     console.log(e.response);
   }
@@ -191,7 +143,6 @@ const getBaseImge = async () => {
   try {
     const response = await imageService.getBaseImages();
     imageList.value = response.base_images;
-    console.log("response", response.base_images);
   } catch (e) {
     console.log(e.response);
   }
@@ -201,15 +152,31 @@ const getBaseImge = async () => {
 const getSharedImge = async () => {
   try {
     const response = await imageService.getSharedImages(params.workspaceId);
-    imageList.value = response.shared_images;
+    const images = response.shared_images;
+    const updatedImages = transformDate({ images, created_at: "shared_at", dateType: "YYYY-MM-DD HH:mm:ss" });
+
+    // const aaa = updatedImages.map((image) => {
+    //   console.log("image", image);
+    //   const
+    //   const { sharedUser, ...rest } = image;
+    //   return {
+    //     ...rest,
+    //     sharedUser_id: sharedUser.id,
+    //     sharedUser_email: sharedUser.email,
+    //     sharedUser_name: sharedUser.name,
+    //     sharedUser_description: sharedUser.description,
+    //     sharedUser_login_at: sharedUser.login_at,
+    //   };
+    // });
+    // console.log("aaa", aaa);
+
+    imageList.value = updatedImages;
   } catch (e) {
     console.log(e.response);
   }
 };
 
-/*
-탭
-*/
+// 탭
 const tab = ref("myTab");
 const getTab = () => {
   if (tab.value === "myTab") {
@@ -228,15 +195,6 @@ getTab();
 /*
 ------------------------sample--------------------
 */
-
-const title = ref("Image");
-useMeta(() => ({
-  title: title.value,
-}));
-
-const ptitle = ref(title);
-const optLabel = ref("10");
-const defaultData = ref(true);
 
 const optNumber = ref([
   { label: "10", value: 0 },

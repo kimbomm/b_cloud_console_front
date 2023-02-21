@@ -3,7 +3,7 @@
     :headers="headers"
     :items="imageList"
     :hide-footer="true"
-    empty-message="정보가 없습니다."
+    empty-message="생성한 내 이미지가 없습니다."
     @click-row="$emit('showRow', $event)"
   >
     <!-- id -->
