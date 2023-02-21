@@ -25,4 +25,7 @@ const metaData = {
 useMeta(metaData);
 </script>
 <style lang="scss" scoped>
+.l-container{
+  padding-left:0!important;
+}
 </style>
