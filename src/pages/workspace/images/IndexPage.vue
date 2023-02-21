@@ -92,7 +92,6 @@ import CPagination from "src/components/common/CPagination.vue";
 
 import { imageService } from "src/services";
 import { useRoute } from "vue-router";
-import { $utils } from "src/utils/utils";
 import MyPage from "./MyPage.vue";
 import BasicPage from "./BasicPage.vue";
 import SharedPage from "./SharedPage.vue";
