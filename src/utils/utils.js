@@ -1,4 +1,5 @@
 /* eslint-disable class-methods-use-this */
+import { date } from "quasar";
 
 class Utils {
   /**
@@ -44,19 +45,13 @@ class Utils {
   }
 
   /**
-   * 설명: 날짜 YYYY-MM-YY 형식으로 출력
+   * 설명: 날짜 원하는 포맷 형식으로 출력
+   * @param { Date } value
+   * @param { String } format 예: "YYYY-MM-DD"
+   * @returns { String }
    */
-  parseDate(value) {
-    const date = new Date(value);
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1;
-    const day = date.getDate();
-
-    const formattedDate = `${year}-${month.toString().padStart(2, "0")}-${day
-      .toString()
-      .padStart(2, "0")}`;
-
-    return formattedDate;
+  paseseDate(value, format) {
+    return date.formatDate(value, format);
   }
 }
 
