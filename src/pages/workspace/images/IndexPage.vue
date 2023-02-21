@@ -37,11 +37,7 @@
               </q-input>
             </div>
             <div class="select_drop">
-              <CDropdown
-                :label="optLabel"
-                :options="optNumber"
-                class="auto_size"
-              />
+              <CDropdown :label="optLabel" :options="optNumber" class="auto_size" />
             </div>
           </div>
 
@@ -61,11 +57,7 @@
             </div>
             <!-- 공유받은 이미지  -->
             <div v-if="tab === 'sharedTab'">
-              <SharedPage
-                :imageList="imageList"
-                :actionButtons="actionButtons"
-                @showRow="showRow"
-              />
+              <SharedPage :imageList="imageList" />
             </div>
           </section>
           <div class="table_pagenav disflex_C">
@@ -111,16 +103,16 @@ const defaultData = ref(true);
 const imageList = ref([]);
 
 /**
-   * 설명 : object 안에 데이터 속성 명을 입력하면
-   * YYYY-MM-DD로 변경 후 새로운 object 생성
-   * @param { Object } value
-   * @param { Object } created_at
-   */
+ * 설명 : object 안에 데이터 속성 명을 입력하면
+ * YYYY-MM-DD로 변경 후 새로운 object 생성
+ * @param { Object } value
+ * @param { Object } created_at
+ */
 const transformDate = (value) => {
   const { images } = value;
   const updateImage = images.map((item) => ({
     ...item,
-    [value.created_at]: $utils.paseseDate(item[value.created_at], value.dateType)
+    [value.created_at]: $utils.paseseDate(item[value.created_at], value.dateType),
   }));
 
   return updateImage;
@@ -130,7 +122,11 @@ const transformDate = (value) => {
 const getMyImge = async () => {
   try {
     const { images } = await imageService.getMyImages(params.workspaceId);
-    const updatedImages = transformDate({ images, created_at: "created_at", dateType: "YYYY-MM-DD" });
+    const updatedImages = transformDate({
+      images,
+      created_at: "created_at",
+      dateType: "YYYY-MM-DD",
+    });
 
     imageList.value = updatedImages;
   } catch (e) {
@@ -153,7 +149,11 @@ const getSharedImge = async () => {
   try {
     const response = await imageService.getSharedImages(params.workspaceId);
     const images = response.shared_images;
-    const updatedImages = transformDate({ images, created_at: "shared_at", dateType: "YYYY-MM-DD HH:mm:ss" });
+    const updatedImages = transformDate({
+      images,
+      created_at: "shared_at",
+      dateType: "YYYY-MM-DD HH:mm:ss",
+    });
 
     // const aaa = updatedImages.map((image) => {
     //   console.log("image", image);

@@ -4,7 +4,6 @@
     :items="imageList"
     :hide-footer="true"
     empty-message="정보가 없습니다."
-    @click-row="showRow"
   >
     <!-- id -->
     <template #item-id="item">
@@ -26,7 +25,9 @@
 
     <!-- sharedBy -->
     <template #item-sharedBy="item">
-      <span class="txt">{{ item.sharedBy }}</span>
+      <span v-if="item && item.shared_user" class="txt"
+        >{{ item.shared_user.name }}({{ item.shared_user.email }})</span
+      >
     </template>
     <!-- sharedAt -->
     <template #item-sharedAt="item">
@@ -73,14 +74,9 @@ const headers = [
   },
 ];
 
-const showRow = (item) => {
-  console.log(item);
-};
-
 defineProps({
   imageList: Array,
 });
-
 </script>
 
 <style lang="scss" scoped="scoped">
