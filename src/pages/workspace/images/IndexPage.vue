@@ -144,6 +144,20 @@ const getBaseImge = async () => {
   }
 };
 
+// 공유받은 이미지 공유자 정보 이름(이메일)
+const setImagesWithSharedUser = (updatedImages) => {
+  const extractSharedUser = (item) => {
+    const { email, name } = item.shared_user;
+    return { sharedUserWithEmail: `${name}(${email})` };
+  };
+  const updateSahredUser = updatedImages.map((item) => ({
+    ...item,
+    ...extractSharedUser(item),
+  }));
+
+  return updateSahredUser;
+};
+
 // 공유받은 이미지 가져오기
 const getSharedImge = async () => {
   try {
@@ -155,14 +169,7 @@ const getSharedImge = async () => {
       dateType: "YYYY-MM-DD HH:mm:ss",
     });
 
-    const extractSharedUser = (item) => {
-      const { email, name } = item.shared_user;
-      return { sharedUserWithEmail: `${name}(${email})` };
-    };
-
-    const updatedImagesWithSharedUser = updatedImages.map((item) => ({ ...item, ...extractSharedUser(item) }));
-
-    imageList.value = updatedImagesWithSharedUser;
+    imageList.value = setImagesWithSharedUser(updatedImages);
   } catch (e) {
     console.log(e.response);
   }
