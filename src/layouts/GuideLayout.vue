@@ -198,6 +198,9 @@ useMeta(metaData);
 const drawer = ref(false);
 </script>
 <style lang="scss" scoped>
+.l-container{
+  padding-left:316px!important;
+}
 .h_title {
   display: flex;
   align-items: center;
