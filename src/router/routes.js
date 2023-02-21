@@ -117,6 +117,7 @@ const routes = [
     path: "/",
     component: () => import("layouts/MainLayout.vue"),
     children: [
+      { path: "/workspace", component: () => import("pages/workspace/IndexPage.vue") },
       // Dashboard
       { path: "/workspace/:workspaceId/projects", component: () => import("pages/IndexPage.vue") },
       // 프로젝트
@@ -164,7 +165,9 @@ const routes = [
     component: () => import("layouts/MainLayout.vue"),
     children: [
       { path: "/sample/popup", component: () => import("pages/sample/PopupPage.vue") },
-      { path: "/sample/notify", component: () => import("pages/sample/NotifyPage.vue") }
+      { path: "/sample/popup-collect", component: () => import("pages/sample/PopupCollectPage.vue") },
+      { path: "/sample/notify", component: () => import("pages/sample/NotifyPage.vue") },
+      { path: "/sample/input", component: () => import("pages/sample/InputPage.vue") }
     ]
   }
 ];

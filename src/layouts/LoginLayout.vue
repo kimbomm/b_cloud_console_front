@@ -15,6 +15,12 @@ import { useMeta } from "quasar";
 const metaData = {
   title: "Brain Cloud",
   titleTemplate: (title) => `${title} | Brain Cloud`,
+  script: {
+    googleScript: {
+      src: "https://accounts.google.com/gsi/client",
+      defer: true
+    }
+  }
 };
 useMeta(metaData);
 </script>
