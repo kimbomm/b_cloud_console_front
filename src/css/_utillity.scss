@@ -329,7 +329,7 @@
     min-height:auto;
     padding: 0;
     border-radius: 50%;
-    border: 1px solid #DCE0E8;
+    // border: 1px solid #DCE0E8;
     background: #ffffff;
     box-shadow:none;
     color:$color;
@@ -377,7 +377,7 @@
       width:36px;height:36px;
       min-height:36px;
       padding:0 8px;
-      border-radius: 4px;
+      border-radius: 8px;
       background:$surface02;
       &:hover{
         background:$surface04;
@@ -1031,6 +1031,14 @@ body.desktop .q-radio,
     // background:$color;
     background: $white;
     @include shadow;
+  }
+  &.insTypeTool{
+    transform: translate(1%,-8%);
+    max-width:200px;
+    .inner{
+      max-width:200px;
+      min-width:auto;
+    }
   }
   .inner{
     -webkit-line-clamp: 2;
@@ -1705,6 +1713,19 @@ $dialog_foot:90px;
   &.instance.icon::after{
     margin-left:4px;
     background-image:url($iconUrl + '16/ico_details_default.svg');
+  }
+  &.instance{
+    .ico.details{
+      display:inline-block;
+      width: 16px;height: 16px;
+      background-repeat:no-repeat;
+      background-position:50% 50%;
+      margin-left:4px;
+      background-image:url($iconUrl + '16/ico_details_default.svg');
+      &:hover{
+        background-image:url($iconUrl + '16/ico_details_hover.svg');
+      }
+    }
   }
 }
 .badge_group{

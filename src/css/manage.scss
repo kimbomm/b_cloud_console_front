@@ -40,7 +40,7 @@
                 i{
                   width: 20px;
                   height: 20px;
-                  background: url(/src/assets/images/icon/20/ico_gpu_white.svg) no-repeat 50% 50%;
+                  background: url($iconUrl + '20/ico_gpu_white.svg') no-repeat 50% 50%;
                 }
               }
               .cont_head_inner{
@@ -258,7 +258,7 @@
                 i{
                   width: 20px;
                   height: 20px;
-                  background: url(/src/assets/images/icon/20/ico_storage_white.svg) no-repeat 50% 50%;
+                  background: url($iconUrl + '20/ico_storage_white.svg') no-repeat 50% 50%;
                 }
               }
               .cont_head_inner{

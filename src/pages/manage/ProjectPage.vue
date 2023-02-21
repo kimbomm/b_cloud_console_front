@@ -230,11 +230,14 @@
 
             <div class="r_set_inner">
               <div class="quota_set_btn">
-                <CButton
-                  :size-types="2"
-                  :btn-types="4"
-                  :btn-names="btnName"
-                />
+                <q-btn
+                  btnTypes=4
+                  type="button"
+                  class="c_btn line medium"
+                  @click="workspaceMngSetModal = true"
+                >
+                  <span class="txt">기본 할당량 설정</span>
+                </q-btn>
               </div>
               <div class="view_cont_num">
                 <CDropdown
@@ -479,11 +482,160 @@
       </div>
     </div>
   </q-page>
+
+  <!-- Start : [관리 - 프로젝트] 워크스페이스 관리자 기능 - 프로젝트 기본 할당량 설정 -->
+  <q-dialog
+    v-model="workspaceMngSetModal"
+    class="c_dialog medium"
+  >
+    <q-card>
+      <q-card-section class="c_dialog_body">
+        <p class="title">
+          <strong>프로젝트 리소스 기본 할당량 설정</strong>
+        </p>
+        <div class="c_form mt24">
+          <section class="section relative">
+            <p class="sub_title">프로젝트 기본 할당량</p>
+            <div class="desc">
+              워크스페이스 멤버들이 프로젝트 생성시 적용되는 기본 할당량을 설정합니다.<br />
+              (기본 할당량 설정된 시점 이후 생성된 프로젝트만 적용)<br />
+            </div>
+            <div class="desc etc mt10">
+              0 입력시 미할당
+            </div>
+            <q-toggle
+              v-model="quotaOn"
+              class="quotaToggle"
+            />
+          </section>
+          <section class="section">
+            <p class="sub_title">CPU</p>
+            <!-- <div class="unit_type">
+              <span class="tit">현재 사용량</span>
+              <span class="counter">
+                <em class="usage">190</em>
+                <i class="bar">/</i>
+                <strong class="quota">450</strong>
+              </span>
+            </div> -->
+            <div class="c_inpgroup flex-end">
+              <q-input
+                outlined
+                v-model="quota1"
+                type="number"
+                placeholder="50GiB 단위 입력"
+                clearable
+                class="inp_unit"
+              >
+                <template v-slot:append>
+                  <span class="unit">GiB</span>
+                </template>
+              </q-input>
+              <span class="desc">최대 500 <i class="bar" /> 권장 30</span>
+            </div>
+          </section>
+          <section class="section">
+            <p class="sub_title">Tesla V100</p>
+            <!-- <div class="unit_type">
+              <span class="tit">현재 사용량</span>
+              <span class="counter">
+                <em class="usage">190</em>
+                <i class="bar">/</i>
+                <strong class="quota">450</strong>
+              </span>
+            </div> -->
+            <div class="c_inpgroup flex-end">
+              <q-input
+                outlined
+                v-model="quota2"
+                type="number"
+                placeholder="50GiB 단위 입력"
+                clearable
+                class="inp_unit"
+              >
+                <template v-slot:append>
+                  <span class="unit">GiB</span>
+                </template>
+              </q-input>
+              <span class="desc">최대 50,000</span>
+            </div>
+          </section>
+          <section class="section">
+            <p class="sub_title">Tesla A100_40G</p>
+            <!-- <div class="unit_type">
+              <span class="tit">현재 사용량</span>
+              <span class="counter">
+                <em class="usage">190</em>
+                <i class="bar">/</i>
+                <strong class="quota">450</strong>
+              </span>
+            </div> -->
+            <div class="c_inpgroup flex-end">
+              <q-input
+                outlined
+                v-model="quota3"
+                type="number"
+                placeholder="50GiB 단위 입력"
+                clearable
+                class="inp_unit"
+              >
+                <template v-slot:append>
+                  <span class="unit">GiB</span>
+                </template>
+              </q-input>
+              <span class="desc">최대 50,000</span>
+            </div>
+          </section>
+          <section class="section">
+            <p class="sub_title">Tesla V100_80G</p>
+            <!-- <div class="unit_type">
+              <span class="tit">현재 사용량</span>
+              <span class="counter">
+                <em class="usage">190</em>
+                <i class="bar">/</i>
+                <strong class="quota">450</strong>
+              </span>
+            </div> -->
+            <div class="c_inpgroup flex-end">
+              <q-input
+                outlined
+                v-model="quota4"
+                type="number"
+                placeholder="50GiB 단위 입력"
+                clearable
+                class="inp_unit"
+              >
+                <template v-slot:append>
+                  <span class="unit">GiB</span>
+                </template>
+              </q-input>
+              <span class="desc">최대 50,000</span>
+            </div>
+          </section>
+        </div>
+        <!-- //.c_form -->
+      </q-card-section>
+      <q-card-actions class="c_dialog_foot">
+        <q-btn
+          label="취소"
+          class="line"
+          v-close-popup
+        />
+        <q-btn
+          label="저장"
+          class="primary"
+          v-close-popup
+          disable
+        />
+      </q-card-actions>
+    </q-card>
+  </q-dialog>
+  <!-- End : [관리 - 프로젝트] 워크스페이스 관리자 기능 - 프로젝트 기본 할당량 설정 -->
+
 </template>
 <script setup>
 import { ref } from "vue";
 import { useMeta } from "quasar";
-import CButton from "components/common/CButton.vue";
 import CDropdown from "components/common/CDropdown.vue";
 import CPagination from "components/common/CPagination.vue";
 
@@ -494,7 +646,6 @@ useMeta(() => ({
 
 const ptitle = ref(title);
 const label = ref("10");
-const btnName = ref("기본 할당량 설정");
 const helpShow = ref(false);
 
 const options = ref([
@@ -572,6 +723,13 @@ const actionButtons2 = [
 const onActions = (eventName, rowData) => {
   console.log(eventName, rowData);
 };
+
+const workspaceMngSetModal = ref(false);
+const quota1 = ref(null);
+const quota2 = ref(null);
+const quota3 = ref(null);
+const quota4 = ref(null);
+const quotaOn = ref(true);
 </script>
 
 <style lang="scss" scoped>
