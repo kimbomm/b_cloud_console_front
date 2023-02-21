@@ -154,7 +154,15 @@ const getSharedImge = async () => {
       created_at: "shared_at",
       dateType: "YYYY-MM-DD HH:mm:ss",
     });
-    imageList.value = updatedImages;
+
+    const extractSharedUser = (item) => {
+      const { email, name } = item.shared_user;
+      return { sharedUserWithEmail: `${name}(${email})` };
+    };
+
+    const updatedImagesWithSharedUser = updatedImages.map((item) => ({ ...item, ...extractSharedUser(item) }));
+
+    imageList.value = updatedImagesWithSharedUser;
   } catch (e) {
     console.log(e.response);
   }

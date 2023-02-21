@@ -25,9 +25,7 @@
 
     <!-- sharedBy -->
     <template #item-sharedBy="item">
-      <span v-if="item && item.shared_user" class="txt"
-        >{{ item.shared_user.name }}({{ item.shared_user.email }})</span
-      >
+      <span class="txt">{{ item.sharedUserWithEmail }}</span>
     </template>
     <!-- sharedAt -->
     <template #item-sharedAt="item">
@@ -45,30 +43,30 @@ useMeta(() => ({ title: title.value }));
 const headers = [
   {
     text: "이름",
-    value: "id",
+    value: "name",
     width: 180,
     sortable: true,
   },
   {
     text: "설명",
-    value: "title",
+    value: "description",
     width: 350,
   },
   {
     text: "이미지",
-    value: "image",
+    value: "base_image_name",
     width: 350,
     sortable: true,
   },
   {
     text: "공유자",
-    value: "sharedBy",
+    value: "sharedUserWithEmail",
     width: 280,
     sortable: true,
   },
   {
     text: "공유일시",
-    value: "sharedAt",
+    value: "shared_at",
     width: 150,
     sortable: true,
   },
