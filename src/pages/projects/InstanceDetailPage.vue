@@ -375,7 +375,7 @@
                 </template>
               </template>
               <template v-if="tab2 === 'tabs3'">
-                <template v-if="defaultData == !true">
+                <template v-if="defaultData == true">
                   <div class="s_04_table">
                     <EasyDataTable
                       v-model:items-selected="itemsSelected"
@@ -750,18 +750,17 @@ const chipFilterFn = (val, update) => {
 // 인스턴스 타입 테이블
 const instanceHeaders = [
   {
-    text: "이름", value: "title", width: 400, sortable: false
+    text: "이름", value: "title", width: 200, sortable: false
   },
   {
-    text: "CPU", value: "cpu", width: 80, sortable: false
+    text: "CPU", value: "cpu", width: 140, sortable: false
   },
   {
-    text: "Memory", value: "memory", width: 180, sortable: false
+    text: "Memory", value: "memory", width: 140, sortable: false
   },
   {
-    text: "Disk", value: "disk", width: 100, sortable: false
+    text: "Disk", value: "disk", width: 140, sortable: false
   },
-  { text: "", value: "buttons", width: 150 },
 ];
 const instanceItems = [
   {
@@ -807,10 +806,10 @@ const instanceItems = [
 // 이미지 테이블_기본이미지
 const imgHeader1 = [
   {
-    text: "이름", value: "title", width: 580, sortable: false
+    text: "이름", value: "title", width: 380, sortable: false
   },
   {
-    text: "NVIDA 드라이브 최소버전", value: "nvida", width: 382, sortable: false
+    text: "NVIDA 드라이브 최소버전", value: "nvida", width: 240, sortable: false
   },
 ];
 const imgItems1 = [
@@ -826,16 +825,16 @@ const imgItems1 = [
 // 이미지 테이블_내이미지
 const imgHeader2 = [
   {
-    text: "이름", value: "title", width: 190, sortable: false
+    text: "이름", value: "title", width: 150, sortable: false
   },
   {
-    text: "설명", value: "description", width: 274, sortable: false
+    text: "설명", value: "description", width: 150, sortable: false
   },
   {
-    text: "상태", value: "status", width: 190, sortable: false
+    text: "상태", value: "status", width: 110, sortable: false
   },
   {
-    text: "생성일시", value: "createdAt", width: 276, sortable: false
+    text: "생성일시", value: "createdAt", width: 180, sortable: false
   },
 ];
 const imgItems2 = [
@@ -861,13 +860,13 @@ const imgItems2 = [
 // 이미지 테이블_공유받은 이미지
 const imgHeader3 = [
   {
-    text: "이름", value: "title", width: 190, sortable: false
+    text: "이름", value: "title", width: 120, sortable: false
   },
   {
-    text: "설명", value: "description", width: 480, sortable: false
+    text: "설명", value: "description", width: 270, sortable: false
   },
   {
-    text: "공유자", value: "owner", width: 276, sortable: false
+    text: "공유자", value: "owner", width: 230, sortable: false
   },
 ];
 const imgItems3 = [
@@ -891,19 +890,19 @@ const imgItems3 = [
 // 스토리지 테이블
 const storageHeader = [
   {
-    text: "이름", value: "title", width: 150, sortable: false
+    text: "이름", value: "title", width: 100, sortable: false
   },
   {
-    text: "설명", value: "description", width: 400, sortable: false
+    text: "설명", value: "description", width: 220, sortable: false
   },
   {
-    text: "상태", value: "status", width: 100, sortable: false
+    text: "상태", value: "status", width: 90, sortable: false
   },
   {
-    text: "소유자", value: "user", width: 150, sortable: false
+    text: "소유자", value: "user", width: 100, sortable: false
   },
   {
-    text: "접근권한", value: "authority", width: 150, sortable: false
+    text: "접근권한", value: "authority", width: 110, sortable: false
   },
 ];
 const storageItems = [
@@ -933,13 +932,13 @@ const storageItems = [
 // SSH Key 테이블
 const sshKeyHeader = [
   {
-    text: "이름", value: "title", width: 190, sortable: false
+    text: "이름", value: "title", width: 120, sortable: false
   },
   {
-    text: "Fingerprint", value: "fingerprint", width: 430, sortable: false
+    text: "Fingerprint", value: "fingerprint", width: 300, sortable: false
   },
   {
-    text: "등록일시", value: "registrationDat", width: 330, sortable: false
+    text: "등록일시", value: "registrationDat", width: 200, sortable: false
   },
 ];
 const sshKeyItems = [

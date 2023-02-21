@@ -876,6 +876,7 @@
                   }
                   &.tbodyarea{
                     width: calc(100% - 222px);
+                    word-break: break-all;
                   }
                 }
               }

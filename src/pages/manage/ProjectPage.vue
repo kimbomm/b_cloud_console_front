@@ -656,25 +656,25 @@ const options = ref([
 
 const mngTaskHeader = [
   {
-    text: "프로젝트 이름", value: "title", width: 300, sortable: true
+    text: "프로젝트 이름", value: "title", width: 160, sortable: true
   },
   {
-    text: "프로젝트 설명", value: "desc", sortable: false
+    text: "프로젝트 설명", value: "desc", width: 280, sortable: false
   },
   {
     text: "할당량 설정", value: "status", width: 130, sortable: true
   },
   {
-    text: "GPU", value: "gpu", width: 150, sortable: true
+    text: "GPU", value: "gpu", width: 130, sortable: true
   },
   {
-    text: "V100", value: "v100", width: 150, sortable: true
+    text: "V100", value: "v100", width: 130, sortable: true
   },
   {
-    text: "A100_400G", value: "g400", width: 150, sortable: true
+    text: "A100_400G", value: "g400", width: 130, sortable: true
   },
   {
-    text: "A100_80G", value: "g80", width: 150, sortable: true
+    text: "A100_80G", value: "g80", width: 130, sortable: true
   },
   { text: "", value: "buttons", width: 80 },
 ];
