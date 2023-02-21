@@ -73,6 +73,16 @@
         </template>
       </div>
     </div>
+
+    <!-- 내이미지공유관리팝업 -->
+
+    <q-btn class="c_btn line" @click="imageShareMngModal = true">
+      <span class="txt">이미지 - 내이미지 - 공유관리</span>
+    </q-btn>
+
+    <!-- Start : [내 이미지] 이미지 - 내이미지 - 공유관리 -->
+    <Popup v-model="imageShareMngModal" />
+    <!-- End : [내 이미지] 이미지 - 내이미지 - 공유관리 -->
   </q-page>
 </template>
 <script setup>
@@ -87,6 +97,8 @@ import CPagination from "src/components/common/CPagination.vue";
 import MyPage from "./component/MyPage.vue";
 import BasicPage from "./component/BasicPage.vue";
 import SharedPage from "./component/SharedPage.vue";
+
+import Popup from "./component/UserSharedDetailPopup.vue";
 
 const route = useRoute();
 const { params } = route;
@@ -198,27 +210,22 @@ const optNumber = ref([
   { label: "50", value: 2 },
 ]);
 
+/* 팝업 */
+const imageShareMngModal = ref(false);
+
 const actionButtons = [
   { name: "공유관리", event: "share" },
   { name: "삭제", event: "delete" },
 ];
 
-/**
- * 설명: row Action 버튼 이벤트
- * @param { string } eventName action event name
- * @param { object } rowData get table row data
- */
 const onActions = (eventName, rowData) => {
   console.log(eventName, rowData);
 };
 
-/**
- * 설명: 복사하기 버튼 이벤트
- * @param { object } rowData get table row data
- */
 const showRow = (item) => {
   console.log("showRow", item);
 };
+
 </script>
 
 <style lang="scss" scoped>
