@@ -34,7 +34,8 @@
 }
 @mixin shadow{
   border-radius: 8px;
-  box-shadow: 2px 4px 24px #e3e3e3;
+  // box-shadow: 2px 4px 24px #e3e3e3;
+  box-shadow: 2px 4px 24px rgba(0,0,0,8%);
 }
 @mixin ellipsis{
   overflow: hidden;
@@ -3468,8 +3469,8 @@ $qhsize:48px;
     }
     &.q-date__today{
       z-index:1;
-      background-color:$primary;
-      color:$white!important;
+      // background-color:$primary;
+      // color:$white!important;
       &.q-btn--unelevated{
         background-color:$primary!important;
       }

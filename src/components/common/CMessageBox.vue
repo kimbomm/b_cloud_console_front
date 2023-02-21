@@ -7,12 +7,13 @@
     <q-card>
       <q-card-section style="max-height:290px" class="c_dialog_body">
         <p class="title">
-          <strong>{{ messageInfo.message }}</strong>
+          <strong v-html="messageInfo.message" />
         </p>
         <p
           v-if="messageInfo.description"
           class="desc"
-        >{{ messageInfo.description }}</p>
+          v-html="messageInfo.description"
+        />
       </q-card-section>
       <q-card-actions class="c_dialog_foot">
         <q-btn

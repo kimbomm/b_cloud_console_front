@@ -33,6 +33,7 @@ module.exports = configure((/* ctx */) => ({
     "i18n",
     "axios",
     "apex-chart.js",
+    "vue3-google-login.js",
     "vue3-easy-data-table.js",
   ],
 

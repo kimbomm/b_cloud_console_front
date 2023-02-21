@@ -41,7 +41,7 @@
               <div class="generate_num">
                 <p class="gn_title">생성 가능 개수
                   <q-btn class="ibtn help">
-                    <i class="ico help" /><span class="hidden">도움말</span>
+                    <i class="ico help"><span class="hidden">도움말</span>
                     <q-popup-edit
                       v-model="helpShow"
                       anchor="bottom middle"
@@ -52,6 +52,7 @@
                         <p>스토리지는 개인당 최대 5개 생성할 수 있습니다.</p>
                       </div>
                     </q-popup-edit>
+                  </i>
                   </q-btn>
                 </p>
                 <p class="gn_data"><span class="now_num">2</span> / 5</p>

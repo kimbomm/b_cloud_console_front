@@ -141,9 +141,13 @@
     }
   }
 }
-.c_popover.task02_pop{max-width: 270px;}
+.c_popover.task02_pop{
+  max-width: 270px;
+  z-index: 99;
+}
 .c_popover.task03_pop{
   max-width: 380px;
+  z-index: 99;
   .inner{
     max-width: 380px;
     .list_dot{margin-left:2rem;}
@@ -195,8 +199,8 @@
 }
 .c_popover.storage_popover{
   max-width: 269px;
-  top: 345px !important;
-  left: 360px !important;
+  top: 342px !important;
+  left: 361px !important;
   .inner{max-width: 269px;}
 }
 
