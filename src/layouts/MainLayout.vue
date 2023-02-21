@@ -13,6 +13,7 @@
       class="l-sidebar"
       :width="316"
     >
+      <q-btn flat @click="drawer = !drawer" round dense icon="menu" class="c_icon menu" />
       <side-bar />
     </q-drawer>
 
