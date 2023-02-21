@@ -154,22 +154,6 @@ const getSharedImge = async () => {
       created_at: "shared_at",
       dateType: "YYYY-MM-DD HH:mm:ss",
     });
-
-    // const aaa = updatedImages.map((image) => {
-    //   console.log("image", image);
-    //   const
-    //   const { sharedUser, ...rest } = image;
-    //   return {
-    //     ...rest,
-    //     sharedUser_id: sharedUser.id,
-    //     sharedUser_email: sharedUser.email,
-    //     sharedUser_name: sharedUser.name,
-    //     sharedUser_description: sharedUser.description,
-    //     sharedUser_login_at: sharedUser.login_at,
-    //   };
-    // });
-    // console.log("aaa", aaa);
-
     imageList.value = updatedImages;
   } catch (e) {
     console.log(e.response);
@@ -192,10 +176,7 @@ const getTab = () => {
 watch(tab, getTab);
 getTab();
 
-/*
-------------------------sample--------------------
-*/
-
+// n개씩 보기
 const optNumber = ref([
   { label: "10", value: 0 },
   { label: "25", value: 1 },
@@ -208,11 +189,6 @@ const actionButtons = [
 ];
 
 /**
- * 설명: 복사하기 버튼 이벤트
- * @param { object } rowData get table row data
- */
-
-/**
  * 설명: row Action 버튼 이벤트
  * @param { string } eventName action event name
  * @param { object } rowData get table row data
@@ -221,8 +197,12 @@ const onActions = (eventName, rowData) => {
   console.log(eventName, rowData);
 };
 
+/**
+ * 설명: 복사하기 버튼 이벤트
+ * @param { object } rowData get table row data
+ */
 const showRow = (item) => {
-  console.log(item);
+  console.log("showRow", item);
 };
 </script>
 
