@@ -16,8 +16,6 @@ const props = defineProps({
   },
 });
 
-let result = "";
-
 /**
  상태 스키마 값
  *  1. save, 저장(개인)
@@ -26,26 +24,31 @@ let result = "";
  *  4. saving, 저장중
 */
 const state = computed(() => {
+  let text = "";
+  let className = "";
+
   switch (props.item.status) {
     case "save":
-      result = { text: "저장(개인)", class: "green" };
+      text = "저장(개인)";
+      className = "green";
       break;
     case "save_s":
-      result = { text: "저장(공유)", class: "green" };
+      text = "저장(공유)";
+      className = "green";
       break;
-
     case "error":
-      result = { text: "오류", class: "orange" };
+      text = "오류";
+      className = "orange";
       break;
-
     case "saving":
-      result = { text: "저장중", class: "c_badge" };
+      text = "저장중";
+      className = "c_badge";
       break;
-
     default:
+      break;
   }
 
-  return result;
+  return { text, className };
 });
 </script>
 
