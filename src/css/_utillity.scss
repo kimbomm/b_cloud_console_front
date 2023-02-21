@@ -2130,6 +2130,13 @@ $dialog_foot:90px;
       }
     }
   }
+  &.q-field--disabled{
+    .q-field{
+      &__label{
+        color:$gray300;
+      }
+    }
+  }
   &.full_size{
     width:100%;
   }
@@ -4236,10 +4243,41 @@ $linew:15px;
       background-repeat: no-repeat;
       background-position:50% 50%;
       background-size:20px;
-    }
-    &::before{
-      background-image:url($iconUrl + '20/ico_loading.svg');
+      background-image:url($imgUrl + 'common/spinner-s.svg');
       animation: spin 2s linear infinite;
+    }
+  }
+  &.small{
+    width:20px;height:20px;
+    padding:0;
+    .loading_text{
+      &::before{
+        width:20px;height:20px;
+        background-size:20px;
+        background-image:url($imgUrl + 'common/spinner-m.svg');
+      }
+    }
+  }
+  &.medium{
+    width:40px;height:40px;
+    padding:0;
+    .loading_text{
+      &::before{
+        width:40px;height:40px;
+        background-size:40px;
+        background-image:url($imgUrl + 'common/spinner-m.svg');
+      }
+    }
+  }
+  &.large{
+    width:60px;height:60px;
+    padding:0;
+    .loading_text{
+      &::before{
+        width:60px;height:60px;
+        background-size:60px;
+        background-image:url($imgUrl + 'common/spinner-l.svg');
+      }
     }
   }
 }

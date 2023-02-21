@@ -3,6 +3,16 @@ $header-h: 64px;
 $side-maxw: 316px;
 $side-minw: 80px;
 // Layout wrap l-wrap
+@mixin desktopMax {
+  @media (max-width: #{$desktop-mxwidth}) {
+    @content;
+  }
+}
+@mixin desktop {
+  @media (min-width: #{$desktop-width}) {
+    @content;
+  }
+}
 .q-layout{
   &.l-sub{
     .l-header{
@@ -191,11 +201,16 @@ $side-minw: 80px;
       width:32px;height:32px;
       margin-right:25px;
       font-size:0;
+      opacity: 0;
+      @include desktop{
+        opacity: 1;
+      }
     }
     &.top_guidemenu{
       margin:0;
       padding:0;
       background:$color;
+      opacity: 1;
       &:hover,
       &:focus{
         background:$color;
@@ -263,6 +278,9 @@ $side-minw: 80px;
   background-color:#F5F7FA;
   &--left{
     z-index:100;
+    @include desktop{
+      max-width:auto!important;
+    }
   }
 }
 .l-sidebar{
@@ -336,6 +354,22 @@ $side-minw: 80px;
     .q-btn__content{
       &::after{
         display:none!important;
+      }
+    }
+
+    &--dense{
+      &--round{
+        background:$color;
+      }
+    }
+    &.c_icon{
+      position:absolute;top:-48px;left:20px;
+      width:32px;height:32px;
+      margin-right:25px;
+      font-size:0;
+      @include desktop{
+        z-index:-1;
+        opacity: 0;
       }
     }
   }
@@ -690,7 +724,12 @@ $side-minw: 80px;
 }
 // Layout Page Content wrap l-container
 .q-page-container{
-
+  @include desktopMax{
+    padding-left:80px!important;
+  }
+  @include desktop{
+    padding-left:auto!important;
+  }
 }
 .p-content{
   // display:flex;

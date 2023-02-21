@@ -117,7 +117,7 @@ body:not(.q-body--layout-animate) .q-drawer.q-layout--prevent-focus {
   visibility: visible;
 }
 body {
-  min-width: $desktop-width; height:100%;
+  min-width: $desktop-smwidth; height:100%;
   background-color:$bg;
   color: $default;font-size: $fs14;line-height: 1.3;font-family: $font;font-weight:$regular;
 }
