@@ -18,6 +18,9 @@
         <span class="txt">Google 계정으로 로그인</span>
       </q-btn>
     </div>
+    <!-- <div class="loading large">
+      <div class="loading_text" />
+    </div> -->
   </q-page>
 </template>
 <script setup>
