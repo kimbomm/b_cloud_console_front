@@ -84,9 +84,9 @@ import { $utils } from "src/utils/utils";
 
 import CDropdown from "components/common/CDropdown.vue";
 import CPagination from "src/components/common/CPagination.vue";
-import MyPage from "./MyPage.vue";
-import BasicPage from "./BasicPage.vue";
-import SharedPage from "./SharedPage.vue";
+import MyPage from "./component/MyPage.vue";
+import BasicPage from "./component/BasicPage.vue";
+import SharedPage from "./component/SharedPage.vue";
 
 const route = useRoute();
 const { params } = route;
