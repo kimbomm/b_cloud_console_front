@@ -1,4 +1,5 @@
 /* eslint-disable class-methods-use-this */
+import { date } from "quasar";
 
 class Utils {
   /**
@@ -41,6 +42,16 @@ class Utils {
     }
 
     return regExp.text(value);
+  }
+
+  /**
+   * 설명: 날짜 원하는 포맷 형식으로 출력
+   * @param { Date } value
+   * @param { String } format 예: "YYYY-MM-DD"
+   * @returns { String }
+   */
+  paseseDate(value, format) {
+    return date.formatDate(value, format);
   }
 }
 

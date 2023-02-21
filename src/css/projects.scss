@@ -564,17 +564,29 @@
             &:last-child{border-bottom: none;}
             .i_data_title{
               display: inline-block;
-              width: 175px;
+              width: 140px;
               color:$gray600;
             }
             .i_data_value{
               display: inline-block;
-              width: calc(100% - 175px);
+              width: calc(100% - 140px);
               text-align: right;
             }
           }
           &.task_data{
-            li{padding:12px 0;}
+            li{
+              padding:12px 0;
+              .i_data_title{
+                display: inline-block;
+                width: 175px;
+                color:$gray600;
+              }
+              .i_data_value{
+                display: inline-block;
+                width: calc(100% - 175px);
+                text-align: right;
+              }
+            }
           }
         }
       }
