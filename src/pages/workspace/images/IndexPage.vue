@@ -81,7 +81,7 @@
     </q-btn>
 
     <!-- Start : [내 이미지] 이미지 - 내이미지 - 공유관리 -->
-    <Popup v-model="imageShareMngModal" />
+    <UserSharedDetailPopup v-model="imageShareMngModal" />
     <!-- End : [내 이미지] 이미지 - 내이미지 - 공유관리 -->
   </q-page>
 </template>
@@ -98,7 +98,7 @@ import MyPage from "./component/MyPage.vue";
 import BasicPage from "./component/BasicPage.vue";
 import SharedPage from "./component/SharedPage.vue";
 
-import Popup from "./component/UserSharedDetailPopup.vue";
+import UserSharedDetailPopup from "./component/UserSharedDetailPopup.vue";
 
 const route = useRoute();
 const { params } = route;
@@ -219,6 +219,7 @@ const actionButtons = [
 ];
 
 const onActions = (eventName, rowData) => {
+  console.log("onActions", onActions);
   console.log(eventName, rowData);
 };
 
