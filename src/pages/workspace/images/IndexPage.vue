@@ -1,5 +1,4 @@
 <template>
-  {{ test1 }}
   <q-page class="p-content p-images p-index">
     <div class="p-head">
       <q-breadcrumbs class="c_breadcrumb" gutter="none">
@@ -99,8 +98,6 @@ import SharedPage from "./SharedPage.vue";
 const route = useRoute();
 const { params } = route;
 const imageList = ref([]);
-const test1 = $utils.parseDate("2023-02-07T23:16:40Z");
-console.log("test1", test1);
 
 // const addr = [
 //   {
