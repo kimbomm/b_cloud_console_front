@@ -61,7 +61,12 @@
       </div>
     </template>
   </EasyDataTable>
-  <Popup />
+
+  <Popup  v-model="imageShareMngModal"
+
+  @onShare="onShare"
+                @onDelete="onDelete"
+  />
 
 </template>
 
@@ -76,7 +81,7 @@ defineProps({
   actionButtons: Array,
 });
 
-const emit = defineEmits(["onShare", "onDelete"]);
+// const emit = defineEmits();
 
 const headers = [
   {
@@ -111,15 +116,25 @@ const headers = [
 ];
 
 const actionButtons = ref([]);
+const imageShareMngModal = ref(false);
 
 const fetchShareButtons = { name: "공유관리", event: "share" };
 const fetchDeleteButtons = { name: "삭제", event: "delete" };
 
+const onShare = (item) => {
+  imageShareMngModal.value = true;
+  console.log("onShare", item);
+};
+
+const onDelete = (item) => {
+  console.log("onShare", item);
+};
+
 const onActions = (eventName, rowData) => {
   if (eventName === "share") {
-    emit("onShare", rowData);
+    onShare(rowData);
   } else if (eventName === "delete") {
-    emit("onDelete", rowData);
+    onDelete(rowData);
   }
 };
 
@@ -130,7 +145,6 @@ const showRow = (item) => {
     actionButtons.value = [fetchShareButtons].concat(fetchDeleteButtons);
   }
 };
-
 </script>
 
 <style scoped>

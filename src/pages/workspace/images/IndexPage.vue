@@ -47,8 +47,6 @@
               <!-- 내이미지 -->
               <MyPage
                 :imageList="imageList"
-                @onShare="onShare"
-                @onDelete="onDelete"
 
               />
             </div>
@@ -226,19 +224,6 @@ const optNumber = ref([
   { label: "25", value: 1 },
   { label: "50", value: 2 },
 ]);
-
-/* 팝업 */
-
-const imageShareMngModal = ref(false);
-
-const onShare = (item) => {
-  imageShareMngModal.value = true;
-  console.log("onShare", item);
-};
-
-const onDelete = (item) => {
-  console.log("onShare", item);
-};
 
 </script>
 
