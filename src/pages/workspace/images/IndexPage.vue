@@ -95,17 +95,17 @@
               </q-item>
 
               <template
-                v-for="(innerItem, innerIndex) in project.projects"
+                v-for="(innerProject, innerIndex) in project.projects"
                 :key="innerIndex"
               >
 
                 <q-item class="item subitem">
                   <i class="ico note" />
                   <q-item-section class="item_card">
-                    <q-item-label class="name">{{ innerItem.name }}</q-item-label>
-                    <q-item-label class="desc">{{ innerItem.description }}</q-item-label>
+                    <q-item-label class="name">{{ innerProject.name }}</q-item-label>
+                    <q-item-label class="desc">{{ innerProject.description }}</q-item-label>
                   </q-item-section>
-                  <q-checkbox class="c_checkbox" v-model="innerItem.checked" @click="getSharedTargets(innerItem)" />
+                  <q-checkbox class="c_checkbox" v-model="innerProject.checked" @click="getSharedTargets(innerProject)" />
                 </q-item>
               </template>
             </template>
@@ -114,7 +114,7 @@
       </q-card-section>
       <q-card-actions class="c_dialog_foot">
         <q-btn label="취소" class="line" v-close-popup />
-        <q-btn label="저장" class="primary" v-close-popup />
+        <q-btn label="저장" class="primary" v-close-popup  />
       </q-card-actions>
     </q-card>
   </q-dialog>
@@ -125,7 +125,9 @@ import {
   ref, watch, onBeforeMount, reactive
 } from "vue";
 import { useMeta } from "quasar";
-import { imageService, UserService, ProjectService } from "src/services";
+import {
+  imageService, UserService, ProjectService, WorkspaceService
+} from "src/services";
 import { useRoute } from "vue-router";
 import { $utils } from "src/utils/utils";
 
@@ -136,17 +138,8 @@ import BasicPage from "./component/BasicPage.vue";
 import SharedPage from "./component/SharedPage.vue";
 
 const route = useRoute();
-const { params } = route;
-// const { workspaceId } = route.params;
+const { workspaceId } = route.params;
 
-// const userInfo = ref({
-//   user: {
-//     description: "",
-//     emain: "",
-//     id: 0,
-//     name: ""
-//   }
-// });
 const title = ref("Image");
 useMeta(() => ({
   title: title.value,
@@ -226,7 +219,7 @@ const transformDate = (value) => {
 // 내 이미지 가져오기
 const getMyImge = async () => {
   try {
-    const { images } = await imageService.getMyImages(params.workspaceId);
+    const { images } = await imageService.getMyImages(workspaceId);
     const updatedImages = transformDate({
       images,
       created_at: "created_at",
@@ -268,7 +261,7 @@ const setImagesWithSharedUser = (updatedImages) => {
 // 공유받은 이미지 가져오기
 const getSharedImge = async () => {
   try {
-    const response = await imageService.getSharedImages(params.workspaceId);
+    const response = await imageService.getSharedImages(workspaceId);
     const images = response.shared_images;
     const updatedImages = transformDate({
       images,
@@ -362,11 +355,38 @@ const getMyproject = async () => {
     return false;
   }
 };
-const getSharedTargets = (e) => {
-  if (e.checked) {
-    console.log(e.checked);
+
+const shareWorkspaceImage = async (imgId) => {
+  const data = {
+    workspace_id: workspaceId,
+    image_id: imgId
+  };
+  try {
+    const res = await WorkspaceService.postShareWorkspaceImage(workspaceId, imgId, { data });
+    console.log("ressdfsdfsdf", res);
+  } catch (e) {
+    console.log(e);
+    return false;
   }
 };
+const unShareWorkspaceImage = () => {
+  console.log(1);
+};
+
+// 공유 이미지 리스트 클릭시
+const getSharedTargets = (e) => {
+  const imgId = e.id;
+  console.log("imgIdimgIdimgIdimgId", imgId);
+
+  if (e.checked) {
+    console.log("true");
+    shareWorkspaceImage(imgId);
+  } else {
+    console.log("fase");
+    unShareWorkspaceImage(imgId);
+  }
+};
+
 onBeforeMount(() => {
   getMyproject();
 });
