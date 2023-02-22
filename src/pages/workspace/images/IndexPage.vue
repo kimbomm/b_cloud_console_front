@@ -44,12 +44,7 @@
           <section class="section">
             <div v-if="tab === 'myTab'">
               <!-- 내이미지 -->
-              <MyPage
-                :imageList="imageList"
-                @onShare="onShare"
-                @onDelete="onDelete"
-
-              />
+              <MyPage :imageList="imageList" @onShare="onShare" @onDelete="onDelete" />
             </div>
             <div v-if="tab === 'baseTab'">
               <!-- 기본 이미지  -->
@@ -73,99 +68,64 @@
         </template>
       </div>
     </div>
-
   </q-page>
 
-    <!-- Start : [내 이미지] 이미지 - 내이미지 - 공유관리 -->
-    <q-dialog
-      v-model="imageShareMngModal"
-      class="c_dialog medium"
-    >
-      <q-card>
-        <q-card-section class="c_dialog_body">
-          <p class="title">
-            <strong>내 이미지 공유 관리</strong>
-          </p>
-          <q-item-section class="item_card medium bg">
-            <q-item-label class="name">{{ itemImageName }}</q-item-label>
-            <q-item-label class="desc">{{ itemImageDesc }}</q-item-label>
-          </q-item-section>
-          <section class="section">
-            <p class="sub_title">공유 여부</p>
-            <q-list class="p_list share">
+  <!-- Start : [내 이미지] 이미지 - 내이미지 - 공유관리 -->
+  <q-dialog v-model="imageShareMngModal" class="c_dialog medium">
+    <q-card>
+      <q-card-section class="c_dialog_body">
+        <p class="title">
+          <strong>내 이미지 공유 관리</strong>
+        </p>
+        <q-item-section class="item_card medium bg">
+          <q-item-label class="name">{{ myWorkspaceName }}</q-item-label>
+          <q-item-label class="desc">{{ myProjecteName }}</q-item-label>
+        </q-item-section>
+        <section class="section">
+          <p class="sub_title">공유 여부</p>
+          <q-list class="p_list share">
+            <template v-for="(project, index) in mySharedProjects" :key="index">
               <q-item class="item chkall">
                 <i class="ico folder" />
                 <q-item-section class="item_card">
-                  <q-item-label class="name">{{ itemName }}</q-item-label>
-                  <q-item-label class="desc">{{ itemDesc }}</q-item-label>
+                  <q-item-label class="name">{{ project.project_name }}</q-item-label>
+                  <q-item-label class="desc">{{ project.workspace_name }}</q-item-label>
                 </q-item-section>
-                <q-checkbox
-                  v-model="chkAll"
-                  class="c_checkbox check_all"
-                />
+                <q-checkbox v-model="chkAll" class="c_checkbox check_all" />
               </q-item>
-              <q-item class="item subitem">
-                <i class="ico note" />
-                <q-item-section class="item_card">
-                  <q-item-label class="name">{{ itemName1 }}</q-item-label>
-                  <q-item-label class="desc">{{ itemDesc1 }}</q-item-label>
-                </q-item-section>
-                <q-checkbox
-                  v-model="chk1"
-                  disable
-                  class="c_checkbox"
-                />
-              </q-item>
-              <q-item class="item subitem">
-                <i class="ico note" />
-                <q-item-section class="item_card">
-                  <q-item-label class="name">{{ itemName2 }}</q-item-label>
-                  <q-item-label class="desc">{{ itemDesc1 }}</q-item-label>
-                </q-item-section>
-                <q-checkbox
-                  v-model="chk2"
-                  disable
-                  class="c_checkbox"
-                />
-              </q-item>
-              <q-item class="item subitem">
-                <i class="ico note" />
-                <q-item-section class="item_card">
-                  <q-item-label class="name">{{ itemName3 }}</q-item-label>
-                  <q-item-label class="desc">{{ itemDesc1 }}</q-item-label>
-                </q-item-section>
-                <q-checkbox
-                  v-model="chk3"
-                  disable
-                  class="c_checkbox"
-                />
-              </q-item>
-            </q-list>
-          </section>
-        </q-card-section>
-        <q-card-actions class="c_dialog_foot">
-          <q-btn
-            label="취소"
-            class="line"
-            v-close-popup
-          />
-          <q-btn
-            label="저장"
-            class="primary"
-            v-close-popup
-          />
-        </q-card-actions>
-      </q-card>
-    </q-dialog>
-    <!-- End : [내 이미지] 이미지 - 내이미지 - 공유관리 -->
 
+              <template
+                v-for="(innerItem, innerIndex) in project.projects"
+                :key="innerIndex"
+              >
+
+                <q-item class="item subitem">
+                  <i class="ico note" />
+                  <q-item-section class="item_card">
+                    <q-item-label class="name">{{ innerItem.name }}</q-item-label>
+                    <q-item-label class="desc">{{ innerItem.description }}</q-item-label>
+                  </q-item-section>
+                  <q-checkbox class="c_checkbox" v-model="innerItem.checked" @click="getSharedTargets(innerItem)" />
+                </q-item>
+              </template>
+            </template>
+          </q-list>
+        </section>
+      </q-card-section>
+      <q-card-actions class="c_dialog_foot">
+        <q-btn label="취소" class="line" v-close-popup />
+        <q-btn label="저장" class="primary" v-close-popup />
+      </q-card-actions>
+    </q-card>
+  </q-dialog>
+  <!-- End : [내 이미지] 이미지 - 내이미지 - 공유관리 -->
 </template>
 <script setup>
 import {
   ref, watch, onBeforeMount, reactive
 } from "vue";
 import { useMeta } from "quasar";
-import { imageService, UserService } from "src/services";
+import { imageService, UserService, ProjectService } from "src/services";
 import { useRoute } from "vue-router";
 import { $utils } from "src/utils/utils";
 
@@ -177,15 +137,20 @@ import SharedPage from "./component/SharedPage.vue";
 
 const route = useRoute();
 const { params } = route;
+// const { workspaceId } = route.params;
 
+// const userInfo = ref({
+//   user: {
+//     description: "",
+//     emain: "",
+//     id: 0,
+//     name: ""
+//   }
+// });
 const title = ref("Image");
 useMeta(() => ({
   title: title.value,
 }));
-
-const userInfo = ref({
-  user: {}
-});
 
 const ptitle = ref(title);
 const optLabel = ref("10");
@@ -196,20 +161,22 @@ const bbbb = [
   {
     id: 4,
     name: "common_image1111",
-    description: "common image11111image11111image11111image1 1111image11111image1111 1 image11111image1111 1image11111image11111image11111image11111image11111image11111image11 111image11111",
+    description:
+      "common image11111image11111image11111image1 1111image11111image1111 1 image11111image1111 1image11111image11111image11111image11111image11111image11111image11 111image11111",
     status: "error",
     base_image_name: "base_image_name1",
     tag: "b3ba43af",
-    created_at: "2023-02-07T23:16:40Z"
+    created_at: "2023-02-07T23:16:40Z",
   },
   {
     id: 3,
     name: "네임 안녕",
-    description: "common image2222image2222image2222im age222image2222im age2222image2222image2222image 22222 image2222",
+    description:
+      "common image2222image2222image2222im age222image2222im age2222image2222image2222image 22222 image2222",
     status: "saved",
     base_image_name: "base_image_name222",
     tag: "b3ba43af",
-    created_at: "2023-02-07T23:16:40Z"
+    created_at: "2023-02-07T23:16:40Z",
   },
   {
     id: 3,
@@ -218,7 +185,7 @@ const bbbb = [
     status: "saved",
     base_image_name: "base_image_name2223333",
     tag: "b3ba43af",
-    created_at: "2023-02-07T23:16:40Z"
+    created_at: "2023-02-07T23:16:40Z",
   },
   {
     id: 3,
@@ -227,7 +194,7 @@ const bbbb = [
     status: "saving",
     base_image_name: "44444",
     tag: "ㅁㅁ",
-    created_at: "2023-02-07T23:16:40Z"
+    created_at: "2023-02-07T23:16:40Z",
   },
   {
     id: 3,
@@ -236,7 +203,7 @@ const bbbb = [
     status: "error",
     base_image_name: "5555",
     tag: "ㅠㅠㅠㅠ",
-    created_at: "2023-02-07T23:16:40Z"
+    created_at: "2023-02-07T23:16:40Z",
   },
 ];
 
@@ -316,22 +283,6 @@ const getSharedImge = async () => {
   }
 };
 
-//  유저정보 가져오기
-const fetchUserInfo = async () => {
-  try {
-    const user = await UserService.getMe();
-    userInfo.value = {
-      user
-    };
-  } catch (e) {
-    console.log(e);
-    return false;
-  }
-};
-onBeforeMount(() => {
-  fetchUserInfo();
-});
-
 // 탭
 const tab = ref("myTab");
 const getTab = () => {
@@ -357,28 +308,26 @@ const optNumber = ref([
 
 /* 팝업 */
 const imageShareMngModal = ref(false);
-const itemImageName = ref("내이미지 01");
-const itemImageDesc = ref(
-  "내 이미지 테스트 01 (tensorflow 2.9.0, Karlo 테스트용)"
-);
-const itemName = ref("카카오모빌리티 워크스페이스");
-const itemName1 = ref("aaTEST");
-const itemName2 = ref("MLTEST");
-const itemName3 = ref("aa팀 프로젝트");
-const itemDesc = ref("워크스페이스");
-const itemDesc1 = ref("소속 프로젝트");
+const myWorkspaceName = ref("");
+const myProjecteName = ref("");
 const chkAll = ref(true);
-const chk1 = ref(true);
-const chk2 = ref(true);
-const chk3 = ref(true);
 
 const popupState = reactive({
   currentSharedData: null,
 });
 
+const fetchCurrentSharedData = (item) => {
+  popupState.currentSharedData = item;
+};
+
+watch(imageShareMngModal, () => {
+  myWorkspaceName.value = popupState.currentSharedData.base_image_name;
+  myProjecteName.value = popupState.currentSharedData.description;
+});
+
 const onShare = (item) => {
   imageShareMngModal.value = true;
-  popupState.currentSharedData = item;
+  fetchCurrentSharedData(item);
   console.log("onShare", item);
 };
 
@@ -386,11 +335,41 @@ const onDelete = (item) => {
   console.log("onShare", item);
 };
 
-watch(imageShareMngModal, () => {
-  itemImageName.value = popupState.currentSharedData.base_image_name;
-  itemImageDesc.value = popupState.currentSharedData.description;
-});
+const mySharedProjects = ref({});
+// 내 워크스페이스의 소속 프로젝트 리스트와 결합
+const makeMyProjectList = async (projects) => {
+  const promises = await projects?.map((project) => ProjectService.getListProject(project.project_id)) ?? [];
+  const responses = await Promise.all(promises);
+  const projectArrays = projects.map((project, index) => ({
+    ...responses[index],
+    ...project,
+  }));
 
+  mySharedProjects.value = projectArrays;
+  return projectArrays;
+};
+
+//  내 프로젝트 가져오기
+const getMyproject = async () => {
+  const { id } = await UserService.getMe();
+  console.log(id);
+
+  try {
+    const { projects } = await ProjectService.getProjects();
+    makeMyProjectList(projects);
+  } catch (e) {
+    console.log(e);
+    return false;
+  }
+};
+const getSharedTargets = (e) => {
+  if (e.checked) {
+    console.log(e.checked);
+  }
+};
+onBeforeMount(() => {
+  getMyproject();
+});
 </script>
 
 <style lang="scss" scoped>
