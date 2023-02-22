@@ -427,75 +427,84 @@
           </div>
           <div class="s_05 pb78">
             <p class="sub_title2">스토리지</p>
-            <div class="s_05_main">
-              <div class="select_now_view">
-                <p>
-                  <span class="change_num">0</span> / 5
-                </p>
-                선택
+            <template v-if="defaultData == true">
+              <div class="s_05_main">
+                <div class="select_now_view">
+                  <p>
+                    <span class="change_num">0</span> / 5
+                  </p>
+                  선택
+                </div>
+                <div class="s_05_table">
+                  <EasyDataTable
+                    v-model:items-selected="itemsSelected"
+                    :headers="storageHeader"
+                    :items="storageItems"
+                    :hide-footer="true"
+                    :body-row-class-name="bodyRowClassNameFunction"
+                    empty-message="정보가 없습니다."
+                  >
+                    <!-- 이름 -->
+                    <template #item-title="item">
+                      <a href="#">
+                        <span class="txt">{{ item.title }}</span>
+                      </a>
+                    </template>
+                    <!-- description -->
+                    <template #item-description="item">
+                      <a href="#">
+                        <span class="txt">{{ item.description }}</span>
+                      </a>
+                    </template>
+                    <!--
+                      상태값(status)
+                      1. running, 운영중
+                      2. deleting, 삭제중
+                      3. restoring, 복구중
+                    -->
+                    <template #item-status="item">
+                      <q-badge v-if="item.status === 'running'" class="green">
+                        <span class="txt">운영중</span>
+                      </q-badge>
+                      <q-badge v-else-if="item.status === 'deleting'">
+                        <span class="txt">삭제중</span>
+                      </q-badge>
+                      <q-badge v-else-if="item.status === 'restoring'">
+                        <span class="txt">복구중</span>
+                      </q-badge>
+                    </template>
+                    <!-- 소유자 -->
+                    <template #item-user="item">
+                      <a href="#">
+                        <span class="txt">{{ item.user }}</span>
+                      </a>
+                    </template>
+                    <!-- 접근권한 -->
+                    <template #item-authority="item">
+                      <a href="#">
+                        <span class="txt">{{ item.authority }}</span>
+                      </a>
+                    </template>
+                    <!-- 버튼 그룹 -->
+                    <template #item-buttons="item">
+                      <q-btn v-if="item.checkbox" class="text">
+                        <span class="txt">선택 취소하기</span>
+                        </q-btn>
+                    </template>
+                  </EasyDataTable>
+                </div>
+                <div class="disflex_C mt32">
+                  <CPagination />
+                </div>
               </div>
-              <div class="s_05_table">
-                <EasyDataTable
-                  v-model:items-selected="itemsSelected"
-                  :headers="storageHeader"
-                  :items="storageItems"
-                  :hide-footer="true"
-                  :body-row-class-name="bodyRowClassNameFunction"
-                  empty-message="정보가 없습니다."
-                >
-                  <!-- 이름 -->
-                  <template #item-title="item">
-                    <a href="#">
-                      <span class="txt">{{ item.title }}</span>
-                    </a>
-                  </template>
-                  <!-- description -->
-                  <template #item-description="item">
-                    <a href="#">
-                      <span class="txt">{{ item.description }}</span>
-                    </a>
-                  </template>
-                  <!--
-                    상태값(status)
-                    1. running, 운영중
-                    2. deleting, 삭제중
-                    3. restoring, 복구중
-                  -->
-                  <template #item-status="item">
-                    <q-badge v-if="item.status === 'running'" class="green">
-                      <span class="txt">운영중</span>
-                    </q-badge>
-                    <q-badge v-else-if="item.status === 'deleting'">
-                      <span class="txt">삭제중</span>
-                    </q-badge>
-                    <q-badge v-else-if="item.status === 'restoring'">
-                      <span class="txt">복구중</span>
-                    </q-badge>
-                  </template>
-                  <!-- 소유자 -->
-                  <template #item-user="item">
-                    <a href="#">
-                      <span class="txt">{{ item.user }}</span>
-                    </a>
-                  </template>
-                  <!-- 접근권한 -->
-                  <template #item-authority="item">
-                    <a href="#">
-                      <span class="txt">{{ item.authority }}</span>
-                    </a>
-                  </template>
-                  <!-- 버튼 그룹 -->
-                  <template #item-buttons="item">
-                    <q-btn v-if="item.checkbox" class="text">
-                      <span class="txt">선택 취소하기</span>
-                      </q-btn>
-                  </template>
-                </EasyDataTable>
+            </template>
+            <template v-else>
+              <div class="com_nondata_area">
+                <div class="nondata_box">
+                  <p class="nondata_txt">이용가능한 스토리지가 없습니다.</p>
+                </div>
               </div>
-              <div class="disflex_C mt32">
-                <CPagination />
-              </div>
-            </div>
+            </template>
           </div>
           <div class="s_06 pb78">
             <p class="sub_title2">SSH Key<i class="ess">*</i></p>
@@ -645,24 +654,24 @@
                 <q-item class="i_data_value"><p>Tesla V100</p></q-item>
               </li>
               <li class="i_d03">
-                <q-item class="i_data_title">이미지</q-item>
-                <q-item class="i_data_value"><p>tensorflow 2.9.0<br>(python3, cuda11.2, ubuntu20.04)</p></q-item>
-              </li>
-              <li class="i_d04">
                 <q-item class="i_data_title">GPU</q-item>
                 <q-item class="i_data_value"><p>1</p></q-item>
               </li>
-              <li class="i_d05">
+              <li class="i_d04">
                 <q-item class="i_data_title">CPU</q-item>
                 <q-item class="i_data_value"><p>14</p></q-item>
               </li>
-              <li class="i_d06">
+              <li class="i_d05">
                 <q-item class="i_data_title">Memory</q-item>
                 <q-item class="i_data_value"><p>122GB</p></q-item>
               </li>
-              <li class="i_d07">
+              <li class="i_d06">
                 <q-item class="i_data_title">Disk</q-item>
                 <q-item class="i_data_value"><p>80GiB</p></q-item>
+              </li>
+              <li class="i_d07">
+                <q-item class="i_data_title">이미지</q-item>
+                <q-item class="i_data_value"><p>tensorflow 2.9.0<br>(python3, cuda11.2, ubuntu20.04)</p></q-item>
               </li>
               <li class="i_d08">
                 <q-item class="i_data_title">스토리지</q-item>
