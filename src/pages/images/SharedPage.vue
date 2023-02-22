@@ -99,16 +99,16 @@ const optLabel = ref("10");
 
 const headers = [
   {
-    text: "이름", value: "id", width: 180, sortable: true
+    text: "이름", value: "id", width: 140, sortable: true
   },
   {
-    text: "설명", value: "title", width: 350
+    text: "설명", value: "title", width: 340
   },
   {
     text: "이미지", value: "image", width: 350, sortable: true
   },
   {
-    text: "공유자", value: "sharedBy", width: 280, sortable: true
+    text: "공유자", value: "sharedBy", width: 250, sortable: true
   },
   {
     text: "공유일시", value: "sharedAt", width: 150, sortable: true

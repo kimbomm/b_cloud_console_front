@@ -542,13 +542,13 @@ const groupHeaders = [
     text: "프로젝트 이름", value: "pjName", width: 150, sortable: false
   },
   {
-    text: "그룹ID", value: "groupid", width: 100, sortable: false
+    text: "그룹ID", value: "groupid", width: 90, sortable: false
   },
   {
     text: "그룹 이름", value: "groupName", width: 200, sortable: true
   },
   {
-    text: "설명", value: "desc", width: 280, sortable: false
+    text: "설명", value: "desc", width: 250, sortable: false
   },
   {
     text: "상태", value: "status", width: 170, sortable: false
@@ -557,7 +557,7 @@ const groupHeaders = [
     text: "생성일시", value: "createdAt", width: 180, sortable: true
   },
   {
-    text: "생성자", value: "constructor", width: 300, sortable: true
+    text: "생성자", value: "constructor", width: 280, sortable: true
   },
   { text: "", value: "buttons", width: 80 },
 ];
@@ -593,16 +593,16 @@ const groupItems = [
 // 테스크보기
 const taskHeaders = [
   {
-    text: "프로젝트 이름", value: "pjName", width: 130, sortable: false
+    text: "프로젝트 이름", value: "pjName", width: 135, sortable: false
   },
   {
-    text: "그룹 이름", value: "groupName", width: 120, sortable: true
+    text: "그룹 이름", value: "groupName", width: 115, sortable: true
   },
   {
-    text: "태스크 이름", value: "taskName", width: 200, sortable: true
+    text: "태스크 이름", value: "taskName", width: 160, sortable: true
   },
   {
-    text: "상태", value: "status", width: 110, sortable: false
+    text: "상태", value: "status", width: 105, sortable: false
   },
   {
     text: "ssh", value: "ssh", width: 80, sortable: false
@@ -611,13 +611,13 @@ const taskHeaders = [
     text: "인스턴스 타입", value: "instanceType", width: 130, sortable: false
   },
   {
-    text: "GPU", value: "gpu", width: 80, sortable: false
+    text: "GPU", value: "gpu", width: 60, sortable: false
   },
   {
-    text: "CPU", value: "cpu", width: 80, sortable: false
+    text: "CPU", value: "cpu", width: 60, sortable: false
   },
   {
-    text: "생성자", value: "createdBy", width: 100, sortable: true
+    text: "생성자", value: "createdBy", width: 85, sortable: true
   },
   {
     text: "생성일시", value: "createdAt", width: 160, sortable: true
