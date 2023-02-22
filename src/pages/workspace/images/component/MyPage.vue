@@ -12,11 +12,13 @@
     </template>
 
     <!-- title -->
-    <template #item-title="item">
+    <template #item-description="item">
       <a href="#">
-        <span class="txt">111{{ item.description }}</span>
+        <span class="txt">{{ item.description }}</span>
         <q-tooltip anchor="bottom middle" class="c_tooltip">
-          <div class="inner">1222 {{ item.description }}</div>
+          <div class="inner">
+            {{ item.description }}
+          </div>
         </q-tooltip>
       </a>
     </template>
@@ -28,7 +30,7 @@
                 4. saving, 저장중
               -->
     <template #item-status="item">
-    <CBadgeState :item="item" />
+      <CBadgeState :item="item" />
     </template>
     <!-- image -->
     <template #item-image="item">
@@ -40,7 +42,7 @@
     <template #item-createdAt="item">
       <span class="txt">{{ item.created_at }}</span>
     </template>
-  <!-- 버튼 그룹 -->
+    <!-- 버튼 그룹 -->
     <template #item-buttons="item">
       <div v-if="actionButtons" class="cell btngroup">
         <q-btn class="c_btn ibtn dot">
@@ -48,10 +50,7 @@
           <q-popup-edit v-model="item.id" class="dots_menu" anchor="top right">
             <q-list style="min-width: 100px">
               <q-item v-for="button in actionButtons" :key="button.name">
-                <q-btn
-                  class="item"
-                  @click="onActions(button.event, item)"
-                >
+                <q-btn class="item" @click="onActions(button.event, item)">
                   <span class="txt">{{ button.name }}</span>
                 </q-btn>
               </q-item>
@@ -61,27 +60,19 @@
       </div>
     </template>
   </EasyDataTable>
-
-  <Popup  v-model="imageShareMngModal"
-
-  @onShare="onShare"
-                @onDelete="onDelete"
-  />
-
 </template>
 
 <script setup>
 import { ref } from "vue";
 
 import CBadgeState from "src/components/common/CBadgeState.vue";
-import Popup from "./UserSharedDetailPopup.vue";
 
 defineProps({
   imageList: Array,
   actionButtons: Array,
 });
 
-// const emit = defineEmits();
+const emit = defineEmits(["onShare", "onDelete"]);
 
 const headers = [
   {
@@ -116,25 +107,15 @@ const headers = [
 ];
 
 const actionButtons = ref([]);
-const imageShareMngModal = ref(false);
 
 const fetchShareButtons = { name: "공유관리", event: "share" };
 const fetchDeleteButtons = { name: "삭제", event: "delete" };
 
-const onShare = (item) => {
-  imageShareMngModal.value = true;
-  console.log("onShare", item);
-};
-
-const onDelete = (item) => {
-  console.log("onShare", item);
-};
-
 const onActions = (eventName, rowData) => {
   if (eventName === "share") {
-    onShare(rowData);
+    emit("onShare", rowData);
   } else if (eventName === "delete") {
-    onDelete(rowData);
+    emit("onDelete", rowData);
   }
 };
 
@@ -148,5 +129,7 @@ const showRow = (item) => {
 </script>
 
 <style scoped>
-.vue3-easy-data-table[data-v-5814f6fe]{border: none;}
+.vue3-easy-data-table[data-v-5814f6fe] {
+  border: none;
+}
 </style>
