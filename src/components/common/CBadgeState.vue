@@ -1,6 +1,6 @@
 <template>
   <div>
-    <q-badge :class="state.class">
+    <q-badge :class="state.className">
       <span class="txt">{{ state.text }}</span>
     </q-badge>
   </div>
@@ -15,13 +15,13 @@ const props = defineProps({
     require: true,
   },
 });
-
 /**
  상태 스키마 값
  *  1. save, 저장(개인)
  *  2. save_s, 저장(공유)
  *  3. error, 오류
  *  4. saving, 저장중
+ * 임시추가 - saved -저장(개인)
 */
 const state = computed(() => {
   let text = "";
@@ -29,6 +29,11 @@ const state = computed(() => {
 
   switch (props.item.status) {
     case "save":
+      text = "저장(개인)";
+      className = "green";
+      break;
+      /* 임시 추가 */
+    case "saved":
       text = "저장(개인)";
       className = "green";
       break;
@@ -44,6 +49,7 @@ const state = computed(() => {
       text = "저장중";
       className = "c_badge";
       break;
+
     default:
       break;
   }
