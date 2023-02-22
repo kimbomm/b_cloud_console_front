@@ -550,61 +550,70 @@
           </div>
           <div class="s_05 pb78">
             <p class="sub_title2">스토리지</p>
-            <div class="s_05_main">
-              <div class="s_05_table">
-                <EasyDataTable
-                  v-model:items-selected="itemsSelected"
-                  :headers="storageHeader"
-                  :items="storageItems"
-                  :hide-footer="true"
-                  :body-row-class-name="bodyRowClassNameFunction"
-                  empty-message="정보가 없습니다."
-                >
-                  <!-- title -->
-                  <template #item-title="item">
-                    <span class="txt">{{ item.title }}</span>
-                  </template>
-                  <!-- description -->
-                  <template #item-description="item">
-                    <span class="txt">{{ item.description }}</span>
-                  </template>
-                  <!--
-                    상태값(status)
-                    1. running, 운영중
-                    2. deleting, 삭제중
-                    3. restoring, 복구중
-                  -->
-                  <template #item-status="item">
-                    <q-badge v-if="item.status === 'running'" class="green">
-                      <span class="txt">운영중</span>
-                    </q-badge>
-                    <q-badge v-else-if="item.status === 'deleting'">
-                      <span class="txt">삭제중</span>
-                    </q-badge>
-                    <q-badge v-else-if="item.status === 'restoring'">
-                      <span class="txt">복구중</span>
-                    </q-badge>
-                  </template>
-                  <!-- user -->
-                  <template #item-user="item">
-                    <span class="txt">{{ item.user }}</span>
-                  </template>
-                  <!-- authority -->
-                  <template #item-authority="item">
-                    <span class="txt">{{ item.authority }}</span>
-                  </template>
-                  <!-- 버튼 그룹 -->
-                  <template #item-buttons="item">
-                    <q-btn v-if="item.checkbox" class="text">
-                      <span class="txt">선택 취소하기</span>
-                      </q-btn>
-                  </template>
-                </EasyDataTable>
+            <template v-if="defaultData == true">
+              <div class="s_05_main">
+                <div class="s_05_table">
+                  <EasyDataTable
+                    v-model:items-selected="itemsSelected"
+                    :headers="storageHeader"
+                    :items="storageItems"
+                    :hide-footer="true"
+                    :body-row-class-name="bodyRowClassNameFunction"
+                    empty-message="정보가 없습니다."
+                  >
+                    <!-- title -->
+                    <template #item-title="item">
+                      <span class="txt">{{ item.title }}</span>
+                    </template>
+                    <!-- description -->
+                    <template #item-description="item">
+                      <span class="txt">{{ item.description }}</span>
+                    </template>
+                    <!--
+                      상태값(status)
+                      1. running, 운영중
+                      2. deleting, 삭제중
+                      3. restoring, 복구중
+                    -->
+                    <template #item-status="item">
+                      <q-badge v-if="item.status === 'running'" class="green">
+                        <span class="txt">운영중</span>
+                      </q-badge>
+                      <q-badge v-else-if="item.status === 'deleting'">
+                        <span class="txt">삭제중</span>
+                      </q-badge>
+                      <q-badge v-else-if="item.status === 'restoring'">
+                        <span class="txt">복구중</span>
+                      </q-badge>
+                    </template>
+                    <!-- user -->
+                    <template #item-user="item">
+                      <span class="txt">{{ item.user }}</span>
+                    </template>
+                    <!-- authority -->
+                    <template #item-authority="item">
+                      <span class="txt">{{ item.authority }}</span>
+                    </template>
+                    <!-- 버튼 그룹 -->
+                    <template #item-buttons="item">
+                      <q-btn v-if="item.checkbox" class="text">
+                        <span class="txt">선택 취소하기</span>
+                        </q-btn>
+                    </template>
+                  </EasyDataTable>
+                </div>
+                <div class="disflex_C mt32">
+                  <CPagination />
+                </div>
               </div>
-              <div class="disflex_C mt32">
-                <CPagination />
+            </template>
+            <template v-else>
+              <div class="com_nondata_area">
+                <div class="nondata_box">
+                  <p class="nondata_txt">이용가능한 스토리지가 없습니다.</p>
+                </div>
               </div>
-            </div>
+            </template>
           </div>
           <div class="s_06 pb78">
             <p class="sub_title2">SSH Key<i class="ess">*</i></p>
@@ -788,18 +797,22 @@
                 <q-item class="i_data_value"><p>80GiB</p></q-item>
               </li>
               <li class="i_d11">
+                <q-item class="i_data_title">이미지</q-item>
+                <q-item class="i_data_value"><p>tensorflow 2.9.0 (python3, cuda11.2, ubuntu20.04)</p></q-item>
+              </li>
+              <li class="i_d12">
                 <q-item class="i_data_title">스토리지</q-item>
                 <q-item class="i_data_value"><p>aa프로젝트 1 스토리지 외 4개</p></q-item>
               </li>
-              <li class="i_d12">
+              <li class="i_d13">
                 <q-item class="i_data_title">Http proxy</q-item>
                 <q-item class="i_data_value"><p>On</p></q-item>
               </li>
-              <li class="i_d13">
+              <li class="i_d14">
                 <q-item class="i_data_title">재시도 횟수</q-item>
                 <q-item class="i_data_value"><p>0</p></q-item>
               </li>
-              <li class="i_d14">
+              <li class="i_d15">
                 <q-item class="i_data_title">추가 포트 번호</q-item>
                 <q-item class="i_data_value"><p>-</p></q-item>
               </li>
