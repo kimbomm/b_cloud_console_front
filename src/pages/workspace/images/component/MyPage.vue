@@ -28,18 +28,7 @@
                 4. saving, 저장중
               -->
     <template #item-status="item">
-      <q-badge v-if="item.status === 'saved'" class="green">
-        <span class="txt">저장(개인)</span>
-      </q-badge>
-      <q-badge v-if="item.status === 'save_s'" class="green">
-        <span class="txt">저장(공유)</span>
-      </q-badge>
-      <q-badge v-else-if="item.status === 'error'" class="orange">
-        <span class="txt">오류</span>
-      </q-badge>
-      <q-badge v-else-if="item.status === 'saving'" class="c_badge">
-        <span class="txt">저장중</span>
-      </q-badge>
+    <CBadgeState :item="item" />
     </template>
     <!-- image -->
     <template #item-image="item">
@@ -72,10 +61,15 @@
       </div>
     </template>
   </EasyDataTable>
+  <Popup />
+
 </template>
 
 <script setup>
 import { ref } from "vue";
+
+import CBadgeState from "src/components/common/CBadgeState.vue";
+import Popup from "./UserSharedDetailPopup.vue";
 
 defineProps({
   imageList: Array,
@@ -139,4 +133,6 @@ const showRow = (item) => {
 
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+.vue3-easy-data-table[data-v-5814f6fe]{border: none;}
+</style>
