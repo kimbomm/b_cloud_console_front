@@ -59,6 +59,11 @@
 import { ref } from "vue";
 
 /* 팝업 */
+const chkAll = ref(true);
+const chk1 = ref(true);
+const chk2 = ref(true);
+const chk3 = ref(true);
+
 const itemImageName = ref("내이미지 01");
 const itemImageDesc = ref("내 이미지 테스트 01 (tensorflow 2.9.0, Karlo 테스트용)");
 const itemName = ref("카카오모빌리티 워크스페이스");

@@ -1,5 +1,6 @@
 <template>
   <q-page class="p-content p-images p-index">
+  <button @click="testButton">111</button>
     <div class="p-head">
       <q-breadcrumbs class="c_breadcrumb" gutter="none">
         <template v-slot:separator>
@@ -46,9 +47,9 @@
               <!-- 내이미지 -->
               <MyPage
                 :imageList="imageList"
-                :actionButtons="actionButtons"
-                @showRow="showRow"
-                @onActions="onActions"
+                @onShare="onShare"
+                @onDelete="onDelete"
+
               />
             </div>
             <div v-if="tab === 'baseTab'">
@@ -74,15 +75,8 @@
       </div>
     </div>
 
-    <!-- 내이미지공유관리팝업 -->
-
-    <q-btn class="c_btn line" @click="imageShareMngModal = true">
-      <span class="txt">이미지 - 내이미지 - 공유관리</span>
-    </q-btn>
-
-    <!-- Start : [내 이미지] 이미지 - 내이미지 - 공유관리 -->
-    <UserSharedDetailPopup v-model="imageShareMngModal" />
-    <!-- End : [내 이미지] 이미지 - 내이미지 - 공유관리 -->
+    <!-- 내 이미지 공유관리 팝업 -->
+    <Popup v-model="imageShareMngModal" />
   </q-page>
 </template>
 <script setup>
@@ -98,7 +92,7 @@ import MyPage from "./component/MyPage.vue";
 import BasicPage from "./component/BasicPage.vue";
 import SharedPage from "./component/SharedPage.vue";
 
-import UserSharedDetailPopup from "./component/UserSharedDetailPopup.vue";
+import Popup from "./component/UserSharedDetailPopup.vue";
 
 const route = useRoute();
 const { params } = route;
@@ -113,6 +107,29 @@ const optLabel = ref("10");
 const defaultData = ref(true);
 
 const imageList = ref([]);
+
+const testButton = () => {
+  imageList.value.push(
+    {
+      id: 3,
+      name: "common_image",
+      description: "common image",
+      status: "error",
+      base_image_name: "minimal-notebook(22.12.05, python3, test)",
+      tag: "b3ba43af",
+      created_at: "2023-02-07T23:16:40Z"
+    },
+    {
+      id: 3,
+      name: "common_image",
+      description: "common image",
+      status: "saving",
+      base_image_name: "minimal-notebook(22.12.05, python3, test)",
+      tag: "b3ba43af",
+      created_at: "2023-02-07T23:16:40Z"
+    },
+  );
+};
 
 /**
  * 설명 : object 안에 데이터 속성 명을 입력하면
@@ -156,7 +173,7 @@ const getBaseImge = async () => {
   }
 };
 
-// 공유받은 이미지 공유자 정보 이름(이메일)
+// 공유자 정보 이름(이메일) 형식으로 변경
 const setImagesWithSharedUser = (updatedImages) => {
   const extractSharedUser = (item) => {
     const { email, name } = item.shared_user;
@@ -211,20 +228,16 @@ const optNumber = ref([
 ]);
 
 /* 팝업 */
+
 const imageShareMngModal = ref(false);
 
-const actionButtons = [
-  { name: "공유관리", event: "share" },
-  { name: "삭제", event: "delete" },
-];
-
-const onActions = (eventName, rowData) => {
-  console.log("onActions", onActions);
-  console.log(eventName, rowData);
+const onShare = (item) => {
+  imageShareMngModal.value = true;
+  console.log("onShare", item);
 };
 
-const showRow = (item) => {
-  console.log("showRow", item);
+const onDelete = (item) => {
+  console.log("onShare", item);
 };
 
 </script>
