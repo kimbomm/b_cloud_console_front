@@ -14,7 +14,7 @@
     :suffix="suffix"
     @update:model-value="onUpdateInput"
   >
-    <template v-slot:prepend>
+    <template v-if="$slots.prepend" v-slot:prepend>
       <slot name="prepend" />
     </template>
     <template v-if="type === 'password'" v-slot:append>
@@ -24,7 +24,7 @@
         class="cursor-pointer"
         @click="onChangeVisible"
       />
-      <slot name="append" />
+      <slot v-if="$slots.append" name="append" />
     </template>
   </q-input>
 </template>

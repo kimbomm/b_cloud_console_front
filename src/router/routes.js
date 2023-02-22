@@ -143,7 +143,7 @@ const routes = [
       { path: "/workspace/:workspaceId/billing", component: () => import("pages/billing/IndexPage.vue") },
       { path: "/workspace/:workspaceId/billing/:billingId", component: () => import("pages/billing/BillingDetailPage.vue") },
       // 내정보
-      { path: "/workspace/:workspaceId/my", component: () => import("pages/my/IndexPage.vue") },
+      { path: "/workspace/:workspaceId/my", component: () => import("pages/workspace/my/IndexPage.vue") },
       // 관리
       { path: "/workspace/:workspaceId/manage/manage/project", component: () => import("pages/manage/ProjectPage.vue") },
       { path: "/manage/resource", component: () => import("pages/manage/InstancePage.vue") },

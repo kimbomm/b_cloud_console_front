@@ -52,6 +52,7 @@ module.exports = {
   rules: {
     'max-len': 'off', // disables line length check
     "comma-dangle": "off",
+    "consistent-return": "off",
     quotes: ["error", "double"],
     "no-underscore-dangle": "off",
     "no-restricted-globals": ["error", "event", "fdescribe"],
