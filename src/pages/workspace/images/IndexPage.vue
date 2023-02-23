@@ -288,9 +288,6 @@ const getTab = () => {
     getSharedImge();
   }
 };
-watch(tab, getTab);
-getTab();
-
 // n개씩 보기
 const optNumber = ref([
   { label: "10", value: 0 },
@@ -311,11 +308,6 @@ const popupState = reactive({
 const fetchCurrentSharedData = (item) => {
   popupState.currentSharedData = item;
 };
-
-watch(imageShareMngModal, () => {
-  myWorkspaceName.value = popupState.currentSharedData.base_image_name;
-  myProjecteName.value = popupState.currentSharedData.description;
-});
 
 const onShare = (item) => {
   imageShareMngModal.value = true;
@@ -387,6 +379,14 @@ const getSharedTargets = (e) => {
     shareOrUnshareWorkspaceImage(imgId, false);
   }
 };
+
+watch(tab, getTab);
+getTab();
+
+watch(imageShareMngModal, () => {
+  myWorkspaceName.value = popupState.currentSharedData.base_image_name;
+  myProjecteName.value = popupState.currentSharedData.description;
+});
 
 onBeforeMount(() => {
   getMyproject();
