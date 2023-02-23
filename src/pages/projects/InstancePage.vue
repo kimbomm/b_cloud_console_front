@@ -155,15 +155,13 @@
                   상태값(status)
                   1. running, 운영중
                   2. stopped, 정지
-                  3. error, 오류
-                  4. pending, 대기중
-                  5. stopping, 정지중
-                  6. deleting, 삭제중
-                  7. starting, 시작중
-                  8. unknown
+                  3. pending, 대기중
+                  4. stopping, 정지중
+                  5. deleting, 삭제중
+                  6. starting, 시작중
                   //TBD
-                  9. delete_cont, 삭제예정 D-n
-                  10. delete_day, 삭제예정 D-Day
+                  7. delete_cont, 삭제예정 D-n
+                  8. delete_day, 삭제예정 D-Day
                 -->
                 <template #item-status="item">
                   <q-badge
@@ -177,12 +175,6 @@
                     class="orange"
                   >
                     <span class="txt">정지</span>
-                  </q-badge>
-                  <q-badge
-                    v-else-if="item.status === 'error'"
-                    class="orange"
-                  >
-                    <span class="txt">오류</span>
                   </q-badge>
                   <q-badge
                     v-else-if="item.status === 'pending'"
@@ -219,12 +211,6 @@
                     class="orange"
                   >
                     <span class="txt">삭제예정 D-Day</span>
-                  </q-badge>
-                  <q-badge
-                    v-else
-                    class="c_badge"
-                  >
-                    <span class="txt">Unknown</span>
                   </q-badge>
                 </template>
                 <!-- ssh -->
@@ -334,34 +320,34 @@ const nDay = ref(7);
 
 const headers = [
   {
-    text: "ID", value: "id", width: 90, sortable: false, checkbox: true
+    text: "ID", value: "id", width: 75, sortable: false, checkbox: true
   },
   {
-    text: "이름", value: "title", width: 400, sortable: true
+    text: "이름", value: "title", width: 133, sortable: true
   },
   {
-    text: "상태", value: "status", width: 150, sortable: true
+    text: "상태", value: "status", width: 140, sortable: true
   },
   {
-    text: "ssh", value: "ssh", width: 90, sortable: false
+    text: "ssh", value: "ssh", width: 80, sortable: false
   },
   {
-    text: "JupyterLab", value: "jupyterLab", width: 140, sortable: false
+    text: "JupyterLab", value: "jupyterLab", width: 135, sortable: false
   },
   {
-    text: "인스턴스 타입", value: "instanceType", width: 140, sortable: true
+    text: "인스턴스 타입", value: "instanceType", width: 138, sortable: true
   },
   {
-    text: "GPU", value: "gpu", width: 80, sortable: false
+    text: "GPU", value: "gpu", width: 60, sortable: false
   },
   {
-    text: "CPU", value: "cpu", width: 80, sortable: false
+    text: "CPU", value: "cpu", width: 60, sortable: false
   },
   {
-    text: "생성일시", value: "createdAt", width: 170, sortable: true
+    text: "생성일시", value: "createdAt", width: 165, sortable: true
   },
   {
-    text: "생성자", value: "createdBy", width: 100, sortable: true
+    text: "생성자", value: "createdBy", width: 85, sortable: true
   },
   { text: "", value: "buttons", width: 80 },
 ];
@@ -405,47 +391,6 @@ const items = [
       gpus: 2,
       mem: 249856,
       zone: "public:normal",
-    }
-  },
-  {
-    id: 99999,
-    title: "A인스턴스A인스턴스A인스턴스A인 20자",
-    status: "group",
-    ssh: "ssh",
-    jupyterLab: "JupyterLab",
-    instanceType: "V1.XLARGE",
-    gpu: "49.5%",
-    cpu: "100%",
-    createdAt: "2023.01.12 10:33:21",
-    createdBy: "root.choi",
-    resource: {
-      cpus: 28,
-      gpu_device_model: "TESLA_V100",
-      gpus: 2,
-      mem: 249856,
-      zone: "public:normal",
-    }
-  },
-  {
-    id: 132,
-    title: "A인스턴스A인스턴스A인스턴스A인스턴스A인스턴스A인 30자",
-    status: "error",
-    ssh: "ssh",
-    jupyterLab: "JupyterLab",
-    instanceType: "V1.XLARGE",
-    gpu: "49.5%",
-    cpu: "100%",
-    createdAt: "2023.01.12 10:33:21",
-    createdBy: "root.choi",
-    resource: {
-      cpus: 28,
-      gpu_device_model: "TESLA_V100",
-      gpus: 2,
-      mem: 249856,
-      zone: "public:normal",
-    },
-    buttons: {
-      name: "초대요청 확인"
     }
   },
   {

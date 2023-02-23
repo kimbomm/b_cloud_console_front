@@ -251,13 +251,13 @@ const headers = [
     text: "이메일", value: "email", width: 300, sortable: true
   },
   {
-    text: "생성개수", value: "generated", width: 200, sortable: false
+    text: "생성개수", value: "generated", width: 150, sortable: false
   },
   {
-    text: "사용량", value: "usage", width: 200, sortable: true
+    text: "사용량", value: "usage", width: 150, sortable: true
   },
   {
-    text: "할당량", value: "quota", width: 200, sortable: true
+    text: "할당량", value: "quota", width: 150, sortable: true
   },
   { text: "", value: "buttons", width: 150 },
 ];

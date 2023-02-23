@@ -2,7 +2,6 @@
   <q-layout
     view="hHh Lpr lff"
     class="l-wrap l-guide"
-    :class="drawer ? '' : 'sm-sidemenu'"
   >
     <q-header class="l-header">
       <q-toolbar>
@@ -20,9 +19,10 @@
     </q-header>
 
     <q-drawer
-      v-model="drawer"
       class="l-sidebar"
+      show-if-above
       :width="316"
+      :mini-width="80"
     >
       <q-scroll-area class="fit">
         <q-list
@@ -187,7 +187,7 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+// import { ref } from "vue";
 import { useMeta } from "quasar";
 
 const metaData = {
@@ -195,20 +195,34 @@ const metaData = {
   titleTemplate: (title) => `${title} | Brain Cloud`,
 };
 useMeta(metaData);
-const drawer = ref(false);
+// const drawer = ref(true);
 </script>
 <style lang="scss" scoped>
-.h_title {
-  display: flex;
-  align-items: center;
-  font-size: $fs16;
-  line-height: 1.3;
-  letter-spacing: 0;
-  img {
-    vertical-align: middle;
+::v-deep{
+  .q-page-container {
+    padding-left: 316px !important;
   }
-  .tit {
-    margin-left: 20px;
+}
+.l-guide{
+  .h_title {
+    display: flex;
+    align-items: center;
+    font-size: $fs16;
+    line-height: 1.3;
+    letter-spacing: 0;
+    img {
+      vertical-align: middle;
+    }
+    .tit {
+      margin-left: 20px;
+    }
+  }
+
+  .menu-list{
+    max-width:100%;
+  }
+  .menu-link{
+    width:100%;
   }
 }
 </style>

@@ -185,8 +185,7 @@
 /* storage */
 .c_popover.storage_pop{
   max-width: 200px;
-  left:682.9px !important;
-  top:157px !important;
+  transform: translate(0.5%, -40%);
   .inner{
     &::after{top:55px;}
   }
@@ -195,12 +194,12 @@
 /* manage */
 .c_popover.manage_pj_pop{
   max-width: 290px;
+  transform: translate(-1.5%,40%);
   .inner{max-width: 290px;}
 }
 .c_popover.storage_popover{
   max-width: 269px;
-  top: 342px !important;
-  left: 361px !important;
+  transform: translate(0.6%,20%);
   .inner{max-width: 269px;}
 }
 

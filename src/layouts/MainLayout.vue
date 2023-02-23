@@ -1,5 +1,6 @@
 <template>
-  <q-layout view="hHh Lpr lff" class="l-wrap l-console" :class="drawer ? '' : 'sm-sidemenu'">
+  <!-- 해상도 1426 보다 작을 경우 class iconMode 추가 -->
+  <q-layout ref="input" view="hHh Lpr lff" class="l-wrap l-console" :class="drawer ? '' : 'iconMode'">
     <q-header class="l-header">
       <q-toolbar>
         <q-btn flat @click="drawer = !drawer" round dense icon="menu" class="c_icon menu" />
@@ -7,15 +8,18 @@
       </q-toolbar>
     </q-header>
 
-    <q-drawer
-      v-model="drawer"
-      show-if-above
-      class="l-sidebar"
-      :width="316"
-    >
-      <q-btn flat @click="drawer = !drawer" round dense icon="menu" class="c_icon menu" />
-      <side-bar />
-    </q-drawer>
+    <div class="drawer-side">
+      <q-drawer
+        class="l-sidebar"
+        v-model="drawer"
+        show-if-above
+        :width="316"
+        :mini-width="80"
+      >
+        <!-- <q-btn flat @click="drawer = !drawer" round dense icon="menu" class="c_icon menu" /> -->
+        <side-bar />
+      </q-drawer>
+    </div>
 
     <q-page-container class="l-container">
       <router-view />
@@ -27,6 +31,9 @@
 <script setup>
 import {
   ref,
+  onMounted,
+  onUnmounted,
+  onBeforeUnmount
   // watch
 } from "vue";
 import { useMeta } from "quasar";
@@ -44,6 +51,30 @@ const metaData = {
 };
 useMeta(metaData);
 const drawer = ref(false);
+
+const scrollFn = () => {
+  const rwdSize = ref(window.innerWidth);
+  const { body } = document;
+  if (rwdSize.value < 1426) {
+    body.classList.add("laptop");
+  } else {
+    body.classList.remove("laptop");
+  }
+  // console.log(rwdSize.value);
+};
+
+onBeforeUnmount(() => {
+  window.removeEventListener("resize", scrollFn);
+});
+
+onMounted(() => {
+  window.addEventListener("resize", scrollFn);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("resize", scrollFn);
+});
+
 // const route = useRoute();
 // const router = useRouter();
 

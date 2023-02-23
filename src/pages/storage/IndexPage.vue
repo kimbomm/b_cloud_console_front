@@ -306,25 +306,25 @@ const optNumber = ref([
 
 const headers = [
   {
-    text: "이름", value: "title", width: 240, sortable: true
+    text: "이름", value: "title", width: 180, sortable: true
   },
   {
-    text: "설명", value: "description", width: 240, sortable: false
+    text: "설명", value: "description", width: 180, sortable: false
   },
   {
-    text: "소유자", value: "user", width: 190, sortable: true
+    text: "소유자", value: "user", width: 150, sortable: true
   },
   {
-    text: "상태", value: "status", width: 150, sortable: false
+    text: "상태", value: "status", width: 120, sortable: false
   },
   {
-    text: "사용량", value: "usingData", width: 180, sortable: true
+    text: "사용량", value: "usingData", width: 150, sortable: true
   },
   {
-    text: "생성일시", value: "createdAt", width: 180, sortable: false
+    text: "생성일시", value: "createdAt", width: 170, sortable: false
   },
   {
-    text: "접근권한", value: "authority", width: 180, sortable: false
+    text: "접근권한", value: "authority", width: 120, sortable: false
   },
   { text: "", value: "buttons", width: 80 },
 ];

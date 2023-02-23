@@ -198,15 +198,15 @@ const createDate = ref("2023.11.21 04:33pm");
 // const nodata = [];
 const headers = [
   {
-    text: "이름", value: "name", width: 240, sortable: false
+    text: "이름", value: "name", width: 100, sortable: false
   },
   {
-    text: "Fingerprint", value: "finger", sortable: false
+    text: "Fingerprint", value: "finger", width: 200, sortable: false
   },
   {
-    text: "등록일시", value: "registDate", sortable: false
+    text: "등록일시", value: "registDate", width: 120, sortable: false
   },
-  { text: "", value: "buttons", width: 50 },
+  { text: "", value: "buttons", width: 100 },
 ];
 const items = [
   {

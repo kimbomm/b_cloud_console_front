@@ -20,170 +20,172 @@
     <div class="p-body">
       <div class="wrap">
         <div class="manage_main_head">
-          <ul class="main_box">
-            <li class="box_list01">
-              <div class="mmh_cont01 mmh_com">
-                <div class="cont_head">
-                  <h3>
-                    <i class="ico cpu" />
-                  </h3>
+          <div class="scroll_x">
+            <ul class="main_box">
+              <li class="box_list01">
+                <div class="mmh_cont01 mmh_com">
+                  <div class="cont_head">
+                    <h3>
+                      <i class="ico cpu" />
+                    </h3>
 
-                  <div class="cont_head_inner">
-                    <p class="head_txt">CPU 할당량</p>
+                    <div class="cont_head_inner">
+                      <p class="head_txt">CPU 할당량</p>
+                    </div>
+                  </div>
+                  <div class="cont_main">
+                    <p class="percentage_txt">
+                      <span class="now_percentage">1345</span>/ 2500
+                    </p>
+                  </div>
+                  <div class="cont_footer">
+                    <p class="progress_percentage_txt">75%</p>
+                    <div class="progress_bar_area">
+                      <progress
+                        value="75"
+                        max="100"
+                      />
+                    </div>
                   </div>
                 </div>
-                <div class="cont_main">
-                  <p class="percentage_txt">
-                    <span class="now_percentage">1345</span>/ 2500
-                  </p>
-                </div>
-                <div class="cont_footer">
-                  <p class="progress_percentage_txt">75%</p>
-                  <div class="progress_bar_area">
-                    <progress
-                      value="75"
-                      max="100"
-                    />
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li class="box_list02">
-              <div class="mmh_cont02 mmh_com">
-                <div class="cont_head">
-                  <h3>
-                    <i class="ico cpu" />
-                  </h3>
+              </li>
+              <li class="box_list02">
+                <div class="mmh_cont02 mmh_com">
+                  <div class="cont_head">
+                    <h3>
+                      <i class="ico cpu" />
+                    </h3>
 
-                  <div class="cont_head_inner">
-                    <p class="head_txt">Tesla V100 할당량</p>
+                    <div class="cont_head_inner">
+                      <p class="head_txt">Tesla V100 할당량</p>
+                    </div>
+                  </div>
+                  <div class="cont_main">
+                    <p class="percentage_txt">
+                      <span class="now_percentage">32</span>/ 500
+                    </p>
+                  </div>
+                  <div class="cont_footer">
+                    <p class="progress_percentage_txt">75%</p>
+                    <div class="progress_bar_area">
+                      <progress
+                        value="75"
+                        max="100"
+                      />
+                    </div>
                   </div>
                 </div>
-                <div class="cont_main">
-                  <p class="percentage_txt">
-                    <span class="now_percentage">32</span>/ 500
-                  </p>
-                </div>
-                <div class="cont_footer">
-                  <p class="progress_percentage_txt">75%</p>
-                  <div class="progress_bar_area">
-                    <progress
-                      value="75"
-                      max="100"
-                    />
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li class="box_list03">
-              <div class="mmh_cont03 mmh_com">
-                <div class="cont_head">
-                  <h3>
-                    <i class="ico cpu" />
-                  </h3>
+              </li>
+              <li class="box_list03">
+                <div class="mmh_cont03 mmh_com">
+                  <div class="cont_head">
+                    <h3>
+                      <i class="ico cpu" />
+                    </h3>
 
-                  <div class="cont_head_inner">
-                    <p class="head_txt">Tesla A100_40G 할당량</p>
+                    <div class="cont_head_inner">
+                      <p class="head_txt">Tesla A100_40G 할당량</p>
+                    </div>
+                  </div>
+                  <div class="cont_main">
+                    <p class="percentage_txt">
+                      <span class="now_percentage">122</span>/ 400
+                    </p>
+                  </div>
+                  <div class="cont_footer">
+                    <p class="progress_percentage_txt">12%</p>
+                    <div class="progress_bar_area">
+                      <progress
+                        value="75"
+                        max="100"
+                      />
+                    </div>
                   </div>
                 </div>
-                <div class="cont_main">
-                  <p class="percentage_txt">
-                    <span class="now_percentage">122</span>/ 400
-                  </p>
-                </div>
-                <div class="cont_footer">
-                  <p class="progress_percentage_txt">12%</p>
-                  <div class="progress_bar_area">
-                    <progress
-                      value="75"
-                      max="100"
-                    />
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li class="box_list04">
-              <div class="mmh_cont04 mmh_com">
-                <div class="cont_head">
-                  <h3>
-                    <i class="ico cpu" />
-                  </h3>
+              </li>
+              <li class="box_list04">
+                <div class="mmh_cont04 mmh_com">
+                  <div class="cont_head">
+                    <h3>
+                      <i class="ico cpu" />
+                    </h3>
 
-                  <div class="cont_head_inner">
-                    <p class="head_txt">Tesla A100_80G 할당량</p>
+                    <div class="cont_head_inner">
+                      <p class="head_txt">Tesla A100_80G 할당량</p>
+                    </div>
+                  </div>
+                  <div class="cont_main">
+                    <p class="percentage_txt">
+                      <span class="now_percentage">43</span>/ 300
+                    </p>
+                  </div>
+                  <div class="cont_footer">
+                    <p class="progress_percentage_txt">75%</p>
+                    <div class="progress_bar_area">
+                      <progress
+                        value="75"
+                        max="100"
+                      />
+                    </div>
                   </div>
                 </div>
-                <div class="cont_main">
-                  <p class="percentage_txt">
-                    <span class="now_percentage">43</span>/ 300
-                  </p>
-                </div>
-                <div class="cont_footer">
-                  <p class="progress_percentage_txt">75%</p>
-                  <div class="progress_bar_area">
-                    <progress
-                      value="75"
-                      max="100"
-                    />
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li class="box_list03">
-              <div class="mmh_cont03 mmh_com">
-                <div class="cont_head">
-                  <h3>
-                    <i class="ico cpu" />
-                  </h3>
+              </li>
+              <li class="box_list03">
+                <div class="mmh_cont03 mmh_com">
+                  <div class="cont_head">
+                    <h3>
+                      <i class="ico cpu" />
+                    </h3>
 
-                  <div class="cont_head_inner">
-                    <p class="head_txt">Tesla A100_40G 할당량</p>
+                    <div class="cont_head_inner">
+                      <p class="head_txt">Tesla A100_40G 할당량</p>
+                    </div>
+                  </div>
+                  <div class="cont_main">
+                    <p class="percentage_txt">
+                      <span class="now_percentage">122</span>/ 400
+                    </p>
+                  </div>
+                  <div class="cont_footer">
+                    <p class="progress_percentage_txt">12%</p>
+                    <div class="progress_bar_area">
+                      <progress
+                        value="75"
+                        max="100"
+                      />
+                    </div>
                   </div>
                 </div>
-                <div class="cont_main">
-                  <p class="percentage_txt">
-                    <span class="now_percentage">122</span>/ 400
-                  </p>
-                </div>
-                <div class="cont_footer">
-                  <p class="progress_percentage_txt">12%</p>
-                  <div class="progress_bar_area">
-                    <progress
-                      value="75"
-                      max="100"
-                    />
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li class="box_list04">
-              <div class="mmh_cont04 mmh_com">
-                <div class="cont_head">
-                  <h3>
-                    <i class="ico cpu" />
-                  </h3>
+              </li>
+              <li class="box_list04">
+                <div class="mmh_cont04 mmh_com">
+                  <div class="cont_head">
+                    <h3>
+                      <i class="ico cpu" />
+                    </h3>
 
-                  <div class="cont_head_inner">
-                    <p class="head_txt">Tesla A100_80G 할당량</p>
+                    <div class="cont_head_inner">
+                      <p class="head_txt">Tesla A100_80G 할당량</p>
+                    </div>
+                  </div>
+                  <div class="cont_main">
+                    <p class="percentage_txt">
+                      <span class="now_percentage">43</span>/ 300
+                    </p>
+                  </div>
+                  <div class="cont_footer">
+                    <p class="progress_percentage_txt">75%</p>
+                    <div class="progress_bar_area">
+                      <progress
+                        value="75"
+                        max="100"
+                      />
+                  </div>
                   </div>
                 </div>
-                <div class="cont_main">
-                  <p class="percentage_txt">
-                    <span class="now_percentage">43</span>/ 300
-                  </p>
-                </div>
-                <div class="cont_footer">
-                  <p class="progress_percentage_txt">75%</p>
-                  <div class="progress_bar_area">
-                    <progress
-                      value="75"
-                      max="100"
-                    />
-                </div>
-                </div>
-              </div>
-            </li>
-          </ul>
+              </li>
+            </ul>
+          </div>
         </div>
         <div class="manage_main_area">
           <div class="table_set">
@@ -264,6 +266,14 @@
               <template #item-desc="item">
                 <a href="#">
                   <span class="txt">{{ item.desc }}</span>
+                  <q-tooltip
+                    anchor="bottom middle"
+                    class="c_tooltip"
+                  >
+                    <div class="inner">
+                      {{ item.desc }}
+                    </div>
+                  </q-tooltip>
                 </a>
               </template>
               <!--
@@ -656,25 +666,25 @@ const options = ref([
 
 const mngTaskHeader = [
   {
-    text: "프로젝트 이름", value: "title", width: 300, sortable: true
+    text: "프로젝트 이름", value: "title", width: 160, sortable: true
   },
   {
-    text: "프로젝트 설명", value: "desc", sortable: false
+    text: "프로젝트 설명", value: "desc", width: 250, sortable: false
   },
   {
     text: "할당량 설정", value: "status", width: 130, sortable: true
   },
   {
-    text: "GPU", value: "gpu", width: 150, sortable: true
+    text: "GPU", value: "gpu", width: 130, sortable: true
   },
   {
-    text: "V100", value: "v100", width: 150, sortable: true
+    text: "V100", value: "v100", width: 130, sortable: true
   },
   {
-    text: "A100_400G", value: "g400", width: 150, sortable: true
+    text: "A100_400G", value: "g400", width: 130, sortable: true
   },
   {
-    text: "A100_80G", value: "g80", width: 150, sortable: true
+    text: "A100_80G", value: "g80", width: 130, sortable: true
   },
   { text: "", value: "buttons", width: 80 },
 ];
