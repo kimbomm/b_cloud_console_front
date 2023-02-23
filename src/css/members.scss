@@ -227,7 +227,9 @@
   &.p-index{
     .p-body{
       // 멤버 - 메인(워크스페이스 관리자)
+      .section{margin-top: 20px;}
       .table-set{
+        .member-input{width: 292px;}
         .set{display: flex; align-items: center; }
         .set-l{
           &_left{
@@ -315,7 +317,7 @@
           }
         }
         &_stor{
-          .q-input.inp_unit{background-color: $bg;}
+          .q-input.inp_unit{background-color: $bg; font-size: $fs16;}
           .c_inpgroup{margin-bottom: 16px;}
           .amount{
             display: flex; justify-content: space-between; align-items: center;
@@ -365,6 +367,41 @@
           margin-bottom: 24px;
           color: $gray500; font-size: $fs16;
         }
+      }
+      .p-tWrap{
+        display: flex;
+        > p{
+          margin: 0 24px 24px 0;
+          width: 216px;
+          color: $gray500; font-size: $fs16;
+          &:last-child{margin: 0 24px 0 0;}
+        }
+      }
+      .sel-wrap{
+        display: flex; align-items: center;
+        margin-bottom: 24px;
+        &:last-child{
+          margin-bottom: 0;
+        }
+        .w216{
+          margin-right: 24px;
+          width: 216px;
+          &:last-child{margin-right: 0;}
+        }
+        .w250{
+          position: relative;
+          width: 250px;
+        }
+        .sel-title{
+          margin-right: 84px;
+          width: 156px;
+          font-size: $fs16;
+        }
+      }
+      .error-txt{
+        position: absolute;
+        bottom: 19px; left: 240px;
+        color: $red; font-size: $fs14;
       }
       .line{
         position: relative;
