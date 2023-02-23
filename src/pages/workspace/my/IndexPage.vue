@@ -69,9 +69,11 @@
             <p class="sub_title">이름</p>
             <div class="c_inpgroup">
               <c-input-text
+                ref="userName"
                 v-model:value="modifyInfo.name"
-                placeholder="최소 2자 최대 30자 입력 "
+                placeholder="이름을 입력해주세요"
                 class="wsize608"
+                :rules="nameRules"
                 clearable
                 outlined
               />
@@ -80,23 +82,19 @@
           <section class="section">
             <p class="sub_title">소개</p>
             <div class="c_inpgroup">
-              <q-input
-                outlined
-                v-model="modifyInfo.description"
-                bottom-slots
+              <c-input-text
+                ref="userName"
+                v-model:value="modifyInfo.description"
+                placeholder="소개글을 입력해주세요"
                 type="textarea"
-                placeholder="최대 100자 입력"
-                clearable
-                counter
-                :count="10"
-                maxlength="100"
                 class="wsize_full hsize136"
-                :input-style="{height: '100%'}"
-              >
-                <!-- <template v-slot:hint>
-                    Description
-                  </template> -->
-              </q-input>
+                :bottom-slots="true"
+                :maxlength="100"
+                :counter="true"
+                :input-style="{ height: '100%' }"
+                clearable
+                outlined
+              />
             </div>
           </section>
           <div class="c_btngroup f_end">
@@ -168,6 +166,7 @@
               <q-item-label class="info">
                 <div class="stg_progress">
                   <div class="state">
+                    <!-- TODO: 스토리지 API 개발중 -->
                     <span class="start">150GiB</span>
                     <span class="end">200GiB</span>
                   </div>
@@ -281,6 +280,7 @@ const ptitle = ref(title);
 const route = useRoute();
 const { workspaceId } = route.params;
 
+const userName = ref(null);
 const tabModel = ref("my");
 const editInfoModel = ref(false);
 // const helpShow = ref(false);
@@ -316,21 +316,32 @@ const userInfo = ref({
 });
 const userProjects = ref([]);
 
-const getUserInfo = async () => {
+const nameRules = [
+  (value) => (!!value) || "이름을 입력해주세요",
+  (value) => (value.length <= 30 && value.length >= 2) || "2자 최대 30자로 입력해주세요",
+];
+const getMe = async () => {
   try {
     const me = await UserService.getMe();
+    userInfo.value.user = me;
+    modifyInfo.value.description = {
+      name: me.name,
+      description: me.description,
+    };
+    return me;
+  } catch (e) {
+    console.log(e);
+    return false;
+  }
+};
+const getUserInfo = async () => {
+  try {
+    const me = await getMe();
     const [myInfo, projects] = await Promise.all([
       WorkspaceService.getMemberInfo(workspaceId, me.id),
       ProjectService.getUserProjects(workspaceId, me.id),
     ]);
-    userInfo.value = {
-      user: me,
-      workspace_info: myInfo.workspace_info,
-    };
-    modifyInfo.value = {
-      name: me.name,
-      description: me.description,
-    };
+    userInfo.value.workspace_info = myInfo.workspace_info;
     userProjects.value = projects.projects;
   } catch (e) {
     console.log(e);
@@ -349,12 +360,18 @@ const onEditStart = () => {
 const onEditSave = async (isSave) => {
   if (!isSave) {
     editInfoModel.value = false;
-  } else {
+  } else if (isSave) {
+    if (userName.value.getHasError) {
+      return false;
+    }
     const params = {
       id: userInfo.value.user.id,
       body: modifyInfo.value
     };
     await UserService.updateMe(params);
+    await getMe().then(() => {
+      editInfoModel.value = false;
+    });
   }
 };
 
