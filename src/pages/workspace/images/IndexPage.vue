@@ -44,7 +44,7 @@
           <section class="section">
             <div v-if="tab === 'myTab'">
               <!-- 내이미지 -->
-              <MyPage :imageList="imageList" @onShare="onShare" @onDelete="onImageDeleteAlert"
+              <MyPage :imageList="imageList" @onShare="onShare" @onDelete="onDelete"
               :getRowSelectedImage="getRowSelectedImage" @update:getRowSelectedImage="handleRowDataClick"
 
               />
@@ -109,10 +109,11 @@
                       innerProject.description
                     }}</q-item-label>
                   </q-item-section>
+
                   <q-checkbox
                     class="c_checkbox"
                     v-model="innerProject.checked"
-                    @click="handleSharedTargetClick(innerProject)"
+                    @click.stop="handleSharedTargetClick(e)"
                   />
                 </q-item>
               </template>
@@ -128,6 +129,7 @@
   </q-dialog>
   <!-- End : [내 이미지] 이미지 - 내이미지 - 공유관리 -->
 
+<!-- 공유 리스트 삭제 버튼 클릭 시  -->
   <YesNoPopup
     title="이미지를 삭제하시겠습니까?"
     v-model="isDeleteAlert"
@@ -136,6 +138,16 @@
     @handleDeleteClick="handleDeleteClick"
   >
   </YesNoPopup>
+
+<!-- 이미지 공유 실패시 -->
+  <!-- <YesNoPopup
+    title="이미지를 삭제하시겠습니까?"
+    v-model="isDeleteAlert"
+    state="delete"
+    :info="deleteAlertTitle"
+    @handleDeleteClick="handleDeleteClick"
+  >
+  </YesNoPopup> -->
 </template>
 <script setup>
 import {
@@ -339,40 +351,50 @@ const isDeleteAlert = ref(false);
 const deleteAlertTitle = ref("");
 
 // 삭제버튼 alert
-const onImageDeleteAlert = async () => {
+const onDelete = async () => {
   isDeleteAlert.value = true;
   deleteAlertTitle.value = popupState.currentSharedImageData.name;
 };
 
 const triggerSuccess = () => {
   $useCmFn.onNotify({
-    message: "인스턴스 생성이 완료 되었습니다.",
+    message: "이미지가 삭제되었습니다.",
     type: "positive",
   });
 };
 
 const triggerWarning = () => {
   $useCmFn.onNotify({
-    message: "인스턴스 생성에 실패했습니다.",
+    message: "이미지 삭제를 실패하였습니다. 다시 시도해주세요.",
     type: "negative",
   });
 };
 const handleDeleteClick = (value) => {
   if (value) {
     triggerSuccess();
+    getMyImge();
   } else {
     triggerWarning();
   }
 };
 
 const mySharedProjects = ref({});
+
 // 내 워크스페이스의 소속 프로젝트 리스트와 결합
 const makeMyProjectList = async (projects) => {
   const promises = (await projects?.map(() => ProjectService.getListProject(workspaceId))) ?? [];
-  console.log("promisespromisespromises", promises);
   const responses = await Promise.all(promises);
+
+  const updatedResponses = responses.map((item) => ({
+    ...item,
+    projects: item.projects.map((project) => ({
+      ...project,
+      checked: false
+    }))
+  }));
+
   const projectArrays = projects.map((project, index) => ({
-    ...responses[index],
+    ...updatedResponses[index],
     ...project,
   }));
   mySharedProjects.value = projectArrays;
@@ -421,15 +443,17 @@ const shareOrUnshareWorkspaceImage = async (imgId, share) => {
 };
 // 공유 이미지 리스트 클릭시
 const handleSharedTargetClick = (e) => {
-  const imgId = e.id;
+  console.log("event", e);
+  console.log("shareOrUnshareWorkspaceImage", shareOrUnshareWorkspaceImage);
 
-  if (e.checked) {
-    console.log("checked true");
-    shareOrUnshareWorkspaceImage(imgId, true);
-  } else {
-    console.log("checked fase");
-    shareOrUnshareWorkspaceImage(imgId, false);
-  }
+  // 데이터 공유
+  // if (e.checked) {
+  //   console.log("checked true");
+  //   shareOrUnshareWorkspaceImage(imgId, true);
+  // } else {
+  //   console.log("checked fase");
+  //   shareOrUnshareWorkspaceImage(imgId, false);
+  // }
 };
 
 </script>
