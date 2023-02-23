@@ -115,6 +115,18 @@
             empty-message="정보가 없습니다."
             @click-row="showRow"
           >
+            <!-- name -->
+            <template #item-name="item">
+              <span class="txt">{{ item.name }}</span>
+            </template>
+            <!-- email -->
+            <template #item-email="item">
+              <span class="txt">{{ item.email }}</span>
+            </template>
+            <!-- useageFee -->
+            <template #item-useageFee="item">
+              <span class="txt">{{ item.useageFee }}</span>
+            </template>
           </EasyDataTable>
         </section>
         <div class="group-page">

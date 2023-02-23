@@ -21,11 +21,13 @@
       <div class="p-detail-head">
         <h1 class="p-title">{{ ptitle }}</h1>
         <div class="resource_employ_btn">
-          <CButton
-            :size-types="2"
-            :btn-types="5"
-            :btn-names="btnName"
-          />
+          <q-btn
+            btnTypes=4
+            type="button"
+            class="c_btn line medium"
+          >
+            <i class="ico plus" /><span class="txt">리소스 사용이력</span>
+          </q-btn>
         </div>
       </div>
     </div>
@@ -108,6 +110,10 @@
             empty-message="정보가 없습니다."
             @click-row="showRow"
           >
+            <!-- phName -->
+            <template #item-phName="item">
+              <span class="txt clip">{{ item.phName }}</span>
+            </template>
             <!-- title -->
             <template #item-title="item">
               <a href="#">
@@ -204,20 +210,32 @@
             <!-- 인스턴스 타입 -->
             <template #item-instanceType="item">
               <q-badge
-                class="text instance icon"
+                class="text instance"
                 @click="onCopy(item)"
               >
-                <span class="txt">{{ item.instanceType }}</span>
-
-                <q-tooltip
-                  anchor="bottom middle"
-                  class="c_tooltip"
-                >
-                  <div class="inner">
-                    {{ item.instanceType }}
-                  </div>
-                </q-tooltip>
+                <span class="txt">{{ item.instanceType }}<i class="ico details">
+                  <q-tooltip
+                    anchor="bottom middle"
+                    class="c_tooltip insTypeTool"
+                  >
+                    <div class="inner">
+                      {{ item.instanceType }}
+                    </div>
+                  </q-tooltip></i>
+                </span>
               </q-badge>
+            </template>
+            <!-- cpu -->
+            <template #item-cpu="item">
+              <span class="txt">{{ item.cpu }}</span>
+            </template>
+            <!-- gpu -->
+            <template #item-gpu="item">
+              <span class="txt">{{ item.gpu }}</span>
+            </template>
+            <!-- createdAt -->
+            <template #item-createdAt="item">
+              <span class="txt clip">{{ item.createdAt }}</span>
             </template>
             <!-- createdBy -->
             <template #item-createdBy="item">
@@ -262,7 +280,6 @@
 <script setup>
 import { ref } from "vue";
 import { useMeta } from "quasar";
-import CButton from "components/common/CButton.vue";
 import CDropdown from "components/common/CDropdown.vue";
 import CPagination from "components/common/CPagination.vue";
 
@@ -293,7 +310,6 @@ const optNumber3 = ref([
 ]);
 
 const ptitle = ref(title);
-const btnName = ref("리소스 사용이력");
 const tab = ref("tabs1");
 const optLabel = ref("10");
 const optLabel2 = ref("프로젝트 전체");
@@ -301,41 +317,41 @@ const optLabel3 = ref("상태 전체");
 
 const headers = [
   {
-    text: "프로젝트 이름", value: "phName", width: 150, sortable: false, checkbox: true
+    text: "프로젝트 이름", value: "phName", width: 131, sortable: false, checkbox: true
   },
   {
-    text: "인스턴스 이름", value: "title", width: 300, sortable: true
+    text: "인스턴스 이름", value: "title", width: 138, sortable: true
   },
   {
-    text: "상태", value: "status", width: 120, sortable: true
+    text: "상태", value: "status", width: 105, sortable: true
   },
   {
     text: "ssh", value: "ssh", width: 80, sortable: false
   },
   {
-    text: "JupyterLab", value: "jupyterLab", width: 150, sortable: false
+    text: "JupyterLab", value: "jupyterLab", width: 135, sortable: false
   },
   {
-    text: "인스턴스 타입", value: "instanceType", width: 140, sortable: true
+    text: "인스턴스 타입", value: "instanceType", width: 138, sortable: true
   },
   {
-    text: "GPU", value: "gpu", width: 80, sortable: false
+    text: "GPU", value: "gpu", width: 60, sortable: false
   },
   {
-    text: "CPU", value: "cpu", width: 80, sortable: false
+    text: "CPU", value: "cpu", width: 54, sortable: false
   },
   {
-    text: "생성일시", value: "createdAt", width: 180, sortable: true
+    text: "생성일시", value: "createdAt", width: 145, sortable: true
   },
   {
-    text: "생성자", value: "createdBy", width: 120, sortable: true
+    text: "생성자", value: "createdBy", width: 86, sortable: true
   },
   { text: "", value: "buttons", width: 80 },
 ];
 const items = [
   {
     phName: "aa프로젝트",
-    title: "A인스턴스A인스턴스A인스턴스A인스턴스A인스턴스A인 30자",
+    title: "A인스턴스A인스턴스A인스턴스A인스턴스A인스턴스A인A인스턴스A인스턴스A인스턴스A인스턴스A인스턴스A인A인스턴스A인스턴스A인스턴스A인스턴스A인스턴스A인 30자",
     status: "running",
     ssh: "ssh",
     jupyterLab: "JupyterLab",
@@ -395,7 +411,7 @@ const items = [
   },
   {
     phName: "aa프로젝트",
-    title: "A인스턴스A인스턴스A인스턴스A인스턴스A인스턴스A인 30자",
+    title: "A인스턴스A인스턴스A인스턴스A인스턴스A인스턴스A인A인스턴스A인스턴스A인스턴스A인스턴스A인스턴스A인 30자",
     status: "error",
     ssh: "ssh",
     jupyterLab: "JupyterLab",

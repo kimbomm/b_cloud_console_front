@@ -69,20 +69,46 @@
             :body-row-class-name="bodyRowClassNameFunction"
             empty-message="정보가 없습니다."
           >
-            <!-- 회원가입 미완료 -->
-            <template #item-status="item">
-              <q-badge
-              v-if="item.status === 'incomplete'"
-              class="c_badge"
-              >
-                <span class="txt">회원가입 미완료</span>
-              </q-badge>
-              <q-badge
-              v-else
-              class="disNone"
-              >
-                <span class="txt">회원가입 완료</span>
-              </q-badge>
+            <!-- name -->
+            <template #item-name="item">
+              <template v-if="item.name.join == true">
+                <div class="j-badge">
+                  <span class="txt">{{ item.name.title }}</span>
+                </div>
+              </template>
+              <template v-else>
+                <div class="j-badge">
+                  <span class="txt noJoin">{{ item.name.title }}</span>
+                  <span class="n_join_badge">회원가입 미완료</span>
+                </div>
+              </template>
+            </template>
+            <!-- email -->
+            <template #item-email="item">
+              <template v-if="item.name.join == true">
+                <span class="txt">{{ item.email }}</span>
+              </template>
+              <template v-else>
+                <span class="txt noJoin">{{ item.email }}</span>
+              </template>
+            </template>
+            <!-- workspaceChar -->
+            <template #item-workspaceChar="item">
+              <template v-if="item.name.join == true">
+                <span class="txt">{{ item.workspaceChar }}</span>
+              </template>
+              <template v-else>
+                <span class="txt noJoin">{{ item.workspaceChar }}</span>
+              </template>
+            </template>
+            <!-- introduce -->
+            <template #item-introduce="item">
+              <template v-if="item.name.join == true">
+                <span class="txt">{{ item.introduce }}</span>
+              </template>
+              <template v-else>
+                <span class="txt noJoin">{{ item.introduce }}</span>
+              </template>
             </template>
             <!-- 버튼 그룹 -->
             <template #item-buttons="item">
@@ -99,7 +125,7 @@
           </EasyDataTable>
         </section>
         <!-- //Table -->
-        <div class="group">
+        <div class="table_pagenav disflex_C">
           <CPagination />
         </div>
       </template>
@@ -153,22 +179,26 @@
             empty-message="정보가 없습니다."
             @click-row="showRow"
           >
-            <!-- 버튼 그룹 -->
-            <template #item-buttons="item">
-              <div v-if="actionButtons || item.buttons" class="cell btngroup">
-                <!-- 초대 요청 확인 -->
-                <q-btn
-                  v-if="item.buttons"
-                  class="c_btn disNone"
-                >
-                  <span class="txt">{{ item.buttons.name }}</span>
-                </q-btn>
-              </div>
-            </template>
+          <!-- name -->
+          <template #item-name="item">
+            <span class="txt">{{ item.name.title }}</span>
+          </template>
+          <!-- email -->
+          <template #item-email="item">
+            <span class="txt">{{ item.email }}</span>
+          </template>
+          <!-- workspaceChar -->
+          <template #item-workspaceChar="item">
+            <span class="txt">{{ item.workspaceChar }}</span>
+          </template>
+          <!-- introduce -->
+          <template #item-introduce="item">
+            <span class="txt">{{ item.introduce }}</span>
+          </template>
           </EasyDataTable>
         </section>
         <!-- //Table -->
-        <div class="group">
+        <div class="table_pagenav disflex_C">
           <CPagination />
         </div>
       </template>
@@ -220,35 +250,34 @@ const headers = [
   {
     text: "소개", value: "introduce", sortable: false
   },
-  { text: "", value: "buttons" },
 ];
 const items = [
   {
-    name: "billing",
+    name: {
+      title: "billing",
+      join: false
+    },
     email: "billing@workspace1.com",
     workspaceChar: "정산 관리자",
     introduce: "안녕하세요",
-    buttons: {
-      name: "초대요청 확인"
-    }
   },
   {
-    name: "liv.olive",
+    name: {
+      title: "liv.olive",
+      join: true
+    },
     email: "billing@workspace1.com",
     workspaceChar: "정산 관리자",
     introduce: "00담당자 입니다.",
-    // buttons: {
-    //   name: "초대요청 확인"
-    // }
   },
   {
-    name: "Test",
-    email: "test@gmail.com",
+    name: {
+      title: "Test",
+      join: true
+    },
+    email: "test@workspace1.com",
     workspaceChar: "워크스페이스 멤버",
     introduce: "-",
-    // buttons: {
-    //   name: "초대요청 확인"
-    // }
   },
 ];
 

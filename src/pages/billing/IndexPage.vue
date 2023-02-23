@@ -109,27 +109,43 @@
                 <span class="txt">{{ item.title }}</span>
               </a>
             </template>
+            <!-- service -->
+            <template #item-service="item">
+              <span class="txt">{{ item.service }}</span>
+            </template>
             <!-- 인스턴스 타입 -->
             <template #item-instanceType="item">
               <q-badge
-                class="text instance icon"
+                class="text instance"
                 @click="onCopy(item)"
               >
-                <span class="txt">{{ item.instanceType }}</span>
-
-                <q-tooltip
-                  anchor="bottom middle"
-                  class="c_tooltip"
-                >
-                  <div class="inner">
-                    {{ item.instanceType }}
-                  </div>
-                </q-tooltip>
+                <span class="txt">{{ item.instanceType }}<i class="ico details">
+                  <q-tooltip
+                    anchor="bottom middle"
+                    class="c_tooltip insTypeTool"
+                  >
+                    <div class="inner">
+                      {{ item.instanceType }}
+                    </div>
+                  </q-tooltip></i>
+                </span>
               </q-badge>
             </template>
-            <!-- createdBy -->
-            <template #item-createdBy="item">
-              <span class="txt clip">{{ item.createdBy }}</span>
+            <!-- startTime -->
+            <template #item-startTime="item">
+              <span class="txt">{{ item.startTime }}</span>
+            </template>
+            <!-- endTime -->
+            <template #item-endTime="item">
+              <span class="txt">{{ item.endTime }}</span>
+            </template>
+            <!-- usageTime -->
+            <template #item-usageTime="item">
+              <span class="txt">{{ item.usageTime }}</span>
+            </template>
+            <!-- pay -->
+            <template #item-pay="item">
+              <span class="txt">{{ item.pay }}</span>
             </template>
           </EasyDataTable>
         </section>

@@ -30,6 +30,10 @@
             empty-message="정보가 없습니다."
             @click-row="showRow"
           >
+            <!-- type -->
+            <template #item-type="item">
+              <span class="txt">{{ item.type }}</span>
+            </template>
             <!-- title -->
             <template #item-title="item">
             <a href="#">
@@ -43,6 +47,10 @@
             </div>
             </q-tooltip>
             </a>
+            </template>
+            <!-- inquiry -->
+            <template #item-inquiry="item">
+              <span class="txt">{{ item.inquiry }}</span>
             </template>
             <!--
             상태값(replyStatus)

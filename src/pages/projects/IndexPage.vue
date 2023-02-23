@@ -16,7 +16,7 @@
           label="Test Project"
           to="/"
         />
-        <q-breadcrumbs-el label="인스턴스" />
+        <q-breadcrumbs-el label="멤버" />
       </q-breadcrumbs>
       <h1 class="p-title">
         {{ ptitle }}
@@ -99,11 +99,14 @@
 
               <div class="r_set_inner">
                 <div class="instance_make_btn">
-                  <CButton
-                    :size-types="2"
-                    :btn-types="4"
-                    :btn-names="'멤버 추가하기'"
-                  />
+                  <q-btn
+                    btnTypes=4
+                    type="button"
+                    class="c_btn line medium"
+                    @click="projectMemberAddModal = true"
+                  >
+                    <span class="txt">멤버 추가하기</span>
+                  </q-btn>
                 </div>
 
                 <div class="view_cont_num">
@@ -124,6 +127,22 @@
                 :body-row-class-name="bodyRowClassNameFunction"
                 empty-message="정보가 없습니다."
               >
+                <!-- title -->
+                <template #item-title="item">
+                  <span class="txt">{{ item.title }}</span>
+                </template>
+                <!-- email -->
+                <template #item-email="item">
+                  <span class="txt">{{ item.email }}</span>
+                </template>
+                <!-- authority -->
+                <template #item-authority="item">
+                  <span class="txt">{{ item.authority }}</span>
+                </template>
+                <!-- costumer -->
+                <template #item-costumer="item">
+                  <span class="txt">{{ item.costumer }}</span>
+                </template>
                 <!-- 버튼 그룹 -->
                 <template #item-buttons="item">
                   <div v-if="actionButtons" class="cell btngroup">
@@ -153,13 +172,130 @@
                 </template>
               </EasyDataTable>
             </div>
-            <div class="group">
+            <div class="table_pagenav disflex_C">
               <CPagination />
             </div>
         </div>
       </div>
     </div>
   </q-page>
+
+  <!-- Start : [프로젝트 - 멤버관리] 멤버 - 추가 -->
+  <q-dialog
+    v-model="projectMemberAddModal"
+    class="c_dialog medium"
+  >
+    <q-card>
+      <q-card-section class="c_dialog_body">
+        <p class="title">
+          <strong>프로젝트 멤버 추가</strong>
+        </p>
+
+        <div class="c_group">
+          <div class="c_inpgroup">
+            <q-select
+              outlined
+              v-model="shareChipModel"
+              placeholder="사용자 이메일 입력"
+              use-input
+              use-chips
+              multiple
+              input-debounce="0"
+              @new-value="createValue"
+              :options="filterOptions"
+              @filter="chipFilterFn"
+              class="c_inpchip"
+            >
+              <template v-slot:prepend>
+                <q-icon
+                  name="search"
+                  class="ico_search"
+                />
+              </template>
+              <template v-slot:append>
+                <div class="slotopt"></div>
+              </template>
+              <template v-slot:no-option>
+                <q-item class="no_data">
+                  <q-item-section>
+                    검색 결과 없습니다.
+                  </q-item-section>
+                </q-item>
+              </template>
+            </q-select>
+            <div class="c_selectgroup f_start">
+              <CDropdown
+                v-model:selected="memberSelModel"
+                :label="'프로젝트 관리자'"
+                :options="memberSelOptions"
+                :type="'text'"
+              />
+            </div>
+          </div>
+          <q-btn class="c_btn medium add">
+            <span class="txt">추가하기</span>
+          </q-btn>
+        </div>
+        <!-- 검색 완료 -->
+        <!-- <q-list class="p_list membermng">
+          <q-item class="item">
+            <i class="ico member" />
+            <q-item-section class="item_card">
+              <q-item-label class="name">root.choi</q-item-label>
+              <q-item-label class="mail">root.choi@kakaobrain.com</q-item-label>
+            </q-item-section>
+            <CDropdown
+              v-model:selected="memberSelModel"
+              :label="'멤버'"
+              :options="memberSelOptions"
+              :type="'text'"
+            />
+          </q-item>
+          <q-item class="item">
+            <i class="ico member" />
+            <q-item-section class="item_card">
+              <q-item-label class="name">김나온</q-item-label>
+              <q-item-label class="mail">naon12@gmail.com</q-item-label>
+            </q-item-section>
+            <CDropdown
+              v-model:selected="memberSelModel"
+              :label="'멤버'"
+              :options="memberSelOptions"
+              :type="'text'"
+            />
+          </q-item>
+          <q-item class="item">
+            <i class="ico member" />
+            <q-item-section class="item_card">
+              <q-item-label class="name">김나온</q-item-label>
+              <q-item-label class="mail">naon12@gmail.com</q-item-label>
+            </q-item-section>
+            <CDropdown
+              v-model:selected="memberSelModel"
+              :label="'멤버'"
+              :options="memberSelOptions"
+              :type="'text'"
+            />
+          </q-item>
+        </q-list> -->
+      </q-card-section>
+      <q-card-actions class="c_dialog_foot">
+        <q-btn
+          label="취소"
+          class="line"
+          v-close-popup
+        />
+        <q-btn
+          label="확인"
+          class="primary"
+          v-close-popup
+          disable
+        />
+      </q-card-actions>
+    </q-card>
+  </q-dialog>
+  <!-- End : [프로젝트 - 멤버관리] 멤버 - 추가 -->
+
 </template>
 <script setup>
 import { ref } from "vue";
@@ -168,7 +304,6 @@ import ProjectDashboard from "src/components/pages/ProjectDashboard.vue";
 // import CTable from "src/components/common/CTable.vue";
 import CPagination from "components/common/CPagination.vue";
 import CDropdown from "components/common/CDropdown.vue";
-import CButton from "components/common/CButton.vue";
 
 const title = ref("Test Projects");
 useMeta(() => ({
@@ -219,6 +354,31 @@ const actionButtons = [
   { name: "권한변경", event: "authorityChange" },
   { name: "삭제", event: "delete" },
 ];
+
+const projectMemberAddModal = ref(false);
+const memberSelOptions = ["프로젝트 관리자", "멤버"];
+const stringOptions = [];
+const filterOptions = ref(stringOptions);
+const createValue = (val, done) => {
+  if (val.length > 0) {
+    if (!stringOptions.includes(val)) {
+      stringOptions.push(val);
+    }
+    done(val, "toggle");
+  }
+};
+const chipFilterFn = (val, update) => {
+  update(() => {
+    if (val === "") {
+      filterOptions.value = stringOptions;
+    } else {
+      const needle = val.toLowerCase();
+      filterOptions.value = stringOptions.filter(
+        (v) => v.toLowerCase().indexOf(needle) > -1
+      );
+    }
+  });
+};
 
 </script>
 

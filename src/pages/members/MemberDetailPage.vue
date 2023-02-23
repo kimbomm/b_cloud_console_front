@@ -43,15 +43,17 @@
             </div>
           </div>
         </div>
+      </div>
+      <div v-if='visible !== true'>
         <div class="w-info">
           <div class="w-info_work line pb">
             <div class="t-flex">
               <p class="title">워크스페이스</p>
-              <div>
-                <CButton
-                  :size-types="2"
-                  :btn-types="1"
-                  :btn-names="'편집'"
+              <div class="btnWrap">
+                <q-btn
+                  label="편집"
+                  class="primary"
+                  @click="visible = true"
                 />
               </div>
             </div>
@@ -126,17 +128,17 @@
               <p class="title">워크스페이스</p>
               <div class="btnWrap">
                 <div>
-                  <CButton
-                    :size-types="2"
-                    :btn-types="4"
-                    :btn-names="btnCancle"
+                  <q-btn
+                    label="취소"
+                    class="line"
+                    @click="visible = false"
                   />
                 </div>
                 <div>
-                  <CButton
-                    :size-types="2"
-                    :btn-types="1"
-                    :btn-names="btnSave"
+                  <q-btn
+                    label="저장"
+                    class="primary"
+                    @click="visible = false"
                   />
                 </div>
               </div>
@@ -217,9 +219,9 @@
                 <span class="desc">최대 50,000</span>
               </div>
             </div>
-          </div>
-        </template>
-      </div>
+        </div>
+      </template>
+    </div>
   </q-page>
 </template>
 <script setup>
@@ -231,8 +233,6 @@ import CDropdown from "components/common/CDropdown.vue";
 const visible = ref(false);
 const title = ref("Member");
 const btnName = ref("삭제");
-const btnCancle = ref("취소");
-const btnSave = ref("저장");
 
 const label = ref("프로젝트 이름");
 const label2 = ref("전체");

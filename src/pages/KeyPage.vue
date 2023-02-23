@@ -23,7 +23,7 @@
           <q-tab name="tabs3" label="SSH key & API key"></q-tab>
         </q-tabs>
       </div>
-      <template v-if="visible === 'A'">
+      <template v-if="visible == 'A'">
         <div class="key-box">
           <p class="key-box_title mt40">SSH Key</p>
           <div class="sign-up">
@@ -106,6 +106,18 @@
               empty-message="정보가 없습니다."
               @click-row="showRow"
             >
+              <!-- name -->
+              <template #item-name="item">
+                <span class="txt">{{ item.name }}</span>
+              </template>
+              <!-- finger -->
+              <template #item-finger="item">
+                <span class="txt">{{ item.finger }}</span>
+              </template>
+              <!-- registDate -->
+              <template #item-registDate="item">
+                <span class="txt">{{ item.registDate }}</span>
+              </template>
               <!-- 버튼 그룹 -->
               <template #item-buttons="item">
                 <div v-if="actionButtons" class="cell btngroup">
@@ -186,15 +198,15 @@ const createDate = ref("2023.11.21 04:33pm");
 // const nodata = [];
 const headers = [
   {
-    text: "이름", value: "name", width: 240, sortable: false
+    text: "이름", value: "name", width: 100, sortable: false
   },
   {
-    text: "Fingerprint", value: "finger", sortable: false
+    text: "Fingerprint", value: "finger", width: 200, sortable: false
   },
   {
-    text: "등록일시", value: "registDate", sortable: false
+    text: "등록일시", value: "registDate", width: 120, sortable: false
   },
-  { text: "", value: "buttons", width: 50 },
+  { text: "", value: "buttons", width: 100 },
 ];
 const items = [
   {

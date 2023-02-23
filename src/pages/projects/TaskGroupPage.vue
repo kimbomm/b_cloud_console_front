@@ -67,29 +67,41 @@
 
             <ul class="user_box_main">
               <li class="u_d01">
-                <p class="user_data_title">태스크 그룹ID</p>
-                <div class="user_data_value">
+                <q-item>
+                  <p class="user_data_title">태스크 그룹ID</p>
+                </q-item>
+                <q-item class="user_data_value">
                   <p>01ws-00prj-inst-00001</p>
-                </div>
+                </q-item>
               </li>
               <li class="u_d02 making_user_data">
-                <p class="user_data_title">생성자</p>
+                <q-item>
+                  <p class="user_data_title">생성자</p>
+                </q-item>
                 <div class="user_data_value">
-                  <p class="user_name">김카브</p>
-                  <p class="user_mail">root.choi@kakaobrain.com</p>
+                  <q-item>
+                    <p class="user_name">김카브</p>
+                  </q-item>
+                  <q-item>
+                    <p class="user_mail">root.choi@kakaobrain.com</p>
+                  </q-item>
                 </div>
               </li>
               <li class="u_d03">
-                <p class="user_data_title">생성일시</p>
-                <div class="user_data_value">
+                <q-item>
+                  <p class="user_data_title">생성일시</p>
+                </q-item>
+                <q-item class="user_data_value">
                   <p>2023.10.11 13:49pm</p>
-                </div>
+                </q-item>
               </li>
               <li class="u_d04">
-                <p class="user_data_title">작업경로</p>
-                <div class="user_data_value">
+                <q-item>
+                  <p class="user_data_title">작업경로</p>
+                </q-item>
+                <q-item class="user_data_value">
                   <p>/working_dir</p>
-                </div>
+                </q-item>
               </li>
             </ul>
           </div>
@@ -101,25 +113,14 @@
             <span class="text">V1.XLARGE (1GPU | 14CPU | MEM 122GiB | DISK 80GiB)</span>
 
             <ul class="type_list">
-              <li class="t_list01">
-                <p class="type_list_title">GPU 모델</p>
-                <p class="type_list_vlaue">TESLA_V100</p>
-              </li>
-              <li class="t_list02">
-                <p class="type_list_title">GPU</p>
-                <p class="type_list_vlaue">2</p>
-              </li>
-              <li class="t_list03">
-                <p class="type_list_title">CPU</p>
-                <p class="type_list_vlaue">14</p>
-              </li>
-              <li class="t_list04">
-                <p class="type_list_title">Memory</p>
-                <p class="type_list_vlaue">122 GB</p>
-              </li>
-              <li class="t_list05">
-                <p class="type_list_title">Disk <span>기본용량</span></p>
-                <p class="type_list_vlaue">80 GiB</p>
+              <li :class="'t_list0'+ i" v-for="(i,a) in typeList" :key="i">
+                <q-item>
+                  <p class="type_list_title">{{typeItem[a].typeTitle}} <span>
+                    {{typeItem[a].basicTxt}}</span></p>
+                </q-item>
+                <q-item>
+                  <p class="type_list_value">{{typeItem[a].typeValue}}</p>
+                </q-item>
               </li>
             </ul>
           </div>
@@ -163,28 +164,28 @@
             </div>
             <div class="ins_etc com_box">
               <p class="sub_title">기타 정보</p>
-              <table class="etc_cont">
-                <tr>
-                  <th>호스트 전체 준비 완료시 실행</th>
-                  <td>ON</td>
-                </tr>
-                <tr>
-                  <th>http proxy 설정</th>
-                  <td>ON</td>
-                </tr>
-                <tr>
-                  <th>입력 포트 번호</th>
-                  <td>29838,29333,30001</td>
-                </tr>
-                <tr>
-                  <th>태스크 동시실행 최대 개수</th>
-                  <td>3</td>
-                </tr>
-                <tr>
-                  <th>재시도 횟수</th>
-                  <td>0</td>
-                </tr>
-              </table>
+              <div class="etc_cont">
+                <div>
+                  <div class="theadarea">호스트 전체 준비 완료시 실행</div>
+                  <div class="tbodyarea">ON</div>
+                </div>
+                <div>
+                  <div class="theadarea">http proxy 설정</div>
+                  <div class="tbodyarea">ON</div>
+                </div>
+                <div>
+                  <div class="theadarea">입력 포트 번호</div>
+                  <div class="tbodyarea">29838,29333,30001</div>
+                </div>
+                <div>
+                  <div class="theadarea">태스크 동시실행 최대 개수</div>
+                  <div class="tbodyarea">3</div>
+                </div>
+                <div>
+                  <div class="theadarea">재시도 횟수</div>
+                  <div class="tbodyarea">0</div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -199,6 +200,10 @@
               empty-message="정보가 없습니다."
               @click-row="showRow"
             >
+              <!-- id -->
+              <template #item-id="item">
+                <span class="txt clip">{{ item.id }}</span>
+              </template>
               <!-- title -->
               <template #item-title="item">
                 <a href="#">
@@ -293,20 +298,45 @@
               <!-- 인스턴스 타입 -->
               <template #item-instanceType="item">
                 <q-badge
-                  class="text instance icon"
+                  class="text instance"
                   @click="onCopy(item)"
                 >
-                  <span class="txt">{{ item.instanceType }}</span>
+                  <span class="txt">{{ item.instanceType }}<i class="ico details">
+                    <q-tooltip
+                      anchor="bottom middle"
+                      class="c_tooltip insTypeTool"
+                    >
+                      <div class="inner">
+                        {{ item.instanceType }}
+                        {{ item.instanceType }}
+                        {{ item.instanceType }}
+                      </div>
+                    </q-tooltip></i>
+                  </span>
 
-                  <q-tooltip
-                    anchor="bottom middle"
-                    class="c_tooltip"
-                  >
-                    <div class="inner">
-                      {{ item.instanceType }}
-                    </div>
-                  </q-tooltip>
                 </q-badge>
+              </template>
+              <!-- cpu -->
+              <template #item-cpu="item">
+                <span class="txt">{{ item.cpu }}</span>
+              </template>
+              <!-- gpu -->
+              <template #item-gpu="item">
+                <span class="txt">{{ item.gpu }}</span>
+              </template>
+              <!-- createdAt -->
+              <template #item-createdAt="item">
+                <span class="txt">{{ item.createdAt }}</span>
+              </template>
+              <!-- endDate -->
+              <template #item-endDate="item">
+                <span class="txt">{{ item.endDate }}</span>
+              </template>
+              <!-- logCheck -->
+              <template #item-logCheck="item">
+                <a href="#">
+                  <span class="txt logbadge">{{ item.logCheck }}</span>
+                </a>
               </template>
               <!-- 버튼 그룹 -->
               <template #item-buttons="item">
@@ -361,31 +391,31 @@ const ptitle = ref(title);
 
 const headers = [
   {
-    text: "ID", value: "id", width: 80, sortable: false, checkbox: true
+    text: "ID", value: "id", width: 65, sortable: false, checkbox: true
   },
   {
-    text: "태스크 이름", value: "title", width: 300, sortable: true
+    text: "태스크 이름", value: "title", width: 160, sortable: true
   },
   {
     text: "상태", value: "status", width: 100, sortable: true
   },
   {
-    text: "ssh", value: "ssh", width: 100, sortable: false
+    text: "ssh", value: "ssh", width: 80, sortable: false
   },
   {
-    text: "GPU", value: "gpu", width: 80, sortable: false
+    text: "GPU", value: "gpu", width: 60, sortable: false
   },
   {
-    text: "CPU", value: "cpu", width: 80, sortable: false
+    text: "CPU", value: "cpu", width: 60, sortable: false
   },
   {
-    text: "인스턴스 타입", value: "instanceType", width: 160, sortable: false
+    text: "인스턴스 타입", value: "instanceType", width: 115, sortable: false
   },
   {
-    text: "생성일시", value: "createdAt", width: 180, sortable: true
+    text: "생성일시", value: "createdAt", width: 165, sortable: true
   },
   {
-    text: "완료일시", value: "endDat", width: 180, sortable: true
+    text: "완료일시", value: "endDat", width: 165, sortable: true
   },
   {
     text: "로그확인", value: "logCheck", width: 100, sortable: true
@@ -618,6 +648,15 @@ const onActions = (eventName, rowData) => {
 const showRow = (item) => {
   console.log(item);
 };
+
+const typeItem = [
+  { typeTitle: "GPU 모델", typeValue: "TESLA_V100" },
+  { typeTitle: "GPU", typeValue: "2" },
+  { typeTitle: "CPU", typeValue: "14" },
+  { typeTitle: "Memory", typeValue: "122 GB" },
+  { typeTitle: "Disk", typeValue: "80 GiB", basicTxt: "기본용량" },
+];
+const typeList = typeItem.length;
 </script>
 
 <style lang="scss" scoped>

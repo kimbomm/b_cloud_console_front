@@ -30,20 +30,21 @@
 
                   <div class="cont_head_inner">
                     <p class="head_txt">스토리지 생성 개수<q-btn class="ibtn help">
-                        <i class="ico help" /><span class="hidden">도움말</span>
-                        <q-popup-edit
-                          v-model="helpShow"
-                          anchor="top middle"
-                          self="top middle"
-                          class="c_popover storage_popover"
-                        >
-                          <div class="inner">
-                            <p class="list_dot">스토리지는 개인당 최대 5개 생성할 수 있습니다. </p>
-                            <p class="list_dot">
-                              워크스페이스 관리자는 워크스페이스당 최대 50개의 스토리지를 개인 스토리지와 별개로 생성할 수 있습니다.
-                            </p>
-                          </div>
-                        </q-popup-edit>
+                        <i class="ico help"><span class="hidden">도움말</span>
+                          <q-popup-edit
+                            v-model="helpShow"
+                            anchor="top middle"
+                            self="top middle"
+                            class="c_popover storage_popover"
+                          >
+                            <div class="inner">
+                              <p class="list_dot">스토리지는 개인당 최대 5개 생성할 수 있습니다. </p>
+                              <p class="list_dot">
+                                워크스페이스 관리자는 워크스페이스당 최대 50개의 스토리지를 개인 스토리지와 별개로 생성할 수 있습니다.
+                              </p>
+                            </div>
+                          </q-popup-edit>
+                        </i>
                       </q-btn>
                     </p>
                   </div>
@@ -163,6 +164,26 @@
               empty-message="정보가 없습니다."
               @click-row="showRow"
             >
+              <!-- title -->
+              <template #item-title="item">
+                <span class="txt">{{ item.title }}</span>
+              </template>
+              <!-- email -->
+              <template #item-email="item">
+                <span class="txt">{{ item.email }}</span>
+              </template>
+              <!-- generated -->
+              <template #item-generated="item">
+                <span class="txt">{{ item.generated }}</span>
+              </template>
+              <!-- usage -->
+              <template #item-usage="item">
+                <span class="txt">{{ item.usage }}</span>
+              </template>
+              <!-- quota -->
+              <template #item-quota="item">
+                <span class="txt">{{ item.quota }}</span>
+              </template>
               <!-- 버튼 그룹 -->
               <template #item-buttons="item">
                 <div v-if="actionButtons" class="cell btngroup">
@@ -230,13 +251,13 @@ const headers = [
     text: "이메일", value: "email", width: 300, sortable: true
   },
   {
-    text: "생성개수", value: "generated", width: 200, sortable: false
+    text: "생성개수", value: "generated", width: 150, sortable: false
   },
   {
-    text: "사용량", value: "usage", width: 200, sortable: true
+    text: "사용량", value: "usage", width: 150, sortable: true
   },
   {
-    text: "할당량", value: "quota", width: 200, sortable: true
+    text: "할당량", value: "quota", width: 150, sortable: true
   },
   { text: "", value: "buttons", width: 150 },
 ];

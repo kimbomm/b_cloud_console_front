@@ -62,8 +62,8 @@ $padding: 16px;
       width:8px;height:8px;
       border-radius:50%;
       margin-right:8px;
-      &.row{
-        background:$blue;
+      &.low{
+        background:$green;
       }
       &.middle{
         background:$yellow;
@@ -83,6 +83,8 @@ $padding: 16px;
 ::v-deep{
 
   table{
+    table-layout:fixed;
+    width:100%;
     border-spacing: 0 2px;
   }
   .badge{
@@ -145,10 +147,26 @@ $padding: 16px;
     color:$gray500;font-size:$fs14;
   }
   .vue3-easy-data-table__main{
+    overflow:auto;
     min-height:auto;
     &.hoverable tr:hover td{
       background-color: $easy-table-body-row-hover-background-color;
       color: $easy-table-body-row-hover-font-color;
+    }
+    &::-webkit-scrollbar {
+      width: 6px; height: 6px;
+      background-color: #fff;
+      &-corner {
+        background-color: #fff;
+      }
+      &-track {
+        border-radius: 10px;
+        background-color: transparent;
+      }
+      &-thumb {
+        border-radius: 10px;
+        background-color: #ACB5C9;
+      }
     }
   }
   .vue3-easy-data-table__header,
@@ -196,6 +214,7 @@ $padding: 16px;
       border-bottom:1px solid $surface03;
       color:$easy-table-header-font-color;
       font-size:$easy-table-header-font-size;
+      text-align:left;
       &.sortable{
         .sortType-icon{
           width:24px;height:24px;

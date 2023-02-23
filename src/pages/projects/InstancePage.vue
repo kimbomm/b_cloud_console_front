@@ -110,11 +110,14 @@
 
               <div class="r_set_inner">
                 <div class="instance_make_btn">
-                  <CButton
-                    :size-types="2"
-                    :btn-types="4"
-                    :btn-names="'인스턴스 생성하기'"
-                  />
+                  <q-btn
+                    btnTypes=4
+                    type="button"
+                    class="c_btn line medium"
+                    to="/projects/Instancedetail"
+                  >
+                    <span class="txt">인스턴스 생성하기</span>
+                  </q-btn>
                 </div>
 
                 <div class="view_cont_num">
@@ -152,12 +155,13 @@
                   상태값(status)
                   1. running, 운영중
                   2. stopped, 정지
-                  3. error, 오류
-                  4. pending, 대기중
-                  5. stopping, 정지중
-                  6. deleting, 삭제중
-                  7. starting, 시작중
-                  8. unknown
+                  3. pending, 대기중
+                  4. stopping, 정지중
+                  5. deleting, 삭제중
+                  6. starting, 시작중
+                  //TBD
+                  7. delete_cont, 삭제예정 D-n
+                  8. delete_day, 삭제예정 D-Day
                 -->
                 <template #item-status="item">
                   <q-badge
@@ -171,12 +175,6 @@
                     class="orange"
                   >
                     <span class="txt">정지</span>
-                  </q-badge>
-                  <q-badge
-                    v-else-if="item.status === 'error'"
-                    class="orange"
-                  >
-                    <span class="txt">오류</span>
                   </q-badge>
                   <q-badge
                     v-else-if="item.status === 'pending'"
@@ -203,10 +201,16 @@
                     <span class="txt">시작중</span>
                   </q-badge>
                   <q-badge
-                    v-else
-                    class="c_badge"
+                    v-else-if="item.status === 'delete_cont'"
+                    class="orange"
                   >
-                    <span class="txt">Unknown</span>
+                    <span class="txt">삭제예정 D-{{nDay}}</span>
+                  </q-badge>
+                  <q-badge
+                    v-else-if="item.status === 'delete_day'"
+                    class="orange"
+                  >
+                    <span class="txt">삭제예정 D-Day</span>
                   </q-badge>
                 </template>
                 <!-- ssh -->
@@ -230,19 +234,19 @@
                 <!-- 인스턴스 타입 -->
                 <template #item-instanceType="item">
                   <q-badge
-                    class="text instance icon"
+                    class="text instance"
                     @click="onCopy(item)"
                   >
-                    <span class="txt">{{ item.instanceType }}</span>
-
-                    <q-tooltip
-                      anchor="bottom middle"
-                      class="c_tooltip"
-                    >
-                      <div class="inner">
-                        {{ item.instanceType }}
-                      </div>
-                    </q-tooltip>
+                    <span class="txt">{{ item.instanceType }}<i class="ico details">
+                      <q-tooltip
+                        anchor="bottom middle"
+                        class="c_tooltip insTypeTool"
+                      >
+                        <div class="inner">
+                          {{ item.instanceType }}
+                        </div>
+                      </q-tooltip></i>
+                    </span>
                   </q-badge>
                 </template>
                 <!-- createdBy -->
@@ -278,7 +282,7 @@
                 </template>
               </EasyDataTable>
             </div>
-            <div class="group">
+            <div class="table_pagenav disflex_C">
               <CPagination />
             </div>
           </template>
@@ -300,7 +304,6 @@ import { useMeta } from "quasar";
 import ProjectDashboard from "src/components/pages/ProjectDashboard.vue";
 import CPagination from "components/common/CPagination.vue";
 import CDropdown from "components/common/CDropdown.vue";
-import CButton from "components/common/CButton.vue";
 
 const title = ref("Test Projects");
 useMeta(() => ({
@@ -312,38 +315,39 @@ const tab = ref("tabs1");
 const label = ref("전체");
 const label2 = ref("10");
 const selectedCheck = ref(null);
-// const viewTab = ref("0");
 const defaultData = ref(true);
+const nDay = ref(7);
+
 const headers = [
   {
-    text: "ID", value: "id", width: 80, sortable: false, checkbox: true
+    text: "ID", value: "id", width: 75, sortable: false, checkbox: true
   },
   {
-    text: "이름", value: "title", width: 400, sortable: true
+    text: "이름", value: "title", width: 133, sortable: true
   },
   {
-    text: "상태", value: "status", width: 130, sortable: true
+    text: "상태", value: "status", width: 133, sortable: true
   },
   {
-    text: "ssh", value: "ssh", width: 100, sortable: false
+    text: "ssh", value: "ssh", width: 80, sortable: false
   },
   {
-    text: "JupyterLab", value: "jupyterLab", width: 150, sortable: false
+    text: "JupyterLab", value: "jupyterLab", width: 135, sortable: false
   },
   {
     text: "인스턴스 타입", value: "instanceType", width: 140, sortable: true
   },
   {
-    text: "GPU", value: "gpu", width: 80, sortable: false
+    text: "GPU", value: "gpu", width: 60, sortable: false
   },
   {
-    text: "CPU", value: "cpu", width: 80, sortable: false
+    text: "CPU", value: "cpu", width: 60, sortable: false
   },
   {
-    text: "생성일시", value: "createdAt", width: 170, sortable: true
+    text: "생성일시", value: "createdAt", width: 165, sortable: true
   },
   {
-    text: "생성자", value: "createdBy", width: 120, sortable: true
+    text: "생성자", value: "createdBy", width: 85, sortable: true
   },
   { text: "", value: "buttons", width: 80 },
 ];
@@ -387,47 +391,6 @@ const items = [
       gpus: 2,
       mem: 249856,
       zone: "public:normal",
-    }
-  },
-  {
-    id: 99999,
-    title: "A인스턴스A인스턴스A인스턴스A인 20자",
-    status: "group",
-    ssh: "ssh",
-    jupyterLab: "JupyterLab",
-    instanceType: "V1.XLARGE",
-    gpu: "49.5%",
-    cpu: "100%",
-    createdAt: "2023.01.12 10:33:21",
-    createdBy: "root.choi",
-    resource: {
-      cpus: 28,
-      gpu_device_model: "TESLA_V100",
-      gpus: 2,
-      mem: 249856,
-      zone: "public:normal",
-    }
-  },
-  {
-    id: 132,
-    title: "A인스턴스A인스턴스A인스턴스A인스턴스A인스턴스A인 30자",
-    status: "error",
-    ssh: "ssh",
-    jupyterLab: "JupyterLab",
-    instanceType: "V1.XLARGE",
-    gpu: "49.5%",
-    cpu: "100%",
-    createdAt: "2023.01.12 10:33:21",
-    createdBy: "root.choi",
-    resource: {
-      cpus: 28,
-      gpu_device_model: "TESLA_V100",
-      gpus: 2,
-      mem: 249856,
-      zone: "public:normal",
-    },
-    buttons: {
-      name: "초대요청 확인"
     }
   },
   {
@@ -507,6 +470,44 @@ const items = [
     },
     buttons: {
       name: "초대요청 확인"
+    }
+  },
+  {
+    id: 99999,
+    title: "A인스턴스A인스턴스A인스턴스A인A인스턴스A인스턴스A인스턴스A인A인스턴스A인스턴스A인스턴스A인A인스턴스A인스턴스A인스턴스A인 20자",
+    status: "delete_cont",
+    ssh: "ssh",
+    jupyterLab: "JupyterLab",
+    instanceType: "V1.XLARGE",
+    gpu: "49.5%",
+    cpu: "100%",
+    createdAt: "2023.01.12 10:33:21",
+    createdBy: "root.choi",
+    resource: {
+      cpus: 28,
+      gpu_device_model: "TESLA_V100",
+      gpus: 2,
+      mem: 249856,
+      zone: "public:normal",
+    }
+  },
+  {
+    id: 99999,
+    title: "A인스턴스A인스턴스A인스턴스A인 20자",
+    status: "delete_day",
+    ssh: "ssh",
+    jupyterLab: "JupyterLab",
+    instanceType: "V1.XLARGE",
+    gpu: "49.5%",
+    cpu: "100%",
+    createdAt: "2023.01.12 10:33:21",
+    createdBy: "root.choi",
+    resource: {
+      cpus: 28,
+      gpu_device_model: "TESLA_V100",
+      gpus: 2,
+      mem: 249856,
+      zone: "public:normal",
     }
   },
 ];

@@ -21,11 +21,13 @@
       <div class="p-detail-head">
         <h1 class="p-title">{{ ptitle }}</h1>
         <div class="resource_employ_btn">
-          <CButton
-            :size-types="2"
-            :btn-types="5"
-            :btn-names="btnName"
-          />
+          <q-btn
+            btnTypes=4
+            type="button"
+            class="c_btn line medium"
+          >
+            <i class="ico plus" /><span class="txt">리소스 사용이력</span>
+          </q-btn>
         </div>
       </div>
     </div>
@@ -121,6 +123,14 @@
               empty-message="정보가 없습니다."
               @click-row="showRow"
             >
+              <!-- pjName -->
+              <template #item-pjName="item">
+                <span class="txt">{{ item.pjName }}</span>
+              </template>
+              <!-- groupid -->
+              <template #item-groupid="item">
+                <span class="txt">{{ item.groupid }}</span>
+              </template>
               <!-- groupName -->
               <template #item-groupName="item">
                 <a href="#">
@@ -131,6 +141,20 @@
                   >
                     <div class="inner">
                       {{ item.groupName }}
+                    </div>
+                  </q-tooltip>
+                </a>
+              </template>
+              <!-- desc -->
+              <template #item-desc="item">
+                <a href="#">
+                  <span class="txt">{{ item.desc }}</span>
+                  <q-tooltip
+                    anchor="bottom middle"
+                    class="c_tooltip"
+                  >
+                    <div class="inner">
+                      {{ item.desc }}
                     </div>
                   </q-tooltip>
                 </a>
@@ -244,6 +268,14 @@
                   <span class="txt">생성중</span>
                 </q-badge>
               </template>
+              <!-- createdAt -->
+              <template #item-createdAt="item">
+                <span class="txt">{{ item.createdAt }}</span>
+              </template>
+              <!-- constructor -->
+              <template #item-constructor="item">
+                <span class="txt">{{ item.constructor }}</span>
+              </template>
               <!-- 버튼 그룹 -->
               <template #item-buttons="item">
                 <div v-if="actionButtons" class="cell btngroup">
@@ -281,19 +313,13 @@
               empty-message="정보가 없습니다."
               @click-row="showRow"
             >
-              <!-- title -->
-              <template #item-title="item">
-                <a href="#">
-                  <span class="txt">{{ item.title }}</span>
-                  <q-tooltip
-                    anchor="bottom middle"
-                    class="c_tooltip"
-                  >
-                    <div class="inner">
-                      {{ item.title }}
-                    </div>
-                  </q-tooltip>
-                </a>
+              <!-- pjName -->
+              <template #item-pjName="item">
+                <span class="txt">{{ item.pjName }}</span>
+              </template>
+              <!-- groupName -->
+              <template #item-groupName="item">
+                <span class="txt">{{ item.groupName }}</span>
               </template>
               <!-- taskname -->
               <template #item-taskName="item">
@@ -403,24 +429,46 @@
               <!-- 인스턴스 타입 -->
               <template #item-instanceType="item">
                 <q-badge
-                  class="text instance icon"
+                  class="text instance"
                   @click="onCopy(item)"
                 >
-                  <span class="txt">{{ item.instanceType }}</span>
-
-                  <q-tooltip
-                    anchor="bottom middle"
-                    class="c_tooltip"
-                  >
-                    <div class="inner">
-                      {{ item.instanceType }}
-                    </div>
-                  </q-tooltip>
+                  <span class="txt">{{ item.instanceType }}<i class="ico details">
+                    <q-tooltip
+                      anchor="bottom middle"
+                      class="c_tooltip insTypeTool"
+                    >
+                      <div class="inner">
+                        {{ item.instanceType }}
+                      </div>
+                    </q-tooltip></i>
+                  </span>
                 </q-badge>
+              </template>
+              <!-- cpu -->
+              <template #item-cpu="item">
+                <span class="txt">{{ item.cpu }}</span>
+              </template>
+              <!-- gpu -->
+              <template #item-gpu="item">
+                <span class="txt">{{ item.gpu }}</span>
               </template>
               <!-- createdBy -->
               <template #item-createdBy="item">
-                <span class="txt clip">{{ item.createdBy }}</span>
+                <span class="txt">{{ item.createdBy }}</span>
+              </template>
+              <!-- createdAt -->
+              <template #item-createdAt="item">
+                <span class="txt">{{ item.createdAt }}</span>
+              </template>
+              <!-- endDate -->
+              <template #item-endDate="item">
+                <span class="txt">{{ item.endDate }}</span>
+              </template>
+              <!-- log -->
+              <template #item-log="item">
+                <a href="#">
+                  <span class="txt logbadge">{{ item.log }}</span>
+                </a>
               </template>
               <!-- 버튼 그룹 -->
               <template #item-buttons="item">
@@ -462,7 +510,6 @@
 <script setup>
 import { ref } from "vue";
 import { useMeta } from "quasar";
-import CButton from "components/common/CButton.vue";
 import CDropdown from "components/common/CDropdown.vue";
 import CPagination from "components/common/CPagination.vue";
 
@@ -493,7 +540,6 @@ const optNumber3 = ref([
 ]);
 
 const ptitle = ref(title);
-const btnName = ref("리소스 사용이력");
 const tab = ref("tabs2");
 const optLabel = ref("10");
 const optLabel2 = ref("프로젝트 전체");
@@ -503,25 +549,25 @@ const segModel2 = ref("one");
 // 그룹보기
 const groupHeaders = [
   {
-    text: "프로젝트 이름", value: "pjName", width: 150, sortable: false
+    text: "프로젝트 이름", value: "pjName", width: 135, sortable: false
   },
   {
-    text: "그룹ID", value: "groupid", width: 100, sortable: false
+    text: "그룹ID", value: "groupid", width: 65, sortable: false
   },
   {
-    text: "그룹 이름", value: "groupName", width: 200, sortable: true
+    text: "그룹 이름", value: "groupName", width: 133, sortable: true
   },
   {
-    text: "설명", value: "desc", width: 280, sortable: false
+    text: "설명", value: "desc", width: 133, sortable: false
   },
   {
-    text: "상태", value: "status", width: 170, sortable: false
+    text: "상태", value: "status", width: 160, sortable: false
   },
   {
-    text: "생성일시", value: "createdAt", width: 180, sortable: true
+    text: "생성일시", value: "createdAt", width: 160, sortable: true
   },
   {
-    text: "생성자", value: "constructor", width: 300, sortable: true
+    text: "생성자", value: "constructor", width: 260, sortable: true
   },
   { text: "", value: "buttons", width: 80 },
 ];
@@ -539,7 +585,7 @@ const groupItems = [
     pjName: "AA프로젝트",
     groupid: "21",
     groupName: "Taskgroup1Taskgroup1Taskgroup1",
-    desc: "태스크 그룹 설명",
+    desc: "태스크 그룹 설명태스크 그룹 설명",
     status: "group",
     createdAt: "2023.10.22 12:33:40",
     constructor: "root.choi (root.choi@kakaobrain.com)",
@@ -557,16 +603,16 @@ const groupItems = [
 // 테스크보기
 const taskHeaders = [
   {
-    text: "프로젝트 이름", value: "pjName", width: 140, sortable: false
+    text: "프로젝트 이름", value: "pjName", width: 135, sortable: false
   },
   {
-    text: "그룹 이름", value: "groupName", width: 120, sortable: true
+    text: "그룹 이름", value: "groupName", width: 115, sortable: true
   },
   {
-    text: "태스크 이름", value: "taskName", width: 200, sortable: true
+    text: "태스크 이름", value: "taskName", width: 160, sortable: true
   },
   {
-    text: "상태", value: "status", width: 110, sortable: false
+    text: "상태", value: "status", width: 105, sortable: false
   },
   {
     text: "ssh", value: "ssh", width: 80, sortable: false
@@ -575,19 +621,19 @@ const taskHeaders = [
     text: "인스턴스 타입", value: "instanceType", width: 130, sortable: false
   },
   {
-    text: "GPU", value: "gpu", width: 80, sortable: false
+    text: "GPU", value: "gpu", width: 60, sortable: false
   },
   {
-    text: "CPU", value: "cpu", width: 80, sortable: false
+    text: "CPU", value: "cpu", width: 60, sortable: false
   },
   {
-    text: "생성자", value: "createdBy", width: 100, sortable: true
+    text: "생성자", value: "createdBy", width: 85, sortable: true
   },
   {
-    text: "생성일시", value: "createdAt", width: 170, sortable: true
+    text: "생성일시", value: "createdAt", width: 160, sortable: true
   },
   {
-    text: "완료일시", value: "endDate", width: 170, sortable: true
+    text: "완료일시", value: "endDate", width: 160, sortable: true
   },
   {
     text: "로그확인", value: "log", width: 80, sortable: false
@@ -601,7 +647,6 @@ const taskItems = [
     taskName: "aatask1",
     status: "running",
     ssh: "ssh",
-    JupyterLab: "JupyterLab",
     instanceType: "V1.XLARGE",
     gpu: "49.5%",
     cpu: "100%",
@@ -623,7 +668,6 @@ const taskItems = [
     taskName: "aatask1aatask1aatask1aatask1",
     status: "error",
     ssh: "ssh",
-    JupyterLab: "JupyterLab",
     instanceType: "V1.XLARGE",
     gpu: "49.5%",
     cpu: "100%",
@@ -645,7 +689,6 @@ const taskItems = [
     taskName: "aatask1",
     status: "cancel",
     ssh: "ssh",
-    JupyterLab: "JupyterLab",
     instanceType: "V1.XLARGE",
     gpu: "49.5%",
     cpu: "100%",
@@ -667,7 +710,6 @@ const taskItems = [
     taskName: "aatask1",
     status: "deleting",
     ssh: "ssh",
-    JupyterLab: "JupyterLab",
     instanceType: "V1.XLARGE",
     gpu: "49.5%",
     cpu: "100%",
@@ -689,7 +731,6 @@ const taskItems = [
     taskName: "aatask1aatask1aatask1aatask1",
     status: "stopped",
     ssh: "ssh",
-    JupyterLab: "JupyterLab",
     instanceType: "V1.XLARGE",
     gpu: "49.5%",
     cpu: "100%",
@@ -711,7 +752,6 @@ const taskItems = [
     taskName: "aatask1",
     status: "canceling",
     ssh: "ssh",
-    JupyterLab: "JupyterLab",
     instanceType: "V1.XLARGE",
     gpu: "49.5%",
     cpu: "100%",
@@ -733,7 +773,6 @@ const taskItems = [
     taskName: "aatask1",
     status: "group",
     ssh: "ssh",
-    JupyterLab: "JupyterLab",
     instanceType: "V1.XLARGE",
     gpu: "49.5%",
     cpu: "100%",
@@ -755,7 +794,6 @@ const taskItems = [
     taskName: "aatask1aatask1aatask1aatask1",
     status: "finished",
     ssh: "ssh",
-    JupyterLab: "JupyterLab",
     instanceType: "V1.XLARGE",
     gpu: "49.5%",
     cpu: "100%",
@@ -777,7 +815,6 @@ const taskItems = [
     taskName: "aatask1",
     status: "making",
     ssh: "ssh",
-    JupyterLab: "JupyterLab",
     instanceType: "V1.XLARGE",
     gpu: "49.5%",
     cpu: "100%",
@@ -799,7 +836,6 @@ const taskItems = [
     taskName: "aatask1aatask1aatask1aatask1",
     status: "failure",
     ssh: "ssh",
-    JupyterLab: "JupyterLab",
     instanceType: "V1.XLARGE",
     gpu: "49.5%",
     cpu: "100%",
@@ -821,7 +857,6 @@ const taskItems = [
     taskName: "aatask1aatask1aatask1aatask1",
     status: "pending",
     ssh: "ssh",
-    JupyterLab: "JupyterLab",
     instanceType: "V1.XLARGE",
     gpu: "49.5%",
     cpu: "100%",

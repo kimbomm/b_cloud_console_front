@@ -230,11 +230,14 @@
 
             <div class="r_set_inner">
               <div class="quota_set_btn">
-                <CButton
-                  :size-types="2"
-                  :btn-types="4"
-                  :btn-names="btnName"
-                />
+                <q-btn
+                  btnTypes=4
+                  type="button"
+                  class="c_btn line medium"
+                  @click="workspaceMngSetModal = true"
+                >
+                  <span class="txt">기본 할당량 설정</span>
+                </q-btn>
               </div>
               <div class="view_cont_num">
                 <CDropdown
@@ -261,6 +264,14 @@
               <template #item-desc="item">
                 <a href="#">
                   <span class="txt">{{ item.desc }}</span>
+                  <q-tooltip
+                    anchor="bottom middle"
+                    class="c_tooltip"
+                  >
+                    <div class="inner">
+                      {{ item.desc }}
+                    </div>
+                  </q-tooltip>
                 </a>
               </template>
               <!--
@@ -287,13 +298,13 @@
               <template #item-gpu="item">
                 <!--
                   사용량(usage)
-                  1. row : 0% ~ 50%
+                  1. low : 0% ~ 50%
                   2. middle : 51% ~ 90%
                   3. high : 91% ~ 100%
                 -->
                 <q-item v-if="item.status === 'running'" class="cell">
-                  <div v-if="item.gpu === 'row'" class="usage">
-                    <i class="ico row" />
+                  <div v-if="item.gpu === 'low'" class="usage">
+                    <i class="ico low" />
                     <span class="txt">44 / 100</span>
                   </div>
                   <div v-else-if="item.gpu === 'middle'" class="usage">
@@ -309,7 +320,7 @@
                   </div>
                 </q-item>
                 <q-item v-else class="cell">
-                  <div v-if="item.gpu === 'row'" class="usage">
+                  <div v-if="item.gpu === 'low'" class="usage">
                     <span class="txt">543</span>
                   </div>
                   <div v-else-if="item.gpu === 'middle'" class="usage">
@@ -327,13 +338,13 @@
               <template #item-v100="item">
                 <!--
                   사용량(usage)
-                  1. row : 0% ~ 50%
+                  1. low : 0% ~ 50%
                   2. middle : 51% ~ 90%
                   3. high : 91% ~ 100%
                 -->
                 <q-item v-if="item.status === 'running'" class="cell">
-                  <div v-if="item.v100 === 'row'" class="usage">
-                    <i class="ico row" />
+                  <div v-if="item.v100 === 'low'" class="usage">
+                    <i class="ico low" />
                     <span class="txt">2 / 100</span>
                   </div>
                   <div v-else-if="item.v100 === 'middle'" class="usage">
@@ -349,7 +360,7 @@
                   </div>
                 </q-item>
                 <q-item v-else class="cell">
-                  <div v-if="item.v100 === 'row'" class="usage">
+                  <div v-if="item.v100 === 'low'" class="usage">
                     <span class="txt">12</span>
                   </div>
                   <div v-else-if="item.v100 === 'middle'" class="usage">
@@ -367,13 +378,13 @@
               <template #item-g400="item">
                 <!--
                   사용량(usage)
-                  1. row : 0% ~ 50%
+                  1. low : 0% ~ 50%
                   2. middle : 51% ~ 90%
                   3. high : 91% ~ 100%
                 -->
                 <q-item v-if="item.status === 'running'" class="cell">
-                  <div v-if="item.g400 === 'row'" class="usage">
-                    <i class="ico row" />
+                  <div v-if="item.g400 === 'low'" class="usage">
+                    <i class="ico low" />
                     <span class="txt">44 / 100</span>
                   </div>
                   <div v-else-if="item.g400 === 'middle'" class="usage">
@@ -389,7 +400,7 @@
                   </div>
                 </q-item>
                 <q-item v-else class="cell">
-                  <div v-if="item.g400 === 'row'" class="usage">
+                  <div v-if="item.g400 === 'low'" class="usage">
                     <span class="txt">543</span>
                   </div>
                   <div v-else-if="item.g400 === 'middle'" class="usage">
@@ -407,13 +418,13 @@
               <template #item-g80="item">
                 <!--
                   사용량(usage)
-                  1. row : 0% ~ 50%
+                  1. low : 0% ~ 50%
                   2. middle : 51% ~ 90%
                   3. high : 91% ~ 100%
                 -->
                 <q-item v-if="item.status === 'running'" class="cell">
-                  <div v-if="item.g80 === 'row'" class="usage">
-                    <i class="ico row" />
+                  <div v-if="item.g80 === 'low'" class="usage">
+                    <i class="ico low" />
                     <span class="txt">44 / 100</span>
                   </div>
                   <div v-else-if="item.g80 === 'middle'" class="usage">
@@ -429,7 +440,7 @@
                   </div>
                 </q-item>
                 <q-item v-else class="cell">
-                  <div v-if="item.g80 === 'row'" class="usage">
+                  <div v-if="item.g80 === 'low'" class="usage">
                     <span class="txt">543</span>
                   </div>
                   <div v-else-if="item.g80 === 'middle'" class="usage">
@@ -479,11 +490,160 @@
       </div>
     </div>
   </q-page>
+
+  <!-- Start : [관리 - 프로젝트] 워크스페이스 관리자 기능 - 프로젝트 기본 할당량 설정 -->
+  <q-dialog
+    v-model="workspaceMngSetModal"
+    class="c_dialog medium"
+  >
+    <q-card>
+      <q-card-section class="c_dialog_body">
+        <p class="title">
+          <strong>프로젝트 리소스 기본 할당량 설정</strong>
+        </p>
+        <div class="c_form mt24">
+          <section class="section relative">
+            <p class="sub_title">프로젝트 기본 할당량</p>
+            <div class="desc">
+              워크스페이스 멤버들이 프로젝트 생성시 적용되는 기본 할당량을 설정합니다.<br />
+              (기본 할당량 설정된 시점 이후 생성된 프로젝트만 적용)<br />
+            </div>
+            <div class="desc etc mt10">
+              0 입력시 미할당
+            </div>
+            <q-toggle
+              v-model="quotaOn"
+              class="quotaToggle"
+            />
+          </section>
+          <section class="section">
+            <p class="sub_title">CPU</p>
+            <!-- <div class="unit_type">
+              <span class="tit">현재 사용량</span>
+              <span class="counter">
+                <em class="usage">190</em>
+                <i class="bar">/</i>
+                <strong class="quota">450</strong>
+              </span>
+            </div> -->
+            <div class="c_inpgroup flex-end">
+              <q-input
+                outlined
+                v-model="quota1"
+                type="number"
+                placeholder="50GiB 단위 입력"
+                clearable
+                class="inp_unit"
+              >
+                <template v-slot:append>
+                  <span class="unit">GiB</span>
+                </template>
+              </q-input>
+              <span class="desc">최대 500 <i class="bar" /> 권장 30</span>
+            </div>
+          </section>
+          <section class="section">
+            <p class="sub_title">Tesla V100</p>
+            <!-- <div class="unit_type">
+              <span class="tit">현재 사용량</span>
+              <span class="counter">
+                <em class="usage">190</em>
+                <i class="bar">/</i>
+                <strong class="quota">450</strong>
+              </span>
+            </div> -->
+            <div class="c_inpgroup flex-end">
+              <q-input
+                outlined
+                v-model="quota2"
+                type="number"
+                placeholder="50GiB 단위 입력"
+                clearable
+                class="inp_unit"
+              >
+                <template v-slot:append>
+                  <span class="unit">GiB</span>
+                </template>
+              </q-input>
+              <span class="desc">최대 50,000</span>
+            </div>
+          </section>
+          <section class="section">
+            <p class="sub_title">Tesla A100_40G</p>
+            <!-- <div class="unit_type">
+              <span class="tit">현재 사용량</span>
+              <span class="counter">
+                <em class="usage">190</em>
+                <i class="bar">/</i>
+                <strong class="quota">450</strong>
+              </span>
+            </div> -->
+            <div class="c_inpgroup flex-end">
+              <q-input
+                outlined
+                v-model="quota3"
+                type="number"
+                placeholder="50GiB 단위 입력"
+                clearable
+                class="inp_unit"
+              >
+                <template v-slot:append>
+                  <span class="unit">GiB</span>
+                </template>
+              </q-input>
+              <span class="desc">최대 50,000</span>
+            </div>
+          </section>
+          <section class="section">
+            <p class="sub_title">Tesla V100_80G</p>
+            <!-- <div class="unit_type">
+              <span class="tit">현재 사용량</span>
+              <span class="counter">
+                <em class="usage">190</em>
+                <i class="bar">/</i>
+                <strong class="quota">450</strong>
+              </span>
+            </div> -->
+            <div class="c_inpgroup flex-end">
+              <q-input
+                outlined
+                v-model="quota4"
+                type="number"
+                placeholder="50GiB 단위 입력"
+                clearable
+                class="inp_unit"
+              >
+                <template v-slot:append>
+                  <span class="unit">GiB</span>
+                </template>
+              </q-input>
+              <span class="desc">최대 50,000</span>
+            </div>
+          </section>
+        </div>
+        <!-- //.c_form -->
+      </q-card-section>
+      <q-card-actions class="c_dialog_foot">
+        <q-btn
+          label="취소"
+          class="line"
+          v-close-popup
+        />
+        <q-btn
+          label="저장"
+          class="primary"
+          v-close-popup
+          disable
+        />
+      </q-card-actions>
+    </q-card>
+  </q-dialog>
+  <!-- End : [관리 - 프로젝트] 워크스페이스 관리자 기능 - 프로젝트 기본 할당량 설정 -->
+
 </template>
 <script setup>
 import { ref } from "vue";
 import { useMeta } from "quasar";
-import CButton from "components/common/CButton.vue";
 import CDropdown from "components/common/CDropdown.vue";
 import CPagination from "components/common/CPagination.vue";
 
@@ -494,7 +654,6 @@ useMeta(() => ({
 
 const ptitle = ref(title);
 const label = ref("10");
-const btnName = ref("기본 할당량 설정");
 const helpShow = ref(false);
 
 const options = ref([
@@ -505,25 +664,25 @@ const options = ref([
 
 const mngTaskHeader = [
   {
-    text: "프로젝트 이름", value: "title", width: 300, sortable: true
+    text: "프로젝트 이름", value: "title", width: 160, sortable: true
   },
   {
-    text: "프로젝트 설명", value: "desc", sortable: false
+    text: "프로젝트 설명", value: "desc", width: 250, sortable: false
   },
   {
     text: "할당량 설정", value: "status", width: 130, sortable: true
   },
   {
-    text: "GPU", value: "gpu", width: 150, sortable: true
+    text: "GPU", value: "gpu", width: 130, sortable: true
   },
   {
-    text: "V100", value: "v100", width: 150, sortable: true
+    text: "V100", value: "v100", width: 130, sortable: true
   },
   {
-    text: "A100_400G", value: "g400", width: 150, sortable: true
+    text: "A100_400G", value: "g400", width: 130, sortable: true
   },
   {
-    text: "A100_80G", value: "g80", width: 150, sortable: true
+    text: "A100_80G", value: "g80", width: 130, sortable: true
   },
   { text: "", value: "buttons", width: 80 },
 ];
@@ -532,8 +691,8 @@ const mngTaskItems = [
     title: "aa프로젝트1",
     desc: "프로젝트 설명프로젝트 설명프로젝트 설명",
     status: "running",
-    gpu: "row",
-    v100: "row",
+    gpu: "low",
+    v100: "low",
     g400: "middle",
     g80: "high",
     buttons: {
@@ -544,8 +703,8 @@ const mngTaskItems = [
     title: "aa프로젝트1",
     desc: "프로젝트 설명프로젝트 설명프로젝트 설명",
     status: "",
-    gpu: "row",
-    v100: "row",
+    gpu: "low",
+    v100: "low",
     g400: "middle",
     g80: "high",
     buttons: {
@@ -572,6 +731,13 @@ const actionButtons2 = [
 const onActions = (eventName, rowData) => {
   console.log(eventName, rowData);
 };
+
+const workspaceMngSetModal = ref(false);
+const quota1 = ref(null);
+const quota2 = ref(null);
+const quota3 = ref(null);
+const quota4 = ref(null);
+const quotaOn = ref(true);
 </script>
 
 <style lang="scss" scoped>

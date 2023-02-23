@@ -27,6 +27,7 @@
             }
           }
           .mmh_com{
+            min-width: 213px;
             height: 330px;
             padding:30px;
             .cont_head{
@@ -40,7 +41,7 @@
                 i{
                   width: 20px;
                   height: 20px;
-                  background: url(/src/assets/images/icon/20/ico_gpu_white.svg) no-repeat 50% 50%;
+                  background: url($iconUrl + '20/ico_gpu_white.svg') no-repeat 50% 50%;
                 }
               }
               .cont_head_inner{
@@ -220,6 +221,7 @@
           &::before{
             content:'';
             display: inline-block;
+            vertical-align: middle;
             width: 1px; height: 26px;
             margin:0 16px;
             background-color: $surface05;
@@ -258,7 +260,7 @@
                 i{
                   width: 20px;
                   height: 20px;
-                  background: url(/src/assets/images/icon/20/ico_storage_white.svg) no-repeat 50% 50%;
+                  background: url($iconUrl + '20/ico_storage_white.svg') no-repeat 50% 50%;
                 }
               }
               .cont_head_inner{
