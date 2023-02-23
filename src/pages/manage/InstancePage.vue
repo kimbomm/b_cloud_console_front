@@ -317,10 +317,10 @@ const optLabel3 = ref("상태 전체");
 
 const headers = [
   {
-    text: "프로젝트 이름", value: "phName", width: 135, sortable: false, checkbox: true
+    text: "프로젝트 이름", value: "phName", width: 131, sortable: false, checkbox: true
   },
   {
-    text: "인스턴스 이름", value: "title", width: "18%", sortable: true
+    text: "인스턴스 이름", value: "title", width: 138, sortable: true
   },
   {
     text: "상태", value: "status", width: 105, sortable: true
@@ -332,19 +332,19 @@ const headers = [
     text: "JupyterLab", value: "jupyterLab", width: 135, sortable: false
   },
   {
-    text: "인스턴스 타입", value: "instanceType", width: 140, sortable: true
+    text: "인스턴스 타입", value: "instanceType", width: 138, sortable: true
   },
   {
-    text: "GPU", value: "gpu", width: 65, sortable: false
+    text: "GPU", value: "gpu", width: 60, sortable: false
   },
   {
-    text: "CPU", value: "cpu", width: 65, sortable: false
+    text: "CPU", value: "cpu", width: 54, sortable: false
   },
   {
-    text: "생성일시", value: "createdAt", width: 150, sortable: true
+    text: "생성일시", value: "createdAt", width: 145, sortable: true
   },
   {
-    text: "생성자", value: "createdBy", width: 90, sortable: true
+    text: "생성자", value: "createdBy", width: 86, sortable: true
   },
   { text: "", value: "buttons", width: 80 },
 ];

@@ -306,10 +306,10 @@ const optNumber = ref([
 
 const headers = [
   {
-    text: "이름", value: "title", width: 200, sortable: true
+    text: "이름", value: "title", width: 180, sortable: true
   },
   {
-    text: "설명", value: "description", width: 200, sortable: false
+    text: "설명", value: "description", width: 180, sortable: false
   },
   {
     text: "소유자", value: "user", width: 150, sortable: true
