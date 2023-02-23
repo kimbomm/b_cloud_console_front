@@ -44,7 +44,9 @@
           <section class="section">
             <div v-if="tab === 'myTab'">
               <!-- 내이미지 -->
-              <MyPage :imageList="imageList" @onShare="onShare" @onDelete="onDelete" />
+              <MyPage :imageList="imageList" @onShare="onShare" @onDelete="onDelete"
+
+              />
             </div>
             <div v-if="tab === 'baseTab'">
               <!-- 기본 이미지  -->
@@ -102,9 +104,15 @@
                   <i class="ico note" />
                   <q-item-section class="item_card">
                     <q-item-label class="name">{{ innerProject.name }}</q-item-label>
-                    <q-item-label class="desc">{{ innerProject.description }}</q-item-label>
+                    <q-item-label class="desc">{{
+                      innerProject.description
+                    }}</q-item-label>
                   </q-item-section>
-                  <q-checkbox class="c_checkbox" v-model="innerProject.checked" @click="getSharedTargets(innerProject)" />
+                  <q-checkbox
+                    class="c_checkbox"
+                    v-model="innerProject.checked"
+                    @click="handleSharedTargetClick(innerProject)"
+                  />
                 </q-item>
               </template>
             </template>
@@ -113,20 +121,27 @@
       </q-card-section>
       <q-card-actions class="c_dialog_foot">
         <q-btn label="취소" class="line" v-close-popup />
-        <q-btn label="저장" class="primary" v-close-popup  />
+        <q-btn label="저장" class="primary" v-close-popup />
       </q-card-actions>
     </q-card>
   </q-dialog>
   <!-- End : [내 이미지] 이미지 - 내이미지 - 공유관리 -->
+
+  <YesNoPopup
+    title="이미지를 삭제하시겠습니까?"
+    v-model="isAlertDeletePopup"
+    state="delete"
+    info="내이미지 sample"
+    @handleDeleteButton="handleDeleteButton"
+  >
+  </YesNoPopup>
 </template>
 <script setup>
 import {
   ref, watch, onBeforeMount, reactive
 } from "vue";
 import { useMeta } from "quasar";
-import {
-  imageService, ProjectService, WorkspaceService
-} from "src/services";
+import { imageService, ProjectService, WorkspaceService } from "src/services";
 import { useRoute } from "vue-router";
 import { $utils } from "src/utils/utils";
 
@@ -135,6 +150,7 @@ import CPagination from "src/components/common/CPagination.vue";
 import MyPage from "./component/MyPage.vue";
 import BasicPage from "./component/BasicPage.vue";
 import SharedPage from "./component/SharedPage.vue";
+import YesNoPopup from "./component/YesNoPopup.vue";
 
 const route = useRoute();
 const { workspaceId } = route.params;
@@ -299,21 +315,24 @@ const optNumber = ref([
   { label: "50", value: 2 },
 ]);
 
-/* 팝업 */
+/* 공유관리 팝업 */
 const imageShareMngModal = ref(false);
 const myWorkspaceName = ref("");
 const myProjecteName = ref("");
 const chkAll = ref(true);
-
+// 상태 state
 const popupState = reactive({
-  currentSharedImageData: null,
+  currentSharedImageData: null, // 공유관리 팝업 열 때 이미지 정보
+  selectTest: null,
 });
 
 // 현재 선택한 이미지 정보
 const fetchCurrentSharedImage = (item) => {
   popupState.currentSharedImageData = item;
   console.log("itemitem", item);
+  console.log(popupState.currentSharedImageData, "currentSharedImageData");
 };
+
 
 // 공유관리 버튼
 const onShare = (item) => {
@@ -325,24 +344,42 @@ watch(imageShareMngModal, () => {
   myWorkspaceName.value = popupState.currentSharedImageData.base_image_name;
   myProjecteName.value = popupState.currentSharedImageData.description;
 });
+
+/* 삭제 alert 팝업 */
+const isAlertDeletePopup = ref(false);
+
+const handleDeleteButton = (value) => {
+  console.log("popupState", popupState);
+
+  if (value) {
+    console.log(true);
+  } else {
+    console.log(1);
+    popupState.selectTest = null;
+  }
+  console.log("popupStatepopupState", popupState);
+};
+
 // 삭제버튼
 const onDelete = async (item) => {
-  const response = await imageService.getSharedImages(workspaceId);
-  console.log(response);
+  // const response = await imageService.getSharedImages(workspaceId);
+  // console.log(response);
 
   console.log("onShare", item);
+  popupState.selectTest = item;
+
+  isAlertDeletePopup.value = true;
 };
 
 const mySharedProjects = ref({});
 // 내 워크스페이스의 소속 프로젝트 리스트와 결합
 const makeMyProjectList = async (projects) => {
-  const promises = await projects?.map((project) => ProjectService.getListProject(project.project_id)) ?? [];
+  const promises = (await projects?.map((project) => ProjectService.getListProject(project.project_id))) ?? [];
   const responses = await Promise.all(promises);
   const projectArrays = projects.map((project, index) => ({
     ...responses[index],
     ...project,
   }));
-  console.log("projectArraysprojectArrays", projectArrays);
   mySharedProjects.value = projectArrays;
   return projectArrays;
 };
@@ -362,7 +399,7 @@ const getMyproject = async () => {
 const shareOrUnshareWorkspaceImage = async (imgId, share) => {
   const data = {
     workspace_id: workspaceId,
-    image_id: imgId
+    image_id: imgId,
   };
   try {
     if (share) {
@@ -379,7 +416,7 @@ const shareOrUnshareWorkspaceImage = async (imgId, share) => {
   }
 };
 // 공유 이미지 리스트 클릭시
-const getSharedTargets = (e) => {
+const handleSharedTargetClick = (e) => {
   const imgId = e.id;
 
   if (e.checked) {
@@ -394,7 +431,6 @@ const getSharedTargets = (e) => {
 onBeforeMount(() => {
   getMyproject();
 });
-
 </script>
 
 <style lang="scss" scoped>
