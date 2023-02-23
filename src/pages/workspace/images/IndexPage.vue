@@ -94,7 +94,7 @@
                   <q-item-label class="name">{{ project.project_name }}</q-item-label>
                   <q-item-label class="desc">{{ project.workspace_name }}</q-item-label>
                 </q-item-section>
-                <q-checkbox v-model="chkAll" class="c_checkbox check_all" />
+                <q-checkbox v-model="isChkAll" class="c_checkbox check_all" @click="handleCheckGroupClick(index)" />
               </q-item>
 
               <template
@@ -113,7 +113,7 @@
                   <q-checkbox
                     class="c_checkbox"
                     v-model="innerProject.checked"
-                    @click.stop="handleSharedTargetClick(e)"
+                    @click="handleSharedTargetClick(innerProject)"
                   />
                 </q-item>
               </template>
@@ -333,7 +333,7 @@ const optNumber = ref([
 const isImageShareManagePopup = ref(false);
 const userWorkspaceName = ref("");
 const userProjecteName = ref("");
-const chkAll = ref(true);
+const isChkAll = ref(true);
 const getRowSelectedImage = ref({});
 
 // 상태 state
@@ -378,25 +378,28 @@ const handleDeleteClick = (value) => {
   }
 };
 
-const mySharedProjects = ref({});
+const mySharedProjects = ref({}); // 내 워크스페이스 프로젝트 리스트
 
 // 내 워크스페이스의 소속 프로젝트 리스트와 결합
 const makeMyProjectList = async (projects) => {
   const promises = (await projects?.map(() => ProjectService.getListProject(workspaceId))) ?? [];
   const responses = await Promise.all(promises);
 
+  // projects 안에 checked 함수 추가
   const updatedResponses = responses.map((item) => ({
     ...item,
     projects: item.projects.map((project) => ({
       ...project,
-      checked: false
+      checked: true
     }))
   }));
 
-  const projectArrays = projects.map((project, index) => ({
-    ...updatedResponses[index],
-    ...project,
+  // responses와 projects 병합
+  const projectArrays = updatedResponses.map((response) => ({
+    ...response,
+    ...projects[0]
   }));
+
   mySharedProjects.value = projectArrays;
   return projectArrays;
 };
@@ -427,6 +430,7 @@ const shareOrUnshareWorkspaceImage = async (imgId, share) => {
     workspace_id: workspaceId,
     image_id: imgId,
   };
+  // 저장 클릭시 (다시수정)
   try {
     if (share) {
       console.log("share");
@@ -441,9 +445,31 @@ const shareOrUnshareWorkspaceImage = async (imgId, share) => {
     return false;
   }
 };
+
+// index 번째에 따라 그룹 전체 선택 하는 함수
+function updateChecked(data, index, checked) {
+  const updatedData = data.map((item, i) => ({
+    ...item,
+    projects: item.projects.map((project) => ({
+      ...project,
+      checked: i === index ? checked : project.checked,
+    })),
+  }));
+  return updatedData;
+}
+
+// 그룹 전체 선택 시
+const handleCheckGroupClick = (index) => {
+  if (isChkAll.value) {
+    mySharedProjects.value = updateChecked(mySharedProjects.value, index, true);
+  } else {
+    mySharedProjects.value = updateChecked(mySharedProjects.value, index, false);
+  }
+};
+
 // 공유 이미지 리스트 클릭시
 const handleSharedTargetClick = (e) => {
-  console.log("event", e);
+  console.log("eeeeee", e);
   console.log("shareOrUnshareWorkspaceImage", shareOrUnshareWorkspaceImage);
 
   // 데이터 공유
