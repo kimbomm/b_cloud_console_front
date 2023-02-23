@@ -555,10 +555,10 @@ const groupHeaders = [
     text: "그룹ID", value: "groupid", width: 65, sortable: false
   },
   {
-    text: "그룹 이름", value: "groupName", width: 133, sortable: true
+    text: "그룹 이름", value: "groupName", width: 133, widthAuto: true, sortable: true
   },
   {
-    text: "설명", value: "desc", width: 133, sortable: false
+    text: "설명", value: "desc", width: 133, widthAuto: true, sortable: false
   },
   {
     text: "상태", value: "status", width: 160, sortable: false
@@ -609,7 +609,7 @@ const taskHeaders = [
     text: "그룹 이름", value: "groupName", width: 115, sortable: true
   },
   {
-    text: "태스크 이름", value: "taskName", width: 160, sortable: true
+    text: "태스크 이름", value: "taskName", width: 160, widthAuto: true, sortable: true
   },
   {
     text: "상태", value: "status", width: 105, sortable: false
