@@ -123,7 +123,7 @@
       </q-card-section>
       <q-card-actions class="c_dialog_foot">
         <q-btn label="취소" class="line" v-close-popup />
-        <q-btn label="저장" class="primary" v-close-popup />
+        <q-btn label="저장" class="primary" v-close-popup @click="imageShareManageSave"/>
       </q-card-actions>
     </q-card>
   </q-dialog>
@@ -424,28 +424,6 @@ const onShare = () => {
   getMyproject();
 };
 
-// 공유, 공유해제 함수
-const shareOrUnshareWorkspaceImage = async (imgId, share) => {
-  const data = {
-    workspace_id: workspaceId,
-    image_id: imgId,
-  };
-  // 저장 클릭시 (다시수정)
-  try {
-    if (share) {
-      console.log("share");
-      await WorkspaceService.postShareWorkspaceImage(workspaceId, imgId, data);
-    } else {
-      console.log("unshare");
-
-      await WorkspaceService.postUnShareWorkspaceImage(workspaceId, imgId, data);
-    }
-  } catch (e) {
-    console.log(e);
-    return false;
-  }
-};
-
 // index 번째에 따라 그룹 전체 선택 하는 함수
 function updateChecked(data, index, checked) {
   const updatedData = data.map((item, i) => ({
@@ -467,6 +445,28 @@ const handleCheckGroupClick = (index) => {
   }
 };
 
+// 공유 대상 저장, 공유해제 대상 저장
+const shareOrUnshareWorkspaceImage = async (imgId, share) => {
+  const data = {
+    workspace_id: workspaceId,
+    image_id: imgId,
+  };
+  // 저장 클릭시 (다시수정)
+  try {
+    if (share) {
+      console.log("share");
+      await WorkspaceService.postShareWorkspaceImage(workspaceId, imgId, data);
+    } else {
+      console.log("unshare");
+
+      await WorkspaceService.postUnShareWorkspaceImage(workspaceId, imgId, data);
+    }
+  } catch (e) {
+    console.log(e);
+    return false;
+  }
+};
+
 // 공유 이미지 리스트 클릭시
 const handleSharedTargetClick = (e) => {
   console.log("eeeeee", e);
@@ -480,6 +480,13 @@ const handleSharedTargetClick = (e) => {
   //   console.log("checked fase");
   //   shareOrUnshareWorkspaceImage(imgId, false);
   // }
+};
+
+const imageShareManageSave = () => {
+  console.log("저장함");
+  // mySharedProjects.value
+  const projectIds = mySharedProjects.value.flatMap((item) => item.projects.map((project) => project.id));
+  console.log("projectIdsprojectIdsprojectIds", { imgId: projectIds });
 };
 
 </script>
