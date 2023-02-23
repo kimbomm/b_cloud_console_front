@@ -572,10 +572,10 @@ const headers = [
     text: "그룹 ID", value: "id", width: 100, sortable: false, checkbox: true
   },
   {
-    text: "그룹 이름", value: "groupTitle", width: "30%", sortable: true
+    text: "그룹 이름", value: "groupTitle", width: 135, widthAuto: true, sortable: true
   },
   {
-    text: "설명", value: "description", width: "30%", sortable: false
+    text: "설명", value: "description", width: 135, widthAuto: true, sortable: false
   },
   {
     text: "상태", value: "status", width: 170, sortable: false
@@ -584,7 +584,7 @@ const headers = [
     text: "생성일시", value: "createdAt", width: 210, sortable: true
   },
   {
-    text: "생성자", value: "createdBy", width: 350, sortable: true
+    text: "생성자", value: "createdBy", width: 300, sortable: true
   },
   { text: "", value: "buttons", width: 80 },
 ];
@@ -650,7 +650,7 @@ const headers2 = [
     text: "그룹 이름", value: "groupTitle", width: 130, sortable: true
   },
   {
-    text: "태스크 이름", value: "title", width: 155, sortable: true
+    text: "태스크 이름", value: "title", width: 133, widthAuto: true, sortable: true
   },
   {
     text: "상태", value: "status", width: 105, sortable: true

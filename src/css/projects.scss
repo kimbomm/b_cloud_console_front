@@ -596,6 +596,7 @@
               display: inline-block;
               width: calc(100% - 140px);
               text-align: right;
+              p{white-space: pre-line;}
             }
           }
           &.task_data{
