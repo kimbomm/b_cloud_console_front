@@ -221,6 +221,7 @@
           &::before{
             content:'';
             display: inline-block;
+            vertical-align: middle;
             width: 1px; height: 26px;
             margin:0 16px;
             background-color: $surface05;
