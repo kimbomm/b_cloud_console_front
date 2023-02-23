@@ -326,7 +326,7 @@ const headers = [
     text: "이름", value: "title", width: 133, sortable: true
   },
   {
-    text: "상태", value: "status", width: 133, sortable: true
+    text: "상태", value: "status", width: 140, sortable: true
   },
   {
     text: "ssh", value: "ssh", width: 80, sortable: false
@@ -335,7 +335,7 @@ const headers = [
     text: "JupyterLab", value: "jupyterLab", width: 135, sortable: false
   },
   {
-    text: "인스턴스 타입", value: "instanceType", width: 140, sortable: true
+    text: "인스턴스 타입", value: "instanceType", width: 138, sortable: true
   },
   {
     text: "GPU", value: "gpu", width: 60, sortable: false
