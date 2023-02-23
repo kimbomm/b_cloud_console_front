@@ -52,7 +52,7 @@
             {{ userInfo.user.name }}
             <q-btn
               class="ibtn edit"
-              @click="editInfoModel = !editInfoModel"
+              @click="onEditStart"
             >
               <span class="hidden">편집</span>
             </q-btn>
@@ -100,12 +100,15 @@
             </div>
           </section>
           <div class="c_btngroup f_end">
-            <q-btn class="c_btn line medium">
+            <q-btn
+              class="c_btn line medium"
+              @click="onEditSave(false)"
+            >
               <span class="txt">취소</span>
             </q-btn>
             <q-btn
               class="c_btn medium"
-              @click="editInfoModel = !editInfoModel"
+              @click="onEditSave(true)"
             >
               <span class="txt">저장</span>
             </q-btn>
@@ -315,23 +318,43 @@ const userProjects = ref([]);
 
 const getUserInfo = async () => {
   try {
-    const { id } = await UserService.getMe();
+    const me = await UserService.getMe();
     const [myInfo, projects] = await Promise.all([
-      WorkspaceService.getMemberInfo(workspaceId, id),
-      ProjectService.getUserProjects(workspaceId, id),
+      WorkspaceService.getMemberInfo(workspaceId, me.id),
+      ProjectService.getUserProjects(workspaceId, me.id),
     ]);
     userInfo.value = {
-      user: myInfo.user,
+      user: me,
       workspace_info: myInfo.workspace_info,
     };
     modifyInfo.value = {
-      name: myInfo.workspace_info.user.name,
-      description: myInfo.workspace_info.user.description,
+      name: me.name,
+      description: me.description,
     };
     userProjects.value = projects.projects;
   } catch (e) {
     console.log(e);
     return false;
+  }
+};
+
+const onEditStart = () => {
+  modifyInfo.value = {
+    name: userInfo.value.user.name,
+    description: userInfo.value.user.description,
+  };
+  editInfoModel.value = true;
+};
+
+const onEditSave = async (isSave) => {
+  if (!isSave) {
+    editInfoModel.value = false;
+  } else {
+    const params = {
+      id: userInfo.value.user.id,
+      body: modifyInfo.value
+    };
+    await UserService.updateMe(params);
   }
 };
 
