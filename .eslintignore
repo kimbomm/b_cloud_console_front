@@ -3,4 +3,6 @@
 /src-cordova
 /.quasar
 /node_modules
+/src/utils/lib/**/*.js
 .eslintrc.js
+
