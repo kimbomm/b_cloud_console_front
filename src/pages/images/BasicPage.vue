@@ -84,7 +84,7 @@ const optLabel = ref("10");
 
 const headers = [
   {
-    text: "이름", value: "id", width: 1160, sortable: true
+    text: "이름", value: "id", width: 800, sortable: true
   },
   {
     text: "NVIDA 드라이버 최소버전", value: "version", width: 332

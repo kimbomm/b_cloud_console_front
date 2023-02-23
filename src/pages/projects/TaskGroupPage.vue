@@ -391,34 +391,34 @@ const ptitle = ref(title);
 
 const headers = [
   {
-    text: "ID", value: "id", width: 80, sortable: false, checkbox: true
+    text: "ID", value: "id", width: 65, sortable: false, checkbox: true
   },
   {
-    text: "태스크 이름", value: "title", width: 300, sortable: true
+    text: "태스크 이름", value: "title", width: 200, sortable: true
   },
   {
     text: "상태", value: "status", width: 100, sortable: true
   },
   {
-    text: "ssh", value: "ssh", width: 100, sortable: false
+    text: "ssh", value: "ssh", width: 80, sortable: false
   },
   {
-    text: "GPU", value: "gpu", width: 80, sortable: false
+    text: "GPU", value: "gpu", width: 60, sortable: false
   },
   {
-    text: "CPU", value: "cpu", width: 80, sortable: false
+    text: "CPU", value: "cpu", width: 60, sortable: false
   },
   {
-    text: "인스턴스 타입", value: "instanceType", width: 160, sortable: false
+    text: "인스턴스 타입", value: "instanceType", width: 115, sortable: false
   },
   {
-    text: "생성일시", value: "createdAt", width: 180, sortable: true
+    text: "생성일시", value: "createdAt", width: 165, sortable: true
   },
   {
-    text: "완료일시", value: "endDat", width: 180, sortable: true
+    text: "완료일시", value: "endDat", width: 165, sortable: true
   },
   {
-    text: "로그확인", value: "logCheck", width: 100, sortable: true
+    text: "로그확인", value: "logCheck", width: 70, sortable: true
   },
   { text: "", value: "buttons", width: 80 },
 ];
