@@ -18,9 +18,9 @@
 
       <template v-if="state === 'delete'">
         <q-card-actions class="c_dialog_foot ">
-          <q-btn label="취소" class="line" v-close-popup @click="()=>$emit('handleDeleteButton',false)"/>
+          <q-btn label="취소" class="line" v-close-popup @click="()=>$emit('handleDeleteClick',false)"/>
 
-          <q-btn label="삭제" class="primary" v-close-popup  @click="()=>$emit('handleDeleteButton',true)" />
+          <q-btn label="삭제" class="primary" v-close-popup  @click="()=>$emit('handleDeleteClick',true)" />
         </q-card-actions>
       </template>
 
@@ -44,7 +44,7 @@ defineProps({
   },
 });
 
-defineEmits(["handleDeleteButton"]);
+defineEmits(["handleDeleteClick"]);
 </script>
 
 <style lang="scss" scoped></style>

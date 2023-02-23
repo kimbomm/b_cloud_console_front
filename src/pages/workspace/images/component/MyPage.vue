@@ -120,6 +120,7 @@ const onActions = (eventName, rowData) => {
   }
 };
 
+// 상태값에 따른 버튼 공유관리/삭제 버튼노출
 const showRow = (item) => {
   if (item.status === "error" || item.status === "saving") {
     actionButtons.value = [fetchDeleteButtons];

@@ -44,7 +44,7 @@
           <section class="section">
             <div v-if="tab === 'myTab'">
               <!-- 내이미지 -->
-              <MyPage :imageList="imageList" @onShare="onShare" @onDelete="onDelete"
+              <MyPage :imageList="imageList" @onShare="onShare" @onDelete="onImageDeleteAlert"
               :getRowSelectedImage="getRowSelectedImage" @update:getRowSelectedImage="handleRowDataClick"
 
               />
@@ -130,10 +130,10 @@
 
   <YesNoPopup
     title="이미지를 삭제하시겠습니까?"
-    v-model="isAlertDeletePopup"
+    v-model="isDeleteAlert"
     state="delete"
-    info="내이미지 sample"
-    @handleDeleteButton="handleDeleteButton"
+    :info="deleteAlertTitle"
+    @handleDeleteClick="handleDeleteClick"
   >
   </YesNoPopup>
 </template>
@@ -145,6 +145,7 @@ import { useMeta } from "quasar";
 import { imageService, ProjectService, WorkspaceService } from "src/services";
 import { useRoute } from "vue-router";
 import { $utils } from "src/utils/utils";
+import { $useCmFn } from "src/composables/useCommonFunction.js";
 
 import CDropdown from "components/common/CDropdown.vue";
 import CPagination from "src/components/common/CPagination.vue";
@@ -326,13 +327,7 @@ const getRowSelectedImage = ref({});
 // 상태 state
 const popupState = reactive({
   currentSharedImageData: null, // 공유관리 팝업 열 때 이미지 정보
-  selectTest: null,
 });
-
-// 공유관리 팝업
-const onShare = () => {
-  isImageShareManagePopup.value = true;
-};
 
 // 워크스페이스 이름, 워크스페이스 설명
 watch(isImageShareManagePopup, () => {
@@ -340,31 +335,41 @@ watch(isImageShareManagePopup, () => {
   userProjecteName.value = popupState.currentSharedImageData.description;
 });
 
-const handleDeleteButton = (value) => {
-  if (value) {
-    console.log(true);
-  } else {
-    console.log(1);
-  }
+const isDeleteAlert = ref(false);
+const deleteAlertTitle = ref("");
+
+// 삭제버튼 alert
+const onImageDeleteAlert = async () => {
+  isDeleteAlert.value = true;
+  deleteAlertTitle.value = popupState.currentSharedImageData.name;
 };
 
-/* 삭제 alert 팝업 */
-const isAlertDeletePopup = ref(false);
+const triggerSuccess = () => {
+  $useCmFn.onNotify({
+    message: "인스턴스 생성이 완료 되었습니다.",
+    type: "positive",
+  });
+};
 
-// 삭제버튼
-const onDelete = async (item) => {
-  // const response = await imageService.getSharedImages(workspaceId);
-  // console.log(response);
-
-  console.log("onShare", item);
-  console.log("삭제");
-  isAlertDeletePopup.value = true;
+const triggerWarning = () => {
+  $useCmFn.onNotify({
+    message: "인스턴스 생성에 실패했습니다.",
+    type: "negative",
+  });
+};
+const handleDeleteClick = (value) => {
+  if (value) {
+    triggerSuccess();
+  } else {
+    triggerWarning();
+  }
 };
 
 const mySharedProjects = ref({});
 // 내 워크스페이스의 소속 프로젝트 리스트와 결합
 const makeMyProjectList = async (projects) => {
-  const promises = (await projects?.map((project) => ProjectService.getListProject(project.project_id))) ?? [];
+  const promises = (await projects?.map(() => ProjectService.getListProject(workspaceId))) ?? [];
+  console.log("promisespromisespromises", promises);
   const responses = await Promise.all(promises);
   const projectArrays = projects.map((project, index) => ({
     ...responses[index],
@@ -387,6 +392,10 @@ const getMyproject = async () => {
 
 const handleRowDataClick = (value) => {
   popupState.currentSharedImageData = value;
+};
+// 공유관리 팝업
+const onShare = () => {
+  isImageShareManagePopup.value = true;
   getMyproject();
 };
 
