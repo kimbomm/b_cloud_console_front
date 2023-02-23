@@ -26,4 +26,15 @@ export const imageService = {
     const response = await api.get(`/workspaces/${workspaceId}/shared-images`);
     return response.data;
   },
+
+  /**
+   * 설명: 이미지 삭제하기
+   * @param { String } workspaceId 워크스페이스 id
+   * @param { String } imgId 이미지 id
+   */
+  async postUnShareWorkspaceImage(workspaceId, imgId,) {
+    const response = await api.post(`/workspaces/${workspaceId}/images/${imgId}/share`);
+    return response.data;
+  },
+
 };

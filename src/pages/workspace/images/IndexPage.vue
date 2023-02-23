@@ -98,7 +98,6 @@
                 v-for="(innerProject, innerIndex) in project.projects"
                 :key="innerIndex"
               >
-
                 <q-item class="item subitem">
                   <i class="ico note" />
                   <q-item-section class="item_card">
@@ -126,7 +125,7 @@ import {
 } from "vue";
 import { useMeta } from "quasar";
 import {
-  imageService, UserService, ProjectService, WorkspaceService
+  imageService, ProjectService, WorkspaceService
 } from "src/services";
 import { useRoute } from "vue-router";
 import { $utils } from "src/utils/utils";
@@ -324,7 +323,10 @@ const onShare = (item) => {
   console.log("onShare", item);
 };
 
-const onDelete = (item) => {
+const onDelete = async (item) => {
+  const response = await imageService.getSharedImages(workspaceId);
+  console.log(response);
+
   console.log("onShare", item);
 };
 
@@ -337,16 +339,13 @@ const makeMyProjectList = async (projects) => {
     ...responses[index],
     ...project,
   }));
-
+  console.log("projectArraysprojectArrays", projectArrays);
   mySharedProjects.value = projectArrays;
   return projectArrays;
 };
 
 //  내 프로젝트 가져오기
 const getMyproject = async () => {
-  const { id } = await UserService.getMe();
-  console.log(id);
-
   try {
     const { projects } = await ProjectService.getProjects();
     makeMyProjectList(projects);
@@ -356,34 +355,36 @@ const getMyproject = async () => {
   }
 };
 
-const shareWorkspaceImage = async (imgId) => {
+// 공유, 공유해제 함수
+const shareOrUnshareWorkspaceImage = async (imgId, share) => {
   const data = {
     workspace_id: workspaceId,
     image_id: imgId
   };
   try {
-    const res = await WorkspaceService.postShareWorkspaceImage(workspaceId, imgId, { data });
-    console.log("ressdfsdfsdf", res);
+    if (share) {
+      console.log("share");
+      await WorkspaceService.postShareWorkspaceImage(workspaceId, imgId, data);
+    } else {
+      console.log("unshare");
+
+      await WorkspaceService.postUnShareWorkspaceImage(workspaceId, imgId, data);
+    }
   } catch (e) {
     console.log(e);
     return false;
   }
 };
-const unShareWorkspaceImage = () => {
-  console.log(1);
-};
-
 // 공유 이미지 리스트 클릭시
 const getSharedTargets = (e) => {
   const imgId = e.id;
-  console.log("imgIdimgIdimgIdimgId", imgId);
 
   if (e.checked) {
-    console.log("true");
-    shareWorkspaceImage(imgId);
+    console.log("checked true");
+    shareOrUnshareWorkspaceImage(imgId, true);
   } else {
-    console.log("fase");
-    unShareWorkspaceImage(imgId);
+    console.log("checked fase");
+    shareOrUnshareWorkspaceImage(imgId, false);
   }
 };
 

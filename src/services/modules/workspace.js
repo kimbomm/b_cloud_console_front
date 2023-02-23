@@ -13,10 +13,20 @@ export const WorkspaceService = {
 
   /**
    * 설명: 이미지 공유 선택하기
+   * @param { String } workspaceId 워크스페이스 id
+   * @param { String } imgId 이미지 id
+   */
+  async postShareWorkspaceImage(workspaceId, imgId, params) {
+    const response = await api.post(`/workspaces/${workspaceId}/images/${imgId}/share`, params);
+    return response.data;
+  },
+
+  /**
+   * 설명: 이미지 공유 선택 해제하기
    * @param { number } workspaceId 워크스페이스 id
    * @param { number } imgId 이미지 id
    */
-  async postShareWorkspaceImage(workspaceId, imgId, params) {
+  async postUnShareWorkspaceImage(workspaceId, imgId, params) {
     const response = await api.post(`/workspaces/${workspaceId}/images/${imgId}/share`, params);
     return response.data;
   },
