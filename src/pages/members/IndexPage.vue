@@ -147,8 +147,8 @@
         <!-- Table -->
         <section class="section">
           <EasyDataTable
-            :headers="headers"
-            :items="items"
+            :headers="headers2"
+            :items="items2"
             :hide-footer="true"
             empty-message="정보가 없습니다."
             @click-row="showRow"
@@ -182,7 +182,7 @@ import CDropdown from "components/common/CDropdown.vue";
 import CButton from "components/common/CButton.vue";
 import CPagination from "components/common/CPagination.vue";
 
-const defaultData = ref(true);
+const defaultData = ref(false);
 const title = ref("워크스페이스 1 Member");
 const label = ref("전체");
 const label2 = ref("역할전체");
@@ -209,13 +209,13 @@ const itemsSelected = ref([]);
 
 const headers = [
   {
-    text: "이름", value: "name", width: 270, sortable: true, checkbox: true
+    text: "이름", value: "name", width: 266, sortable: true, checkbox: true
   },
   {
-    text: "이메일", value: "email", width: 370, sortable: true
+    text: "이메일", value: "email", width: 293, sortable: true
   },
   {
-    text: "워크스페이스 역할", value: "workspaceChar", width: 280, sortable: false
+    text: "워크스페이스 역할", value: "workspaceChar", width: 242, sortable: false
   },
   {
     text: "소개", value: "introduce", sortable: false
@@ -274,6 +274,49 @@ const bodyRowClassNameFunction = (item) => {
  */
 
 // Table2
+const headers2 = [
+  {
+    text: "이름", value: "name", width: 266, sortable: true, checkbox: true
+  },
+  {
+    text: "이메일", value: "email", width: 293, sortable: true
+  },
+  {
+    text: "워크스페이스 역할", value: "workspaceChar", width: 242, sortable: false
+  },
+  {
+    text: "소개", value: "introduce", sortable: false
+  },
+];
+const items2 = [
+  {
+    name: "billing",
+    email: "billing@workspace1.com",
+    workspaceChar: "정산 관리자",
+    introduce: "안녕하세요",
+    buttons: {
+      name: "초대요청 확인"
+    }
+  },
+  {
+    name: "liv.olive",
+    email: "billing@workspace1.com",
+    workspaceChar: "정산 관리자",
+    introduce: "00담당자 입니다.",
+    // buttons: {
+    //   name: "초대요청 확인"
+    // }
+  },
+  {
+    name: "Test",
+    email: "test@gmail.com",
+    workspaceChar: "워크스페이스 멤버",
+    introduce: "-",
+    // buttons: {
+    //   name: "초대요청 확인"
+    // }
+  },
+];
 
 const ptitle = ref(title);
 </script>

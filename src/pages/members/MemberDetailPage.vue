@@ -19,27 +19,27 @@
     </div>
     <!-- //.chead -->
     <div class="p-body">
-      <div v-if='visible === "A"'>
+      <template v-if='visible === true'>
         <div class="m-info">
           <div class="u-info">
-            <p class="u-info_name">박카브</p>
-            <p class="u-info_email">we.dot@kakaobrain.com</p>
-            <p class="u-info_intro">소개글 Text소개글 Text소개글 Text소개글 Text소개글 Text소개글 Text</p>
+            <p class="u-info_name">{{ userName }}</p>
+            <p class="u-info_email">{{ userEmail }}</p>
+            <p class="u-info_intro">{{ userIntroduce }}</p>
           </div>
           <div class="u-info2">
             <div>
               <p class="g-txt">마지막 로그인</p>
-              <p class="b-txt">2022.11.22<span>12:32:33</span></p>
+              <p class="b-txt">{{ loginDate }}</p>
             </div>
             <div>
               <p class="g-txt">가입일자</p>
-              <p class="b-txt">2022.11.22</p>
+              <p class="b-txt">{{ joinDate }}</p>
               <!-- 회원가입 일자 정보가 없는 경우 '미가입' 표기 -->
               <!-- <p class="b-txt">미가입</p> -->
             </div>
             <div>
               <p class="g-txt">LDAP 계정</p>
-              <p class="b-txt">-</p>
+              <p class="b-txt">{{ ldapAccount }}</p>
             </div>
           </div>
         </div>
@@ -59,11 +59,11 @@
             <div class="work-wrap">
               <div class="w-name">
                 <p class="g-txt">워크스페이스 이름</p>
-                <p class="b-txt">카카오 모빌리티(public)</p>
+                <p class="b-txt">{{ spaceName }}</p>
               </div>
               <div class="w-char">
                 <p class="g-txt">역할</p>
-                <p class="b-txt">워크스페이스 멤버</p>
+                <p class="b-txt">{{ spaceChar }}</p>
               </div>
             </div>
           </div>
@@ -72,13 +72,13 @@
             <div class="work-wrap">
               <div class="w-name">
                 <p class="g-txt">프로젝트 이름</p>
-                <p class="p-txt">00프로젝트1</p>
-                <p class="p-txt">MLTEST 프로젝트 스토리지</p>
+                <p class="p-txt">{{ proName1 }}</p>
+                <p class="p-txt">{{ proName2 }}</p>
               </div>
               <div class="w-char">
                 <p class="g-txt">프로젝트 권한</p>
-                <p class="p-txt">프로젝트 관리자</p>
-                <p class="p-txt">멤버</p>
+                <p class="p-txt">{{ proAuthor1 }}</p>
+                <p class="p-txt">{{ proAuthor2 }}</p>
               </div>
             </div>
           </div>
@@ -97,26 +97,26 @@
             </div>
           </div>
         </div>
-      </div>
+      </template>
       <template v-else>
         <div class="m-info">
           <div class="u-info">
-            <p class="u-info_name">박카브</p>
-            <p class="u-info_email">we.dot@kakaobrain.com</p>
-            <p class="u-info_intro">소개글 Text소개글 Text소개글 Text소개글 Text소개글 Text소개글 Text</p>
+            <p class="u-info_name">{{userNamef}}</p>
+            <p class="u-info_email">{{userEmailf}}</p>
+            <p class="u-info_intro">{{userIntroducef}}</p>
           </div>
           <div class="u-info2">
             <div>
               <p class="g-txt">마지막 로그인</p>
-              <p class="b-txt">2022.11.22<span>12:32:33</span></p>
+              <p class="b-txt">{{loginDatef}}</p>
             </div>
             <div>
               <p class="g-txt">가입일자</p>
-              <p class="b-txt">2022.11.22</p>
+              <p class="b-txt">{{joinDatef}}</p>
             </div>
             <div>
               <p class="g-txt">LDAP 계정</p>
-              <p class="b-txt">-</p>
+              <p class="b-txt">{{ldapAccountf}}</p>
             </div>
           </div>
         </div>
@@ -145,7 +145,7 @@
             <div class="work-wrap">
               <div class="w-name">
                 <p class="char-g">워크스페이스 이름</p>
-                <p class="b-txt">카카오 모빌리티(public)</p>
+                <p class="b-txt">{{spaceNamef}}</p>
               </div>
               <div class="w-char">
                 <p class="char-g">역할</p>
@@ -165,17 +165,11 @@
             <p class="title mt40">프로젝트</p>
             <div class="p-tWrap">
               <p class="p-name">프로젝트 이름</p>
-              <p class="p-auth">프로젝트 권한</p>
+              <p class="p-auth">{{spaceChar}}</p>
             </div>
             <div class="sel-box">
               <div class="sel-wrap">
-                <div class="c_selectgroup w216">
-                  <CDropdown
-                    v-model:selected="selectedBasic"
-                    :label="label"
-                    :options="options2"
-                  />
-                </div>
+                <div class="sel-title">{{proNamef1}}</div>
                 <div class="c_selectgroup w250">
                   <CDropdown
                   v-model:selected="selectedBasic"
@@ -185,36 +179,17 @@
                 </div>
               </div>
               <div class="sel-wrap">
-                <div class="c_selectgroup w216">
+                <div class="sel-title">{{proNamef2}}</div>
+                <div class="c_selectgroup w250">
                   <CDropdown
-                    v-model:selected="selectedBasic"
-                    :label="label"
-                    :options="options2"
-                    />
-                  </div>
-                  <div class="c_selectgroup w250">
-                    <CDropdown
-                    v-model:selected="selectedBasic"
-                    :label="label2"
-                    :options="options"
-                    />
-                  </div>
+                  v-model:selected="selectedBasic"
+                  :label="label2"
+                  :options="options"
+                  />
                 </div>
               </div>
-              <!-- <p class="error-txt">관리자 1명 이상 지정 필요</p> -->
-              <div class="delete-btn">
-                <q-btn type="button" class="c_btn c_icon medium line">
-                  <i class="ico plus" /><span class="txt">Hover</span>
-                </q-btn>
-              </div>
             </div>
-            <div class="add-pro">
-              <a href="#">
-                <span>
-                  프로젝트 추가 아이콘
-                </span>
-                <p>프로젝트 추가</p>
-              </a>
+            <!-- <p class="error-txt">관리자 1명 이상 지정 필요</p> -->
             </div>
             <div class="w-info_stor line">
               <p class="title mt40">개인 스토리지</p>
@@ -253,7 +228,7 @@ import { useMeta } from "quasar";
 import CButton from "components/common/CButton.vue";
 import CDropdown from "components/common/CDropdown.vue";
 
-const visible = ref("true");
+const visible = ref(false);
 const title = ref("Member");
 const btnName = ref("삭제");
 const btnCancle = ref("취소");
@@ -262,21 +237,38 @@ const btnSave = ref("저장");
 const label = ref("프로젝트 이름");
 const label2 = ref("전체");
 
+// true Data
+const userName = ref("박카브");
+const userEmail = ref("we.dot@kakaobrain.com");
+const userIntroduce = ref("소개글 Text소개글 Text소개글 Text소개글 Text소개글 Text소개글 Text");
+const loginDate = ref("2022.11.22 12:32:33");
+const joinDate = ref("2022.11.22");
+const ldapAccount = ref("-");
+const spaceName = ref("카카오 모빌리티(public)");
+const spaceChar = ref("워크스페이스 멤버");
+const proName1 = ref("00프로젝트1");
+const proName2 = ref("00프로젝트1");
+const proAuthor1 = ref("프로젝트 관리자");
+const proAuthor2 = ref("멤버");
+// false Data
+const userNamef = ref("박카브");
+const userEmailf = ref("we.dot@kakaobrain.com");
+const userIntroducef = ref("소개글 Text소개글 Text소개글 Text소개글 Text소개글 Text소개글 Text");
+const loginDatef = ref("2022.11.22 12:32:33");
+const joinDatef = ref("2022.11.22");
+const ldapAccountf = ref("-");
+const spaceNamef = ref("카카오 모빌리티(public)");
+const proNamef1 = ref("00프로젝트1");
+const proNamef2 = ref("00프로젝트1");
+
 useMeta(() => ({
   title: title.value,
-  visible,
 }));
 
 const options = ref([
   { label: "전체", value: 0 },
   { label: "프로젝트 관리자", value: 1 },
   { label: "멤버", value: 2 },
-]);
-
-const options2 = ref([
-  { label: "프로젝트 이름", value: 0 },
-  { label: "00 프로젝트1", value: 1 },
-  { label: "00 프로젝트2", value: 2 },
 ]);
 
 const ptitle = ref(title);

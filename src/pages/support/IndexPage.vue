@@ -94,13 +94,13 @@ useMeta(() => ({
 
 const headers = [
   {
-    text: "유형", value: "type", width: 150, sortable: true
+    text: "유형", value: "type", width: 152, sortable: true
   },
   {
     text: "제목", value: "title", sortable: true
   },
   {
-    text: "문의일시", value: "inquiry", width: 180, sortable: true
+    text: "문의일시", value: "inquiry", width: 200, sortable: true
   },
   {
     text: "답변상태", value: "replyStatus", width: 112, sortable: true
@@ -141,4 +141,9 @@ const showRow = (item) => {
 <style lang="scss" scoped>
 @import "./src/css/table";
 @import 'src/css/support';
+::v-deep{
+  table{
+    table-layout: fixed;
+  }
+}
 </style>
