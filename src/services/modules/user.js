@@ -6,7 +6,7 @@ export const UserService = {
     return response.data;
   },
   async updateMe(payload) {
-    const response = await api.patch(`/users/${payload.id}`, payload.params);
+    const response = await api.patch(`/users/${payload.id}`, payload.body);
     return response.data;
   }
 };
