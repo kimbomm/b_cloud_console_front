@@ -17,4 +17,14 @@ export const ProjectService = {
     const response = await api.get(`/workspaces/${workspaceId}/members/${userId}/projects`);
     return response.data;
   },
+
+  /**
+   * 설명: 해당 workspace 의 모든 프로젝트 정보 가져오기
+   * @param { number } workspaceId 워크스페이스 id
+   */
+  async getListProject(workspaceId) {
+    const response = await api.get(`/workspaces/${workspaceId}/projects`);
+    return response.data;
+  },
+
 };
