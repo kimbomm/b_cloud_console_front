@@ -650,7 +650,7 @@ const headers2 = [
     text: "그룹 이름", value: "groupTitle", width: 130, sortable: true
   },
   {
-    text: "태스크 이름", value: "title", width: 133, sortable: true
+    text: "태스크 이름", value: "title", width: 155, sortable: true
   },
   {
     text: "상태", value: "status", width: 105, sortable: true
