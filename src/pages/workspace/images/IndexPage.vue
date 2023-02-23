@@ -45,6 +45,7 @@
             <div v-if="tab === 'myTab'">
               <!-- 내이미지 -->
               <MyPage :imageList="imageList" @onShare="onShare" @onDelete="onDelete"
+              :getRowSelectedImage="getRowSelectedImage" @update:getRowSelectedImage="handleRowDataClick"
 
               />
             </div>
@@ -73,15 +74,15 @@
   </q-page>
 
   <!-- Start : [내 이미지] 이미지 - 내이미지 - 공유관리 -->
-  <q-dialog v-model="imageShareMngModal" class="c_dialog medium">
+  <q-dialog v-model="isImageShareManagePopup" class="c_dialog medium">
     <q-card>
       <q-card-section class="c_dialog_body">
         <p class="title">
           <strong>내 이미지 공유 관리</strong>
         </p>
         <q-item-section class="item_card medium bg">
-          <q-item-label class="name">{{ myWorkspaceName }}</q-item-label>
-          <q-item-label class="desc">{{ myProjecteName }}</q-item-label>
+          <q-item-label class="name">{{ userWorkspaceName }}</q-item-label>
+          <q-item-label class="desc">{{ userProjecteName }}</q-item-label>
         </q-item-section>
         <section class="section">
           <p class="sub_title">공유 여부</p>
@@ -138,7 +139,7 @@
 </template>
 <script setup>
 import {
-  ref, watch, onBeforeMount, reactive
+  ref, watch, reactive
 } from "vue";
 import { useMeta } from "quasar";
 import { imageService, ProjectService, WorkspaceService } from "src/services";
@@ -316,49 +317,39 @@ const optNumber = ref([
 ]);
 
 /* 공유관리 팝업 */
-const imageShareMngModal = ref(false);
-const myWorkspaceName = ref("");
-const myProjecteName = ref("");
+const isImageShareManagePopup = ref(false);
+const userWorkspaceName = ref("");
+const userProjecteName = ref("");
 const chkAll = ref(true);
+const getRowSelectedImage = ref({});
+
 // 상태 state
 const popupState = reactive({
   currentSharedImageData: null, // 공유관리 팝업 열 때 이미지 정보
   selectTest: null,
 });
 
-// 현재 선택한 이미지 정보
-const fetchCurrentSharedImage = (item) => {
-  popupState.currentSharedImageData = item;
-  console.log("itemitem", item);
-  console.log(popupState.currentSharedImageData, "currentSharedImageData");
+// 공유관리 팝업
+const onShare = () => {
+  isImageShareManagePopup.value = true;
 };
 
-
-// 공유관리 버튼
-const onShare = (item) => {
-  imageShareMngModal.value = true;
-  fetchCurrentSharedImage(item);
-};
-
-watch(imageShareMngModal, () => {
-  myWorkspaceName.value = popupState.currentSharedImageData.base_image_name;
-  myProjecteName.value = popupState.currentSharedImageData.description;
+// 워크스페이스 이름, 워크스페이스 설명
+watch(isImageShareManagePopup, () => {
+  userWorkspaceName.value = popupState.currentSharedImageData.base_image_name;
+  userProjecteName.value = popupState.currentSharedImageData.description;
 });
 
-/* 삭제 alert 팝업 */
-const isAlertDeletePopup = ref(false);
-
 const handleDeleteButton = (value) => {
-  console.log("popupState", popupState);
-
   if (value) {
     console.log(true);
   } else {
     console.log(1);
-    popupState.selectTest = null;
   }
-  console.log("popupStatepopupState", popupState);
 };
+
+/* 삭제 alert 팝업 */
+const isAlertDeletePopup = ref(false);
 
 // 삭제버튼
 const onDelete = async (item) => {
@@ -366,8 +357,7 @@ const onDelete = async (item) => {
   // console.log(response);
 
   console.log("onShare", item);
-  popupState.selectTest = item;
-
+  console.log("삭제");
   isAlertDeletePopup.value = true;
 };
 
@@ -393,6 +383,11 @@ const getMyproject = async () => {
     console.log(e);
     return false;
   }
+};
+
+const handleRowDataClick = (value) => {
+  popupState.currentSharedImageData = value;
+  getMyproject();
 };
 
 // 공유, 공유해제 함수
@@ -428,9 +423,6 @@ const handleSharedTargetClick = (e) => {
   }
 };
 
-onBeforeMount(() => {
-  getMyproject();
-});
 </script>
 
 <style lang="scss" scoped>
