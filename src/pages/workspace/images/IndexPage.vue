@@ -424,7 +424,7 @@ const onShare = () => {
   getMyproject();
 };
 
-// index 번째에 따라 그룹 전체 선택 하는 함수
+// index 번째에 따라 그룹 전체 선택
 function updateChecked(data, index, checked) {
   const updatedData = data.map((item, i) => ({
     ...item,
@@ -446,47 +446,41 @@ const handleCheckGroupClick = (index) => {
 };
 
 // 공유 대상 저장, 공유해제 대상 저장
-const shareOrUnshareWorkspaceImage = async (imgId, share) => {
-  const data = {
-    workspace_id: workspaceId,
-    image_id: imgId,
-  };
-  // 저장 클릭시 (다시수정)
-  try {
-    if (share) {
-      console.log("share");
-      await WorkspaceService.postShareWorkspaceImage(workspaceId, imgId, data);
-    } else {
-      console.log("unshare");
 
-      await WorkspaceService.postUnShareWorkspaceImage(workspaceId, imgId, data);
-    }
-  } catch (e) {
-    console.log(e);
-    return false;
-  }
+const ApiShareImage = async (trueIds, falseIds) => {
+  const result1 = await Promise.all(
+    trueIds.map(async (item) => WorkspaceService.postShareWorkspaceImage(workspaceId, item))
+  );
+  const result2 = await Promise.all(
+    falseIds.map(async (item) => WorkspaceService.postUnShareWorkspaceImage(workspaceId, item))
+  );
+  console.log("result1", result1);
+  console.log("result2", result2);
 };
 
-// 공유 이미지 리스트 클릭시
-const handleSharedTargetClick = (e) => {
-  console.log("eeeeee", e);
-  console.log("shareOrUnshareWorkspaceImage", shareOrUnshareWorkspaceImage);
-
-  // 데이터 공유
-  // if (e.checked) {
-  //   console.log("checked true");
-  //   shareOrUnshareWorkspaceImage(imgId, true);
-  // } else {
-  //   console.log("checked fase");
-  //   shareOrUnshareWorkspaceImage(imgId, false);
-  // }
-};
-
+// 저장 시 checked true,false 각 배열 분리
 const imageShareManageSave = () => {
-  console.log("저장함");
-  // mySharedProjects.value
-  const projectIds = mySharedProjects.value.flatMap((item) => item.projects.map((project) => project.id));
-  console.log("projectIdsprojectIdsprojectIds", { imgId: projectIds });
+  const result = mySharedProjects.value.reduce((acc, curr) => {
+    const trueIds = [];
+    const falseIds = [];
+
+    curr.projects.forEach((project) => {
+      if (project.checked) {
+        trueIds.push(project.id);
+      } else {
+        falseIds.push(project.id);
+      }
+    });
+
+    acc.trueIds.push(...trueIds);
+    acc.falseIds.push(...falseIds);
+
+    return acc;
+  }, { trueIds: [], falseIds: [] });
+
+  console.log("true선택", result.trueIds); // true일 경우 배열
+  console.log("false선택", result.falseIds); // faslse일 경우 배열
+  ApiShareImage(result.trueIds, result.falseIds);
 };
 
 </script>
