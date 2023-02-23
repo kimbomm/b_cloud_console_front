@@ -113,7 +113,6 @@
                   <q-checkbox
                     class="c_checkbox"
                     v-model="innerProject.checked"
-                    @click="handleSharedTargetClick(innerProject)"
                   />
                 </q-item>
               </template>
