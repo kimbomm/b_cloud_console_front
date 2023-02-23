@@ -62,15 +62,16 @@ const scrollFn = () => {
   }
   // console.log(rwdSize.value);
 };
+
+onBeforeUnmount(() => {
+  window.removeEventListener("resize", scrollFn);
+});
+
 onMounted(() => {
   window.addEventListener("resize", scrollFn);
 });
 
 onUnmounted(() => {
-  window.removeEventListener("resize", scrollFn);
-});
-
-onBeforeUnmount(() => {
   window.removeEventListener("resize", scrollFn);
 });
 

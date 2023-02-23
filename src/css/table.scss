@@ -153,6 +153,24 @@ $padding: 16px;
       background-color: $easy-table-body-row-hover-background-color;
       color: $easy-table-body-row-hover-font-color;
     }
+    &::-webkit-scrollbar {
+      width: 12px;
+      &-track {
+        border:0 solid #e5e5e5;
+        border-radius: 0;
+        background-color: #fff;
+      }
+      &-thumb {
+        border:4px solid transparent;
+        border-radius: 20px;
+        background-image: linear-gradient(180deg, #ACB5C9 0%, #ACB5C9 99%);
+        background-clip: content-box;
+        box-shadow: inset 2px 2px 5px 0 rgba(#fff, 0.5);
+        &:hover{
+          background-image: linear-gradient(180deg, #ACB5C9 0%, #ACB5C9 99%);
+        }
+      }
+    }
   }
   .vue3-easy-data-table__header,
   .vue3-easy-data-table__body{
