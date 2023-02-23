@@ -264,6 +264,14 @@
               <template #item-desc="item">
                 <a href="#">
                   <span class="txt">{{ item.desc }}</span>
+                  <q-tooltip
+                    anchor="bottom middle"
+                    class="c_tooltip"
+                  >
+                    <div class="inner">
+                      {{ item.desc }}
+                    </div>
+                  </q-tooltip>
                 </a>
               </template>
               <!--
@@ -659,7 +667,7 @@ const mngTaskHeader = [
     text: "프로젝트 이름", value: "title", width: 160, sortable: true
   },
   {
-    text: "프로젝트 설명", value: "desc", width: 280, sortable: false
+    text: "프로젝트 설명", value: "desc", width: 250, sortable: false
   },
   {
     text: "할당량 설정", value: "status", width: 130, sortable: true

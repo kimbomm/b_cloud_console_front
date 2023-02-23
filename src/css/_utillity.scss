@@ -1048,7 +1048,8 @@ body.desktop .q-radio,
     overflow: hidden;
     text-overflow: ellipsis;
     position:relative;
-    min-width:190px;
+    // min-width:190px;
+    min-width:auto;
     max-width:270px;
     border-radius:8px;
     word-wrap: break-word;

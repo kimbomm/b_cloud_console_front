@@ -171,7 +171,17 @@
                   </template>
                   <!-- description -->
                   <template #item-description="item">
-                    <span class="txt clip">{{ item.description }}</span>
+                    <a href="#">
+                      <span class="txt clip">{{ item.description }}</span>
+                      <q-tooltip
+                        anchor="bottom middle"
+                        class="c_tooltip"
+                      >
+                        <div class="inner">
+                          {{ item.description }}
+                        </div>
+                      </q-tooltip>
+                    </a>
                   </template>
                   <!--
                     상태값(status)
@@ -640,7 +650,7 @@ const headers2 = [
     text: "그룹 이름", value: "groupTitle", width: 130, sortable: true
   },
   {
-    text: "태스크 이름", value: "title", width: "8%", sortable: true
+    text: "태스크 이름", value: "title", width: 133, sortable: true
   },
   {
     text: "상태", value: "status", width: 105, sortable: true
@@ -649,13 +659,13 @@ const headers2 = [
     text: "ssh", value: "ssh", width: 80, sortable: false
   },
   {
-    text: "인스턴스 타입", value: "instanceType", width: 135, sortable: true
+    text: "인스턴스 타입", value: "instanceType", width: 140, sortable: true
   },
   {
-    text: "GPU", value: "gpu", width: 60, sortable: false
+    text: "GPU", value: "gpu", width: 65, sortable: false
   },
   {
-    text: "CPU", value: "cpu", width: 60, sortable: false
+    text: "CPU", value: "cpu", width: 65, sortable: false
   },
   {
     text: "생성자", value: "createdBy", width: 80, sortable: true

@@ -320,34 +320,34 @@ const nDay = ref(7);
 
 const headers = [
   {
-    text: "ID", value: "id", width: 80, sortable: false, checkbox: true
+    text: "ID", value: "id", width: 75, sortable: false, checkbox: true
   },
   {
-    text: "이름", value: "title", width: "18%", sortable: true
+    text: "이름", value: "title", width: 133, sortable: true
   },
   {
-    text: "상태", value: "status", width: 140, sortable: true
+    text: "상태", value: "status", width: 133, sortable: true
   },
   {
     text: "ssh", value: "ssh", width: 80, sortable: false
   },
   {
-    text: "JupyterLab", value: "jupyterLab", width: 140, sortable: false
+    text: "JupyterLab", value: "jupyterLab", width: 135, sortable: false
   },
   {
     text: "인스턴스 타입", value: "instanceType", width: 140, sortable: true
   },
   {
-    text: "GPU", value: "gpu", width: 70, sortable: false
+    text: "GPU", value: "gpu", width: 60, sortable: false
   },
   {
-    text: "CPU", value: "cpu", width: 70, sortable: false
+    text: "CPU", value: "cpu", width: 60, sortable: false
   },
   {
-    text: "생성일시", value: "createdAt", width: 170, sortable: true
+    text: "생성일시", value: "createdAt", width: 165, sortable: true
   },
   {
-    text: "생성자", value: "createdBy", width: 95, sortable: true
+    text: "생성자", value: "createdBy", width: 85, sortable: true
   },
   { text: "", value: "buttons", width: 80 },
 ];

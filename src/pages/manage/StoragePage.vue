@@ -397,13 +397,13 @@ const options = ref([
 
 const headers = [
   {
-    text: "이름", value: "title", width: 140, sortable: true
+    text: "이름", value: "title", width: 130, sortable: true
   },
   {
-    text: "설명", value: "desc", width: 300, sortable: true
+    text: "설명", value: "desc", width: 280, sortable: true
   },
   {
-    text: "소유자", value: "user", width: 120, sortable: true
+    text: "소유자", value: "user", width: 110, sortable: true
   },
   {
     text: "상태", value: "status", width: 120, sortable: true
@@ -414,7 +414,7 @@ const headers = [
   {
     text: "생성일시", value: "createdAt", width: 170, sortable: true
   },
-  { text: "", value: "buttons", width: 200 },
+  { text: "", value: "buttons", width: 220 },
 ];
 const items = [
   {

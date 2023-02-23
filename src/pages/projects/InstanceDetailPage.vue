@@ -184,6 +184,14 @@
                       <template #item-title="item">
                         <a href="#">
                           <span class="txt">{{ item.title }}</span>
+                          <q-tooltip
+                            anchor="bottom middle"
+                            class="c_tooltip"
+                          >
+                            <div class="inner">
+                              {{ item.title }}
+                            </div>
+                          </q-tooltip>
                         </a>
                       </template>
                       <!-- nvida -->
@@ -227,12 +235,28 @@
                       <template #item-title="item">
                         <a href="#">
                           <span class="txt">{{ item.title }}</span>
+                          <q-tooltip
+                            anchor="bottom middle"
+                            class="c_tooltip"
+                          >
+                            <div class="inner">
+                              {{ item.title }}
+                            </div>
+                          </q-tooltip>
                         </a>
                       </template>
                       <!-- description -->
                       <template #item-description="item">
                         <a href="#">
                           <span class="txt">{{ item.description }}</span>
+                          <q-tooltip
+                            anchor="bottom middle"
+                            class="c_tooltip"
+                          >
+                            <div class="inner">
+                              {{ item.description }}
+                            </div>
+                          </q-tooltip>
                         </a>
                       </template>
                         <!--
@@ -395,6 +419,14 @@
                       <template #item-description="item">
                         <a href="#">
                           <span class="txt">{{ item.description }}</span>
+                          <q-tooltip
+                            anchor="bottom middle"
+                            class="c_tooltip"
+                          >
+                            <div class="inner">
+                              {{ item.description }}
+                            </div>
+                          </q-tooltip>
                         </a>
                       </template>
                       <!-- owner -->
@@ -454,6 +486,14 @@
                     <template #item-description="item">
                       <a href="#">
                         <span class="txt">{{ item.description }}</span>
+                        <q-tooltip
+                          anchor="bottom middle"
+                          class="c_tooltip"
+                        >
+                          <div class="inner">
+                            {{ item.description }}
+                          </div>
+                        </q-tooltip>
                       </a>
                     </template>
                     <!--
@@ -529,6 +569,14 @@
                     <template #item-fingerprint="item">
                       <a href="#">
                         <span class="txt">{{ item.fingerprint }}</span>
+                        <q-tooltip
+                          anchor="bottom middle"
+                          class="c_tooltip"
+                        >
+                          <div class="inner">
+                            {{ item.fingerprint }}
+                          </div>
+                        </q-tooltip>
                       </a>
                     </template>
                     <!-- registrationDat -->
@@ -759,16 +807,16 @@ const chipFilterFn = (val, update) => {
 // 인스턴스 타입 테이블
 const instanceHeaders = [
   {
-    text: "이름", value: "title", width: 200, sortable: false
+    text: "이름", value: "title", width: 180, sortable: false
   },
   {
-    text: "CPU", value: "cpu", width: 140, sortable: false
+    text: "CPU", value: "cpu", width: 130, sortable: false
   },
   {
-    text: "Memory", value: "memory", width: 140, sortable: false
+    text: "Memory", value: "memory", width: 130, sortable: false
   },
   {
-    text: "Disk", value: "disk", width: 140, sortable: false
+    text: "Disk", value: "disk", width: 130, sortable: false
   },
 ];
 const instanceItems = [
@@ -815,7 +863,7 @@ const instanceItems = [
 // 이미지 테이블_기본이미지
 const imgHeader1 = [
   {
-    text: "이름", value: "title", width: 380, sortable: false
+    text: "이름", value: "title", width: 350, sortable: false
   },
   {
     text: "NVIDA 드라이브 최소버전", value: "nvida", width: 240, sortable: false
@@ -869,13 +917,13 @@ const imgItems2 = [
 // 이미지 테이블_공유받은 이미지
 const imgHeader3 = [
   {
-    text: "이름", value: "title", width: 120, sortable: false
+    text: "이름", value: "title", width: 110, sortable: false
   },
   {
-    text: "설명", value: "description", width: 270, sortable: false
+    text: "설명", value: "description", width: 220, sortable: false
   },
   {
-    text: "공유자", value: "owner", width: 230, sortable: false
+    text: "공유자", value: "owner", width: 260, sortable: false
   },
 ];
 const imgItems3 = [
@@ -902,7 +950,7 @@ const storageHeader = [
     text: "이름", value: "title", width: 100, sortable: false
   },
   {
-    text: "설명", value: "description", width: 220, sortable: false
+    text: "설명", value: "description", width: 200, sortable: false
   },
   {
     text: "상태", value: "status", width: 90, sortable: false
@@ -911,7 +959,7 @@ const storageHeader = [
     text: "소유자", value: "user", width: 100, sortable: false
   },
   {
-    text: "접근권한", value: "authority", width: 110, sortable: false
+    text: "접근권한", value: "authority", width: 100, sortable: false
   },
 ];
 const storageItems = [
@@ -941,10 +989,10 @@ const storageItems = [
 // SSH Key 테이블
 const sshKeyHeader = [
   {
-    text: "이름", value: "title", width: 120, sortable: false
+    text: "이름", value: "title", width: 110, sortable: false
   },
   {
-    text: "Fingerprint", value: "fingerprint", width: 300, sortable: false
+    text: "Fingerprint", value: "fingerprint", width: 280, sortable: false
   },
   {
     text: "등록일시", value: "registrationDat", width: 200, sortable: false

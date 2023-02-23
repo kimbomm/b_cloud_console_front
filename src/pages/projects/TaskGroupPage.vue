@@ -394,7 +394,7 @@ const headers = [
     text: "ID", value: "id", width: 65, sortable: false, checkbox: true
   },
   {
-    text: "태스크 이름", value: "title", width: 200, sortable: true
+    text: "태스크 이름", value: "title", width: 160, sortable: true
   },
   {
     text: "상태", value: "status", width: 100, sortable: true
@@ -418,7 +418,7 @@ const headers = [
     text: "완료일시", value: "endDat", width: 165, sortable: true
   },
   {
-    text: "로그확인", value: "logCheck", width: 70, sortable: true
+    text: "로그확인", value: "logCheck", width: 100, sortable: true
   },
   { text: "", value: "buttons", width: 80 },
 ];
