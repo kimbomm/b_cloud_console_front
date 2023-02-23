@@ -19,27 +19,10 @@
     <!-- //.p-head -->
     <div class="p-body">
       <div class="group-tabs">
-        <q-tabs
-          v-model="tabModel"
-          align="left"
-          class="c_tabs"
-        >
-          <q-tab
-            name="my"
-            label="내 정보"
-          ></q-tab>
-          <q-tab
-            name="key"
-            label="SSH key & API key"
-          ></q-tab>
-          <!-- TODO: TBD 개발 -->
-          <!-- <q-tab
-            name="alarm"
-            label="내 알림"
-          >
-            <q-badge>19</q-badge>
-          </q-tab> -->
-        </q-tabs>
+        <c-tab
+          v-model:value="tabModel"
+          :tabs="tabs"
+        />
       </div>
       <!-- <template v-show="tabModel === 'my'"> -->
       <div class="my_info">
@@ -261,16 +244,22 @@
   </q-page>
 </template>
 <script setup>
-import { ref, onBeforeMount } from "vue";
+import {
+  ref,
+  onBeforeMount,
+  computed
+} from "vue";
 import { useMeta } from "quasar";
-import { useRoute } from "vue-router";
+import { useRoute, onBeforeRouteUpdate } from "vue-router";
 import { $utils } from "src/utils/utils";
+
 import {
   UserService,
   WorkspaceService,
   ProjectService,
 } from "src/services";
 import CInputText from "components/common/CInputText.vue";
+import CTab from "components/common/CTab.vue";
 
 const title = ref("Account");
 useMeta(() => ({
@@ -284,10 +273,36 @@ const userName = ref(null);
 const tabModel = ref("my");
 const editInfoModel = ref(false);
 // const helpShow = ref(false);
-
 // const LDAPLoginModal = ref(false);
 // const ldapID = ref(null);
 // const ldapPW = ref(null);
+
+/**
+ * route hash값 존재시
+ * tabModel 셋팅: 탭 이동
+ */
+const tabs = [
+  { name: "my", label: "내 정보" },
+  { name: "key", label: "SSH key & API key" },
+  // { name: "alarm", label: "알람" }, TODO: TBD 개발
+];
+const getTabsName = computed(() => tabs.map((tab) => tab.name));
+const { hash } = route;
+function setTabModel(hs) {
+  const nHash = $utils.getHash(hs || hash);
+  if (nHash && getTabsName.value.includes(nHash)) {
+    tabModel.value = nHash;
+  } else {
+    const [firstValue] = getTabsName.value;
+    tabModel.value = firstValue;
+  }
+}
+setTabModel();
+onBeforeRouteUpdate((to) => {
+  setTabModel(to.hash);
+});
+// route hash값 존재시 탭이동 끝
+
 const modifyInfo = ref({
   name: "",
   description: ""

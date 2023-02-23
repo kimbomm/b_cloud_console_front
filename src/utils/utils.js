@@ -11,7 +11,7 @@ class Utils {
     let isBlank = false;
     switch (typeof target) {
       case "object":
-        isBlank = Array.isArray(target) ? !target.length : !target;
+        isBlank = Array.isArray(target) ? !target.length : Object.keys(target).length === 0;
         break;
       default:
         isBlank = !target;
@@ -96,6 +96,19 @@ class Utils {
       }
     }
     return roleName;
+  }
+
+  /**
+   * 설명: route hash 정재
+   * @param { string } hash '#'포함된 hash
+   * @returns '#'제거된 hash 또는 false
+   */
+  getHash(hash) {
+    if (hash.includes("#")) {
+      const rH = hash.split()[0].replaceAll("#", "");
+      return rH;
+    }
+    return false;
   }
 }
 
