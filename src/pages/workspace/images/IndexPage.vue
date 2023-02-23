@@ -275,7 +275,7 @@ const getSharedImge = async () => {
   }
 };
 
-// 탭
+// 이미지 탭
 const tab = ref("myTab");
 const getTab = () => {
   if (tab.value === "myTab") {
@@ -288,6 +288,10 @@ const getTab = () => {
     getSharedImge();
   }
 };
+
+watch(tab, getTab);
+getTab();
+
 // n개씩 보기
 const optNumber = ref([
   { label: "10", value: 0 },
@@ -315,8 +319,12 @@ const fetchCurrentSharedImage = (item) => {
 const onShare = (item) => {
   imageShareMngModal.value = true;
   fetchCurrentSharedImage(item);
-  console.log("onShare", item);
 };
+
+watch(imageShareMngModal, () => {
+  myWorkspaceName.value = popupState.currentSharedImageData.base_image_name;
+  myProjecteName.value = popupState.currentSharedImageData.description;
+});
 // 삭제버튼
 const onDelete = async (item) => {
   const response = await imageService.getSharedImages(workspaceId);
@@ -383,17 +391,10 @@ const getSharedTargets = (e) => {
   }
 };
 
-watch(tab, getTab);
-getTab();
-
-watch(imageShareMngModal, () => {
-  myWorkspaceName.value = popupState.currentSharedImageData.base_image_name;
-  myProjecteName.value = popupState.currentSharedImageData.description;
-});
-
 onBeforeMount(() => {
   getMyproject();
 });
+
 </script>
 
 <style lang="scss" scoped>
