@@ -302,19 +302,22 @@ const myProjecteName = ref("");
 const chkAll = ref(true);
 
 const popupState = reactive({
-  currentSharedData: null,
+  currentSharedImageData: null,
 });
 
-const fetchCurrentSharedData = (item) => {
-  popupState.currentSharedData = item;
+// 현재 선택한 이미지 정보
+const fetchCurrentSharedImage = (item) => {
+  popupState.currentSharedImageData = item;
+  console.log("itemitem", item);
 };
 
+// 공유관리 버튼
 const onShare = (item) => {
   imageShareMngModal.value = true;
-  fetchCurrentSharedData(item);
+  fetchCurrentSharedImage(item);
   console.log("onShare", item);
 };
-
+// 삭제버튼
 const onDelete = async (item) => {
   const response = await imageService.getSharedImages(workspaceId);
   console.log(response);
@@ -384,8 +387,8 @@ watch(tab, getTab);
 getTab();
 
 watch(imageShareMngModal, () => {
-  myWorkspaceName.value = popupState.currentSharedData.base_image_name;
-  myProjecteName.value = popupState.currentSharedData.description;
+  myWorkspaceName.value = popupState.currentSharedImageData.base_image_name;
+  myProjecteName.value = popupState.currentSharedImageData.description;
 });
 
 onBeforeMount(() => {
