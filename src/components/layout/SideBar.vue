@@ -418,7 +418,6 @@ const inputRules = ref([
 ]);
 
 watch(isProjectDescription, () => {
-  console.log("isInputValidisInputValidisInputValid", isProjectDescription);
 });
 
 const getUserInfo = async () => {
@@ -432,6 +431,7 @@ const getUserInfo = async () => {
 };
 
 watchEffect(() => {
+  console.log("getUsergetUserInfoInfo", getUserInfo);
   getUserInfo();
 });
 
@@ -452,6 +452,7 @@ const triggerSuccess = (position) => {
     ],
     timeout: 500,
   });
+  getUserInfo();
 };
 
 const newProject = async (position) => {
