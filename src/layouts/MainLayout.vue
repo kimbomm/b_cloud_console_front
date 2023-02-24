@@ -1,5 +1,5 @@
 <template>
-  <!-- 해상도 1426 보다 작을 경우 class iconMode 추가 -->
+  <!-- 해상도 1521 보다 작을 경우 class iconMode 추가 -->
   <q-layout ref="input" view="hHh Lpr lff" class="l-wrap l-console" :class="drawer ? '' : 'iconMode'">
     <q-header class="l-header">
       <q-toolbar>
@@ -55,7 +55,7 @@ const drawer = ref(false);
 const scrollFn = () => {
   const rwdSize = ref(window.innerWidth);
   const { body } = document;
-  if (rwdSize.value < 1426) {
+  if (rwdSize.value < 1521) {
     body.classList.add("laptop");
   } else {
     body.classList.remove("laptop");
