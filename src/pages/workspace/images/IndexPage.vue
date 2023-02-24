@@ -425,9 +425,9 @@ const makeMyProjectList = async (projects) => {
   }));
 
   // responses와 projects 병합
-  const projectArrays = updatedResponses.map((response) => ({
+  const projectArrays = updatedResponses.map((response, index) => ({
     ...response,
-    ...projects[0],
+    ...projects[index],
   }));
 
   mySharedProjects.value = projectArrays;
