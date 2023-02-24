@@ -2,8 +2,8 @@ import { api } from "boot/axios";
 
 export const imageService = {
   /**
-   * 설명: 내 이미지 가져오기 List Shared Images
-   * @param { string } workspaceId {{workspace_id}}
+   * 설명: 내 이미지 가져오기
+   * @param { Number } workspaceId 워크스페이스 id
    */
   async getMyImages(workspaceId) {
     const response = await api.get(`/workspaces/${workspaceId}/images/me`);
@@ -11,7 +11,7 @@ export const imageService = {
   },
 
   /**
-   * 설명: 기본 이미지 가져오기 List BaseImages
+   * 설명: 기본 이미지 가져오기
    */
   async getBaseImages() {
     const response = await api.get("/base-images");
@@ -19,8 +19,8 @@ export const imageService = {
   },
 
   /**
-   * 설명: 공유받은 이미지 가져오기 List Shared Images
-   * @param { string } workspaceId {{workspace_id}}
+   * 설명: 공유받은 이미지 가져오기
+   * @param { Number } workspaceId 워크스페이스 id
    */
   async getSharedImages(workspaceId) {
     const response = await api.get(`/workspaces/${workspaceId}/shared-images`);
@@ -29,11 +29,11 @@ export const imageService = {
 
   /**
    * 설명: 이미지 삭제하기
-   * @param { String } workspaceId 워크스페이스 id
-   * @param { String } imgId 이미지 id
+   * @param { Number } workspaceId 워크스페이스 id
+   * @param { Number } imgId 이미지 id
    */
-  async postUnShareWorkspaceImage(workspaceId, imgId,) {
-    const response = await api.post(`/workspaces/${workspaceId}/images/${imgId}/share`);
+  async deleteImage(workspaceId, imgId, params) {
+    const response = await api.delete(`/workspaces/${workspaceId}/images/${imgId}`, params);
     return response.data;
   },
 
