@@ -133,31 +133,29 @@
   <!-- End : [내 이미지] 이미지 - 내이미지 - 공유관리 -->
 
   <!-- Start : [관리 - 인스턴스] 이미지 생성 불가 Alert 팝업 -->
-  <q-dialog v-model="alertImageCreateCantModal" class="c_dialog">
+
+  <q-dialog v-model="alertImageDeleteModal" class="c_dialog">
     <q-card>
       <q-card-section style="max-height: 290px" class="c_dialog_body">
         <p class="title">
-          <strong>용량이 초과하여 이미지 생성이 불가능합니다.</strong>
+          <strong>이미지를 삭제하시겠습니까?</strong>
         </p>
-        <p class="desc">추가된 용량이 10GiB 이하만 이미지 생성가능</p>
-        <div class="info negative">현재 추가된 용량 : 21GB</div>
+        <div class="info">
+          <strong>{{ currentImageTitle }}</strong>
+        </div>
       </q-card-section>
       <q-card-actions class="c_dialog_foot">
+        <q-btn label="취소" class="line" v-close-popup @click="deleteShareData(false)" />
         <q-btn
-          label="취소"
-          class="line"
-          v-close-popup
-          @click="handleDeleteClick(false)"
-        />
-        <q-btn
-          label="확인"
+          label="삭제"
           class="primary"
           v-close-popup
-          @click="handleDeleteClick(true)"
+          @click="deleteShareData(true)"
         />
       </q-card-actions>
     </q-card>
   </q-dialog>
+
   <!-- End : [관리 - 인스턴스] 인스턴스 용량 초과로 인한 이미지 생성 불가 Alert 팝업 -->
 </template>
 <script setup>
@@ -176,6 +174,11 @@ import SharedPage from "./component/SharedPage.vue";
 
 const route = useRoute();
 const { workspaceId } = route.params;
+
+// 상태 state
+const popupState = reactive({
+  currentSharedData: null, // 공유관리 팝업 열 때 이미지 정보
+});
 
 const title = ref("Image");
 useMeta(() => ({
@@ -344,46 +347,52 @@ const userProjecteName = ref("");
 const isChkAll = ref(true);
 const getRowSelectedImage = ref({});
 
-// 상태 state
-const popupState = reactive({
-  currentSharedImageData: null, // 공유관리 팝업 열 때 이미지 정보
-});
-
 // 워크스페이스 이름, 워크스페이스 설명
 watch(isImageShareManagePopup, () => {
-  userWorkspaceName.value = popupState.currentSharedImageData.base_image_name;
-  userProjecteName.value = popupState.currentSharedImageData.description;
+  userWorkspaceName.value = popupState.currentSharedData.base_image_name;
+  userProjecteName.value = popupState.currentSharedData.description;
 });
 
 const mySharedProjects = ref({}); // 내 워크스페이스 프로젝트 리스트
-const alertImageCreateCantModal = ref(true);
+const alertImageDeleteModal = ref(false);
+const currentImageTitle = ref("");
 
-// 삭제버튼 alert
-const onDelete = async () => {
-  console.log(1);
-  alertImageCreateCantModal.value = true;
-  // deleteAlertTitle.value = popupState.currentSharedImageData.name;
-};
-
-const triggerSuccess = () => {
+const triggerDeletedSuccess = () => {
   $useCmFn.onNotify({
     message: "이미지가 삭제되었습니다.",
     type: "positive",
   });
 };
 
-const triggerWarning = () => {
+const triggerDeletedFails = () => {
   $useCmFn.onNotify({
     message: "이미지 삭제를 실패하였습니다. 다시 시도해주세요.",
     type: "negative",
   });
 };
-const handleDeleteClick = (value) => {
+// 삭제버튼 alert
+const onDelete = async () => {
+  alertImageDeleteModal.value = true;
+  currentImageTitle.value = popupState.currentSharedData.name;
+};
+
+const deleteShareData = async (value) => {
+  const imgId = popupState.currentSharedData.id;
+
   if (value) {
-    triggerSuccess();
-    getMyImge();
-  } else {
-    triggerWarning();
+    try {
+      const data = {
+        workspace_id: workspaceId,
+        image_id: imgId
+      };
+      await imageService.deleteImage(data);
+
+      triggerDeletedSuccess();
+      getMyImge();
+    } catch (e) {
+      triggerDeletedFails();
+      return false;
+    }
   }
 };
 
@@ -423,7 +432,7 @@ const getMyproject = async () => {
 };
 
 const handleRowDataClick = (value) => {
-  popupState.currentSharedImageData = value;
+  popupState.currentSharedData = value;
 };
 // 공유관리 팝업
 const onShare = () => {
