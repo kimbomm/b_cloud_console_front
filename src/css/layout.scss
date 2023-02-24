@@ -19,8 +19,10 @@ $side-minw: 80px;
     .ico + .txt{margin-left:0;}
     &:before{box-shadow:none;}
     &.add{
+      display:flex;
       flex:none;
-      position:absolute;top:12px;right:28px;
+      position:absolute;top:12px;right:28px;z-index:1;
+      opacity: 1;
       width:24px;
       min-height:24px;
       height:24px;
@@ -81,6 +83,7 @@ $side-minw: 80px;
       }
     }
     .q-btn__content{
+      height:100%;
       &::after{
         display:none!important;
       }
@@ -96,10 +99,6 @@ $side-minw: 80px;
       width:32px;height:32px;
       margin-right:25px;
       font-size:0;
-      @include desktop{
-        // z-index:-1;
-        // opacity: 0;
-      }
     }
   }
   .ico{
@@ -152,6 +151,7 @@ $side-minw: 80px;
     >span{
       overflow:hidden;
       display:inline-block;
+      width:100%;height: auto;
       max-width:100%;
       text-overflow: ellipsis;
       white-space: nowrap;
@@ -359,6 +359,7 @@ $side-minw: 80px;
         }
       }
       .caption{
+        width:100%;
         margin-bottom:8px;
         margin-left:12px;
         color:$gray300;font-size:$fs12;
@@ -487,6 +488,23 @@ $side-minw: 80px;
           height:0;
         }
       }
+      &.open{
+        .q-card{
+          &.submenu{
+            height:0;
+          }
+        }
+        .item{
+          background: transparent;
+          color: #A1ACC2;
+        }
+        .ico_projects {
+          background-image: url($iconUrl + '32/ico_projects_normal.svg');
+        }
+        .ico_set {
+          background-image: url($iconUrl + '32/ico_manager_normal.svg');
+        }
+      }
     }
     &.open{
       .ico{
@@ -508,17 +526,19 @@ $side-minw: 80px;
       }
     }
     &.active{
-      .ico{
-        &_projects{
-          background-image:url($iconUrl + '32/ico_projects_pressed.svg');
+      &.open{
+        .ico{
+          &_projects{
+            background-image:url($iconUrl + '32/ico_projects_pressed.svg');
+          }
+          &_set{
+            background-image:url($iconUrl + '32/ico_manager_pressed.svg');
+          }
         }
-        &_set{
-          background-image:url($iconUrl + '32/ico_manager_pressed.svg');
+        .item{
+          background:$surface03;
+          color:$primary;
         }
-      }
-      .item{
-        background:$surface03;
-        color:$primary;
       }
     }
     &.support{
@@ -610,13 +630,10 @@ $side-minw: 80px;
       }
     }
     &.c_icon{
+      display:flex;
       width:32px;height:32px;
       margin-right:25px;
       font-size:0;
-      // opacity: 0;
-      @include desktop{
-        // opacity: 1;
-      }
     }
     &.top_guidemenu{
       margin:0;
@@ -687,25 +704,20 @@ $side-minw: 80px;
 }
 
 /* Layout SideBar */
-// q-drawer q-drawer--left q-drawer--standard fixed
-.q-drawer{
-  background-color:#F5F7FA;
-  &--left{
-    z-index:1000;
-    transform: translateX(0)!important;
-  }
-}
 // q-drawer__content fit scroll l-sidebar
 .l-sidebar{
   $sideMenuH:176px;
+  visibility: visible;
+  top:64px;bottom:0;left:0;z-index:1000;
+  transform: translateX(0);
+  width: $side-maxw;
+  background:#F5F7FA;
   @include textModeSidebar;
 }
 // Layout Page Content wrap l-container
-.q-page-container{
-  transition: padding-left .3s;
-  @include desktopMax{
-    padding-left:80px!important;
-  }
+.l-container{
+  padding-left:$side-maxw;
+  transition: padding-left .2s;
 }
 /* Page Contents */
 // q-page p-content
@@ -801,20 +813,82 @@ $side-minw: 80px;
     }
   }
 }
-
+.q-toolbar .q-btn.c_icon{z-index:1;}
+.l-sidebar .q-btn.c_icon{display:none;}
 // Drawer Icon Mode
 .iconMode{
-  .q-drawer{
-    &--left{
-      max-width:80px;
-    }
-  }
-  // q-drawer__content fit scroll l-sidebar
   .l-sidebar{
+    width:$side-minw;
     @include iconModeSidebar;
   }
-  // q-page-container l-container
-  .q-page-container{
+  .l-container{
     padding-left:$side-minw;
+  }
+}
+.textMode{
+  .l-sidebar{
+    width:$side-maxw;
+    @include textModeSidebar;
+  }
+  .l-container{
+    padding-left:$side-maxw;
+  }
+}
+@include desktopMax{
+  .q-toolbar .q-btn.c_icon{z-index:-1;opacity:0;}
+  .l-sidebar .q-btn.c_icon{display:flex;z-index:1;}
+  .l-sidebar{
+    width: $side-minw;
+    @include iconModeSidebar;
+    .q-btn.c_icon{
+      display:flex;
+    }
+  }
+  .l-container{
+    padding-left:$side-minw;
+  }
+  .textMode{
+    .l-sidebar{
+      @include textModeSidebar;
+      .q-item.my.active .ico_my {
+        opacity: 1;
+      }
+      .q-item.my.active .more {
+        background-color: transparent;
+        .ico_more {
+          background-image: url($iconUrl + '20/ico_more_normal.svg');
+        }
+      }
+    }
+    .l-container{
+      padding-left:$side-minw;
+    }
+    &.iconMode{
+      .l-sidebar{
+        width:$side-minw;
+        @include iconModeSidebar;
+      }
+      .l-container{
+        padding-left:$side-minw;
+      }
+    }
+  }
+  .iconMode{
+    .l-sidebar{
+      width:$side-minw;
+      @include iconModeSidebar;
+    }
+    .l-container{
+      padding-left:$side-minw;
+    }
+    &.textMode{
+      .l-sidebar{
+        width: $side-maxw;
+        @include textModeSidebar;
+      }
+      .l-container{
+        padding-left:$side-maxw;
+      }
+    }
   }
 }

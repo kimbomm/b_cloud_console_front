@@ -1,6 +1,5 @@
 <template>
-  <!-- 해상도 1426 보다 작을 경우 class iconMode 추가 -->
-  <q-layout ref="input" view="hHh Lpr lff" class="l-wrap l-console" :class="drawer ? '' : 'iconMode'">
+  <q-layout ref="input" view="hHh Lpr lff" class="l-wrap l-console" :class="{iconMode: drawer, textMode: sideClick}">
     <q-header class="l-header">
       <q-toolbar>
         <q-btn flat @click="drawer = !drawer" round dense icon="menu" class="c_icon menu" />
@@ -8,18 +7,10 @@
       </q-toolbar>
     </q-header>
 
-    <div class="drawer-side">
-      <q-drawer
-        class="l-sidebar"
-        v-model="drawer"
-        show-if-above
-        :width="316"
-        :mini-width="80"
-      >
-        <!-- <q-btn flat @click="drawer = !drawer" round dense icon="menu" class="c_icon menu" /> -->
-        <side-bar />
-      </q-drawer>
-    </div>
+    <aside class="l-sidebar fixed">
+      <q-btn flat @click="sideClick = !sideClick" round dense icon="menu" class="c_icon menu" />
+      <side-bar />
+    </aside>
 
     <q-page-container class="l-container">
       <router-view />
@@ -51,11 +42,12 @@ const metaData = {
 };
 useMeta(metaData);
 const drawer = ref(false);
+const sideClick = ref(false);
 
 const scrollFn = () => {
   const rwdSize = ref(window.innerWidth);
   const { body } = document;
-  if (rwdSize.value < 1426) {
+  if (rwdSize.value < 1521) {
     body.classList.add("laptop");
   } else {
     body.classList.remove("laptop");

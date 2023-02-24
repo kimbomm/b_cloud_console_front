@@ -53,6 +53,50 @@ class Utils {
   paseseDate(value, format) {
     return date.formatDate(value, format);
   }
+
+  /**
+   * 설명: 권한명칭 매칭 가져오기
+   * @param {*} type workspace | project
+   * @param {*} role
+   *
+   * 시스템 관리자(추후 어드민 적용)
+   * user : 일반 사용자
+   * admin : 어드민
+   * app : 애플리케이션
+   */
+  getRoleName(role, type = "workspace") {
+    let roleName = "";
+    if (type !== "workspace") {
+      switch (role) {
+        case "manager":
+          roleName = "워크스페이스 관리자";
+          break;
+        case "billing_manager":
+          roleName = "정산 관리자";
+          break;
+        case "member":
+          roleName = "워크스페이스 멤버";
+          break;
+        case "guest":
+          roleName = "게스트";
+          break;
+        default:
+          break;
+      }
+    } else {
+      switch (role) {
+        case "manager":
+          roleName = "프로젝트 관리자";
+          break;
+        case "member":
+          roleName = "멤버";
+          break;
+        default:
+          break;
+      }
+    }
+    return roleName;
+  }
 }
 
 export const $utils = new Utils();

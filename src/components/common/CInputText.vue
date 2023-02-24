@@ -6,6 +6,10 @@
     :clearable="clearable"
     :disable="disable"
     :outlined="outlined"
+    :bottom-slots="bottomSlots"
+    :counter="counter"
+    :maxlength="maxlength"
+    :input-style="inputStyle"
     :placeholder="placeholder"
     :type="lazyType"
     :hint="hint"
@@ -14,7 +18,7 @@
     :suffix="suffix"
     @update:model-value="onUpdateInput"
   >
-    <template v-slot:prepend>
+    <template v-if="$slots.prepend" v-slot:prepend>
       <slot name="prepend" />
     </template>
     <template v-if="type === 'password'" v-slot:append>
@@ -24,7 +28,7 @@
         class="cursor-pointer"
         @click="onChangeVisible"
       />
-      <slot name="append" />
+      <slot v-if="$slots.append" name="append" />
     </template>
   </q-input>
 </template>
@@ -46,6 +50,22 @@ const props = defineProps({
   outlined: {
     type: Boolean,
     default: true
+  },
+  bottomSlots: {
+    type: Boolean,
+    default: false
+  },
+  counter: {
+    type: Boolean,
+    default: false
+  },
+  maxlength: {
+    type: Number,
+    default: 0
+  },
+  inputStyle: {
+    type: [Object],
+    default: null
   },
   value: {
     type: [String, Number],
@@ -92,7 +112,11 @@ const lazyValue = ref(props.value);
 const classes = ref(["c_inp"]);
 const classList = computed(() => classes.value.join(" "));
 const isPasswordType = computed(() => lazyType.value === "password");
+const getHasError = computed(() => inputRef.value.hasError);
 
+defineExpose({
+  getHasError
+});
 /**
  * input rules가 존재할 경우
  * validate 실행
@@ -101,7 +125,7 @@ const onValidate = () => {
   // rules 존재시 validation trigger
   if (!$utils.isBlank(props.rules)) {
     inputRef.value.validate();
-    if (!inputRef.value.hasError && !classes.value.includes("q-field--positive")) {
+    if (!getHasError.value && !classes.value.includes("q-field--positive")) {
       classes.value.push("q-field--positive");
     } else {
       const classIdx = classes.value.findIndex((classNm) => classNm === "q-field--positive");
@@ -122,6 +146,8 @@ onMounted(async () => {
   if (props.type === "password") {
     classes.value.push("c_password");
     lazyType.value = "password";
+  } else {
+    lazyType.value = props.type;
   }
 });
 /**
