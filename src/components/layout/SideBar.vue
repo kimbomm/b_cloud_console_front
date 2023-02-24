@@ -234,6 +234,8 @@
               />
 
             </div>
+          {{project}}
+
           </section>
           <section class="section" aria-label="프로젝트 설명">
             <p class="sub_title">프로젝트 설명</p>
@@ -253,21 +255,9 @@
                 outlined
                 :disable="isProjectDescription"
               />
-
-              <!-- <c-input-text
-                v-model:value="inputValue"
-                placeholder="최소 2자 최대 30자 입력"
-                :rules="inputRules"
-                class="wsize_full hsize244"
-                :count="10"
-                type="textarea"
-                bottom-slots
-                maxlength="500"
-                :input-style="{ height: '100%' }"
-              /> -->
-
             </div>
           </section>
+
         </q-card-section>
         <q-card-actions class="c_dialog_foot">
           <q-btn label="취소" class="line" v-close-popup />
@@ -284,9 +274,11 @@
   </q-scroll-area>
 </template>
 <script setup>
-import { ref, watch, computed } from "vue";
+import {
+  ref, computed, watchEffect
+} from "vue";
 import { useQuasar } from "quasar";
-import { AuthService, ProjectService } from "src/services";
+import { AuthService, ProjectService, } from "src/services";
 import { googleLogout } from "vue3-google-login";
 // import { useRoute } from "vue-router";
 import CInputText from "components/common/CInputText.vue";
@@ -407,15 +399,30 @@ const menuData = [
 
 const projectName = ref("");
 const projectDescription = ref("");
-const isProjectDescription = computed(() => projectName.value.length <= 0);
-const inputRules = [
-  (value) => (!!value.length && value.length >= 2 && value.length <= 20) || "최소 2글자 최대 30글자로 입력해주세요"
-];
+const getListProject = ref([]);
+const isProjectDescription = computed(() => {
+  const project = getListProject.value.find((p) => p.name === projectName.value);
+  return project !== undefined ? true : projectName.value.length <= 1;
+});
+const inputRules = [(value) => !!value || "", (value) => (!!value.length && value.length >= 2 && value.length <= 20) || "최소 2글자 최대 30글자로 입력해주세요"];
 
-watch(projectName, () => {
-  console.log("isProjectDescription 시작", isProjectDescription);
-  isProjectDescription.value = projectName.value.length <= 0;
-  console.log("projectName.value.length > 0;", projectName.value.length <= 0);
+const project = computed(() => {
+  const foundProject = getListProject.value.find((p) => p.name === projectName.value);
+  return foundProject ? "중복된 프로젝트 이름입니다." : undefined;
+});
+
+const getUserInfo = async () => {
+  try {
+    const { projects } = await ProjectService.getListProject(workspaceId);
+    getListProject.value = projects;
+  } catch (e) {
+    console.log(e);
+    return false;
+  }
+};
+
+watchEffect(() => {
+  getUserInfo();
 });
 
 const triggerSuccess = (position) => {
@@ -438,13 +445,10 @@ const triggerSuccess = (position) => {
 };
 
 const newProject = async (position) => {
-  console.log("workspaceIdworkspaceIdworkspaceId", workspaceId);
   const params = {
     description: projectName.value,
     name: projectDescription.value,
-
   };
-  console.log(params);
   try {
     await ProjectService.createProject(workspaceId, params);
     setTimeout(() => {
