@@ -486,6 +486,7 @@ const triggerSharedImageFail = () => {
 };
 
 // 공유 대상 저장, 공유해제 대상 axios 요청
+// 질문 :: 실패 리스트를 공유,공유해제 둘다 리스트에 추가 해야하는지?
 const handleShareImageRequests = async (trueList, falseList) => {
   try {
     await Promise.all(
