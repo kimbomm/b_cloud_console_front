@@ -132,8 +132,7 @@
   </q-dialog>
   <!-- End : [내 이미지] 이미지 - 내이미지 - 공유관리 -->
 
-  <!-- Start : [관리 - 인스턴스] 이미지 생성 불가 Alert 팝업 -->
-
+  <!-- Start : 삭제 확인 알럿 -->
   <q-dialog v-model="alertImageDeleteModal" class="c_dialog">
     <q-card>
       <q-card-section style="max-height: 290px" class="c_dialog_body">
@@ -155,8 +154,40 @@
       </q-card-actions>
     </q-card>
   </q-dialog>
+  <!-- End : 삭제 확인 알럿 -->
 
-  <!-- End : [관리 - 인스턴스] 인스턴스 용량 초과로 인한 이미지 생성 불가 Alert 팝업 -->
+    <!-- Start : 공유 실패 리스트 팝업 -->
+    <q-dialog
+      v-model="alertTaskDeleteFailModal"
+      class="c_dialog"
+    >
+      <q-card>
+        <q-card-section
+          style="max-height:290px"
+          class="c_dialog_body"
+        >
+          <p class="title">
+            <strong>이미지 공유 실패</strong>
+          </p>
+          <p class="desc">
+            공유설정에 실패한 워크스페이스/프로젝트가 있습니다. 다시 시도해주세요
+          </p>
+          <div class="info negative">
+           <span v-for="(failedRequest, index) in failedRequests" :key="failedRequest">{{failedRequest.name}}{{index !== failedRequests.length - 1 ? ', ' : ''}}</span>
+          </div>
+        </q-card-section>
+        <q-card-actions class="c_dialog_foot">
+          <q-btn
+            label="확인"
+            class="primary"
+            v-close-popup
+            @click=" triggerSharedImageFail()"
+          />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
+    <!-- End : 공유 실패 리스트 팝업 -->
+
 </template>
 <script setup>
 import { ref, watch, reactive } from "vue";
@@ -346,6 +377,8 @@ const userWorkspaceName = ref("");
 const userProjecteName = ref("");
 const isChkAll = ref(true);
 const getRowSelectedImage = ref({});
+const failedRequests = ref([]); // 공유 실패 리스트
+const alertTaskDeleteFailModal = ref(false);
 
 // 워크스페이스 이름, 워크스페이스 설명
 watch(isImageShareManagePopup, () => {
@@ -466,11 +499,11 @@ const triggerSharedImageFail = () => {
     message: "이미지 삭제를 실패하였습니다. 다시 시도해주세요.",
     type: "negative",
   });
+  failedRequests.value = [];
 };
 
-const failedRequests = ref([]);
 // 공유 대상 저장, 공유해제 대상 axios 요청
-const ApiShareImage = async (trueList, falseList) => {
+const handleShareImageRequests = async (trueList, falseList) => {
   try {
     await Promise.all(
       trueList.map(async (item) => {
@@ -478,7 +511,7 @@ const ApiShareImage = async (trueList, falseList) => {
           return await WorkspaceService.postShareWorkspaceImage(workspaceId, item.id);
         } catch (error) {
           failedRequests.value.push({ id: item.id, name: item.name });
-          triggerSharedImageFail(); // 실패 시 임시추가
+          alertTaskDeleteFailModal.value = true;
           console.log(error);
         }
       })
@@ -492,6 +525,8 @@ const ApiShareImage = async (trueList, falseList) => {
       try {
         return await WorkspaceService.postUnShareWorkspaceImage(workspaceId, item.id);
       } catch (error) {
+        alertTaskDeleteFailModal.value = true;
+
         console.log(error);
       }
     })
@@ -519,7 +554,7 @@ const separateByChecked = () => {
     },
     { trueList: [], falseList: [] }
   );
-  ApiShareImage(result.trueList, result.falseList);
+  handleShareImageRequests(result.trueList, result.falseList);
 };
 
 const imageShareManageSave = () => {
