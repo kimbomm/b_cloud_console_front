@@ -610,13 +610,10 @@ $side-minw: 80px;
       }
     }
     &.c_icon{
+      display:flex;
       width:32px;height:32px;
       margin-right:25px;
       font-size:0;
-      opacity: 0;
-      @include desktop{
-        opacity: 1;
-      }
     }
     &.top_guidemenu{
       margin:0;
@@ -705,17 +702,8 @@ $side-minw: 80px;
   background:#F5F7FA;
   transition: width .2s;
   @include textModeSidebar;
-  .q-btn.c_icon{
-    display:none;
-  }
 }
 // Layout Page Content wrap l-container
-/* .q-page-container{
-  transition: padding-left .3s;
-  @include desktopMax{
-    padding-left:80px!important;
-  }
-} */
 .l-container{
   padding-left:$side-maxw;
   transition: padding-left .2s;
@@ -814,34 +802,23 @@ $side-minw: 80px;
     }
   }
 }
-
+.q-toolbar .q-btn.c_icon{z-index:1;}
+.l-sidebar .q-btn.c_icon{display:none;}
 // Drawer Icon Mode
 .iconMode{
-  /* .q-drawer{
-    &--left{
-      max-width:80px;
-    }
-  } */
-  // q-drawer__content fit scroll l-sidebar
   .l-sidebar{
     width:$side-minw;
     @include iconModeSidebar;
   }
-  // q-page-container l-container
-  /* .q-page-container{
-    padding-left:$side-minw;
-  } */
   .l-container{
     padding-left:$side-minw;
   }
 }
 .textMode{
-  // q-drawer__content fit scroll l-sidebar
   .l-sidebar{
     width:$side-maxw;
     @include textModeSidebar;
   }
-  // q-page-container l-container
   .l-container{
     padding-left:$side-maxw;
   }
@@ -856,6 +833,8 @@ $side-minw: 80px;
   }
 }
 @include desktopMax{
+  .q-toolbar .q-btn.c_icon{z-index:-1;opacity:0;}
+  .l-sidebar .q-btn.c_icon{display:flex;z-index:1;}
   .l-sidebar{
     width: $side-minw;
     @include iconModeSidebar;
