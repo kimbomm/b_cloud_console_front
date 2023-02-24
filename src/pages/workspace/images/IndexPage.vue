@@ -44,9 +44,12 @@
           <section class="section">
             <div v-if="tab === 'myTab'">
               <!-- 내이미지 -->
-              <MyPage :imageList="imageList" @onShare="onShare" @onDelete="onDelete"
-              :getRowSelectedImage="getRowSelectedImage" @update:getRowSelectedImage="handleRowDataClick"
-
+              <MyPage
+                :imageList="imageList"
+                @onShare="onShare"
+                @onDelete="onDelete"
+                :getRowSelectedImage="getRowSelectedImage"
+                @update:getRowSelectedImage="handleRowDataClick"
               />
             </div>
             <div v-if="tab === 'baseTab'">
@@ -94,7 +97,11 @@
                   <q-item-label class="name">{{ project.project_name }}</q-item-label>
                   <q-item-label class="desc">{{ project.workspace_name }}</q-item-label>
                 </q-item-section>
-                <q-checkbox v-model="isChkAll" class="c_checkbox check_all" @click="handleCheckGroupClick(index)" />
+                <q-checkbox
+                  v-model="isChkAll"
+                  class="c_checkbox check_all"
+                  @click="handleCheckGroupClick(index)"
+                />
               </q-item>
 
               <template
@@ -110,10 +117,7 @@
                     }}</q-item-label>
                   </q-item-section>
 
-                  <q-checkbox
-                    class="c_checkbox"
-                    v-model="innerProject.checked"
-                  />
+                  <q-checkbox class="c_checkbox" v-model="innerProject.checked" />
                 </q-item>
               </template>
             </template>
@@ -122,36 +126,42 @@
       </q-card-section>
       <q-card-actions class="c_dialog_foot">
         <q-btn label="취소" class="line" v-close-popup />
-        <q-btn label="저장" class="primary" v-close-popup @click="imageShareManageSave"/>
+        <q-btn label="저장" class="primary" v-close-popup @click="imageShareManageSave" />
       </q-card-actions>
     </q-card>
   </q-dialog>
   <!-- End : [내 이미지] 이미지 - 내이미지 - 공유관리 -->
 
-<!-- 공유 리스트 삭제 버튼 클릭 시  -->
-  <YesNoPopup
-    title="이미지를 삭제하시겠습니까?"
-    v-model="isDeleteAlert"
-    state="delete"
-    :info="deleteAlertTitle"
-    @handleDeleteClick="handleDeleteClick"
-  >
-  </YesNoPopup>
-
-<!-- 이미지 공유 실패시 -->
-  <!-- <YesNoPopup
-    title="이미지를 삭제하시겠습니까?"
-    v-model="isDeleteAlert"
-    state="delete"
-    :info="deleteAlertTitle"
-    @handleDeleteClick="handleDeleteClick"
-  >
-  </YesNoPopup> -->
+  <!-- Start : [관리 - 인스턴스] 이미지 생성 불가 Alert 팝업 -->
+  <q-dialog v-model="alertImageCreateCantModal" class="c_dialog">
+    <q-card>
+      <q-card-section style="max-height: 290px" class="c_dialog_body">
+        <p class="title">
+          <strong>용량이 초과하여 이미지 생성이 불가능합니다.</strong>
+        </p>
+        <p class="desc">추가된 용량이 10GiB 이하만 이미지 생성가능</p>
+        <div class="info negative">현재 추가된 용량 : 21GB</div>
+      </q-card-section>
+      <q-card-actions class="c_dialog_foot">
+        <q-btn
+          label="취소"
+          class="line"
+          v-close-popup
+          @click="handleDeleteClick(false)"
+        />
+        <q-btn
+          label="확인"
+          class="primary"
+          v-close-popup
+          @click="handleDeleteClick(true)"
+        />
+      </q-card-actions>
+    </q-card>
+  </q-dialog>
+  <!-- End : [관리 - 인스턴스] 인스턴스 용량 초과로 인한 이미지 생성 불가 Alert 팝업 -->
 </template>
 <script setup>
-import {
-  ref, watch, reactive
-} from "vue";
+import { ref, watch, reactive } from "vue";
 import { useMeta } from "quasar";
 import { imageService, ProjectService, WorkspaceService } from "src/services";
 import { useRoute } from "vue-router";
@@ -163,7 +173,6 @@ import CPagination from "src/components/common/CPagination.vue";
 import MyPage from "./component/MyPage.vue";
 import BasicPage from "./component/BasicPage.vue";
 import SharedPage from "./component/SharedPage.vue";
-import YesNoPopup from "./component/YesNoPopup.vue";
 
 const route = useRoute();
 const { workspaceId } = route.params;
@@ -346,13 +355,14 @@ watch(isImageShareManagePopup, () => {
   userProjecteName.value = popupState.currentSharedImageData.description;
 });
 
-const isDeleteAlert = ref(false);
-const deleteAlertTitle = ref("");
+const mySharedProjects = ref({}); // 내 워크스페이스 프로젝트 리스트
+const alertImageCreateCantModal = ref(true);
 
 // 삭제버튼 alert
 const onDelete = async () => {
-  isDeleteAlert.value = true;
-  deleteAlertTitle.value = popupState.currentSharedImageData.name;
+  console.log(1);
+  alertImageCreateCantModal.value = true;
+  // deleteAlertTitle.value = popupState.currentSharedImageData.name;
 };
 
 const triggerSuccess = () => {
@@ -377,8 +387,6 @@ const handleDeleteClick = (value) => {
   }
 };
 
-const mySharedProjects = ref({}); // 내 워크스페이스 프로젝트 리스트
-
 // 내 워크스페이스의 소속 프로젝트 리스트와 결합
 const makeMyProjectList = async (projects) => {
   const promises = (await projects?.map(() => ProjectService.getListProject(workspaceId))) ?? [];
@@ -389,14 +397,14 @@ const makeMyProjectList = async (projects) => {
     ...item,
     projects: item.projects.map((project) => ({
       ...project,
-      checked: true
-    }))
+      checked: true,
+    })),
   }));
 
   // responses와 projects 병합
   const projectArrays = updatedResponses.map((response) => ({
     ...response,
-    ...projects[0]
+    ...projects[0],
   }));
 
   mySharedProjects.value = projectArrays;
@@ -459,29 +467,31 @@ const ApiShareImage = async (trueIds, falseIds) => {
 
 // 저장 시 checked true,false 각 배열 분리
 const imageShareManageSave = () => {
-  const result = mySharedProjects.value.reduce((acc, curr) => {
-    const trueIds = [];
-    const falseIds = [];
+  const result = mySharedProjects.value.reduce(
+    (acc, curr) => {
+      const trueIds = [];
+      const falseIds = [];
 
-    curr.projects.forEach((project) => {
-      if (project.checked) {
-        trueIds.push(project.id);
-      } else {
-        falseIds.push(project.id);
-      }
-    });
+      curr.projects.forEach((project) => {
+        if (project.checked) {
+          trueIds.push(project.id);
+        } else {
+          falseIds.push(project.id);
+        }
+      });
 
-    acc.trueIds.push(...trueIds);
-    acc.falseIds.push(...falseIds);
+      acc.trueIds.push(...trueIds);
+      acc.falseIds.push(...falseIds);
 
-    return acc;
-  }, { trueIds: [], falseIds: [] });
+      return acc;
+    },
+    { trueIds: [], falseIds: [] }
+  );
 
   console.log("true선택", result.trueIds); // true일 경우 배열
   console.log("false선택", result.falseIds); // faslse일 경우 배열
   ApiShareImage(result.trueIds, result.falseIds);
 };
-
 </script>
 
 <style lang="scss" scoped>
