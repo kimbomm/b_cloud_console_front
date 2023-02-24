@@ -431,7 +431,6 @@ const getUserInfo = async () => {
 };
 
 watchEffect(() => {
-  console.log("getUsergetUserInfoInfo", getUserInfo);
   getUserInfo();
 });
 
@@ -452,7 +451,6 @@ const triggerSuccess = (position) => {
     ],
     timeout: 500,
   });
-  getUserInfo();
 };
 
 const newProject = async (position) => {
@@ -466,6 +464,7 @@ const newProject = async (position) => {
       triggerSuccess(position);
     }, 100);
   } catch (e) {
+    alert("실패테스트");
     console.log(e);
   }
 };
