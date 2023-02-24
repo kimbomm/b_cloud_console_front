@@ -462,43 +462,88 @@ const handleCheckGroupClick = (index) => {
 };
 
 // 공유 대상 저장, 공유해제 대상 저장
-const ApiShareImage = async (trueIds, falseIds) => {
-  const result1 = await Promise.all(
-    trueIds.map(async (item) => WorkspaceService.postShareWorkspaceImage(workspaceId, item))
-  );
+const ApiShareImage = async (trueList, falseList) => {
+  const failedRequests = [];
+
+  // const result1 = await Promise.all(
+  //   trueList.map(async (item) => {
+  //     try {
+  //       return await WorkspaceService.postShareWorkspaceImage(workspaceId, item.id);
+  //     } catch (error) {
+  //       failedRequests.push({ id: item.id, name: item.name });
+  //       throw error; // rethrow the error to be handled later
+  //     }
+  //   })
+  // );
+
+  try {
+    await Promise.all(
+      trueList.map(async (item) => {
+        try {
+          return await WorkspaceService.postShareWorkspaceImage(workspaceId, item.id);
+        } catch (error) {
+          failedRequests.push({ id: item.id, name: item.name });
+          $useCmFn.onNotify({
+            message: "이미지 공유하기 실패 ",
+            type: "negative",
+          });
+          console.log(error);
+        }
+      })
+    );
+  } catch (error) {
+    console.error(error);
+  }
+
+  console.log("failedRequestsfailedRequests: ", failedRequests);
+
   const result2 = await Promise.all(
-    falseIds.map(async (item) => WorkspaceService.postUnShareWorkspaceImage(workspaceId, item))
+    falseList.map(async (item) => {
+      try {
+        return await WorkspaceService.postUnShareWorkspaceImage(workspaceId, item.id);
+      } catch (error) {
+        $useCmFn.onNotify({
+          message: "111 ",
+          type: "negative",
+        });
+
+        console.log(error);
+      }
+    })
+
   );
-  console.log("result1", result1);
+  console.log("result2");
+
+  // console.log("result1", result1);
   console.log("result2", result2);
 };
 
 // 저장 시 checked true,false 각 배열 분리
-const imageShareManageSave = () => {
+const separateByChecked = () => {
   const result = mySharedProjects.value.reduce(
     (acc, curr) => {
-      const trueIds = [];
-      const falseIds = [];
+      const trueList = [];
+      const falseList = [];
 
       curr.projects.forEach((project) => {
         if (project.checked) {
-          trueIds.push(project.id);
+          trueList.push({ id: project.id, name: project.name });
         } else {
-          falseIds.push(project.id);
+          trueList.push({ id: project.id, name: project.name });
         }
       });
-
-      acc.trueIds.push(...trueIds);
-      acc.falseIds.push(...falseIds);
+      acc.trueList.push(...trueList);
+      acc.falseList.push(...falseList);
 
       return acc;
     },
-    { trueIds: [], falseIds: [] }
+    { trueList: [], falseList: [] }
   );
+  ApiShareImage(result.trueList, result.falseList);
+};
 
-  console.log("true선택", result.trueIds); // true일 경우 배열
-  console.log("false선택", result.falseIds); // faslse일 경우 배열
-  ApiShareImage(result.trueIds, result.falseIds);
+const imageShareManageSave = () => {
+  separateByChecked();
 };
 </script>
 

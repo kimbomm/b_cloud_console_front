@@ -32,8 +32,8 @@ export const imageService = {
    * @param { Number } workspaceId 워크스페이스 id
    * @param { Number } imgId 이미지 id
    */
-  async deleteImage(workspaceId, imgId, data) {
-    const response = await api.delete(`/workspaces/${workspaceId}/images/${imgId}`, data);
+  async deleteImage(workspaceId, imgId, params) {
+    const response = await api.delete(`/workspaces/${workspaceId}/images/${imgId}`, params);
 
     return response.data;
   },
