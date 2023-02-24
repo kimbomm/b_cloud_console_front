@@ -83,6 +83,7 @@ $side-minw: 80px;
       }
     }
     .q-btn__content{
+      height:100%;
       &::after{
         display:none!important;
       }
@@ -487,6 +488,23 @@ $side-minw: 80px;
           height:0;
         }
       }
+      &.open{
+        .q-card{
+          &.submenu{
+            height:0;
+          }
+        }
+        .item{
+          background: transparent;
+          color: #A1ACC2;
+        }
+        .ico_projects {
+          background-image: url($iconUrl + '32/ico_projects_normal.svg');
+        }
+        .ico_set {
+          background-image: url($iconUrl + '32/ico_manager_normal.svg');
+        }
+      }
     }
     &.open{
       .ico{
@@ -508,17 +526,19 @@ $side-minw: 80px;
       }
     }
     &.active{
-      .ico{
-        &_projects{
-          background-image:url($iconUrl + '32/ico_projects_pressed.svg');
+      &.open{
+        .ico{
+          &_projects{
+            background-image:url($iconUrl + '32/ico_projects_pressed.svg');
+          }
+          &_set{
+            background-image:url($iconUrl + '32/ico_manager_pressed.svg');
+          }
         }
-        &_set{
-          background-image:url($iconUrl + '32/ico_manager_pressed.svg');
+        .item{
+          background:$surface03;
+          color:$primary;
         }
-      }
-      .item{
-        background:$surface03;
-        color:$primary;
       }
     }
     &.support{
@@ -684,14 +704,6 @@ $side-minw: 80px;
 }
 
 /* Layout SideBar */
-// q-drawer q-drawer--left q-drawer--standard fixed
-.q-drawer{
-  background-color:#F5F7FA;
-  &--left{
-    z-index:1000;
-    transform: translateX(0)!important;
-  }
-}
 // q-drawer__content fit scroll l-sidebar
 .l-sidebar{
   $sideMenuH:176px;
@@ -700,7 +712,6 @@ $side-minw: 80px;
   transform: translateX(0);
   width: $side-maxw;
   background:#F5F7FA;
-  transition: width .2s;
   @include textModeSidebar;
 }
 // Layout Page Content wrap l-container
@@ -818,18 +829,12 @@ $side-minw: 80px;
   .l-sidebar{
     width:$side-maxw;
     @include textModeSidebar;
+    .q-item.my.active .ico_my{
+      opacity:1;
+    }
   }
   .l-container{
     padding-left:$side-maxw;
-  }
-  &.iconMode{
-    .l-sidebar{
-      width:$side-minw;
-      @include iconModeSidebar;
-    }
-    .l-container{
-      padding-left:$side-minw;
-    }
   }
 }
 @include desktopMax{
@@ -866,6 +871,11 @@ $side-minw: 80px;
     .l-sidebar{
       width:$side-minw;
       @include iconModeSidebar;
+      .q-item.open {
+        .ico_projects {
+          background-image: url($iconUrl + '32/ico_projects_normal.svg');
+        }
+      }
     }
     .l-container{
       padding-left:$side-minw;

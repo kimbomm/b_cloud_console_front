@@ -1,5 +1,4 @@
 <template>
-  <!-- 해상도 1521 보다 작을 경우 class iconMode 추가 -->
   <q-layout ref="input" view="hHh Lpr lff" class="l-wrap l-console" :class="{iconMode: drawer, textMode: sideClick}">
     <q-header class="l-header">
       <q-toolbar>
