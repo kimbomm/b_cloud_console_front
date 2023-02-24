@@ -14,13 +14,14 @@
     <!-- //.chead -->
     <div class="p-body">
       <div class="container">
-        <div class="header">
-          <q-tabs v-model="tab" align="left" class="c_tabs">
-            <q-tab name="myTab" label="내이미지" />
-            <q-tab name="baseTab" label="기본 이미지" />
-            <q-tab name="sharedTab" label="공유받은 이미지" />
-          </q-tabs>
+        <div class="group-tabs">
+          <div class="header">
+        <c-tab
+          v-model:value="tabModel"
+          :tabs="tabs"
+        />
         </div>
+      </div>
         <template v-if="defaultData == true">
           <div class="table_set">
             <div class="c_inpgroup">
@@ -42,7 +43,7 @@
           </div>
 
           <section class="section">
-            <div v-if="tab === 'myTab'">
+            <div v-if="tabModel === 'myTab'">
               <!-- 내이미지 -->
               <MyPage
                 :imageList="imageList"
@@ -52,12 +53,12 @@
                 @update:getRowSelectedImage="handleRowDataClick"
               />
             </div>
-            <div v-if="tab === 'baseTab'">
+            <div v-if="tabModel === 'baseTab'">
               <!-- 기본 이미지  -->
               <BasicPage :imageList="imageList" />
             </div>
             <!-- 공유받은 이미지  -->
-            <div v-if="tab === 'sharedTab'">
+            <div v-if="tabModel === 'sharedTab'">
               <SharedPage :imageList="imageList" />
             </div>
           </section>
@@ -132,8 +133,7 @@
   </q-dialog>
   <!-- End : [내 이미지] 이미지 - 내이미지 - 공유관리 -->
 
-  <!-- Start : [관리 - 인스턴스] 이미지 생성 불가 Alert 팝업 -->
-
+  <!-- Start : 삭제 확인 알럿 -->
   <q-dialog v-model="alertImageDeleteModal" class="c_dialog">
     <q-card>
       <q-card-section style="max-height: 290px" class="c_dialog_body">
@@ -155,19 +155,54 @@
       </q-card-actions>
     </q-card>
   </q-dialog>
+  <!-- End : 삭제 확인 알럿 -->
 
-  <!-- End : [관리 - 인스턴스] 인스턴스 용량 초과로 인한 이미지 생성 불가 Alert 팝업 -->
+    <!-- Start : 공유 실패 리스트 팝업 -->
+    <q-dialog
+      v-model="alertTaskDeleteFailModal"
+      class="c_dialog"
+    >
+      <q-card>
+        <q-card-section
+          style="max-height:290px"
+          class="c_dialog_body"
+        >
+          <p class="title">
+            <strong>이미지 공유 실패</strong>
+          </p>
+          <p class="desc">
+            공유설정에 실패한 워크스페이스/프로젝트가 있습니다. 다시 시도해주세요
+          </p>
+          <div class="info negative">
+           <span v-for="(failedRequest, index) in failedRequests" :key="failedRequest">{{failedRequest.name}}{{index !== failedRequests.length - 1 ? ', ' : ''}}</span>
+          </div>
+        </q-card-section>
+        <q-card-actions class="c_dialog_foot">
+          <q-btn
+            label="확인"
+            class="primary"
+            v-close-popup
+            @click=" triggerSharedImageFail()"
+          />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
+    <!-- End : 공유 실패 리스트 팝업 -->
+
 </template>
 <script setup>
-import { ref, watch, reactive } from "vue";
+import {
+  ref, watch, reactive, computed
+} from "vue";
 import { useMeta } from "quasar";
 import { imageService, ProjectService, WorkspaceService } from "src/services";
-import { useRoute } from "vue-router";
+import { useRoute, onBeforeRouteUpdate } from "vue-router";
 import { $utils } from "src/utils/utils";
 import { $useCmFn } from "src/composables/useCommonFunction.js";
 
 import CDropdown from "components/common/CDropdown.vue";
 import CPagination from "src/components/common/CPagination.vue";
+import CTab from "src/components/common/CTab.vue";
 import MyPage from "./component/MyPage.vue";
 import BasicPage from "./component/BasicPage.vue";
 import SharedPage from "./component/SharedPage.vue";
@@ -189,56 +224,6 @@ const ptitle = ref(title);
 const optLabel = ref("10");
 const defaultData = ref(true);
 const imageList = ref([]);
-
-const bbbb = [
-  {
-    id: 4,
-    name: "common_image1111",
-    description:
-      "common image11111image11111image11111image1 1111image11111image1111 1 image11111image1111 1image11111image11111image11111image11111image11111image11111image11 111image11111",
-    status: "error",
-    base_image_name: "base_image_name1",
-    tag: "b3ba43af",
-    created_at: "2023-02-07T23:16:40Z",
-  },
-  {
-    id: 3,
-    name: "네임 안녕",
-    description:
-      "common image2222image2222image2222im age222image2222im age2222image2222image2222image 22222 image2222",
-    status: "saved",
-    base_image_name: "base_image_name222",
-    tag: "b3ba43af",
-    created_at: "2023-02-07T23:16:40Z",
-  },
-  {
-    id: 3,
-    name: "네임 안녕",
-    description: "common image333",
-    status: "saved",
-    base_image_name: "base_image_name2223333",
-    tag: "b3ba43af",
-    created_at: "2023-02-07T23:16:40Z",
-  },
-  {
-    id: 3,
-    name: "네임 안녕",
-    description: "common image44444",
-    status: "saving",
-    base_image_name: "44444",
-    tag: "ㅁㅁ",
-    created_at: "2023-02-07T23:16:40Z",
-  },
-  {
-    id: 3,
-    name: "네임 안녕",
-    description: "common image5555",
-    status: "error",
-    base_image_name: "5555",
-    tag: "ㅠㅠㅠㅠ",
-    created_at: "2023-02-07T23:16:40Z",
-  },
-];
 
 /**
  * 설명 : object 안에 데이터 속성 명을 입력하면
@@ -266,7 +251,7 @@ const getMyImge = async () => {
       dateType: "YYYY-MM-DD",
     });
     // * 임시 테스트 데이터 추가
-    imageList.value = Object.assign(bbbb, updatedImages);
+    imageList.value = updatedImages;
   } catch (e) {
     console.log(e.response);
     return false;
@@ -317,20 +302,48 @@ const getSharedImge = async () => {
 };
 
 // 이미지 탭
-const tab = ref("myTab");
+/**
+ * route hash값 존재시
+ * tabModel 셋팅: 탭 이동
+ */
+const tabModel = ref("myTab");
+
+const tabs = [
+  { name: "myTab", label: "내이미지" },
+  { name: "baseTab", label: "기본 이미지" },
+  { name: "sharedTab", label: "공유받은 이미지" },
+];
+const getTabsName = computed(() => tabs.map((tab) => tab.name));
+const { hash } = route;
+function setTabModel(hs) {
+  const nHash = $utils.getHash(hs || hash);
+  if (nHash && getTabsName.value.includes(nHash)) {
+    tabModel.value = nHash;
+  } else {
+    const [firstValue] = getTabsName.value;
+    tabModel.value = firstValue;
+  }
+}
+setTabModel();
+
+onBeforeRouteUpdate((to) => {
+  setTabModel(to.hash);
+});
+// route hash값 존재시 탭이동 끝
+
 const getTab = () => {
-  if (tab.value === "myTab") {
+  if (tabModel.value === "myTab") {
     getMyImge();
   }
-  if (tab.value === "baseTab") {
+  if (tabModel.value === "baseTab") {
     getBaseImge();
   }
-  if (tab.value === "sharedTab") {
+  if (tabModel.value === "sharedTab") {
     getSharedImge();
   }
 };
 
-watch(tab, getTab);
+watch(tabModel, getTab);
 getTab();
 
 // n개씩 보기
@@ -346,6 +359,7 @@ const userWorkspaceName = ref("");
 const userProjecteName = ref("");
 const isChkAll = ref(true);
 const getRowSelectedImage = ref({});
+const alertTaskDeleteFailModal = ref(false);
 
 // 워크스페이스 이름, 워크스페이스 설명
 watch(isImageShareManagePopup, () => {
@@ -461,32 +475,27 @@ const handleCheckGroupClick = (index) => {
   }
 };
 
-// 공유 대상 저장, 공유해제 대상 저장
-const ApiShareImage = async (trueList, falseList) => {
-  const failedRequests = [];
+const failedRequests = ref([]); // 공유 실패 리스트
 
-  // const result1 = await Promise.all(
-  //   trueList.map(async (item) => {
-  //     try {
-  //       return await WorkspaceService.postShareWorkspaceImage(workspaceId, item.id);
-  //     } catch (error) {
-  //       failedRequests.push({ id: item.id, name: item.name });
-  //       throw error; // rethrow the error to be handled later
-  //     }
-  //   })
-  // );
+const triggerSharedImageFail = () => {
+  $useCmFn.onNotify({
+    message: "이미지 삭제를 실패하였습니다. 다시 시도해주세요.",
+    type: "negative",
+  });
+  failedRequests.value = [];
+};
 
+// 공유 대상 저장, 공유해제 대상 axios 요청
+// 질문 :: 실패 리스트를 공유,공유해제 둘다 리스트에 추가 해야하는지?
+const handleShareImageRequests = async (trueList, falseList) => {
   try {
     await Promise.all(
       trueList.map(async (item) => {
         try {
           return await WorkspaceService.postShareWorkspaceImage(workspaceId, item.id);
         } catch (error) {
-          failedRequests.push({ id: item.id, name: item.name });
-          $useCmFn.onNotify({
-            message: "이미지 공유하기 실패 ",
-            type: "negative",
-          });
+          failedRequests.value.push({ id: item.id, name: item.name });
+          alertTaskDeleteFailModal.value = true;
           console.log(error);
         }
       })
@@ -495,41 +504,33 @@ const ApiShareImage = async (trueList, falseList) => {
     console.error(error);
   }
 
-  console.log("failedRequestsfailedRequests: ", failedRequests);
-
-  const result2 = await Promise.all(
+  await Promise.all(
     falseList.map(async (item) => {
       try {
         return await WorkspaceService.postUnShareWorkspaceImage(workspaceId, item.id);
       } catch (error) {
-        $useCmFn.onNotify({
-          message: "111 ",
-          type: "negative",
-        });
-
+        failedRequests.value.push({ id: item.id, name: item.name });
+        alertTaskDeleteFailModal.value = true;
         console.log(error);
       }
     })
-
   );
-  console.log("result2");
-
-  // console.log("result1", result1);
-  console.log("result2", result2);
 };
 
 // 저장 시 checked true,false 각 배열 분리
 const separateByChecked = () => {
   const result = mySharedProjects.value.reduce(
     (acc, curr) => {
+      console.log("accacc", acc);
+
       const trueList = [];
       const falseList = [];
-
       curr.projects.forEach((project) => {
+        console.log("projectprojectprojectproject", project);
         if (project.checked) {
           trueList.push({ id: project.id, name: project.name });
         } else {
-          trueList.push({ id: project.id, name: project.name });
+          falseList.push({ id: project.id, name: project.name });
         }
       });
       acc.trueList.push(...trueList);
@@ -539,7 +540,7 @@ const separateByChecked = () => {
     },
     { trueList: [], falseList: [] }
   );
-  ApiShareImage(result.trueList, result.falseList);
+  handleShareImageRequests(result.trueList, result.falseList);
 };
 
 const imageShareManageSave = () => {
