@@ -174,21 +174,21 @@ const defaultData = ref(true);
 
 const headers = [
   {
-    text: "이름", value: "id", width: 222, sortable: true
+    text: "이름", value: "id", width: 150, sortable: true
   },
   {
-    text: "설명", value: "title", width: 422,
+    text: "설명", value: "title", width: 230, widthAuto: true
   },
   {
-    text: "상태", value: "status", width: 109
+    text: "상태", value: "status"
   },
   {
-    text: "이미지", value: "image", width: 422, sortable: true
+    text: "이미지", value: "image", sortable: true
   },
   {
-    text: "생성일시", value: "createdAt", width: 216, sortable: true
+    text: "생성일시", value: "createdAt", width: 190, widthAuto: true, sortable: true
   },
-  { text: "", value: "buttons", width: 10 },
+  { text: "", value: "buttons" },
 ];
 const items = [
   {

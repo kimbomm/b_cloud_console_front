@@ -165,7 +165,7 @@ const optNumber = ref([
 // Table
 const headers = [
   {
-    text: "인스턴스/태스크 그룹 이름", value: "title", width: 270, sortable: true
+    text: "인스턴스/태스크 그룹 이름", value: "title", width: 230, widthAuto: true, sortable: true
   },
   {
     text: "서비스", value: "service", sortable: true
@@ -174,10 +174,10 @@ const headers = [
     text: "인스턴스 타입", value: "instanceType", sortable: true
   },
   {
-    text: "시작시간", value: "startTime", sortable: true
+    text: "시작시간", value: "startTime", width: 212, widthAuto: true, sortable: true
   },
   {
-    text: "종료시간", value: "endTime", sortable: true
+    text: "종료시간", value: "endTime", width: 212, widthAuto: true, sortable: true
   },
   {
     text: "사용시간", value: "usageTime", sortable: true
