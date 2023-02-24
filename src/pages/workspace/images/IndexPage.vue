@@ -498,7 +498,7 @@ const handleShareImageRequests = async (trueList, falseList) => {
     await Promise.all(
       trueList.map(async (item) => {
         try {
-          await WorkspaceService.postShareWorkspaceImage(workspaceId, item.id);
+          await WorkspaceService.postShareWorkspaceImage(workspaceId, item.id, { workspace_id: workspaceId, image_id: item.id });
           triggerSharedSuccess();
         } catch (error) {
           failedRequests.value.push({ id: item.id, name: item.name });
@@ -515,7 +515,7 @@ const handleShareImageRequests = async (trueList, falseList) => {
     falseList.map(async (item) => {
       try {
         triggerSharedSuccess();
-        await WorkspaceService.postUnShareWorkspaceImage(workspaceId, item.id);
+        await WorkspaceService.postUnShareWorkspaceImage(workspaceId, item.id, { workspace_id: workspaceId, image_id: item.id });
       } catch (error) {
         failedRequests.value.push({ id: item.id, name: item.name });
         alertTaskDeleteFailModal.value = true;
