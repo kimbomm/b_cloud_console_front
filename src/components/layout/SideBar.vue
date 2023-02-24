@@ -265,6 +265,7 @@
             class="primary"
             @click="newProject('top-right')"
             v-close-popup
+            :disable="testresult"
           />
         </q-card-actions>
       </q-card>
@@ -274,7 +275,7 @@
 </template>
 <script setup>
 import {
-  ref, computed, watchEffect
+  ref, computed, watchEffect, watch
 } from "vue";
 import { useQuasar } from "quasar";
 import { AuthService, ProjectService, } from "src/services";
@@ -403,8 +404,9 @@ const isProjectDescription = computed(() => {
   const project = getListProject.value.find((p) => p.name === projectName.value);
   return project !== undefined ? true : projectName.value.length <= 1;
 });
+const testresult = computed(() => !(isProjectDescription.value === false && projectDescription.value.length > 1));
 
-const inputRules = [
+const inputRules = ref([
   (value) => {
     if (value.length < 1) {
       return "";
@@ -413,7 +415,11 @@ const inputRules = [
     return (foundProject ? "중복된 프로젝트 이름입니다." : /^[A-Za-z0-9가-힣ㄱ-ㅎㅏ-ㅣ\s]+$/.test(value)) || "영어, 한글, 숫자, 공백만 입력 가능합니다.";
   },
   (value) => (!!value.length && value.length >= 2 && value.length <= 30) || "최소 2글자 최대 30글자로 입력해주세요",
-];
+]);
+
+watch(isProjectDescription, () => {
+  console.log("isInputValidisInputValidisInputValid", isProjectDescription);
+});
 
 const getUserInfo = async () => {
   try {
