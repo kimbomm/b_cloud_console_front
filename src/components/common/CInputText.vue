@@ -34,7 +34,12 @@
 </template>
 <script setup>
 import {
-  ref, watch, defineEmits, onMounted, nextTick, computed,
+  ref,
+  watch,
+  defineEmits,
+  onMounted,
+  nextTick,
+  computed,
 } from "vue";
 import { $utils } from "src/utils/utils";
 
@@ -61,7 +66,7 @@ const props = defineProps({
   },
   maxlength: {
     type: Number,
-    default: 0
+    default: null
   },
   inputStyle: {
     type: [Object],
