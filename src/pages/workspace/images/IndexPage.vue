@@ -467,8 +467,8 @@ const triggerSharedImageFail = () => {
     type: "negative",
   });
 };
-const failedRequests = ref([]);
 
+const failedRequests = ref([]);
 // 공유 대상 저장, 공유해제 대상 axios 요청
 const ApiShareImage = async (trueList, falseList) => {
   try {
