@@ -135,7 +135,7 @@ const routes = [
       // 스토리지
       { path: "/workspace/:workspaceId/storage", component: () => import("pages/storage/IndexPage.vue") },
       // 이미지
-      { path: "/workspace/:workspaceId/images", component: () => import("pages/images/IndexPage.vue") },
+      { path: "/workspace/:workspaceId/images", component: () => import("pages/workspace/images/IndexPage.vue") },
       // 멤버
       { path: "/workspace/:workspaceId/members/", component: () => import("pages/members/IndexPage.vue") },
       { path: "/workspace/:workspaceId/members/:memberId", component: () => import("pages/members/MemberDetailPage.vue") },
