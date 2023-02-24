@@ -987,8 +987,8 @@
               width: 100%;
               font-size: $fs16;
               .p_title{
-                .internal_title{width: 33%;}
-                .external_title{width: 67%;}
+                .internal_title{width: calc(100% - 70%);}
+                .external_title{width: calc(100% - 30%);}
               }
               .port_box{
                 li{
