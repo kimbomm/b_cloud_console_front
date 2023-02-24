@@ -19,8 +19,10 @@ $side-minw: 80px;
     .ico + .txt{margin-left:0;}
     &:before{box-shadow:none;}
     &.add{
+      display:flex;
       flex:none;
-      position:absolute;top:12px;right:28px;
+      position:absolute;top:12px;right:28px;z-index:1;
+      opacity: 1;
       width:24px;
       min-height:24px;
       height:24px;
@@ -96,10 +98,6 @@ $side-minw: 80px;
       width:32px;height:32px;
       margin-right:25px;
       font-size:0;
-      @include desktop{
-        // z-index:-1;
-        // opacity: 0;
-      }
     }
   }
   .ico{
@@ -152,6 +150,7 @@ $side-minw: 80px;
     >span{
       overflow:hidden;
       display:inline-block;
+      width:100%;height: auto;
       max-width:100%;
       text-overflow: ellipsis;
       white-space: nowrap;
@@ -359,6 +358,7 @@ $side-minw: 80px;
         }
       }
       .caption{
+        width:100%;
         margin-bottom:8px;
         margin-left:12px;
         color:$gray300;font-size:$fs12;
@@ -613,9 +613,9 @@ $side-minw: 80px;
       width:32px;height:32px;
       margin-right:25px;
       font-size:0;
-      // opacity: 0;
+      opacity: 0;
       @include desktop{
-        // opacity: 1;
+        opacity: 1;
       }
     }
     &.top_guidemenu{
@@ -698,14 +698,27 @@ $side-minw: 80px;
 // q-drawer__content fit scroll l-sidebar
 .l-sidebar{
   $sideMenuH:176px;
+  visibility: visible;
+  top:64px;bottom:0;left:0;z-index:1000;
+  transform: translateX(0);
+  width: $side-maxw;
+  background:#F5F7FA;
+  transition: width .2s;
   @include textModeSidebar;
+  .q-btn.c_icon{
+    display:none;
+  }
 }
 // Layout Page Content wrap l-container
-.q-page-container{
+/* .q-page-container{
   transition: padding-left .3s;
   @include desktopMax{
     padding-left:80px!important;
   }
+} */
+.l-container{
+  padding-left:$side-maxw;
+  transition: padding-left .2s;
 }
 /* Page Contents */
 // q-page p-content
@@ -804,17 +817,88 @@ $side-minw: 80px;
 
 // Drawer Icon Mode
 .iconMode{
-  .q-drawer{
+  /* .q-drawer{
     &--left{
       max-width:80px;
     }
-  }
+  } */
   // q-drawer__content fit scroll l-sidebar
   .l-sidebar{
+    width:$side-minw;
     @include iconModeSidebar;
   }
   // q-page-container l-container
-  .q-page-container{
+  /* .q-page-container{
     padding-left:$side-minw;
+  } */
+  .l-container{
+    padding-left:$side-minw;
+  }
+}
+.textMode{
+  // q-drawer__content fit scroll l-sidebar
+  .l-sidebar{
+    width:$side-maxw;
+    @include textModeSidebar;
+  }
+  // q-page-container l-container
+  .l-container{
+    padding-left:$side-maxw;
+  }
+  &.iconMode{
+    .l-sidebar{
+      width:$side-minw;
+      @include iconModeSidebar;
+    }
+    .l-container{
+      padding-left:$side-minw;
+    }
+  }
+}
+@include desktopMax{
+  .l-sidebar{
+    width: $side-minw;
+    @include iconModeSidebar;
+    .q-btn.c_icon{
+      display:flex;
+    }
+  }
+  .l-container{
+    padding-left:$side-minw;
+  }
+  .textMode{
+    .l-sidebar{
+      @include textModeSidebar;
+    }
+    .l-container{
+      padding-left:$side-minw;
+    }
+    &.iconMode{
+      .l-sidebar{
+        width:$side-minw;
+        @include iconModeSidebar;
+      }
+      .l-container{
+        padding-left:$side-minw;
+      }
+    }
+  }
+  .iconMode{
+    .l-sidebar{
+      width:$side-minw;
+      @include iconModeSidebar;
+    }
+    .l-container{
+      padding-left:$side-minw;
+    }
+    &.textMode{
+      .l-sidebar{
+        width: $side-maxw;
+        @include textModeSidebar;
+      }
+      .l-container{
+        padding-left:$side-maxw;
+      }
+    }
   }
 }
