@@ -212,7 +212,7 @@ import CDropdown from "components/common/CDropdown.vue";
 import CButton from "components/common/CButton.vue";
 import CPagination from "components/common/CPagination.vue";
 
-const defaultData = ref(false);
+const defaultData = ref(true);
 const title = ref("워크스페이스 1 Member");
 const label = ref("전체");
 const label2 = ref("역할전체");
