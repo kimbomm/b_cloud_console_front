@@ -36,7 +36,7 @@
               <q-btn
                 class="toggle"
                 :class="{ active: itemSelected === i, open: pjtToggle }"
-                @click="itemSelected = i, pjtToggle = !pjtToggle"
+                @click="(itemSelected = i), (pjtToggle = !pjtToggle)"
               >
                 <i :class="`ico ${menu.icon}`" />
                 <span class="txt">프로젝트 메뉴</span>
@@ -53,7 +53,10 @@
                     </q-item>
                     <q-separator />
                     <q-item>
-                      <q-btn class="menu-link add" @click.stop="projectCreateModal = true">
+                      <q-btn
+                        class="menu-link add"
+                        @click.stop="projectCreateModal = true"
+                      >
                         <span class="txt">프로젝트 추가하기</span>
                       </q-btn>
                     </q-item>
@@ -109,7 +112,7 @@
               <q-btn
                 class="toggle"
                 :class="{ active: itemSelected === i, current: setToggle }"
-                @click="itemSelected = i, setToggle = !setToggle"
+                @click="(itemSelected = i), (setToggle = !setToggle)"
               >
                 <i :class="`ico ${menu.icon}`" />
                 <span class="txt">워크스페이스 메뉴</span>
@@ -120,7 +123,11 @@
                       v-for="(mng, index) in menu.children"
                       :key="index.label"
                     >
-                      <router-link :to="`/${mng.path}`" class="menu-link" @click="itemSelected = i">
+                      <router-link
+                        :to="`/${mng.path}`"
+                        class="menu-link"
+                        @click="itemSelected = i"
+                      >
                         <span class="txt">{{ mng.label }}</span>
                       </router-link>
                     </q-item>
@@ -193,7 +200,11 @@
                   v-for="(item, index) in menu.children"
                   :key="index.label"
                 >
-                  <router-link :to="`/${item.path}`" class="menu-link" @click="onMenuClick(item)">
+                  <router-link
+                    :to="`/${item.path}`"
+                    class="menu-link"
+                    @click="onMenuClick(item)"
+                  >
                     <span class="txt">{{ item.label }}</span>
                   </router-link>
                 </q-item>
@@ -215,36 +226,46 @@
           <section class="section" aria-label="프로젝트 이름">
             <p class="sub_title">프로젝트 이름<i class="ess">*</i></p>
             <div class="c_inpgroup">
-            <input type="text" v-model="projectName" maxlength="8">
-              <!-- <q-input
-                outlined
-                v-model="projectName"
+              <c-input-text
+                v-model:value="projectName"
                 placeholder="최소 2자 최대 30자 입력"
-                clearable
+                :rules="inputRules"
                 class="wsize_full"
-              /> -->
+              />
+
             </div>
           </section>
           <section class="section" aria-label="프로젝트 설명">
             <p class="sub_title">프로젝트 설명</p>
             <div class="c_inpgroup">
-                <q-input
-                  outlined
-                  v-model="projectDescription"
-                  bottom-slots
-                  type="textarea"
-                  placeholder="프로젝트 설명 입력"
-                  clearable
-                  counter
-                  :count="10"
-                  maxlength="500"
-                  class="wsize_full hsize244"
-                  :input-style="{height: '100%'}"
-                >
-                  <!-- <template v-slot:hint>
-                    Description
-                  </template> -->
-                </q-input>
+
+              <c-input-text
+                ref="userName"
+                v-model:value="projectDescription"
+                placeholder="소개글을 입력해주세요"
+                type="textarea"
+                class="wsize_full hsize244"
+                :bottom-slots="true"
+                :maxlength="100"
+                :counter="true"
+                :input-style="{ height: '100%' }"
+                clearable
+                outlined
+                :disable="isProjectDescription"
+              />
+
+              <!-- <c-input-text
+                v-model:value="inputValue"
+                placeholder="최소 2자 최대 30자 입력"
+                :rules="inputRules"
+                class="wsize_full hsize244"
+                :count="10"
+                type="textarea"
+                bottom-slots
+                maxlength="500"
+                :input-style="{ height: '100%' }"
+              /> -->
+
             </div>
           </section>
         </q-card-section>
@@ -253,7 +274,7 @@
           <q-btn
             label="확인"
             class="primary"
-            @click="triggerSuccess('top-right')"
+            @click="newProject('top-right')"
             v-close-popup
           />
         </q-card-actions>
@@ -263,16 +284,18 @@
   </q-scroll-area>
 </template>
 <script setup>
-import { ref } from "vue";
+import { ref, watch, computed } from "vue";
 import { useQuasar } from "quasar";
-import { AuthService, ProjectService, } from "src/services";
+import { AuthService, ProjectService } from "src/services";
 import { googleLogout } from "vue3-google-login";
-import { useRoute } from "vue-router";
+// import { useRoute } from "vue-router";
+import CInputText from "components/common/CInputText.vue";
 
 const $q = useQuasar();
 
-const route = useRoute();
-const { workspaceId } = route.params;
+// const route = useRoute();
+// const { workspaceId } = route.params;
+const workspaceId = 1; // 임시추가
 
 const itemSelected = ref(false);
 const projectCreateModal = ref(false);
@@ -301,7 +324,7 @@ const menuData = [
         label: "Test project - Test012 Test012 Test012 Test012",
         path: "projects/instance",
       },
-    ]
+    ],
   },
   {
     type: "base",
@@ -346,8 +369,8 @@ const menuData = [
         type: "mngsub",
         label: "Storage",
         path: "manage/storage",
-      }
-    ]
+      },
+    ],
   },
   {
     type: "support",
@@ -378,37 +401,57 @@ const menuData = [
         label: "로그아웃",
         path: "login",
       },
-    ]
+    ],
   },
 ];
 
-const projectName = ref(null);
-const projectDescription = ref(null);
-const triggerSuccess = async (position) => {
+const projectName = ref("");
+const projectDescription = ref("");
+const isProjectDescription = computed(() => projectName.value.length <= 0);
+const inputRules = [
+  (value) => (!!value.length && value.length >= 2 && value.length <= 20) || "최소 2글자 최대 30글자로 입력해주세요"
+];
+
+watch(projectName, () => {
+  console.log("isProjectDescription 시작", isProjectDescription);
+  isProjectDescription.value = projectName.value.length <= 0;
+  console.log("projectName.value.length > 0;", projectName.value.length <= 0);
+});
+
+const triggerSuccess = (position) => {
+  $q.notify({
+    type: "positive",
+    message: "신규 프로젝트가 생성되었습니다.",
+    icon: "positive",
+    position,
+    actions: [
+      {
+        label: "닫기",
+        class: "xclose",
+        handler: () => {
+          console.log("");
+        },
+      },
+    ],
+    timeout: 500,
+  });
+};
+
+const newProject = async (position) => {
+  console.log("workspaceIdworkspaceIdworkspaceId", workspaceId);
   const params = {
     description: projectName.value,
-    name: projectDescription.value
+    name: projectDescription.value,
+
   };
+  console.log(params);
   try {
-    const res = await ProjectService.createProject(workspaceId, params);
-    console.log("sdfsdfs", res);
+    await ProjectService.createProject(workspaceId, params);
+    setTimeout(() => {
+      triggerSuccess(position);
+    }, 100);
   } catch (e) {
     console.log(e);
-  }
-
-  if (false) {
-    setTimeout(() => {
-      $q.notify({
-        type: "positive",
-        message: "신규 프로젝트가 생성되었습니다.",
-        icon: "positive",
-        position,
-        actions: [
-          { label: "닫기", class: "xclose", handler: () => { console.log(""); } }
-        ],
-        timeout: 500
-      });
-    }, 100);
   }
 };
 
@@ -416,8 +459,5 @@ const onMenuClick = () => {
   googleLogout();
   AuthService.postLogout();
 };
-
 </script>
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>
