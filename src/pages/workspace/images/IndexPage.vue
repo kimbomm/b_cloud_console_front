@@ -385,7 +385,7 @@ const deleteShareData = async (value) => {
         workspace_id: workspaceId,
         image_id: imgId
       };
-      await imageService.deleteImage(data);
+      await imageService.deleteImage(workspaceId, imgId, data);
 
       triggerDeletedSuccess();
       getMyImge();
@@ -462,7 +462,6 @@ const handleCheckGroupClick = (index) => {
 };
 
 // 공유 대상 저장, 공유해제 대상 저장
-
 const ApiShareImage = async (trueIds, falseIds) => {
   const result1 = await Promise.all(
     trueIds.map(async (item) => WorkspaceService.postShareWorkspaceImage(workspaceId, item))
