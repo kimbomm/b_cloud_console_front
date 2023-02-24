@@ -829,9 +829,6 @@ $side-minw: 80px;
   .l-sidebar{
     width:$side-maxw;
     @include textModeSidebar;
-    .q-item.my.active .ico_my{
-      opacity:1;
-    }
   }
   .l-container{
     padding-left:$side-maxw;
@@ -853,6 +850,15 @@ $side-minw: 80px;
   .textMode{
     .l-sidebar{
       @include textModeSidebar;
+      .q-item.my.active .ico_my {
+        opacity: 1;
+      }
+      .q-item.my.active .more {
+        background-color: transparent;
+        .ico_more {
+          background-image: url($iconUrl + '20/ico_more_normal.svg');
+        }
+      }
     }
     .l-container{
       padding-left:$side-minw;
@@ -871,11 +877,6 @@ $side-minw: 80px;
     .l-sidebar{
       width:$side-minw;
       @include iconModeSidebar;
-      .q-item.open {
-        .ico_projects {
-          background-image: url($iconUrl + '32/ico_projects_normal.svg');
-        }
-      }
     }
     .l-container{
       padding-left:$side-minw;
