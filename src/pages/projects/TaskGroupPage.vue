@@ -164,28 +164,30 @@
             </div>
             <div class="ins_etc com_box">
               <p class="sub_title">기타 정보</p>
-              <div class="etc_cont">
-                <div>
-                  <div class="theadarea">호스트 전체 준비 완료시 실행</div>
-                  <div class="tbodyarea">ON</div>
+              <q-scroll-area style="height:200px;">
+                <div class="etc_cont">
+                  <div>
+                    <div class="theadarea">호스트 전체 준비 완료시 실행</div>
+                    <div class="tbodyarea">ON</div>
+                  </div>
+                  <div>
+                    <div class="theadarea">http proxy 설정</div>
+                    <div class="tbodyarea">ON</div>
+                  </div>
+                  <div>
+                    <div class="theadarea">입력 포트 번호</div>
+                    <div class="tbodyarea">29838,29333,30001</div>
+                  </div>
+                  <div>
+                    <div class="theadarea">태스크 동시실행 최대 개수</div>
+                    <div class="tbodyarea">3</div>
+                  </div>
+                  <div>
+                    <div class="theadarea">재시도 횟수</div>
+                    <div class="tbodyarea">0</div>
+                  </div>
                 </div>
-                <div>
-                  <div class="theadarea">http proxy 설정</div>
-                  <div class="tbodyarea">ON</div>
-                </div>
-                <div>
-                  <div class="theadarea">입력 포트 번호</div>
-                  <div class="tbodyarea">29838,29333,30001</div>
-                </div>
-                <div>
-                  <div class="theadarea">태스크 동시실행 최대 개수</div>
-                  <div class="tbodyarea">3</div>
-                </div>
-                <div>
-                  <div class="theadarea">재시도 횟수</div>
-                  <div class="tbodyarea">0</div>
-                </div>
-              </div>
+              </q-scroll-area>
             </div>
           </div>
         </div>
