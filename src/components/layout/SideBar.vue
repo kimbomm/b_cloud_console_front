@@ -215,13 +215,14 @@
           <section class="section" aria-label="프로젝트 이름">
             <p class="sub_title">프로젝트 이름<i class="ess">*</i></p>
             <div class="c_inpgroup">
-              <q-input
+            <input type="text" v-model="projectName" maxlength="8">
+              <!-- <q-input
                 outlined
-                v-model="textName"
+                v-model="projectName"
                 placeholder="최소 2자 최대 30자 입력"
                 clearable
                 class="wsize_full"
-              />
+              /> -->
             </div>
           </section>
           <section class="section" aria-label="프로젝트 설명">
@@ -229,7 +230,7 @@
             <div class="c_inpgroup">
                 <q-input
                   outlined
-                  v-model="textDesc"
+                  v-model="projectDescription"
                   bottom-slots
                   type="textarea"
                   placeholder="프로젝트 설명 입력"
@@ -264,15 +265,17 @@
 <script setup>
 import { ref } from "vue";
 import { useQuasar } from "quasar";
-import { AuthService } from "src/services";
+import { AuthService, ProjectService, } from "src/services";
 import { googleLogout } from "vue3-google-login";
+import { useRoute } from "vue-router";
 
 const $q = useQuasar();
 
+const route = useRoute();
+const { workspaceId } = route.params;
+
 const itemSelected = ref(false);
 const projectCreateModal = ref(false);
-const textName = ref(null);
-const textDesc = ref(null);
 const pjtToggle = ref(false);
 const setToggle = ref(false);
 const moreToggle = ref(false);
@@ -378,19 +381,35 @@ const menuData = [
     ]
   },
 ];
-const triggerSuccess = (position) => {
-  setTimeout(() => {
-    $q.notify({
-      type: "positive",
-      message: "신규 프로젝트가 생성되었습니다.",
-      icon: "positive",
-      position,
-      actions: [
-        { label: "닫기", class: "xclose", handler: () => { console.log(""); } }
-      ],
-      timeout: 500
-    });
-  }, 100);
+
+const projectName = ref(null);
+const projectDescription = ref(null);
+const triggerSuccess = async (position) => {
+  const params = {
+    description: projectName.value,
+    name: projectDescription.value
+  };
+  try {
+    const res = await ProjectService.createProject(workspaceId, params);
+    console.log("sdfsdfs", res);
+  } catch (e) {
+    console.log(e);
+  }
+
+  if (false) {
+    setTimeout(() => {
+      $q.notify({
+        type: "positive",
+        message: "신규 프로젝트가 생성되었습니다.",
+        icon: "positive",
+        position,
+        actions: [
+          { label: "닫기", class: "xclose", handler: () => { console.log(""); } }
+        ],
+        timeout: 500
+      });
+    }, 100);
+  }
 };
 
 const onMenuClick = () => {
