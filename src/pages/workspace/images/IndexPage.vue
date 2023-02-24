@@ -461,32 +461,24 @@ const handleCheckGroupClick = (index) => {
   }
 };
 
-// 공유 대상 저장, 공유해제 대상 저장
+const triggerSharedImageFail = () => {
+  $useCmFn.onNotify({
+    message: "이미지 삭제를 실패하였습니다. 다시 시도해주세요.",
+    type: "negative",
+  });
+};
+const failedRequests = ref([]);
+
+// 공유 대상 저장, 공유해제 대상 axios 요청
 const ApiShareImage = async (trueList, falseList) => {
-  const failedRequests = [];
-
-  // const result1 = await Promise.all(
-  //   trueList.map(async (item) => {
-  //     try {
-  //       return await WorkspaceService.postShareWorkspaceImage(workspaceId, item.id);
-  //     } catch (error) {
-  //       failedRequests.push({ id: item.id, name: item.name });
-  //       throw error; // rethrow the error to be handled later
-  //     }
-  //   })
-  // );
-
   try {
     await Promise.all(
       trueList.map(async (item) => {
         try {
           return await WorkspaceService.postShareWorkspaceImage(workspaceId, item.id);
         } catch (error) {
-          failedRequests.push({ id: item.id, name: item.name });
-          $useCmFn.onNotify({
-            message: "이미지 공유하기 실패 ",
-            type: "negative",
-          });
+          failedRequests.value.push({ id: item.id, name: item.name });
+          triggerSharedImageFail(); // 실패 시 임시추가
           console.log(error);
         }
       })
@@ -495,27 +487,15 @@ const ApiShareImage = async (trueList, falseList) => {
     console.error(error);
   }
 
-  console.log("failedRequestsfailedRequests: ", failedRequests);
-
-  const result2 = await Promise.all(
+  await Promise.all(
     falseList.map(async (item) => {
       try {
         return await WorkspaceService.postUnShareWorkspaceImage(workspaceId, item.id);
       } catch (error) {
-        $useCmFn.onNotify({
-          message: "111 ",
-          type: "negative",
-        });
-
         console.log(error);
       }
     })
-
   );
-  console.log("result2");
-
-  // console.log("result1", result1);
-  console.log("result2", result2);
 };
 
 // 저장 시 checked true,false 각 배열 분리
@@ -529,7 +509,7 @@ const separateByChecked = () => {
         if (project.checked) {
           trueList.push({ id: project.id, name: project.name });
         } else {
-          trueList.push({ id: project.id, name: project.name });
+          falseList.push({ id: project.id, name: project.name });
         }
       });
       acc.trueList.push(...trueList);
