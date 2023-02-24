@@ -905,6 +905,9 @@
                     word-break: break-all;
                   }
                 }
+                &:last-child{
+                  div{padding-bottom: 0 !important;}
+                }
               }
               tr{
                 th{
@@ -989,9 +992,9 @@
               }
               .port_box{
                 li{
-                  .p_input_data{width: 33%;}
+                  .p_input_data{width: calc(100% - 70%);}
                   .p_external_data{
-                    width: 67%;
+                    width: calc(100% - 30%);
                     .copy{
                       display: inline-block;
                       width: 20px; height: 20px;
