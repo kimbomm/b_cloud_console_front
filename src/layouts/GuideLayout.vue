@@ -18,12 +18,7 @@
       </q-toolbar>
     </q-header>
 
-    <q-drawer
-      class="l-sidebar"
-      show-if-above
-      :width="316"
-      :mini-width="80"
-    >
+    <aside class="l-sidebar fixed">
       <q-scroll-area class="fit">
         <q-list
           padding
@@ -178,7 +173,7 @@
           </q-item>
         </q-list>
       </q-scroll-area>
-    </q-drawer>
+    </aside>
 
     <q-page-container class="l-container">
       <router-view />
@@ -217,7 +212,12 @@ useMeta(metaData);
       margin-left: 20px;
     }
   }
-
+  .l-sidebar{
+    width:316px;
+  }
+  .l-sidebar .menu-list{
+    padding-bottom:80px;
+  }
   .menu-list{
     max-width:100%;
   }

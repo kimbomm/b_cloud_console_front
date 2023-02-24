@@ -207,7 +207,7 @@ $side-minw: 80px;
     flex:1;
     position:sticky;top:0;
     max-width:$side-maxw;
-    min-height:calc(100vh - 64px);
+    min-height:calc(100vh - #{$header-h});
     margin:0;
     padding:24px 0 calc(104px + 56px + 32px);
   }
@@ -609,7 +609,7 @@ $side-minw: 80px;
 // q-header q-layout__section--marginal fixed-top l-header
 .q-header{
   z-index:100;
-  height:64px;
+  height:$header-h;
   background-color:$secondary;
   box-shadow: none;
   .q-layout__shadow{
@@ -621,7 +621,7 @@ $side-minw: 80px;
 }
 // q-toolbar row no-wrap items-center
 .q-toolbar{
-  min-height:64px;
+  min-height:$header-h;
   padding:0 20px;
   .q-btn{
     &--dense{
@@ -708,7 +708,7 @@ $side-minw: 80px;
 .l-sidebar{
   $sideMenuH:176px;
   visibility: visible;
-  top:64px;bottom:0;left:0;z-index:1000;
+  top:$header-h;bottom:0;left:0;z-index:1000;
   transform: translateX(0);
   width: $side-maxw;
   background:#F5F7FA;
@@ -785,9 +785,6 @@ $side-minw: 80px;
     color:$black;font-size:$fs16;font-weight:$regular;
   }
 }
-.p-foot{
-
-}
 .body_group{
   display:flex;
   flex-wrap:wrap;
@@ -813,6 +810,8 @@ $side-minw: 80px;
     }
   }
 }
+
+// SideBar 1520 Size
 .q-toolbar .q-btn.c_icon{z-index:1;}
 .l-sidebar .q-btn.c_icon{display:none;}
 // Drawer Icon Mode
@@ -856,7 +855,13 @@ $side-minw: 80px;
       .q-item.my.active .more {
         background-color: transparent;
         .ico_more {
+          background-color: $surface01;
           background-image: url($iconUrl + '20/ico_more_normal.svg');
+        }
+        &:hover{
+          .ico_more {
+            background-color: $surface02;
+          }
         }
       }
     }

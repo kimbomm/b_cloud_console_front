@@ -1,5 +1,6 @@
 <template>
-  <q-layout ref="input" view="hHh Lpr lff" class="l-wrap l-console" :class="{iconMode: drawer, textMode: sideClick}">
+  <q-layout ref="input" view="hHh Lpr lff" class="l-wrap l-console"
+  :class="{iconMode: drawer, textMode: sideClick}">
     <q-header class="l-header">
       <q-toolbar>
         <q-btn flat @click="drawer = !drawer" round dense icon="menu" class="c_icon menu" />
