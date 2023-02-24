@@ -412,8 +412,9 @@ const inputRules = ref([
       return "";
     }
     const foundProject = getListProject.value.find((p) => p.name === projectName.value);
-    return (foundProject ? "중복된 프로젝트 이름입니다." : /^[A-Za-z0-9가-힣ㄱ-ㅎㅏ-ㅣ\s]+$/.test(value)) || "영어, 한글, 숫자, 공백만 입력 가능합니다.";
+    return (foundProject ? "중복된 프로젝트 이름입니다." : /^[A-Za-z0-9가-힣ㄱ-ㅎㅏ-ㅣ\s]+$/.test(value)) || "영어,한글,숫자만 입력 가능 합니다.";
   },
+
   (value) => (!!value.length && value.length >= 2 && value.length <= 30) || "최소 2글자 최대 30글자로 입력해주세요",
 ]);
 
