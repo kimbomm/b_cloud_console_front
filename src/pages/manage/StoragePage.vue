@@ -400,7 +400,7 @@ const headers = [
     text: "이름", value: "title", width: 130, sortable: true
   },
   {
-    text: "설명", value: "desc", width: 280, sortable: true
+    text: "설명", value: "desc", width: 280, widthAuto: true, sortable: true
   },
   {
     text: "소유자", value: "user", width: 110, sortable: true

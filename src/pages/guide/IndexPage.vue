@@ -8,7 +8,7 @@
     <div class="p-body">
       <table class="q-table">
         <colgroup>
-          <col style="width:500px">
+          <col style="width:280px">
           <col style="width:300px">
           <col style="width:80px">
           <col style="width:auto">
