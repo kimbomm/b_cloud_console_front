@@ -110,6 +110,27 @@ class Utils {
     }
     return false;
   }
+
+  /**
+   * 설명: Array sort
+   * @param { array } list
+   * @param { string } type sort 타입
+   * @param { boolean } desc 내림차순 true | 오름차순 false
+   * @param { string } key sort 기준 key
+   * @returns sorted list
+   */
+  sortType(list, key, desc, type) {
+    const datetimeSort = (a, b) => (desc
+      ? new Date(b[key]) - new Date(a[key])
+      : new Date(a[key]) - new Date(b[key]));
+    const defaultSort = (a, b) => (desc ? (b - a) : (a - b));
+    let sortFunc = defaultSort;
+    if (type === "datetime") {
+      sortFunc = datetimeSort;
+    }
+
+    return list.sort(sortFunc);
+  }
 }
 
 export const $utils = new Utils();
