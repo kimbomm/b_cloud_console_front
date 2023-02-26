@@ -245,11 +245,11 @@ const transformDate = (value) => {
 const getMyImge = async () => {
   try {
     const { images } = await imageService.getMyImages(workspaceId);
-    const updatedImages = transformDate({
+    const updatedImages = $utils.sortType(transformDate({
       images,
       created_at: "created_at",
       dateType: "YYYY-MM-DD",
-    });
+    }), "created_at", true, "datetime");
     // * 임시 테스트 데이터 추가
     imageList.value = updatedImages;
   } catch (e) {
