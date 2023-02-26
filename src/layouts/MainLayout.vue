@@ -25,7 +25,7 @@ import {
   ref,
   onMounted,
   onUnmounted,
-  onBeforeUnmount
+  onBeforeUnmount,
   // watch
 } from "vue";
 import { useMeta } from "quasar";
@@ -62,6 +62,7 @@ onBeforeUnmount(() => {
 
 onMounted(() => {
   window.addEventListener("resize", scrollFn);
+  scrollFn();
 });
 
 onUnmounted(() => {
