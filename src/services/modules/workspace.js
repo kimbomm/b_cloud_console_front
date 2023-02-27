@@ -17,6 +17,8 @@ export const WorkspaceService = {
    * @param { String } imgId 이미지 id
    */
   async postShareWorkspaceImage(workspaceId, imgId, params) {
+    console.log("params", params);
+
     const response = await api.post(`/workspaces/${workspaceId}/images/${imgId}/share`, params);
     return response.data;
   },
@@ -27,6 +29,7 @@ export const WorkspaceService = {
    * @param { number } imgId 이미지 id
    */
   async postUnShareWorkspaceImage(workspaceId, imgId, params) {
+    console.log("params", params);
     const response = await api.post(`/workspaces/${workspaceId}/images/${imgId}/share`, params);
     return response.data;
   },

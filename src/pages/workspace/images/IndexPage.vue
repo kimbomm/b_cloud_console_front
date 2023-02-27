@@ -245,11 +245,11 @@ const transformDate = (value) => {
 const getMyImge = async () => {
   try {
     const { images } = await imageService.getMyImages(workspaceId);
-    const updatedImages = transformDate({
+    const updatedImages = $utils.sortType(transformDate({
       images,
       created_at: "created_at",
       dateType: "YYYY-MM-DD",
-    });
+    }), "created_at", true, "datetime");
     // * 임시 테스트 데이터 추가
     imageList.value = updatedImages;
   } catch (e) {
@@ -477,9 +477,15 @@ const handleCheckGroupClick = (index) => {
 
 const failedRequests = ref([]); // 공유 실패 리스트
 
+const triggerSharedSuccess = () => {
+  $useCmFn.onNotify({
+    message: "내 이미지 공유 설정이 저장되었습니다.",
+    type: "positive",
+  });
+};
 const triggerSharedImageFail = () => {
   $useCmFn.onNotify({
-    message: "이미지 삭제를 실패하였습니다. 다시 시도해주세요.",
+    message: "이미지 공유 설정에 실패하였습니다. 다시 시도해주세요.",
     type: "negative",
   });
   failedRequests.value = [];
@@ -492,7 +498,8 @@ const handleShareImageRequests = async (trueList, falseList) => {
     await Promise.all(
       trueList.map(async (item) => {
         try {
-          return await WorkspaceService.postShareWorkspaceImage(workspaceId, item.id);
+          await WorkspaceService.postShareWorkspaceImage(workspaceId, item.id, { workspace_id: workspaceId, image_id: item.id });
+          triggerSharedSuccess();
         } catch (error) {
           failedRequests.value.push({ id: item.id, name: item.name });
           alertTaskDeleteFailModal.value = true;
@@ -507,7 +514,8 @@ const handleShareImageRequests = async (trueList, falseList) => {
   await Promise.all(
     falseList.map(async (item) => {
       try {
-        return await WorkspaceService.postUnShareWorkspaceImage(workspaceId, item.id);
+        triggerSharedSuccess();
+        await WorkspaceService.postUnShareWorkspaceImage(workspaceId, item.id, { workspace_id: workspaceId, image_id: item.id });
       } catch (error) {
         failedRequests.value.push({ id: item.id, name: item.name });
         alertTaskDeleteFailModal.value = true;

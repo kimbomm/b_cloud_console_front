@@ -806,65 +806,9 @@
           <div class="aside_box">
             <p class="section_title">태스크</p>
             <ul class="instance_data task_data">
-              <li class="i_d01">
-                <q-item class="i_data_title">그룹 이름</q-item>
-                <q-item class="i_data_value"><p>태스크 그룹 이름</p></q-item>
-              </li>
-              <li class="i_d02">
-                <q-item class="i_data_title">태스크 개수</q-item>
-                <q-item class="i_data_value"><p>3</p></q-item>
-              </li>
-              <li class="i_d03">
-                <q-item class="i_data_title">작업경로</q-item>
-                <q-item class="i_data_value"><p>/working_dir</p></q-item>
-              </li>
-              <li class="i_d04">
-                <q-item class="i_data_title">호스트 전체 준비 완료시 실행</q-item>
-                <q-item class="i_data_value"><p>Off</p></q-item>
-              </li>
-              <li class="i_d05">
-                <q-item class="i_data_title">동시실행 최대 개수</q-item>
-                <q-item class="i_data_value"><p>3</p></q-item>
-              </li>
-              <li class="i_d06">
-                <q-item class="i_data_title">인스턴스 타입</q-item>
-                <q-item class="i_data_value"><p>V100</p></q-item>
-              </li>
-              <li class="i_d07">
-                <q-item class="i_data_title">GPU</q-item>
-                <q-item class="i_data_value"><p>1</p></q-item>
-              </li>
-              <li class="i_d08">
-                <q-item class="i_data_title">CPU</q-item>
-                <q-item class="i_data_value"><p>14</p></q-item>
-              </li>
-              <li class="i_d09">
-                <q-item class="i_data_title">Memory</q-item>
-                <q-item class="i_data_value"><p>122GB</p></q-item>
-              </li>
-              <li class="i_d10">
-                <q-item class="i_data_title">Disk</q-item>
-                <q-item class="i_data_value"><p>80GiB</p></q-item>
-              </li>
-              <li class="i_d11">
-                <q-item class="i_data_title">이미지</q-item>
-                <q-item class="i_data_value"><p>tensorflow 2.9.0 (python3, cuda11.2, ubuntu20.04)</p></q-item>
-              </li>
-              <li class="i_d12">
-                <q-item class="i_data_title">스토리지</q-item>
-                <q-item class="i_data_value"><p>aa프로젝트 1 스토리지 외 4개</p></q-item>
-              </li>
-              <li class="i_d13">
-                <q-item class="i_data_title">Http proxy</q-item>
-                <q-item class="i_data_value"><p>On</p></q-item>
-              </li>
-              <li class="i_d14">
-                <q-item class="i_data_title">재시도 횟수</q-item>
-                <q-item class="i_data_value"><p>0</p></q-item>
-              </li>
-              <li class="i_d15">
-                <q-item class="i_data_title">추가 포트 번호</q-item>
-                <q-item class="i_data_value"><p>-</p></q-item>
+              <li :class="'i_d0' + i" v-for="(i,a) in datalistLen" :key="i">
+                <q-item class="i_data_title">{{datalist[a].title}}</q-item>
+                <q-item class="i_data_value"><p>{{datalist[a].value}}</p></q-item>
               </li>
             </ul>
             <div class="make_btn">
@@ -951,16 +895,16 @@ const chipFilterFn = (val, update) => {
 // 인스턴스 타입 테이블
 const instanceHeaders = [
   {
-    text: "이름", value: "title", width: 180, sortable: false
+    text: "이름", value: "title", width: 150, widthAuto: true, sortable: false
   },
   {
-    text: "CPU", value: "cpu", width: 130, sortable: false
+    text: "CPU", value: "cpu", width: 145, sortable: false
   },
   {
-    text: "Memory", value: "memory", width: 130, sortable: false
+    text: "Memory", value: "memory", width: 145, sortable: false
   },
   {
-    text: "Disk", value: "disk", width: 130, sortable: false
+    text: "Disk", value: "disk", width: 145, sortable: false
   },
 ];
 const instanceItems = [
@@ -1007,10 +951,10 @@ const instanceItems = [
 // 이미지 테이블_기본이미지
 const imgHeader1 = [
   {
-    text: "이름", value: "title", width: 350, sortable: false
+    text: "이름", value: "title", width: 320, widthAuto: true, sortable: false
   },
   {
-    text: "NVIDA 드라이브 최소버전", value: "nvida", width: 240, sortable: false
+    text: "NVIDA 드라이브 최소버전", value: "nvida", width: 270, sortable: false
   },
 ];
 const imgItems1 = [
@@ -1026,16 +970,16 @@ const imgItems1 = [
 // 이미지 테이블_내이미지
 const imgHeader2 = [
   {
-    text: "이름", value: "title", width: 150, sortable: false
+    text: "이름", value: "title", width: 140, sortable: false
   },
   {
-    text: "설명", value: "description", width: 150, sortable: false
+    text: "설명", value: "description", width: 130, widthAuto: true, sortable: false
   },
   {
     text: "상태", value: "status", width: 110, sortable: false
   },
   {
-    text: "생성일시", value: "createdAt", width: 180, sortable: false
+    text: "생성일시", value: "createdAt", width: 200, sortable: false
   },
 ];
 const imgItems2 = [
@@ -1064,10 +1008,10 @@ const imgHeader3 = [
     text: "이름", value: "title", width: 110, sortable: false
   },
   {
-    text: "설명", value: "description", width: 220, sortable: false
+    text: "설명", value: "description", width: 200, widthAuto: true, sortable: false
   },
   {
-    text: "공유자", value: "owner", width: 260, sortable: false
+    text: "공유자", value: "owner", width: 280, sortable: false
   },
 ];
 const imgItems3 = [
@@ -1094,7 +1038,7 @@ const storageHeader = [
     text: "이름", value: "title", width: 100, sortable: false
   },
   {
-    text: "설명", value: "description", width: 200, sortable: false
+    text: "설명", value: "description", width: 200, widthAuto: true, sortable: false
   },
   {
     text: "상태", value: "status", width: 90, sortable: false
@@ -1136,7 +1080,7 @@ const sshKeyHeader = [
     text: "이름", value: "title", width: 110, sortable: false
   },
   {
-    text: "Fingerprint", value: "fingerprint", width: 280, sortable: false
+    text: "Fingerprint", value: "fingerprint", widthAuto: true, width: 280, sortable: false
   },
   {
     text: "등록일시", value: "registrationDat", width: 200, sortable: false
@@ -1175,6 +1119,25 @@ const bodyRowClassNameFunction = (item) => {
  * @param { string } eventName action event name
  * @param { object } rowData get table row data
  */
+
+const datalist = [
+  { title: "그룹 이름", value: "태스크 그룹 이름" },
+  { title: "태스크 개수", value: 3 },
+  { title: "작업경로", value: "/working_dir" },
+  { title: "호스트 전체 준비 완료시 실행", value: "Off" },
+  { title: "동시실행 최대 개수", value: 3 },
+  { title: "인스턴스 타입", value: "V100" },
+  { title: "GPU", value: 1 },
+  { title: "CPU", value: 14 },
+  { title: "Memory", value: "122GB" },
+  { title: "Disk", value: "80GiB" },
+  { title: "이미지", value: "tensorflow 2.9.0 (python3, cuda11.2, ubuntu20.04)" },
+  { title: "스토리지", value: "aa프로젝트 1 스토리지 외 4개" },
+  { title: "Http proxy", value: "On" },
+  { title: "재시도 횟수", value: 0 },
+  { title: "추가 포트 번호", value: "-" },
+];
+const datalistLen = datalist.length;
 </script>
 
 <style lang="scss" scoped>
