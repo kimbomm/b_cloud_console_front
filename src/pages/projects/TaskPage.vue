@@ -572,10 +572,10 @@ const headers = [
     text: "그룹 ID", value: "id", width: 100, sortable: false, checkbox: true
   },
   {
-    text: "그룹 이름", value: "groupTitle", width: 133, widthAuto: true, sortable: true
+    text: "그룹 이름", value: "groupTitle", width: 135, widthAuto: true, sortable: true
   },
   {
-    text: "설명", value: "description", width: 133, widthAuto: true, sortable: false
+    text: "설명", value: "description", width: 135, widthAuto: true, sortable: false
   },
   {
     text: "상태", value: "status", width: 170, sortable: false

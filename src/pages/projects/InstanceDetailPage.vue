@@ -693,45 +693,9 @@
           <div class="aside_box">
             <p class="section_title">인스턴스</p>
             <ul class="instance_data">
-              <li class="i_d01">
-                <q-item class="i_data_title">이름</q-item>
-                <q-item class="i_data_value"><p>인스턴스 이름</p></q-item>
-              </li>
-              <li class="i_d02">
-                <q-item class="i_data_title">인스턴스 타입</q-item>
-                <q-item class="i_data_value"><p>Tesla V100</p></q-item>
-              </li>
-              <li class="i_d03">
-                <q-item class="i_data_title">GPU</q-item>
-                <q-item class="i_data_value"><p>1</p></q-item>
-              </li>
-              <li class="i_d04">
-                <q-item class="i_data_title">CPU</q-item>
-                <q-item class="i_data_value"><p>14</p></q-item>
-              </li>
-              <li class="i_d05">
-                <q-item class="i_data_title">Memory</q-item>
-                <q-item class="i_data_value"><p>122GB</p></q-item>
-              </li>
-              <li class="i_d06">
-                <q-item class="i_data_title">Disk</q-item>
-                <q-item class="i_data_value"><p>80GiB</p></q-item>
-              </li>
-              <li class="i_d07">
-                <q-item class="i_data_title">이미지</q-item>
-                <q-item class="i_data_value"><p>tensorflow 2.9.0<br>(python3, cuda11.2, ubuntu20.04)</p></q-item>
-              </li>
-              <li class="i_d08">
-                <q-item class="i_data_title">스토리지</q-item>
-                <q-item class="i_data_value"><p>개인 스토리지 외 3개</p></q-item>
-              </li>
-              <li class="i_d09">
-                <q-item class="i_data_title">SSH/JupyterLab</q-item>
-                <q-item class="i_data_value"><p>SSH</p></q-item>
-              </li>
-              <li class="i_d10">
-                <q-item class="i_data_title">포트번호</q-item>
-                <q-item class="i_data_value"><p>-</p></q-item>
+              <li :class="'i_d0' + i" v-for="(i,a) in datalistLen" :key="i">
+                <q-item class="i_data_title">{{datalist[a].title}}</q-item>
+                <q-item class="i_data_value"><p>{{datalist[a].value}}</p></q-item>
               </li>
             </ul>
             <div class="make_btn">
@@ -807,16 +771,16 @@ const chipFilterFn = (val, update) => {
 // 인스턴스 타입 테이블
 const instanceHeaders = [
   {
-    text: "이름", value: "title", width: 180, sortable: false
+    text: "이름", value: "title", width: 150, widthAuto: true, sortable: false
   },
   {
-    text: "CPU", value: "cpu", width: 130, sortable: false
+    text: "CPU", value: "cpu", width: 145, sortable: false
   },
   {
-    text: "Memory", value: "memory", width: 130, sortable: false
+    text: "Memory", value: "memory", width: 145, sortable: false
   },
   {
-    text: "Disk", value: "disk", width: 130, sortable: false
+    text: "Disk", value: "disk", width: 145, sortable: false
   },
 ];
 const instanceItems = [
@@ -863,10 +827,10 @@ const instanceItems = [
 // 이미지 테이블_기본이미지
 const imgHeader1 = [
   {
-    text: "이름", value: "title", width: 350, sortable: false
+    text: "이름", value: "title", width: 320, widthAuto: true, sortable: false
   },
   {
-    text: "NVIDA 드라이브 최소버전", value: "nvida", width: 240, sortable: false
+    text: "NVIDA 드라이브 최소버전", value: "nvida", width: 270, sortable: false
   },
 ];
 const imgItems1 = [
@@ -882,16 +846,16 @@ const imgItems1 = [
 // 이미지 테이블_내이미지
 const imgHeader2 = [
   {
-    text: "이름", value: "title", width: 150, sortable: false
+    text: "이름", value: "title", width: 140, sortable: false
   },
   {
-    text: "설명", value: "description", width: 150, sortable: false
+    text: "설명", value: "description", width: 130, widthAuto: true, sortable: false
   },
   {
     text: "상태", value: "status", width: 110, sortable: false
   },
   {
-    text: "생성일시", value: "createdAt", width: 180, sortable: false
+    text: "생성일시", value: "createdAt", width: 200, sortable: false
   },
 ];
 const imgItems2 = [
@@ -920,10 +884,10 @@ const imgHeader3 = [
     text: "이름", value: "title", width: 110, sortable: false
   },
   {
-    text: "설명", value: "description", width: 220, sortable: false
+    text: "설명", value: "description", width: 200, widthAuto: true, sortable: false
   },
   {
-    text: "공유자", value: "owner", width: 260, sortable: false
+    text: "공유자", value: "owner", width: 280, sortable: false
   },
 ];
 const imgItems3 = [
@@ -950,7 +914,7 @@ const storageHeader = [
     text: "이름", value: "title", width: 100, sortable: false
   },
   {
-    text: "설명", value: "description", width: 200, sortable: false
+    text: "설명", value: "description", width: 200, widthAuto: true, sortable: false
   },
   {
     text: "상태", value: "status", width: 90, sortable: false
@@ -992,7 +956,7 @@ const sshKeyHeader = [
     text: "이름", value: "title", width: 110, sortable: false
   },
   {
-    text: "Fingerprint", value: "fingerprint", width: 280, sortable: false
+    text: "Fingerprint", value: "fingerprint", widthAuto: true, width: 280, sortable: false
   },
   {
     text: "등록일시", value: "registrationDat", width: 200, sortable: false
@@ -1031,6 +995,20 @@ const bodyRowClassNameFunction = (item) => {
  * @param { string } eventName action event name
  * @param { object } rowData get table row data
  */
+
+const datalist = [
+  { title: "이름", value: "인스턴스 이름" },
+  { title: "인스턴스 타입", value: "Tesla V100" },
+  { title: "GPU", value: 1 },
+  { title: "CPU", value: 14 },
+  { title: "Memory", value: "122GB" },
+  { title: "Disk", value: "80GiB" },
+  { title: "이미지", value: "tensorflow 2.9.0 \n(python3, cuda11.2, ubuntu20.04)" },
+  { title: "스토리지", value: "개인 스토리지 외 3개" },
+  { title: "SSH/JupyterLab", value: "tda" },
+  { title: "포트번호", value: "-" },
+];
+const datalistLen = datalist.length;
 </script>
 
 <style lang="scss" scoped>
