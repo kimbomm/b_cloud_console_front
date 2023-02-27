@@ -272,7 +272,7 @@
   </q-scroll-area>
 </template>
 <script setup>
-import { ref, watchEffect, watch } from "vue";
+import { ref, onMounted, watch } from "vue";
 import { AuthService, ProjectService } from "src/services";
 import { googleLogout } from "vue3-google-login";
 import { $useCmFn } from "src/composables/useCommonFunction.js";
@@ -465,7 +465,7 @@ const getUserInfo = async () => {
   }
 };
 
-watchEffect(() => {
+onMounted(() => {
   getUserInfo();
 });
 
@@ -489,8 +489,6 @@ const triggerFail = () => {
 };
 
 const newProject = async () => {
-  console.log("projectDescription.valueprojectDescription.valueprojectDescription.value", projectDescription.value);
-
   const params = {
     description: projectDescription.value,
     name: projectName.value,

@@ -249,7 +249,7 @@
   <!-- End : [프로젝트 - 멤버관리] 멤버 - 추가 -->
 </template>
 <script setup>
-import { ref, watch, onMounted } from "vue";
+import { ref, watch } from "vue";
 import { useMeta } from "quasar";
 import { useRoute } from "vue-router";
 import { ProjectService } from "src/services";
@@ -283,13 +283,13 @@ const userInfoUpdate = () => {
   getUserInfo();
 };
 
-onMounted(() => {
-  getUserInfo();
-});
-
-watch(route.params, async () => {
-  getUserInfo();
-});
+watch(
+  () => route.params.projectId,
+  async () => {
+    getUserInfo();
+  },
+  { immediate: true }
+);
 
 useMeta(() => ({
   title: projectInfo.value.name,
@@ -297,7 +297,6 @@ useMeta(() => ({
 
 const tab = ref("tabs3");
 const label2 = ref("10");
-// const viewTab = ref(0);
 
 const options2 = ref([
   { label: "10", value: 0 },
