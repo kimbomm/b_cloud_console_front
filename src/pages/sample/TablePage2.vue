@@ -113,7 +113,16 @@
               class="text instance"
               @click="onCopy(item)"
             >
-              <span class="txt">{{ item.instanceType }}</span>
+              <span class="txt">{{ item.instanceType }}<i class="ico details">
+                <q-tooltip
+                  anchor="bottom middle"
+                  class="c_tooltip insTypeTool"
+                >
+                  <div class="inner">
+                    {{ item.instanceType }}
+                  </div>
+                </q-tooltip></i>
+              </span>
             </q-badge>
           </template>
           <!-- 버튼 그룹 -->
@@ -222,19 +231,19 @@
           <!-- 인스턴스 타입 -->
           <template #item-instanceType="item">
             <q-badge
-              class="text instance icon"
+              class="text instance"
               @click="onCopy(item)"
             >
-              <span class="txt">{{ item.instanceType }}</span>
-
-              <q-tooltip
-                anchor="bottom middle"
-                class="c_tooltip"
-              >
-                <div class="inner">
-                  {{ item.instanceType }}
-                </div>
-              </q-tooltip>
+              <span class="txt">{{ item.instanceType }}<i class="ico details">
+                <q-tooltip
+                  anchor="bottom middle"
+                  class="c_tooltip insTypeTool"
+                >
+                  <div class="inner">
+                    {{ item.instanceType }}
+                  </div>
+                </q-tooltip></i>
+              </span>
             </q-badge>
           </template>
           <!-- createdBy -->
@@ -338,19 +347,19 @@
           <!-- 인스턴스 타입 -->
           <template #item-instanceType="item">
             <q-badge
-              class="text instance icon"
+              class="text instance"
               @click="onCopy(item)"
             >
-              <span class="txt">{{ item.instanceType }}</span>
-
-              <q-tooltip
-                anchor="bottom middle"
-                class="c_tooltip"
-              >
-                <div class="inner">
-                  {{ item.instanceType }}
-                </div>
-              </q-tooltip>
+              <span class="txt">{{ item.instanceType }}<i class="ico details">
+                <q-tooltip
+                  anchor="bottom middle"
+                  class="c_tooltip insTypeTool"
+                >
+                  <div class="inner">
+                    {{ item.instanceType }}
+                  </div>
+                </q-tooltip></i>
+              </span>
             </q-badge>
           </template>
           <!-- createdBy -->
@@ -467,19 +476,19 @@
           <!-- 인스턴스 타입 -->
           <template #item-instanceType="item">
             <q-badge
-              class="text instance icon"
+              class="text instance"
               @click="onCopy(item)"
             >
-              <span class="txt">{{ item.instanceType }}</span>
-
-              <q-tooltip
-                anchor="bottom middle"
-                class="c_tooltip"
-              >
-                <div class="inner">
-                  {{ item.instanceType }}
-                </div>
-              </q-tooltip>
+              <span class="txt">{{ item.instanceType }}<i class="ico details">
+                <q-tooltip
+                  anchor="bottom middle"
+                  class="c_tooltip insTypeTool"
+                >
+                  <div class="inner">
+                    {{ item.instanceType }}
+                  </div>
+                </q-tooltip></i>
+              </span>
             </q-badge>
           </template>
           <!-- createdBy -->
@@ -670,19 +679,19 @@
           <!-- 인스턴스 타입 -->
           <template #item-instanceType="item">
             <q-badge
-              class="text instance icon"
+              class="text instance"
               @click="onCopy(item)"
             >
-              <span class="txt">{{ item.instanceType }}</span>
-
-              <q-tooltip
-                anchor="bottom middle"
-                class="c_tooltip"
-              >
-                <div class="inner">
-                  {{ item.instanceType }}
-                </div>
-              </q-tooltip>
+              <span class="txt">{{ item.instanceType }}<i class="ico details">
+                <q-tooltip
+                  anchor="bottom middle"
+                  class="c_tooltip insTypeTool"
+                >
+                  <div class="inner">
+                    {{ item.instanceType }}
+                  </div>
+                </q-tooltip></i>
+              </span>
             </q-badge>
           </template>
           <!-- createdBy -->
@@ -947,10 +956,10 @@ const headers = [
     text: "ID", value: "id", width: 80, sortable: false, checkbox: true
   },
   {
-    text: "인스턴스 이름", value: "title", sortable: true
+    text: "인스턴스 이름", value: "title", width: 150, widthAuto: true, sortable: true
   },
   {
-    text: "상태", value: "status", width: 100, sortable: true
+    text: "상태", value: "status", width: 150, sortable: true
   },
   {
     text: "ssh", value: "ssh", width: 100, sortable: false
@@ -959,7 +968,7 @@ const headers = [
     text: "JupyterLab", value: "jupyterLab", width: 150, sortable: true
   },
   {
-    text: "인스턴스 타입", value: "instanceType", width: 160, sortable: false
+    text: "인스턴스 타입", value: "instanceType", width: 120, sortable: false
   },
   {
     text: "GPU", value: "gpu", width: 80, sortable: false
@@ -973,7 +982,9 @@ const headers = [
   {
     text: "생성자", value: "createdBy", width: 100, sortable: true
   },
-  { text: "", value: "buttons", width: 150 },
+  {
+    text: "", value: "buttons", width: 80, widthAuto: true
+  },
 ];
 const items = [
   {
@@ -1040,25 +1051,25 @@ const items = [
 
 const mngTaskHeader = [
   {
-    text: "프로젝트 이름", value: "title", width: 300, sortable: true
+    text: "프로젝트 이름", value: "title", width: 155, sortable: true
   },
   {
-    text: "프로젝트 설명", value: "desc", sortable: false
+    text: "프로젝트 설명", value: "desc", width: 133, widthAuto: true, sortable: false
   },
   {
     text: "할당량 설정", value: "status", width: 130, sortable: true
   },
   {
-    text: "GPU", value: "gpu", width: 150, sortable: true
+    text: "GPU", value: "gpu", width: 120, sortable: true
   },
   {
-    text: "V100", value: "v100", width: 150, sortable: true
+    text: "V100", value: "v100", width: 120, sortable: true
   },
   {
-    text: "A100_400G", value: "g400", width: 150, sortable: true
+    text: "A100_400G", value: "g400", width: 120, sortable: true
   },
   {
-    text: "A100_80G", value: "g80", width: 150, sortable: true
+    text: "A100_80G", value: "g80", width: 120, sortable: true
   },
   { text: "", value: "buttons", width: 80 },
 ];
