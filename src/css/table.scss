@@ -91,11 +91,12 @@ $padding: 16px;
     display:flex;
   }
   .txt.clip{
-    max-width:150px;
+    max-width:100%;
   }
   .q-checkbox{
     overflow:hidden;
-    max-width:300px;
+    // max-width:300px;
+    max-width:100%;
   }
   .q-checkbox .q-checkbox__label{
     overflow:hidden;
@@ -149,7 +150,8 @@ $padding: 16px;
   .vue3-easy-data-table__main{
     overflow:auto;
     min-height:auto;
-    background-color:$white;
+    // background-color:$white;
+    background-color:$color;
     &.hoverable tr:hover td{
       background-color: $easy-table-body-row-hover-background-color;
       color: $easy-table-body-row-hover-font-color;
@@ -245,7 +247,7 @@ $padding: 16px;
       font-size:$easy-table-header-font-size;
       th:first-child{
         width:80px;
-        // border-left:1px solid $surface03;
+        // border-left:1px solid $surface03
       }
       th:last-child{
         // border-right:1px solid $surface03;
