@@ -272,7 +272,7 @@
   </q-scroll-area>
 </template>
 <script setup>
-import { ref, onBeforeMount, watch } from "vue";
+import { ref, watchEffect, watch } from "vue";
 import { AuthService, ProjectService } from "src/services";
 import { googleLogout } from "vue3-google-login";
 import { $useCmFn } from "src/composables/useCommonFunction.js";
@@ -281,7 +281,6 @@ import { useRoute } from "vue-router";
 import CInputText from "components/common/CInputText.vue";
 
 const route = useRoute();
-console.log(route);
 const { workspaceId } = route.params;
 
 const itemSelected = ref(false);
@@ -462,7 +461,7 @@ const getUserInfo = async () => {
   }
 };
 
-onBeforeMount(() => {
+watchEffect(() => {
   getUserInfo();
 });
 
@@ -486,14 +485,17 @@ const triggerFail = () => {
 };
 
 const newProject = async () => {
+  console.log("projectDescription.valueprojectDescription.valueprojectDescription.value", projectDescription.value);
+
   const params = {
-    description: projectName.value,
-    name: projectDescription.value,
+    description: projectDescription.value,
+    name: projectName.value,
   };
   try {
     await ProjectService.createProject(workspaceId, params);
     setTimeout(() => {
       triggerSuccess();
+      getUserInfo();
     }, 100);
   } catch (e) {
     triggerFail();
