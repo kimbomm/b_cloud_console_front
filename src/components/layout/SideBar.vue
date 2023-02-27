@@ -232,14 +232,11 @@
                 :rules="inputRules"
                 class="wsize_full"
               />
-
             </div>
-
           </section>
           <section class="section" aria-label="프로젝트 설명">
             <p class="sub_title">프로젝트 설명</p>
             <div class="c_inpgroup">
-
               <c-input-text
                 ref="userName"
                 v-model:value="projectDescription"
@@ -252,20 +249,21 @@
                 :input-style="{ height: '100%' }"
                 clearable
                 outlined
-                :disable="isProjectDescription"
+                :disable="isValidProjectDescription"
               />
             </div>
           </section>
-
         </q-card-section>
         <q-card-actions class="c_dialog_foot">
-          <q-btn label="취소" class="line" v-close-popup />
+          <q-btn label="취소" class="line" v-close-popup
+          @click="cancleProject()"
+          />
           <q-btn
             label="확인"
             class="primary"
-            @click="newProject('top-right')"
+            @click="newProject()"
             v-close-popup
-            :disable="testresult"
+            :disable="isValidProjectSave"
           />
         </q-card-actions>
       </q-card>
@@ -274,20 +272,16 @@
   </q-scroll-area>
 </template>
 <script setup>
-import {
-  ref, computed, watchEffect, watch
-} from "vue";
-import { useQuasar } from "quasar";
-import { AuthService, ProjectService, } from "src/services";
+import { ref, onMounted, watch } from "vue";
+import { AuthService, ProjectService } from "src/services";
 import { googleLogout } from "vue3-google-login";
-// import { useRoute } from "vue-router";
+import { $useCmFn } from "src/composables/useCommonFunction.js";
+
+import { useRoute } from "vue-router";
 import CInputText from "components/common/CInputText.vue";
 
-const $q = useQuasar();
-
-// const route = useRoute();
-// const { workspaceId } = route.params;
-const workspaceId = 1; // 임시추가
+const route = useRoute();
+const { workspaceId } = route.params;
 
 const itemSelected = ref(false);
 const projectCreateModal = ref(false);
@@ -306,16 +300,16 @@ const menuData = [
     label: "Projects",
     icon: "ico_projects",
     children: [
-      {
-        type: "pjtsub",
-        label: "Test project",
-        path: "projects/task",
-      },
-      {
-        type: "pjtsub",
-        label: "Test project - Test012 Test012 Test012 Test012",
-        path: "projects/instance",
-      },
+      // {
+      //   type: "pjtsub",
+      //   label: "Test project",
+      //   path: "projects/task",
+      // },
+      // {
+      //   type: "pjtsub",
+      //   label: "Test project - Test012 Test012 Test012 Test012",
+      //   path: "projects/instance",
+      // },
     ],
   },
   {
@@ -400,74 +394,119 @@ const menuData = [
 const projectName = ref("");
 const projectDescription = ref("");
 const getListProject = ref([]);
-const isProjectDescription = computed(() => {
-  const project = getListProject.value.find((p) => p.name === projectName.value);
-  return project !== undefined ? true : projectName.value.length <= 1;
-});
-const testresult = computed(() => !(isProjectDescription.value === false && projectDescription.value.length > 1));
 
+const isValidProjectDescription = ref(true);
+const isValidProjectSave = ref(true);
+
+// 프로젝트 이름 중복 체크함수
+function isDuplicateProjectName(name, projects) {
+  return projects.find((p) => p.name.toString() === name.toString()) !== undefined;
+}
+
+// 프로젝트명 정규식체크
 const inputRules = ref([
   (value) => {
     if (value.length < 1) {
       return "";
     }
-    const foundProject = getListProject.value.find((p) => p.name === projectName.value);
-    return (foundProject ? "중복된 프로젝트 이름입니다." : /^[A-Za-z0-9가-힣ㄱ-ㅎㅏ-ㅣ\s]+$/.test(value)) || "영어,한글,숫자만 입력 가능 합니다.";
-  },
+    // 프로젝트 이름 중복확인
+    const foundProject = isDuplicateProjectName(projectName.value.trim(), getListProject.value);
 
-  (value) => (!!value.length && value.length >= 2 && value.length <= 30) || "최소 2글자 최대 30글자로 입력해주세요",
+    // 사용 가능 문자열 확인
+    return (
+      (foundProject
+        ? "중복된 프로젝트 이름입니다."
+        : /^[A-Za-z0-9가-힣ㄱ-ㅎㅏ-ㅣ\s]+$/.test(value))
+      || "영어,한글,숫자만 입력 가능 합니다."
+    );
+  },
+  (value) => (!!value.length && value.length >= 2 && value.length <= 30)
+    || "최소 2글자 최대 30글자로 입력해주세요",
 ]);
 
-watch(isProjectDescription, () => {
-});
+// 프로젝트이름, 설명 정규식체크
+watch(
+  [projectName, projectDescription],
+  ([projectNameValue, projectDescriptionValue]) => {
+    const regex = /^[A-Za-z0-9가-힣ㄱ-ㅎㅏ-ㅣ\s]+$/;
+    // 프로젝트 이름 중복 확인
+    const isDuplicate = isDuplicateProjectName(projectNameValue.trim(), getListProject.value);
+
+    const isValid = (!regex.test(projectName.value) && !isDuplicate)
+  || projectName.value.length <= 1
+  || projectName.value.length >= 30;
+
+    isValidProjectDescription.value = isValid || isDuplicate;
+    isValidProjectSave.value = isValid || isDuplicate || projectDescriptionValue.length <= 1;
+  }
+);
+
+// 프로젝트 리스트 이름 메뉴에 추가
+const addMenuPjtProjects = () => {
+  const pjtTypeItem = menuData.find((item) => item.type === "pjt");
+
+  if (pjtTypeItem) {
+    pjtTypeItem.children = getListProject.value.map((data) => ({
+      type: "pjtsub",
+      label: data.name,
+      path: `workspace/${workspaceId}/projects/${data.id}`,
+    }));
+  }
+};
 
 const getUserInfo = async () => {
   try {
     const { projects } = await ProjectService.getListProject(workspaceId);
     getListProject.value = projects;
+    addMenuPjtProjects();
   } catch (e) {
     console.log(e);
     return false;
   }
 };
 
-watchEffect(() => {
+onMounted(() => {
   getUserInfo();
 });
 
-const triggerSuccess = (position) => {
-  $q.notify({
-    type: "positive",
-    message: "신규 프로젝트가 생성되었습니다.",
-    icon: "positive",
-    position,
-    actions: [
-      {
-        label: "닫기",
-        class: "xclose",
-        handler: () => {
-          console.log("");
-        },
-      },
-    ],
-    timeout: 500,
-  });
+const resetInputs = () => {
+  projectName.value = "";
+  projectDescription.value = "";
 };
 
-const newProject = async (position) => {
+const triggerSuccess = () => {
+  $useCmFn.onNotify({
+    message: "신규 프로젝트가 생성되었습니다.",
+    type: "positive",
+  });
+};
+const triggerFail = () => {
+  $useCmFn.onNotify({
+    message: "저장에 실패하였습니다. 다시 시도해주세요.",
+    type: "negative",
+  });
+  resetInputs();
+};
+
+const newProject = async () => {
   const params = {
-    description: projectName.value,
-    name: projectDescription.value,
+    description: projectDescription.value,
+    name: projectName.value,
   };
   try {
     await ProjectService.createProject(workspaceId, params);
     setTimeout(() => {
-      triggerSuccess(position);
+      triggerSuccess();
+      getUserInfo();
     }, 100);
   } catch (e) {
-    alert("실패테스트");
-    console.log(e);
+    triggerFail();
   }
+  resetInputs();
+};
+
+const cancleProject = () => {
+  resetInputs();
 };
 
 const onMenuClick = () => {
