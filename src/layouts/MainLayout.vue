@@ -23,9 +23,6 @@
 <script setup>
 import {
   ref,
-  onMounted,
-  onUnmounted,
-  onBeforeUnmount
   // watch
 } from "vue";
 import { useMeta } from "quasar";
@@ -44,29 +41,6 @@ const metaData = {
 useMeta(metaData);
 const drawer = ref(false);
 const sideClick = ref(false);
-
-const scrollFn = () => {
-  const rwdSize = ref(window.innerWidth);
-  const { body } = document;
-  if (rwdSize.value < 1521) {
-    body.classList.add("laptop");
-  } else {
-    body.classList.remove("laptop");
-  }
-  // console.log(rwdSize.value);
-};
-
-onBeforeUnmount(() => {
-  window.removeEventListener("resize", scrollFn);
-});
-
-onMounted(() => {
-  window.addEventListener("resize", scrollFn);
-});
-
-onUnmounted(() => {
-  window.removeEventListener("resize", scrollFn);
-});
 
 // const route = useRoute();
 // const router = useRouter();
