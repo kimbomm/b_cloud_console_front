@@ -435,7 +435,6 @@ watch(
     const isValid = (!regex.test(projectName.value) && !isDuplicate)
   || projectName.value.length <= 1
   || projectName.value.length >= 30;
-    console.log("isValidisValidisValid", isValid);
 
     isValidProjectDescription.value = isValid || isDuplicate;
     isValidProjectSave.value = isValid || isDuplicate || projectDescriptionValue.length <= 1;
