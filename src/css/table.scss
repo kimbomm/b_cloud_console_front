@@ -150,7 +150,8 @@ $padding: 16px;
   .vue3-easy-data-table__main{
     overflow:auto;
     min-height:auto;
-    background-color:$white;
+    // background-color:$white;
+    background-color:$color;
     &.hoverable tr:hover td{
       background-color: $easy-table-body-row-hover-background-color;
       color: $easy-table-body-row-hover-font-color;
