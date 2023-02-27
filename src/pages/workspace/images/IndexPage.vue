@@ -16,12 +16,9 @@
       <div class="container">
         <div class="group-tabs">
           <div class="header">
-        <c-tab
-          v-model:value="tabModel"
-          :tabs="tabs"
-        />
+            <c-tab v-model:value="tabModel" :tabs="tabs" />
+          </div>
         </div>
-      </div>
         <template v-if="defaultData == true">
           <div class="table_set">
             <div class="c_inpgroup">
@@ -38,7 +35,11 @@
               </q-input>
             </div>
             <div class="select_drop">
-              <CDropdown :label="optLabel" :options="optNumber" class="auto_size" />
+              <CDropdown
+                :label="optLabel"
+                :options="optNumber"
+                class="auto_size"
+              />
             </div>
           </div>
 
@@ -95,8 +96,12 @@
               <q-item class="item chkall">
                 <i class="ico folder" />
                 <q-item-section class="item_card">
-                  <q-item-label class="name">{{ project.project_name }}</q-item-label>
-                  <q-item-label class="desc">{{ project.workspace_name }}</q-item-label>
+                  <q-item-label class="name">{{
+                    project.project_name
+                  }}</q-item-label>
+                  <q-item-label class="desc">{{
+                    project.workspace_name
+                  }}</q-item-label>
                 </q-item-section>
                 <q-checkbox
                   v-model="isChkAll"
@@ -112,13 +117,18 @@
                 <q-item class="item subitem">
                   <i class="ico note" />
                   <q-item-section class="item_card">
-                    <q-item-label class="name">{{ innerProject.name }}</q-item-label>
+                    <q-item-label class="name">{{
+                      innerProject.name
+                    }}</q-item-label>
                     <q-item-label class="desc">{{
                       innerProject.description
                     }}</q-item-label>
                   </q-item-section>
 
-                  <q-checkbox class="c_checkbox" v-model="innerProject.checked" />
+                  <q-checkbox
+                    class="c_checkbox"
+                    v-model="innerProject.checked"
+                  />
                 </q-item>
               </template>
             </template>
@@ -127,7 +137,12 @@
       </q-card-section>
       <q-card-actions class="c_dialog_foot">
         <q-btn label="취소" class="line" v-close-popup />
-        <q-btn label="저장" class="primary" v-close-popup @click="imageShareManageSave" />
+        <q-btn
+          label="저장"
+          class="primary"
+          v-close-popup
+          @click="imageShareManageSave"
+        />
       </q-card-actions>
     </q-card>
   </q-dialog>
@@ -145,7 +160,12 @@
         </div>
       </q-card-section>
       <q-card-actions class="c_dialog_foot">
-        <q-btn label="취소" class="line" v-close-popup @click="deleteShareData(false)" />
+        <q-btn
+          label="취소"
+          class="line"
+          v-close-popup
+          @click="deleteShareData(false)"
+        />
         <q-btn
           label="삭제"
           class="primary"
@@ -157,43 +177,39 @@
   </q-dialog>
   <!-- End : 삭제 확인 알럿 -->
 
-    <!-- Start : 공유 실패 리스트 팝업 -->
-    <q-dialog
-      v-model="alertTaskDeleteFailModal"
-      class="c_dialog"
-    >
-      <q-card>
-        <q-card-section
-          style="max-height:290px"
-          class="c_dialog_body"
-        >
-          <p class="title">
-            <strong>이미지 공유 실패</strong>
-          </p>
-          <p class="desc">
-            공유설정에 실패한 워크스페이스/프로젝트가 있습니다. 다시 시도해주세요
-          </p>
-          <div class="info negative">
-           <span v-for="(failedRequest, index) in failedRequests" :key="failedRequest">{{failedRequest.name}}{{index !== failedRequests.length - 1 ? ', ' : ''}}</span>
-          </div>
-        </q-card-section>
-        <q-card-actions class="c_dialog_foot">
-          <q-btn
-            label="확인"
-            class="primary"
-            v-close-popup
-            @click=" triggerSharedImageFail()"
-          />
-        </q-card-actions>
-      </q-card>
-    </q-dialog>
-    <!-- End : 공유 실패 리스트 팝업 -->
-
+  <!-- Start : 공유 실패 리스트 팝업 -->
+  <q-dialog v-model="alertTaskDeleteFailModal" class="c_dialog">
+    <q-card>
+      <q-card-section style="max-height: 290px" class="c_dialog_body">
+        <p class="title">
+          <strong>이미지 공유 실패</strong>
+        </p>
+        <p class="desc">
+          공유설정에 실패한 워크스페이스/프로젝트가 있습니다. 다시 시도해주세요
+        </p>
+        <div class="info negative">
+          <span
+            v-for="(failedRequest, index) in failedRequests"
+            :key="failedRequest"
+            >{{ failedRequest.name
+            }}{{ index !== failedRequests.length - 1 ? ", " : "" }}</span
+          >
+        </div>
+      </q-card-section>
+      <q-card-actions class="c_dialog_foot">
+        <q-btn
+          label="확인"
+          class="primary"
+          v-close-popup
+          @click="triggerSharedImageFail()"
+        />
+      </q-card-actions>
+    </q-card>
+  </q-dialog>
+  <!-- End : 공유 실패 리스트 팝업 -->
 </template>
 <script setup>
-import {
-  ref, watch, reactive, computed
-} from "vue";
+import { ref, watch, reactive, computed } from "vue";
 import { useMeta } from "quasar";
 import { imageService, ProjectService, WorkspaceService } from "src/services";
 import { useRoute, onBeforeRouteUpdate } from "vue-router";
@@ -203,9 +219,9 @@ import { $useCmFn } from "src/composables/useCommonFunction.js";
 import CDropdown from "components/common/CDropdown.vue";
 import CPagination from "src/components/common/CPagination.vue";
 import CTab from "src/components/common/CTab.vue";
-import MyPage from "./component/MyPage.vue";
-import BasicPage from "./component/BasicPage.vue";
-import SharedPage from "./component/SharedPage.vue";
+import MyPage from "./MyPage.vue";
+import BasicPage from "./BasicPage.vue";
+import SharedPage from "./SharedPage.vue";
 
 const route = useRoute();
 const { workspaceId } = route.params;
@@ -235,7 +251,10 @@ const transformDate = (value) => {
   const { images } = value;
   const updateImage = images.map((item) => ({
     ...item,
-    [value.created_at]: $utils.paseseDate(item[value.created_at], value.dateType),
+    [value.created_at]: $utils.paseseDate(
+      item[value.created_at],
+      value.dateType
+    ),
   }));
 
   return updateImage;
@@ -245,11 +264,16 @@ const transformDate = (value) => {
 const getMyImge = async () => {
   try {
     const { images } = await imageService.getMyImages(workspaceId);
-    const updatedImages = $utils.sortType(transformDate({
-      images,
-      created_at: "created_at",
-      dateType: "YYYY-MM-DD",
-    }), "created_at", true, "datetime");
+    const updatedImages = $utils.sortType(
+      transformDate({
+        images,
+        created_at: "created_at",
+        dateType: "YYYY-MM-DD",
+      }),
+      "created_at",
+      true,
+      "datetime"
+    );
     // * 임시 테스트 데이터 추가
     imageList.value = updatedImages;
   } catch (e) {
@@ -397,7 +421,7 @@ const deleteShareData = async (value) => {
     try {
       const data = {
         workspace_id: workspaceId,
-        image_id: imgId
+        image_id: imgId,
       };
       await imageService.deleteImage(workspaceId, imgId, data);
 
@@ -412,7 +436,9 @@ const deleteShareData = async (value) => {
 
 // 내 워크스페이스의 소속 프로젝트 리스트와 결합
 const makeMyProjectList = async (projects) => {
-  const promises = (await projects?.map(() => ProjectService.getListProject(workspaceId))) ?? [];
+  const promises =
+    (await projects?.map(() => ProjectService.getListProject(workspaceId))) ??
+    [];
   const responses = await Promise.all(promises);
 
   // projects 안에 checked 함수 추가
@@ -471,7 +497,11 @@ const handleCheckGroupClick = (index) => {
   if (isChkAll.value) {
     mySharedProjects.value = updateChecked(mySharedProjects.value, index, true);
   } else {
-    mySharedProjects.value = updateChecked(mySharedProjects.value, index, false);
+    mySharedProjects.value = updateChecked(
+      mySharedProjects.value,
+      index,
+      false
+    );
   }
 };
 
@@ -498,7 +528,10 @@ const handleShareImageRequests = async (trueList, falseList) => {
     await Promise.all(
       trueList.map(async (item) => {
         try {
-          await WorkspaceService.postShareWorkspaceImage(workspaceId, item.id, { workspace_id: workspaceId, image_id: item.id });
+          await WorkspaceService.postShareWorkspaceImage(workspaceId, item.id, {
+            workspace_id: workspaceId,
+            image_id: item.id,
+          });
           triggerSharedSuccess();
         } catch (error) {
           failedRequests.value.push({ id: item.id, name: item.name });
@@ -515,7 +548,10 @@ const handleShareImageRequests = async (trueList, falseList) => {
     falseList.map(async (item) => {
       try {
         triggerSharedSuccess();
-        await WorkspaceService.postUnShareWorkspaceImage(workspaceId, item.id, { workspace_id: workspaceId, image_id: item.id });
+        await WorkspaceService.postUnShareWorkspaceImage(workspaceId, item.id, {
+          workspace_id: workspaceId,
+          image_id: item.id,
+        });
       } catch (error) {
         failedRequests.value.push({ id: item.id, name: item.name });
         alertTaskDeleteFailModal.value = true;
