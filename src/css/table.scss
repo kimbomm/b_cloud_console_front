@@ -95,7 +95,8 @@ $padding: 16px;
   }
   .q-checkbox{
     overflow:hidden;
-    max-width:300px;
+    // max-width:300px;
+    max-width:100%;
   }
   .q-checkbox .q-checkbox__label{
     overflow:hidden;
@@ -336,6 +337,9 @@ $padding: 16px;
     td{
       padding:0 $padding;
       border:0!important;
+      .txt.clip{
+        max-width:100%;
+      }
       a{
         display:inline-block;
         max-width:calc(100% - 1px);

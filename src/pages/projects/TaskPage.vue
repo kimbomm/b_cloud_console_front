@@ -581,10 +581,10 @@ const headers = [
     text: "상태", value: "status", width: 170, sortable: false
   },
   {
-    text: "생성일시", value: "createdAt", width: 210, sortable: true
+    text: "생성일시", value: "createdAt", width: 170, sortable: true
   },
   {
-    text: "생성자", value: "createdBy", width: 300, sortable: true
+    text: "생성자", value: "createdBy", width: 290, sortable: true
   },
   { text: "", value: "buttons", width: 80 },
 ];
@@ -647,10 +647,10 @@ const items = [
 // 테스크보기
 const headers2 = [
   {
-    text: "그룹 이름", value: "groupTitle", width: 130, sortable: true
+    text: "그룹 이름", value: "groupTitle", width: 130
   },
   {
-    text: "태스크 이름", value: "title", width: 133, widthAuto: true, sortable: true
+    text: "태스크 이름", value: "title", width: 155, widthAuto: true, sortable: true
   },
   {
     text: "상태", value: "status", width: 105, sortable: true
@@ -659,7 +659,7 @@ const headers2 = [
     text: "ssh", value: "ssh", width: 80, sortable: false
   },
   {
-    text: "인스턴스 타입", value: "instanceType", width: 140, sortable: true
+    text: "인스턴스 타입", value: "instanceType", width: 138, sortable: true
   },
   {
     text: "GPU", value: "gpu", width: 65, sortable: false
