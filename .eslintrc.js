@@ -50,7 +50,8 @@ module.exports = {
 
   // add your custom rules here
   rules: {
-    'max-len': 'off', // disables line length check
+    "linebreak-style": 0,
+    "max-len": "off", // disables line length check
     "comma-dangle": "off",
     "consistent-return": "off",
     quotes: ["error", "double"],
