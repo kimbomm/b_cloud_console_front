@@ -21,46 +21,51 @@
     <!-- //.chead -->
     <div class="p-body">
       <div class="group-date">
-        <div class="c_inpgroup">
-          <q-input
-            outlined
-            v-model="date"
-            placeholder="2022.01.01"
-            class="inp_calendar"
-          >
-            <template v-slot:prepend>
-              <q-icon class="ico_calendar">
-                <q-popup-proxy :offset="[15, 18]" class="c_datepicker">
-                  <q-date
-                    v-model="date"
-                    mask="YYYY.MM.DD"
-                    class="datepicker"
-                  />
-                </q-popup-proxy>
-              </q-icon>
-            </template>
-          </q-input>
-
-          <q-input
+        <div class="fakebg">
+          <div class="from">
+            <q-input
               outlined
-              v-model="date"
-              :value="dateRange"
+              v-model="dateFrom"
+              placeholder="2023.01.01"
               class="inp_calendar"
             >
               <template v-slot:prepend>
                 <q-icon class="ico_calendar">
-                  <q-popup-proxy :offset="[15, 18]" class="c_datepicker">
+                  <q-popup-proxy :offset="[0, 0]" class="c_datepicker">
                     <q-date
-                      v-model="dateRange"
+                      v-model="dateFrom"
                       mask="YYYY.MM.DD"
-                      range
-                      multiple
+                      class="datepicker"
+                    />
+                    </q-popup-proxy>
+                  </q-icon>
+                </template>
+              </q-input>
+            </div>
+            <i class="bar" />
+            <div class="to">
+              <q-input
+                outlined
+                v-model="dateTo"
+                placeholder="2023.01.01"
+                class="inp_calendar"
+              >
+                <template v-slot:prepend>
+                  <q-icon class="ico_calendar">
+                    <q-popup-proxy
+                      :offset="[150, 0]"
+                      class="c_datepicker"
+                    >
+                    <q-date
+                      v-model="dateTo"
+                      mask="YYYY.MM.DD"
                       class="datepicker"
                     />
                   </q-popup-proxy>
                 </q-icon>
               </template>
             </q-input>
+          </div>
         </div>
       </div>
       <div class="pay-info mb30">
@@ -176,7 +181,7 @@ const optNumber = ref([
 // Table
 const headers = [
   {
-    text: "인스턴스/태스크 그룹 이름", value: "title", width: "300", sortable: true
+    text: "인스턴스/태스크 그룹 이름", value: "title", width: 230, widthAuto: true, sortable: true
   },
   {
     text: "서비스", value: "service", sortable: true
@@ -185,10 +190,10 @@ const headers = [
     text: "인스턴스 타입", value: "instanceType", sortable: true
   },
   {
-    text: "시작시간", value: "startTime", sortable: true
+    text: "시작시간", value: "startTime", width: 212, widthAuto: true, sortable: true
   },
   {
-    text: "종료시간", value: "endTime", sortable: true
+    text: "종료시간", value: "endTime", width: 212, widthAuto: true, sortable: true
   },
   {
     text: "사용시간", value: "usageTime", sortable: true
@@ -226,12 +231,6 @@ const items = [
     pay: "283,292원"
   },
 ];
-
-// Date Picker
-const date = ref(null);
-const dateRange = ref(
-  { from: "2023.01.09", to: "2023.01.30" }
-);
 
 const ptitle = ref(title);
 </script>

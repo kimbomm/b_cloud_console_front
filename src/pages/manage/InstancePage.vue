@@ -320,7 +320,7 @@ const headers = [
     text: "프로젝트 이름", value: "phName", width: 131, sortable: false, checkbox: true
   },
   {
-    text: "인스턴스 이름", value: "title", width: 138, sortable: true
+    text: "인스턴스 이름", value: "title", width: 138, widthAuto: true, sortable: true
   },
   {
     text: "상태", value: "status", width: 105, sortable: true

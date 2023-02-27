@@ -22,65 +22,79 @@
     <!-- //.chead -->
     <div class="p-body">
       <div class="group-date">
-        <div class="c_inpgroup">
-          <q-input
-            outlined
-            v-model="date"
-            placeholder="2022.01.01"
-            class="inp_calendar"
-          >
-            <template v-slot:prepend>
-              <q-icon class="ico_calendar">
-                <q-popup-proxy :offset="[15, 18]" class="c_datepicker">
-                  <q-date
-                    v-model="date"
-                    mask="YYYY.MM.DD"
-                    class="datepicker"
-                  />
-                </q-popup-proxy>
-              </q-icon>
-            </template>
-          </q-input>
-
-          <q-input
+        <div class="fakebg">
+          <div class="from">
+            <q-input
               outlined
-              v-model="date"
-              :value="dateRange"
+              v-model="dateFrom"
+              placeholder="2023.01.01"
               class="inp_calendar"
             >
               <template v-slot:prepend>
                 <q-icon class="ico_calendar">
-                  <q-popup-proxy :offset="[15, 18]" class="c_datepicker">
+                  <q-popup-proxy :offset="[0, 0]" class="c_datepicker">
                     <q-date
-                      v-model="dateRange"
+                      v-model="dateFrom"
                       mask="YYYY.MM.DD"
-                      range
-                      multiple
+                      class="datepicker"
+                    />
+                    </q-popup-proxy>
+                  </q-icon>
+                </template>
+              </q-input>
+            </div>
+            <i class="bar" />
+            <div class="to">
+              <q-input
+                outlined
+                v-model="dateTo"
+                placeholder="2023.01.01"
+                class="inp_calendar"
+              >
+                <template v-slot:prepend>
+                  <q-icon class="ico_calendar">
+                    <q-popup-proxy
+                      :offset="[150, 0]"
+                      class="c_datepicker"
+                    >
+                    <q-date
+                      v-model="dateTo"
+                      mask="YYYY.MM.DD"
                       class="datepicker"
                     />
                   </q-popup-proxy>
                 </q-icon>
               </template>
             </q-input>
+          </div>
         </div>
       </div>
       <div class="pay-info mb40">
         <p class="pay-amount">워크스페이스 총 비용</p>
         <p class="pay"><span>39,220,000</span>&nbsp;원</p>
       </div>
-      <div class="group-tabs mb30">
-        <q-tabs
-          v-model="tab"
-          align="left"
-          class="c_tabs"
-        >
-          <q-tab name="tabs1" label="멤버"></q-tab>
-          <q-tab name="tabs2" label="프로젝트"></q-tab>
-          <q-tab name="tabs3" label="인스턴스 타입"></q-tab>
-          <q-tab name="tabs4" label="스토리지"></q-tab>
-        </q-tabs>
+      <div class="ins-wrap">
+        <div class="group-tabs">
+          <q-tabs
+            v-model="tab"
+            align="left"
+            class="c_tabs"
+          >
+            <q-tab name="tabs1" label="멤버"></q-tab>
+            <q-tab name="tabs2" label="프로젝트"></q-tab>
+            <q-tab name="tabs3" label="인스턴스 타입"></q-tab>
+            <q-tab name="tabs4" label="스토리지"></q-tab>
+          </q-tabs>
+        </div>
+        <div class="table_set">
+          <CDropdown
+            v-model:selected="selectedBasic"
+            :label="optLabel"
+            :options="optNumber"
+            class="auto_size"
+          />
+        </div>
       </div>
-
       <template v-if="defaultData == true">
         <div class="group-table">
           <section class="section">
@@ -130,6 +144,7 @@
 import { ref } from "vue";
 import { useMeta } from "quasar";
 import CButton from "components/common/CButton.vue";
+import CDropdown from "components/common/CDropdown.vue";
 import CPagination from "components/common/CPagination.vue";
 
 const defaultData = ref(true);
@@ -141,17 +156,23 @@ useMeta(() => ({
 }));
 
 const tab = ref("tabs4");
+const optLabel = ref("10");
+const optNumber = ref([
+  { label: "10", value: 0 },
+  { label: "25", value: 1 },
+  { label: "50", value: 2 },
+]);
 // Table
 const nodata = [];
 const headers = [
   {
-    text: "날짜", value: "date", width: "280", sortable: true
+    text: "날짜", value: "date", width: 244, sortable: true
   },
   {
     text: "스토리지 용량", value: "storageAmount", sortable: true
   },
   {
-    text: "이용요금", value: "useageFee", width: "300", sortable: true
+    text: "이용요금", value: "useageFee", width: 315, sortable: true
   },
 ];
 const items = [
@@ -171,11 +192,6 @@ const items = [
     useageFee: "283,292원"
   },
 ];
-// Date Picker
-const date = ref(null);
-const dateRange = ref(
-  { from: "2023.01.09", to: "2023.01.30" }
-);
 
 const ptitle = ref(title);
 </script>

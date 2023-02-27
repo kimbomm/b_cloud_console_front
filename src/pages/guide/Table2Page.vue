@@ -64,7 +64,16 @@
                 class="text instance"
                 @click="onCopy(item)"
               >
-                <span class="txt">{{ item.instanceType }}</span>
+                <span class="txt">{{ item.instanceType }}<i class="ico details">
+                  <q-tooltip
+                    anchor="bottom middle"
+                    class="c_tooltip insTypeTool"
+                  >
+                    <div class="inner">
+                      {{ item.instanceType }}
+                    </div>
+                  </q-tooltip></i>
+                </span>
               </q-badge>
             </template>
             <!-- 버튼 그룹 -->
@@ -163,7 +172,16 @@
                 class="text instance"
                 @click="onCopy(item)"
               >
-                <span class="txt">{{ item.instanceType }}</span>
+                <span class="txt">{{ item.instanceType }}<i class="ico details">
+                  <q-tooltip
+                    anchor="bottom middle"
+                    class="c_tooltip insTypeTool"
+                  >
+                    <div class="inner">
+                      {{ item.instanceType }}
+                    </div>
+                  </q-tooltip></i>
+                </span>
               </q-badge>
             </template>
             <!-- 버튼 그룹 -->
@@ -282,16 +300,16 @@
                 class="text instance"
                 @click="onCopy(item)"
               >
-                <span class="txt">{{ item.instanceType }}</span>
-
-                <q-tooltip
-                  anchor="bottom middle"
-                  class="c_tooltip"
-                >
-                  <div class="inner">
-                    {{ item.instanceType }}
-                  </div>
-                </q-tooltip>
+                <span class="txt">{{ item.instanceType }}<i class="ico details">
+                  <q-tooltip
+                    anchor="bottom middle"
+                    class="c_tooltip insTypeTool"
+                  >
+                    <div class="inner">
+                      {{ item.instanceType }}
+                    </div>
+                  </q-tooltip></i>
+                </span>
               </q-badge>
             </template>
             <!-- 버튼 그룹 -->
@@ -317,13 +335,13 @@ const itemsSelected = ref([]);
 const itemsSelected2 = ref([]);
 const headers = [
   {
-    text: "", value: "checkbox", width: 50
+    text: "", value: "checkbox", width: 80
   },
   {
     text: "ID", value: "id", width: 100, sortable: true
   },
   {
-    text: "인스턴스 이름", value: "title", sortable: true
+    text: "인스턴스 이름", value: "title", width: 150, widthAuto: true, sortable: true
   },
   {
     text: "상태", value: "status", width: 100, sortable: true
@@ -338,18 +356,18 @@ const headers = [
     text: "인스턴스 타입", value: "instanceType", width: 160, sortable: true
   },
   {
-    text: "GPU", value: "gpu", sortable: true
+    text: "GPU", value: "gpu", sortable: true, width: 100
   },
   {
-    text: "CPU", value: "cpu", sortable: true
+    text: "CPU", value: "cpu", sortable: true, width: 100
   },
   {
     text: "생성일시", value: "createdAt", width: 180, sortable: true
   },
   {
-    text: "생성자", value: "createdBy", width: 180, sortable: true
+    text: "생성자", value: "createdBy", width: 100, sortable: true
   },
-  { text: "", value: "buttons" },
+  { text: "", value: "buttons", width: 80 },
 ];
 
 const items = [

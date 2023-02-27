@@ -91,11 +91,12 @@ $padding: 16px;
     display:flex;
   }
   .txt.clip{
-    max-width:150px;
+    max-width:100%;
   }
   .q-checkbox{
     overflow:hidden;
-    max-width:300px;
+    // max-width:300px;
+    max-width:100%;
   }
   .q-checkbox .q-checkbox__label{
     overflow:hidden;
@@ -149,6 +150,8 @@ $padding: 16px;
   .vue3-easy-data-table__main{
     overflow:auto;
     min-height:auto;
+    // background-color:$white;
+    background-color:$color;
     &.hoverable tr:hover td{
       background-color: $easy-table-body-row-hover-background-color;
       color: $easy-table-body-row-hover-font-color;
@@ -168,6 +171,38 @@ $padding: 16px;
         background-color: #ACB5C9;
       }
     }
+    &:before,
+    &:after{
+      content:"";
+      display:inline-block;
+      position:absolute;top:0;z-index:10;
+      width:8px;height:73px;
+    }
+    &:before{
+      left:-1px;
+      border-left:1px solid $surface03;
+      border-radius:8px 0 0 8px;
+    }
+    &:after{
+      right:-1px;
+      border-right:1px solid $surface03;
+      border-radius:0 8px 8px 0;
+    }
+  }
+  .vue3-easy-data-table__main.show-shadow th.shadow:after,
+  .vue3-easy-data-table__main.show-shadow td.shadow:after {
+    box-shadow: inset 6px 0 5px -3px rgba(227, 227, 227, 0.2);
+  }
+  .vue3-easy-data-table__header{
+    position:static;
+    &:before{
+      content:"";
+      display:inline-block;
+      position:absolute;top:0;left:-1px;
+      width:calc(100% + 2px);height:73px;
+      border:1px solid $surface03;
+      border-radius:8px;
+    }
   }
   .vue3-easy-data-table__header,
   .vue3-easy-data-table__body{
@@ -182,18 +217,28 @@ $padding: 16px;
         margin-left:12px;
       }
     }
-
     tr{
       th:first-child,
       td:first-child{
         padding-left:32px;
-        border-radius:8px 0 0 8px;
+        border-radius:10px 0 0 10px;
       }
       th:last-child,
       td:last-child{
+        // position:sticky;top:0;right:0;
         padding-right:32px;
-        border-radius:0 8px 8px 0;
+        border-radius:0 10px 10px 0;
       }
+      /* td:last-child{
+        &:before {
+          display: inline-block;
+          position: absolute;top: -2px;left: 10px;
+          width: 16px;height: calc(100% + 2px);
+          box-shadow: -8px 0px 8px rgba(227, 227, 227, 0.2);
+          pointer-events: none;
+          content: "";
+        }
+      } */
     }
   }
   .vue3-easy-data-table__header{
@@ -202,16 +247,17 @@ $padding: 16px;
       font-size:$easy-table-header-font-size;
       th:first-child{
         width:80px;
-        border-left:1px solid $surface03;
+        // border-left:1px solid $surface03
       }
       th:last-child{
-        border-right:1px solid $surface03;
+        // border-right:1px solid $surface03;
       }
     }
     th{
       padding:0 $padding;
-      border-top:1px solid $surface03;
-      border-bottom:1px solid $surface03;
+      // border-top:1px solid $surface03;
+      // border-bottom:1px solid $surface03;
+      border-bottom:0;
       color:$easy-table-header-font-color;
       font-size:$easy-table-header-font-size;
       text-align:left;
