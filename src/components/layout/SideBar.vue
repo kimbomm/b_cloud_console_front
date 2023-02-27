@@ -400,7 +400,7 @@ const isValidProjectSave = ref(true);
 
 // 프로젝트 이름 중복 체크함수
 function isDuplicateProjectName(name, projects) {
-  return projects.find((p) => p.name === name) !== undefined;
+  return projects.find((p) => p.name.toString() === name.toString()) !== undefined;
 }
 
 // 프로젝트명 정규식체크
@@ -431,7 +431,12 @@ watch(
     const regex = /^[A-Za-z0-9가-힣ㄱ-ㅎㅏ-ㅣ\s]+$/;
     // 프로젝트 이름 중복 확인
     const isDuplicate = isDuplicateProjectName(projectNameValue.trim(), getListProject.value);
-    const isValid = (!regex.test(projectNameValue) && !isDuplicate) || projectNameValue.length <= 1 || projectNameValue.length >= 30;
+
+    const isValid = (!regex.test(projectName.value) && !isDuplicate)
+  || projectName.value.length <= 1
+  || projectName.value.length >= 30;
+    console.log("isValidisValidisValid", isValid);
+
     isValidProjectDescription.value = isValid || isDuplicate;
     isValidProjectSave.value = isValid || isDuplicate || projectDescriptionValue.length <= 1;
   }
