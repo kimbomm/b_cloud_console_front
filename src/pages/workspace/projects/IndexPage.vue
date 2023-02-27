@@ -26,12 +26,18 @@
                 :projectCreateModal="projectCreateModal"
                 @userInfoUpdate="userInfoUpdate()"
                 :projectInfo="projectInfo"
-              ></UpdateProjectPopup>
+              />
             </q-item>
             <q-item>
-              <q-btn class="item">
+              <q-btn class="item"
+              @click="quotaChangeModal = true"
+              >
                 <span class="txt">할당량 변경 요청</span>
-              </q-btn>
+              </q-btn>/
+              <ChangeAllocationPopup
+              v-model="quotaChangeModal"
+              :quotaChangeModal="quotaChangeModal"
+              />
             </q-item>
             <q-item>
               <q-btn class="item">
@@ -259,6 +265,7 @@ import ProjectDashboard from "src/components/pages/ProjectDashboard.vue";
 import CPagination from "components/common/CPagination.vue";
 import CDropdown from "components/common/CDropdown.vue";
 import UpdateProjectPopup from "./UpdateProjectPopup.vue";
+import ChangeAllocationPopup from "./ChangeAllocationPopup.vue";
 
 const route = useRoute();
 
@@ -267,6 +274,7 @@ const projectName = ref("");
 const projectDescription = ref("");
 
 const projectCreateModal = ref(false);
+const quotaChangeModal = ref(false);
 
 // 프로젝트 리스트
 const getUserInfo = async () => {
