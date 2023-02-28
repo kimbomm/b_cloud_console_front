@@ -1,19 +1,15 @@
 {
   "editor.bracketPairColorization.enabled": true,
   "editor.guides.bracketPairs": true,
+  "editor.tabSize": 2,
   "editor.formatOnSave": true,
-  "editor.defaultFormatter": "dbaeumer.vscode-eslint",
-  "editor.codeActionsOnSave": [
-    "source.fixAll.eslint"
-  ],
+  "editor.formatOnType": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  //"editor.defaultFormatter": "dbaeumer.vscode-eslint",
+  "editor.codeActionsOnSave": ["source.fixAll.eslint"],
   "vetur.format.defaultFormatter.html": "js-beautify-html",
   //   "[vue]": {
   //       "editor.defaultFormatter": "octref.vetur"
   // },
-  "eslint.validate": [
-    "javascript",
-    "javascriptreact",
-    "typescript",
-    "vue"
-  ]
+  "eslint.validate": ["javascript", "javascriptreact", "typescript", "vue"]
 }
