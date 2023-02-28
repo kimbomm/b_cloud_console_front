@@ -47,42 +47,6 @@
               />
             </div>
           </div>
-          <!-- <div class="key-box">
-            <p class="key-box_title mt40">SSH Key</p>
-            <section class="section">
-              <EasyDataTable
-                :headers="nodata"
-                :items="nodata"
-                :hide-footer="true"
-                :body-row-class-name="bodyRowClassNameFunction"
-                empty-message="SSH Key를 등록해주세요."
-              />
-              <CButton
-                :size-types="2"
-                :btn-types="1"
-                :btn-names="btnSign"
-              />
-            </section>
-          </div>
-          <div class="key-box">
-            <p class="key-box_title mt60">API Key</p>
-            <section class="section">
-              <div class="test">
-                <EasyDataTable
-                  :headers="nodata"
-                  :items="nodata"
-                  :hide-footer="true"
-                  :body-row-class-name="bodyRowClassNameFunction"
-                  empty-message="API Key를 생성해주세요."
-                />
-                  <CButton
-                  :size-types="2"
-                  :btn-types="1"
-                  :btn-names="btnCreate"
-                  />
-                </div>
-            </section>
-          </div> -->
       </template>
       <template v-else>
         <div class="flex-top mt40">

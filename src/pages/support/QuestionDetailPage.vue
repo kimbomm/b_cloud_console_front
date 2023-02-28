@@ -45,13 +45,10 @@
             <!-- <p class="amount-reply_answer checking">관리자가 확인 중 입니다.</p> -->
           </div>
           <div class="c_btngroup">
-            <CButton
-              :size-types="1"
-              :btn-types="1"
-              :btn-names="listBtn"
-              class="list-btn"
-              to="/support/"
-            />
+            <q-btn
+            label="목록"
+            class="primary medium"
+          />
           </div>
 
         </div>
@@ -139,13 +136,10 @@
             <!-- <p class="amount-reply_answer checking">관리자가 확인 중 입니다.</p> -->
           </div>
           <div class="c_btngroup">
-            <CButton
-              :size-types="1"
-              :btn-types="1"
-              :btn-names="listBtn"
-              class="list-btn"
-              to="/support/"
-            />
+            <q-btn
+            label="목록"
+            class="primary medium"
+          />
           </div>
         </div>
       </div>
@@ -223,13 +217,10 @@
             <!-- <p class="amount-reply_answer checking">관리자가 확인 중 입니다.</p> -->
           </div>
           <div class="c_btngroup">
-            <CButton
-              :size-types="1"
-              :btn-types="1"
-              :btn-names="listBtn"
-              class="list-btn flex-end"
-              to="/support/"
-            />
+            <q-btn
+            label="목록"
+            class="primary medium"
+          />
           </div>
         </div>
       </div>
@@ -307,13 +298,10 @@
             <!-- <p class="amount-reply_answer checking">관리자가 확인 중 입니다.</p> -->
           </div>
           <div class="c_btngroup">
-            <CButton
-              :size-types="1"
-              :btn-types="1"
-              :btn-names="listBtn"
-              class="list-btn"
-              to="/support/"
-            />
+            <q-btn
+            label="목록"
+            class="primary medium"
+          />
           </div>
         </div>
       </div>
@@ -323,7 +311,6 @@
 <script setup>
 import { ref } from "vue";
 import { useMeta } from "quasar";
-import CButton from "components/common/CButton.vue";
 
 const title = ref("Support");
 const visible = ref("A");
@@ -333,7 +320,6 @@ useMeta(() => ({
 }));
 
 const ptitle = ref(title);
-const listBtn = ref("목록");
 </script>
 
 <style lang="scss" scoped>

@@ -132,7 +132,7 @@
                 <q-input
                   outlined
                   v-model="suffix"
-                  placeholder="카테고리, 제목 검색"
+                  placeholder="이름, 이메일 검색"
                   class="wsize292"
                 >
                   <template v-slot:prepend>

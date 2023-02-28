@@ -217,6 +217,9 @@ const bodyRowClassNameFunction = (item) => {
   if (item.checkbox) classList.push("row-selected");
   return classList.join(" ");
 };
+// Date Form
+const dateFrom = ref(null);
+const dateTo = ref(null);
 
 const ptitle = ref(title);
 </script>
