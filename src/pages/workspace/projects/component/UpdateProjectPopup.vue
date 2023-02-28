@@ -35,7 +35,6 @@
               :disable="isValidProjectDescription"
               @update:value="(value) => (projectDescription = value)"
             />
-            {{ projectDescription }}
           </div>
         </section>
       </q-card-section>
