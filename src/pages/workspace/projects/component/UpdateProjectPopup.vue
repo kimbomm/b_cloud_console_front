@@ -35,6 +35,7 @@
               :disable="isValidProjectDescription"
               @update:value="(value) => (projectDescription = value)"
             />
+            {{ projectDescription }}
           </div>
         </section>
       </q-card-section>
@@ -59,7 +60,7 @@
 
 <script setup>
 import {
-  ref, watch, watchEffect
+  ref, toRefs, watch, watchEffect
 } from "vue";
 import { ProjectService } from "src/services";
 import { useRoute } from "vue-router";
@@ -71,9 +72,12 @@ const props = defineProps({
   projectCreateModal: Boolean,
   projectInfo: Object,
   getListProject: Array,
+  newProjectDescription: String
+
 });
 
 const emit = defineEmits(["userInfoUpdate"]);
+const { RefDscription } = toRefs(props);
 
 const route = useRoute();
 const { workspaceId, projectId } = route.params;
@@ -86,7 +90,6 @@ const isValidProjectSave = ref(true);
 
 // 프로젝트 이름 중복 체크함수
 function isDuplicateProjectName(name, projects) {
-  console.log("projects", projects);
   return (
     projects.find((p) => p.name.toString() === name.toString()) !== undefined
   );
@@ -119,22 +122,22 @@ const inputRules = ref([
 // 프로젝트이름, 설명 정규식체크
 watch(
   [projectName, projectDescription],
-  ([projectNameValue]) => {
+  ([newPprojectName,]) => {
     const regex = /^[A-Za-z0-9가-힣ㄱ-ㅎㅏ-ㅣ\s]*$/;
     // 프로젝트 이름 중복 확인
     const isDuplicate = isDuplicateProjectName(
-      projectNameValue.trim(),
+      newPprojectName.trim(),
       props.getListProject
     );
 
-    const isValid = (!regex.test(projectName.value) && !isDuplicate)
+    const isValid = (!regex.test(newPprojectName) && !isDuplicate)
       || projectName.value.length <= 1
       || projectName.value.length >= 30;
 
     const isValidProjectDescriptionValue = props.projectInfo?.description?.length <= 1 || false;
 
-    isValidProjectDescription.value = isValid || isDuplicate;
-    isValidProjectSave.value = isValid || isDuplicate || isValidProjectDescriptionValue;
+    isValidProjectDescription.value = isValid || (isDuplicate && props.projectInfo?.name !== newPprojectName);
+    isValidProjectSave.value = isValid || (isDuplicate && props.projectInfo?.name !== newPprojectName) || isValidProjectDescriptionValue;
   }
 );
 
@@ -153,7 +156,7 @@ const triggerFail = () => {
 
 const resetProject = () => {
   projectName.value = props.projectInfo.name;
-  projectDescription.value = props.projectInfo.description;
+  projectDescription.value = props.newProjectDescription;
 };
 
 // 프로젝트 수정
@@ -166,13 +169,17 @@ const updateProject = async () => {
     await ProjectService.updateProject(workspaceId, projectId, params);
     setTimeout(() => {
       triggerSuccess();
-      emit("userInfoUpdate", true);
+      emit("userInfoUpdate");
     }, 100);
   } catch (e) {
     triggerFail();
     resetProject();
   }
 };
+
+watch(RefDscription, () => {
+  projectDescription.value = RefDscription;
+});
 
 watchEffect(() => {
   if (props.projectCreateModal) {

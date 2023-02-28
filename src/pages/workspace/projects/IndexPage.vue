@@ -27,6 +27,7 @@
                 @userInfoUpdate="userInfoUpdate()"
                 :projectInfo="projectInfo"
                 :getListProject="getListProject"
+                :newProjectDescription="newProjectDescription"
               />
             </q-item>
             <q-item>
@@ -48,7 +49,7 @@
       </q-btn>
 
       <p class="desc">
-        <span class="txt">{{ projectInfo.description }}</span>
+        <span class="txt">{{ newProjectDescription }}</span>
       </p>
     </div>
     <!-- //.chead -->
@@ -284,8 +285,7 @@ const route = useRoute();
 
 const projectInfo = ref({});
 const getListProject = ref({});
-const projectName = ref("");
-const projectDescription = ref("");
+const newProjectDescription = ref("");
 
 const projectCreateModal = ref(false);
 const quotaChangeModal = ref(false);
@@ -296,18 +296,11 @@ const getUserInfo = async () => {
     route.params.workspaceId,
     route.params.projectId
   );
-  projectName.value = projectInfo.value.name;
-  projectDescription.value = projectInfo.value.description;
-};
-
-const userInfoUpdate = () => {
-  getUserInfo();
 };
 
 const getProjectList = async () => {
   try {
     const { projects } = await ProjectService.getListProject(route.params.workspaceId);
-    console.log("projects", projects);
     getListProject.value = projects;
   } catch (e) {
     console.log(e);
@@ -317,9 +310,7 @@ const getProjectList = async () => {
 
 const featchProjectDescripton = (projectId) => {
   const project = getListProject.value.find((p) => p.id === parseInt(projectId, 10));
-  projectInfo.value.description = project.description;
-
-  return project ? project.description : null;
+  newProjectDescription.value = project.description;
 };
 
 watch(
@@ -327,10 +318,16 @@ watch(
   async () => {
     await getUserInfo();
     await getProjectList();
-    featchProjectDescripton(route.params.projectId);
+    await featchProjectDescripton(route.params.projectId);
   },
   { immediate: true }
 );
+
+const userInfoUpdate = async () => {
+  await getUserInfo();
+  await getProjectList();
+  await featchProjectDescripton(route.params.projectId);
+};
 
 useMeta(() => ({
   title: projectInfo.value.name,
