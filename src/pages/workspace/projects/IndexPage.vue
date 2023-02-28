@@ -29,14 +29,12 @@
               />
             </q-item>
             <q-item>
-              <q-btn class="item"
-              @click="quotaChangeModal = true"
-              >
-                <span class="txt">할당량 변경 요청</span>
-              </q-btn>/
+              <q-btn class="item" @click="quotaChangeModal = true">
+                <span class="txt">할당량 변경 요청</span> </q-btn
+              >/
               <ChangeAllocationPopup
-              v-model="quotaChangeModal"
-              :quotaChangeModal="quotaChangeModal"
+                v-model="quotaChangeModal"
+                :quotaChangeModal="quotaChangeModal"
               />
             </q-item>
             <q-item>
@@ -74,7 +72,11 @@
           <div class="table_set">
             <div class="l_set_inner">
               <div class="c_inpgroup">
-                <q-input outlined v-model="suffix" placeholder="이름, 상태, 생성자 검색">
+                <q-input
+                  outlined
+                  v-model="suffix"
+                  placeholder="이름, 상태, 생성자 검색"
+                >
                   <template v-slot:prepend>
                     <q-icon name="search" class="ico_search" />
                   </template>
@@ -133,10 +135,20 @@
                 <div v-if="actionButtons" class="cell btngroup">
                   <q-btn class="c_btn ibtn dot">
                     <i class="ico dots" /><span class="txt">클릭</span>
-                    <q-popup-edit v-model="item.id" class="dots_menu" anchor="top right">
+                    <q-popup-edit
+                      v-model="item.id"
+                      class="dots_menu"
+                      anchor="top right"
+                    >
                       <q-list style="min-width: 100px">
-                        <q-item v-for="button in actionButtons" :key="button.name">
-                          <q-btn class="item" @click="onActions(button.event, item)">
+                        <q-item
+                          v-for="button in actionButtons"
+                          :key="button.name"
+                        >
+                          <q-btn
+                            class="item"
+                            @click="onActions(button.event, item)"
+                          >
                             <span class="txt">{{ button.name }}</span>
                           </q-btn>
                         </q-item>
@@ -264,8 +276,8 @@ import ProjectDashboard from "src/components/pages/ProjectDashboard.vue";
 // import CTable from "src/components/common/CTable.vue";
 import CPagination from "components/common/CPagination.vue";
 import CDropdown from "components/common/CDropdown.vue";
-import UpdateProjectPopup from "./UpdateProjectPopup.vue";
-import ChangeAllocationPopup from "./ChangeAllocationPopup.vue";
+import UpdateProjectPopup from "./component/UpdateProjectPopup.vue";
+import ChangeAllocationPopup from "./component/ChangeAllocationPopup.vue";
 
 const route = useRoute();
 
