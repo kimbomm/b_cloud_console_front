@@ -43,8 +43,8 @@
             </div>
           </div>
         </div>
-      </div>
-      <div v-if='visible !== true'>
+      </template>
+      <template v-if='visible !== true'>
         <div class="w-info">
           <div class="w-info_work line pb">
             <div class="t-flex">

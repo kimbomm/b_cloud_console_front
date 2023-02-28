@@ -323,6 +323,7 @@ $padding: 16px;
           }
           &:last-child{
             border-right:1px solid $primary!important;
+            text-align:right;
           }
         }
         &:hover{
