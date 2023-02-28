@@ -264,7 +264,7 @@ const listBtn = ref("목록");
 <style lang="scss" scoped>
 @import 'src/css/support';
 .c_btngroup {
-  display: flex;
-  justify-content: flex-end;
+  display: flex; justify-content: flex-end;
+  margin-top: 24px;
 }
 </style>
