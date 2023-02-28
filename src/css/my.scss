@@ -20,11 +20,6 @@
     min-height:auto;
   }
   .q-btn{
-    &.ibtn{
-      width:28px;height:28px;
-      border-radius:50%;
-      border-color:$surface05;
-    }
     &.edit{
       background:url($iconUrl + '16/ico_edit_gray.svg') no-repeat 50% 50%;
     }
