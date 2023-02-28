@@ -36,6 +36,7 @@ $easy-table-scrollbar-corner-color: #fff;
 $easy-table-buttons-pagination-border: 1px solid #e0e0e0;
 $padding: 16px;
 .vue3-easy-data-table{
+  position:relative;
   width:100%;
   margin-top:-2px;
   margin-bottom:-2px;
@@ -103,7 +104,8 @@ $padding: 16px;
     max-width:calc(100% - 1px);
     white-space: nowrap;
     text-overflow: ellipsis;
-    color:$gray500;
+    color: $gray800;
+    line-height: 24px;
   }
   .easy-checkbox{
     display:inline-flex;
