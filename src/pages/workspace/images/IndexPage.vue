@@ -219,9 +219,9 @@ import { $useCmFn } from "src/composables/useCommonFunction.js";
 import CDropdown from "components/common/CDropdown.vue";
 import CPagination from "src/components/common/CPagination.vue";
 import CTab from "src/components/common/CTab.vue";
-import MyPage from "./MyPage.vue";
-import BasicPage from "./BasicPage.vue";
-import SharedPage from "./SharedPage.vue";
+import MyPage from "./component/MyPage.vue";
+import BasicPage from "./component/BasicPage.vue";
+import SharedPage from "./component/SharedPage.vue";
 
 const route = useRoute();
 const { workspaceId } = route.params;
