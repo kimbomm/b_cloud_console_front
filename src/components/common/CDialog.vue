@@ -37,7 +37,7 @@
 </template>
 <script setup>
 import { computed, useSlots, defineEmits } from "vue";
-import { $utils } from "src/utils/utils";
+// import { $utils } from "src/utils/utils";
 
 const slots = useSlots();
 const isSlotNegative = computed(() => !!slots.negative);
@@ -79,11 +79,11 @@ const props = defineProps({
   },
   callbackPositive: {
     type: Function,
-    default: null
+    default: () => {}
   },
   callbackNegative: {
     type: Function,
-    default: null
+    default: () => {}
   },
 });
 
@@ -93,7 +93,7 @@ const emit = defineEmits(["update:visible"]);
  * callback-positive 미할당시 팝업 종료
  */
 const onPositive = () => {
-  if (!$utils.isBlank(props.callbackPositive)) {
+  if (!props.callbackPositive) {
     props.callbackPositive();
   } else {
     emit("update:visible", false);
@@ -104,7 +104,7 @@ const onPositive = () => {
  * callback-negative 미할당시 팝업 종료
  */
 const onNegative = () => {
-  if (!$utils.isBlank(props.callbackNegative)) {
+  if (!props.callbackNegative) {
     props.callbackNegative();
   } else {
     emit("update:visible", false);
