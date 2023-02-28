@@ -39,7 +39,12 @@
         </section>
       </q-card-section>
       <q-card-actions class="c_dialog_foot">
-        <q-btn label="취소" class="line" v-close-popup @click="resetProject()" />
+        <q-btn
+          label="취소"
+          class="line"
+          v-close-popup
+          @click="resetProject()"
+        />
         <q-btn
           label="확인"
           class="primary"
@@ -54,7 +59,7 @@
 
 <script setup>
 import {
-  ref, onMounted, watch, watchEffect
+  ref, watch, watchEffect
 } from "vue";
 import { ProjectService } from "src/services";
 import { useRoute } from "vue-router";
@@ -65,6 +70,7 @@ import CInputText from "src/components/common/CInputText.vue";
 const props = defineProps({
   projectCreateModal: Boolean,
   projectInfo: Object,
+  getListProject: Array,
 });
 
 const emit = defineEmits(["userInfoUpdate"]);
@@ -74,15 +80,18 @@ const { workspaceId, projectId } = route.params;
 
 const projectName = ref("");
 const projectDescription = ref("");
-const getListProject = ref([]);
 
 const isValidProjectDescription = ref(true);
 const isValidProjectSave = ref(true);
 
 // 프로젝트 이름 중복 체크함수
 function isDuplicateProjectName(name, projects) {
-  return projects.find((p) => p.name.toString() === name.toString()) !== undefined;
+  console.log("projects", projects);
+  return (
+    projects.find((p) => p.name.toString() === name.toString()) !== undefined
+  );
 }
+
 // 프로젝트명 정규식체크
 const inputRules = ref([
   (value) => {
@@ -92,7 +101,7 @@ const inputRules = ref([
     // 프로젝트 이름 중복확인
     const foundProject = isDuplicateProjectName(
       projectName.value.trim(),
-      getListProject.value
+      props.getListProject
     );
 
     // 사용 가능 문자열 확인
@@ -110,32 +119,24 @@ const inputRules = ref([
 // 프로젝트이름, 설명 정규식체크
 watch(
   [projectName, projectDescription],
-  ([projectNameValue, projectDescriptionValue]) => {
+  ([projectNameValue]) => {
     const regex = /^[A-Za-z0-9가-힣ㄱ-ㅎㅏ-ㅣ\s]*$/;
     // 프로젝트 이름 중복 확인
     const isDuplicate = isDuplicateProjectName(
       projectNameValue.trim(),
-      getListProject.value
+      props.getListProject
     );
 
     const isValid = (!regex.test(projectName.value) && !isDuplicate)
       || projectName.value.length <= 1
       || projectName.value.length >= 30;
 
+    const isValidProjectDescriptionValue = props.projectInfo?.description?.length <= 1 || false;
+
     isValidProjectDescription.value = isValid || isDuplicate;
-    isValidProjectSave.value = isValid || isDuplicate || projectDescriptionValue.length <= 1;
+    isValidProjectSave.value = isValid || isDuplicate || isValidProjectDescriptionValue;
   }
 );
-
-const getProjectList = async () => {
-  try {
-    const { projects } = await ProjectService.getListProject(workspaceId);
-    getListProject.value = projects;
-  } catch (e) {
-    console.log(e);
-    return false;
-  }
-};
 
 const triggerSuccess = () => {
   $useCmFn.onNotify({
@@ -172,9 +173,6 @@ const updateProject = async () => {
     resetProject();
   }
 };
-onMounted(async () => {
-  await getProjectList();
-});
 
 watchEffect(() => {
   if (props.projectCreateModal) {
