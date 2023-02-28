@@ -8,11 +8,11 @@
   >
     <!-- id -->
     <template #item-id="item">
-      <span class="txt">{{ item.name }}</span>
+      <span class="txt">{{ item }}</span>
     </template>
     <!-- title -->
     <template #item-version="item">
-      <span class="txt">{{ item.min_nvidia_driver_version }}</span>
+      <span class="txt">{{ item }}</span>
     </template>
   </EasyDataTable>
 </template>
@@ -26,35 +26,21 @@ useMeta(() => ({ title: title.value }));
 const headers = [
   {
     text: "이름",
-    value: "name",
+    value: "base_image.name",
     width: 1160,
     sortable: true,
   },
   {
     text: "NVIDA 드라이버 최소버전",
-    value: "min_nvidia_driver_version",
+    value: "base_image.min_nvidia_driver_version",
     width: 332,
   },
 ];
-// const items = [
-//   {
-//     id: "tensorflow 2.9.0  (python3, cuda11.2, ubuntu20.04)",
-//     version: "450.000.008",
-//   },
-//   {
-//     id: "tensorflow 2.9.0  (python3, cuda11.2, ubuntu20.04)",
-//     version: "450.000.008",
-//   },
-//   {
-//     id: "tensorflow 2.9.0  (python3, cuda11.2, ubuntu20.04)",
-//     version: "450.000.008",
-//   },
-// ];
 
 const props = defineProps({
   imageList: Array,
 });
-console.log("imageList", props.imageList);
+console.log("imageListimageListimageListimageList", props.imageList);
 
 defineEmits(["showRow"]);
 </script>
