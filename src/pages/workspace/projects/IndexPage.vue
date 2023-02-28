@@ -26,17 +26,17 @@
                 :projectCreateModal="projectCreateModal"
                 @userInfoUpdate="userInfoUpdate()"
                 :projectInfo="projectInfo"
+                :getListProject="getListProject"
+                :newProjectDescription="newProjectDescription"
               />
             </q-item>
             <q-item>
-              <q-btn class="item"
-              @click="quotaChangeModal = true"
+              <q-btn class="item" @click="quotaChangeModal = true">
+                <span class="txt">할당량 변경 요청</span> </q-btn
               >
-                <span class="txt">할당량 변경 요청</span>
-              </q-btn>/
               <ChangeAllocationPopup
-              v-model="quotaChangeModal"
-              :quotaChangeModal="quotaChangeModal"
+                v-model="quotaChangeModal"
+                :quotaChangeModal="quotaChangeModal"
               />
             </q-item>
             <q-item>
@@ -49,7 +49,7 @@
       </q-btn>
 
       <p class="desc">
-        <span class="txt">{{ projectInfo.description }}</span>
+        <span class="txt">{{ newProjectDescription }}</span>
       </p>
     </div>
     <!-- //.chead -->
@@ -74,7 +74,11 @@
           <div class="table_set">
             <div class="l_set_inner">
               <div class="c_inpgroup">
-                <q-input outlined v-model="suffix" placeholder="이름, 상태, 생성자 검색">
+                <q-input
+                  outlined
+                  v-model="suffix"
+                  placeholder="이름, 상태, 생성자 검색"
+                >
                   <template v-slot:prepend>
                     <q-icon name="search" class="ico_search" />
                   </template>
@@ -133,10 +137,20 @@
                 <div v-if="actionButtons" class="cell btngroup">
                   <q-btn class="c_btn ibtn dot">
                     <i class="ico dots" /><span class="txt">클릭</span>
-                    <q-popup-edit v-model="item.id" class="dots_menu" anchor="top right">
+                    <q-popup-edit
+                      v-model="item.id"
+                      class="dots_menu"
+                      anchor="top right"
+                    >
                       <q-list style="min-width: 100px">
-                        <q-item v-for="button in actionButtons" :key="button.name">
-                          <q-btn class="item" @click="onActions(button.event, item)">
+                        <q-item
+                          v-for="button in actionButtons"
+                          :key="button.name"
+                        >
+                          <q-btn
+                            class="item"
+                            @click="onActions(button.event, item)"
+                          >
                             <span class="txt">{{ button.name }}</span>
                           </q-btn>
                         </q-item>
@@ -264,14 +278,14 @@ import ProjectDashboard from "src/components/pages/ProjectDashboard.vue";
 // import CTable from "src/components/common/CTable.vue";
 import CPagination from "components/common/CPagination.vue";
 import CDropdown from "components/common/CDropdown.vue";
-import UpdateProjectPopup from "./UpdateProjectPopup.vue";
-import ChangeAllocationPopup from "./ChangeAllocationPopup.vue";
+import UpdateProjectPopup from "./component/UpdateProjectPopup.vue";
+import ChangeAllocationPopup from "./component/ChangeAllocationPopup.vue";
 
 const route = useRoute();
 
 const projectInfo = ref({});
-const projectName = ref("");
-const projectDescription = ref("");
+const getListProject = ref({});
+const newProjectDescription = ref("");
 
 const projectCreateModal = ref(false);
 const quotaChangeModal = ref(false);
@@ -282,22 +296,38 @@ const getUserInfo = async () => {
     route.params.workspaceId,
     route.params.projectId
   );
-
-  projectName.value = projectInfo.value.name;
-  projectDescription.value = projectInfo.value.description;
 };
 
-const userInfoUpdate = () => {
-  getUserInfo();
+const getProjectList = async () => {
+  try {
+    const { projects } = await ProjectService.getListProject(route.params.workspaceId);
+    getListProject.value = projects;
+  } catch (e) {
+    console.log(e);
+    return false;
+  }
+};
+
+const featchProjectDescripton = (projectId) => {
+  const project = getListProject.value.find((p) => p.id === parseInt(projectId, 10));
+  newProjectDescription.value = project.description;
 };
 
 watch(
   () => route.params.projectId,
   async () => {
-    getUserInfo();
+    await getUserInfo();
+    await getProjectList();
+    await featchProjectDescripton(route.params.projectId);
   },
   { immediate: true }
 );
+
+const userInfoUpdate = async () => {
+  await getUserInfo();
+  await getProjectList();
+  await featchProjectDescripton(route.params.projectId);
+};
 
 useMeta(() => ({
   title: projectInfo.value.name,
