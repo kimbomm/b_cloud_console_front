@@ -209,9 +209,11 @@
   <!-- End : 공유 실패 리스트 팝업 -->
 </template>
 <script setup>
-import { ref, watch, reactive, computed } from "vue";
+import {
+  ref, watch, reactive, computed
+} from "vue";
 import { useMeta } from "quasar";
-import { imageService, ProjectService, WorkspaceService } from "src/services";
+import { imageService, WorkspaceService, ProjectService } from "src/services";
 import { useRoute, onBeforeRouteUpdate } from "vue-router";
 import { $utils } from "src/utils/utils";
 import { $useCmFn } from "src/composables/useCommonFunction.js";
@@ -223,6 +225,7 @@ import MyPage from "./component/MyPage.vue";
 import BasicPage from "./component/BasicPage.vue";
 import SharedPage from "./component/SharedPage.vue";
 
+const userId = 1; // 임시추가
 const route = useRoute();
 const { workspaceId } = route.params;
 
@@ -263,7 +266,7 @@ const transformDate = (value) => {
 // 내 이미지 가져오기
 const getMyImge = async () => {
   try {
-    const { images } = await imageService.getMyImages(workspaceId);
+    const { images } = await imageService.getMyImages(workspaceId, userId);
     const updatedImages = $utils.sortType(
       transformDate({
         images,
@@ -274,7 +277,7 @@ const getMyImge = async () => {
       true,
       "datetime"
     );
-    // * 임시 테스트 데이터 추가
+
     imageList.value = updatedImages;
   } catch (e) {
     console.log(e.response);
@@ -285,8 +288,8 @@ const getMyImge = async () => {
 // 기본 이미지 가져오기
 const getBaseImge = async () => {
   try {
-    const response = await imageService.getBaseImages();
-    imageList.value = response.base_images;
+    const { images } = await imageService.getBaseImages();
+    imageList.value = images;
   } catch (e) {
     console.log(e.response);
     return false;
@@ -308,9 +311,10 @@ const setImagesWithSharedUser = (updatedImages) => {
 };
 
 // 공유받은 이미지 가져오기
+// 임시 추가
 const getSharedImge = async () => {
   try {
-    const response = await imageService.getSharedImages(workspaceId);
+    const response = await imageService.getSharedImages(workspaceId, userId);
     const images = response.shared_images;
     const updatedImages = transformDate({
       images,
@@ -387,7 +391,7 @@ const alertTaskDeleteFailModal = ref(false);
 
 // 워크스페이스 이름, 워크스페이스 설명
 watch(isImageShareManagePopup, () => {
-  userWorkspaceName.value = popupState.currentSharedData.base_image_name;
+  userWorkspaceName.value = popupState.currentSharedData.base_image.name;
   userProjecteName.value = popupState.currentSharedData.description;
 });
 
@@ -434,50 +438,68 @@ const deleteShareData = async (value) => {
   }
 };
 
-// 내 워크스페이스의 소속 프로젝트 리스트와 결합
-const makeMyProjectList = async (projects) => {
-  const promises =
-    (await projects?.map(() => ProjectService.getListProject(workspaceId))) ??
-    [];
-  const responses = await Promise.all(promises);
+// 내 워크스페이스의 소속 프로젝트 리스트와 결합 수정중!!
+// const makeMyProjectList = async () => {
+//   const promises = (await projects?.map(() => ProjectService.getListProject(workspaceId)))
+//     ?? [];
+//   const responses = await Promise.all(promises);
 
-  // projects 안에 checked 함수 추가
-  const updatedResponses = responses.map((item) => ({
-    ...item,
-    projects: item.projects.map((project) => ({
-      ...project,
-      checked: true,
-    })),
-  }));
+//   // projects 안에 checked 함수 추가
+//   const updatedResponses = responses.map((item) => ({
+//     ...item,
+//     projects: item.projects.map((project) => ({
+//       ...project,
+//       checked: true,
+//     })),
+//   }));
 
-  // responses와 projects 병합
-  const projectArrays = updatedResponses.map((response, index) => ({
-    ...response,
-    ...projects[index],
-  }));
+//   // responses와 projects 병합
+//   const projectArrays = updatedResponses.map((response, index) => ({
+//     ...response,
+//     ...projects[index],
+//   }));
 
-  mySharedProjects.value = projectArrays;
-  return projectArrays;
+//   mySharedProjects.value = projectArrays;
+//   return projectArrays;
+// };
+
+// 공유받은 이미지 정보 가져오기 !!오류
+const getSahredImage = async (imgId) => {
+  console.log("imgId", imgId);
+  try {
+    const aa = await imageService.getSahredInfoImage(workspaceId, 0);
+    console.log("sdfsdf", aa);
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 //  내 프로젝트 가져오기
 const getMyproject = async () => {
   try {
-    const { projects } = await ProjectService.getProjects();
-    makeMyProjectList(projects);
+    const aa = await ProjectService.getUserProjects(workspaceId, userId);
+    console.log("sdfsdfsdf", aa);
   } catch (e) {
     console.log(e);
-    return false;
+    return null; // 에러 발생 시 null 반환
   }
+};
+
+const makeSharedImage = async (value) => {
+  await getMyproject();
+  await getSahredImage(value.id);
 };
 
 const handleRowDataClick = (value) => {
   popupState.currentSharedData = value;
+
+  console.log("value", value);
+  makeSharedImage(value);
 };
-// 공유관리 팝업
+
+// 공유관리 팝업클릭
 const onShare = () => {
   isImageShareManagePopup.value = true;
-  getMyproject();
 };
 
 // index 번째에 따라 그룹 전체 선택

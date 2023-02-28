@@ -6,6 +6,7 @@
     empty-message="생성한 내 이미지가 없습니다."
     @click-row="showRow"
   >
+
     <!-- id -->
     <template #item-id="item">
       <span class="txt">{{ item.name }}</span>
@@ -22,20 +23,14 @@
         </q-tooltip>
       </a>
     </template>
-    <!--
-                상태값(status)
-                1. save, 저장(개인)
-                2. save_s, 저장(공유)
-                3. error, 오류
-                4. saving, 저장중
-              -->
     <template #item-status="item">
       <CBadgeState :item="item" />
     </template>
     <!-- image -->
     <template #item-image="item">
       <a href="#">
-        <span class="txt">{{ item.base_image_name }}</span>
+      {{ item }}
+        <span class="txt">{{ item }}</span>
       </a>
     </template>
     <!-- createdAt -->
@@ -94,7 +89,7 @@ const headers = [
   },
   {
     text: "기본 이미지",
-    value: "base_image_name",
+    value: "base_image.name",
     width: 350,
     sortable: true,
   },
@@ -127,7 +122,6 @@ const showRow = (item) => {
   } else {
     actionButtons.value = [fetchShareButtons].concat(fetchDeleteButtons);
   }
-
   emit("update:getRowSelectedImage", item);
 };
 </script>
