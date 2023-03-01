@@ -11,10 +11,13 @@
         <h1 class="p-title">{{ ptitle }}</h1>
         <div class="billing_btn">
           <CButton
-            :size-types="2"
-            :btn-types="5"
+            :size="'medium'"
             :btn-names="btnName"
-          />
+          >
+            <template #prepend>
+              <i class="ico plus"></i>
+            </template>
+          </CButton>
         </div>
       </div>
     </div>

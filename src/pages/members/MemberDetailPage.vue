@@ -11,8 +11,8 @@
       <h1 class="p-title">{{ ptitle }}</h1>
       <div class="deleteBtn">
         <CButton
-          :size-types="2"
-          :btn-types="4"
+          :size="'medium'"
+          :outline="true"
           :btn-names="btnName"
         />
       </div>

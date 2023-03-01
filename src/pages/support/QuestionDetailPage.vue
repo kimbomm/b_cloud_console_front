@@ -46,8 +46,6 @@
           </div>
           <div class="c_btngroup">
             <CButton
-              :size-types="1"
-              :btn-types="1"
               :btn-names="listBtn"
               class="list-btn"
               to="/support/"
@@ -140,8 +138,6 @@
           </div>
           <div class="c_btngroup">
             <CButton
-              :size-types="1"
-              :btn-types="1"
               :btn-names="listBtn"
               class="list-btn"
               to="/support/"
@@ -224,8 +220,6 @@
           </div>
           <div class="c_btngroup">
             <CButton
-              :size-types="1"
-              :btn-types="1"
               :btn-names="listBtn"
               class="list-btn flex-end"
               to="/support/"
@@ -308,8 +302,6 @@
           </div>
           <div class="c_btngroup">
             <CButton
-              :size-types="1"
-              :btn-types="1"
               :btn-names="listBtn"
               class="list-btn"
               to="/support/"

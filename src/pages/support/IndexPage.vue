@@ -15,8 +15,8 @@
       <div class="flex-top">
         <p class="sub-text">문의내역</p>
         <CButton
-          :size-types="2"
-          :btn-types="4"
+          :size="'medium'"
+          :outline="true"
           :btn-names="supportBtn"
           to="/support/write"
         />
