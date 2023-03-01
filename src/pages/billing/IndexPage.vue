@@ -10,14 +10,14 @@
       <div class="top-btn">
         <h1 class="p-title">{{ ptitle }}</h1>
         <div class="billing_btn">
-          <CButton
+          <c-button
             :size="'medium'"
             :btn-names="btnName"
           >
             <template #prepend>
               <i class="ico plus"></i>
             </template>
-          </CButton>
+          </c-button>
         </div>
       </div>
     </div>

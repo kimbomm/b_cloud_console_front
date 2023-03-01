@@ -45,7 +45,7 @@
           <!-- <p class="amount-reply_answer checking">관리자가 확인 중 입니다.</p> -->
         </div>
         <div class="c_btngroup">
-          <CButton
+          <c-button
             :btn-names="listBtn"
             class="list-btn"
             to="/support/"
@@ -113,7 +113,7 @@
           <!-- <p class="amount-reply_answer checking">관리자가 확인 중 입니다.</p> -->
         </div>
         <div class="c_btngroup">
-          <CButton
+          <c-button
             :btn-names="listBtn"
             class="list-btn"
             to="/support/"
@@ -170,7 +170,7 @@
           <!-- <p class="amount-reply_answer checking">관리자가 확인 중 입니다.</p> -->
         </div>
         <div class="c_btngroup">
-          <CButton
+          <c-button
             :btn-names="listBtn"
             class="list-btn flex-end"
             to="/support/"
@@ -227,7 +227,7 @@
           <!-- <p class="amount-reply_answer checking">관리자가 확인 중 입니다.</p> -->
         </div>
         <div class="c_btngroup">
-          <CButton
+          <c-button
             :btn-names="listBtn"
             class="list-btn"
             to="/support/"

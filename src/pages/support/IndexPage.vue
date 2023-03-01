@@ -14,7 +14,7 @@
     <div class="p-body">
       <div class="flex-top">
         <p class="sub-text">문의내역</p>
-        <CButton
+        <c-button
           :size="'medium'"
           :outline="true"
           :btn-names="supportBtn"

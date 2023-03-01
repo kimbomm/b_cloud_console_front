@@ -10,7 +10,7 @@
       </q-breadcrumbs>
       <h1 class="p-title">{{ ptitle }}</h1>
       <div class="deleteBtn">
-        <CButton
+        <c-button
           :size="'medium'"
           :outline="true"
           :btn-names="btnName"

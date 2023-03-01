@@ -37,17 +37,17 @@
           </div>
           <div class="set-r set">
             <div class="set-btn">
-              <CButton
+              <c-button
                 :size="'medium'"
                 :btn-names="'멤버추가'"
               >
                 <template #prepend>
                   <i class="ico plus"></i>
                 </template>
-              </CButton>
+              </c-button>
             </div>
             <div class="set-btn remove_member_btn">
-              <CButton
+              <c-button
                 :size="'medium'"
                 :btn-types="51"
                 :btn-names="'멤버삭제'"
@@ -158,14 +158,14 @@
           </div>
           <div class="set-r set">
             <div class="set-btn">
-              <CButton
+              <c-button
                 :size="'medium'"
                 :btn-names="'멤버 초대 요청'"
               >
                 <template #prepend>
                   <i class="ico plus"></i>
                 </template>
-              </CButton>
+              </c-button>
             </div>
             <div class="set-btn select-d">
               <CDropdown
