@@ -45,10 +45,11 @@
             <!-- <p class="amount-reply_answer checking">관리자가 확인 중 입니다.</p> -->
           </div>
           <div class="c_btngroup">
-            <q-btn
-            label="목록"
-            class="primary medium"
-          />
+            <c-button
+              :btn-names="listBtn"
+              class="list-btn"
+              to="/support/"
+            />
           </div>
 
         </div>
@@ -136,10 +137,11 @@
             <!-- <p class="amount-reply_answer checking">관리자가 확인 중 입니다.</p> -->
           </div>
           <div class="c_btngroup">
-            <q-btn
-            label="목록"
-            class="primary medium"
-          />
+            <c-button
+              :btn-names="listBtn"
+              class="list-btn"
+              to="/support/"
+            />
           </div>
         </div>
       </div>
@@ -217,10 +219,11 @@
             <!-- <p class="amount-reply_answer checking">관리자가 확인 중 입니다.</p> -->
           </div>
           <div class="c_btngroup">
-            <q-btn
-            label="목록"
-            class="primary medium"
-          />
+            <c-button
+              :btn-names="listBtn"
+              class="list-btn flex-end"
+              to="/support/"
+            />
           </div>
         </div>
       </div>
@@ -298,10 +301,11 @@
             <!-- <p class="amount-reply_answer checking">관리자가 확인 중 입니다.</p> -->
           </div>
           <div class="c_btngroup">
-            <q-btn
-            label="목록"
-            class="primary medium"
-          />
+            <c-button
+              :btn-names="listBtn"
+              class="list-btn"
+              to="/support/"
+            />
           </div>
         </div>
       </div>

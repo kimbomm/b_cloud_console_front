@@ -10,9 +10,10 @@
       </q-breadcrumbs>
       <h1 class="p-title">{{ ptitle }}</h1>
       <div class="deleteBtn">
-        <q-btn
-          label="삭제"
-          class="line medium"
+        <c-button
+          :size="'medium'"
+          :outline="true"
+          :btn-names="btnName"
         />
       </div>
     </div>

@@ -14,9 +14,11 @@
     <div class="p-body">
       <div class="flex-top">
         <p class="sub-text">문의내역</p>
-        <q-btn
-          label="문의하기"
-          class="line medium"
+        <c-button
+          :size="'medium'"
+          :outline="true"
+          :btn-names="supportBtn"
+          to="/support/write"
         />
       </div>
       <template v-if="defaultData == true">

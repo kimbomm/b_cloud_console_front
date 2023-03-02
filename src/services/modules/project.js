@@ -8,6 +8,17 @@ export const ProjectService = {
     const response = await api.get("/projects");
     return response.data;
   },
+
+  /**
+   * 설명: 프로젝트 상세정보
+   * @param { String } workspaceId 워크스페이스 id
+   * @param { String } projectId project_id
+   */
+  async getProject(workspaceId, projectId) {
+    const response = await api.get(`/workspaces/${workspaceId}/projects/${projectId}`);
+    return response.data;
+  },
+
   /**
    * 설명: workspace 멤버의 프로젝트 가져오기
    * @param { number } workspaceId 워크스페이스 id
@@ -17,4 +28,36 @@ export const ProjectService = {
     const response = await api.get(`/workspaces/${workspaceId}/members/${userId}/projects`);
     return response.data;
   },
+
+  /**
+   * 설명: 해당 workspace 의 모든 프로젝트 정보 가져오기
+   * @param { number } workspaceId 워크스페이스 id
+   */
+  async getListProject(workspaceId) {
+    const response = await api.get(`/workspaces/${workspaceId}/projects`);
+    return response.data;
+  },
+
+  /**
+   * 설명: 프로젝트 생성
+   * @param { String } workspaceId 워크스페이스 id
+   * @param { String } description 내용
+   * @param { String } name 프로젝트 이름
+   */
+  async createProject(workspaceId, params) {
+    const response = await api.post(`/workspaces/${workspaceId}/projects`, params);
+    return response.data;
+  },
+
+  /**
+   * 설명: 프로젝트 변경
+   * @param { String } workspaceId 워크스페이스 id
+   * @param { String } description 내용
+   * @param { String } name 프로젝트 이름
+   */
+  async updateProject(workspaceId, projectId, params) {
+    const response = await api.put(`/workspaces/${workspaceId}/projects/${projectId}`, params);
+    return response.data;
+  },
+
 };
