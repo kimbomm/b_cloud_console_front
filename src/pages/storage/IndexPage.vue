@@ -59,23 +59,20 @@
           </div>
         </div>
         <div class="r_set_inner">
-          <div class="dose_modifying_btn">
-            <q-btn btnTypes="4" type="button" class="c_btn line medium">
-              <span class="txt">개인 용량 변경 요청</span>
-            </q-btn>
-          </div>
+          <c-button
+            :size="'medium'"
+            :outline="true"
+            :btn-names="'개인 용량 변경 요청'"
+          />
           <div class="storage_add_btn">
-            <q-btn
-              btnTypes="4"
-              type="button"
-              class="c_btn line medium"
-              @click="storageAddModal = true"
-            >
-              <span class="txt">스토리지 추가</span>
-            </q-btn>
+            <c-button
+              :size="'medium'"
+              :outline="true"
+              :btn-names="'스토리지 추가'"
+            />
           </div>
           <div class="select_drop">
-            <CDropdown
+            <c-dropdown
               v-model:selected="selectedBasic"
               :label="optLabel"
               :options="optNumber"
@@ -243,6 +240,7 @@ import { ref } from "vue";
 import { useMeta } from "quasar";
 import CDropdown from "components/common/CDropdown.vue";
 import CPagination from "components/common/CPagination.vue";
+import CButton from "components/common/CButton.vue";
 
 const title = ref("Storage");
 useMeta(() => ({

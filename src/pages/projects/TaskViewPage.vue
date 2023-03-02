@@ -1,25 +1,13 @@
 <template>
   <q-page class="p-content p-projects p-detail">
     <div class="p-head">
-      <q-breadcrumbs
-        class="c_breadcrumb"
-        gutter="none"
-      >
+      <q-breadcrumbs class="c_breadcrumb" gutter="none">
         <template v-slot:separator>
           <q-icon />
         </template>
-        <q-breadcrumbs-el
-          label="Projects"
-          to="/"
-        />
-        <q-breadcrumbs-el
-          label="Test Project"
-          to="/"
-        />
-        <q-breadcrumbs-el
-          label="태스크"
-          to="/"
-        />
+        <q-breadcrumbs-el label="Projects" to="/" />
+        <q-breadcrumbs-el label="Test Project" to="/" />
+        <q-breadcrumbs-el label="태스크" to="/" />
         <q-breadcrumbs-el label="00태스크 1-1" />
       </q-breadcrumbs>
       <div class="p-detail-head">
@@ -28,7 +16,7 @@
         </h1>
         <div class="monitoring_btn">
           <q-btn
-            btnTypes=1
+            btnTypes="1"
             type="button"
             class="c_btn medium"
             @click="workspaceHistoryBModal = true"
@@ -149,7 +137,9 @@
             <p class="sub_title">태스크 명령어</p>
             <ul class="command_list">
               <li>
-                <p class="com_txt">~~~celebAHQwobg_EG3D_fromfs_FrzGBbMapSyn16.yaml</p>
+                <p class="com_txt">
+                  ~~~celebAHQwobg_EG3D_fromfs_FrzGBbMapSyn16.yaml
+                </p>
               </li>
             </ul>
           </div>
@@ -158,16 +148,20 @@
         <div class="instance_type">
           <div class="type_box com_box">
             <p class="sub_title">인스턴스 타입</p>
-            <span class="text">V1.XLARGE (1GPU | 14CPU | MEM 122GiB | DISK 80GiB)</span>
+            <span class="text"
+              >V1.XLARGE (1GPU | 14CPU | MEM 122GiB | DISK 80GiB)</span
+            >
 
             <ul class="type_list">
-              <li :class="'t_list0'+ i" v-for="(i,a) in typeList" :key="i">
+              <li :class="'t_list0' + i" v-for="(i, a) in typeList" :key="i">
                 <q-item>
-                  <p class="type_list_title">{{typeItem[a].typeTitle}} <span>
-                    {{typeItem[a].basicTxt}}</span></p>
+                  <p class="type_list_title">
+                    {{ typeItem[a].typeTitle }}
+                    <span> {{ typeItem[a].basicTxt }}</span>
+                  </p>
                 </q-item>
                 <q-item>
-                  <p class="type_list_value">{{typeItem[a].typeValue}}</p>
+                  <p class="type_list_value">{{ typeItem[a].typeValue }}</p>
                 </q-item>
               </li>
             </ul>
@@ -217,13 +211,17 @@
                   <p class="internal_title">Internal URL</p>
                   <p class="external_title">External URL</p>
                 </div>
-                <q-scroll-area style="height:180px;">
+                <q-scroll-area style="height: 180px">
                   <ul class="port_box">
-                    <li v-for="(i,a) in portList" :key="i">
-                      <p class="p_input_data">{{portItem[a].internalItem}}</p>
+                    <li v-for="(i, a) in portList" :key="i">
+                      <p class="p_input_data">{{ portItem[a].internalItem }}</p>
                       <p class="p_external_data">
-                        {{portItem[a].externalItem}}<i
-                        class="ico copy" @click="triggerSuccess2('top-right')"/></p>
+                        {{ portItem[a].externalItem
+                        }}<i
+                          class="ico copy"
+                          @click="triggerSuccess2('top-right')"
+                        />
+                      </p>
                     </li>
                   </ul>
                 </q-scroll-area>
@@ -260,22 +258,18 @@
     </div>
   </q-page>
 
-    <!-- Start : [프로젝트 - 인스턴스] B 워크스페이스 리소스 사용 이력(꺽은선 그래프 + 달력 + 시계) 팝업 -->
-  <q-dialog
-    v-model="workspaceHistoryBModal"
-    class="c_dialog large"
-  >
+  <!-- Start : [프로젝트 - 인스턴스] B 워크스페이스 리소스 사용 이력(꺽은선 그래프 + 달력 + 시계) 팝업 -->
+  <q-dialog v-model="workspaceHistoryBModal" class="c_dialog large">
     <q-card>
       <q-card-section class="c_dialog_body">
         <p class="title">
           <strong>모니터링</strong>
         </p>
-        <section
-          class="section"
-          aria-label="인스턴스 이름"
-        >
+        <section class="section" aria-label="인스턴스 이름">
           <p class="sub_title">인스턴스 이름</p>
-          <p class="desc">V1.Xlarge(v100 GPU 1 / CPU 14 / MEM 122GB / DISK 80GB)</p>
+          <p class="desc">
+            V1.Xlarge(v100 GPU 1 / CPU 14 / MEM 122GB / DISK 80GB)
+          </p>
           <div class="searcharea">
             <CDropdown
               v-model:selected="chartSelectedBasic"
@@ -315,12 +309,14 @@
                 >
                   <template v-slot:append>
                     <q-icon name="access_time">
-                      <q-popup-proxy
-                        :offset="[100, 0]"
-                        class="c_time"
-                      >
+                      <q-popup-proxy :offset="[100, 0]" class="c_time">
                         <q-time v-model="timeFrom" mask="HH:mm">
-                          <q-btn v-close-popup label="확인" color="primary" flat />
+                          <q-btn
+                            v-close-popup
+                            label="확인"
+                            color="primary"
+                            flat
+                          />
                         </q-time>
                       </q-popup-proxy>
                     </q-icon>
@@ -337,10 +333,7 @@
                 >
                   <template v-slot:prepend>
                     <q-icon class="ico_calendar">
-                      <q-popup-proxy
-                        :offset="[150, 0]"
-                        class="c_datepicker"
-                      >
+                      <q-popup-proxy :offset="[150, 0]" class="c_datepicker">
                         <q-date
                           v-model="dateTo"
                           mask="YYYY.MM.DD"
@@ -358,12 +351,14 @@
                 >
                   <template v-slot:append>
                     <q-icon name="access_time">
-                      <q-popup-proxy
-                        :offset="[240, 0]"
-                        class="c_time"
-                      >
+                      <q-popup-proxy :offset="[240, 0]" class="c_time">
                         <q-time v-model="timeTo" mask="HH:mm">
-                          <q-btn v-close-popup label="확인" color="primary" flat />
+                          <q-btn
+                            v-close-popup
+                            label="확인"
+                            color="primary"
+                            flat
+                          />
                         </q-time>
                       </q-popup-proxy>
                     </q-icon>
@@ -372,10 +367,7 @@
               </div>
             </div>
           </div>
-          <q-card
-            v-model="chartModel"
-            class="apexchart"
-          >
+          <q-card v-model="chartModel" class="apexchart">
             <div class="chart_head">
               <div class="chart_legend">
                 <div class="blue">GPU(%)</div>
@@ -402,16 +394,11 @@
         </section>
       </q-card-section>
       <q-card-actions class="c_dialog_foot">
-        <q-btn
-          label="닫기"
-          class="primary"
-          v-close-popup
-        />
+        <q-btn label="닫기" class="primary" v-close-popup />
       </q-card-actions>
     </q-card>
   </q-dialog>
   <!-- End : [프로젝트 - 인스턴스] B 워크스페이스 리소스 사용 이력(꺽은선 그래프 + 달력 + 시계) 팝업 -->
-
 </template>
 <script setup>
 import { ref } from "vue";
@@ -425,11 +412,26 @@ useMeta(() => ({
 
 const ptitle = ref(title);
 const portItem = [
-  { internalItem: "task1:33221", externalItem: "http://gpu-cloud-vnode95.dakao.io:10472" },
-  { internalItem: "task1:33231", externalItem: "http://gpu-cloud-vnode95.dakao.io:10472" },
-  { internalItem: "task1:33241", externalItem: "http://gpu-cloud-vnode95.dakao.io:10472" },
-  { internalItem: "task1:33221", externalItem: "http://gpu-cloud-vnode95.dakao.io:10472" },
-  { internalItem: "task1:33241", externalItem: "http://gpu-cloud-vnode95.dakao.io:10472" },
+  {
+    internalItem: "task1:33221",
+    externalItem: "http://gpu-cloud-vnode95.dakao.io:10472",
+  },
+  {
+    internalItem: "task1:33231",
+    externalItem: "http://gpu-cloud-vnode95.dakao.io:10472",
+  },
+  {
+    internalItem: "task1:33241",
+    externalItem: "http://gpu-cloud-vnode95.dakao.io:10472",
+  },
+  {
+    internalItem: "task1:33221",
+    externalItem: "http://gpu-cloud-vnode95.dakao.io:10472",
+  },
+  {
+    internalItem: "task1:33241",
+    externalItem: "http://gpu-cloud-vnode95.dakao.io:10472",
+  },
 ];
 const portList = portItem.length;
 
@@ -441,9 +443,15 @@ const triggerSuccess = (position) => {
       icon: "positive",
       position,
       actions: [
-        { label: "닫기", class: "xclose", handler: () => { /* console.log('') */ } }
+        {
+          label: "닫기",
+          class: "xclose",
+          handler: () => {
+            /* console.log('') */
+          },
+        },
       ],
-      timeout: 500
+      timeout: 500,
     });
   }, 100);
 };
@@ -455,9 +463,15 @@ const triggerSuccess2 = (position) => {
       icon: "positive",
       position,
       actions: [
-        { label: "닫기", class: "xclose", handler: () => { /* console.log('') */ } }
+        {
+          label: "닫기",
+          class: "xclose",
+          handler: () => {
+            /* console.log('') */
+          },
+        },
       ],
-      timeout: 500
+      timeout: 500,
     });
   }, 100);
 };
@@ -529,7 +543,7 @@ const chartOptions = {
       fontSize: "12px",
       fontWeight: "normal",
       fontFamily: undefined,
-      color: "#9699a2"
+      color: "#9699a2",
     },
   },
   legend: {
@@ -565,7 +579,19 @@ const chartOptions = {
     size: 0,
   },
   xaxis: {
-    categories: ["", "10/1", "", "10/5", "", "10/10", "", "10/20", "", "10/28", ""],
+    categories: [
+      "",
+      "10/1",
+      "",
+      "10/5",
+      "",
+      "10/10",
+      "",
+      "10/20",
+      "",
+      "10/28",
+      "",
+    ],
     title: {
       text: "",
     },

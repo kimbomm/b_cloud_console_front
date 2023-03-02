@@ -1,17 +1,11 @@
 <template>
   <q-page class="p-content p-manage p-storage">
     <div class="p-head">
-      <q-breadcrumbs
-        class="c_breadcrumb"
-        gutter="none"
-      >
+      <q-breadcrumbs class="c_breadcrumb" gutter="none">
         <template v-slot:separator>
           <q-icon />
         </template>
-        <q-breadcrumbs-el
-          label="Workapace Manager"
-          to="/"
-        />
+        <q-breadcrumbs-el label="Workapace Manager" to="/" />
         <q-breadcrumbs-el label="Storage" />
       </q-breadcrumbs>
       <h1 class="p-title">{{ ptitle }}</h1>
@@ -29,8 +23,10 @@
                   </h3>
 
                   <div class="cont_head_inner">
-                    <p class="head_txt">스토리지 생성 개수<q-btn class="ibtn help">
-                        <i class="ico help"><span class="hidden">도움말</span>
+                    <p class="head_txt">
+                      스토리지 생성 개수<q-btn class="ibtn help">
+                        <i class="ico help"
+                          ><span class="hidden">도움말</span>
                           <q-popup-edit
                             v-model="helpShow"
                             anchor="top middle"
@@ -38,9 +34,13 @@
                             class="c_popover storage_popover"
                           >
                             <div class="inner">
-                              <p class="list_dot">스토리지는 개인당 최대 5개 생성할 수 있습니다. </p>
                               <p class="list_dot">
-                                워크스페이스 관리자는 워크스페이스당 최대 50개의 스토리지를 개인 스토리지와 별개로 생성할 수 있습니다.
+                                스토리지는 개인당 최대 5개 생성할 수 있습니다.
+                              </p>
+                              <p class="list_dot">
+                                워크스페이스 관리자는 워크스페이스당 최대 50개의
+                                스토리지를 개인 스토리지와 별개로 생성할 수
+                                있습니다.
                               </p>
                             </div>
                           </q-popup-edit>
@@ -57,10 +57,7 @@
                 <div class="cont_footer">
                   <p class="progress_percentage_txt">75%</p>
                   <div class="progress_bar_area">
-                    <progress
-                      value="75"
-                      max="100"
-                    />
+                    <progress value="75" max="100" />
                   </div>
                 </div>
               </div>
@@ -77,16 +74,15 @@
                   </div>
                 </div>
                 <div class="cont_main">
-                  <p class="stg_percentage"><span class="now_percentage">209.3</span>TiB</p>
+                  <p class="stg_percentage">
+                    <span class="now_percentage">209.3</span>TiB
+                  </p>
                   <p class="percentage_txt">/ 500TiB</p>
                 </div>
                 <div class="cont_footer">
                   <p class="progress_percentage_txt">75%</p>
                   <div class="progress_bar_area">
-                    <progress
-                      value="75"
-                      max="100"
-                    />
+                    <progress value="75" max="100" />
                   </div>
                 </div>
               </div>
@@ -103,7 +99,9 @@
                   </div>
                 </div>
                 <div class="cont_main">
-                  <p class="stg_percentage"><span class="now_percentage">255</span>TiB</p>
+                  <p class="stg_percentage">
+                    <span class="now_percentage">255</span>TiB
+                  </p>
                 </div>
               </div>
             </li>
@@ -111,19 +109,9 @@
         </div>
         <div class="manage_main_area">
           <div class="btn_area">
-            <q-tabs
-              v-model="tab"
-              align="left"
-              class="c_tabs"
-            >
-              <q-tab
-                name="tabs1"
-                label="스토리지"
-              ></q-tab>
-              <q-tab
-                name="tabs2"
-                label="멤버"
-              ></q-tab>
+            <q-tabs v-model="tab" align="left" class="c_tabs">
+              <q-tab name="tabs1" label="스토리지"></q-tab>
+              <q-tab name="tabs2" label="멤버"></q-tab>
             </q-tabs>
           </div>
           <div class="table_set">
@@ -136,10 +124,7 @@
                   class="wsize292"
                 >
                   <template v-slot:prepend>
-                    <q-icon
-                      name="search"
-                      class="ico_search"
-                    />
+                    <q-icon name="search" class="ico_search" />
                   </template>
                 </q-input>
               </div>
@@ -148,10 +133,10 @@
             <div class="r_set_inner">
               <div class="quota_set_btn">
                 <q-btn
-                  btnTypes=4
+                  btnTypes="4"
                   type="button"
                   class="c_btn line medium"
-                  @click = "mngStorageAddModal = true"
+                  @click="mngStorageAddModal = true"
                 >
                   <span class="txt">스토리지 추가</span>
                 </q-btn>
@@ -183,14 +168,11 @@
               <template #item-desc="item">
                 <a href="#">
                   <span class="txt">{{ item.desc }}</span>
-                    <q-tooltip
-                      anchor="bottom middle"
-                      class="c_tooltip"
-                    >
-                      <div class="inner">
-                        {{ item.desc }}
-                      </div>
-                    </q-tooltip>
+                  <q-tooltip anchor="bottom middle" class="c_tooltip">
+                    <div class="inner">
+                      {{ item.desc }}
+                    </div>
+                  </q-tooltip>
                 </a>
               </template>
               <!-- user -->
@@ -206,34 +188,19 @@
                 5. restoring, 복원중
               -->
               <template #item-status="item">
-                <q-badge
-                  v-if="item.status === 'running'"
-                  class="green"
-                >
+                <q-badge v-if="item.status === 'running'" class="green">
                   <span class="txt">운영중(개인)</span>
                 </q-badge>
-                <q-badge
-                  v-if="item.status === 'running_s'"
-                  class="green"
-                >
+                <q-badge v-if="item.status === 'running_s'" class="green">
                   <span class="txt">운영중(공유)</span>
                 </q-badge>
-                <q-badge
-                  v-if="item.status === 'making'"
-                  class="c_badge"
-                >
+                <q-badge v-if="item.status === 'making'" class="c_badge">
                   <span class="txt">생성중</span>
                 </q-badge>
-                <q-badge
-                  v-if="item.status === 'deleting'"
-                  class="c_badge"
-                >
+                <q-badge v-if="item.status === 'deleting'" class="c_badge">
                   <span class="txt">삭제중</span>
                 </q-badge>
-                <q-badge
-                  v-if="item.status === 'restoring'"
-                  class="c_badge"
-                >
+                <q-badge v-if="item.status === 'restoring'" class="c_badge">
                   <span class="txt">복원중</span>
                 </q-badge>
               </template>
@@ -249,10 +216,7 @@
               <template #item-buttons="item">
                 <div v-if="actionButtons || item.buttons" class="cell btngroup">
                   <!-- 초대 요청 확인 -->
-                  <q-btn
-                    v-if="item.buttons"
-                    class="c_btn"
-                  >
+                  <q-btn v-if="item.buttons" class="c_btn">
                     <span class="txt">{{ item.buttons.name }}</span>
                   </q-btn>
 
@@ -292,10 +256,7 @@
   </q-page>
 
   <!-- Start : [관리 - 스토리지] 관리자 스토리지 추가 팝업 -->
-  <q-dialog
-    v-model="mngStorageAddModal"
-    class="c_dialog large"
-  >
+  <q-dialog v-model="mngStorageAddModal" class="c_dialog large">
     <q-card>
       <q-card-section class="c_dialog_body">
         <p class="title">
@@ -327,7 +288,7 @@
               :count="10"
               maxlength="500"
               class="wsize_full hsize244"
-              :input-style="{height: '100%'}"
+              :input-style="{ height: '100%' }"
             >
               <!-- <template v-slot:hint>
                   Description
@@ -397,22 +358,41 @@ const options = ref([
 
 const headers = [
   {
-    text: "이름", value: "title", width: 130, sortable: true
+    text: "이름",
+    value: "title",
+    width: 130,
+    sortable: true,
   },
   {
-    text: "설명", value: "desc", width: 280, widthAuto: true, sortable: true
+    text: "설명",
+    value: "desc",
+    width: 280,
+    widthAuto: true,
+    sortable: true,
   },
   {
-    text: "소유자", value: "user", width: 110, sortable: true
+    text: "소유자",
+    value: "user",
+    width: 110,
+    sortable: true,
   },
   {
-    text: "상태", value: "status", width: 120, sortable: true
+    text: "상태",
+    value: "status",
+    width: 120,
+    sortable: true,
   },
   {
-    text: "사용량", value: "usage", width: 120, sortable: true
+    text: "사용량",
+    value: "usage",
+    width: 120,
+    sortable: true,
   },
   {
-    text: "생성일시", value: "createdAt", width: 170, sortable: true
+    text: "생성일시",
+    value: "createdAt",
+    width: 170,
+    sortable: true,
   },
   { text: "", value: "buttons", width: 220 },
 ];
@@ -432,8 +412,8 @@ const items = [
       zone: "public:normal",
     },
     buttons: {
-      name: "용량변경요청"
-    }
+      name: "용량변경요청",
+    },
   },
   {
     title: "aa프로젝트",

@@ -60,9 +60,7 @@
   </div>
 </template>
 <script setup>
-import {
-  ref, onMounted
-} from "vue";
+import { ref, onMounted } from "vue";
 import { useMeta } from "quasar";
 import CDropdown from "components/common/CDropdown.vue";
 
@@ -77,9 +75,7 @@ useMeta(() => ({
 
 const ptitle = ref(title);
 const model1 = ref("읽기쓰기");
-const options1 = [
-  "읽기쓰기", "읽기", "삭제",
-];
+const options1 = ["읽기쓰기", "읽기", "삭제"];
 const options = ref([
   { label: "전체", value: 0 },
   { label: "운영중", value: 1 },
@@ -91,20 +87,20 @@ const options = ref([
 onMounted(() => {});
 </script>
 <style lang="scss" scoped>
-.section{
-  h2{
-    margin-bottom:10px;
+.section {
+  h2 {
+    margin-bottom: 10px;
   }
-  ~ .section{
-    margin-top:50px;
+  ~ .section {
+    margin-top: 50px;
   }
-  .h6{
-    &:not(:first-child){
-      margin-top:50px;
+  .h6 {
+    &:not(:first-child) {
+      margin-top: 50px;
     }
   }
 }
-.group{
-  margin-top:20px;
+.group {
+  margin-top: 20px;
 }
 </style>

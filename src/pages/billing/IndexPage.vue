@@ -10,10 +10,7 @@
       <div class="top-btn">
         <h1 class="p-title">{{ ptitle }}</h1>
         <div class="billing_btn">
-          <c-button
-            :size="'medium'"
-            :btn-names="btnName"
-          >
+          <c-button :size="'medium'" :btn-names="btnName">
             <template #prepend>
               <i class="ico plus"></i>
             </template>
@@ -40,25 +37,22 @@
                       mask="YYYY.MM.DD"
                       class="datepicker"
                     />
-                    </q-popup-proxy>
-                  </q-icon>
-                </template>
-              </q-input>
-            </div>
-            <i class="bar" />
-            <div class="to">
-              <q-input
-                outlined
-                v-model="dateTo"
-                placeholder="2023.01.01"
-                class="inp_calendar"
-              >
-                <template v-slot:prepend>
-                  <q-icon class="ico_calendar">
-                    <q-popup-proxy
-                      :offset="[150, 0]"
-                      class="c_datepicker"
-                    >
+                  </q-popup-proxy>
+                </q-icon>
+              </template>
+            </q-input>
+          </div>
+          <i class="bar" />
+          <div class="to">
+            <q-input
+              outlined
+              v-model="dateTo"
+              placeholder="2023.01.01"
+              class="inp_calendar"
+            >
+              <template v-slot:prepend>
+                <q-icon class="ico_calendar">
+                  <q-popup-proxy :offset="[150, 0]" class="c_datepicker">
                     <q-date
                       v-model="dateTo"
                       mask="YYYY.MM.DD"
@@ -118,19 +112,19 @@
             </template>
             <!-- 인스턴스 타입 -->
             <template #item-instanceType="item">
-              <q-badge
-                class="text instance"
-                @click="onCopy(item)"
-              >
-                <span class="txt">{{ item.instanceType }}<i class="ico details">
-                  <q-tooltip
-                    anchor="bottom middle"
-                    class="c_tooltip insTypeTool"
+              <q-badge class="text instance" @click="onCopy(item)">
+                <span class="txt"
+                  >{{ item.instanceType
+                  }}<i class="ico details">
+                    <q-tooltip
+                      anchor="bottom middle"
+                      class="c_tooltip insTypeTool"
+                    >
+                      <div class="inner">
+                        {{ item.instanceType }}
+                      </div>
+                    </q-tooltip></i
                   >
-                    <div class="inner">
-                      {{ item.instanceType }}
-                    </div>
-                  </q-tooltip></i>
                 </span>
               </q-badge>
             </template>
@@ -184,25 +178,44 @@ const optNumber = ref([
 // Table
 const headers = [
   {
-    text: "인스턴스/태스크 그룹 이름", width: 230, value: "title", sortable: true
+    text: "인스턴스/태스크 그룹 이름",
+    width: 230,
+    value: "title",
+    sortable: true,
   },
   {
-    text: "서비스", value: "service", sortable: true
+    text: "서비스",
+    value: "service",
+    sortable: true,
   },
   {
-    text: "인스턴스 타입", value: "instanceType", sortable: true
+    text: "인스턴스 타입",
+    value: "instanceType",
+    sortable: true,
   },
   {
-    text: "시작시간", value: "startTime", width: 212, widthAuto: true, sortable: true
+    text: "시작시간",
+    value: "startTime",
+    width: 212,
+    widthAuto: true,
+    sortable: true,
   },
   {
-    text: "종료시간", value: "endTime", width: 212, widthAuto: true, sortable: true
+    text: "종료시간",
+    value: "endTime",
+    width: 212,
+    widthAuto: true,
+    sortable: true,
   },
   {
-    text: "사용시간", value: "usageTime", sortable: true
+    text: "사용시간",
+    value: "usageTime",
+    sortable: true,
   },
   {
-    text: "금액", value: "pay", sortable: true
+    text: "금액",
+    value: "pay",
+    sortable: true,
   },
 ];
 const items = [
@@ -213,7 +226,7 @@ const items = [
     startTime: "2023.01.12 10:33:21",
     endTime: "-",
     usageTime: "183.01시간",
-    pay: "283,292원"
+    pay: "283,292원",
   },
   {
     title: "테스트용 inst",
@@ -222,7 +235,7 @@ const items = [
     startTime: "2023.01.12 10:33:21",
     endTime: "2023.01.12 10:33:21",
     usageTime: "183.01시간",
-    pay: "283,292원"
+    pay: "283,292원",
   },
   {
     title: "테스트용 inst",
@@ -231,7 +244,7 @@ const items = [
     startTime: "2023.01.12 10:33:21",
     endTime: "-",
     usageTime: "183.01시간",
-    pay: "283,292원"
+    pay: "283,292원",
   },
 ];
 // Date Form
@@ -242,6 +255,6 @@ const ptitle = ref(title);
 </script>
 
 <style lang="scss" scoped>
-@import 'src/css/table';
-@import 'src/css/billing';
+@import "src/css/table";
+@import "src/css/billing";
 </style>

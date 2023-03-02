@@ -228,18 +228,16 @@
 }
 
 /* common no-data table */
-.com_nondata_area{
-  .nondata_box{
-    width: 100%;
-    padding:130px 0;
-    text-align: center;
-    background-color: $surface01;
-    border-radius: 8px;
-    .nondata_txt{color:$gray500;}
-    .nondata_btn{
-      margin-top: 30px;
-      button{width: 99px;}
-    }
+.nondata_box{
+  width: 100%;
+  padding:130px 0;
+  text-align: center;
+  background-color: $surface01;
+  border-radius: 8px;
+  .nondata_txt{color:$gray500;}
+  .nondata_btn{
+    margin-top: 30px;
+    button{width: 99px;}
   }
 }
 /* tabs */

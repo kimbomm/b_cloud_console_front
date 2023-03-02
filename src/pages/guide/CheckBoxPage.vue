@@ -11,8 +11,18 @@
           <div class="c_checkgroup">
             <q-checkbox v-model="chk1" label="One" class="c_checkbox" />
             <q-checkbox v-model="chk2" label="Two" class="c_checkbox" />
-            <q-checkbox disable v-model="chk3" label="Three" class="c_checkbox" />
-            <q-checkbox disable v-model="chk4" label="Four" class="c_checkbox" />
+            <q-checkbox
+              disable
+              v-model="chk3"
+              label="Three"
+              class="c_checkbox"
+            />
+            <q-checkbox
+              disable
+              v-model="chk4"
+              label="Four"
+              class="c_checkbox"
+            />
           </div>
         </div>
       </section>
@@ -36,20 +46,20 @@ const chk4 = ref(true);
 </script>
 
 <style lang="scss" scoped>
-.section{
-  h2{
-    margin-bottom:10px;
+.section {
+  h2 {
+    margin-bottom: 10px;
   }
-  ~ .section{
-    margin-top:50px;
+  ~ .section {
+    margin-top: 50px;
   }
 }
-.group{
-  margin-top:20px;
+.group {
+  margin-top: 20px;
 }
-.q-checkbox{
-  &:not(:last-child){
-    margin-right:20px;
+.q-checkbox {
+  &:not(:last-child) {
+    margin-right: 20px;
   }
 }
 </style>

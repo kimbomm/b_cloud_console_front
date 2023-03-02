@@ -7,18 +7,50 @@
     <div class="p-body">
       <section class="section">
         <div class="c_btngroup">
-          <q-btn label="Alert 유형1" color="primary" @click="onlyTitleAlert()" />
-          <q-btn label="Alert 유형2" color="primary" @click="titleDespAlert()" />
-          <q-btn label="Confirm 유형1" color="primary" @click="onlyTitleConfirm()" />
-          <q-btn label="Confirm 유형2" color="primary" @click="titleDespConfirm()" />
+          <q-btn
+            label="Alert 유형1"
+            color="primary"
+            @click="onlyTitleAlert()"
+          />
+          <q-btn
+            label="Alert 유형2"
+            color="primary"
+            @click="titleDespAlert()"
+          />
+          <q-btn
+            label="Confirm 유형1"
+            color="primary"
+            @click="onlyTitleConfirm()"
+          />
+          <q-btn
+            label="Confirm 유형2"
+            color="primary"
+            @click="titleDespConfirm()"
+          />
         </div>
         <div class="c_btngroup">
-          <q-btn label="기본 컨텐츠 팝업 유형" color="primary" @click="defaultCntVisible = true" />
-          <q-btn label="부정적 컨텐츠 팝업 유형" color="primary" @click="negativeCntVisible = true" />
+          <q-btn
+            label="기본 컨텐츠 팝업 유형"
+            color="primary"
+            @click="defaultCntVisible = true"
+          />
+          <q-btn
+            label="부정적 컨텐츠 팝업 유형"
+            color="primary"
+            @click="negativeCntVisible = true"
+          />
         </div>
         <div class="c_btngroup">
-          <q-btn label="Medium Size 팝업 - w:608" color="primary" @click="mediumSizeVisible = true" />
-          <q-btn label="Large Size 팝업 - w:766" color="primary" @click="largeSizeVisible = true" />
+          <q-btn
+            label="Medium Size 팝업 - w:608"
+            color="primary"
+            @click="mediumSizeVisible = true"
+          />
+          <q-btn
+            label="Large Size 팝업 - w:766"
+            color="primary"
+            @click="largeSizeVisible = true"
+          />
         </div>
       </section>
     </div>
@@ -29,19 +61,14 @@
       :message="'기본 컨텐츠 팝업'"
       :description="'사용자가 해당 프로젝트에서 작업중인 인스턴스/태스크가 없어야만 삭제 가능합니다.'"
     >
-      <template #positive>
-        default contents dialog
-      </template>
+      <template #positive> default contents dialog </template>
       <template #footer>
         <c-button
           :outline="true"
           btn-names="취소"
           @click="defaultCntVisible = false"
         />
-        <c-button
-          btn-names="확인"
-          @click="defaultCntVisible = false"
-        />
+        <c-button btn-names="확인" @click="defaultCntVisible = false" />
       </template>
     </c-dialog>
     <!-- 기본 컨텐츠 팝업 끝 -->
@@ -52,19 +79,10 @@
       :message="'부정적인 컨텐츠 팝업'"
       :description="'사용자가 해당 프로젝트에서 작업중인 인스턴스/태스크가 없어야만 삭제 가능합니다.'"
     >
-      <template #negative>
-        negative contents dialog
-      </template>
+      <template #negative> negative contents dialog </template>
       <template #footer>
-        <c-button
-          :outline="true"
-          btn-names="취소"
-          @click="onNegative"
-        />
-        <c-button
-          btn-names="확인"
-          @click="onPositive"
-        />
+        <c-button :outline="true" btn-names="취소" @click="onNegative" />
+        <c-button btn-names="확인" @click="onPositive" />
       </template>
     </c-dialog>
     <!-- 부정적 컨텐츠 팝업 끝-->
@@ -79,14 +97,9 @@
       :message="'기본 컨텐츠 팝업'"
       :description="'사용자가 해당 프로젝트에서 작업중인 인스턴스/태스크가 없어야만 삭제 가능합니다.'"
     >
-      <template #positive>
-        default contents dialog
-      </template>
+      <template #positive> default contents dialog </template>
       <template #footer>
-        <c-button
-          btn-names="확인"
-          @click="mediumSizeVisible = false"
-        />
+        <c-button btn-names="확인" @click="mediumSizeVisible = false" />
       </template>
     </c-dialog>
     <!-- medium size 컨텐츠 팝업 끝 -->
@@ -101,19 +114,14 @@
       :message="'기본 컨텐츠 팝업'"
       :description="'사용자가 해당 프로젝트에서 작업중인 인스턴스/태스크가 없어야만 삭제 가능합니다.'"
     >
-      <template #negative>
-        negative contents dialog
-      </template>
+      <template #negative> negative contents dialog </template>
       <template #footer>
         <c-button
           :outline="true"
           btn-names="취소"
           @click="largeSizeVisible = false"
         />
-        <c-button
-          btn-names="확인"
-          @click="largeSizeVisible = false"
-        />
+        <c-button btn-names="확인" @click="largeSizeVisible = false" />
       </template>
     </c-dialog>
     <!-- large size 컨텐츠 팝업 끝 -->
@@ -139,7 +147,7 @@ const onlyTitleAlert = () => {
       value: "확인",
       callback: () => {
         console.log("확인버튼");
-      }
+      },
     },
   });
 };
@@ -150,14 +158,14 @@ const onlyTitleConfirm = () => {
     positive: {
       callback: () => {
         console.log("확인버튼");
-      }
+      },
     },
     negative: {
       value: "취소",
       callback: () => {
         console.log("취소버튼");
-      }
-    }
+      },
+    },
   });
 };
 
@@ -168,7 +176,7 @@ const titleDespAlert = () => {
     positive: {
       callback: () => {
         console.log("확인버튼");
-      }
+      },
     },
   });
 };
@@ -180,14 +188,14 @@ const titleDespConfirm = () => {
       value: "확인",
       callback: () => {
         console.log("확인버튼");
-      }
+      },
     },
     negative: {
       value: "취소",
       callback: () => {
         console.log("취소버튼");
-      }
-    }
+      },
+    },
   });
 };
 
@@ -207,24 +215,24 @@ const onPositive = () => {
 </script>
 
 <style lang="scss" scoped>
-.section{
-  h2{
-    margin-bottom:10px;
+.section {
+  h2 {
+    margin-bottom: 10px;
   }
-  ~ .section{
-    margin-top:50px;
+  ~ .section {
+    margin-top: 50px;
   }
 }
-.group{
-  margin-top:20px;
+.group {
+  margin-top: 20px;
 }
-.c_btngroup{
-  &:not(:first-child){
-    margin-top:20px;
+.c_btngroup {
+  &:not(:first-child) {
+    margin-top: 20px;
   }
-  .q-btn{
-    &:not(:last-child){
-      margin-right:10px;
+  .q-btn {
+    &:not(:last-child) {
+      margin-right: 10px;
     }
   }
 }

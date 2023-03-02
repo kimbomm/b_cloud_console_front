@@ -1,25 +1,13 @@
 <template>
   <q-page class="p-content p-projects p-make">
     <div class="p-head">
-      <q-breadcrumbs
-        class="c_breadcrumb"
-        gutter="none"
-      >
+      <q-breadcrumbs class="c_breadcrumb" gutter="none">
         <template v-slot:separator>
           <q-icon />
         </template>
-        <q-breadcrumbs-el
-          label="Projects"
-          to="/"
-        />
-        <q-breadcrumbs-el
-          label="Test Project"
-          to="/"
-        />
-        <q-breadcrumbs-el
-          label="태스크"
-          to="/"
-        />
+        <q-breadcrumbs-el label="Projects" to="/" />
+        <q-breadcrumbs-el label="Test Project" to="/" />
+        <q-breadcrumbs-el label="태스크" to="/" />
         <q-breadcrumbs-el label="태스크 생성" />
       </q-breadcrumbs>
       <h1 class="p-title">
@@ -56,7 +44,7 @@
                 :count="10"
                 maxlength="500"
                 class="wsize_full hsize244"
-                :input-style="{height: '100%'}"
+                :input-style="{ height: '100%' }"
               >
               </q-input>
             </div>
@@ -128,7 +116,7 @@
                       bottom-slots
                       type="textarea"
                       class="wsize_full hsize244"
-                      :input-style="{height: '100%'}"
+                      :input-style="{ height: '100%' }"
                     />
                   </div>
                 </template>
@@ -149,39 +137,53 @@
             </div>
           </div>
           <div class="s_task_02">
-            <p class="sub_title2">호스트 전체 준비 완료시 실행<q-btn class="ibtn help">
-                <i class="ico help"><span class="hidden">도움말</span>
-                <q-popup-edit
-                  v-model="helpShow"
-                  anchor="top middle" self="top middle"
-                  class="c_popover task02_pop"
-                >
-                  <div class="inner">
-                    태스크 그룹 내 모든 태스크의 호스트가 인식될 때까지 대기하였다가, 모두 완료되면 태스크가 실행됩니다.
-                  </div>
-                </q-popup-edit>
-              </i>
+            <p class="sub_title2">
+              호스트 전체 준비 완료시 실행<q-btn class="ibtn help">
+                <i class="ico help"
+                  ><span class="hidden">도움말</span>
+                  <q-popup-edit
+                    v-model="helpShow"
+                    anchor="top middle"
+                    self="top middle"
+                    class="c_popover task02_pop"
+                  >
+                    <div class="inner">
+                      태스크 그룹 내 모든 태스크의 호스트가 인식될 때까지
+                      대기하였다가, 모두 완료되면 태스크가 실행됩니다.
+                    </div>
+                  </q-popup-edit>
+                </i>
               </q-btn>
             </p>
             <q-toggle v-model="off" />
           </div>
           <div class="s_task_03">
-            <p class="sub_title2">태스크 동시 실행 최대 개수 설정<q-btn class="ibtn help">
-                <i class="ico help"><span class="hidden">도움말</span>
-                <q-popup-edit
-                  v-model="helpShow"
-                  anchor="top middle" self="top middle"
-                  class="c_popover task03_pop"
-                >
-                  <div class="inner">
-                    동시 실행되는 태스크 최대 개수를 설정합니다.
-                    <b>예시</b>
-                    <p class="list_dot">5개 태스크 입력 후 최대 개수 3개로 설정</p>
-                    <p class="list_dot">3개 태스크 실행, 2개 대기 상태로 진행</p>
-                    <p class="list_dot">실행중인 3개 태스크 중 완료되는 태스크가 있는 경우 대기중인 태스크 실행 시작</p>
-                  </div>
-                </q-popup-edit>
-              </i>
+            <p class="sub_title2">
+              태스크 동시 실행 최대 개수 설정<q-btn class="ibtn help">
+                <i class="ico help"
+                  ><span class="hidden">도움말</span>
+                  <q-popup-edit
+                    v-model="helpShow"
+                    anchor="top middle"
+                    self="top middle"
+                    class="c_popover task03_pop"
+                  >
+                    <div class="inner">
+                      동시 실행되는 태스크 최대 개수를 설정합니다.
+                      <b>예시</b>
+                      <p class="list_dot">
+                        5개 태스크 입력 후 최대 개수 3개로 설정
+                      </p>
+                      <p class="list_dot">
+                        3개 태스크 실행, 2개 대기 상태로 진행
+                      </p>
+                      <p class="list_dot">
+                        실행중인 3개 태스크 중 완료되는 태스크가 있는 경우
+                        대기중인 태스크 실행 시작
+                      </p>
+                    </div>
+                  </q-popup-edit>
+                </i>
               </q-btn>
             </p>
             <q-toggle v-model="off2" />
@@ -208,23 +210,10 @@
             <p class="sub_title2">인스턴스 타입<i class="ess">*</i></p>
             <div class="s_03_main">
               <div class="s_03_tab">
-                <q-tabs
-                  v-model="tab"
-                  align="left"
-                  class="c_tabs"
-                >
-                  <q-tab
-                    name="tabs1"
-                    label="CPU"
-                  ></q-tab>
-                  <q-tab
-                    name="tabs2"
-                    label="GPU Tesla V100"
-                  ></q-tab>
-                  <q-tab
-                    name="tabs3"
-                    label="GPU Tesla A100_40G"
-                  ></q-tab>
+                <q-tabs v-model="tab" align="left" class="c_tabs">
+                  <q-tab name="tabs1" label="CPU"></q-tab>
+                  <q-tab name="tabs2" label="GPU Tesla V100"></q-tab>
+                  <q-tab name="tabs3" label="GPU Tesla A100_40G"></q-tab>
                 </q-tabs>
               </div>
               <div class="now_selected_area">
@@ -233,7 +222,9 @@
                     <p class="select_title_inner">선택된 타입</p>
                   </q-item>
                   <q-item class="select_value">
-                    <p class="select_value_inner">cg.nano (CPU 2 / MEM 122GB / DISK 80GiB)</p>
+                    <p class="select_value_inner">
+                      cg.nano (CPU 2 / MEM 122GB / DISK 80GiB)
+                    </p>
                   </q-item>
                 </div>
               </div>
@@ -266,7 +257,7 @@
                   <template #item-buttons="item">
                     <q-btn v-if="item.checkbox" class="text">
                       <span class="txt">선택 취소하기</span>
-                      </q-btn>
+                    </q-btn>
                   </template>
                 </EasyDataTable>
               </div>
@@ -279,23 +270,10 @@
             <p class="sub_title2">이미지<i class="ess">*</i></p>
             <div class="s_04_main">
               <div class="s_04_tab">
-                <q-tabs
-                  v-model="tab2"
-                  align="left"
-                  class="c_tabs"
-                >
-                  <q-tab
-                    name="tabs1"
-                    label="기본 이미지"
-                  ></q-tab>
-                  <q-tab
-                    name="tabs2"
-                    label="내이미지"
-                  ></q-tab>
-                  <q-tab
-                    name="tabs3"
-                    label="공유받은 이미지"
-                  ></q-tab>
+                <q-tabs v-model="tab2" align="left" class="c_tabs">
+                  <q-tab name="tabs1" label="기본 이미지"></q-tab>
+                  <q-tab name="tabs2" label="내이미지"></q-tab>
+                  <q-tab name="tabs3" label="공유받은 이미지"></q-tab>
                 </q-tabs>
               </div>
               <div class="now_selected_area">
@@ -304,7 +282,9 @@
                     <p class="select_title_inner">선택된 타입</p>
                   </q-item>
                   <q-item class="select_value">
-                    <p class="select_value_inner">tensorflow 2.9.0 (python3, cuda11.2, ubuntu20.04)</p>
+                    <p class="select_value_inner">
+                      tensorflow 2.9.0 (python3, cuda11.2, ubuntu20.04)
+                    </p>
                   </q-item>
                 </div>
               </div>
@@ -323,10 +303,7 @@
                       <template #item-title="item">
                         <a href="#">
                           <span class="txt">{{ item.title }}</span>
-                          <q-tooltip
-                            anchor="bottom middle"
-                            class="c_tooltip"
-                          >
+                          <q-tooltip anchor="bottom middle" class="c_tooltip">
                             <div class="inner">
                               {{ item.title }}
                             </div>
@@ -341,7 +318,7 @@
                       <template #item-buttons="item">
                         <q-btn v-if="item.checkbox" class="text">
                           <span class="txt">선택 취소하기</span>
-                          </q-btn>
+                        </q-btn>
                       </template>
                     </EasyDataTable>
                   </div>
@@ -375,15 +352,12 @@
                       <!-- description -->
                       <template #item-description="item">
                         <a href="#">
-                        <span class="txt">{{ item.description }}</span>
-                        <q-tooltip
-                          anchor="bottom middle"
-                          class="c_tooltip"
-                        >
-                          <div class="inner">
-                            {{ item.description }}
-                          </div>
-                        </q-tooltip>
+                          <span class="txt">{{ item.description }}</span>
+                          <q-tooltip anchor="bottom middle" class="c_tooltip">
+                            <div class="inner">
+                              {{ item.description }}
+                            </div>
+                          </q-tooltip>
                         </a>
                       </template>
                       <!--
@@ -396,13 +370,19 @@
                         <q-badge v-if="item.status === 'sharing'" class="green">
                           <span class="txt">저장(공유)</span>
                         </q-badge>
-                        <q-badge v-else-if="item.status === 'error'" class="orange">
+                        <q-badge
+                          v-else-if="item.status === 'error'"
+                          class="orange"
+                        >
                           <span class="txt">오류</span>
                         </q-badge>
                         <q-badge v-else-if="item.status === 'inStorage'">
                           <span class="txt">저장중</span>
                         </q-badge>
-                        <q-item v-else-if="item.status === 'group'" class="badge_group">
+                        <q-item
+                          v-else-if="item.status === 'group'"
+                          class="badge_group"
+                        >
                           <div class="badge">
                             <q-badge class="green">
                               <span class="txt">7</span>
@@ -415,8 +395,11 @@
                             </q-badge>
                           </div>
 
-                          <q-popup-edit v-model="badgeGroup"
-                          self="bottom middle" class="badge_menu">
+                          <q-popup-edit
+                            v-model="badgeGroup"
+                            self="bottom middle"
+                            class="badge_menu"
+                          >
                             <div class="inner">
                               <q-list>
                                 <q-item>
@@ -507,7 +490,7 @@
                       <template #item-buttons="item">
                         <q-btn v-if="item.checkbox" class="text">
                           <span class="txt">선택 취소하기</span>
-                          </q-btn>
+                        </q-btn>
                       </template>
                     </EasyDataTable>
                   </div>
@@ -542,10 +525,7 @@
                       <template #item-description="item">
                         <a href="#">
                           <span class="txt">{{ item.description }}</span>
-                          <q-tooltip
-                            anchor="bottom middle"
-                            class="c_tooltip"
-                          >
+                          <q-tooltip anchor="bottom middle" class="c_tooltip">
                             <div class="inner">
                               {{ item.description }}
                             </div>
@@ -560,7 +540,7 @@
                       <template #item-buttons="item">
                         <q-btn v-if="item.checkbox" class="text">
                           <span class="txt">선택 취소하기</span>
-                          </q-btn>
+                        </q-btn>
                       </template>
                     </EasyDataTable>
                   </div>
@@ -599,10 +579,7 @@
                     <template #item-description="item">
                       <a href="#">
                         <span class="txt">{{ item.description }}</span>
-                        <q-tooltip
-                          anchor="bottom middle"
-                          class="c_tooltip"
-                        >
+                        <q-tooltip anchor="bottom middle" class="c_tooltip">
                           <div class="inner">
                             {{ item.description }}
                           </div>
@@ -638,7 +615,7 @@
                     <template #item-buttons="item">
                       <q-btn v-if="item.checkbox" class="text">
                         <span class="txt">선택 취소하기</span>
-                        </q-btn>
+                      </q-btn>
                     </template>
                   </EasyDataTable>
                 </div>
@@ -675,10 +652,7 @@
                   <template #item-fingerprint="item">
                     <a href="#">
                       <span class="txt">{{ item.fingerprint }}</span>
-                      <q-tooltip
-                        anchor="bottom middle"
-                        class="c_tooltip"
-                      >
+                      <q-tooltip anchor="bottom middle" class="c_tooltip">
                         <div class="inner">
                           {{ item.fingerprint }}
                         </div>
@@ -693,7 +667,7 @@
                   <template #item-buttons="item">
                     <q-btn v-if="item.checkbox" class="text">
                       <span class="txt">선택 취소하기</span>
-                      </q-btn>
+                    </q-btn>
                   </template>
                 </EasyDataTable>
               </div>
@@ -743,27 +717,18 @@
                     </template>
                     <template v-slot:no-option>
                       <q-item class="no_data">
-                        <q-item-section>
-                          검색 결과 없습니다.
-                        </q-item-section>
+                        <q-item-section> 검색 결과 없습니다. </q-item-section>
                       </q-item>
                     </template>
                   </q-select>
                 </div>
                 <template v-if="filterOptions == false">
-                  <q-btn
-                    type="button"
-                    class="c_btn c_icon medium"
-                    disabled
-                  >
+                  <q-btn type="button" class="c_btn c_icon medium" disabled>
                     <i class="ico plus" /><span class="txt">Disabled</span>
                   </q-btn>
                 </template>
                 <template v-else>
-                  <q-btn
-                    type="button"
-                    class="c_btn c_icon medium"
-                  >
+                  <q-btn type="button" class="c_btn c_icon medium">
                     <i class="ico plus" /><span class="txt">Button</span>
                   </q-btn>
                 </template>
@@ -778,23 +743,91 @@
                 </template>
                 <template v-else>
                   <ul class="port_list_box add_port_box com_border_box">
-                    <li><span class="port_badge">32233<i class="ico cancel" /></span></li>
-                    <li><span class="port_badge">32233<i class="ico cancel" /></span></li>
-                    <li><span class="port_badge">08~65535<i class="ico cancel" /></span></li>
-                    <li><span class="port_badge">32233<i class="ico cancel" /></span></li>
-                    <li><span class="port_badge">32233<i class="ico cancel" /></span></li>
-                    <li><span class="port_badge">32233<i class="ico cancel" /></span></li>
-                    <li><span class="port_badge">32233<i class="ico cancel" /></span></li>
-                    <li><span class="port_badge">32233<i class="ico cancel" /></span></li>
-                    <li><span class="port_badge">32233<i class="ico cancel" /></span></li>
-                    <li><span class="port_badge">32233<i class="ico cancel" /></span></li>
-                    <li><span class="port_badge">132135<i class="ico cancel" /></span></li>
-                    <li><span class="port_badge">32233<i class="ico cancel" /></span></li>
-                    <li><span class="port_badge">08~65535<i class="ico cancel" /></span></li>
-                    <li><span class="port_badge">32233<i class="ico cancel" /></span></li>
-                    <li><span class="port_badge">08~65535<i class="ico cancel" /></span></li>
-                    <li><span class="port_badge">32233<i class="ico cancel" /></span></li>
-                    <li><span class="port_badge">08~65535<i class="ico cancel" /></span></li>
+                    <li>
+                      <span class="port_badge"
+                        >32233<i class="ico cancel"
+                      /></span>
+                    </li>
+                    <li>
+                      <span class="port_badge"
+                        >32233<i class="ico cancel"
+                      /></span>
+                    </li>
+                    <li>
+                      <span class="port_badge"
+                        >08~65535<i class="ico cancel"
+                      /></span>
+                    </li>
+                    <li>
+                      <span class="port_badge"
+                        >32233<i class="ico cancel"
+                      /></span>
+                    </li>
+                    <li>
+                      <span class="port_badge"
+                        >32233<i class="ico cancel"
+                      /></span>
+                    </li>
+                    <li>
+                      <span class="port_badge"
+                        >32233<i class="ico cancel"
+                      /></span>
+                    </li>
+                    <li>
+                      <span class="port_badge"
+                        >32233<i class="ico cancel"
+                      /></span>
+                    </li>
+                    <li>
+                      <span class="port_badge"
+                        >32233<i class="ico cancel"
+                      /></span>
+                    </li>
+                    <li>
+                      <span class="port_badge"
+                        >32233<i class="ico cancel"
+                      /></span>
+                    </li>
+                    <li>
+                      <span class="port_badge"
+                        >32233<i class="ico cancel"
+                      /></span>
+                    </li>
+                    <li>
+                      <span class="port_badge"
+                        >132135<i class="ico cancel"
+                      /></span>
+                    </li>
+                    <li>
+                      <span class="port_badge"
+                        >32233<i class="ico cancel"
+                      /></span>
+                    </li>
+                    <li>
+                      <span class="port_badge"
+                        >08~65535<i class="ico cancel"
+                      /></span>
+                    </li>
+                    <li>
+                      <span class="port_badge"
+                        >32233<i class="ico cancel"
+                      /></span>
+                    </li>
+                    <li>
+                      <span class="port_badge"
+                        >08~65535<i class="ico cancel"
+                      /></span>
+                    </li>
+                    <li>
+                      <span class="port_badge"
+                        >32233<i class="ico cancel"
+                      /></span>
+                    </li>
+                    <li>
+                      <span class="port_badge"
+                        >08~65535<i class="ico cancel"
+                      /></span>
+                    </li>
                   </ul>
                 </template>
               </div>
@@ -806,28 +839,21 @@
           <div class="aside_box">
             <p class="section_title">태스크</p>
             <ul class="instance_data task_data">
-              <li :class="'i_d0' + i" v-for="(i,a) in datalistLen" :key="i">
-                <q-item class="i_data_title">{{datalist[a].title}}</q-item>
-                <q-item class="i_data_value"><p>{{datalist[a].value}}</p></q-item>
+              <li :class="'i_d0' + i" v-for="(i, a) in datalistLen" :key="i">
+                <q-item class="i_data_title">{{ datalist[a].title }}</q-item>
+                <q-item class="i_data_value"
+                  ><p>{{ datalist[a].value }}</p></q-item
+                >
               </li>
             </ul>
             <div class="make_btn">
               <template v-if="datacheck === false">
-                <q-btn
-                  btnTypes=1
-                  type="button"
-                  disabled
-                  class="c_btn medium"
-                >
+                <q-btn btnTypes="1" type="button" disabled class="c_btn medium">
                   <span class="txt">태스크 생성</span>
                 </q-btn>
               </template>
               <template v-else>
-                <q-btn
-                  btnTypes=1
-                  type="button"
-                  class="c_btn medium"
-                >
+                <q-btn btnTypes="1" type="button" class="c_btn medium">
                   <span class="txt">태스크 생성</span>
                 </q-btn>
               </template>
@@ -895,16 +921,29 @@ const chipFilterFn = (val, update) => {
 // 인스턴스 타입 테이블
 const instanceHeaders = [
   {
-    text: "이름", value: "title", width: 150, widthAuto: true, sortable: false
+    text: "이름",
+    value: "title",
+    width: 150,
+    widthAuto: true,
+    sortable: false,
   },
   {
-    text: "CPU", value: "cpu", width: 145, sortable: false
+    text: "CPU",
+    value: "cpu",
+    width: 145,
+    sortable: false,
   },
   {
-    text: "Memory", value: "memory", width: 145, sortable: false
+    text: "Memory",
+    value: "memory",
+    width: 145,
+    sortable: false,
   },
   {
-    text: "Disk", value: "disk", width: 145, sortable: false
+    text: "Disk",
+    value: "disk",
+    width: 145,
+    sortable: false,
   },
 ];
 const instanceItems = [
@@ -951,10 +990,17 @@ const instanceItems = [
 // 이미지 테이블_기본이미지
 const imgHeader1 = [
   {
-    text: "이름", value: "title", width: 320, widthAuto: true, sortable: false
+    text: "이름",
+    value: "title",
+    width: 320,
+    widthAuto: true,
+    sortable: false,
   },
   {
-    text: "NVIDA 드라이브 최소버전", value: "nvida", width: 270, sortable: false
+    text: "NVIDA 드라이브 최소버전",
+    value: "nvida",
+    width: 270,
+    sortable: false,
   },
 ];
 const imgItems1 = [
@@ -970,16 +1016,29 @@ const imgItems1 = [
 // 이미지 테이블_내이미지
 const imgHeader2 = [
   {
-    text: "이름", value: "title", width: 140, sortable: false
+    text: "이름",
+    value: "title",
+    width: 140,
+    sortable: false,
   },
   {
-    text: "설명", value: "description", width: 130, widthAuto: true, sortable: false
+    text: "설명",
+    value: "description",
+    width: 130,
+    widthAuto: true,
+    sortable: false,
   },
   {
-    text: "상태", value: "status", width: 110, sortable: false
+    text: "상태",
+    value: "status",
+    width: 110,
+    sortable: false,
   },
   {
-    text: "생성일시", value: "createdAt", width: 200, sortable: false
+    text: "생성일시",
+    value: "createdAt",
+    width: 200,
+    sortable: false,
   },
 ];
 const imgItems2 = [
@@ -1005,13 +1064,23 @@ const imgItems2 = [
 // 이미지 테이블_공유받은 이미지
 const imgHeader3 = [
   {
-    text: "이름", value: "title", width: 110, sortable: false
+    text: "이름",
+    value: "title",
+    width: 110,
+    sortable: false,
   },
   {
-    text: "설명", value: "description", width: 200, widthAuto: true, sortable: false
+    text: "설명",
+    value: "description",
+    width: 200,
+    widthAuto: true,
+    sortable: false,
   },
   {
-    text: "공유자", value: "owner", width: 280, sortable: false
+    text: "공유자",
+    value: "owner",
+    width: 280,
+    sortable: false,
   },
 ];
 const imgItems3 = [
@@ -1035,19 +1104,35 @@ const imgItems3 = [
 // 스토리지 테이블
 const storageHeader = [
   {
-    text: "이름", value: "title", width: 100, sortable: false
+    text: "이름",
+    value: "title",
+    width: 100,
+    sortable: false,
   },
   {
-    text: "설명", value: "description", width: 200, widthAuto: true, sortable: false
+    text: "설명",
+    value: "description",
+    width: 200,
+    widthAuto: true,
+    sortable: false,
   },
   {
-    text: "상태", value: "status", width: 90, sortable: false
+    text: "상태",
+    value: "status",
+    width: 90,
+    sortable: false,
   },
   {
-    text: "소유자", value: "user", width: 100, sortable: false
+    text: "소유자",
+    value: "user",
+    width: 100,
+    sortable: false,
   },
   {
-    text: "접근권한", value: "authority", width: 100, sortable: false
+    text: "접근권한",
+    value: "authority",
+    width: 100,
+    sortable: false,
   },
 ];
 const storageItems = [
@@ -1077,13 +1162,23 @@ const storageItems = [
 // SSH Key 테이블
 const sshKeyHeader = [
   {
-    text: "이름", value: "title", width: 110, sortable: false
+    text: "이름",
+    value: "title",
+    width: 110,
+    sortable: false,
   },
   {
-    text: "Fingerprint", value: "fingerprint", widthAuto: true, width: 280, sortable: false
+    text: "Fingerprint",
+    value: "fingerprint",
+    widthAuto: true,
+    width: 280,
+    sortable: false,
   },
   {
-    text: "등록일시", value: "registrationDat", width: 200, sortable: false
+    text: "등록일시",
+    value: "registrationDat",
+    width: 200,
+    sortable: false,
   },
 ];
 const sshKeyItems = [
@@ -1131,7 +1226,10 @@ const datalist = [
   { title: "CPU", value: 14 },
   { title: "Memory", value: "122GB" },
   { title: "Disk", value: "80GiB" },
-  { title: "이미지", value: "tensorflow 2.9.0 (python3, cuda11.2, ubuntu20.04)" },
+  {
+    title: "이미지",
+    value: "tensorflow 2.9.0 (python3, cuda11.2, ubuntu20.04)",
+  },
   { title: "스토리지", value: "aa프로젝트 1 스토리지 외 4개" },
   { title: "Http proxy", value: "On" },
   { title: "재시도 횟수", value: 0 },

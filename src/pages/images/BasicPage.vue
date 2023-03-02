@@ -1,10 +1,7 @@
 <template>
   <q-page class="p-content p-images p-index">
     <div class="p-head">
-      <q-breadcrumbs
-        class="c_breadcrumb"
-        gutter="none"
-      >
+      <q-breadcrumbs class="c_breadcrumb" gutter="none">
         <template v-slot:separator>
           <q-icon />
         </template>
@@ -19,9 +16,9 @@
       <div class="container">
         <div class="header">
           <q-tabs v-model="tab" align="left" class="c_tabs">
-            <q-tab name="tabs1" label="내이미지"/>
-            <q-tab name="tabs2" label="기본 이미지"/>
-            <q-tab name="tabs3" label="공유받은 이미지"/>
+            <q-tab name="tabs1" label="내이미지" />
+            <q-tab name="tabs2" label="기본 이미지" />
+            <q-tab name="tabs3" label="공유받은 이미지" />
           </q-tabs>
         </div>
         <div class="table_set">
@@ -31,14 +28,19 @@
               v-model="suffix"
               placeholder="이미지 이름 검색"
               clearable="clearable"
-              class="wsize_full">
+              class="wsize_full"
+            >
               <template v-slot:prepend>
-                  <q-icon name="search" class="ico_search"/>
+                <q-icon name="search" class="ico_search" />
               </template>
             </q-input>
           </div>
           <div class="select_drop">
-            <CDropdown :label="optLabel" :options="optNumber" class="auto_size"/>
+            <CDropdown
+              :label="optLabel"
+              :options="optNumber"
+              class="auto_size"
+            />
           </div>
         </div>
         <section class="section">
@@ -60,7 +62,7 @@
             <template #item-version="item">
               <span class="txt">{{ item.version }}</span>
             </template>
-            </EasyDataTable>
+          </EasyDataTable>
         </section>
         <div class="table_pagenav disflex_C">
           <CPagination />
@@ -84,36 +86,40 @@ const optLabel = ref("10");
 
 const headers = [
   {
-    text: "이름", value: "id", width: 800, sortable: true
+    text: "이름",
+    value: "id",
+    width: 800,
+    sortable: true,
   },
   {
-    text: "NVIDA 드라이버 최소버전", value: "version", width: 332
-  }
+    text: "NVIDA 드라이버 최소버전",
+    value: "version",
+    width: 332,
+  },
 ];
 const items = [
   {
     id: "tensorflow 2.9.0  (python3, cuda11.2, ubuntu20.04)",
-    version: "450.000.008"
-
-  }, {
+    version: "450.000.008",
+  },
+  {
     id: "tensorflow 2.9.0  (python3, cuda11.2, ubuntu20.04)",
-    version: "450.000.008"
-
-  }, {
+    version: "450.000.008",
+  },
+  {
     id: "tensorflow 2.9.0  (python3, cuda11.2, ubuntu20.04)",
-    version: "450.000.008"
-
-  }
+    version: "450.000.008",
+  },
 ];
 
 const optNumber = ref([
   { label: "10", value: 0 },
   { label: "25", value: 1 },
-  { label: "50", value: 2 }
+  { label: "50", value: 2 },
 ]);
 </script>
 
 <style lang="scss" scoped="scoped">
-    @import "src/css/images.scss";
-    @import "src/css/table.scss";
+@import "src/css/images.scss";
+@import "src/css/table.scss";
 </style>

@@ -145,19 +145,16 @@
         <h2 class="h6">Input - datepicker</h2>
         <div class="group">
           <div class="c_inpgroup">
-            <c-datepicker
-              :value="dateInput"
-              :placeholder="'2022.01.01'"
-            />
+            <c-datepicker :value="dateInput" :placeholder="'2022.01.01'" />
           </div>
         </div>
         <h2 class="h6">Input - datepicker-range</h2>
         <div class="group">
-            <c-datepicker-range
-              :from-value="dateRange.from"
-              :to-value="dateRange.to"
-              :placeholder="'YYYY.MM.DD'"
-            />
+          <c-datepicker-range
+            :from-value="dateRange.from"
+            :to-value="dateRange.to"
+            :placeholder="'YYYY.MM.DD'"
+          />
         </div>
         <!-- TODO:
           1. range-time popup 내부 레이아웃 수정 필요
@@ -192,8 +189,8 @@ useMeta(() => ({
 const ptitle = ref(title);
 const inputValue = ref("123456789");
 const inputRules = [
-  (value) => (!!value) || "required",
-  (value) => (value.length <= 8) || "8자를 넘을 수 없습니다"
+  (value) => !!value || "required",
+  (value) => value.length <= 8 || "8자를 넘을 수 없습니다",
 ];
 const suffixValue = ref("");
 const passwordValue = ref("");
@@ -204,7 +201,7 @@ const model1 = ref("읽기쓰기");
 const dateInput = ref(date.formatDate(new Date(), "YYYY.MM.DD"));
 const dateRange = ref({
   from: date.formatDate(new Date(), "YYYY.MM.DD"),
-  to: date.formatDate(new Date(), "YYYY.MM.DD")
+  to: date.formatDate(new Date(), "YYYY.MM.DD"),
 });
 
 // const dateFrom = ref(null);
@@ -214,51 +211,47 @@ const dateRange = ref({
 const dateTimeFrom = ref(date.formatDate(new Date(), "YYYY.MM.DD"));
 const dateTimeTo = ref(date.formatDate(new Date(), "YYYY.MM.DD"));
 
-const options1 = [
-  "읽기쓰기", "읽기", "삭제",
-];
-const stringOptions = [
-  "사용자", "프로젝트", "워크스페이스"
-];
+const options1 = ["읽기쓰기", "읽기", "삭제"];
+const stringOptions = ["사용자", "프로젝트", "워크스페이스"];
 const options = ref(stringOptions);
 onMounted(() => {});
 </script>
 <style lang="scss" scoped>
-.p-content{
-  &.p-input{
-    padding-bottom:500px;
+.p-content {
+  &.p-input {
+    padding-bottom: 500px;
   }
 }
-.section{
-  &:not(:first-child){
-    margin-top:50px;
+.section {
+  &:not(:first-child) {
+    margin-top: 50px;
   }
-  h2{
-    margin-bottom:10px;
+  h2 {
+    margin-bottom: 10px;
   }
-  .h6{
-    &:not(:first-child){
-      margin-top:50px;
+  .h6 {
+    &:not(:first-child) {
+      margin-top: 50px;
     }
   }
 }
-.group{
-  margin-top:20px;
+.group {
+  margin-top: 20px;
 }
-.inp_calendar:not(:last-child){
-  margin-right:10px;
+.inp_calendar:not(:last-child) {
+  margin-right: 10px;
 }
-.c_inp{
-  &:not(:last-child){
-    margin-right:20px;
+.c_inp {
+  &:not(:last-child) {
+    margin-right: 20px;
   }
 }
-.q-select:not(:first-child){
-  margin-top:20px;
+.q-select:not(:first-child) {
+  margin-top: 20px;
 }
-.c_selectgroup{
+.c_selectgroup {
 }
-.c_inpgroup:not(:first-child){
-  margin-top:20px;
+.c_inpgroup:not(:first-child) {
+  margin-top: 20px;
 }
 </style>

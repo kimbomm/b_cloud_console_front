@@ -21,10 +21,10 @@
             toggle-color="primary"
             flat
             :options="[
-              {label: '첫번째', value: 'one'},
-              {label: '두번째', value: 'two'},
-              {label: '세번째', value: 'third'},
-              {label: '네번째', value: 'fourth'}
+              { label: '첫번째', value: 'one' },
+              { label: '두번째', value: 'two' },
+              { label: '세번째', value: 'third' },
+              { label: '네번째', value: 'fourth' },
             ]"
           />
         </div>
@@ -46,12 +46,12 @@ const segModel2 = ref("one");
 </script>
 
 <style lang="scss" scoped>
-.section{
-  h2{
-    margin-bottom:10px;
+.section {
+  h2 {
+    margin-bottom: 10px;
   }
-  ~ .section{
-    margin-top:50px;
+  ~ .section {
+    margin-top: 50px;
   }
 }
 </style>

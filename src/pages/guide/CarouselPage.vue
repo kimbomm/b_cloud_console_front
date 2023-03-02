@@ -37,25 +37,43 @@
                   </div>
                   <!-- chart UI -->
                   <div
-                    v-for="(chart, i) in charts" :key="`${i}`"
+                    v-for="(chart, i) in charts"
+                    :key="`${i}`"
                     class="circle_chart"
                   >
                     <div class="circle-svg" :style="`--value:${chart.value}`">
-                      <svg class="svg_dashboad" fill="none" viewBox="0 0 600 600">
+                      <svg
+                        class="svg_dashboad"
+                        fill="none"
+                        viewBox="0 0 600 600"
+                      >
                         <defs>
-                          <linearGradient id="paint0_linear" x1="50" x2="200" y1="100" y2="450"
+                          <linearGradient
+                            id="paint0_linear"
+                            x1="50"
+                            x2="200"
+                            y1="100"
+                            y2="450"
                             gradientUnits="userSpaceOnUse"
                           >
-                            <stop stop-color="#FF0000"/>
-                            <stop offset="1" stop-color="#4992FF"/>
+                            <stop stop-color="#FF0000" />
+                            <stop offset="1" stop-color="#4992FF" />
                           </linearGradient>
                         </defs>
-                        <circle pathLength="100"
-                        cx="300" cy="300" r="285"
-                        class="circle-svg__bg" />
-                        <circle pathLength="100"
-                        cx="300" cy="300" r="285"
-                        class="circle-svg__stroke" />
+                        <circle
+                          pathLength="100"
+                          cx="300"
+                          cy="300"
+                          r="285"
+                          class="circle-svg__bg"
+                        />
+                        <circle
+                          pathLength="100"
+                          cx="300"
+                          cy="300"
+                          r="285"
+                          class="circle-svg__stroke"
+                        />
                       </svg>
                     </div>
                     <div class="circle_in">
@@ -69,9 +87,7 @@
             <template v-else>
               <div class="nodata">생성한 인스턴스가 없습니다.</div>
             </template>
-            <div class="carousel_time">
-              <i class="ico clock" />최근 24시간
-            </div>
+            <div class="carousel_time"><i class="ico clock" />최근 24시간</div>
           </q-carousel-slide>
           <q-carousel-slide :name="2">
             <template v-if="taskData === taskData">
@@ -95,25 +111,43 @@
                   </div>
                   <!-- chart UI -->
                   <div
-                    v-for="(chart, i) in charts" :key="`${i}`"
+                    v-for="(chart, i) in charts"
+                    :key="`${i}`"
                     class="circle_chart"
                   >
                     <div class="circle-svg" :style="`--value:${chart.value}`">
-                      <svg class="svg_dashboad" fill="none" viewBox="0 0 600 600">
+                      <svg
+                        class="svg_dashboad"
+                        fill="none"
+                        viewBox="0 0 600 600"
+                      >
                         <defs>
-                          <linearGradient id="paint0_linear" x1="50" x2="200" y1="100" y2="450"
+                          <linearGradient
+                            id="paint0_linear"
+                            x1="50"
+                            x2="200"
+                            y1="100"
+                            y2="450"
                             gradientUnits="userSpaceOnUse"
                           >
-                            <stop stop-color="#FF0000"/>
-                            <stop offset="1" stop-color="#4992FF"/>
+                            <stop stop-color="#FF0000" />
+                            <stop offset="1" stop-color="#4992FF" />
                           </linearGradient>
                         </defs>
-                        <circle pathLength="100"
-                        cx="300" cy="300" r="285"
-                        class="circle-svg__bg" />
-                        <circle pathLength="100"
-                        cx="300" cy="300" r="285"
-                        class="circle-svg__stroke" />
+                        <circle
+                          pathLength="100"
+                          cx="300"
+                          cy="300"
+                          r="285"
+                          class="circle-svg__bg"
+                        />
+                        <circle
+                          pathLength="100"
+                          cx="300"
+                          cy="300"
+                          r="285"
+                          class="circle-svg__stroke"
+                        />
                       </svg>
                     </div>
                     <div class="circle_in">
@@ -127,9 +161,7 @@
             <template v-else>
               <div class="nodata">생성한 태스크가 없습니다.</div>
             </template>
-            <div class="carousel_time">
-              <i class="ico clock" />최근 24시간
-            </div>
+            <div class="carousel_time"><i class="ico clock" />최근 24시간</div>
           </q-carousel-slide>
         </q-carousel>
       </section>
@@ -156,15 +188,15 @@ const charts = ref([
 </script>
 
 <style lang="scss" scoped>
-.section{
-  h2{
-    margin-bottom:10px;
+.section {
+  h2 {
+    margin-bottom: 10px;
   }
-  ~ .section{
-    margin-top:50px;
+  ~ .section {
+    margin-top: 50px;
   }
 }
-.group{
-  margin-top:20px;
+.group {
+  margin-top: 20px;
 }
 </style>

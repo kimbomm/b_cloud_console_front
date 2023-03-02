@@ -16,7 +16,8 @@
           <q-btn label="Hover me" color="primary" class="c_btn">
             <q-tooltip
               v-model="showing1"
-              aanchor="top middle" self="bottom middle"
+              aanchor="top middle"
+              self="bottom middle"
               class="c_tooltip bottom"
             >
               <div class="inner">
@@ -43,15 +44,15 @@ const showing1 = ref(false);
 </script>
 
 <style lang="scss" scoped>
-.section{
-  h2{
-    margin-bottom:10px;
+.section {
+  h2 {
+    margin-bottom: 10px;
   }
-  ~ .section{
-    margin-top:50px;
+  ~ .section {
+    margin-top: 50px;
   }
 }
-.group{
-  margin-top:20px;
+.group {
+  margin-top: 20px;
 }
 </style>

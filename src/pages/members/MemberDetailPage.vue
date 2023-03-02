@@ -10,16 +10,12 @@
       </q-breadcrumbs>
       <h1 class="p-title">{{ ptitle }}</h1>
       <div class="deleteBtn">
-        <c-button
-          :size="'medium'"
-          :outline="true"
-          :btn-names="btnName"
-        />
+        <c-button :size="'medium'" :outline="true" :btn-names="btnName" />
       </div>
     </div>
     <!-- //.chead -->
     <div class="p-body">
-      <template v-if='visible === true'>
+      <template v-if="visible === true">
         <div class="m-info">
           <div class="u-info">
             <p class="u-info_name">{{ userName }}</p>
@@ -44,7 +40,7 @@
           </div>
         </div>
       </template>
-      <template v-if='visible !== true'>
+      <template v-if="visible !== true">
         <div class="w-info">
           <div class="w-info_work line pb">
             <div class="t-flex">
@@ -91,11 +87,7 @@
               <span class="amount_useable">200GiB</span>
             </p>
             <div class="cont_footer">
-              <progress
-                value="150"
-                max="200"
-                class="stor_progress"
-                />
+              <progress value="150" max="200" class="stor_progress" />
             </div>
           </div>
         </div>
@@ -103,22 +95,22 @@
       <template v-else>
         <div class="m-info">
           <div class="u-info">
-            <p class="u-info_name">{{userNamef}}</p>
-            <p class="u-info_email">{{userEmailf}}</p>
-            <p class="u-info_intro">{{userIntroducef}}</p>
+            <p class="u-info_name">{{ userNamef }}</p>
+            <p class="u-info_email">{{ userEmailf }}</p>
+            <p class="u-info_intro">{{ userIntroducef }}</p>
           </div>
           <div class="u-info2">
             <div>
               <p class="g-txt">마지막 로그인</p>
-              <p class="b-txt">{{loginDatef}}</p>
+              <p class="b-txt">{{ loginDatef }}</p>
             </div>
             <div>
               <p class="g-txt">가입일자</p>
-              <p class="b-txt">{{joinDatef}}</p>
+              <p class="b-txt">{{ joinDatef }}</p>
             </div>
             <div>
               <p class="g-txt">LDAP 계정</p>
-              <p class="b-txt">{{ldapAccountf}}</p>
+              <p class="b-txt">{{ ldapAccountf }}</p>
             </div>
           </div>
         </div>
@@ -147,7 +139,7 @@
             <div class="work-wrap">
               <div class="w-name">
                 <p class="char-g">워크스페이스 이름</p>
-                <p class="b-txt">{{spaceNamef}}</p>
+                <p class="b-txt">{{ spaceNamef }}</p>
               </div>
               <div class="w-char">
                 <p class="char-g">역할</p>
@@ -167,58 +159,58 @@
             <p class="title mt40">프로젝트</p>
             <div class="p-tWrap">
               <p class="p-name">프로젝트 이름</p>
-              <p class="p-auth">{{spaceChar}}</p>
+              <p class="p-auth">{{ spaceChar }}</p>
             </div>
             <div class="sel-box">
               <div class="sel-wrap">
-                <div class="sel-title">{{proNamef1}}</div>
+                <div class="sel-title">{{ proNamef1 }}</div>
                 <div class="c_selectgroup w250">
                   <CDropdown
-                  v-model:selected="selectedBasic"
-                  :label="label2"
-                  :options="options"
+                    v-model:selected="selectedBasic"
+                    :label="label2"
+                    :options="options"
                   />
                 </div>
               </div>
               <div class="sel-wrap">
-                <div class="sel-title">{{proNamef2}}</div>
+                <div class="sel-title">{{ proNamef2 }}</div>
                 <div class="c_selectgroup w250">
                   <CDropdown
-                  v-model:selected="selectedBasic"
-                  :label="label2"
-                  :options="options"
+                    v-model:selected="selectedBasic"
+                    :label="label2"
+                    :options="options"
                   />
                 </div>
               </div>
             </div>
             <!-- <p class="error-txt">관리자 1명 이상 지정 필요</p> -->
+          </div>
+          <div class="w-info_stor line">
+            <p class="title mt40">개인 스토리지</p>
+            <div class="unit_type">
+              <span class="tit">현재 사용량</span>
+              <span class="counter">
+                <em class="usage">190</em>
+                <i class="bar">/</i>
+                <strong class="quota">450</strong>
+              </span>
             </div>
-            <div class="w-info_stor line">
-              <p class="title mt40">개인 스토리지</p>
-              <div class="unit_type">
-                  <span class="tit">현재 사용량</span>
-                  <span class="counter">
-                    <em class="usage">190</em>
-                    <i class="bar">/</i>
-                    <strong class="quota">450</strong>
-                  </span>
-                </div>
-              <div class="c_inpgroup flex-end">
-                <q-input
-                  outlined
-                  v-model="quota1"
-                  type="number"
-                  placeholder="50GiB 단위 입력"
-                  clearable
-                  class="inp_unit"
-                >
-                  <template v-slot:append>
-                    <span class="unit">GiB</span>
-                  </template>
-                </q-input>
-                <span class="desc">최대 50,000</span>
-              </div>
+            <div class="c_inpgroup flex-end">
+              <q-input
+                outlined
+                v-model="quota1"
+                type="number"
+                placeholder="50GiB 단위 입력"
+                clearable
+                class="inp_unit"
+              >
+                <template v-slot:append>
+                  <span class="unit">GiB</span>
+                </template>
+              </q-input>
+              <span class="desc">최대 50,000</span>
             </div>
+          </div>
         </div>
       </template>
     </div>
@@ -238,7 +230,9 @@ const label2 = ref("전체");
 // true Data
 const userName = ref("박카브");
 const userEmail = ref("we.dot@kakaobrain.com");
-const userIntroduce = ref("소개글 Text소개글 Text소개글 Text소개글 Text소개글 Text소개글 Text");
+const userIntroduce = ref(
+  "소개글 Text소개글 Text소개글 Text소개글 Text소개글 Text소개글 Text"
+);
 const loginDate = ref("2022.11.22 12:32:33");
 const joinDate = ref("2022.11.22");
 const ldapAccount = ref("-");
@@ -251,7 +245,9 @@ const proAuthor2 = ref("멤버");
 // false Data
 const userNamef = ref("박카브");
 const userEmailf = ref("we.dot@kakaobrain.com");
-const userIntroducef = ref("소개글 Text소개글 Text소개글 Text소개글 Text소개글 Text소개글 Text");
+const userIntroducef = ref(
+  "소개글 Text소개글 Text소개글 Text소개글 Text소개글 Text소개글 Text"
+);
 const loginDatef = ref("2022.11.22 12:32:33");
 const joinDatef = ref("2022.11.22");
 const ldapAccountf = ref("-");
@@ -273,5 +269,5 @@ const ptitle = ref(title);
 </script>
 
 <style lang="scss" scoped>
-@import 'src/css/members';
+@import "src/css/members";
 </style>

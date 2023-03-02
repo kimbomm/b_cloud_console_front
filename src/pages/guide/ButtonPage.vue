@@ -1,7 +1,7 @@
 <template>
   <div class="p-content p-guide p-button">
     <div class="p-head">
-      <h1 class="p-title">{{ptitle}}</h1>
+      <h1 class="p-title">{{ ptitle }}</h1>
     </div>
     <!-- //.chead -->
     <div class="p-body">
@@ -11,13 +11,8 @@
           <div class="group">
             <h3 class="h6 regular">Size, Small</h3>
             <div class="c_btngroup">
-              <c-button
-                :btn-names="btnName"
-              />
-              <c-button
-                disabled
-                :btn-names="btnDis"
-              />
+              <c-button :btn-names="btnName" />
+              <c-button disabled1 :btn-names="btnDis" />
             </div>
             <div class="c_btngroup">
               <c-button :btn-names="btnName">
@@ -25,117 +20,65 @@
                   <i class="ico plus" />
                 </template>
               </c-button>
-              <c-button
-                disabled
-                :btn-names="btnDis"
-              >
+              <c-button disabled :btn-names="btnDis">
                 <template #prepend>
                   <i class="ico plus" />
                 </template>
               </c-button>
             </div>
             <div class="c_btngroup">
-              <c-button
-                :btn-types="3"
-                :btn-names="btnName"
-              />
-              <c-button
-                :btn-types="31"
-                :btn-names="btnDis"
-              />
+              <c-button :btn-types="3" :btn-names="btnName" />
+              <c-button :btn-types="31" :btn-names="btnDis" />
             </div>
           </div>
           <div class="group">
             <h3 class="h6 regular">Size, Medium :size="'medium'"</h3>
             <div class="c_btngroup">
-              <c-button
-                :size="'medium'"
-                :btn-names="btnName"
-              />
-              <c-button
-                :size="'medium'"
-                disabled
-                :btn-names="btnDis"
-              />
+              <c-button :size="'medium'" :btn-names="btnName" />
+              <c-button :size="'medium'" disabled :btn-names="btnDis" />
             </div>
             <div class="c_btngroup">
-              <c-button
-                :size="'medium'"
-                :btn-names="btnName"
-              >
+              <c-button :size="'medium'" :btn-names="btnName">
                 <template #prepend>
                   <i class="ico plus" />
                 </template>
               </c-button>
-              <c-button
-                :size="'medium'"
-                disabled
-                :btn-names="btnDis"
-              >
+              <c-button :size="'medium'" disabled :btn-names="btnDis">
                 <template #prepend>
                   <i class="ico plus" />
                 </template>
               </c-button>
             </div>
             <div class="c_btngroup">
-              <c-button
-                :size="'medium'"
-                :btn-types="3"
-                :btn-names="btnName"
-              />
-              <c-button
-                :size="'medium'"
-                :btn-types="31"
-                :btn-names="btnDis"
-              />
+              <c-button :size="'medium'" :btn-types="3" :btn-names="btnName" />
+              <c-button :size="'medium'" :btn-types="31" :btn-names="btnDis" />
             </div>
           </div>
           <div class="group" aria-label="Size, Large">
             <h3 class="h6 regular">Size, Large :size="'large'"</h3>
             <div class="c_btngroup">
-              <c-button
-                :size="'large'"
-                :btn-names="btnName"
-              />
-              <c-button
-                :size="'large'"
-                disabled
-                :btn-names="btnDis"
-              />
+              <c-button :size="'large'" :btn-names="btnName" />
+              <c-button :size="'large'" disabled :btn-names="btnDis" />
             </div>
             <div class="c_btngroup">
-              <c-button
-                :size="'large'"
-                :btn-names="btnName"
-              >
+              <c-button :size="'large'" :btn-names="btnName">
                 <template #prepend>
                   <i class="ico plus" />
                 </template>
               </c-button>
-              <c-button
-                :size="'large'"
-                disabled
-                :btn-names="btnDis"
-              >
+              <c-button :size="'large'" disabled :btn-names="btnDis">
                 <template #prepend>
                   <i class="ico plus" />
                 </template>
               </c-button>
             </div>
             <div class="c_btngroup">
-              <c-button
-                :size="'large'"
-                :btn-names="btnName"
-              >
+              <c-button :size="'large'" :btn-names="btnName">
                 <template #append>
                   <i class="ico plus" />
                 </template>
               </c-button>
-              <c-button
-                :size="'large'"
-                disabled
-                :btn-names="btnDis"
-              >
+              <c-button :size="'large'" disabled :btn-names="btnDis">
                 <template #append>
                   <i class="ico plus" />
                 </template>
@@ -148,50 +91,28 @@
           <div class="group">
             <h3 class="h6 regular">Size, Small</h3>
             <div class="c_btngroup">
-              <c-button
-                :outline="true"
-                :btn-names="btnName"
-              />
-              <c-button
-                :outline="true"
-                disabled
-                :btn-names="btnDis"
-              />
+              <c-button :outline="true" :btn-names="btnName" />
+              <c-button :outline="true" disabled :btn-names="btnDis" />
             </div>
             <div class="c_btngroup">
-              <c-button
-                :outline="true"
-                :btn-names="btnName"
-              >
+              <c-button :outline="true" :btn-names="btnName">
                 <template #prepend>
                   <i class="ico plus" />
                 </template>
               </c-button>
-              <c-button
-                :outline="true"
-                disabled
-                :btn-names="btnDis"
-              >
+              <c-button :outline="true" disabled :btn-names="btnDis">
                 <template #prepend>
                   <i class="ico plus" />
                 </template>
               </c-button>
             </div>
             <div class="c_btngroup">
-              <c-button
-                :outline="true"
-                disabled
-                :btn-names="btnName"
-              >
+              <c-button :outline="true" disabled :btn-names="btnName">
                 <template #append>
                   <i class="ico plus" />
                 </template>
               </c-button>
-              <c-button
-                :outline="true"
-                disabled
-                :btn-names="btnDis"
-              >
+              <c-button :outline="true" disabled :btn-names="btnDis">
                 <template #append>
                   <i class="ico plus" />
                 </template>
@@ -201,11 +122,7 @@
           <div class="group">
             <h3 class="h6 regular">Size, Medium :size="'medium'"</h3>
             <div class="c_btngroup">
-              <c-button
-                :size="'medium'"
-                :outline="true"
-                :btn-names="btnName"
-              />
+              <c-button :size="'medium'" :outline="true" :btn-names="btnName" />
               <c-button
                 :size="'medium'"
                 :outline="true"
@@ -214,11 +131,7 @@
               />
             </div>
             <div class="c_btngroup">
-              <c-button
-                :size="'medium'"
-                :outline="true"
-                :btn-names="btnName"
-              >
+              <c-button :size="'medium'" :outline="true" :btn-names="btnName">
                 <template #prepend>
                   <i class="ico plus" />
                 </template>
@@ -235,11 +148,7 @@
               </c-button>
             </div>
             <div class="c_btngroup">
-              <c-button
-                :size="'medium'"
-                :outline="true"
-                :btn-names="btnName"
-              >
+              <c-button :size="'medium'" :outline="true" :btn-names="btnName">
                 <template #append>
                   <i class="ico plus" />
                 </template>
@@ -259,11 +168,7 @@
           <div class="group">
             <h3 class="h6 regular">Size, Large :size="'large'"</h3>
             <div class="c_btngroup">
-              <c-button
-                :size="'large'"
-                :outline="true"
-                :btn-names="btnName"
-              />
+              <c-button :size="'large'" :outline="true" :btn-names="btnName" />
               <c-button
                 :size="'large'"
                 :outline="true"
@@ -272,11 +177,7 @@
               />
             </div>
             <div class="c_btngroup">
-              <c-button
-                :size="'large'"
-                :outline="true"
-                :btn-names="btnName"
-              >
+              <c-button :size="'large'" :outline="true" :btn-names="btnName">
                 <template #prepend>
                   <i class="ico plus" />
                 </template>
@@ -293,11 +194,7 @@
               </c-button>
             </div>
             <div class="c_btngroup">
-              <c-button
-                :size="'large'"
-                :outline="true"
-                :btn-names="btnName"
-              >
+              <c-button :size="'large'" :outline="true" :btn-names="btnName">
                 <template #append>
                   <i class="ico plus" />
                 </template>
@@ -374,7 +271,12 @@
               <c-button :size="'medium'" :outline="true" :only-icon="true">
                 <i class="ico plus" />
               </c-button>
-              <c-button :size="'medium'" :outline="true" :only-icon="true" :disabled="true">
+              <c-button
+                :size="'medium'"
+                :outline="true"
+                :only-icon="true"
+                :disabled="true"
+              >
                 <i class="ico plus" />
               </c-button>
             </div>
@@ -385,7 +287,12 @@
               <c-button :size="'large'" :outline="true" :only-icon="true">
                 <i class="ico plus" />
               </c-button>
-              <c-button :size="'large'" :outline="true" :only-icon="true" :disabled="true">
+              <c-button
+                :size="'large'"
+                :outline="true"
+                :only-icon="true"
+                :disabled="true"
+              >
                 <i class="ico plus" />
               </c-button>
             </div>
@@ -429,35 +336,35 @@ const on = ref(true);
 const off = ref(false);
 </script>
 <style lang="scss" scoped>
-.p-body{
-  display:flex;
-  flex-wrap:wrap;
+.p-body {
+  display: flex;
+  flex-wrap: wrap;
 }
-.body_group{
-  ~ .body_group{
-    margin-top:50px;
+.body_group {
+  ~ .body_group {
+    margin-top: 50px;
   }
 }
-.section{
-  width:50%;
-  padding:0 20px;
+.section {
+  width: 50%;
+  padding: 0 20px;
 }
-h2{
-  width:100%;
-  margin-bottom:20px;
+h2 {
+  width: 100%;
+  margin-bottom: 20px;
 }
-h3{
-  margin-bottom:5px;
+h3 {
+  margin-bottom: 5px;
 }
-.group{
-  ~ .group{
-    margin-top:40px;
+.group {
+  ~ .group {
+    margin-top: 40px;
   }
 }
-.c_btngroup{
-  margin-top:10px;
-  .c_btn{
-    margin-right:10px;
+.c_btngroup {
+  margin-top: 10px;
+  .c_btn {
+    margin-right: 10px;
   }
 }
 </style>
