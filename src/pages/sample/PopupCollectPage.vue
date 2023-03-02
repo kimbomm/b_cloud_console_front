@@ -140,7 +140,7 @@
         <div class="c_btngroup f_wrap">
           <q-btn
             class="c_btn line"
-            @click="alertTaskGroupDeleteModal = true"
+            @click="alertTaskGroupDeleteModal"
           >
             <span class="txt">[Alert]태스크 그룹 삭제 확인 팝업</span>
           </q-btn>
@@ -410,13 +410,13 @@
           </q-btn>
           <q-btn
             class="c_btn line"
-            @click="alertInstanceTaskInfoModal = true"
+            @click="alertInstanceTaskInfoModal"
           >
             <span class="txt">[Alert]인스턴스, 태스크 생성하기 선택시 안내 팝업</span>
           </q-btn>
           <q-btn
             class="c_btn line"
-            @click="alertTaskGroupReCreateInfoModal = true"
+            @click="alertTaskGroupReCreateInfoModal"
           >
             <span class="txt">[Alert]태스크 그룹 재생성, 태스크 재생성 선택시 안내 팝업</span>
           </q-btn>
@@ -440,7 +440,7 @@
           </q-btn>
           <q-btn
             class="c_btn line"
-            @click="alertResouceCantRestartModal = true"
+            @click="alertResouceCantRestartModal"
           >
             <span class="txt">[Alert]리소스 부족으로 인한 재시작 불가 팝업</span>
           </q-btn>
@@ -464,7 +464,7 @@
         <div class="c_btngroup f_wrap">
           <q-btn
             class="c_btn line"
-            @click="alertTaskRecreateInfoModal = true"
+            @click="alertTaskRecreateInfoModal"
           >
             <span class="txt">[Alert]프로젝트 구성원이 아닌경우 선택시 안내 팝업</span>
           </q-btn>
@@ -482,7 +482,7 @@
           </q-btn>
           <q-btn
             class="c_btn line"
-            @click="alertTaskRecreateAuthModal = true"
+            @click="alertTaskRecreateAuthModal"
           >
             <span class="txt">[Alert]재생성 권한 없음 팝업(프로젝트 구성원이 아닌경우) - 워크스페이스 관리자만 확인 가능</span>
           </q-btn>
@@ -537,9 +537,6 @@
       v-model:visible="projectCreateModal"
       :size="'medium'"
       :message="'프로젝트 생성'"
-      :button-positive="'확인'"
-      :button-negative="'취소'"
-      :callback-positive="triggerSuccess"
     >
       <template #contents>
         <section class="section">
@@ -576,6 +573,17 @@
             </q-input>
           </div>
         </section>
+      </template>
+      <template #footer>
+        <c-button
+          :outline="true"
+          btn-names="취소"
+          @click="projectCreateModal = false"
+        />
+        <c-button
+          btn-names="확인"
+          @click="triggerSuccess"
+        />
       </template>
     </c-dialog>
     <!-- End : [프로젝트] SNB - 프로젝트 생성 팝업 -->
@@ -635,8 +643,6 @@
       v-model:visible="quotaChangeModal"
       :size="'medium'"
       :message="'할당량 변경 요청'"
-      :button-positive="'확인'"
-      :button-negative="'취소'"
     >
       <template #contents>
         <div class="c_form">
@@ -746,6 +752,17 @@
           </section>
         </div>
       </template>
+      <template #footer>
+        <c-button
+          :outline="true"
+          btn-names="취소"
+          @click="quotaChangeModal = false"
+        />
+        <c-button
+          btn-names="확인"
+          @click="quotaChangeModal = false"
+        />
+      </template>
     </c-dialog>
     <!-- End : [프로젝트] 할당량 변경 요청 팝업 (TBD) 팝업 -->
 
@@ -754,10 +771,19 @@
       v-model:visible="alertInstanceDelPossibleModal"
       :message="'프로젝트를 삭제하시겠습니까?'"
       :description="'프로젝트 관련 정보는 모두 삭제되며,<br />삭제된 내용은 복구되지 않습니다.'"
-      :button-positive="'확인'"
-      :button-negative="'취소'"
     >
       <template #negative>aa프로젝트 1</template>
+      <template #footer>
+        <c-button
+          :outline="true"
+          btn-names="취소"
+          @click="alertInstanceDelPossibleModal = false"
+        />
+        <c-button
+          btn-names="확인"
+          @click="alertInstanceDelPossibleModal = false"
+        />
+      </template>
     </c-dialog>
     <!-- End : [프로젝트 - 대시보드] 삭제 가능한경우, 삭제 확인 Alert 팝업 -->
 
@@ -765,10 +791,19 @@
     <c-dialog
       v-model:visible="alertInstanceOverAddModal"
       :message="'인스턴스 저장 가능 용량을 초과하여 현재 상태가 저장되지 않습니다. 정지하시겠습니까?'"
-      :button-positive="'확인'"
-      :button-negative="'취소'"
     >
       <template #positive>현재 용량 : 21GB (10BG 이하 저장 가능)</template>
+      <template #footer>
+        <c-button
+          :outline="true"
+          btn-names="취소"
+          @click="alertInstanceOverAddModal = false"
+        />
+        <c-button
+          btn-names="확인"
+          @click="alertInstanceOverAddModal = false"
+        />
+      </template>
     </c-dialog>
     <!-- End : [프로젝트 - 인스턴스] 인스턴스 추가된 용량 (10GB 초과시 저장 되지 않음 안내) Alert 팝업 -->
 
@@ -777,10 +812,19 @@
       v-model:visible="alertInstanceDeleteModal"
       :message="'인스턴스를 삭제하시겠습니까?'"
       :description="'삭제된 인스턴스는 복구되지 않습니다.'"
-      :button-positive="'확인'"
-      :button-negative="'취소'"
     >
       <template #negative>AA인스턴스</template>
+      <template #footer>
+        <c-button
+          :outline="true"
+          btn-names="취소"
+          @click="alertInstanceDeleteModal = false"
+        />
+        <c-button
+          btn-names="확인"
+          @click="alertInstanceDeleteModal = false"
+        />
+      </template>
     </c-dialog>
     <!-- End : [프로젝트 - 인스턴스] 인스턴스 삭제 확인 Alert 팝업 -->
 
@@ -789,10 +833,19 @@
       v-model:visible="alertInstanceOverImageModal"
       :message="'용량이 초과하여 이미지 생성이 불가능합니다.'"
       :description="'추가된 용량이 10GiB 이하만 이미지 생성가능'"
-      :button-positive="'확인'"
-      :button-negative="'취소'"
     >
       <template #negative>현재 추가된 용량 : 21GB</template>
+      <template #footer>
+        <c-button
+          :outline="true"
+          btn-names="취소"
+          @click="alertInstanceOverImageModal = false"
+        />
+        <c-button
+          btn-names="확인"
+          @click="alertInstanceOverImageModal = false"
+        />
+      </template>
     </c-dialog>
     <!-- End : [프로젝트 - 인스턴스] 인스턴스 용량 초과로 인한 이미지 생성 불가 Alert 팝업 -->
 
@@ -801,10 +854,6 @@
       v-model:visible="projectInstanceImgCreateModal"
       :size="'medium'"
       :message="'이미지 생성'"
-      :button-positive="'확인'"
-      :button-negative="'취소'"
-      :callback-positive="triggerImgSuccess"
-      :callback-negative="triggerImgWarning"
     >
       <template #contents>
         <section
@@ -848,11 +897,22 @@
           </div>
         </section>
       </template>
+      <template #footer>
+        <c-button
+          :outline="true"
+          btn-names="취소"
+          @click="triggerImgWarning"
+        />
+        <c-button
+          btn-names="확인"
+          @click="triggerImgSuccess"
+        />
+      </template>
     </c-dialog>
     <!-- End : [프로젝트 - 인스턴스] 프로젝트 - 인스턴스 - 이미지 생성 팝업 -->
 
     <!-- Start : [프로젝트 - 인스턴스] A 워크스페이스 리소스 사용 이력(꺽은선 그래프 + 달력 + 시계) 팝업 -->
-    <q-dialog
+    <!-- <q-dialog
       v-model="workspaceHistoryAModal"
       class="c_dialog large"
     >
@@ -880,163 +940,159 @@
           />
         </q-card-actions>
       </q-card>
-    </q-dialog>
+    </q-dialog> -->
     <!-- End : [프로젝트 - 인스턴스] A 워크스페이스 리소스 사용 이력(꺽은선 그래프 + 달력 + 시계) 팝업 -->
 
     <!-- Start : [프로젝트 - 인스턴스] B 워크스페이스 리소스 사용 이력(꺽은선 그래프 + 달력 + 시계) 팝업 -->
-    <q-dialog
-      v-model="workspaceHistoryBModal"
-      class="c_dialog large"
+    <c-dialog
+      v-model:visible="workspaceHistoryBModal"
+      :size="'large'"
+      :message="'workspaceHistoryBModal'"
+      :button-positive="'닫기'"
     >
-      <q-card>
-        <q-card-section class="c_dialog_body">
-          <p class="title">
-            <strong>모니터링</strong>
-          </p>
-          <section
-            class="section"
-            aria-label="인스턴스 이름"
-          >
-            <p class="sub_title">인스턴스 이름</p>
-            <p class="desc">V1.Xlarge(v100 GPU 1 / CPU 14 / MEM 122GB / DISK 80GB)</p>
-            <div class="searcharea">
-              <CDropdown
-                v-model:selected="chartSelectedBasic"
-                :label="chartOptlabel"
-                :options="chartSelOpt"
-              />
-              <CDropdown
-                v-model:selected="chartSelectedBasic2"
-                :label="chartOptlabel2"
-                :options="chartSelOpt2"
-              />
-              <div class="fakebg">
-                <div class="from">
-                  <q-input
-                    outlined
-                    v-model="dateFrom"
-                    placeholder="2023.01.01"
-                    class="inp_calendar"
-                  >
-                    <template v-slot:prepend>
-                      <q-icon class="ico_calendar">
-                        <q-popup-proxy :offset="[0, 0]" class="c_datepicker">
-                          <q-date
-                            v-model="dateFrom"
-                            mask="YYYY.MM.DD"
-                            class="datepicker"
-                          />
-                        </q-popup-proxy>
-                      </q-icon>
-                    </template>
-                  </q-input>
-                  <q-input
-                    outlined
-                    v-model="timeFrom"
-                    placeholder="12:00"
-                    class="inp_time"
-                  >
-                    <template v-slot:append>
-                      <q-icon name="access_time">
-                        <q-popup-proxy
-                          :offset="[100, 0]"
-                          class="c_time"
-                        >
-                          <q-time v-model="timeFrom" mask="HH:mm">
-                            <q-btn v-close-popup label="확인" color="primary" flat />
-                          </q-time>
-                        </q-popup-proxy>
-                      </q-icon>
-                    </template>
-                  </q-input>
-                </div>
-                <i class="bar" />
-                <div class="to">
-                  <q-input
-                    outlined
-                    v-model="dateTo"
-                    placeholder="2023.01.01"
-                    class="inp_calendar"
-                  >
-                    <template v-slot:prepend>
-                      <q-icon class="ico_calendar">
-                        <q-popup-proxy
-                          :offset="[150, 0]"
-                          class="c_datepicker"
-                        >
-                          <q-date
-                            v-model="dateTo"
-                            mask="YYYY.MM.DD"
-                            class="datepicker"
-                          />
-                        </q-popup-proxy>
-                      </q-icon>
-                    </template>
-                  </q-input>
-                  <q-input
-                    outlined
-                    v-model="timeTo"
-                    placeholder="12:00"
-                    class="inp_time"
-                  >
-                    <template v-slot:append>
-                      <q-icon name="access_time">
-                        <q-popup-proxy
-                          :offset="[240, 0]"
-                          class="c_time"
-                        >
-                          <q-time v-model="timeTo" mask="HH:mm">
-                            <q-btn v-close-popup label="확인" color="primary" flat />
-                          </q-time>
-                        </q-popup-proxy>
-                      </q-icon>
-                    </template>
-                  </q-input>
-                </div>
+      <template #contents>
+        <section
+          class="section"
+          aria-label="인스턴스 이름"
+        >
+          <p class="sub_title">인스턴스 이름</p>
+          <p class="desc">V1.Xlarge(v100 GPU 1 / CPU 14 / MEM 122GB / DISK 80GB)</p>
+          <div class="searcharea">
+            <CDropdown
+              v-model:selected="chartSelectedBasic"
+              :label="chartOptlabel"
+              :options="chartSelOpt"
+            />
+            <CDropdown
+              v-model:selected="chartSelectedBasic2"
+              :label="chartOptlabel2"
+              :options="chartSelOpt2"
+            />
+            <div class="fakebg">
+              <div class="from">
+                <q-input
+                  outlined
+                  v-model="dateFrom"
+                  placeholder="2023.01.01"
+                  class="inp_calendar"
+                >
+                  <template v-slot:prepend>
+                    <q-icon class="ico_calendar">
+                      <q-popup-proxy :offset="[0, 0]" class="c_datepicker">
+                        <q-date
+                          v-model="dateFrom"
+                          mask="YYYY.MM.DD"
+                          class="datepicker"
+                        />
+                      </q-popup-proxy>
+                    </q-icon>
+                  </template>
+                </q-input>
+                <q-input
+                  outlined
+                  v-model="timeFrom"
+                  placeholder="12:00"
+                  class="inp_time"
+                >
+                  <template v-slot:append>
+                    <q-icon name="access_time">
+                      <q-popup-proxy
+                        :offset="[100, 0]"
+                        class="c_time"
+                      >
+                        <q-time v-model="timeFrom" mask="HH:mm">
+                          <q-btn v-close-popup label="확인" color="primary" flat />
+                        </q-time>
+                      </q-popup-proxy>
+                    </q-icon>
+                  </template>
+                </q-input>
+              </div>
+              <i class="bar" />
+              <div class="to">
+                <q-input
+                  outlined
+                  v-model="dateTo"
+                  placeholder="2023.01.01"
+                  class="inp_calendar"
+                >
+                  <template v-slot:prepend>
+                    <q-icon class="ico_calendar">
+                      <q-popup-proxy
+                        :offset="[150, 0]"
+                        class="c_datepicker"
+                      >
+                        <q-date
+                          v-model="dateTo"
+                          mask="YYYY.MM.DD"
+                          class="datepicker"
+                        />
+                      </q-popup-proxy>
+                    </q-icon>
+                  </template>
+                </q-input>
+                <q-input
+                  outlined
+                  v-model="timeTo"
+                  placeholder="12:00"
+                  class="inp_time"
+                >
+                  <template v-slot:append>
+                    <q-icon name="access_time">
+                      <q-popup-proxy
+                        :offset="[240, 0]"
+                        class="c_time"
+                      >
+                        <q-time v-model="timeTo" mask="HH:mm">
+                          <q-btn v-close-popup label="확인" color="primary" flat />
+                        </q-time>
+                      </q-popup-proxy>
+                    </q-icon>
+                  </template>
+                </q-input>
               </div>
             </div>
-            <q-card
-              v-model="chartModel"
-              class="apexchart"
-            >
-              <div class="chart_head">
-                <div class="chart_legend">
-                  <div class="blue">GPU(%)</div>
-                  <div class="coral">GPU Memory (Cache+PSS, %)</div>
-                  <div class="mint">RSS Memory (%)</div>
-                </div>
-                <q-btn class="ibtn">
-                  <i class="ico refresh" /><span class="hidden">재설정</span>
-                </q-btn>
+          </div>
+          <q-card
+            v-model="chartModel"
+            class="apexchart"
+          >
+            <div class="chart_head">
+              <div class="chart_legend">
+                <div class="blue">GPU(%)</div>
+                <div class="coral">GPU Memory (Cache+PSS, %)</div>
+                <div class="mint">RSS Memory (%)</div>
               </div>
-              <div class="chart_body">
-                <apexchart
-                  v-if="chartModel === chartModel"
-                  height="324"
-                  type="line"
-                  :options="chartOptions"
-                  :series="series"
-                ></apexchart>
-                <div v-else class="loading">
-                  <div class="loading_text" />
-                </div>
+              <q-btn class="ibtn">
+                <i class="ico refresh" /><span class="hidden">재설정</span>
+              </q-btn>
+            </div>
+            <div class="chart_body">
+              <apexchart
+                v-if="chartModel === chartModel"
+                height="324"
+                type="line"
+                :options="chartOptions"
+                :series="series"
+              ></apexchart>
+              <div v-else class="loading">
+                <div class="loading_text" />
               </div>
-            </q-card>
-          </section>
-        </q-card-section>
-        <q-card-actions class="c_dialog_foot">
-          <q-btn
-            label="닫기"
-            class="primary"
-            v-close-popup
-          />
-        </q-card-actions>
-      </q-card>
-    </q-dialog>
+            </div>
+          </q-card>
+        </section>
+      </template>
+      <template #footer>
+        <c-button
+          btn-names="닫기"
+          @click="workspaceHistoryBModal = false"
+        />
+      </template>
+    </c-dialog>
     <!-- End : [프로젝트 - 인스턴스] B 워크스페이스 리소스 사용 이력(꺽은선 그래프 + 달력 + 시계) 팝업 -->
 
     <!-- Start : [프로젝트 - 태스크] 태스크 그룹 삭제 확인 Alert 팝업 -->
-    <q-dialog
+    <!-- <q-dialog
       v-model="alertTaskGroupDeleteModal"
       class="c_dialog"
     >
@@ -1070,7 +1126,7 @@
           />
         </q-card-actions>
       </q-card>
-    </q-dialog>
+    </q-dialog> -->
     <!-- End : [프로젝트 - 태스크] 태스크 그룹 삭제 확인 Alert 팝업 -->
 
     <!-- Start : [프로젝트 - 태스크] 태스크 삭제 확인 Alert 팝업 -->
@@ -3004,62 +3060,6 @@
     </q-dialog>
     <!-- End : [관리 - 프로젝트] 프로젝트 삭제 확인  Alert 팝업 -->
 
-    <!-- Start : [관리 - 프로젝트] 인스턴스, 태스크 생성하기 선택시 안내  Alert 팝업 -->
-    <q-dialog
-      v-model="alertInstanceTaskInfoModal"
-      class="c_dialog"
-    >
-      <q-card>
-        <q-card-section
-          style="max-height:290px"
-          class="c_dialog_body"
-        >
-          <p class="title">
-            <strong>인스턴스/태스크 생성 권한이 없습니다.</strong>
-          </p>
-          <p class="desc">
-            프로젝트 구성원만 인스턴스/태스크 생성이 가능합니다.
-          </p>
-        </q-card-section>
-        <q-card-actions class="c_dialog_foot">
-          <q-btn
-            label="확인"
-            class="primary"
-            v-close-popup
-          />
-        </q-card-actions>
-      </q-card>
-    </q-dialog>
-    <!-- End : [관리 - 프로젝트] 인스턴스, 태스크 생성하기 선택시 안내  Alert 팝업 -->
-
-    <!-- Start : [관리 - 프로젝트] 태스크 그룹 재생성, 태스크 재생성 선택시 안내  Alert 팝업 -->
-    <q-dialog
-      v-model="alertTaskGroupReCreateInfoModal"
-      class="c_dialog"
-    >
-      <q-card>
-        <q-card-section
-          style="max-height:290px"
-          class="c_dialog_body"
-        >
-          <p class="title">
-            <strong>태스크 그룹/태스크 재생성 권한이 없습니다.</strong>
-          </p>
-          <p class="desc">
-            프로젝트 구성원만 태스크 그룹/태스크 재생성 가능합니다.
-          </p>
-        </q-card-section>
-        <q-card-actions class="c_dialog_foot">
-          <q-btn
-            label="확인"
-            class="primary"
-            v-close-popup
-          />
-        </q-card-actions>
-      </q-card>
-    </q-dialog>
-    <!-- End : [관리 - 프로젝트] 태스크 그룹 재생성, 태스크 재생성 선택시 안내  Alert 팝업 -->
-
     <!-- Start : [관리 - 프로젝트] 워크스페이스 관리자 기능 - 프로젝트 편집 -->
     <q-dialog
       v-model="workspaceMngEditModal"
@@ -3393,421 +3393,235 @@
     <!-- End : [관리 - 프로젝트] 워크스페이스 관리자 기능 - 프로젝트 기본 할당량 설정 -->
 
     <!-- Start : [관리 - 인스턴스] 인스턴스 추가된 용량 (10GB 초과시 저장 되지 않음 안내) Alert 팝업 -->
-    <q-dialog
-      v-model="alertInstanceAddVolumeInfoModal"
-      class="c_dialog"
+    <c-dialog
+      v-model:visible="alertInstanceAddVolumeInfoModal"
+      :message="'인스턴스 용량이 초과되어 정지시 현재 상태가 저장되지 않습니다. 정지 하시겠습니까?'"
     >
-      <q-card>
-        <q-card-section
-          style="max-height:290px"
-          class="c_dialog_body"
-        >
-          <p class="title">
-            <strong>인스턴스 용량이 초과되어 정지시 현재 상태가 저장되지 않습니다. 정지 하시겠습니까?</strong>
-          </p>
-          <div class="info">
-            현재 용량 : 21GB (10BG 이하 저장 가능)
-          </div>
-        </q-card-section>
-        <q-card-actions class="c_dialog_foot">
-          <q-btn
-            label="취소"
-            class="line"
-            v-close-popup
-          />
-          <q-btn
-            label="확인"
-            class="primary"
-            v-close-popup
-          />
-        </q-card-actions>
-      </q-card>
-    </q-dialog>
+      <template #positive>
+        현재 용량 : 21GB (10BG 이하 저장 가능)
+      </template>
+      <template #footer>
+        <c-button
+          :outline="true"
+          btn-names="취소"
+          @click="alertInstanceAddVolumeInfoModal = false"
+        />
+        <c-button
+          btn-names="확인"
+          @click="alertInstanceAddVolumeInfoModal = false"
+        />
+      </template>
+    </c-dialog>
     <!-- End : [관리 - 인스턴스] 인스턴스 추가된 용량 (10GB 초과시 저장 되지 않음 안내) Alert 팝업 -->
 
     <!-- Start : [관리 - 인스턴스] 인스턴스 삭제 확인 Alert 팝업 -->
-    <q-dialog
-      v-model="alertInstanceDelConfirmModal"
-      class="c_dialog"
+    <c-dialog
+      v-model:visible="alertInstanceDelConfirmModal"
+      :message="'인스턴스를 삭제하시겠습니까?'"
+      :description="'삭제된 인스턴스는 복구되지 않습니다.'"
     >
-      <q-card>
-        <q-card-section
-          style="max-height:290px"
-          class="c_dialog_body"
-        >
-          <p class="title">
-            <strong>인스턴스를 삭제하시겠습니까?</strong>
-          </p>
-          <p class="desc">
-            삭제된 인스턴스는 복구되지 않습니다.
-          </p>
-          <div class="info negative">
-            AA인스턴스
-          </div>
-        </q-card-section>
-        <q-card-actions class="c_dialog_foot">
-          <q-btn
-            label="취소"
-            class="line"
-            v-close-popup
-            @click="triggerInstanceWarning('top-right')"
-          />
-          <q-btn
-            label="확인"
-            class="primary"
-            v-close-popup
-            @click="triggerInstanceSuccess('top-right')"
-          />
-        </q-card-actions>
-      </q-card>
-    </q-dialog>
+      <!-- :callback-negative="triggerInstanceSuccess" -->
+      <template #negative>
+        AA인스턴스
+      </template>
+      <template #footer>
+        <c-button
+          :outline="true"
+          btn-names="취소"
+          @click="triggerInstanceWarning"
+        />
+        <c-button
+          btn-names="확인"
+          @click="triggerInstanceSuccess"
+        />
+      </template>
+    </c-dialog>
     <!-- End : [관리 - 인스턴스] 인스턴스 삭제 확인 Alert 팝업 -->
 
     <!-- Start : [관리 - 인스턴스] 이미지 생성 불가 Alert 팝업 -->
-    <q-dialog
-      v-model="alertImageCreateCantModal"
-      class="c_dialog"
+    <c-dialog
+      v-model:visible="alertImageCreateCantModal"
+      :message="'용량이 초과하여 이미지 생성이 불가능합니다.'"
+      :description="'추가된 용량이 10GiB 이하만 이미지 생성가능'"
+      :button-positive="'확인'"
+      :button-nagative="'취소'"
     >
-      <q-card>
-        <q-card-section
-          style="max-height:290px"
-          class="c_dialog_body"
-        >
-          <p class="title">
-            <strong>용량이 초과하여 이미지 생성이 불가능합니다.</strong>
-          </p>
-          <p class="desc">
-            추가된 용량이 10GiB 이하만 이미지 생성가능
-          </p>
-          <div class="info negative">
-            현재 추가된 용량 : 21GB
-          </div>
-        </q-card-section>
-        <q-card-actions class="c_dialog_foot">
-          <q-btn
-            label="취소"
-            class="line"
-            v-close-popup
-          />
-          <q-btn
-            label="확인"
-            class="primary"
-            v-close-popup
-          />
-        </q-card-actions>
-      </q-card>
-    </q-dialog>
+      <template #negative>
+        현재 추가된 용량 : 21GB
+      </template>
+      <template #footer>
+        <c-button
+          :outline="true"
+          btn-names="취소"
+          @click="alertImageCreateCantModal = false"
+        />
+        <c-button
+          btn-names="확인"
+          @click="alertImageCreateCantModal = false"
+        />
+      </template>
+    </c-dialog>
     <!-- End : [관리 - 인스턴스] 인스턴스 용량 초과로 인한 이미지 생성 불가 Alert 팝업 -->
 
     <!-- Start : [관리 - 인스턴스] 워크스페이스 리소스 사용이력 조회 (TBD) - (꺽은선 그래프 + 달력) -->
-    <q-dialog
-      v-model="workspaceResouceHistoryModal"
-      class="c_dialog large"
+    <c-dialog
+      v-model:visible="workspaceResouceHistoryModal"
+      :size="'large'"
+      :message="'워크스페이스 리소스 사용 이력'"
     >
-      <q-card>
-        <q-card-section class="c_dialog_body">
-          <p class="title">
-            <strong>워크스페이스 리소스 사용 이력</strong>
-          </p>
-          <section class="section">
-            <p class="sub_title">카카오 모빌리티(Public)</p>
+      <template #contents>
+        <section class="section">
+          <p class="sub_title">카카오 모빌리티(Public)</p>
 
-            <div class="searcharea type2">
-              <CDropdown
-                v-model:selected="chartSelectedBasic"
-                :label="chartOptlabel"
-                :options="chartSelOpt"
-              />
-              <div class="fakebg">
-                <div class="from">
-                  <q-input
-                    outlined
-                    v-model="dateFrom"
-                    placeholder="2023.01.01"
-                    class="inp_calendar"
-                  >
-                    <template v-slot:prepend>
-                      <q-icon class="ico_calendar">
-                        <q-popup-proxy :offset="[50, 0]" class="c_datepicker">
-                          <q-date
-                            v-model="dateFrom"
-                            mask="YYYY.MM.DD"
-                            class="datepicker"
-                          />
-                        </q-popup-proxy>
-                      </q-icon>
-                    </template>
-                  </q-input>
-                </div>
-                <i class="bar" />
-                <div class="to">
-                  <q-input
-                    outlined
-                    v-model="dateTo"
-                    placeholder="2023.01.01"
-                    class="inp_calendar"
-                  >
-                    <template v-slot:prepend>
-                      <q-icon class="ico_calendar">
-                        <q-popup-proxy
-                          :offset="[180, 0]"
-                          class="c_datepicker"
-                        >
-                          <q-date
-                            v-model="dateTo"
-                            mask="YYYY.MM.DD"
-                            class="datepicker"
-                          />
-                        </q-popup-proxy>
-                      </q-icon>
-                    </template>
-                  </q-input>
-                </div>
+          <div class="searcharea type2">
+            <CDropdown
+              v-model:selected="chartSelectedBasic"
+              :label="chartOptlabel"
+              :options="chartSelOpt"
+            />
+            <div class="fakebg">
+              <div class="from">
+                <q-input
+                  outlined
+                  v-model="dateFrom"
+                  placeholder="2023.01.01"
+                  class="inp_calendar"
+                >
+                  <template v-slot:prepend>
+                    <q-icon class="ico_calendar">
+                      <q-popup-proxy :offset="[50, 0]" class="c_datepicker">
+                        <q-date
+                          v-model="dateFrom"
+                          mask="YYYY.MM.DD"
+                          class="datepicker"
+                        />
+                      </q-popup-proxy>
+                    </q-icon>
+                  </template>
+                </q-input>
+              </div>
+              <i class="bar" />
+              <div class="to">
+                <q-input
+                  outlined
+                  v-model="dateTo"
+                  placeholder="2023.01.01"
+                  class="inp_calendar"
+                >
+                  <template v-slot:prepend>
+                    <q-icon class="ico_calendar">
+                      <q-popup-proxy
+                        :offset="[180, 0]"
+                        class="c_datepicker"
+                      >
+                        <q-date
+                          v-model="dateTo"
+                          mask="YYYY.MM.DD"
+                          class="datepicker"
+                        />
+                      </q-popup-proxy>
+                    </q-icon>
+                  </template>
+                </q-input>
               </div>
             </div>
-            <q-card
-              v-model="chartModel"
-              class="apexchart"
-            >
-              <div class="chart_body">
-                <apexchart
-                  v-if="chartModel === chartModel"
-                  height="324"
-                  type="line"
-                  :options="chartOptions"
-                  :series="series"
-                ></apexchart>
-                <div v-else class="nodata">
-                  <div class="text">이용기록이 없습니다.</div>
-                </div>
+          </div>
+          <q-card
+            v-model="chartModel"
+            class="apexchart"
+          >
+            <div class="chart_body">
+              <apexchart
+                v-if="chartModel === chartModel"
+                height="324"
+                type="line"
+                :options="chartOptions"
+                :series="series"
+              ></apexchart>
+              <div v-else class="nodata">
+                <div class="text">이용기록이 없습니다.</div>
               </div>
-            </q-card>
-          </section>
-        </q-card-section>
-        <q-card-actions class="c_dialog_foot">
-          <q-btn
-            label="닫기"
-            class="primary"
-            v-close-popup
-          />
-        </q-card-actions>
-      </q-card>
-    </q-dialog>
+            </div>
+          </q-card>
+        </section>
+      </template>
+      <template #footer>
+        <c-button
+          btn-names="닫기"
+          @click="workspaceResouceHistoryModal = false"
+        />
+      </template>
+    </c-dialog>
     <!-- End : [관리 - 인스턴스] 워크스페이스 리소스 사용이력 조회 (TBD) - (꺽은선 그래프 + 달력) -->
 
-    <!-- Start : [관리 - 인스턴스] 리소스 부족으로 인한 재시작 불가 Alert 팝업 -->
-    <q-dialog
-      v-model="alertResouceCantRestartModal"
-      class="c_dialog"
-    >
-      <q-card>
-        <q-card-section
-          style="max-height:290px"
-          class="c_dialog_body"
-        >
-          <p class="title">
-            <strong>000리소스 할당량이 부족하여<br />인스턴스를 실행 할 수 없습니다.</strong>
-          </p>
-        </q-card-section>
-        <q-card-actions class="c_dialog_foot">
-          <q-btn
-            label="확인"
-            class="primary"
-            v-close-popup
-          />
-        </q-card-actions>
-      </q-card>
-    </q-dialog>
-    <!-- End : [관리 - 인스턴스] 리소스 부족으로 인한 재시작 불가 Alert 팝업 -->
-
-    <!-- Start : [관리 - 태스크] 프로젝트 구성원이 아닌경우 선택시 안내 Alert 팝업 -->
-    <q-dialog
-      v-model="alertTaskRecreateInfoModal"
-      class="c_dialog"
-    >
-      <q-card>
-        <q-card-section
-          style="max-height:290px"
-          class="c_dialog_body"
-        >
-          <p class="title">
-            <strong>태스크 그룹/태스크 재생성 권한이 없습니다.</strong>
-          </p>
-          <p class="desc">
-            프로젝트 구성원만 태스크 그룹/태스크 재생성 가능합니다.
-          </p>
-        </q-card-section>
-        <q-card-actions class="c_dialog_foot">
-          <q-btn
-            label="확인"
-            class="primary"
-            v-close-popup
-          />
-        </q-card-actions>
-      </q-card>
-    </q-dialog>
-    <!-- End : [관리 - 태스크] 프로젝트 구성원이 아닌경우 선택시 안내 Alert 팝업 -->
-
     <!-- Start : [관리 - 태스크] 태스크 그룹 삭제 Alert 팝업 -->
-    <q-dialog
-      v-model="alertTaskGroupDelConfirmModal"
-      class="c_dialog"
+    <c-dialog
+      v-model:visible="alertTaskGroupDelConfirmModal"
+      :message="'태스크 그룹을 삭제하시겠습니까?'"
+      :description="'삭제된 태스크 그룹은 복구되지 않습니다.'"
     >
-      <q-card>
-        <q-card-section
-          style="max-height:290px"
-          class="c_dialog_body"
-        >
-          <p class="title">
-            <strong>태스크 그룹을 삭제하시겠습니까?</strong>
-          </p>
-          <p class="desc">
-            삭제된 태스크 그룹은 복구되지 않습니다.
-          </p>
-          <div class="info negative">
-            Taskgroup1
-          </div>
-        </q-card-section>
-        <q-card-actions class="c_dialog_foot">
-          <q-btn
-            label="취소"
-            class="line"
-            v-close-popup
-          />
-          <q-btn
-            label="확인"
-            class="primary"
-            v-close-popup
-          />
-        </q-card-actions>
-      </q-card>
-    </q-dialog>
+      <template #negative>
+        Taskgroup1
+      </template>
+      <template #footer>
+        <c-button
+          :outline="true"
+          btn-names="취소"
+          @click="alertTaskGroupDelConfirmModal = false"
+        />
+        <c-button
+          btn-names="확인"
+          @click="alertTaskGroupDelConfirmModal = false"
+        />
+      </template>
+    </c-dialog>
     <!-- End : [관리 - 태스크] 태스크 그룹 삭제 Alert 팝업 -->
 
     <!-- Start : [관리 - 태스크] 태스크 삭제 확인 Alert 팝업 -->
-    <q-dialog
-      v-model="alertTaskDelConfirmModal"
-      class="c_dialog"
+    <c-dialog
+      v-model:visible="alertTaskDelConfirmModal"
+      :message="'태스크를 삭제하시겠습니까?'"
+      :description="'삭제된 태스크는 복구되지 않습니다.'"
     >
-      <q-card>
-        <q-card-section
-          style="max-height:290px"
-          class="c_dialog_body"
-        >
-          <p class="title">
-            <strong>태스크를 삭제하시겠습니까?</strong>
-          </p>
-          <p class="desc">
-            삭제된 태스크는 복구되지 않습니다.
-          </p>
-          <div class="info negative">
-            task1
-          </div>
-        </q-card-section>
-        <q-card-actions class="c_dialog_foot">
-          <q-btn
-            label="취소"
-            class="line"
-            v-close-popup
-          />
-          <q-btn
-            label="확인"
-            class="primary"
-            v-close-popup
-          />
-        </q-card-actions>
-      </q-card>
-    </q-dialog>
+      <template #negative>
+        task1
+      </template>
+      <template #footer>
+        <c-button
+          :outline="true"
+          btn-names="취소"
+          @click="alertTaskDelConfirmModal = false"
+        />
+        <c-button
+          btn-names="확인"
+          @click="alertTaskDelConfirmModal = false"
+        />
+      </template>
+    </c-dialog>
     <!-- End : [관리 - 태스크] 태스크 삭제 확인 Alert 팝업 -->
 
-    <!-- Start : [관리 - 태스크] 재생성 권한 없음 팝업(프로젝트 구성원이 아닌경우) - 워크스페이스 관리자만 확인 가능 Alert 팝업 -->
-    <q-dialog
-      v-model="alertTaskRecreateAuthModal"
-      class="c_dialog"
-    >
-      <q-card>
-        <q-card-section
-          style="max-height:290px"
-          class="c_dialog_body"
-        >
-          <p class="title">
-            <strong>태스크 그룹/태스크 재생성 권한이 없습니다.</strong>
-          </p>
-          <p class="desc">
-            프로젝트 구성원만 태스크 그룹/태스크 재생성 가능합니다.
-          </p>
-        </q-card-section>
-        <q-card-actions class="c_dialog_foot">
-          <q-btn
-            label="확인"
-            class="primary"
-            v-close-popup
-          />
-        </q-card-actions>
-      </q-card>
-    </q-dialog>
-    <!-- End : [관리 - 태스크] 재생성 권한 없음 팝업(프로젝트 구성원이 아닌경우) - 워크스페이스 관리자만 확인 가능 Alert 팝업 -->
-
     <!-- Start : [관리 - 스토리지] 스토리지 삭제 확인 Alert 팝업 -->
-    <q-dialog
-      v-model="alertStorageDeleteInfoModal"
-      class="c_dialog"
+    <c-dialog
+      v-model:visible="alertStorageDeleteInfoModal"
+      :message="'스토리지를 삭제하시겠습니까?'"
+      :description="'스토리지에 저장된 데이터는 모두 삭제되며, 삭제된 내용은 복구되지 않습니다.'"
     >
-      <q-card>
-        <q-card-section
-          style="max-height:290px"
-          class="c_dialog_body"
-        >
-          <p class="title">
-            <strong>스토리지를 삭제하시겠습니까?</strong>
-          </p>
-          <p class="desc">
-            스토리지에 저장된 데이터는 모두 삭제되며, 삭제된 내용은 복구되지 않습니다.
-          </p>
-          <div class="info negative">
-            aa스토리지 이름
-          </div>
-        </q-card-section>
-        <q-card-actions class="c_dialog_foot">
-          <q-btn
-            label="취소"
-            class="line"
-            v-close-popup
-          />
-          <q-btn
-            label="확인"
-            class="primary"
-            v-close-popup
-          />
-        </q-card-actions>
-      </q-card>
-    </q-dialog>
+      <template #negative>
+        aa스토리지 이름
+      </template>
+      <template #footer>
+        <c-button
+          :outline="true"
+          btn-names="취소"
+          @click="alertStorageDeleteInfoModal = false"
+        />
+        <c-button
+          btn-names="확인"
+          @click="alertStorageDeleteInfoModal = false"
+        />
+      </template>
+    </c-dialog>
     <!-- End : [관리 - 스토리지] 스토리지 삭제 확인 Alert 팝업 -->
-
-    <!-- Start : [관리 - 스토리지] 스토리지를 이용중인 사용자가 있는 경우 삭제 불가 안내 Alert 팝업 -->
-    <q-dialog
-      v-model="alertStorageCantDeleteModal"
-      class="c_dialog"
-    >
-      <q-card>
-        <q-card-section
-          style="max-height:290px"
-          class="c_dialog_body"
-        >
-          <p class="title">
-            <strong>현재 이용중인 사용자가 있어<br />스토리지 삭제가 불가능합니다. </strong>
-          </p>
-        </q-card-section>
-        <q-card-actions class="c_dialog_foot">
-          <q-btn
-            label="확인"
-            class="primary"
-            v-close-popup
-          />
-        </q-card-actions>
-      </q-card>
-    </q-dialog>
-    <!-- End : [관리 - 스토리지] 스토리지를 이용중인 사용자가 있는 경우 삭제 불가 안내 Alert 팝업 -->
 
     <!-- Start : [관리 - 스토리지] 관리자 스토리지 추가 팝업 -->
     <q-dialog
@@ -4151,6 +3965,7 @@ import { useMeta, useQuasar } from "quasar";
 import { $useCmFn } from "src/composables/useCommonFunction.js";
 import CDropdown from "components/common/CDropdown.vue";
 import CDialog from "src/components/common/CDialog.vue";
+import CButton from "src/components/common/CButton.vue";
 
 const $q = useQuasar();
 const title = ref("Popup(Modal)");
@@ -4212,7 +4027,37 @@ const alertWorkspaceQuotaModal = () => {
     message: "워크스페이스 리소스 할당량이 부족하여<br />인스턴스 생성이 불가능합니다."
   });
 };
-const alertTaskGroupDeleteModal = ref(false);
+// const alertTaskGroupDeleteModal = ref(false);
+const triggerTaskGroupSuccess = () => {
+  $useCmFn.onNotify({
+    message: "태스크 그룹 삭제가 완료되었습니다.",
+    type: "positive",
+  });
+};
+const triggerTaskGroupWarning = () => {
+  $useCmFn.onNotify({
+    message: "태스크 그룹 삭제를 실패하였습니다. 다시 시도해주세요.",
+    type: "negative",
+  });
+};
+const alertTaskGroupDeleteModal = () => {
+  $useCmFn.onMessage({
+    message: "태스크 그룹을 삭제하시겠습니까?",
+    description: "삭제된 태스크 그룹은 복구되지 않습니다.",
+    positive: {
+      value: "확인",
+      callback: () => {
+        triggerTaskGroupSuccess();
+      }
+    },
+    negative: {
+      value: "취소",
+      callback: () => {
+        triggerTaskGroupWarning();
+      }
+    }
+  });
+};
 const alertTaskDeleteModal = ref(false);
 const alertMemberAuthNotModal = ref(false);
 const alertMemberDelNotModal = ref(false);
@@ -4230,24 +4075,69 @@ const alertSshkeyDeleteModal = ref(false);
 const alertApikeyDeleteModal = ref(false);
 const alertProjectDelInfoModal = ref(false);
 const alertProjectDelConfirmModal = ref(false);
-const alertInstanceTaskInfoModal = ref(false);
-const alertTaskGroupReCreateInfoModal = ref(false);
+const alertInstanceTaskInfoModal = () => {
+  $useCmFn.onMessage({
+    message: "인스턴스/태스크 생성 권한이 없습니다.",
+    description: "프로젝트 구성원만 인스턴스/태스크 생성이 가능합니다.",
+    positive: {
+      value: "확인"
+    }
+  });
+};
+const alertTaskGroupReCreateInfoModal = () => {
+  $useCmFn.onMessage({
+    message: "태스크 그룹/태스크 재생성 권한이 없습니다.",
+    description: "프로젝트 구성원만 태스크 그룹/태스크 재생성 가능합니다.",
+    positive: {
+      value: "확인"
+    }
+  });
+};
 const alertInstanceAddVolumeInfoModal = ref(false);
 const alertInstanceDelConfirmModal = ref(false);
-const alertResouceCantRestartModal = ref(false);
+const alertResouceCantRestartModal = () => {
+  $useCmFn.onMessage({
+    message: "000리소스 할당량이 부족하여<br />인스턴스를 실행 할 수 없습니다.",
+    positive: {
+      value: "확인"
+    }
+  });
+};
 const alertImageCreateCantModal = ref(false);
-const alertTaskRecreateInfoModal = ref(false);
+const alertTaskRecreateInfoModal = () => {
+  $useCmFn.onMessage({
+    message: "태스크 그룹/태스크 재생성 권한이 없습니다.",
+    description: "프로젝트 구성원만 태스크 그룹/태스크 재생성 가능합니다.",
+    positive: {
+      value: "확인"
+    }
+  });
+};
 const alertTaskGroupDelConfirmModal = ref(false);
 const alertTaskDelConfirmModal = ref(false);
-const alertTaskRecreateAuthModal = ref(false);
+const alertTaskRecreateAuthModal = () => {
+  $useCmFn.onMessage({
+    message: "태스크 그룹/태스크 재생성 권한이 없습니다.",
+    description: "프로젝트 구성원만 태스크 그룹/태스크 재생성 가능합니다.",
+    positive: {
+      value: "확인"
+    }
+  });
+};
 const alertStorageDeleteInfoModal = ref(false);
-const alertStorageCantDeleteModal = ref(false);
-
+const alertStorageCantDeleteModal = () => {
+  $useCmFn.onMessage({
+    message: "현재 이용중인 사용자가 있어<br />스토리지 삭제가 불가능합니다.",
+    positive: {
+      value: "확인"
+    }
+  });
+};
 const projectCreateModal = ref(false);
 const projectChangeModal = ref(false);
 const quotaChangeModal = ref(false);
 const projectInstanceImgCreateModal = ref(false);
-const workspaceHistoryAModal = ref(false);
+// const workspaceHistoryAModal = ref(false);
 const workspaceHistoryBModal = ref(false);
 const taskLogModal = ref(false);
 const taskLog = ref(false);
@@ -4426,26 +4316,7 @@ const triggerProjectSuccess = (position) => {
     });
   }, 100);
 };
-const triggerTaskGroupSuccess = (position) => {
-  setTimeout(() => {
-    $q.notify({
-      type: "positive",
-      message: "태스크 그룹 삭제가 완료되었습니다.",
-      icon: "positive",
-      position,
-      actions: [
-        {
-          label: "닫기",
-          class: "xclose",
-          handler: () => {
-            /* console.log('') */
-          },
-        },
-      ],
-      timeout: 500,
-    });
-  }, 100);
-};
+
 const triggerTaskSuccess = (position) => {
   setTimeout(() => {
     $q.notify({
@@ -4486,25 +4357,12 @@ const triggerStorageSuccess = (position) => {
     });
   }, 100);
 };
-const triggerInstanceSuccess = (position) => {
-  setTimeout(() => {
-    $q.notify({
-      type: "positive",
-      message: "인스턴스 삭제가 완료되었습니다.",
-      icon: "positive",
-      position,
-      actions: [
-        {
-          label: "닫기",
-          class: "xclose",
-          handler: () => {
-            /* console.log('') */
-          },
-        },
-      ],
-      timeout: 500,
-    });
-  }, 100);
+const triggerInstanceSuccess = () => {
+  $useCmFn.onNotify({
+    message: "인스턴스 삭제가 완료되었습니다.",
+    type: "positive",
+  });
+  alertInstanceDelConfirmModal.value = false;
 };
 const triggerImgWarning = () => {
   $useCmFn.onNotify({
@@ -4533,26 +4391,7 @@ const triggerProjectWarning = (position) => {
     });
   }, 100);
 };
-const triggerTaskGroupWarning = (position) => {
-  setTimeout(() => {
-    $q.notify({
-      type: "negative",
-      message: "태스크 그룹 삭제를 실패하였습니다. 다시 시도해주세요.",
-      icon: "negative",
-      position,
-      actions: [
-        {
-          label: "닫기",
-          class: "xclose",
-          handler: () => {
-            /* console.log('') */
-          },
-        },
-      ],
-      timeout: 500,
-    });
-  }, 100);
-};
+
 const triggerTaskWarning = (position) => {
   setTimeout(() => {
     $q.notify({
@@ -4593,25 +4432,12 @@ const triggerStorageWarning = (position) => {
     });
   }, 100);
 };
-const triggerInstanceWarning = (position) => {
-  setTimeout(() => {
-    $q.notify({
-      type: "negative",
-      message: "인스턴스 삭제를 실패하였습니다. 다시 시도해주세요.",
-      icon: "negative",
-      position,
-      actions: [
-        {
-          label: "닫기",
-          class: "xclose",
-          handler: () => {
-            /* console.log('') */
-          },
-        },
-      ],
-      timeout: 500,
-    });
-  }, 100);
+const triggerInstanceWarning = () => {
+  $useCmFn.onNotify({
+    message: "인스턴스 삭제를 실패하였습니다. 다시 시도해주세요.",
+    type: "negative",
+  });
+  alertInstanceDelConfirmModal.value = false;
 };
 
 const chartOptions = {

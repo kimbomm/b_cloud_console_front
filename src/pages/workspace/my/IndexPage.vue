@@ -202,9 +202,9 @@
               class="disabled-txt"
             >최대 5개까지 등록 가능합니다</p>
           </div>
-          <CButton
-            :size-types="2"
-            :btn-types="4"
+          <c-button
+            :size="'medium'"
+            :outline="true"
             :btn-names="'등록하기'"
           />
         </div>
@@ -258,9 +258,8 @@
           </EasyDataTable>
           <div v-else class="sign-up">
             <p class="mb30">SSH Key를 등록해주세요.</p>
-            <CButton
-              :size-types="2"
-              :btn-types="1"
+            <c-button
+              :size="'medium'"
               :btn-names="btnSign"
             />
           </div>
@@ -268,15 +267,15 @@
         <div class="flex-top mt50">
           <p class="name">API Key</p>
           <div v-if="accessKey">
-            <CButton
-              :size-types="2"
-              :btn-types="4"
+            <c-button
+              :size="'medium'"
+              :outline="true"
               :btn-names="'재생성'"
             />
             &nbsp;
-            <CButton
-              :size-types="2"
-              :btn-types="4"
+            <c-button
+              :size="'medium'"
+              :outline="true"
               :btn-names="'삭제'"
             />
           </div>
@@ -294,9 +293,8 @@
           <div v-else class="sign-up">
             <p>API Key를 생성해 주세요.</p>
             <p class="mb30">생성시 Secret key는 팝업에서 1회만 확인 가능합니다.</p>
-            <CButton
-              :size-types="2"
-              :btn-types="1"
+            <c-button
+              :size="'medium'"
               :btn-names="btnCreate"
             />
           </div>

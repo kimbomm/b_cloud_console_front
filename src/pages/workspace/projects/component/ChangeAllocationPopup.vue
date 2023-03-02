@@ -1,11 +1,11 @@
 <template>
   <!-- Start : [프로젝트] 할당량 변경 요청 팝업 (TBD) 팝업 -->
   <c-dialog
+    :visible="quotaChangeModal"
     :size="'medium'"
     :message="'할당량 변경 요청'"
     :button-positive="'확인'"
     :button-negative="'취소'"
-    v-if="quotaChangeModal"
   >
     <template #contents>
       <div class="c_form">
@@ -115,16 +115,34 @@
         </section>
       </div>
     </template>
+    <template #footer>
+      <c-button
+        :outline="true"
+        :btn-names="'취소'"
+        @click="onClose"
+      />
+      <c-button
+        :btn-names="'확인'"
+        @click="onClose"
+      />
+    </template>
   </c-dialog>
 </template>
 
 <script setup>
+import { defineEmits } from "vue";
 import CDialog from "src/components/common/CDialog.vue";
+import CButton from "src/components/common/CButton.vue";
 
+const emit = defineEmits(["update:quotaChangeModal"]);
 defineProps({
   quotaChangeModal: Boolean
 
 });
+
+const onClose = () => {
+  emit("update:quotaChangeModal", false);
+};
 
 </script>
 

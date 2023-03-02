@@ -14,9 +14,9 @@
     <div class="p-body">
       <div class="flex-top">
         <p class="sub-text">문의내역</p>
-        <CButton
-          :size-types="2"
-          :btn-types="4"
+        <c-button
+          :size="'medium'"
+          :outline="true"
           :btn-names="supportBtn"
           to="/support/write"
         />
@@ -84,14 +84,11 @@
 <script setup>
 import { ref } from "vue";
 import { useMeta } from "quasar";
-import CButton from "components/common/CButton.vue";
 import CPagination from "components/common/CPagination.vue";
 
 const defaultData = ref(true);
 const title = ref("Support");
-const btn = ref("문의하기");
 const ptitle = ref(title);
-const supportBtn = ref(btn);
 
 const pageNation = ref("Pagination");
 

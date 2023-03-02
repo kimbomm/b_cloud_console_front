@@ -147,7 +147,6 @@ watch(() => props.value, (changedValue) => {
 });
 
 onMounted(async () => {
-  onValidate();
   if (props.type === "password") {
     classes.value.push("c_password");
     lazyType.value = "password";
