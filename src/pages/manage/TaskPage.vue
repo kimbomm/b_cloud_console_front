@@ -12,9 +12,15 @@
       <div class="p-detail-head">
         <h1 class="p-title">{{ ptitle }}</h1>
         <div class="resource_employ_btn">
-          <q-btn btnTypes="4" type="button" class="c_btn line medium">
-            <i class="ico plus" /><span class="txt">리소스 사용이력</span>
-          </q-btn>
+          <c-button
+            :size="'medium'"
+            :outline="true"
+            :btn-names="'리소스 사용이력'"
+          >
+            <template #prepend>
+              <i class="ico plus" />
+            </template>
+          </c-button>
         </div>
       </div>
     </div>
@@ -59,7 +65,7 @@
               />
             </div>
             <div class="project_select">
-              <CDropdown
+              <c-dropdown
                 v-model:selected="selectedBasic"
                 :label="optLabel2"
                 :options="optNumber2"
@@ -68,7 +74,7 @@
               />
             </div>
             <div class="state_select">
-              <CDropdown
+              <c-dropdown
                 v-model:selected="selectedBasic"
                 :label="optLabel3"
                 :options="optNumber3"
@@ -79,7 +85,7 @@
           </div>
           <div class="r_set_inner">
             <div class="dropdown_area">
-              <CDropdown
+              <c-dropdown
                 v-model:selected="selectedBasic"
                 :label="optLabel"
                 :options="optNumber"
@@ -276,6 +282,7 @@
                 </div>
               </template>
             </EasyDataTable>
+            <c-pagination />
           </template>
           <template v-else-if="segModel2 === 'two'">
             <EasyDataTable
@@ -434,10 +441,8 @@
                 </div>
               </template>
             </EasyDataTable>
+            <c-pagination />
           </template>
-        </div>
-        <div class="table_pagenav disflex_C mt32">
-          <CPagination />
         </div>
       </div>
     </div>
@@ -448,6 +453,7 @@ import { ref } from "vue";
 import { useMeta } from "quasar";
 import CDropdown from "components/common/CDropdown.vue";
 import CPagination from "components/common/CPagination.vue";
+import CButton from "components/common/CButton.vue";
 
 const title = ref("Instance & Task");
 useMeta(() => ({

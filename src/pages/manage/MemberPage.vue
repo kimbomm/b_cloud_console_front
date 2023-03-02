@@ -132,7 +132,7 @@
 
             <div class="r_set_inner">
               <div class="view_cont_num">
-                <CDropdown
+                <c-dropdown
                   v-model:selected="selectedBasic"
                   :label="label"
                   :options="options"
@@ -197,9 +197,7 @@
                 </div>
               </template>
             </EasyDataTable>
-          </div>
-          <div class="table_pagenav disflex_C">
-            <CPagination />
+            <c-pagination />
           </div>
         </div>
       </div>

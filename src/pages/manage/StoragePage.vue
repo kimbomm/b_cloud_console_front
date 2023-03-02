@@ -132,17 +132,14 @@
 
             <div class="r_set_inner">
               <div class="quota_set_btn">
-                <q-btn
-                  btnTypes="4"
-                  type="button"
-                  class="c_btn line medium"
-                  @click="mngStorageAddModal = true"
-                >
-                  <span class="txt">스토리지 추가</span>
-                </q-btn>
+                <c-button
+                  :size="'medium'"
+                  :outline="true"
+                  :btn-names="'스토리지 추가'"
+                />
               </div>
               <div class="view_cont_num">
-                <CDropdown
+                <c-dropdown
                   v-model:selected="selectedBasic"
                   :label="label"
                   :options="options"
@@ -246,9 +243,7 @@
                 </div>
               </template>
             </EasyDataTable>
-          </div>
-          <div class="table_pagenav disflex_C">
-            <CPagination />
+            <c-pagination />
           </div>
         </div>
       </div>
@@ -339,6 +334,7 @@ import { ref } from "vue";
 import { useMeta } from "quasar";
 import CDropdown from "components/common/CDropdown.vue";
 import CPagination from "components/common/CPagination.vue";
+import CButton from "components/common/CButton.vue";
 
 const title = ref("Storage");
 useMeta(() => ({
