@@ -247,9 +247,9 @@ import CDropdown from "components/common/CDropdown.vue";
 import CPagination from "src/components/common/CPagination.vue";
 import CTab from "src/components/common/CTab.vue";
 // import CDialog from "src/components/common/CDialog.vue";
-import MyPage from "./component/MyPage.vue";
-import BasicPage from "./component/BasicPage.vue";
-import SharedPage from "./component/SharedPage.vue";
+import MyPage from "./components/MyPage.vue";
+import BasicPage from "./components/BasicPage.vue";
+import SharedPage from "./components/SharedPage.vue";
 
 const userId = 1; // 임시추가
 const route = useRoute();
