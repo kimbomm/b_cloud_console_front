@@ -276,7 +276,7 @@
 </template>
 <script setup>
 import {
-  ref, onMounted, watch,
+  ref, onMounted, watch, reactive
 } from "vue";
 import { AuthService, ProjectService } from "src/services";
 import { googleLogout } from "vue3-google-login";
@@ -298,7 +298,7 @@ const projectCreateModal = ref(false);
 const pjtToggle = ref(false);
 const setToggle = ref(false);
 const moreToggle = ref(false);
-const menuData = [
+const menuData = reactive([
   {
     type: "dash",
     label: "Dashboard",
@@ -389,7 +389,9 @@ const menuData = [
       },
     ],
   },
-];
+]);
+
+const pjtTypeItem = menuData.find((item) => item.type === "pjt");
 
 const projectName = ref("");
 const projectDescription = ref("");
@@ -443,19 +445,23 @@ watch(
 
 // 프로젝트 리스트 이름 메뉴에 추가
 const addMenuPjtProjects = () => {
-  const pjtTypeItem = menuData.find((item) => item.type === "pjt");
   if (pjtTypeItem) {
     menuList.value = projectsStore.projectMenu;
-    console.log("menuList.valuemenuList.value", menuList.value);
     pjtTypeItem.children = menuList.value;
+
+    const pjtTypeMap = new Map();
+    menuData.forEach((item, index) => {
+      if (item.type === "pjt") {
+        pjtTypeMap.set(index, item);
+      }
+    });
   }
 };
 
 // 비동기 처리
-const useGetUserInfo = () => {
-  projectsStore.getUserInfo().then(() => {
-    addMenuPjtProjects();
-  });
+const useGetUserInfo = async () => {
+  await projectsStore.getUserInfo();
+  addMenuPjtProjects();
 };
 
 const resetInputs = () => {
@@ -478,12 +484,12 @@ const triggerFail = () => {
 };
 
 const newProject = async () => {
-  const params2 = {
+  const dataParams = {
     description: projectDescription.value,
     name: projectName.value,
   };
   try {
-    await ProjectService.createProject(workspaceId, params2);
+    await ProjectService.createProject(workspaceId, dataParams);
     setTimeout(() => {
       triggerSuccess();
     }, 200);
@@ -507,13 +513,7 @@ onMounted(() => {
   useGetUserInfo();
 });
 
-watch(() => useProjectsStore.projects, () => {
-  useProjectsStore.getUserInfo(workspaceId);
-  addMenuPjtProjects();
-}, { deep: true });
-
 watch(() => projectsStore.projectMenu, () => {
-  console.log("실행12312");
   menuList.value = projectsStore.projectMenu;
   addMenuPjtProjects();
 }, { deep: true });
