@@ -28,11 +28,20 @@
       v-model:visible="defaultCntVisible"
       :message="'기본 컨텐츠 팝업'"
       :description="'사용자가 해당 프로젝트에서 작업중인 인스턴스/태스크가 없어야만 삭제 가능합니다.'"
-      :button-positive="'확인'"
-      :button-negative="'취소'"
     >
       <template #positive>
         default contents dialog
+      </template>
+      <template #footer>
+        <c-button
+          :outline="true"
+          btn-names="취소"
+          @click="defaultCntVisible = false"
+        />
+        <c-button
+          btn-names="확인"
+          @click="defaultCntVisible = false"
+        />
       </template>
     </c-dialog>
     <!-- 기본 컨텐츠 팝업 끝 -->
@@ -42,13 +51,20 @@
       v-model:visible="negativeCntVisible"
       :message="'부정적인 컨텐츠 팝업'"
       :description="'사용자가 해당 프로젝트에서 작업중인 인스턴스/태스크가 없어야만 삭제 가능합니다.'"
-      :button-positive="'확인'"
-      :button-negative="'취소'"
-      :callback-positive="onPositive"
-      :callback-negative="onNegative"
     >
       <template #negative>
         negative contents dialog
+      </template>
+      <template #footer>
+        <c-button
+          :outline="true"
+          btn-names="취소"
+          @click="onNegative"
+        />
+        <c-button
+          btn-names="확인"
+          @click="onPositive"
+        />
       </template>
     </c-dialog>
     <!-- 부정적 컨텐츠 팝업 끝-->
@@ -62,10 +78,15 @@
       :size="'medium'"
       :message="'기본 컨텐츠 팝업'"
       :description="'사용자가 해당 프로젝트에서 작업중인 인스턴스/태스크가 없어야만 삭제 가능합니다.'"
-      :button-positive="'확인'"
     >
       <template #positive>
         default contents dialog
+      </template>
+      <template #footer>
+        <c-button
+          btn-names="확인"
+          @click="mediumSizeVisible = false"
+        />
       </template>
     </c-dialog>
     <!-- medium size 컨텐츠 팝업 끝 -->
@@ -79,11 +100,20 @@
       :size="'large'"
       :message="'기본 컨텐츠 팝업'"
       :description="'사용자가 해당 프로젝트에서 작업중인 인스턴스/태스크가 없어야만 삭제 가능합니다.'"
-      :button-positive="'확인'"
-      :button-negative="'취소'"
     >
       <template #negative>
         negative contents dialog
+      </template>
+      <template #footer>
+        <c-button
+          :outline="true"
+          btn-names="취소"
+          @click="largeSizeVisible = false"
+        />
+        <c-button
+          btn-names="확인"
+          @click="largeSizeVisible = false"
+        />
       </template>
     </c-dialog>
     <!-- large size 컨텐츠 팝업 끝 -->
@@ -94,6 +124,7 @@ import { ref } from "vue";
 import { useMeta } from "quasar";
 import { $useCmFn } from "src/composables/useCommonFunction.js";
 import CDialog from "src/components/common/CDialog.vue";
+import CButton from "src/components/common/CButton.vue";
 
 const title = ref("Popup");
 useMeta(() => ({

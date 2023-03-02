@@ -10,9 +10,9 @@
       </q-breadcrumbs>
       <h1 class="p-title">{{ ptitle }}</h1>
       <div class="deleteBtn">
-        <CButton
-          :size-types="2"
-          :btn-types="4"
+        <c-button
+          :size="'medium'"
+          :outline="true"
           :btn-names="btnName"
         />
       </div>
@@ -43,8 +43,8 @@
             </div>
           </div>
         </div>
-      </div>
-      <div v-if='visible !== true'>
+      </template>
+      <template v-if='visible !== true'>
         <div class="w-info">
           <div class="w-info_work line pb">
             <div class="t-flex">
@@ -52,7 +52,7 @@
               <div class="btnWrap">
                 <q-btn
                   label="편집"
-                  class="primary"
+                  class="primary medium"
                   @click="visible = true"
                 />
               </div>
@@ -130,14 +130,14 @@
                 <div>
                   <q-btn
                     label="취소"
-                    class="line"
+                    class="line medium"
                     @click="visible = false"
                   />
                 </div>
                 <div>
                   <q-btn
                     label="저장"
-                    class="primary"
+                    class="primary medium"
                     @click="visible = false"
                   />
                 </div>
@@ -227,12 +227,10 @@
 <script setup>
 import { ref } from "vue";
 import { useMeta } from "quasar";
-import CButton from "components/common/CButton.vue";
 import CDropdown from "components/common/CDropdown.vue";
 
 const visible = ref(false);
 const title = ref("Member");
-const btnName = ref("삭제");
 
 const label = ref("프로젝트 이름");
 const label2 = ref("전체");

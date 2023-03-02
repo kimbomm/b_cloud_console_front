@@ -28,9 +28,8 @@
           <p class="key-box_title mt40">SSH Key</p>
           <div class="sign-up">
             <p class="mb30">SSH Key를 등록해주세요.</p>
-              <CButton
-                :size-types="2"
-                :btn-types="1"
+              <c-button
+                :size="'medium'"
                 :btn-names="btnSign"
               />
             </div>
@@ -40,49 +39,12 @@
             <div class="sign-up">
               <p>API Key를 생성해 주세요.</p>
               <p class="mb30">생성시 Secret key는 팝업에서 1회만 확인 가능합니다.</p>
-              <CButton
-                :size-types="2"
-                :btn-types="1"
+              <c-button
+                :size="'medium'"
                 :btn-names="btnCreate"
               />
             </div>
           </div>
-          <!-- <div class="key-box">
-            <p class="key-box_title mt40">SSH Key</p>
-            <section class="section">
-              <EasyDataTable
-                :headers="nodata"
-                :items="nodata"
-                :hide-footer="true"
-                :body-row-class-name="bodyRowClassNameFunction"
-                empty-message="SSH Key를 등록해주세요."
-              />
-              <CButton
-                :size-types="2"
-                :btn-types="1"
-                :btn-names="btnSign"
-              />
-            </section>
-          </div>
-          <div class="key-box">
-            <p class="key-box_title mt60">API Key</p>
-            <section class="section">
-              <div class="test">
-                <EasyDataTable
-                  :headers="nodata"
-                  :items="nodata"
-                  :hide-footer="true"
-                  :body-row-class-name="bodyRowClassNameFunction"
-                  empty-message="API Key를 생성해주세요."
-                />
-                  <CButton
-                  :size-types="2"
-                  :btn-types="1"
-                  :btn-names="btnCreate"
-                  />
-                </div>
-            </section>
-          </div> -->
       </template>
       <template v-else>
         <div class="flex-top mt40">
@@ -91,9 +53,9 @@
             <!-- 5개가 등록된 경우 (비활성화) -->
             <!-- <p class="disabled-txt">최대 5개까지 등록 가능합니다</p> -->
           </div>
-          <CButton
-            :size-types="2"
-            :btn-types="4"
+          <c-button
+            :size="'medium'"
+            :outline="true"
             :btn-names="btnSign"
           />
         </div>
@@ -150,15 +112,15 @@
         <div class="flex-top mt60">
           <p class="name">API Key</p>
           <div>
-            <CButton
-              :size-types="2"
-              :btn-types="4"
+            <c-button
+              :size="'medium'"
+              :outline="true"
               :btn-names="btnReCreate"
             />
             &nbsp;
-            <CButton
-              :size-types="2"
-              :btn-types="4"
+            <c-button
+              :size="'medium'"
+              :outline="true"
               :btn-names="btnDelete"
             />
           </div>
