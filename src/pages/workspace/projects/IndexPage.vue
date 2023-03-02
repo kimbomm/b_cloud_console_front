@@ -278,8 +278,8 @@ import ProjectDashboard from "src/components/pages/ProjectDashboard.vue";
 // import CTable from "src/components/common/CTable.vue";
 import CPagination from "components/common/CPagination.vue";
 import CDropdown from "components/common/CDropdown.vue";
-import UpdateProjectPopup from "./component/UpdateProjectPopup.vue";
-import ChangeAllocationPopup from "./component/ChangeAllocationPopup.vue";
+import UpdateProjectPopup from "./components/UpdateProjectPopup.vue";
+import ChangeAllocationPopup from "./components/ChangeAllocationPopup.vue";
 
 const route = useRoute();
 
