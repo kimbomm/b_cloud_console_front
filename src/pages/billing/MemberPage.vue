@@ -12,6 +12,7 @@
         <h1 class="p-title">{{ ptitle }}</h1>
         <div class="csv_btn">
           <c-button
+            :outline="true"
             :size="'medium'"
             :btn-names="btnName"
           >
@@ -102,7 +103,7 @@
                 <q-icon name="search" class="ico_search" />
               </template>
             </q-select>
-            <CDropdown
+            <c-dropdown
               v-model:selected="selectedBasic"
               :label="optLabel"
               :options="optNumber"
@@ -131,10 +132,8 @@
               <span class="txt">{{ item.useageFee }}</span>
             </template>
           </EasyDataTable>
+          <c-pagination />
         </section>
-        <div class="group-page">
-          <CPagination />
-        </div>
       </template>
       <!-- 서비스 준비중입니다. -->
       <template v-else>
@@ -151,7 +150,7 @@
                 <q-icon name="search" class="ico_search" />
               </template>
             </q-select>
-            <CDropdown
+            <c-dropdown
               v-model:selected="selectedBasic"
               :label="optLabel"
               :options="optNumber"
@@ -166,8 +165,7 @@
             :hide-footer="true"
             :body-row-class-name="bodyRowClassNameFunction"
             empty-message="서비스 준비중입니다."
-          >
-          </EasyDataTable>
+          />
         </section>
       </template>
     </div>
