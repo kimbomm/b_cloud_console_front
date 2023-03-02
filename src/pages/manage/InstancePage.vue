@@ -21,13 +21,15 @@
       <div class="p-detail-head">
         <h1 class="p-title">{{ ptitle }}</h1>
         <div class="resource_employ_btn">
-          <q-btn
-            btnTypes=4
-            type="button"
-            class="c_btn line medium"
+          <c-button
+            :outline="true"
+            :size="'medium'"
+            :btn-names="'리소스 사용이력'"
           >
-            <i class="ico plus" /><span class="txt">리소스 사용이력</span>
-          </q-btn>
+            <template #prepend>
+              <i class="ico plus" />
+            </template>
+          </c-button>
         </div>
       </div>
     </div>
@@ -59,7 +61,7 @@
             <div class="search_input">
               <q-select
                 outlined
-                placeholder="이름 상태 생성자 검색"
+                placeholder="이름,타입,생성자 검색"
                 use-input
                 clearable
                 class="c_inpchip default_size"
@@ -73,7 +75,7 @@
               </q-select>
             </div>
             <div class="project_select">
-              <CDropdown
+              <c-dropdown
                 v-model:selected="selectedBasic"
                 :label="optLabel2"
                 :options="optNumber2"
@@ -82,7 +84,7 @@
               />
             </div>
             <div class="state_select">
-              <CDropdown
+              <c-dropdown
                 v-model:selected="selectedBasic"
                 :label="optLabel3"
                 :options="optNumber3"
@@ -93,7 +95,7 @@
           </div>
           <div class="r_set_inner">
             <div class="dropdown_area">
-              <CDropdown
+              <c-dropdown
                 v-model:selected="selectedBasic"
                 :label="optLabel"
                 :options="optNumber"
@@ -269,9 +271,7 @@
               </div>
             </template>
           </EasyDataTable>
-        </div>
-        <div class="table_pagenav disflex_C mt32">
-          <CPagination />
+          <c-pagination />
         </div>
       </div>
     </div>
@@ -281,6 +281,7 @@
 import { ref } from "vue";
 import { useMeta } from "quasar";
 import CDropdown from "components/common/CDropdown.vue";
+import CButton from "src/components/common/CButton.vue";
 import CPagination from "components/common/CPagination.vue";
 
 const title = ref("Instance & Task");

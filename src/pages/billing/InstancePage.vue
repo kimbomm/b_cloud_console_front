@@ -12,6 +12,7 @@
         <h1 class="p-title">{{ ptitle }}</h1>
         <div class="csv_btn">
           <c-button
+            :outline="true"
             :size="'medium'"
             :btn-names="btnName"
           >
@@ -90,7 +91,7 @@
           </q-tabs>
         </div>
         <div class="table_set">
-          <CDropdown
+          <c-dropdown
             v-model:selected="selectedBasic"
             :label="optLabel"
             :options="optNumber"
@@ -100,54 +101,47 @@
       </div>
       <template v-if="defaultData == true">
         <div class="group-load">
-          <div class="group-table">
-            <section class="section">
-              <EasyDataTable
-                :headers="headers"
-                :items="items"
-                :hide-footer="true"
-                empty-message="정보가 없습니다."
-                @click-row="showRow"
-              >
-                <!-- type -->
-                <template #item-type="item">
-                  <span class="txt">{{ item.type }}</span>
-                </template>
-                <!-- typeDetail -->
-                <template #item-typeDetail="item">
-                  <span class="txt">{{ item.typeDetail }}</span>
-                </template>
-                <!-- useHours -->
-                <template #item-useHours="item">
-                  <span class="txt">{{ item.useHours }}</span>
-                </template>
-                <!-- useageFee -->
-                <template #item-useageFee="item">
-                  <span class="txt">{{ item.useageFee }}</span>
-                </template>
-              </EasyDataTable>
-            </section>
-            <div class="group-table_page">
-              <CPagination />
-            </div>
-          </div>
+          <section class="section">
+            <EasyDataTable
+              :headers="headers"
+              :items="items"
+              :hide-footer="true"
+              empty-message="정보가 없습니다."
+              @click-row="showRow"
+            >
+              <!-- type -->
+              <template #item-type="item">
+                <span class="txt">{{ item.type }}</span>
+              </template>
+              <!-- typeDetail -->
+              <template #item-typeDetail="item">
+                <span class="txt">{{ item.typeDetail }}</span>
+              </template>
+              <!-- useHours -->
+              <template #item-useHours="item">
+                <span class="txt">{{ item.useHours }}</span>
+              </template>
+              <!-- useageFee -->
+              <template #item-useageFee="item">
+                <span class="txt">{{ item.useageFee }}</span>
+              </template>
+            </EasyDataTable>
+            <c-pagination />
+          </section>
         </div>
       </template>
       <!-- 서비스 준비중입니다. -->
       <template v-else>
         <div class="group-load">
-          <div class="group-table">
-            <section class="section">
-              <EasyDataTable
-                :headers="headers"
-                :items="nodata"
-                :hide-footer="true"
-                :body-row-class-name="bodyRowClassNameFunction"
-                empty-message="서비스 준비중입니다."
-              >
-              </EasyDataTable>
-            </section>
-          </div>
+          <section class="section">
+            <EasyDataTable
+              :headers="headers"
+              :items="nodata"
+              :hide-footer="true"
+              :body-row-class-name="bodyRowClassNameFunction"
+              empty-message="서비스 준비중입니다."
+            />
+          </section>
         </div>
       </template>
     </div>
@@ -182,7 +176,7 @@ const headers = [
     text: "타입", value: "type", width: 345, sortable: true
   },
   {
-    text: "타입상세", value: "typeDetail", sortable: true
+    text: "타입상세", value: "typeDetail"
   },
   {
     text: "이용시간", value: "useHours", width: 218, sortable: true

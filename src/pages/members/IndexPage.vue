@@ -28,7 +28,7 @@
               </q-input>
             </div>
             <div class="set-l_right">
-              <CDropdown
+              <c-dropdown
                 v-model:selected="selectedBasic"
                 :label="label"
                 :options="options"
@@ -60,7 +60,7 @@
               </c-button>
             </div>
             <div class="set-btn select-d">
-              <CDropdown
+              <c-dropdown
                 v-model:selected="selectedBasic"
                 :label="label3"
                 :options="options2"
@@ -140,11 +140,9 @@
               </div>
             </template>
           </EasyDataTable>
+          <c-pagination />
         </section>
         <!-- //Table -->
-        <div class="table_pagenav disflex_C">
-          <CPagination />
-        </div>
       </template>
       <!-- /* 멤버 - 메인(워크스페이스 멤버/정산관리자,게스트) */ -->
       <template v-else>
@@ -163,7 +161,7 @@
               </q-input>
             </div>
             <div class="set-l_right">
-              <CDropdown
+              <c-dropdown
                 v-model:selected="selectedBasic"
                 :label="label2"
                 :options="options"
@@ -183,7 +181,7 @@
               </c-button>
             </div>
             <div class="set-btn select-d">
-              <CDropdown
+              <c-dropdown
                 v-model:selected="selectedBasic"
                 :label="label3"
                 :options="options2"
@@ -216,12 +214,10 @@
           <template #item-introduce="item">
             <span class="txt">{{ item.introduce }}</span>
           </template>
-          </EasyDataTable>
-        </section>
+        </EasyDataTable>
+        <c-pagination />
+      </section>
         <!-- //Table -->
-        <div class="table_pagenav disflex_C">
-          <CPagination />
-        </div>
       </template>
     </div>
   </q-page>
@@ -233,7 +229,7 @@ import CDropdown from "components/common/CDropdown.vue";
 import CButton from "components/common/CButton.vue";
 import CPagination from "components/common/CPagination.vue";
 
-const defaultData = ref(false);
+const defaultData = ref(true);
 const title = ref("워크스페이스 1 Member");
 const label = ref("전체");
 const label2 = ref("역할전체");

@@ -44,15 +44,15 @@
           </div>
         </div>
       </template>
-      <template v-if='visible !== true'>
+      <template v-if='visible == !true'>
         <div class="w-info">
           <div class="w-info_work line pb">
             <div class="t-flex">
               <p class="title">워크스페이스</p>
               <div class="btnWrap">
-                <q-btn
-                  label="편집"
-                  class="primary medium"
+                <c-button
+                  :size="'medium'"
+                  :btn-names="'편집'"
                   @click="visible = true"
                 />
               </div>
@@ -128,16 +128,17 @@
               <p class="title">워크스페이스</p>
               <div class="btnWrap">
                 <div>
-                  <q-btn
-                    label="취소"
-                    class="line medium"
+                  <c-button
+                    :outline="true"
+                    :size="medium"
+                    :btn-names="'취소'"
                     @click="visible = false"
                   />
                 </div>
                 <div>
-                  <q-btn
-                    label="저장"
-                    class="primary medium"
+                  <c-button
+                    :size="medium"
+                    :btn-names="'저장'"
                     @click="visible = false"
                   />
                 </div>
@@ -153,7 +154,7 @@
                 <p class="char-g">역할</p>
                 <div class="group">
                   <div class="c_selectgroup">
-                    <CDropdown
+                    <c-dropdown
                       v-model:selected="selectedBasic"
                       :label="label"
                       :options="options"
@@ -173,7 +174,7 @@
               <div class="sel-wrap">
                 <div class="sel-title">{{proName1}}</div>
                 <div class="c_selectgroup w250">
-                  <CDropdown
+                  <c-dropdown
                   v-model:selected="selectedBasic"
                   :label="label2"
                   :options="options"
@@ -183,7 +184,7 @@
               <div class="sel-wrap">
                 <div class="sel-title">{{proName2}}</div>
                 <div class="c_selectgroup w250">
-                  <CDropdown
+                  <c-dropdown
                   v-model:selected="selectedBasic"
                   :label="label2"
                   :options="options"
