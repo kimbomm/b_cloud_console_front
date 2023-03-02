@@ -35,11 +35,7 @@
               </q-input>
             </div>
             <div class="select_drop">
-              <CDropdown
-                :label="optLabel"
-                :options="optNumber"
-                class="auto_size"
-              />
+              <CDropdown :label="optLabel" :options="optNumber" class="auto_size" />
             </div>
           </div>
 
@@ -79,7 +75,57 @@
   </q-page>
 
   <!-- Start : [내 이미지] 이미지 - 내이미지 - 공유관리 -->
-  <q-dialog v-model="isImageShareManagePopup" class="c_dialog medium">
+  <!-- <c-dialog
+    v-model:visible="isImageShareManagePopup"
+    :size="'medium'"
+    :message="'내 이미지 공유 관리'"
+    :button-positive="'확인'"
+    :button-negative="'취소'"
+    :callback-positive="imageShareManageSave"
+  >
+    <template #contents>
+      <q-item-section class="item_card medium bg">
+        <q-item-label class="name">{{ userWorkspaceName }}</q-item-label>
+        <q-item-label class="desc">{{ userProjecteName }}</q-item-label>
+      </q-item-section>
+      <section class="section">
+        <p class="sub_title">공유 여부</p>
+        <q-list class="p_list share">
+          <template v-for="(project, index) in mySharedProjects" :key="index">
+            <q-item class="item chkall">
+              <i class="ico folder" />
+              <q-item-section class="item_card">
+                <q-item-label class="name">{{ project.project_name }}</q-item-label>
+                <q-item-label class="desc">{{ project.workspace_name }}</q-item-label>
+              </q-item-section>
+              <q-checkbox
+                v-model="isChkAll"
+                class="c_checkbox check_all"
+                @click="handleCheckGroupClick(index)"
+              />
+            </q-item>
+
+            <template
+              v-for="(innerProject, innerIndex) in project.projects"
+              :key="innerIndex"
+            >
+              <q-item class="item subitem">
+                <i class="ico note" />
+                <q-item-section class="item_card">
+                  <q-item-label class="name">{{ innerProject.name }}</q-item-label>
+                  <q-item-label class="desc">{{ innerProject.description }}</q-item-label>
+                </q-item-section>
+
+                <q-checkbox class="c_checkbox" v-model="innerProject.checked" />
+              </q-item>
+            </template>
+          </template>
+        </q-list>
+      </section>
+
+    </template>
+  </c-dialog> -->
+<q-dialog v-model="isImageShareManagePopup0" class="c_dialog medium">
     <q-card>
       <q-card-section class="c_dialog_body">
         <p class="title">
@@ -96,12 +142,8 @@
               <q-item class="item chkall">
                 <i class="ico folder" />
                 <q-item-section class="item_card">
-                  <q-item-label class="name">{{
-                    project.project_name
-                  }}</q-item-label>
-                  <q-item-label class="desc">{{
-                    project.workspace_name
-                  }}</q-item-label>
+                  <q-item-label class="name">{{ project.project_name }}</q-item-label>
+                  <q-item-label class="desc">{{ project.workspace_name }}</q-item-label>
                 </q-item-section>
                 <q-checkbox
                   v-model="isChkAll"
@@ -117,18 +159,13 @@
                 <q-item class="item subitem">
                   <i class="ico note" />
                   <q-item-section class="item_card">
-                    <q-item-label class="name">{{
-                      innerProject.name
-                    }}</q-item-label>
+                    <q-item-label class="name">{{ innerProject.name }}</q-item-label>
                     <q-item-label class="desc">{{
                       innerProject.description
                     }}</q-item-label>
                   </q-item-section>
 
-                  <q-checkbox
-                    class="c_checkbox"
-                    v-model="innerProject.checked"
-                  />
+                  <q-checkbox class="c_checkbox" v-model="innerProject.checked" />
                 </q-item>
               </template>
             </template>
@@ -137,12 +174,7 @@
       </q-card-section>
       <q-card-actions class="c_dialog_foot">
         <q-btn label="취소" class="line" v-close-popup />
-        <q-btn
-          label="저장"
-          class="primary"
-          v-close-popup
-          @click="imageShareManageSave"
-        />
+        <q-btn label="저장" class="primary" v-close-popup @click="imageShareManageSave" />
       </q-card-actions>
     </q-card>
   </q-dialog>
@@ -160,12 +192,7 @@
         </div>
       </q-card-section>
       <q-card-actions class="c_dialog_foot">
-        <q-btn
-          label="취소"
-          class="line"
-          v-close-popup
-          @click="deleteShareData(false)"
-        />
+        <q-btn label="취소" class="line" v-close-popup @click="deleteShareData(false)" />
         <q-btn
           label="삭제"
           class="primary"
@@ -188,9 +215,7 @@
           공유설정에 실패한 워크스페이스/프로젝트가 있습니다. 다시 시도해주세요
         </p>
         <div class="info negative">
-          <span
-            v-for="(failedRequest, index) in failedRequests"
-            :key="failedRequest"
+          <span v-for="(failedRequest, index) in failedRequests" :key="failedRequest"
             >{{ failedRequest.name
             }}{{ index !== failedRequests.length - 1 ? ", " : "" }}</span
           >
@@ -221,6 +246,7 @@ import { $useCmFn } from "src/composables/useCommonFunction.js";
 import CDropdown from "components/common/CDropdown.vue";
 import CPagination from "src/components/common/CPagination.vue";
 import CTab from "src/components/common/CTab.vue";
+// import CDialog from "src/components/common/CDialog.vue";
 import MyPage from "./component/MyPage.vue";
 import BasicPage from "./component/BasicPage.vue";
 import SharedPage from "./component/SharedPage.vue";
@@ -254,10 +280,7 @@ const transformDate = (value) => {
   const { images } = value;
   const updateImage = images.map((item) => ({
     ...item,
-    [value.created_at]: $utils.paseseDate(
-      item[value.created_at],
-      value.dateType
-    ),
+    [value.created_at]: $utils.paseseDate(item[value.created_at], value.dateType),
   }));
 
   return updateImage;
@@ -519,11 +542,7 @@ const handleCheckGroupClick = (index) => {
   if (isChkAll.value) {
     mySharedProjects.value = updateChecked(mySharedProjects.value, index, true);
   } else {
-    mySharedProjects.value = updateChecked(
-      mySharedProjects.value,
-      index,
-      false
-    );
+    mySharedProjects.value = updateChecked(mySharedProjects.value, index, false);
   }
 };
 
@@ -610,6 +629,7 @@ const separateByChecked = () => {
 };
 
 const imageShareManageSave = () => {
+  alert("확인");
   separateByChecked();
 };
 </script>
