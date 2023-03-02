@@ -11,9 +11,9 @@
       <h1 class="p-title">{{ ptitle }}</h1>
       <div class="deleteBtn">
         <c-button
-          :size="'medium'"
           :outline="true"
-          :btn-names="btnName"
+          :size="'medium'"
+          :btn-names='"삭제"'
         />
       </div>
     </div>
@@ -103,22 +103,22 @@
       <template v-else>
         <div class="m-info">
           <div class="u-info">
-            <p class="u-info_name">{{userNamef}}</p>
-            <p class="u-info_email">{{userEmailf}}</p>
-            <p class="u-info_intro">{{userIntroducef}}</p>
+            <p class="u-info_name">{{userName}}</p>
+            <p class="u-info_email">{{userEmail}}</p>
+            <p class="u-info_intro">{{userIntroduce}}</p>
           </div>
           <div class="u-info2">
             <div>
               <p class="g-txt">마지막 로그인</p>
-              <p class="b-txt">{{loginDatef}}</p>
+              <p class="b-txt">{{loginDate}}</p>
             </div>
             <div>
               <p class="g-txt">가입일자</p>
-              <p class="b-txt">{{joinDatef}}</p>
+              <p class="b-txt">{{joinDate}}</p>
             </div>
             <div>
               <p class="g-txt">LDAP 계정</p>
-              <p class="b-txt">{{ldapAccountf}}</p>
+              <p class="b-txt">{{ldapAccount}}</p>
             </div>
           </div>
         </div>
@@ -147,7 +147,7 @@
             <div class="work-wrap">
               <div class="w-name">
                 <p class="char-g">워크스페이스 이름</p>
-                <p class="b-txt">{{spaceNamef}}</p>
+                <p class="b-txt">{{spaceName}}</p>
               </div>
               <div class="w-char">
                 <p class="char-g">역할</p>
@@ -171,7 +171,7 @@
             </div>
             <div class="sel-box">
               <div class="sel-wrap">
-                <div class="sel-title">{{proNamef1}}</div>
+                <div class="sel-title">{{proName1}}</div>
                 <div class="c_selectgroup w250">
                   <CDropdown
                   v-model:selected="selectedBasic"
@@ -181,7 +181,7 @@
                 </div>
               </div>
               <div class="sel-wrap">
-                <div class="sel-title">{{proNamef2}}</div>
+                <div class="sel-title">{{proName2}}</div>
                 <div class="c_selectgroup w250">
                   <CDropdown
                   v-model:selected="selectedBasic"
@@ -227,15 +227,16 @@
 <script setup>
 import { ref } from "vue";
 import { useMeta } from "quasar";
+import CButton from "components/common/CButton.vue";
 import CDropdown from "components/common/CDropdown.vue";
 
-const visible = ref(false);
+const visible = ref(true);
 const title = ref("Member");
 
 const label = ref("프로젝트 이름");
 const label2 = ref("전체");
 
-// true Data
+// Data
 const userName = ref("박카브");
 const userEmail = ref("we.dot@kakaobrain.com");
 const userIntroduce = ref("소개글 Text소개글 Text소개글 Text소개글 Text소개글 Text소개글 Text");
@@ -248,16 +249,6 @@ const proName1 = ref("00프로젝트1");
 const proName2 = ref("00프로젝트1");
 const proAuthor1 = ref("프로젝트 관리자");
 const proAuthor2 = ref("멤버");
-// false Data
-const userNamef = ref("박카브");
-const userEmailf = ref("we.dot@kakaobrain.com");
-const userIntroducef = ref("소개글 Text소개글 Text소개글 Text소개글 Text소개글 Text소개글 Text");
-const loginDatef = ref("2022.11.22 12:32:33");
-const joinDatef = ref("2022.11.22");
-const ldapAccountf = ref("-");
-const spaceNamef = ref("카카오 모빌리티(public)");
-const proNamef1 = ref("00프로젝트1");
-const proNamef2 = ref("00프로젝트1");
 
 useMeta(() => ({
   title: title.value,
