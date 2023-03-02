@@ -10,7 +10,15 @@
       </q-breadcrumbs>
       <h1 class="p-title">{{ ptitle }}</h1>
       <div class="deleteBtn">
+<<<<<<< HEAD
         <CButton :size-types="2" :btn-types="4" :btn-names="btnName" />
+=======
+        <c-button
+          :size="'medium'"
+          :outline="true"
+          :btn-names="btnName"
+        />
+>>>>>>> develop
       </div>
     </div>
     <!-- //.chead -->
@@ -46,7 +54,15 @@
             <div class="t-flex">
               <p class="title">워크스페이스</p>
               <div class="btnWrap">
+<<<<<<< HEAD
                 <q-btn label="편집" class="primary" @click="visible = true" />
+=======
+                <q-btn
+                  label="편집"
+                  class="primary medium"
+                  @click="visible = true"
+                />
+>>>>>>> develop
               </div>
             </div>
 
@@ -116,12 +132,20 @@
               <p class="title">워크스페이스</p>
               <div class="btnWrap">
                 <div>
+<<<<<<< HEAD
                   <q-btn label="취소" class="line" @click="visible = false" />
+=======
+                  <q-btn
+                    label="취소"
+                    class="line medium"
+                    @click="visible = false"
+                  />
+>>>>>>> develop
                 </div>
                 <div>
                   <q-btn
                     label="저장"
-                    class="primary"
+                    class="primary medium"
                     @click="visible = false"
                   />
                 </div>
@@ -211,12 +235,10 @@
 <script setup>
 import { ref } from "vue";
 import { useMeta } from "quasar";
-import CButton from "components/common/CButton.vue";
 import CDropdown from "components/common/CDropdown.vue";
 
 const visible = ref(false);
 const title = ref("Member");
-const btnName = ref("삭제");
 
 const label = ref("프로젝트 이름");
 const label2 = ref("전체");

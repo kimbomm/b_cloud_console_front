@@ -11,7 +11,18 @@
       <div class="top-btn">
         <h1 class="p-title">{{ ptitle }}</h1>
         <div class="csv_btn">
+<<<<<<< HEAD
           <CButton :size-types="2" :btn-types="5" :btn-names="btnName" />
+=======
+          <c-button
+            :size="'medium'"
+            :btn-names="btnName"
+          >
+            <template #prepend>
+              <i class="ico plus"></i>
+            </template>
+          </c-button>
+>>>>>>> develop
         </div>
       </div>
     </div>
@@ -229,6 +240,9 @@ const bodyRowClassNameFunction = (item) => {
   if (item.checkbox) classList.push("row-selected");
   return classList.join(" ");
 };
+// Date Form
+const dateFrom = ref(null);
+const dateTo = ref(null);
 
 const ptitle = ref(title);
 </script>

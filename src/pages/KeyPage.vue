@@ -24,6 +24,7 @@
           <p class="key-box_title mt40">SSH Key</p>
           <div class="sign-up">
             <p class="mb30">SSH Key를 등록해주세요.</p>
+<<<<<<< HEAD
             <CButton :size-types="2" :btn-types="1" :btn-names="btnSign" />
           </div>
         </div>
@@ -73,6 +74,25 @@
                 </div>
             </section>
           </div> -->
+=======
+              <c-button
+                :size="'medium'"
+                :btn-names="btnSign"
+              />
+            </div>
+          </div>
+          <div class="key-box">
+            <p class="key-box_title mt60">API Key</p>
+            <div class="sign-up">
+              <p>API Key를 생성해 주세요.</p>
+              <p class="mb30">생성시 Secret key는 팝업에서 1회만 확인 가능합니다.</p>
+              <c-button
+                :size="'medium'"
+                :btn-names="btnCreate"
+              />
+            </div>
+          </div>
+>>>>>>> develop
       </template>
       <template v-else>
         <div class="flex-top mt40">
@@ -81,7 +101,15 @@
             <!-- 5개가 등록된 경우 (비활성화) -->
             <!-- <p class="disabled-txt">최대 5개까지 등록 가능합니다</p> -->
           </div>
+<<<<<<< HEAD
           <CButton :size-types="2" :btn-types="4" :btn-names="btnSign" />
+=======
+          <c-button
+            :size="'medium'"
+            :outline="true"
+            :btn-names="btnSign"
+          />
+>>>>>>> develop
         </div>
         <template v-if="defaultData == true">
           <section class="section">
@@ -132,6 +160,7 @@
                 </div>
               </template>
             </EasyDataTable>
+<<<<<<< HEAD
           </section>
           <div class="flex-top mt60">
             <p class="name">API Key</p>
@@ -151,6 +180,23 @@
               생성일시
               <span>{{ createDate }}</span>
             </p>
+=======
+        </section>
+        <div class="flex-top mt60">
+          <p class="name">API Key</p>
+          <div>
+            <c-button
+              :size="'medium'"
+              :outline="true"
+              :btn-names="btnReCreate"
+            />
+            &nbsp;
+            <c-button
+              :size="'medium'"
+              :outline="true"
+              :btn-names="btnDelete"
+            />
+>>>>>>> develop
           </div>
         </template>
       </template>

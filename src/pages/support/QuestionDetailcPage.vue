@@ -5,8 +5,19 @@
         <template v-slot:separator>
           <q-icon />
         </template>
+<<<<<<< HEAD
         <q-breadcrumbs-el label="Account" to="/support" />
         <q-breadcrumbs-el label="내 정보" to="/support" />
+=======
+        <q-breadcrumbs-el
+          label="Workspace Manager"
+          to="/support"
+        />
+        <q-breadcrumbs-el
+          label="Support"
+          to="/support"
+        />
+>>>>>>> develop
       </q-breadcrumbs>
       <h1 class="p-title">{{ ptitle }}</h1>
     </div>
@@ -42,9 +53,7 @@
           <!-- <p class="amount-reply_answer checking">관리자가 확인 중 입니다.</p> -->
         </div>
         <div class="c_btngroup">
-          <CButton
-            :size-types="1"
-            :btn-types="1"
+          <c-button
             :btn-names="listBtn"
             class="list-btn"
             to="/support/"
@@ -67,44 +76,44 @@
               <p class="amount-title">CPU</p>
               <p class="current-amount">
                 현재 할당량
-                <span>3,000</span>&nbsp;/&nbsp;<span>2,750</span>
+                <span class="c-span">3,000</span>
               </p>
               <p class="request-amount">
                 요청량
-                <span>5,000</span>&nbsp;GiB
+                <span>5,000</span>
               </p>
             </div>
             <div class="amount-check_req-box2">
               <p class="amount-title">Tesla A100</p>
               <p class="current-amount">
                 현재 할당량
-                <span>3,000</span>&nbsp;/&nbsp;<span>2,750</span>
+                <span class="c-span">3,000</span>
               </p>
               <p class="request-amount">
                 요청량
-                <span>5,000</span>&nbsp;GiB
+                <span>5,000</span>
               </p>
             </div>
             <div class="amount-check_req-box2">
               <p class="amount-title">Tesla V100</p>
               <p class="current-amount">
                 현재 할당량
-                <span>3,000</span>&nbsp;/&nbsp;<span>2,750</span>
+                <span class="c-span">3,000</span>
               </p>
               <p class="request-amount">
                 요청량
-                <span>5,000</span>&nbsp;GiB
+                <span>5,000</span>
               </p>
             </div>
             <div class="amount-check_req-box2">
               <p class="amount-title">Tesla P40</p>
               <p class="current-amount">
                 현재 할당량
-                <span>3,000</span>&nbsp;/&nbsp;<span>2,750</span>
+                <span class="c-span">3,000</span>
               </p>
               <p class="request-amount">
                 요청량
-                <span>5,000</span>&nbsp;GiB
+                <span>5,000</span>
               </p>
             </div>
           </div>
@@ -117,9 +126,7 @@
           <!-- <p class="amount-reply_answer checking">관리자가 확인 중 입니다.</p> -->
         </div>
         <div class="c_btngroup">
-          <CButton
-            :size-types="1"
-            :btn-types="1"
+          <c-button
             :btn-names="listBtn"
             class="list-btn"
             to="/support/"
@@ -154,9 +161,7 @@
           <!-- <p class="amount-reply_answer checking">관리자가 확인 중 입니다.</p> -->
         </div>
         <div class="c_btngroup">
-          <CButton
-            :size-types="1"
-            :btn-types="1"
+          <c-button
             :btn-names="listBtn"
             class="list-btn flex-end"
             to="/support/"
@@ -191,9 +196,7 @@
           <!-- <p class="amount-reply_answer checking">관리자가 확인 중 입니다.</p> -->
         </div>
         <div class="c_btngroup">
-          <CButton
-            :size-types="1"
-            :btn-types="1"
+          <c-button
             :btn-names="listBtn"
             class="list-btn"
             to="/support/"
@@ -206,7 +209,6 @@
 <script setup>
 import { ref } from "vue";
 import { useMeta } from "quasar";
-import CButton from "components/common/CButton.vue";
 
 const title = ref("Support");
 const visible = ref("C");
@@ -216,13 +218,12 @@ useMeta(() => ({
 }));
 
 const ptitle = ref(title);
-const listBtn = ref("목록");
 </script>
 
 <style lang="scss" scoped>
 @import "src/css/support";
 .c_btngroup {
-  display: flex;
-  justify-content: flex-end;
+  display: flex; justify-content: flex-end;
+  margin-top: 24px;
 }
 </style>

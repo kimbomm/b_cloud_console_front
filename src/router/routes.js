@@ -121,21 +121,21 @@ const routes = [
       // Dashboard
       { path: "/workspace/:workspaceId/projects", component: () => import("pages/IndexPage.vue") },
       // 프로젝트
-      { path: "/workspace/:workspaceId/projects/:projectId", component: () => import("pages/projects/IndexPage.vue") },
-      { path: "/projects/projectdetail", component: () => import("pages/projects/ProjectDetailPage.vue") },
+      { path: "/workspace/:workspaceId/projects/:projectId", component: () => import("pages/workspace/projects/IndexPage.vue") },
+      { path: "/projects/projectdetail", component: () => import("pages/workspace/projects/ProjectDetailPage.vue") },
       // 프로젝트 - 인스턴스 : 생성, 상세
-      { path: "/workspace/:workspaceId/projects/:projectId/instance/create", component: () => import("pages/projects/InstanceDetailPage.vue") },
-      { path: "/workspace/:workspaceId/projects/:projectId/instance/:instanceId", component: () => import("pages/projects/InstanceViewPage.vue") },
+      { path: "/workspace/:workspaceId/projects/:projectId/instance/create", component: () => import("pages/workspace/projects/InstanceDetailPage.vue") },
+      { path: "/workspace/:workspaceId/projects/:projectId/instance/:instanceId", component: () => import("pages/workspace/projects/InstanceViewPage.vue") },
       // 프로젝트 - 테스크 : 생성, 상세, 그룹상세
       // TODO: 그룹상세 url
-      { path: "/workspace/:workspaceId/projects/:projectId/task/create", component: () => import("pages/projects/TaskDetailPage.vue") },
-      { path: "/workspace/:workspaceId/projects/:projectId/task/:taskId", component: () => import("pages/projects/TaskViewPage.vue") },
-      { path: "/projects/taskgroup", component: () => import("pages/projects/TaskGroupPage.vue") },
+      { path: "/workspace/:workspaceId/projects/:projectId/task/create", component: () => import("pages/workspace/projects/TaskDetailPage.vue") },
+      { path: "/workspace/:workspaceId/projects/:projectId/task/:taskId", component: () => import("pages/workspace/projects/TaskViewPage.vue") },
+      { path: "/projects/taskgroup", component: () => import("pages/workspace/projects/TaskGroupPage.vue") },
 
       // 스토리지
       { path: "/workspace/:workspaceId/storage", component: () => import("pages/storage/IndexPage.vue") },
       // 이미지
-      { path: "/workspace/:workspaceId/images", component: () => import("pages/images/IndexPage.vue") },
+      { path: "/workspace/:workspaceId/images", component: () => import("pages/workspace/images/IndexPage.vue") },
       // 멤버
       { path: "/workspace/:workspaceId/members/", component: () => import("pages/members/IndexPage.vue") },
       { path: "/workspace/:workspaceId/members/:memberId", component: () => import("pages/members/MemberDetailPage.vue") },

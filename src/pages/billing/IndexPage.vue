@@ -10,7 +10,18 @@
       <div class="top-btn">
         <h1 class="p-title">{{ ptitle }}</h1>
         <div class="billing_btn">
+<<<<<<< HEAD
           <CButton :size-types="2" :btn-types="5" :btn-names="btnName" />
+=======
+          <c-button
+            :size="'medium'"
+            :btn-names="btnName"
+          >
+            <template #prepend>
+              <i class="ico plus"></i>
+            </template>
+          </c-button>
+>>>>>>> develop
         </div>
       </div>
     </div>
@@ -174,11 +185,15 @@ const optNumber = ref([
 // Table
 const headers = [
   {
+<<<<<<< HEAD
     text: "인스턴스/태스크 그룹 이름",
     value: "title",
     width: 230,
     widthAuto: true,
     sortable: true,
+=======
+    text: "인스턴스/태스크 그룹 이름", width: 230, value: "title", sortable: true
+>>>>>>> develop
   },
   {
     text: "서비스",
@@ -244,6 +259,9 @@ const items = [
     pay: "283,292원",
   },
 ];
+// Date Form
+const dateFrom = ref(null);
+const dateTo = ref(null);
 
 const ptitle = ref(title);
 </script>
