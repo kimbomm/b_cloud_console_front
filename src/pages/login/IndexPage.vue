@@ -5,7 +5,7 @@
         alt="B CLOUD logo"
         src="~assets/images/common/logo_122x146.svg"
         style="width: 122px; height: 146px"
-      >
+      />
       <p class="text">
         AI 연구와 머신러닝을 위한 최적의 환경을<br />제공합니다.
       </p>
@@ -14,7 +14,7 @@
           alt="Google logo"
           src="~assets/images/common/logo_googleg_48dp.svg"
           style="width: 18px; height: 18px"
-        >
+        />
         <span class="txt">Google 계정으로 로그인</span>
       </q-btn>
     </div>
@@ -48,7 +48,7 @@ const login = async () => {
    */
   googleOneTap().then(async (response) => {
     await AuthService.postGoogleLogin({
-      id_token: response.credential
+      id_token: response.credential,
     }).then((res) => {
       const { id } = res;
       console.log(id);

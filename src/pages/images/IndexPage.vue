@@ -1,10 +1,7 @@
 <template>
   <q-page class="p-content p-images p-index">
     <div class="p-head">
-      <q-breadcrumbs
-        class="c_breadcrumb"
-        gutter="none"
-      >
+      <q-breadcrumbs class="c_breadcrumb" gutter="none">
         <template v-slot:separator>
           <q-icon />
         </template>
@@ -14,15 +11,11 @@
       </q-breadcrumbs>
       <h1 class="p-title">{{ ptitle }}</h1>
     </div>
-<!-- //.chead -->
+    <!-- //.chead -->
     <div class="p-body">
       <div class="container">
         <div class="header">
-          <q-tabs
-            v-model="tab"
-            align="left"
-            class="c_tabs"
-          >
+          <q-tabs v-model="tab" align="left" class="c_tabs">
             <q-tab name="tabs1" label="내이미지" />
             <q-tab name="tabs2" label="기본 이미지" />
             <q-tab name="tabs3" label="공유받은 이미지" />
@@ -49,7 +42,7 @@
                 :options="optNumber"
                 class="auto_size"
               />
-              </div>
+            </div>
           </div>
           <section class="section">
             <EasyDataTable
@@ -65,12 +58,9 @@
               </template>
               <!-- title -->
               <template #item-title="item">
-                <a href="#">
+                <a>
                   <span class="txt">{{ item.title }}</span>
-                  <q-tooltip
-                    anchor="bottom middle"
-                    class="c_tooltip"
-                  >
+                  <q-tooltip anchor="bottom middle" class="c_tooltip">
                     <div class="inner">
                       {{ item.title }}
                     </div>
@@ -85,34 +75,22 @@
                 4. saving, 저장중
               -->
               <template #item-status="item">
-                <q-badge
-                  v-if="item.status === 'save'"
-                  class="green"
-                >
+                <q-badge v-if="item.status === 'save'" class="green">
                   <span class="txt">저장(개인)</span>
                 </q-badge>
-                <q-badge
-                  v-if="item.status === 'save_s'"
-                  class="green"
-                >
+                <q-badge v-if="item.status === 'save_s'" class="green">
                   <span class="txt">저장(공유)</span>
                 </q-badge>
-                <q-badge
-                  v-else-if="item.status === 'error'"
-                  class="orange"
-                >
+                <q-badge v-else-if="item.status === 'error'" class="orange">
                   <span class="txt">오류</span>
                 </q-badge>
-                <q-badge
-                  v-else-if="item.status === 'saving'"
-                  class="c_badge"
-                >
+                <q-badge v-else-if="item.status === 'saving'" class="c_badge">
                   <span class="txt">저장중</span>
                 </q-badge>
               </template>
               <!-- image -->
               <template #item-image="item">
-                <a href="#">
+                <a>
                   <span class="txt">{{ item.image }}</span>
                 </a>
               </template>
@@ -182,42 +160,62 @@ const defaultData = ref(true);
 
 const headers = [
   {
-    text: "이름", value: "id", width: 150, sortable: true
+    text: "이름",
+    value: "id",
+    width: 207,
+    sortable: true,
   },
   {
-    text: "설명", value: "title", width: 230, widthAuto: true
+    text: "설명",
+    value: "title",
+    width: 230,
+    widthAuto: true,
   },
   {
-    text: "상태", value: "status"
+    text: "상태",
+    value: "status",
+    width: 110,
   },
   {
-    text: "이미지", value: "image", sortable: true
+    text: "이미지",
+    value: "image",
+    width: 135,
+    widthAuto: true,
+    sortable: true,
   },
   {
-    text: "생성일시", value: "createdAt", width: 190, widthAuto: true, sortable: true
+    text: "생성일시",
+    value: "createdAt",
+    width: 216,
+    sortable: true,
   },
-  { text: "", value: "buttons" },
+  { text: "", value: "buttons", width: 80 },
 ];
 const items = [
   {
     id: "내이미지01",
-    title: "테스트용 이미지 생성 테스트 테스트테스트용 이미지 생성 테스트 테스트테스트용 이미지 생성 테스트 테스트테스트용 이미지 생성 테스트 테스트테스트용",
+    title:
+      "테스트용 이미지 생성 테스트 테스트테스트용 이미지 생성 테스트 테스트테스트용 이미지 생성 테스트 테스트테스트용 이미지 생성 테스트 테스트테스트용",
     status: "saving",
-    image: "tensorflow 2.9.0(python3, cuda11.2, ubutun20.04)tensorflow 2.9.0(python3, cuda11.2, ubutun20.04) ",
+    image:
+      "tensorflow 2.9.0(python3, cuda11.2, ubutun20.04)tensorflow 2.9.0(python3, cuda11.2, ubutun20.04) ",
     createdAt: "2023.01.12 10:33:21",
   },
   {
     id: "내이미지01",
-    title: "테스트용 이미지 생성 테스트 테스트테스트용 이미지 생성 테스트 테스트테스트용 이미지 생성 테스트 테스트테스트용 이미지 생성 테스트 테스트테스트용",
+    title:
+      "테스트용 이미지 생성 테스트 테스트테스트용 이미지 생성 테스트 테스트테스트용 이미지 생성 테스트 테스트테스트용 이미지 생성 테스트 테스트테스트용",
     status: "save",
-    image: "tensorflow 2.9.0(python3, cuda11.2, ubutun20.04)tensorflow 2.9.0(python3, cuda11.2, ubutun20.04) ",
+    image:
+      "tensorflow 2.9.0(python3, cuda11.2, ubutun20.04)tensorflow 2.9.0(python3, cuda11.2, ubutun20.04) ",
     createdAt: "2023.01.12 10:33:21",
   },
   {
     id: "내이미지02",
     title: "테스트용 이미지 생성 테스트 테스트테스트용 테스트용 이미지 생성 ",
     status: "save_s",
-    image: "tensorflow 2.9.0(python3, cuda11.2, ubutun20.04)tensorflow 2.9.0(python3, cuda11.2, ubutun20.04)",
+    image:
+      "tensorflow 2.9.0(python3, cuda11.2, ubutun20.04)tensorflow 2.9.0(python3, cuda11.2, ubutun20.04)",
     createdAt: "2023.01.12 10:33:21",
   },
   {
@@ -257,11 +255,9 @@ const onActions = (eventName, rowData) => {
 const showRow = (item) => {
   console.log(item);
 };
-
 </script>
 
 <style lang="scss" scoped>
 @import "src/css/table.scss";
 @import "src/css/images.scss";
-
 </style>

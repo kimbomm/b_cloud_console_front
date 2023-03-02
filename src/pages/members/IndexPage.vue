@@ -37,11 +37,7 @@
           </div>
           <div class="set-r set">
             <div class="set-btn">
-              <CButton
-                :size-types="2"
-                :btn-types="5"
-                :btn-names="'멤버추가'"
-              />
+              <CButton :size-types="2" :btn-types="5" :btn-names="'멤버추가'" />
             </div>
             <div class="set-btn remove_member_btn">
               <CButton
@@ -114,10 +110,7 @@
             <template #item-buttons="item">
               <div v-if="actionButtons || item.buttons" class="cell btngroup">
                 <!-- 초대 요청 확인 -->
-                <q-btn
-                  v-if="item.buttons"
-                  class="c_btn"
-                >
+                <q-btn v-if="item.buttons" class="c_btn">
                   <span class="txt">{{ item.buttons.name }}</span>
                 </q-btn>
               </div>
@@ -179,22 +172,22 @@
             empty-message="정보가 없습니다."
             @click-row="showRow"
           >
-          <!-- name -->
-          <template #item-name="item">
-            <span class="txt">{{ item.name.title }}</span>
-          </template>
-          <!-- email -->
-          <template #item-email="item">
-            <span class="txt">{{ item.email }}</span>
-          </template>
-          <!-- workspaceChar -->
-          <template #item-workspaceChar="item">
-            <span class="txt">{{ item.workspaceChar }}</span>
-          </template>
-          <!-- introduce -->
-          <template #item-introduce="item">
-            <span class="txt">{{ item.introduce }}</span>
-          </template>
+            <!-- name -->
+            <template #item-name="item">
+              <span class="txt">{{ item.name.title }}</span>
+            </template>
+            <!-- email -->
+            <template #item-email="item">
+              <span class="txt">{{ item.email }}</span>
+            </template>
+            <!-- workspaceChar -->
+            <template #item-workspaceChar="item">
+              <span class="txt">{{ item.workspaceChar }}</span>
+            </template>
+            <!-- introduce -->
+            <template #item-introduce="item">
+              <span class="txt">{{ item.introduce }}</span>
+            </template>
           </EasyDataTable>
         </section>
         <!-- //Table -->
@@ -239,23 +232,35 @@ const itemsSelected = ref([]);
 
 const headers = [
   {
-    text: "이름", value: "name", width: 266, sortable: true, checkbox: true
+    text: "이름",
+    value: "name",
+    width: 266,
+    sortable: true,
+    checkbox: true,
   },
   {
-    text: "이메일", value: "email", width: 293, sortable: true
+    text: "이메일",
+    value: "email",
+    width: 293,
+    sortable: true,
   },
   {
-    text: "워크스페이스 역할", value: "workspaceChar", width: 242, sortable: false
+    text: "워크스페이스 역할",
+    value: "workspaceChar",
+    width: 242,
+    sortable: false,
   },
   {
-    text: "소개", value: "introduce", sortable: false
+    text: "소개",
+    value: "introduce",
+    sortable: false,
   },
 ];
 const items = [
   {
     name: {
       title: "billing",
-      join: false
+      join: false,
     },
     email: "billing@workspace1.com",
     workspaceChar: "정산 관리자",
@@ -264,7 +269,7 @@ const items = [
   {
     name: {
       title: "liv.olive",
-      join: true
+      join: true,
     },
     email: "billing@workspace1.com",
     workspaceChar: "정산 관리자",
@@ -273,7 +278,7 @@ const items = [
   {
     name: {
       title: "Test",
-      join: true
+      join: true,
     },
     email: "test@workspace1.com",
     workspaceChar: "워크스페이스 멤버",
@@ -305,16 +310,28 @@ const bodyRowClassNameFunction = (item) => {
 // Table2
 const headers2 = [
   {
-    text: "이름", value: "name", width: 266, sortable: true, checkbox: true
+    text: "이름",
+    value: "name",
+    width: 266,
+    sortable: true,
+    checkbox: true,
   },
   {
-    text: "이메일", value: "email", width: 293, sortable: true
+    text: "이메일",
+    value: "email",
+    width: 293,
+    sortable: true,
   },
   {
-    text: "워크스페이스 역할", value: "workspaceChar", width: 242, sortable: false
+    text: "워크스페이스 역할",
+    value: "workspaceChar",
+    width: 242,
+    sortable: false,
   },
   {
-    text: "소개", value: "introduce", sortable: false
+    text: "소개",
+    value: "introduce",
+    sortable: false,
   },
 ];
 const items2 = [
@@ -324,8 +341,8 @@ const items2 = [
     workspaceChar: "정산 관리자",
     introduce: "안녕하세요",
     buttons: {
-      name: "초대요청 확인"
-    }
+      name: "초대요청 확인",
+    },
   },
   {
     name: "liv.olive",
@@ -351,6 +368,6 @@ const ptitle = ref(title);
 </script>
 
 <style lang="scss" scoped>
-@import 'src/css/table';
-@import 'src/css/members';
+@import "src/css/table";
+@import "src/css/members";
 </style>

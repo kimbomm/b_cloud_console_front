@@ -36,17 +36,14 @@
             </template>
             <!-- title -->
             <template #item-title="item">
-            <a href="#">
-            <span class="txt">{{ item.title }}</span>
-            <q-tooltip
-            anchor="bottom middle"
-            class="c_tooltip"
-            >
-            <div class="inner">
-            {{ item.title }}
-            </div>
-            </q-tooltip>
-            </a>
+              <a href="#">
+                <span class="txt">{{ item.title }}</span>
+                <q-tooltip anchor="bottom middle" class="c_tooltip">
+                  <div class="inner">
+                    {{ item.title }}
+                  </div>
+                </q-tooltip>
+              </a>
             </template>
             <!-- inquiry -->
             <template #item-inquiry="item">
@@ -58,18 +55,12 @@
             2. 확인중
             -->
             <template #item-replyStatus="item">
-            <q-badge
-              v-if="item.replyStatus === 'running'"
-              class="green"
-            >
-              <span class="txt">답변완료</span>
-            </q-badge>
-            <q-badge
-              v-else
-              class="c_badge"
-            >
-              <span class="txt">확인중</span>
-            </q-badge>
+              <q-badge v-if="item.replyStatus === 'running'" class="green">
+                <span class="txt">답변완료</span>
+              </q-badge>
+              <q-badge v-else class="c_badge">
+                <span class="txt">확인중</span>
+              </q-badge>
             </template>
           </EasyDataTable>
         </section>
@@ -102,22 +93,34 @@ useMeta(() => ({
 
 const headers = [
   {
-    text: "유형", value: "type", width: 152, sortable: true
+    text: "유형",
+    value: "type",
+    width: 152,
+    sortable: true,
   },
   {
-    text: "제목", value: "title", sortable: true
+    text: "제목",
+    value: "title",
+    sortable: true,
   },
   {
-    text: "문의일시", value: "inquiry", width: 200, sortable: true
+    text: "문의일시",
+    value: "inquiry",
+    width: 200,
+    sortable: true,
   },
   {
-    text: "답변상태", value: "replyStatus", width: 112, sortable: true
+    text: "답변상태",
+    value: "replyStatus",
+    width: 112,
+    sortable: true,
   },
 ];
 const items = [
   {
     type: "스토리지 변경",
-    title: "테스트용 이미지 생성 테스트 테스트테스트용 이미지 생성 테스트 테스트테스트용 이미지테스트용 이미지 생성 테스트 테스트테스트용 이미지 생성 테스트 테스트테스트용 이미지",
+    title:
+      "테스트용 이미지 생성 테스트 테스트테스트용 이미지 생성 테스트 테스트테스트용 이미지테스트용 이미지 생성 테스트 테스트테스트용 이미지 생성 테스트 테스트테스트용 이미지",
     inquiry: "2023.10.11 12:30:31",
     replyStatus: "running",
   },
@@ -148,9 +151,9 @@ const showRow = (item) => {
 
 <style lang="scss" scoped>
 @import "./src/css/table";
-@import 'src/css/support';
-::v-deep{
-  table{
+@import "src/css/support";
+::v-deep {
+  table {
     table-layout: fixed;
   }
 }

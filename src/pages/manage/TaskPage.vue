@@ -1,31 +1,18 @@
 <template>
   <q-page class="p-content p-manage p-instance">
     <div class="p-head">
-      <q-breadcrumbs
-        class="c_breadcrumb"
-        gutter="none"
-      >
+      <q-breadcrumbs class="c_breadcrumb" gutter="none">
         <template v-slot:separator>
           <q-icon />
         </template>
-        <q-breadcrumbs-el
-          label="Workspace Manager"
-          to="/"
-        />
-        <q-breadcrumbs-el
-          label="Instance & Tasks"
-          to="/"
-        />
+        <q-breadcrumbs-el label="Workspace Manager" to="/" />
+        <q-breadcrumbs-el label="Instance & Tasks" to="/" />
         <q-breadcrumbs-el label="태스크" />
       </q-breadcrumbs>
       <div class="p-detail-head">
         <h1 class="p-title">{{ ptitle }}</h1>
         <div class="resource_employ_btn">
-          <q-btn
-            btnTypes=4
-            type="button"
-            class="c_btn line medium"
-          >
+          <q-btn btnTypes="4" type="button" class="c_btn line medium">
             <i class="ico plus" /><span class="txt">리소스 사용이력</span>
           </q-btn>
         </div>
@@ -35,21 +22,11 @@
     <div class="p-body">
       <div class="wrap tab_task">
         <div class="tab_area">
-          <q-tabs
-            v-model="tab"
-            align="left"
-            class="c_tabs"
-          >
-            <q-tab
-              name="tabs1"
-              label="인스턴스"
-            >
+          <q-tabs v-model="tab" align="left" class="c_tabs">
+            <q-tab name="tabs1" label="인스턴스">
               <q-badge>36</q-badge>
             </q-tab>
-            <q-tab
-              name="tabs2"
-              label="태스크"
-            >
+            <q-tab name="tabs2" label="태스크">
               <q-badge>19</q-badge>
             </q-tab>
           </q-tabs>
@@ -65,10 +42,7 @@
                 class="c_inpchip default_size"
               >
                 <template v-slot:prepend>
-                  <q-icon
-                    name="search"
-                    class="ico_search"
-                  />
+                  <q-icon name="search" class="ico_search" />
                 </template>
               </q-select>
             </div>
@@ -79,8 +53,8 @@
                 toggle-color="primary"
                 flat
                 :options="[
-                  {label: '그룹보기', value: 'one'},
-                  {label: '태스크보기', value: 'two'}
+                  { label: '그룹보기', value: 'one' },
+                  { label: '태스크보기', value: 'two' },
                 ]"
               />
             </div>
@@ -135,10 +109,7 @@
               <template #item-groupName="item">
                 <a href="#">
                   <span class="txt">{{ item.groupName }}</span>
-                  <q-tooltip
-                    anchor="bottom middle"
-                    class="c_tooltip"
-                  >
+                  <q-tooltip anchor="bottom middle" class="c_tooltip">
                     <div class="inner">
                       {{ item.groupName }}
                     </div>
@@ -149,10 +120,7 @@
               <template #item-desc="item">
                 <a href="#">
                   <span class="txt">{{ item.desc }}</span>
-                  <q-tooltip
-                    anchor="bottom middle"
-                    class="c_tooltip"
-                  >
+                  <q-tooltip anchor="bottom middle" class="c_tooltip">
                     <div class="inner">
                       {{ item.desc }}
                     </div>
@@ -185,7 +153,11 @@
                     </q-badge>
                   </div>
 
-                  <q-popup-edit v-model="badgeGroup" self="bottom middle" class="badge_menu">
+                  <q-popup-edit
+                    v-model="badgeGroup"
+                    self="bottom middle"
+                    class="badge_menu"
+                  >
                     <div class="inner">
                       <q-list>
                         <q-item>
@@ -325,14 +297,11 @@
               <template #item-taskName="item">
                 <a href="#">
                   <span class="txt">{{ item.taskName }}</span>
-                    <q-tooltip
-                      anchor="bottom middle"
-                      class="c_tooltip"
-                    >
-                      <div class="inner">
-                        {{ item.taskName }}
-                      </div>
-                    </q-tooltip>
+                  <q-tooltip anchor="bottom middle" class="c_tooltip">
+                    <div class="inner">
+                      {{ item.taskName }}
+                    </div>
+                  </q-tooltip>
                 </a>
               </template>
               <!--
@@ -350,52 +319,28 @@
                 11. unknown
               -->
               <template #item-status="item">
-                <q-badge
-                  v-if="item.status === 'running'"
-                  class="green"
-                >
+                <q-badge v-if="item.status === 'running'" class="green">
                   <span class="txt">실행중</span>
                 </q-badge>
-                <q-badge
-                  v-else-if="item.status === 'finished'"
-                  class="orange"
-                >
+                <q-badge v-else-if="item.status === 'finished'" class="orange">
                   <span class="txt">완료</span>
                 </q-badge>
-                <q-badge
-                  v-else-if="item.status === 'stopped'"
-                  class="orange"
-                >
+                <q-badge v-else-if="item.status === 'stopped'" class="orange">
                   <span class="txt">취소</span>
                 </q-badge>
-                <q-badge
-                  v-else-if="item.status === 'failure'"
-                  class="orange"
-                >
+                <q-badge v-else-if="item.status === 'failure'" class="orange">
                   <span class="txt">실패</span>
                 </q-badge>
-                <q-badge
-                  v-else-if="item.status === 'error'"
-                  class="orange"
-                >
+                <q-badge v-else-if="item.status === 'error'" class="orange">
                   <span class="txt">에러</span>
                 </q-badge>
-                <q-badge
-                  v-else-if="item.status === 'pending'"
-                  class="c_badge"
-                >
+                <q-badge v-else-if="item.status === 'pending'" class="c_badge">
                   <span class="txt">대기중</span>
                 </q-badge>
-                <q-badge
-                  v-else-if="item.status === 'making'"
-                  class="c_badge"
-                >
+                <q-badge v-else-if="item.status === 'making'" class="c_badge">
                   <span class="txt">생성중</span>
                 </q-badge>
-                <q-badge
-                  v-else-if="item.status === 'cancel'"
-                  class="c_badge"
-                >
+                <q-badge v-else-if="item.status === 'cancel'" class="c_badge">
                   <span class="txt">취소</span>
                 </q-badge>
                 <q-badge
@@ -404,43 +349,34 @@
                 >
                   <span class="txt">취소중</span>
                 </q-badge>
-                <q-badge
-                  v-else-if="item.status === 'deleting'"
-                  class="c_badge"
-                >
+                <q-badge v-else-if="item.status === 'deleting'" class="c_badge">
                   <span class="txt">삭제중</span>
                 </q-badge>
-                <q-badge
-                  v-else
-                  class="c_badge"
-                >
+                <q-badge v-else class="c_badge">
                   <span class="txt">Unknown</span>
                 </q-badge>
               </template>
               <!-- ssh -->
               <template #item-ssh="item">
-                <q-badge
-                  class="copy square ssh icon"
-                  @click="onCopy(item)"
-                >
+                <q-badge class="copy square ssh icon" @click="onCopy(item)">
                   <span class="txt">{{ item.ssh }}</span>
                 </q-badge>
               </template>
               <!-- 인스턴스 타입 -->
               <template #item-instanceType="item">
-                <q-badge
-                  class="text instance"
-                  @click="onCopy(item)"
-                >
-                  <span class="txt">{{ item.instanceType }}<i class="ico details">
-                    <q-tooltip
-                      anchor="bottom middle"
-                      class="c_tooltip insTypeTool"
+                <q-badge class="text instance" @click="onCopy(item)">
+                  <span class="txt"
+                    >{{ item.instanceType
+                    }}<i class="ico details">
+                      <q-tooltip
+                        anchor="bottom middle"
+                        class="c_tooltip insTypeTool"
+                      >
+                        <div class="inner">
+                          {{ item.instanceType }}
+                        </div>
+                      </q-tooltip></i
                     >
-                      <div class="inner">
-                        {{ item.instanceType }}
-                      </div>
-                    </q-tooltip></i>
                   </span>
                 </q-badge>
               </template>
@@ -549,25 +485,48 @@ const segModel2 = ref("one");
 // 그룹보기
 const groupHeaders = [
   {
-    text: "프로젝트 이름", value: "pjName", width: 135, sortable: false
+    text: "프로젝트 이름",
+    value: "pjName",
+    width: 135,
+    sortable: false,
   },
   {
-    text: "그룹ID", value: "groupid", width: 65, sortable: false
+    text: "그룹ID",
+    value: "groupid",
+    width: 65,
+    sortable: false,
   },
   {
-    text: "그룹 이름", value: "groupName", width: 133, widthAuto: true, sortable: true
+    text: "그룹 이름",
+    value: "groupName",
+    width: 133,
+    widthAuto: true,
+    sortable: true,
   },
   {
-    text: "설명", value: "desc", width: 133, widthAuto: true, sortable: false
+    text: "설명",
+    value: "desc",
+    width: 133,
+    widthAuto: true,
+    sortable: false,
   },
   {
-    text: "상태", value: "status", width: 160, sortable: false
+    text: "상태",
+    value: "status",
+    width: 160,
+    sortable: false,
   },
   {
-    text: "생성일시", value: "createdAt", width: 160, sortable: true
+    text: "생성일시",
+    value: "createdAt",
+    width: 160,
+    sortable: true,
   },
   {
-    text: "생성자", value: "constructor", width: 260, sortable: true
+    text: "생성자",
+    value: "constructor",
+    width: 260,
+    sortable: true,
   },
   { text: "", value: "buttons", width: 80 },
 ];
@@ -603,40 +562,77 @@ const groupItems = [
 // 테스크보기
 const taskHeaders = [
   {
-    text: "프로젝트 이름", value: "pjName", width: 135, sortable: false
+    text: "프로젝트 이름",
+    value: "pjName",
+    width: 135,
+    sortable: false,
   },
   {
-    text: "그룹 이름", value: "groupName", width: 115, sortable: true
+    text: "그룹 이름",
+    value: "groupName",
+    width: 115,
+    sortable: true,
   },
   {
-    text: "태스크 이름", value: "taskName", width: 160, widthAuto: true, sortable: true
+    text: "태스크 이름",
+    value: "taskName",
+    width: 160,
+    widthAuto: true,
+    sortable: true,
   },
   {
-    text: "상태", value: "status", width: 105, sortable: false
+    text: "상태",
+    value: "status",
+    width: 105,
+    sortable: false,
   },
   {
-    text: "ssh", value: "ssh", width: 80, sortable: false
+    text: "ssh",
+    value: "ssh",
+    width: 80,
+    sortable: false,
   },
   {
-    text: "인스턴스 타입", value: "instanceType", width: 130, sortable: false
+    text: "인스턴스 타입",
+    value: "instanceType",
+    width: 130,
+    sortable: false,
   },
   {
-    text: "GPU", value: "gpu", width: 60, sortable: false
+    text: "GPU",
+    value: "gpu",
+    width: 60,
+    sortable: false,
   },
   {
-    text: "CPU", value: "cpu", width: 60, sortable: false
+    text: "CPU",
+    value: "cpu",
+    width: 60,
+    sortable: false,
   },
   {
-    text: "생성자", value: "createdBy", width: 85, sortable: true
+    text: "생성자",
+    value: "createdBy",
+    width: 85,
+    sortable: true,
   },
   {
-    text: "생성일시", value: "createdAt", width: 160, sortable: true
+    text: "생성일시",
+    value: "createdAt",
+    width: 160,
+    sortable: true,
   },
   {
-    text: "완료일시", value: "endDate", width: 160, sortable: true
+    text: "완료일시",
+    value: "endDate",
+    width: 160,
+    sortable: true,
   },
   {
-    text: "로그확인", value: "log", width: 80, sortable: false
+    text: "로그확인",
+    value: "log",
+    width: 80,
+    sortable: false,
   },
   { text: "", value: "buttons", width: 80 },
 ];

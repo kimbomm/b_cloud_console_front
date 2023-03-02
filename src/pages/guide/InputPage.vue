@@ -25,9 +25,7 @@
               placeholder="Placeholder Text"
               class="c_inp"
             >
-              <template v-slot:error>
-                Error!
-              </template>
+              <template v-slot:error> Error! </template>
             </q-input>
 
             <!-- Base Text Success -->
@@ -39,9 +37,7 @@
               clearable
               class="c_inp q-field--positive"
             >
-              <template v-slot:hint>
-                Comfirmed!
-              </template>
+              <template v-slot:hint> Comfirmed! </template>
             </q-input>
           </div>
         </div>
@@ -109,9 +105,7 @@
                   @click="isPwd = !isPwd"
                 />
               </template>
-              <template v-slot:error>
-                Error!
-              </template>
+              <template v-slot:error> Error! </template>
             </q-input>
 
             <!-- Password Success -->
@@ -189,9 +183,7 @@
                   />
                 </q-item>
                 <q-item class="no_data">
-                  <q-item-section>
-                    검색 결과 없습니다.
-                  </q-item-section>
+                  <q-item-section> 검색 결과 없습니다. </q-item-section>
                 </q-item>
               </template>
             </q-select>
@@ -222,9 +214,7 @@
                   />
                 </q-item>
                 <q-item class="no_data">
-                  <q-item-section>
-                    검색 결과 없습니다.
-                  </q-item-section>
+                  <q-item-section> 검색 결과 없습니다. </q-item-section>
                 </q-item>
               </template>
             </q-select>
@@ -254,9 +244,7 @@
               </template>
               <template v-slot:no-option>
                 <q-item class="no_data">
-                  <q-item-section>
-                    검색 결과 없습니다.
-                  </q-item-section>
+                  <q-item-section> 검색 결과 없습니다. </q-item-section>
                 </q-item>
               </template>
             </q-select>
@@ -288,9 +276,7 @@
               </template>
               <template v-slot:no-option>
                 <q-item class="no_data">
-                  <q-item-section>
-                    검색 결과 없습니다.
-                  </q-item-section>
+                  <q-item-section> 검색 결과 없습니다. </q-item-section>
                 </q-item>
               </template>
             </q-select>
@@ -380,12 +366,14 @@
               >
                 <template v-slot:append>
                   <q-icon name="access_time">
-                    <q-popup-proxy
-                      :offset="[100, 0]"
-                      class="c_time"
-                    >
+                    <q-popup-proxy :offset="[100, 0]" class="c_time">
                       <q-time v-model="timeFrom" mask="HH:mm">
-                        <q-btn v-close-popup label="확인" color="primary" flat />
+                        <q-btn
+                          v-close-popup
+                          label="확인"
+                          color="primary"
+                          flat
+                        />
                       </q-time>
                     </q-popup-proxy>
                   </q-icon>
@@ -402,10 +390,7 @@
               >
                 <template v-slot:prepend>
                   <q-icon class="ico_calendar">
-                    <q-popup-proxy
-                      :offset="[150, 0]"
-                      class="c_datepicker"
-                    >
+                    <q-popup-proxy :offset="[150, 0]" class="c_datepicker">
                       <q-date
                         v-model="dateTo"
                         mask="YYYY.MM.DD"
@@ -423,12 +408,14 @@
               >
                 <template v-slot:append>
                   <q-icon name="access_time">
-                    <q-popup-proxy
-                      :offset="[240, 0]"
-                      class="c_time"
-                    >
+                    <q-popup-proxy :offset="[240, 0]" class="c_time">
                       <q-time v-model="timeTo" mask="HH:mm">
-                        <q-btn v-close-popup label="확인" color="primary" flat />
+                        <q-btn
+                          v-close-popup
+                          label="확인"
+                          color="primary"
+                          flat
+                        />
                       </q-time>
                     </q-popup-proxy>
                   </q-icon>
@@ -469,27 +456,23 @@ const model1 = ref("읽기쓰기");
 // const selectDate = ref(null);
 // const selectDateRange = ref(null);
 const date = ref(null);
-const dateRange = ref(
-  { from: "2023.01.09", to: "2023.01.30" }
-);
+const dateRange = ref({ from: "2023.01.09", to: "2023.01.30" });
 
 const dateFrom = ref(null);
 const timeFrom = ref(null);
 const dateTo = ref(null);
 const timeTo = ref(null);
 
-const options1 = [
-  "읽기쓰기", "읽기", "삭제",
-];
-const stringOptions = [
-  "사용자", "프로젝트", "워크스페이스"
-];
+const options1 = ["읽기쓰기", "읽기", "삭제"];
+const stringOptions = ["사용자", "프로젝트", "워크스페이스"];
 const options = ref(stringOptions);
 const filterOptions = ref(stringOptions);
 const filterFn = (val, update) => {
   update(() => {
     const needle = val.toLowerCase();
-    options.value = stringOptions.filter((v) => v.toLowerCase().indexOf(needle) > -1);
+    options.value = stringOptions.filter(
+      (v) => v.toLowerCase().indexOf(needle) > -1
+    );
   });
 };
 const createValue = (val, done) => {
@@ -515,41 +498,41 @@ const chipFilterFn = (val, update) => {
 onMounted(() => {});
 </script>
 <style lang="scss" scoped>
-.p-content{
-  &.p-input{
-    padding-bottom:500px;
+.p-content {
+  &.p-input {
+    padding-bottom: 500px;
   }
 }
-.section{
-  &:not(:first-child){
-    margin-top:50px;
+.section {
+  &:not(:first-child) {
+    margin-top: 50px;
   }
-  h2{
-    margin-bottom:10px;
+  h2 {
+    margin-bottom: 10px;
   }
-  .h6{
-    &:not(:first-child){
-      margin-top:50px;
+  .h6 {
+    &:not(:first-child) {
+      margin-top: 50px;
     }
   }
 }
-.group{
-  margin-top:20px;
+.group {
+  margin-top: 20px;
 }
-.inp_calendar:not(:last-child){
-  margin-right:10px;
+.inp_calendar:not(:last-child) {
+  margin-right: 10px;
 }
-.c_inp{
-  &:not(:last-child){
-    margin-right:20px;
+.c_inp {
+  &:not(:last-child) {
+    margin-right: 20px;
   }
 }
-.q-select:not(:first-child){
-  margin-top:20px;
+.q-select:not(:first-child) {
+  margin-top: 20px;
 }
-.c_selectgroup{
+.c_selectgroup {
 }
-.c_inpgroup:not(:first-child){
-  margin-top:20px;
+.c_inpgroup:not(:first-child) {
+  margin-top: 20px;
 }
 </style>

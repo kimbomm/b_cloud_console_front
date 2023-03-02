@@ -1,21 +1,12 @@
 <template>
   <q-page class="p-content p-support p-write">
     <div class="p-head">
-      <q-breadcrumbs
-        class="c_breadcrumb"
-        gutter="none"
-      >
+      <q-breadcrumbs class="c_breadcrumb" gutter="none">
         <template v-slot:separator>
           <q-icon />
         </template>
-        <q-breadcrumbs-el
-          label="Workspace Manager"
-          to="/support"
-        />
-        <q-breadcrumbs-el
-          label="Support"
-          to="/support"
-        />
+        <q-breadcrumbs-el label="Workspace Manager" to="/support" />
+        <q-breadcrumbs-el label="Support" to="/support" />
       </q-breadcrumbs>
       <h1 class="p-title">{{ ptitle }}</h1>
     </div>
@@ -28,16 +19,17 @@
         :options="options"
         @click="visible"
       />
-      <div
-        class="type-area area-box"
-        v-if="visible === 'A'"
-      >
+      <div class="type-area area-box" v-if="visible === 'A'">
         <p class="type-area_text">유형을 선택해주세요</p>
       </div>
       <!-- 고객지원-문의하기-스토리지 할당량 변경 -->
       <template v-else-if="visible === 'B'">
         <div class="amount-area area-box">
-          <p class="area-title">워크스페이스 스토리지 요청 할당량 입력&nbsp;<span class="essential">*</span></p>
+          <p class="area-title">
+            워크스페이스 스토리지 요청 할당량 입력&nbsp;<span class="essential"
+              >*</span
+            >
+          </p>
           <div class="unit_type">
             <span class="tit">현재 사용량</span>
             <span class="counter">
@@ -61,10 +53,7 @@
             </q-input>
             <span class="desc">최대 50,000</span>
           </div>
-          <section
-            class="request-input"
-            aria-label="프로젝트 설명"
-          >
+          <section class="request-input" aria-label="프로젝트 설명">
             <p class="req_title" style="margin-bottom: 8px">요청 내용</p>
             <div class="c_inpgroup">
               <q-input
@@ -77,7 +66,7 @@
                 :count="10"
                 maxlength="1000"
                 class="wsize_full hsize244 pl-px"
-                :input-style="{height: '100%'}"
+                :input-style="{ height: '100%' }"
               >
               </q-input>
             </div>
@@ -95,11 +84,10 @@
       <!-- 고객지원-문의하기-리소스 할당량 변경 -->
       <template v-else-if="visible === 'C'">
         <div class="resource-area area-box">
-          <p class="title">CPU, GPU 할당 요청량 입력&nbsp;<span class="essential">*</span></p>
-          <section
-            class="section"
-            aria-label="CPU"
-          >
+          <p class="title">
+            CPU, GPU 할당 요청량 입력&nbsp;<span class="essential">*</span>
+          </p>
+          <section class="section" aria-label="CPU">
             <p class="sub-title">CPU</p>
             <div class="unit_type">
               <span class="tit">현재 할당량</span>
@@ -143,10 +131,7 @@
                 </q-input>
               </div>
             </div>
-            <section
-              class="request-input"
-              aria-label="프로젝트 설명"
-            >
+            <section class="request-input" aria-label="프로젝트 설명">
               <p class="req_title">요청 내용</p>
               <div class="c_inpgroup">
                 <q-input
@@ -159,7 +144,7 @@
                   :count="10"
                   maxlength="1000"
                   class="wsize_full hsize244 pl-px"
-                  :input-style="{height: '100%'}"
+                  :input-style="{ height: '100%' }"
                 />
               </div>
             </section>
@@ -190,7 +175,7 @@
               :count="10"
               maxlength="100"
               class="wsize_full hsize118 pl-px"
-              :input-style="{height: '100%'}"
+              :input-style="{ height: '100%' }"
             />
           </div>
           <p class="title">내용&nbsp;<span class="essential">*</span></p>
@@ -205,7 +190,7 @@
               :count="10"
               maxlength="1000"
               class="wsize_full hsize244 pl-px"
-              :input-style="{height: '100%'}"
+              :input-style="{ height: '100%' }"
             />
           </div>
           <p class="title-file">파일 업로드</p>
@@ -235,7 +220,7 @@
               :count="10"
               maxlength="100"
               class="wsize_full hsize118 pl-px"
-              :input-style="{height: '100%'}"
+              :input-style="{ height: '100%' }"
             />
           </div>
           <p class="title">내용&nbsp;<span class="essential">*</span></p>
@@ -250,7 +235,7 @@
               :count="10"
               maxlength="1000"
               class="wsize_full hsize244 pl-px"
-              :input-style="{height: '100%'}"
+              :input-style="{ height: '100%' }"
             />
           </div>
           <p class="title-file">파일 업로드</p>
@@ -362,7 +347,7 @@ const triggerSuccess3 = (position) => {
 </script>
 
 <style lang="scss" scoped>
-@import 'src/css/support';
+@import "src/css/support";
 .q_btngroup {
   display: flex;
   justify-content: flex-end;

@@ -1,17 +1,11 @@
 <template>
   <q-page class="p-content p-storage p-index">
     <div class="p-head">
-      <q-breadcrumbs
-        class="c_breadcrumb"
-        gutter="none"
-      >
+      <q-breadcrumbs class="c_breadcrumb" gutter="none">
         <template v-slot:separator>
           <q-icon />
         </template>
-        <q-breadcrumbs-el
-          label="Projects"
-          to="/"
-        />
+        <q-breadcrumbs-el label="Projects" to="/" />
         <q-breadcrumbs-el label="Storage" />
       </q-breadcrumbs>
       <h1 class="p-title">{{ ptitle }}</h1>
@@ -29,30 +23,29 @@
               class="c_inpchip default_size"
             >
               <template v-slot:prepend>
-                <q-icon
-                  name="search"
-                  class="ico_search"
-                />
+                <q-icon name="search" class="ico_search" />
               </template>
             </q-select>
           </div>
           <div class="now_storage_view">
             <div class="storage_view_box">
               <div class="generate_num">
-                <p class="gn_title">생성 가능 개수
+                <p class="gn_title">
+                  생성 가능 개수
                   <q-btn class="ibtn help">
-                    <i class="ico help"><span class="hidden">도움말</span>
-                    <q-popup-edit
-                      v-model="helpShow"
-                      anchor="bottom middle"
-                      self="bottom middle"
-                      class="c_popover storage_pop"
-                    >
-                      <div class="inner">
-                        <p>스토리지는 개인당 최대 5개 생성할 수 있습니다.</p>
-                      </div>
-                    </q-popup-edit>
-                  </i>
+                    <i class="ico help"
+                      ><span class="hidden">도움말</span>
+                      <q-popup-edit
+                        v-model="helpShow"
+                        anchor="bottom middle"
+                        self="bottom middle"
+                        class="c_popover storage_pop"
+                      >
+                        <div class="inner">
+                          <p>스토리지는 개인당 최대 5개 생성할 수 있습니다.</p>
+                        </div>
+                      </q-popup-edit>
+                    </i>
                   </q-btn>
                 </p>
                 <p class="gn_data"><span class="now_num">2</span> / 5</p>
@@ -67,17 +60,13 @@
         </div>
         <div class="r_set_inner">
           <div class="dose_modifying_btn">
-            <q-btn
-              btnTypes=4
-              type="button"
-              class="c_btn line medium"
-            >
+            <q-btn btnTypes="4" type="button" class="c_btn line medium">
               <span class="txt">개인 용량 변경 요청</span>
             </q-btn>
           </div>
           <div class="storage_add_btn">
             <q-btn
-              btnTypes=4
+              btnTypes="4"
               type="button"
               class="c_btn line medium"
               @click="storageAddModal = true"
@@ -124,34 +113,19 @@
             5. restoring, 복원중
           -->
           <template #item-status="item">
-            <q-badge
-              v-if="item.status === 'running'"
-              class="green"
-            >
+            <q-badge v-if="item.status === 'running'" class="green">
               <span class="txt">운영중(개인)</span>
             </q-badge>
-            <q-badge
-              v-else-if="item.status === 'running_s'"
-              class="green"
-            >
+            <q-badge v-else-if="item.status === 'running_s'" class="green">
               <span class="txt">운영중(공유)</span>
             </q-badge>
-            <q-badge
-              v-else-if="item.status === 'making'"
-              class="c_badge"
-            >
+            <q-badge v-else-if="item.status === 'making'" class="c_badge">
               <span class="txt">생성중</span>
             </q-badge>
-            <q-badge
-              v-else-if="item.status === 'deleting'"
-              class="c_badge"
-            >
+            <q-badge v-else-if="item.status === 'deleting'" class="c_badge">
               <span class="txt">삭제중</span>
             </q-badge>
-            <q-badge
-              v-else-if="item.status === 'restoring'"
-              class="c_badge"
-            >
+            <q-badge v-else-if="item.status === 'restoring'" class="c_badge">
               <span class="txt">복원중</span>
             </q-badge>
           </template>
@@ -178,10 +152,7 @@
                   anchor="top right"
                 >
                   <q-list style="min-width: 100px">
-                    <q-item
-                      v-for="button in actionButtons"
-                      :key="button.name"
-                    >
+                    <q-item v-for="button in actionButtons" :key="button.name">
                       <q-btn
                         class="item"
                         @click="onActions(button.event, item)"
@@ -200,88 +171,74 @@
         <CPagination />
       </div>
     </div>
-  </q-page>
-
-  <!-- Start : [스토리지] 개인스토리지 추가 -->
-  <q-dialog
-    v-model="storageAddModal"
-    class="c_dialog large"
-  >
-    <q-card>
-      <q-card-section class="c_dialog_body">
-        <p class="title">
-          <strong>개인 스토리지 추가</strong>
-        </p>
-        <section class="section">
-          <p class="sub_title">이름<i class="ess">*</i></p>
-          <div class="c_inpgroup">
-            <q-input
-              outlined
-              v-model="textName"
-              placeholder="최소 2자 최대 30자"
-              clearable
-              class="wsize_full"
-            />
-          </div>
-        </section>
-        <section class="section">
-          <p class="sub_title">설명</p>
-          <div class="c_inpgroup">
-            <q-input
-              outlined
-              v-model="textDesc"
-              bottom-slots
-              type="textarea"
-              placeholder="스토리지 설명"
-              clearable
-              counter
-              :count="10"
-              maxlength="500"
-              class="wsize_full hsize244"
-              :input-style="{height: '100%'}"
-            >
-              <!-- <template v-slot:hint>
+    <!-- Start : [스토리지] 개인스토리지 추가 -->
+    <q-dialog v-model="storageAddModal" class="c_dialog large">
+      <q-card>
+        <q-card-section class="c_dialog_body">
+          <p class="title">
+            <strong>개인 스토리지 추가</strong>
+          </p>
+          <section class="section">
+            <p class="sub_title">이름<i class="ess">*</i></p>
+            <div class="c_inpgroup">
+              <q-input
+                outlined
+                v-model="textName"
+                placeholder="최소 2자 최대 30자"
+                clearable
+                class="wsize_full"
+              />
+            </div>
+          </section>
+          <section class="section">
+            <p class="sub_title">설명</p>
+            <div class="c_inpgroup">
+              <q-input
+                outlined
+                v-model="textDesc"
+                bottom-slots
+                type="textarea"
+                placeholder="스토리지 설명"
+                clearable
+                counter
+                :count="10"
+                maxlength="500"
+                class="wsize_full hsize244"
+                :input-style="{ height: '100%' }"
+              >
+                <!-- <template v-slot:hint>
                   Description
                 </template> -->
-            </q-input>
-          </div>
-        </section>
-        <section class="section mt24">
-          <p class="sub_title">스토리지 용량</p>
-          <div class="c_inpgroup flex-end">
-            <q-input
-              outlined
-              v-model="quota2"
-              type="number"
-              placeholder="50GiB 단위 입력"
-              clearable
-              class="inp_unit"
-            >
-              <template v-slot:append>
-                <span class="unit">GiB</span>
-              </template>
-            </q-input>
-            <span class="desc">최대 50,000</span>
-          </div>
-        </section>
-      </q-card-section>
-      <q-card-actions class="c_dialog_foot">
-        <q-btn
-          label="취소"
-          class="line"
-          v-close-popup
-        />
-        <q-btn
-          label="확인"
-          class="primary"
-          v-close-popup
-          disable
-        />
-      </q-card-actions>
-    </q-card>
-  </q-dialog>
-  <!-- End : [스토리지] 개인스토리지 추가 -->
-
+              </q-input>
+            </div>
+          </section>
+          <section class="section mt24">
+            <p class="sub_title">스토리지 용량</p>
+            <div class="c_inpgroup flex-end">
+              <q-input
+                outlined
+                v-model="quota2"
+                type="number"
+                placeholder="50GiB 단위 입력"
+                clearable
+                class="inp_unit"
+              >
+                <template v-slot:append>
+                  <span class="unit">GiB</span>
+                </template>
+              </q-input>
+              <span class="desc">최대 50,000</span>
+            </div>
+          </section>
+        </q-card-section>
+        <q-card-actions class="c_dialog_foot">
+          <q-btn label="취소" class="line" v-close-popup />
+          <q-btn label="확인" class="primary" v-close-popup disable />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
+    <!-- End : [스토리지] 개인스토리지 추가 -->
+  </q-page>
 </template>
 <script setup>
 import { ref } from "vue";
@@ -306,25 +263,46 @@ const optNumber = ref([
 
 const headers = [
   {
-    text: "이름", value: "title", width: 180, sortable: true
+    text: "이름",
+    value: "title",
+    width: 180,
+    sortable: true,
   },
   {
-    text: "설명", value: "description", width: 180, sortable: false
+    text: "설명",
+    value: "description",
+    width: 180,
+    sortable: false,
   },
   {
-    text: "소유자", value: "user", width: 150, sortable: true
+    text: "소유자",
+    value: "user",
+    width: 150,
+    sortable: true,
   },
   {
-    text: "상태", value: "status", width: 120, sortable: false
+    text: "상태",
+    value: "status",
+    width: 120,
+    sortable: false,
   },
   {
-    text: "사용량", value: "usingData", width: 150, sortable: true
+    text: "사용량",
+    value: "usingData",
+    width: 150,
+    sortable: true,
   },
   {
-    text: "생성일시", value: "createdAt", width: 170, sortable: false
+    text: "생성일시",
+    value: "createdAt",
+    width: 170,
+    sortable: false,
   },
   {
-    text: "접근권한", value: "authority", width: 120, sortable: false
+    text: "접근권한",
+    value: "authority",
+    width: 120,
+    sortable: false,
   },
   { text: "", value: "buttons", width: 80 },
 ];

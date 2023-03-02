@@ -1,21 +1,12 @@
 <template>
   <q-page class="p-content p-projects p-detail">
     <div class="p-head">
-      <q-breadcrumbs
-        class="c_breadcrumb"
-        gutter="none"
-      >
+      <q-breadcrumbs class="c_breadcrumb" gutter="none">
         <template v-slot:separator>
           <q-icon />
         </template>
-        <q-breadcrumbs-el
-          label="Projects"
-          to="/"
-        />
-        <q-breadcrumbs-el
-          label="Test Project"
-          to="/"
-        />
+        <q-breadcrumbs-el label="Projects" to="/" />
+        <q-breadcrumbs-el label="Test Project" to="/" />
         <q-breadcrumbs-el label="태스크" />
       </q-breadcrumbs>
       <h1 class="p-title">
@@ -30,7 +21,8 @@
             <div class="user_box_head">
               <template v-if="datacheck === true">
                 <div class="basis_view">
-                  <p class="sub_title">00태스크 1-1
+                  <p class="sub_title">
+                    00태스크 1-1
                     <i class="ico modify" @click="datacheck = false" />
                   </p>
                 </div>
@@ -110,16 +102,20 @@
         <div class="instance_type">
           <div class="type_box com_box">
             <p class="sub_title">인스턴스 타입</p>
-            <span class="text">V1.XLARGE (1GPU | 14CPU | MEM 122GiB | DISK 80GiB)</span>
+            <span class="text"
+              >V1.XLARGE (1GPU | 14CPU | MEM 122GiB | DISK 80GiB)</span
+            >
 
             <ul class="type_list">
-              <li :class="'t_list0'+ i" v-for="(i,a) in typeList" :key="i">
+              <li :class="'t_list0' + i" v-for="(i, a) in typeList" :key="i">
                 <q-item>
-                  <p class="type_list_title">{{typeItem[a].typeTitle}} <span>
-                    {{typeItem[a].basicTxt}}</span></p>
+                  <p class="type_list_title">
+                    {{ typeItem[a].typeTitle }}
+                    <span> {{ typeItem[a].basicTxt }}</span>
+                  </p>
                 </q-item>
                 <q-item>
-                  <p class="type_list_value">{{typeItem[a].typeValue}}</p>
+                  <p class="type_list_value">{{ typeItem[a].typeValue }}</p>
                 </q-item>
               </li>
             </ul>
@@ -164,7 +160,7 @@
             </div>
             <div class="ins_etc com_box">
               <p class="sub_title">기타 정보</p>
-              <q-scroll-area style="height:200px;">
+              <q-scroll-area style="height: 200px">
                 <div class="etc_cont">
                   <div>
                     <div class="theadarea">호스트 전체 준비 완료시 실행</div>
@@ -210,10 +206,7 @@
               <template #item-title="item">
                 <a href="#">
                   <span class="txt">{{ item.title }}</span>
-                  <q-tooltip
-                    anchor="bottom middle"
-                    class="c_tooltip"
-                  >
+                  <q-tooltip anchor="bottom middle" class="c_tooltip">
                     <div class="inner">
                       {{ item.title }}
                     </div>
@@ -233,34 +226,19 @@
                 9. unknown
               -->
               <template #item-status="item">
-                <q-badge
-                  v-if="item.status === 'finished'"
-                  class="green"
-                >
+                <q-badge v-if="item.status === 'finished'" class="green">
                   <span class="txt">완료</span>
                 </q-badge>
-                <q-badge
-                  v-else-if="item.status === 'stopped'"
-                  class="orange"
-                >
+                <q-badge v-else-if="item.status === 'stopped'" class="orange">
                   <span class="txt">실패</span>
                 </q-badge>
-                <q-badge
-                  v-else-if="item.status === 'pending'"
-                  class="c_badge"
-                >
+                <q-badge v-else-if="item.status === 'pending'" class="c_badge">
                   <span class="txt">대기중</span>
                 </q-badge>
-                <q-badge
-                  v-else-if="item.status === 'making'"
-                  class="c_badge"
-                >
+                <q-badge v-else-if="item.status === 'making'" class="c_badge">
                   <span class="txt">생성중</span>
                 </q-badge>
-                <q-badge
-                  v-else-if="item.status === 'starting'"
-                  class="c_badge"
-                >
+                <q-badge v-else-if="item.status === 'starting'" class="c_badge">
                   <span class="txt">실행중</span>
                 </q-badge>
                 <q-badge
@@ -269,53 +247,40 @@
                 >
                   <span class="txt">취소중</span>
                 </q-badge>
-                <q-badge
-                  v-else-if="item.status === 'deleting'"
-                  class="c_badge"
-                >
+                <q-badge v-else-if="item.status === 'deleting'" class="c_badge">
                   <span class="txt">삭제중</span>
                 </q-badge>
-                <q-badge
-                  v-else-if="item.status === 'cancel'"
-                  class="c_badge"
-                >
+                <q-badge v-else-if="item.status === 'cancel'" class="c_badge">
                   <span class="txt">취소</span>
                 </q-badge>
-                <q-badge
-                  v-else
-                  class="c_badge"
-                >
+                <q-badge v-else class="c_badge">
                   <span class="txt">Unknown</span>
                 </q-badge>
               </template>
               <!-- ssh -->
               <template #item-ssh="item">
-                <q-badge
-                  class="copy square ssh icon"
-                  @click="onCopy(item)"
-                >
+                <q-badge class="copy square ssh icon" @click="onCopy(item)">
                   <span class="txt">{{ item.ssh }}</span>
                 </q-badge>
               </template>
               <!-- 인스턴스 타입 -->
               <template #item-instanceType="item">
-                <q-badge
-                  class="text instance"
-                  @click="onCopy(item)"
-                >
-                  <span class="txt">{{ item.instanceType }}<i class="ico details">
-                    <q-tooltip
-                      anchor="bottom middle"
-                      class="c_tooltip insTypeTool"
+                <q-badge class="text instance" @click="onCopy(item)">
+                  <span class="txt"
+                    >{{ item.instanceType
+                    }}<i class="ico details">
+                      <q-tooltip
+                        anchor="bottom middle"
+                        class="c_tooltip insTypeTool"
+                      >
+                        <div class="inner">
+                          {{ item.instanceType }}
+                          {{ item.instanceType }}
+                          {{ item.instanceType }}
+                        </div>
+                      </q-tooltip></i
                     >
-                      <div class="inner">
-                        {{ item.instanceType }}
-                        {{ item.instanceType }}
-                        {{ item.instanceType }}
-                      </div>
-                    </q-tooltip></i>
                   </span>
-
                 </q-badge>
               </template>
               <!-- cpu -->
@@ -393,34 +358,66 @@ const ptitle = ref(title);
 
 const headers = [
   {
-    text: "ID", value: "id", width: 65, sortable: false, checkbox: true
+    text: "ID",
+    value: "id",
+    width: 65,
+    sortable: false,
+    checkbox: true,
   },
   {
-    text: "태스크 이름", value: "title", width: 160, widthAuto: true, sortable: true
+    text: "태스크 이름",
+    value: "title",
+    width: 160,
+    widthAuto: true,
+    sortable: true,
   },
   {
-    text: "상태", value: "status", width: 100, sortable: true
+    text: "상태",
+    value: "status",
+    width: 100,
+    sortable: true,
   },
   {
-    text: "ssh", value: "ssh", width: 80, sortable: false
+    text: "ssh",
+    value: "ssh",
+    width: 80,
+    sortable: false,
   },
   {
-    text: "GPU", value: "gpu", width: 60, sortable: false
+    text: "GPU",
+    value: "gpu",
+    width: 60,
+    sortable: false,
   },
   {
-    text: "CPU", value: "cpu", width: 60, sortable: false
+    text: "CPU",
+    value: "cpu",
+    width: 60,
+    sortable: false,
   },
   {
-    text: "인스턴스 타입", value: "instanceType", width: 115, sortable: false
+    text: "인스턴스 타입",
+    value: "instanceType",
+    width: 115,
+    sortable: false,
   },
   {
-    text: "생성일시", value: "createdAt", width: 165, sortable: true
+    text: "생성일시",
+    value: "createdAt",
+    width: 165,
+    sortable: true,
   },
   {
-    text: "완료일시", value: "endDat", width: 165, sortable: true
+    text: "완료일시",
+    value: "endDat",
+    width: 165,
+    sortable: true,
   },
   {
-    text: "로그확인", value: "logCheck", width: 100, sortable: true
+    text: "로그확인",
+    value: "logCheck",
+    width: 100,
+    sortable: true,
   },
   { text: "", value: "buttons", width: 80 },
 ];
@@ -444,8 +441,8 @@ const items = [
       zone: "public:normal",
     },
     buttons: {
-      name: "초대요청 확인"
-    }
+      name: "초대요청 확인",
+    },
   },
   {
     id: 342,
@@ -466,8 +463,8 @@ const items = [
       zone: "public:normal",
     },
     buttons: {
-      name: "초대요청 확인"
-    }
+      name: "초대요청 확인",
+    },
   },
   {
     id: 342,
@@ -488,8 +485,8 @@ const items = [
       zone: "public:normal",
     },
     buttons: {
-      name: "초대요청 확인"
-    }
+      name: "초대요청 확인",
+    },
   },
   {
     id: 342,
@@ -510,8 +507,8 @@ const items = [
       zone: "public:normal",
     },
     buttons: {
-      name: "초대요청 확인"
-    }
+      name: "초대요청 확인",
+    },
   },
   {
     id: 342,
@@ -532,8 +529,8 @@ const items = [
       zone: "public:normal",
     },
     buttons: {
-      name: "초대요청 확인"
-    }
+      name: "초대요청 확인",
+    },
   },
   {
     id: 342,
@@ -554,8 +551,8 @@ const items = [
       zone: "public:normal",
     },
     buttons: {
-      name: "초대요청 확인"
-    }
+      name: "초대요청 확인",
+    },
   },
   {
     id: 342,
@@ -576,8 +573,8 @@ const items = [
       zone: "public:normal",
     },
     buttons: {
-      name: "초대요청 확인"
-    }
+      name: "초대요청 확인",
+    },
   },
   {
     id: 342,
@@ -598,8 +595,8 @@ const items = [
       zone: "public:normal",
     },
     buttons: {
-      name: "초대요청 확인"
-    }
+      name: "초대요청 확인",
+    },
   },
   {
     id: 342,
@@ -620,8 +617,8 @@ const items = [
       zone: "public:normal",
     },
     buttons: {
-      name: "초대요청 확인"
-    }
+      name: "초대요청 확인",
+    },
   },
 ];
 

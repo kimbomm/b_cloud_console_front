@@ -1,25 +1,13 @@
 <template>
   <q-page class="p-content p-projects p-detail">
     <div class="p-head">
-      <q-breadcrumbs
-        class="c_breadcrumb"
-        gutter="none"
-      >
+      <q-breadcrumbs class="c_breadcrumb" gutter="none">
         <template v-slot:separator>
           <q-icon />
         </template>
-        <q-breadcrumbs-el
-          label="Projects"
-          to="/"
-        />
-        <q-breadcrumbs-el
-          label="Test Project"
-          to="/"
-        />
-        <q-breadcrumbs-el
-          label="인스턴스"
-          to="/"
-        />
+        <q-breadcrumbs-el label="Projects" to="/" />
+        <q-breadcrumbs-el label="Test Project" to="/" />
+        <q-breadcrumbs-el label="인스턴스" to="/" />
         <q-breadcrumbs-el label="aa인스턴스1" />
       </q-breadcrumbs>
       <div class="p-detail-head">
@@ -28,7 +16,7 @@
         </h1>
         <div class="monitoring_btn">
           <q-btn
-            btnTypes=1
+            btnTypes="1"
             type="button"
             class="c_btn medium"
             @click="workspaceHistoryBModal = true"
@@ -46,10 +34,14 @@
             <div class="user_box_head">
               <template v-if="datacheck === true">
                 <div class="basis_view">
-                  <p class="sub_title">aa인스턴스
+                  <p class="sub_title">
+                    aa인스턴스
                     <i class="ico modify" @click="datacheck = false" />
                   </p>
-                  <span class="text">인스턴스 설명인스턴스 설명인스턴스 설명인스턴스 설명인스턴스 설명인스턴스 설명</span>
+                  <span class="text"
+                    >인스턴스 설명인스턴스 설명인스턴스 설명인스턴스
+                    설명인스턴스 설명인스턴스 설명</span
+                  >
                 </div>
               </template>
               <template v-else>
@@ -77,7 +69,7 @@
                       :count="10"
                       maxlength="100"
                       class="wsize_full hsize136"
-                      :input-style="{height: '100%'}"
+                      :input-style="{ height: '100%' }"
                     />
                   </div>
                   <div class="modify_btn">
@@ -168,16 +160,20 @@
         <div class="instance_type">
           <div class="type_box com_box">
             <p class="sub_title">인스턴스 타입</p>
-            <span class="text">V1.XLARGE (1GPU | 14CPU | MEM 122GiB | DISK 80GiB)</span>
+            <span class="text"
+              >V1.XLARGE (1GPU | 14CPU | MEM 122GiB | DISK 80GiB)</span
+            >
 
             <ul class="type_list">
-              <li :class="'t_list0'+ i" v-for="(i,a) in typeList" :key="i">
+              <li :class="'t_list0' + i" v-for="(i, a) in typeList" :key="i">
                 <q-item>
-                  <p class="type_list_title">{{typeItem[a].typeTitle}} <span>
-                    {{typeItem[a].basicTxt}}</span></p>
+                  <p class="type_list_title">
+                    {{ typeItem[a].typeTitle }}
+                    <span> {{ typeItem[a].basicTxt }}</span>
+                  </p>
                 </q-item>
                 <q-item>
-                  <p class="type_list_value">{{typeItem[a].typeValue}}</p>
+                  <p class="type_list_value">{{ typeItem[a].typeValue }}</p>
                 </q-item>
               </li>
             </ul>
@@ -227,7 +223,7 @@
                   <p class="input_num_title">입력 포트 번호</p>
                   <p class="external_num_title">외부 포트 번호</p>
                 </div>
-                <q-scroll-area style="height:180px;">
+                <q-scroll-area style="height: 180px">
                   <ul class="port_box">
                     <li>
                       <p class="p_input_data">23335</p>
@@ -262,7 +258,9 @@
                 </div>
                 <div>
                   <div class="theadarea">ssh endpoint 주소</div>
-                  <div class="tbodyarea">instance.cloud.kakaobrain.com:17783`</div>
+                  <div class="tbodyarea">
+                    instance.cloud.kakaobrain.com:17783`
+                  </div>
                 </div>
                 <div>
                   <div class="theadarea">ssh 포트번호</div>
@@ -274,160 +272,148 @@
         </div>
       </div>
     </div>
+    <!-- Start : [프로젝트 - 인스턴스] B 워크스페이스 리소스 사용 이력(꺽은선 그래프 + 달력 + 시계) 팝업 -->
+    <q-dialog v-model="workspaceHistoryBModal" class="c_dialog large">
+      <q-card>
+        <q-card-section class="c_dialog_body">
+          <p class="title">
+            <strong>모니터링</strong>
+          </p>
+          <section class="section" aria-label="인스턴스 이름">
+            <p class="sub_title">인스턴스 이름</p>
+            <p class="desc">
+              V1.Xlarge(v100 GPU 1 / CPU 14 / MEM 122GB / DISK 80GB)
+            </p>
+            <div class="searcharea">
+              <CDropdown
+                v-model:selected="chartSelectedBasic"
+                :label="chartOptlabel"
+                :options="chartSelOpt"
+              />
+              <CDropdown
+                v-model:selected="chartSelectedBasic2"
+                :label="chartOptlabel2"
+                :options="chartSelOpt2"
+              />
+              <div class="fakebg">
+                <div class="from">
+                  <q-input
+                    outlined
+                    v-model="dateFrom"
+                    placeholder="2023.01.01"
+                    class="inp_calendar"
+                  >
+                    <template v-slot:prepend>
+                      <q-icon class="ico_calendar">
+                        <q-popup-proxy :offset="[0, 0]" class="c_datepicker">
+                          <q-date
+                            v-model="dateFrom"
+                            mask="YYYY.MM.DD"
+                            class="datepicker"
+                          />
+                        </q-popup-proxy>
+                      </q-icon>
+                    </template>
+                  </q-input>
+                  <q-input
+                    outlined
+                    v-model="timeFrom"
+                    placeholder="12:00"
+                    class="inp_time"
+                  >
+                    <template v-slot:append>
+                      <q-icon name="access_time">
+                        <q-popup-proxy :offset="[100, 0]" class="c_time">
+                          <q-time v-model="timeFrom" mask="HH:mm">
+                            <q-btn
+                              v-close-popup
+                              label="확인"
+                              color="primary"
+                              flat
+                            />
+                          </q-time>
+                        </q-popup-proxy>
+                      </q-icon>
+                    </template>
+                  </q-input>
+                </div>
+                <i class="bar" />
+                <div class="to">
+                  <q-input
+                    outlined
+                    v-model="dateTo"
+                    placeholder="2023.01.01"
+                    class="inp_calendar"
+                  >
+                    <template v-slot:prepend>
+                      <q-icon class="ico_calendar">
+                        <q-popup-proxy :offset="[150, 0]" class="c_datepicker">
+                          <q-date
+                            v-model="dateTo"
+                            mask="YYYY.MM.DD"
+                            class="datepicker"
+                          />
+                        </q-popup-proxy>
+                      </q-icon>
+                    </template>
+                  </q-input>
+                  <q-input
+                    outlined
+                    v-model="timeTo"
+                    placeholder="12:00"
+                    class="inp_time"
+                  >
+                    <template v-slot:append>
+                      <q-icon name="access_time">
+                        <q-popup-proxy :offset="[240, 0]" class="c_time">
+                          <q-time v-model="timeTo" mask="HH:mm">
+                            <q-btn
+                              v-close-popup
+                              label="확인"
+                              color="primary"
+                              flat
+                            />
+                          </q-time>
+                        </q-popup-proxy>
+                      </q-icon>
+                    </template>
+                  </q-input>
+                </div>
+              </div>
+            </div>
+            <q-card v-model="chartModel" class="apexchart">
+              <div class="chart_head">
+                <div class="chart_legend">
+                  <div class="blue">GPU(%)</div>
+                  <div class="coral">GPU Memory (Cache+PSS, %)</div>
+                  <div class="mint">RSS Memory (%)</div>
+                </div>
+                <q-btn class="ibtn">
+                  <i class="ico refresh" /><span class="hidden">재설정</span>
+                </q-btn>
+              </div>
+              <div class="chart_body">
+                <apexchart
+                  v-if="chartModel === chartModel"
+                  height="324"
+                  type="line"
+                  :options="chartOptions"
+                  :series="series"
+                ></apexchart>
+                <div v-else class="loading">
+                  <div class="loading_text" />
+                </div>
+              </div>
+            </q-card>
+          </section>
+        </q-card-section>
+        <q-card-actions class="c_dialog_foot">
+          <q-btn label="닫기" class="primary" v-close-popup />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
+    <!-- End : [프로젝트 - 인스턴스] B 워크스페이스 리소스 사용 이력(꺽은선 그래프 + 달력 + 시계) 팝업 -->
   </q-page>
-
-  <!-- Start : [프로젝트 - 인스턴스] B 워크스페이스 리소스 사용 이력(꺽은선 그래프 + 달력 + 시계) 팝업 -->
-  <q-dialog
-    v-model="workspaceHistoryBModal"
-    class="c_dialog large"
-  >
-    <q-card>
-      <q-card-section class="c_dialog_body">
-        <p class="title">
-          <strong>모니터링</strong>
-        </p>
-        <section
-          class="section"
-          aria-label="인스턴스 이름"
-        >
-          <p class="sub_title">인스턴스 이름</p>
-          <p class="desc">V1.Xlarge(v100 GPU 1 / CPU 14 / MEM 122GB / DISK 80GB)</p>
-          <div class="searcharea">
-            <CDropdown
-              v-model:selected="chartSelectedBasic"
-              :label="chartOptlabel"
-              :options="chartSelOpt"
-            />
-            <CDropdown
-              v-model:selected="chartSelectedBasic2"
-              :label="chartOptlabel2"
-              :options="chartSelOpt2"
-            />
-            <div class="fakebg">
-              <div class="from">
-                <q-input
-                  outlined
-                  v-model="dateFrom"
-                  placeholder="2023.01.01"
-                  class="inp_calendar"
-                >
-                  <template v-slot:prepend>
-                    <q-icon class="ico_calendar">
-                      <q-popup-proxy :offset="[0, 0]" class="c_datepicker">
-                        <q-date
-                          v-model="dateFrom"
-                          mask="YYYY.MM.DD"
-                          class="datepicker"
-                        />
-                      </q-popup-proxy>
-                    </q-icon>
-                  </template>
-                </q-input>
-                <q-input
-                  outlined
-                  v-model="timeFrom"
-                  placeholder="12:00"
-                  class="inp_time"
-                >
-                  <template v-slot:append>
-                    <q-icon name="access_time">
-                      <q-popup-proxy
-                        :offset="[100, 0]"
-                        class="c_time"
-                      >
-                        <q-time v-model="timeFrom" mask="HH:mm">
-                          <q-btn v-close-popup label="확인" color="primary" flat />
-                        </q-time>
-                      </q-popup-proxy>
-                    </q-icon>
-                  </template>
-                </q-input>
-              </div>
-              <i class="bar" />
-              <div class="to">
-                <q-input
-                  outlined
-                  v-model="dateTo"
-                  placeholder="2023.01.01"
-                  class="inp_calendar"
-                >
-                  <template v-slot:prepend>
-                    <q-icon class="ico_calendar">
-                      <q-popup-proxy
-                        :offset="[150, 0]"
-                        class="c_datepicker"
-                      >
-                        <q-date
-                          v-model="dateTo"
-                          mask="YYYY.MM.DD"
-                          class="datepicker"
-                        />
-                      </q-popup-proxy>
-                    </q-icon>
-                  </template>
-                </q-input>
-                <q-input
-                  outlined
-                  v-model="timeTo"
-                  placeholder="12:00"
-                  class="inp_time"
-                >
-                  <template v-slot:append>
-                    <q-icon name="access_time">
-                      <q-popup-proxy
-                        :offset="[240, 0]"
-                        class="c_time"
-                      >
-                        <q-time v-model="timeTo" mask="HH:mm">
-                          <q-btn v-close-popup label="확인" color="primary" flat />
-                        </q-time>
-                      </q-popup-proxy>
-                    </q-icon>
-                  </template>
-                </q-input>
-              </div>
-            </div>
-          </div>
-          <q-card
-            v-model="chartModel"
-            class="apexchart"
-          >
-            <div class="chart_head">
-              <div class="chart_legend">
-                <div class="blue">GPU(%)</div>
-                <div class="coral">GPU Memory (Cache+PSS, %)</div>
-                <div class="mint">RSS Memory (%)</div>
-              </div>
-              <q-btn class="ibtn">
-                <i class="ico refresh" /><span class="hidden">재설정</span>
-              </q-btn>
-            </div>
-            <div class="chart_body">
-              <apexchart
-                v-if="chartModel === chartModel"
-                height="324"
-                type="line"
-                :options="chartOptions"
-                :series="series"
-              ></apexchart>
-              <div v-else class="loading">
-                <div class="loading_text" />
-              </div>
-            </div>
-          </q-card>
-        </section>
-      </q-card-section>
-      <q-card-actions class="c_dialog_foot">
-        <q-btn
-          label="닫기"
-          class="primary"
-          v-close-popup
-        />
-      </q-card-actions>
-    </q-card>
-  </q-dialog>
-  <!-- End : [프로젝트 - 인스턴스] B 워크스페이스 리소스 사용 이력(꺽은선 그래프 + 달력 + 시계) 팝업 -->
-
 </template>
 <script setup>
 import { ref } from "vue";
@@ -452,9 +438,15 @@ const triggerSuccess = (position) => {
       icon: "positive",
       position,
       actions: [
-        { label: "닫기", class: "xclose", handler: () => { /* console.log('') */ } }
+        {
+          label: "닫기",
+          class: "xclose",
+          handler: () => {
+            /* console.log('') */
+          },
+        },
       ],
-      timeout: 500
+      timeout: 500,
     });
   }, 100);
 };
@@ -527,7 +519,7 @@ const chartOptions = {
       fontSize: "12px",
       fontWeight: "normal",
       fontFamily: undefined,
-      color: "#9699a2"
+      color: "#9699a2",
     },
   },
   legend: {
@@ -563,7 +555,19 @@ const chartOptions = {
     size: 0,
   },
   xaxis: {
-    categories: ["", "10/1", "", "10/5", "", "10/10", "", "10/20", "", "10/28", ""],
+    categories: [
+      "",
+      "10/1",
+      "",
+      "10/5",
+      "",
+      "10/10",
+      "",
+      "10/20",
+      "",
+      "10/28",
+      "",
+    ],
     title: {
       text: "",
     },

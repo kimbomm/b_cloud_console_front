@@ -13,11 +13,7 @@
     <!-- //.chead -->
     <div class="p-body key-body">
       <div class="group-tabs">
-        <q-tabs
-          v-model="tab"
-          align="left"
-          class="c_tabs"
-        >
+        <q-tabs v-model="tab" align="left" class="c_tabs">
           <q-tab name="tabs1" label="내 정보"></q-tab>
           <q-tab name="tabs2" label="내 알림"></q-tab>
           <q-tab name="tabs3" label="SSH key & API key"></q-tab>
@@ -28,26 +24,20 @@
           <p class="key-box_title mt40">SSH Key</p>
           <div class="sign-up">
             <p class="mb30">SSH Key를 등록해주세요.</p>
-              <CButton
-                :size-types="2"
-                :btn-types="1"
-                :btn-names="btnSign"
-              />
-            </div>
+            <CButton :size-types="2" :btn-types="1" :btn-names="btnSign" />
           </div>
-          <div class="key-box">
-            <p class="key-box_title mt60">API Key</p>
-            <div class="sign-up">
-              <p>API Key를 생성해 주세요.</p>
-              <p class="mb30">생성시 Secret key는 팝업에서 1회만 확인 가능합니다.</p>
-              <CButton
-                :size-types="2"
-                :btn-types="1"
-                :btn-names="btnCreate"
-              />
-            </div>
+        </div>
+        <div class="key-box">
+          <p class="key-box_title mt60">API Key</p>
+          <div class="sign-up">
+            <p>API Key를 생성해 주세요.</p>
+            <p class="mb30">
+              생성시 Secret key는 팝업에서 1회만 확인 가능합니다.
+            </p>
+            <CButton :size-types="2" :btn-types="1" :btn-names="btnCreate" />
           </div>
-          <!-- <div class="key-box">
+        </div>
+        <!-- <div class="key-box">
             <p class="key-box_title mt40">SSH Key</p>
             <section class="section">
               <EasyDataTable
@@ -91,11 +81,7 @@
             <!-- 5개가 등록된 경우 (비활성화) -->
             <!-- <p class="disabled-txt">최대 5개까지 등록 가능합니다</p> -->
           </div>
-          <CButton
-            :size-types="2"
-            :btn-types="4"
-            :btn-names="btnSign"
-          />
+          <CButton :size-types="2" :btn-types="4" :btn-names="btnSign" />
         </div>
         <template v-if="defaultData == true">
           <section class="section">
@@ -146,30 +132,26 @@
                 </div>
               </template>
             </EasyDataTable>
-        </section>
-        <div class="flex-top mt60">
-          <p class="name">API Key</p>
-          <div>
-            <CButton
-              :size-types="2"
-              :btn-types="4"
-              :btn-names="btnReCreate"
-            />
-            &nbsp;
-            <CButton
-              :size-types="2"
-              :btn-types="4"
-              :btn-names="btnDelete"
-            />
+          </section>
+          <div class="flex-top mt60">
+            <p class="name">API Key</p>
+            <div>
+              <CButton
+                :size-types="2"
+                :btn-types="4"
+                :btn-names="btnReCreate"
+              />
+              &nbsp;
+              <CButton :size-types="2" :btn-types="4" :btn-names="btnDelete" />
+            </div>
           </div>
-        </div>
-        <div class="key-create">
-          <p>{{ apiAmount }}</p>
-          <p>
-            생성일시
-            <span>{{ createDate }}</span>
-          </p>
-        </div>
+          <div class="key-create">
+            <p>{{ apiAmount }}</p>
+            <p>
+              생성일시
+              <span>{{ createDate }}</span>
+            </p>
+          </div>
         </template>
       </template>
     </div>
@@ -198,13 +180,22 @@ const createDate = ref("2023.11.21 04:33pm");
 // const nodata = [];
 const headers = [
   {
-    text: "이름", value: "name", width: 100, sortable: false
+    text: "이름",
+    value: "name",
+    width: 100,
+    sortable: false,
   },
   {
-    text: "Fingerprint", value: "finger", width: 200, sortable: false
+    text: "Fingerprint",
+    value: "finger",
+    width: 200,
+    sortable: false,
   },
   {
-    text: "등록일시", value: "registDate", width: 120, sortable: false
+    text: "등록일시",
+    value: "registDate",
+    width: 120,
+    sortable: false,
   },
   { text: "", value: "buttons", width: 100 },
 ];
@@ -236,9 +227,7 @@ const items = [
 //   return classList.join(" ");
 // };
 
-const actionButtons = [
-  { name: "삭제", event: "delete" },
-];
+const actionButtons = [{ name: "삭제", event: "delete" }];
 
 /**
  * 설명: row Action 버튼 이벤트
@@ -263,5 +252,5 @@ const btnDelete = ref("삭제");
 
 <style lang="scss" scoped>
 @import "./src/css/table";
-@import 'src/css/key';
+@import "src/css/key";
 </style>
