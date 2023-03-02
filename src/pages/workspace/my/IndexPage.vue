@@ -206,6 +206,7 @@
             :size="'medium'"
             :outline="true"
             :btn-names="'등록하기'"
+            @click="onSshRegist"
           />
         </div>
         <section class="section">
@@ -260,7 +261,8 @@
             <p class="mb30">SSH Key를 등록해주세요.</p>
             <c-button
               :size="'medium'"
-              :btn-names="btnSign"
+              :btn-names="'등록하기'"
+              @click="onSshRegist"
             />
           </div>
         </section>
@@ -271,12 +273,14 @@
               :size="'medium'"
               :outline="true"
               :btn-names="'재생성'"
+              @click="onApiRegist(true)"
             />
             &nbsp;
             <c-button
               :size="'medium'"
               :outline="true"
               :btn-names="'삭제'"
+              @click="onApiDelete"
             />
           </div>
         </div>
@@ -295,7 +299,8 @@
             <p class="mb30">생성시 Secret key는 팝업에서 1회만 확인 가능합니다.</p>
             <c-button
               :size="'medium'"
-              :btn-names="btnCreate"
+              :btn-names="'생성하기'"
+              @click="onApiRegist"
             />
           </div>
         </section>
@@ -305,6 +310,126 @@
 
       </div>
     </div>
+    <!-- Start : [sshkey & apikey] SSH Key&API Key - 등록 -->
+    <c-dialog
+      v-model:visible="sshRegistModal"
+      :message="'SSH Key 등록'"
+      :size="'large'"
+    >
+      <template #contents>
+        <section class="section">
+          <p class="sub_title">이름</p>
+          <div class="c_inpgroup">
+            <c-input-text
+              v-model:value="textName"
+              outlined
+              placeholder="최소 2자 최대 30자 입력"
+              clearable
+              class="wsize_full"
+              :rules="nameRules"
+            />
+          </div>
+        </section>
+        <section class="section relative">
+          <p class="sub_title">Public key</p>
+          <label class="c_file btntype absolute top-20 right">
+            <input
+              type="file"
+              @update:model-value="val => { files = val }"
+            />
+            <span class="file_text">파일업로드</span>
+          </label>
+          <div class="c_inpgroup">
+            <c-input-text
+              v-model:value="textDesc"
+              outlined
+              bottom-slots
+              type="textarea"
+              placeholder="Public key 를 입력하거나 파일을 업로드 해주세요."
+              clearable
+              counter
+              :count="10"
+              maxlength="500"
+              class="wsize_full hsize244"
+              :input-style="{height: '100%'}"
+            />
+          </div>
+        </section>
+      </template>
+      <template #footer>
+        <c-button
+          :outline="true"
+          :btn-names="'취소'"
+          @click="sshRegistModal = false"
+        />
+        <c-button
+          :btn-names="'저장'"
+          @click="sshRegistModal = false"
+        />
+      </template>
+    </c-dialog>
+    <!-- End : [sshkey & apikey] SSH Key&API Key - 등록 -->
+
+    <!-- Start : [sshkey & apikey] API Key 생성 -->
+    <c-dialog
+      v-model:visible="apiIssueModal"
+      :message="'API Key 생성'"
+      :size="'medium'"
+    >
+      <template #contents>
+        <q-banner class="c_banner caution small">
+          <template v-slot:avatar>
+            <q-icon class="noti" />
+          </template>
+          <div class="bn_head">
+            <strong class="title">주의</strong>
+          </div>
+          <div class="bn_body">
+            Secret Key는 최초 1회만 확인 가능합니다. 복사 후 이용해주세요.
+          </div>
+        </q-banner>
+        <section class="section">
+          <p class="sub_title">Access Key</p>
+          <div class="c_inpgroup keygroup">
+            <c-input-text
+              v-model:value="accessKey"
+              outlined
+              disable
+            />
+            <c-button
+              class="copy"
+              :only-icon="true"
+            >
+              <i class="ico copy" />
+            </c-button>
+          </div>
+        </section>
+        <section class="section">
+          <p class="sub_title">Secret Key</p>
+          <div class="c_inpgroup keygroup">
+            <c-input-text
+              outlined
+              v-model:value="secretKey"
+              disable
+            />
+            <c-button
+              class="copy"
+              :only-icon="true"
+            >
+              <i class="ico copy" />
+            </c-button>
+          </div>
+        </section>
+      </template>
+      <template #footer>
+        <c-button
+          :btn-names="'확인'"
+          @click="apiIssueModal = false"
+        />
+      </template>
+    </c-dialog>
+    <!-- End : [sshkey & apikey] API Key 생성 -->
+
     <!-- TODO: TBD 개발 -->
     <!-- Start : [내정보] LDAP 로그인(오픈 이후 개발) -->
     <!-- <q-dialog
@@ -375,6 +500,8 @@ import {
 import CInputText from "components/common/CInputText.vue";
 import CTab from "components/common/CTab.vue";
 import CButton from "components/common/CButton.vue";
+import CDialog from "components/common/CDialog.vue";
+import { $useCmFn } from "src/composables/useCommonFunction";
 
 const title = ref("Account");
 useMeta(() => ({
@@ -444,13 +571,10 @@ const headers = [
 ];
 const sshKeys = ref([]);
 const accessKey = ref("");
+const secretKey = ref("");
 const actionButtons = [
   { name: "삭제", event: "delete" },
 ];
-
-const onActions = (eventName, rowData) => {
-  console.log(eventName, rowData);
-};
 
 const getMe = async () => {
   try {
@@ -514,6 +638,97 @@ const onEditSave = async (isSave) => {
 onBeforeMount(() => {
   init();
 });
+
+const sshRegistModal = ref(false);
+const apiIssueModal = ref(false);
+const onSshRegist = () => {
+  sshRegistModal.value = true;
+};
+
+/**
+ * SSH Key 삭제
+ */
+const onActions = async (eventName, rowData) => {
+  console.log("eventName, rowData >>>", eventName, rowData);
+  if (eventName === "delete") {
+    $useCmFn.onMessage({
+      message: "SSH Key를 삭제하시겠습니까?",
+      positive: {
+        value: "확인",
+        callback: async () => {
+          try {
+            await UserService.delSSHKeys(userId.value, rowData.id);
+            $useCmFn.onNotify({
+              message: "SSH Key 삭제가 완료되었습니다.",
+              type: "negative"
+            });
+            sshKeys.value = await UserService.getSSHKeys(userId.value).ssh_keys;
+          } catch (e) {
+            console.error(e);
+            $useCmFn.onNotify({
+              message: "SSH Key 삭제를 실패하였습니다. 다시 시도해주세요.",
+              type: "negative"
+            });
+            return false;
+          }
+        }
+      },
+      negative: {
+        value: "취소"
+      }
+    });
+  }
+};
+
+/**
+ * API Key 발행
+ */
+const onApiRegist = async (reIssue = false) => {
+  try {
+    const res = !reIssue
+      ? await UserService.createApiKeys(userInfo.value.id)
+      : await UserService.reIssueApiKeys(userId.value, accessKey.value);
+    accessKey.value = res.access_key;
+    secretKey.value = res.secret_key;
+    apiIssueModal.value = true;
+  } catch (e) {
+    console.log(e.response);
+    $useCmFn.onNotify({
+      message: "API Key 생성을 실패하였습니다. 다시 시도해주세요.",
+      type: "negative"
+    });
+    return false;
+  }
+};
+const onApiDelete = () => {
+  $useCmFn.onMessage({
+    message: "API Key를 삭제하시겠습니까?",
+    positive: {
+      value: "확인",
+      callback: async () => {
+        try {
+          const res = await UserService.delApiKeys(userId.value, accessKey.value);
+          console.log(res);
+          $useCmFn.onNotify({
+            message: "API Key 삭제가 완료되었습니다.",
+            type: "positive"
+          });
+          accessKey.value = null;
+        } catch (e) {
+          console.log(e.response);
+          $useCmFn.onNotify({
+            message: " API Key 삭제를 실패하였습니다. 다시 시도해주세요.",
+            type: "negative"
+          });
+          return false;
+        }
+      }
+    },
+    negative: {
+      value: "취소"
+    }
+  });
+};
 
 </script>
 
