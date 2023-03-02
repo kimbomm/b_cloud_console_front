@@ -35,11 +35,7 @@
               </q-input>
             </div>
             <div class="select_drop">
-              <CDropdown
-                :label="optLabel"
-                :options="optNumber"
-                class="auto_size"
-              />
+              <CDropdown :label="optLabel" :options="optNumber" class="auto_size" />
             </div>
           </div>
 
@@ -79,102 +75,84 @@
   </q-page>
 
   <!-- Start : [내 이미지] 이미지 - 내이미지 - 공유관리 -->
-  <q-dialog v-model="isImageShareManagePopup" class="c_dialog medium">
-    <q-card>
-      <q-card-section class="c_dialog_body">
-        <p class="title">
-          <strong>내 이미지 공유 관리</strong>
-        </p>
+  <c-dialog
+    v-model:visible="isImageShareManagePopup"
+    :size="'medium'"
+    :message="'내 이미지 공유 관리'"
+    :button-positive="'확인'"
+    :button-negative="'취소'"
+    :callback-positive="imageShareManageSave"
+  >
+    <template #contents>
+      <section class="section">
         <q-item-section class="item_card medium bg">
           <q-item-label class="name">{{ userWorkspaceName }}</q-item-label>
           <q-item-label class="desc">{{ userProjecteName }}</q-item-label>
         </q-item-section>
-        <section class="section">
-          <p class="sub_title">공유 여부</p>
-          <q-list class="p_list share">
-            <template v-for="(project, index) in mySharedProjects" :key="index">
-              <q-item class="item chkall">
-                <i class="ico folder" />
+      </section>
+      <section class="section">
+        <p class="sub_title">공유 여부</p>
+        {{ mySharedProjects }}
+        {{projectList}}
+
+        <q-list class="p_list share">
+
+            <q-item class="item chkall">
+              <i class="ico folder" />
+              <q-item-section class="item_card">
+                <q-item-label class="name">name</q-item-label>
+                <!-- <q-item-label class="desc">{{ project.workspace_name }}</q-item-label> -->
+              </q-item-section>
+              <q-checkbox
+                v-model="isChkAll"
+                class="c_checkbox check_all"
+                @click="handleCheckGroupClick(index)"
+              />
+            </q-item>
+
+            <template
+              v-for="(project, innerIndex) in projectList"
+              :key="innerIndex"
+            >
+              <q-item class="item subitem">
+                <i class="ico note" />
                 <q-item-section class="item_card">
-                  <q-item-label class="name">{{
-                    project.project_name
-                  }}</q-item-label>
-                  <q-item-label class="desc">{{
-                    project.workspace_name
-                  }}</q-item-label>
+                  <q-item-label class="name">{{ project.name }}</q-item-label>
+                  <q-item-label class="desc">{{ project.description }}</q-item-label>
                 </q-item-section>
-                <q-checkbox
-                  v-model="isChkAll"
-                  class="c_checkbox check_all"
-                  @click="handleCheckGroupClick(index)"
-                />
+
+                <q-checkbox class="c_checkbox" v-model="project.checked" />
               </q-item>
-
-              <template
-                v-for="(innerProject, innerIndex) in project.projects"
-                :key="innerIndex"
-              >
-                <q-item class="item subitem">
-                  <i class="ico note" />
-                  <q-item-section class="item_card">
-                    <q-item-label class="name">{{
-                      innerProject.name
-                    }}</q-item-label>
-                    <q-item-label class="desc">{{
-                      innerProject.description
-                    }}</q-item-label>
-                  </q-item-section>
-
-                  <q-checkbox
-                    class="c_checkbox"
-                    v-model="innerProject.checked"
-                  />
-                </q-item>
-              </template>
             </template>
-          </q-list>
-        </section>
-      </q-card-section>
-      <q-card-actions class="c_dialog_foot">
-        <q-btn label="취소" class="line" v-close-popup />
-        <q-btn
-          label="저장"
-          class="primary"
-          v-close-popup
-          @click="imageShareManageSave"
-        />
-      </q-card-actions>
-    </q-card>
-  </q-dialog>
+
+        </q-list>
+      </section>
+    </template>
+
+    <template #footer>
+      <c-button
+        :outline="true"
+        btn-names="취소"
+        @click="isImageShareManagePopup = false"
+      />
+      <c-button btn-names="저장" @click="imageShareManageSave" />
+    </template>
+  </c-dialog>
   <!-- End : [내 이미지] 이미지 - 내이미지 - 공유관리 -->
 
   <!-- Start : 삭제 확인 알럿 -->
-  <q-dialog v-model="alertImageDeleteModal" class="c_dialog">
-    <q-card>
-      <q-card-section style="max-height: 290px" class="c_dialog_body">
-        <p class="title">
-          <strong>이미지를 삭제하시겠습니까?</strong>
-        </p>
-        <div class="info">
-          <strong>{{ currentImageTitle }}</strong>
-        </div>
-      </q-card-section>
-      <q-card-actions class="c_dialog_foot">
-        <q-btn
-          label="취소"
-          class="line"
-          v-close-popup
-          @click="deleteShareData(false)"
-        />
-        <q-btn
-          label="삭제"
-          class="primary"
-          v-close-popup
-          @click="deleteShareData(true)"
-        />
-      </q-card-actions>
-    </q-card>
-  </q-dialog>
+
+  <c-dialog
+    v-model:visible="alertImageDeleteModal"
+    :message="'이미지를 삭제하시겠습니까?'"
+  >
+    <template #positive>{{ currentImageTitle }}</template>
+    <template #footer>
+      <c-button :outline="true" btn-names="취소" @click="deleteShareData(false)" />
+      <c-button btn-names="삭제" @click="deleteShareData(true)" />
+    </template>
+  </c-dialog>
+
   <!-- End : 삭제 확인 알럿 -->
 
   <!-- Start : 공유 실패 리스트 팝업 -->
@@ -188,9 +166,7 @@
           공유설정에 실패한 워크스페이스/프로젝트가 있습니다. 다시 시도해주세요
         </p>
         <div class="info negative">
-          <span
-            v-for="(failedRequest, index) in failedRequests"
-            :key="failedRequest"
+          <span v-for="(failedRequest, index) in failedRequests" :key="failedRequest"
             >{{ failedRequest.name
             }}{{ index !== failedRequests.length - 1 ? ", " : "" }}</span
           >
@@ -206,6 +182,33 @@
       </q-card-actions>
     </q-card>
   </q-dialog>
+
+  <!-- <q-dialog v-model="alertTaskDeleteFailModal" class="c_dialog">
+    <q-card>
+      <q-card-section style="max-height: 290px" class="c_dialog_body">
+        <p class="title">
+          <strong>이미지 공유 실패</strong>
+        </p>
+        <p class="desc">
+          공유설정에 실패한 워크스페이스/프로젝트가 있습니다. 다시 시도해주세요
+        </p>
+        <div class="info negative">
+          <span v-for="(failedRequest, index) in failedRequests" :key="failedRequest"
+            >{{ failedRequest.name
+            }}{{ index !== failedRequests.length - 1 ? ", " : "" }}</span
+          >
+        </div>
+      </q-card-section>
+      <q-card-actions class="c_dialog_foot">
+        <q-btn
+          label="확인"
+          class="primary"
+          v-close-popup
+          @click="triggerSharedImageFail()"
+        />
+      </q-card-actions>
+    </q-card>
+  </q-dialog> -->
   <!-- End : 공유 실패 리스트 팝업 -->
 </template>
 <script setup>
@@ -221,9 +224,11 @@ import { $useCmFn } from "src/composables/useCommonFunction.js";
 import CDropdown from "components/common/CDropdown.vue";
 import CPagination from "src/components/common/CPagination.vue";
 import CTab from "src/components/common/CTab.vue";
-import MyPage from "./component/MyPage.vue";
-import BasicPage from "./component/BasicPage.vue";
-import SharedPage from "./component/SharedPage.vue";
+import CDialog from "src/components/common/CDialog.vue";
+import CButton from "src/components/common/CButton.vue";
+import MyPage from "./components/MyPage.vue";
+import BasicPage from "./components/BasicPage.vue";
+import SharedPage from "./components/SharedPage.vue";
 
 const userId = 1; // 임시추가
 const route = useRoute();
@@ -254,10 +259,7 @@ const transformDate = (value) => {
   const { images } = value;
   const updateImage = images.map((item) => ({
     ...item,
-    [value.created_at]: $utils.paseseDate(
-      item[value.created_at],
-      value.dateType
-    ),
+    [value.created_at]: $utils.paseseDate(item[value.created_at], value.dateType),
   }));
 
   return updateImage;
@@ -396,6 +398,8 @@ watch(isImageShareManagePopup, () => {
 });
 
 const mySharedProjects = ref({}); // 내 워크스페이스 프로젝트 리스트
+
+const projectList = ref([]); // 내 워크스페이스 프로젝트 리스트
 const alertImageDeleteModal = ref(false);
 const currentImageTitle = ref("");
 
@@ -435,6 +439,8 @@ const deleteShareData = async (value) => {
       triggerDeletedFails();
       return false;
     }
+  } else {
+    alertImageDeleteModal.value = false;
   }
 };
 
@@ -463,22 +469,59 @@ const deleteShareData = async (value) => {
 //   return projectArrays;
 // };
 
-// 공유받은 이미지 정보 가져오기 !!오류
+// 공유받은 이미지 정보 가져오기 !!오류 임시데이터
 const getSahredImage = async (imgId) => {
   console.log("imgId", imgId);
-  try {
-    const aa = await imageService.getSahredInfoImage(workspaceId, 0);
-    console.log("sdfsdf", aa);
-  } catch (e) {
-    console.log(e);
-  }
+  // try {
+  //   await imageService.getSahredInfoImage(workspaceId, 0);
+  // } catch (e) {
+  //   console.log(e);
+  // }
+
+  return {
+    image: {
+      base_image: {
+        hidden: true,
+        id: 0,
+        min_nvidia_driver_version: "string",
+        name: "string",
+        repository: "string"
+      },
+      created_at: "2023-03-02T03:30:56.245Z",
+      description: "string",
+      id: 0,
+      name: "string",
+      owner: {
+        created_at: "2023-03-02T03:30:56.245Z",
+        description: "string",
+        email: "string",
+        id: 0,
+        login_at: "2023-03-02T03:30:56.245Z",
+        name: "string"
+      },
+      status: "string",
+      tag: "string",
+      type: "string"
+    },
+    shared_projects: [
+      {
+        description: "string",
+        id: 0,
+        name: "string"
+      }
+    ],
+    shared_workspace: {
+      description: "string",
+      id: 0,
+      name: "string"
+    }
+  };
 };
 
 //  내 프로젝트 가져오기
 const getMyproject = async () => {
   try {
-    const aa = await ProjectService.getUserProjects(workspaceId, userId);
-    console.log("sdfsdfsdf", aa);
+    return await ProjectService.getUserProjects(workspaceId, userId);
   } catch (e) {
     console.log(e);
     return null; // 에러 발생 시 null 반환
@@ -486,8 +529,18 @@ const getMyproject = async () => {
 };
 
 const makeSharedImage = async (value) => {
-  await getMyproject();
-  await getSahredImage(value.id);
+  const { projects } = await getMyproject();
+  const sharedImage = await getSahredImage(value.id);
+  projectList.value = projects;
+
+  const abc = projects.filter((project) => {
+    const shared = sharedImage.shared_projects.find((image) => image.id === project.id);
+    return shared !== undefined;
+  });
+
+  console.log("abcabcabc", abc);
+  const myInfo = await WorkspaceService.getMemberInfo(workspaceId, userId);
+  console.log("myInfo", myInfo);
 };
 
 const handleRowDataClick = (value) => {
@@ -502,29 +555,9 @@ const onShare = () => {
   isImageShareManagePopup.value = true;
 };
 
-// index 번째에 따라 그룹 전체 선택
-function updateChecked(data, index, checked) {
-  const updatedData = data.map((item, i) => ({
-    ...item,
-    projects: item.projects.map((project) => ({
-      ...project,
-      checked: i === index ? checked : project.checked,
-    })),
-  }));
-  return updatedData;
-}
-
 // 그룹 전체 선택 시
 const handleCheckGroupClick = (index) => {
-  if (isChkAll.value) {
-    mySharedProjects.value = updateChecked(mySharedProjects.value, index, true);
-  } else {
-    mySharedProjects.value = updateChecked(
-      mySharedProjects.value,
-      index,
-      false
-    );
-  }
+  console.log("전체선택", index);
 };
 
 const failedRequests = ref([]); // 공유 실패 리스트

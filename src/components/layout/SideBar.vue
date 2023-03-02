@@ -1,5 +1,8 @@
 <template>
   <q-scroll-area class="fit">
+  <div v-if="false">
+  {{ projectsStore.projectMenu }}
+</div>
     <q-list class="menu-list">
       <template v-for="(menu, i) in menuData" :key="i">
         <q-item
@@ -272,16 +275,23 @@
   </q-scroll-area>
 </template>
 <script setup>
-import { ref, onMounted, watch } from "vue";
+import {
+  ref, onMounted, watch,
+} from "vue";
 import { AuthService, ProjectService } from "src/services";
 import { googleLogout } from "vue3-google-login";
 import { $useCmFn } from "src/composables/useCommonFunction.js";
-
+import { useProjectsStore } from "src/stores/projects";
 import { useRoute } from "vue-router";
 import CInputText from "components/common/CInputText.vue";
 
-const route = useRoute();
-const { workspaceId } = route.params;
+const projectsStore = useProjectsStore();
+
+const menuList = ref([]);
+const { params } = useRoute();
+const { workspaceId } = params;
+
+projectsStore.workspaceId = workspaceId;
 
 const itemSelected = ref(false);
 const projectCreateModal = ref(false);
@@ -300,16 +310,6 @@ const menuData = [
     label: "Projects",
     icon: "ico_projects",
     children: [
-      // {
-      //   type: "pjtsub",
-      //   label: "Test project",
-      //   path: "projects/task",
-      // },
-      // {
-      //   type: "pjtsub",
-      //   label: "Test project - Test012 Test012 Test012 Test012",
-      //   path: "projects/instance",
-      // },
     ],
   },
   {
@@ -444,30 +444,19 @@ watch(
 // 프로젝트 리스트 이름 메뉴에 추가
 const addMenuPjtProjects = () => {
   const pjtTypeItem = menuData.find((item) => item.type === "pjt");
-
   if (pjtTypeItem) {
-    pjtTypeItem.children = getListProject.value.map((data) => ({
-      type: "pjtsub",
-      label: data.name,
-      path: `workspace/${workspaceId}/projects/${data.id}`,
-    }));
+    menuList.value = projectsStore.projectMenu;
+    console.log("menuList.valuemenuList.value", menuList.value);
+    pjtTypeItem.children = menuList.value;
   }
 };
 
-const getUserInfo = async () => {
-  try {
-    const { projects } = await ProjectService.getListProject(workspaceId);
-    getListProject.value = projects;
+// 비동기 처리
+const useGetUserInfo = () => {
+  projectsStore.getUserInfo().then(() => {
     addMenuPjtProjects();
-  } catch (e) {
-    console.log(e);
-    return false;
-  }
+  });
 };
-
-onMounted(() => {
-  getUserInfo();
-});
 
 const resetInputs = () => {
   projectName.value = "";
@@ -489,16 +478,16 @@ const triggerFail = () => {
 };
 
 const newProject = async () => {
-  const params = {
+  const params2 = {
     description: projectDescription.value,
     name: projectName.value,
   };
   try {
-    await ProjectService.createProject(workspaceId, params);
+    await ProjectService.createProject(workspaceId, params2);
     setTimeout(() => {
       triggerSuccess();
-      getUserInfo();
-    }, 100);
+    }, 200);
+    await useGetUserInfo();
   } catch (e) {
     triggerFail();
   }
@@ -513,5 +502,21 @@ const onMenuClick = () => {
   googleLogout();
   AuthService.postLogout();
 };
+
+onMounted(() => {
+  useGetUserInfo();
+});
+
+watch(() => useProjectsStore.projects, () => {
+  useProjectsStore.getUserInfo(workspaceId);
+  addMenuPjtProjects();
+}, { deep: true });
+
+watch(() => projectsStore.projectMenu, () => {
+  console.log("실행12312");
+  menuList.value = projectsStore.projectMenu;
+  addMenuPjtProjects();
+}, { deep: true });
+
 </script>
 <style lang="scss" scoped></style>
