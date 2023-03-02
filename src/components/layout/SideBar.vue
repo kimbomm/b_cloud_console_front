@@ -287,7 +287,7 @@ import CInputText from "components/common/CInputText.vue";
 
 const projectsStore = useProjectsStore();
 
-const menuList = ref([]);
+const pjtMenus = ref([]);
 const { params } = useRoute();
 const { workspaceId } = params;
 
@@ -446,8 +446,8 @@ watch(
 // 프로젝트 리스트 이름 메뉴에 추가
 const addMenuPjtProjects = () => {
   if (pjtTypeItem) {
-    menuList.value = projectsStore.projectMenu;
-    pjtTypeItem.children = menuList.value;
+    pjtMenus.value = projectsStore.projectMenu;
+    pjtTypeItem.children = pjtMenus.value;
 
     const pjtTypeMap = new Map();
     menuData.forEach((item, index) => {
@@ -514,7 +514,7 @@ onMounted(() => {
 });
 
 watch(() => projectsStore.projectMenu, () => {
-  menuList.value = projectsStore.projectMenu;
+  pjtMenus.value = projectsStore.projectMenu;
   addMenuPjtProjects();
 }, { deep: true });
 
