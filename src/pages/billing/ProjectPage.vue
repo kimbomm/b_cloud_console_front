@@ -11,11 +11,14 @@
       <div class="top-btn">
         <h1 class="p-title">{{ ptitle }}</h1>
         <div class="csv_btn">
-          <CButton
-            :size-types="2"
-            :btn-types="5"
+          <c-button
+            :size="'medium'"
             :btn-names="btnName"
-          />
+          >
+            <template #prepend>
+              <i class="ico plus"></i>
+            </template>
+          </c-button>
         </div>
       </div>
     </div>
@@ -187,6 +190,9 @@ const items = [
     useageFee: "283,292원"
   },
 ];
+// Date Form
+const dateFrom = ref(null);
+const dateTo = ref(null);
 
 const ptitle = ref(title);
 </script>

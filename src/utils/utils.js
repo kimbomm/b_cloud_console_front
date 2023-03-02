@@ -11,7 +11,7 @@ class Utils {
     let isBlank = false;
     switch (typeof target) {
       case "object":
-        isBlank = Array.isArray(target) ? !target.length : !target;
+        isBlank = Array.isArray(target) ? !target.length : Object.keys(target).length === 0;
         break;
       default:
         isBlank = !target;
@@ -96,6 +96,40 @@ class Utils {
       }
     }
     return roleName;
+  }
+
+  /**
+   * 설명: route hash 정재
+   * @param { string } hash '#'포함된 hash
+   * @returns '#'제거된 hash 또는 false
+   */
+  getHash(hash) {
+    if (hash.includes("#")) {
+      const rH = hash.split()[0].replaceAll("#", "");
+      return rH;
+    }
+    return false;
+  }
+
+  /**
+   * 설명: Array sort
+   * @param { array } list
+   * @param { string } type sort 타입
+   * @param { boolean } desc 내림차순 true | 오름차순 false
+   * @param { string } key sort 기준 key
+   * @returns sorted list
+   */
+  sortType(list, key, desc, type) {
+    const datetimeSort = (a, b) => (desc
+      ? new Date(b[key]) - new Date(a[key])
+      : new Date(a[key]) - new Date(b[key]));
+    const defaultSort = (a, b) => (desc ? (b - a) : (a - b));
+    let sortFunc = defaultSort;
+    if (type === "datetime") {
+      sortFunc = datetimeSort;
+    }
+
+    return list.sort(sortFunc);
   }
 }
 
