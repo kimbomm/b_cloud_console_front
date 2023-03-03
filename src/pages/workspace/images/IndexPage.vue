@@ -518,8 +518,8 @@ const handleShareImageRequests = async ({ falseChecked, trueChecked }) => {
   await Promise.all(
     falseChecked.map(async (item) => {
       try {
-        triggerSharedSuccess();
         await ProjectService.postUnShareWorkspaceImage(item.id, popupState.value.id);
+        triggerSharedSuccess();
       } catch (error) {
         failedRequests.value.push({ id: item.id, name: item.name });
         alertTaskDeleteFailModal.value = true;
