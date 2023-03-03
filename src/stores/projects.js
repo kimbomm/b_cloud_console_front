@@ -9,6 +9,7 @@ export const useProjectsStore = defineStore("projects", {
     projects: [],
   }),
   getters: {
+    // 사이드바 메뉴 리스트 id 내림차순 정렬
     projectMenu(state) {
       const sortedList = state.projects.sort((a, b) => a.id - b.id);
       const projectMenu = sortedList.map((data) => ({
@@ -21,6 +22,7 @@ export const useProjectsStore = defineStore("projects", {
   },
 
   actions: {
+    // 현재 유저 프로젝트 리스트 출력
     async getUserInfo() {
       try {
         const { projects } = await ProjectService.getUserProjects(this.workspaceId, this.userId);

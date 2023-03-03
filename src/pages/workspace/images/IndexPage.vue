@@ -95,8 +95,8 @@
           <q-item class="item chkall">
             <i class="ico folder" />
             <q-item-section class="item_card">
-              <q-item-label class="name">워크스페이스이름</q-item-label>
-              <q-item-label class="desc">워크스페이스설명</q-item-label>
+              <q-item-label class="name">{{ workspaceName }}</q-item-label>
+              <q-item-label class="desc">워크스페이스</q-item-label>
             </q-item-section>
             <q-checkbox
               v-model="isChkAll"
@@ -110,7 +110,7 @@
               <i class="ico note" />
               <q-item-section class="item_card">
                 <q-item-label class="name">{{ project.name }}</q-item-label>
-                <!-- <q-item-label class="desc">{{ project.description }}</q-item-label> -->
+                <q-item-label class="desc">소속 프로젝트</q-item-label>
               </q-item-section>
 
               <q-checkbox class="c_checkbox" v-model="project.checked" />
@@ -166,10 +166,10 @@
 <script setup>
 
 import {
-  ref, watch, reactive, computed
+  ref, watch, reactive, computed, onMounted
 } from "vue";
 import { useMeta } from "quasar";
-import { imageService, ProjectService } from "src/services";
+import { imageService, ProjectService, WorkspaceService } from "src/services";
 import { useRoute, onBeforeRouteUpdate } from "vue-router";
 import { $utils } from "src/utils/utils";
 import { $useCmFn } from "src/composables/useCommonFunction.js";
@@ -192,6 +192,22 @@ const { workspaceId } = route.params;
 
 projectsStore.workspaceId = workspaceId;
 projectsStore.userId = userId;
+
+const workspaceName = ref("");
+
+const getUserWorkspace = async () => {
+  try {
+    const { workspaces } = await WorkspaceService.getUserWorkspaceList(userId);
+    const found = workspaces.find((item) => item.id === 1);
+    workspaceName.value = found.name;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+onMounted(() => {
+  getUserWorkspace();
+});
 
 // 상태 state
 const popupState = reactive({});
@@ -545,6 +561,7 @@ const separateByChecked = () => {
 const imageShareManageSave = () => {
   separateByChecked();
 };
+
 </script>
 
 <style lang="scss" scoped>
