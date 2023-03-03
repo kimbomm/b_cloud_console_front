@@ -65,10 +65,9 @@ import CBadgeState from "src/components/common/CBadgeState.vue";
 defineProps({
   imageList: Array,
   actionButtons: Array,
-  getRowSelectedImage: Object
 });
 
-const emit = defineEmits(["onShare", "onDelete", "update:getRowSelectedImage"]);
+const emit = defineEmits(["onShare", "onDelete",]);
 
 const headers = [
   {
@@ -122,7 +121,7 @@ const showRow = (item) => {
   } else {
     actionButtons.value = [fetchShareButtons].concat(fetchDeleteButtons);
   }
-  emit("update:getRowSelectedImage", item);
+  emit("handleRowDataClick", item);
 };
 </script>
 
