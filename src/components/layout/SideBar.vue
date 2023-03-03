@@ -36,7 +36,7 @@
               <q-btn
                 class="toggle"
                 :class="{ active: itemSelected === i, open: pjtToggle }"
-                @click="itemSelected = i, pjtToggle = !pjtToggle"
+                @click="(itemSelected = i), (pjtToggle = !pjtToggle)"
               >
                 <i :class="`ico ${menu.icon}`" />
                 <span class="txt">프로젝트 메뉴</span>
@@ -53,7 +53,10 @@
                     </q-item>
                     <q-separator />
                     <q-item>
-                      <q-btn class="menu-link add" @click.stop="projectCreateModal = true">
+                      <q-btn
+                        class="menu-link add"
+                        @click.stop="projectCreateModal = true"
+                      >
                         <span class="txt">프로젝트 추가하기</span>
                       </q-btn>
                     </q-item>
@@ -109,7 +112,7 @@
               <q-btn
                 class="toggle"
                 :class="{ active: itemSelected === i, current: setToggle }"
-                @click="itemSelected = i, setToggle = !setToggle"
+                @click="(itemSelected = i), (setToggle = !setToggle)"
               >
                 <i :class="`ico ${menu.icon}`" />
                 <span class="txt">워크스페이스 메뉴</span>
@@ -120,7 +123,11 @@
                       v-for="(mng, index) in menu.children"
                       :key="index.label"
                     >
-                      <router-link :to="`/${mng.path}`" class="menu-link" @click="itemSelected = i">
+                      <router-link
+                        :to="`/${mng.path}`"
+                        class="menu-link"
+                        @click="itemSelected = i"
+                      >
                         <span class="txt">{{ mng.label }}</span>
                       </router-link>
                     </q-item>
@@ -193,7 +200,11 @@
                   v-for="(item, index) in menu.children"
                   :key="index.label"
                 >
-                  <router-link :to="`/${item.path}`" class="menu-link" @click="onMenuClick(item)">
+                  <router-link
+                    :to="`/${item.path}`"
+                    class="menu-link"
+                    @click="onMenuClick(item)"
+                  >
                     <span class="txt">{{ item.label }}</span>
                   </router-link>
                 </q-item>
@@ -215,11 +226,10 @@
           <section class="section" aria-label="프로젝트 이름">
             <p class="sub_title">프로젝트 이름<i class="ess">*</i></p>
             <div class="c_inpgroup">
-              <q-input
-                outlined
-                v-model="textName"
+              <c-input-text
+                v-model:value="projectName"
                 placeholder="최소 2자 최대 30자 입력"
-                clearable
+                :rules="inputRules"
                 class="wsize_full"
               />
             </div>
@@ -227,33 +237,33 @@
           <section class="section" aria-label="프로젝트 설명">
             <p class="sub_title">프로젝트 설명</p>
             <div class="c_inpgroup">
-                <q-input
-                  outlined
-                  v-model="textDesc"
-                  bottom-slots
-                  type="textarea"
-                  placeholder="프로젝트 설명 입력"
-                  clearable
-                  counter
-                  :count="10"
-                  maxlength="500"
-                  class="wsize_full hsize244"
-                  :input-style="{height: '100%'}"
-                >
-                  <!-- <template v-slot:hint>
-                    Description
-                  </template> -->
-                </q-input>
+              <c-input-text
+                ref="userName"
+                v-model:value="projectDescription"
+                placeholder="소개글을 입력해주세요"
+                type="textarea"
+                class="wsize_full hsize244"
+                :bottom-slots="true"
+                :maxlength="100"
+                :counter="true"
+                :input-style="{ height: '100%' }"
+                clearable
+                outlined
+                :disable="isValidProjectDescription"
+              />
             </div>
           </section>
         </q-card-section>
         <q-card-actions class="c_dialog_foot">
-          <q-btn label="취소" class="line" v-close-popup />
+          <q-btn label="취소" class="line" v-close-popup
+          @click="cancleProject()"
+          />
           <q-btn
             label="확인"
             class="primary"
-            @click="triggerSuccess('top-right')"
+            @click="newProject()"
             v-close-popup
+            :disable="isValidProjectSave"
           />
         </q-card-actions>
       </q-card>
@@ -262,17 +272,19 @@
   </q-scroll-area>
 </template>
 <script setup>
-import { ref } from "vue";
-import { useQuasar } from "quasar";
-import { AuthService } from "src/services";
+import { ref, onMounted, watch } from "vue";
+import { AuthService, ProjectService } from "src/services";
 import { googleLogout } from "vue3-google-login";
+import { $useCmFn } from "src/composables/useCommonFunction.js";
 
-const $q = useQuasar();
+import { useRoute } from "vue-router";
+import CInputText from "components/common/CInputText.vue";
+
+const route = useRoute();
+const { workspaceId } = route.params;
 
 const itemSelected = ref(false);
 const projectCreateModal = ref(false);
-const textName = ref(null);
-const textDesc = ref(null);
 const pjtToggle = ref(false);
 const setToggle = ref(false);
 const moreToggle = ref(false);
@@ -288,17 +300,17 @@ const menuData = [
     label: "Projects",
     icon: "ico_projects",
     children: [
-      {
-        type: "pjtsub",
-        label: "Test project",
-        path: "projects/task",
-      },
-      {
-        type: "pjtsub",
-        label: "Test project - Test012 Test012 Test012 Test012",
-        path: "projects/instance",
-      },
-    ]
+      // {
+      //   type: "pjtsub",
+      //   label: "Test project",
+      //   path: "projects/task",
+      // },
+      // {
+      //   type: "pjtsub",
+      //   label: "Test project - Test012 Test012 Test012 Test012",
+      //   path: "projects/instance",
+      // },
+    ],
   },
   {
     type: "base",
@@ -343,8 +355,8 @@ const menuData = [
         type: "mngsub",
         label: "Storage",
         path: "manage/storage",
-      }
-    ]
+      },
+    ],
   },
   {
     type: "support",
@@ -375,30 +387,131 @@ const menuData = [
         label: "로그아웃",
         path: "login",
       },
-    ]
+    ],
   },
 ];
-const triggerSuccess = (position) => {
-  setTimeout(() => {
-    $q.notify({
-      type: "positive",
-      message: "신규 프로젝트가 생성되었습니다.",
-      icon: "positive",
-      position,
-      actions: [
-        { label: "닫기", class: "xclose", handler: () => { console.log(""); } }
-      ],
-      timeout: 500
-    });
-  }, 100);
+
+const projectName = ref("");
+const projectDescription = ref("");
+const getListProject = ref([]);
+
+const isValidProjectDescription = ref(true);
+const isValidProjectSave = ref(true);
+
+// 프로젝트 이름 중복 체크함수
+function isDuplicateProjectName(name, projects) {
+  return projects.find((p) => p.name.toString() === name.toString()) !== undefined;
+}
+
+// 프로젝트명 정규식체크
+const inputRules = ref([
+  (value) => {
+    if (value.length < 1) {
+      return "";
+    }
+    // 프로젝트 이름 중복확인
+    const foundProject = isDuplicateProjectName(projectName.value.trim(), getListProject.value);
+
+    // 사용 가능 문자열 확인
+    return (
+      (foundProject
+        ? "중복된 프로젝트 이름입니다."
+        : /^[A-Za-z0-9가-힣ㄱ-ㅎㅏ-ㅣ\s]+$/.test(value))
+      || "영어,한글,숫자만 입력 가능 합니다."
+    );
+  },
+  (value) => (!!value.length && value.length >= 2 && value.length <= 30)
+    || "최소 2글자 최대 30글자로 입력해주세요",
+]);
+
+// 프로젝트이름, 설명 정규식체크
+watch(
+  [projectName, projectDescription],
+  ([projectNameValue, projectDescriptionValue]) => {
+    const regex = /^[A-Za-z0-9가-힣ㄱ-ㅎㅏ-ㅣ\s]+$/;
+    // 프로젝트 이름 중복 확인
+    const isDuplicate = isDuplicateProjectName(projectNameValue.trim(), getListProject.value);
+
+    const isValid = (!regex.test(projectName.value) && !isDuplicate)
+  || projectName.value.length <= 1
+  || projectName.value.length >= 30;
+
+    isValidProjectDescription.value = isValid || isDuplicate;
+    isValidProjectSave.value = isValid || isDuplicate || projectDescriptionValue.length <= 1;
+  }
+);
+
+// 프로젝트 리스트 이름 메뉴에 추가
+const addMenuPjtProjects = () => {
+  const pjtTypeItem = menuData.find((item) => item.type === "pjt");
+
+  if (pjtTypeItem) {
+    pjtTypeItem.children = getListProject.value.map((data) => ({
+      type: "pjtsub",
+      label: data.name,
+      path: `workspace/${workspaceId}/projects/${data.id}`,
+    }));
+  }
+};
+
+const getUserInfo = async () => {
+  try {
+    const { projects } = await ProjectService.getListProject(workspaceId);
+    getListProject.value = projects;
+    addMenuPjtProjects();
+  } catch (e) {
+    console.log(e);
+    return false;
+  }
+};
+
+onMounted(() => {
+  getUserInfo();
+});
+
+const resetInputs = () => {
+  projectName.value = "";
+  projectDescription.value = "";
+};
+
+const triggerSuccess = () => {
+  $useCmFn.onNotify({
+    message: "신규 프로젝트가 생성되었습니다.",
+    type: "positive",
+  });
+};
+const triggerFail = () => {
+  $useCmFn.onNotify({
+    message: "저장에 실패하였습니다. 다시 시도해주세요.",
+    type: "negative",
+  });
+  resetInputs();
+};
+
+const newProject = async () => {
+  const params = {
+    description: projectDescription.value,
+    name: projectName.value,
+  };
+  try {
+    await ProjectService.createProject(workspaceId, params);
+    setTimeout(() => {
+      triggerSuccess();
+      getUserInfo();
+    }, 100);
+  } catch (e) {
+    triggerFail();
+  }
+  resetInputs();
+};
+
+const cancleProject = () => {
+  resetInputs();
 };
 
 const onMenuClick = () => {
   googleLogout();
   AuthService.postLogout();
 };
-
 </script>
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>
