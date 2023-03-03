@@ -4,6 +4,8 @@ import { ProjectService } from "src/services";
 export const useProjectsStore = defineStore("projects", {
   state: () => ({
     workspaceId: null,
+    userId: null,
+
     projects: [],
   }),
   getters: {
@@ -21,7 +23,7 @@ export const useProjectsStore = defineStore("projects", {
   actions: {
     async getUserInfo() {
       try {
-        const { projects } = await ProjectService.getListProject(this.workspaceId);
+        const { projects } = await ProjectService.getUserProjects(this.workspaceId, this.userId);
         this.SET_PROJECTS(projects);
       } catch (e) {
         console.log(e);

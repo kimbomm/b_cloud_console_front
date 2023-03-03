@@ -292,6 +292,7 @@ const { params } = useRoute();
 const { workspaceId } = params;
 
 projectsStore.workspaceId = workspaceId;
+projectsStore.userId = 1;
 
 const itemSelected = ref(false);
 const projectCreateModal = ref(false);
