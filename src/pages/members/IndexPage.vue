@@ -28,7 +28,7 @@
               </q-input>
             </div>
             <div class="set-l_right">
-              <CDropdown
+              <c-dropdown
                 v-model:selected="selectedBasic"
                 :label="label"
                 :options="options"
@@ -38,6 +38,7 @@
           <div class="set-r set">
             <div class="set-btn">
               <c-button
+                :outline="true"
                 :size="'medium'"
                 :btn-names="'멤버추가'"
               >
@@ -49,12 +50,17 @@
             <div class="set-btn remove_member_btn">
               <c-button
                 :size="'medium'"
-                :btn-types="51"
+                :outline="true"
+                disabled
                 :btn-names="'멤버삭제'"
-              />
+              >
+                <template #prepend>
+                  <i class="ico plus" />
+                </template>
+              </c-button>
             </div>
             <div class="set-btn select-d">
-              <CDropdown
+              <c-dropdown
                 v-model:selected="selectedBasic"
                 :label="label3"
                 :options="options2"
@@ -65,13 +71,21 @@
         <!-- Table -->
         <section class="section">
           <EasyDataTable
-            v-model:items-selected="itemsSelected"
+            class="c_table"
             :headers="headers"
             :items="items"
             :hide-footer="true"
             :body-row-class-name="bodyRowClassNameFunction"
             empty-message="정보가 없습니다."
           >
+            <template #item-checkbox="item">
+              <q-checkbox
+                v-model="itemsSelected"
+                :val="item.id"
+                :disable="item.disabled"
+                @click="onCheck(item)"
+              />
+            </template>
             <!-- name -->
             <template #item-name="item">
               <template v-if="item.name.join == true">
@@ -126,11 +140,9 @@
               </div>
             </template>
           </EasyDataTable>
+          <c-pagination />
         </section>
         <!-- //Table -->
-        <div class="table_pagenav disflex_C">
-          <CPagination />
-        </div>
       </template>
       <!-- /* 멤버 - 메인(워크스페이스 멤버/정산관리자,게스트) */ -->
       <template v-else>
@@ -149,7 +161,7 @@
               </q-input>
             </div>
             <div class="set-l_right">
-              <CDropdown
+              <c-dropdown
                 v-model:selected="selectedBasic"
                 :label="label2"
                 :options="options"
@@ -159,6 +171,7 @@
           <div class="set-r set">
             <div class="set-btn">
               <c-button
+                :outline="true"
                 :size="'medium'"
                 :btn-names="'멤버 초대 요청'"
               >
@@ -168,7 +181,7 @@
               </c-button>
             </div>
             <div class="set-btn select-d">
-              <CDropdown
+              <c-dropdown
                 v-model:selected="selectedBasic"
                 :label="label3"
                 :options="options2"
@@ -201,12 +214,10 @@
           <template #item-introduce="item">
             <span class="txt">{{ item.introduce }}</span>
           </template>
-          </EasyDataTable>
-        </section>
+        </EasyDataTable>
+        <c-pagination />
+      </section>
         <!-- //Table -->
-        <div class="table_pagenav disflex_C">
-          <CPagination />
-        </div>
       </template>
     </div>
   </q-page>
@@ -218,7 +229,7 @@ import CDropdown from "components/common/CDropdown.vue";
 import CButton from "components/common/CButton.vue";
 import CPagination from "components/common/CPagination.vue";
 
-const defaultData = ref(false);
+const defaultData = ref(true);
 const title = ref("워크스페이스 1 Member");
 const label = ref("전체");
 const label2 = ref("역할전체");
@@ -245,17 +256,21 @@ const itemsSelected = ref([]);
 
 const headers = [
   {
-    text: "이름", value: "name", width: 266, sortable: true, checkbox: true
+    text: "", value: "checkbox", width: 80
   },
   {
-    text: "이메일", value: "email", width: 293, sortable: true
+    text: "이름", value: "name", width: 220, sortable: true, checkbox: true
   },
   {
-    text: "워크스페이스 역할", value: "workspaceChar", width: 242, sortable: false
+    text: "이메일", value: "email", width: 272, sortable: true
+  },
+  {
+    text: "워크스페이스 역할", value: "workspaceChar", width: 200, sortable: false
   },
   {
     text: "소개", value: "introduce", sortable: false
   },
+  { text: "", value: "buttons" },
 ];
 const items = [
   {
@@ -266,6 +281,9 @@ const items = [
     email: "billing@workspace1.com",
     workspaceChar: "정산 관리자",
     introduce: "안녕하세요",
+    buttons: {
+      name: "초대요청 확인"
+    },
   },
   {
     name: {
@@ -294,20 +312,14 @@ const bodyRowClassNameFunction = (item) => {
   const classList = [];
   if (item.buttons) classList.push("row-button");
   if (item.checkbox) classList.push("row-selected");
+  if (item.disabled) classList.push("row-disabled");
   return classList.join(" ");
 };
 
-/**
- * 설명: 복사하기 버튼 이벤트
- * @param { object } rowData get table row data
- */
-
-/**
- * 설명: row Action 버튼 이벤트
- * @param { string } eventName action event name
- * @param { object } rowData get table row data
- */
-
+const onCheck = (item) => {
+  const data = items.filter((row) => row.id === item.id)[0];
+  data.checkbox = itemsSelected.value.includes(item.id);
+};
 // Table2
 const headers2 = [
   {

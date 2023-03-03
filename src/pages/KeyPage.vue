@@ -30,7 +30,7 @@
             <p class="mb30">SSH Key를 등록해주세요.</p>
               <c-button
                 :size="'medium'"
-                :btn-names="btnSign"
+                :btn-names="'등록하기'"
               />
             </div>
           </div>
@@ -41,7 +41,7 @@
               <p class="mb30">생성시 Secret key는 팝업에서 1회만 확인 가능합니다.</p>
               <c-button
                 :size="'medium'"
-                :btn-names="btnCreate"
+                :btn-names="'생성하기'"
               />
             </div>
           </div>
@@ -56,7 +56,7 @@
           <c-button
             :size="'medium'"
             :outline="true"
-            :btn-names="btnSign"
+            :btn-names="'등록하기'"
           />
         </div>
         <template v-if="defaultData == true">
@@ -83,7 +83,7 @@
               <!-- 버튼 그룹 -->
               <template #item-buttons="item">
                 <div v-if="actionButtons" class="cell btngroup">
-                  <q-btn class="c_btn ibtn dot">
+                  <c-button class="c_btn ibtn dot">
                     <i class="ico dots" /><span class="txt">클릭</span>
                     <q-popup-edit
                       v-model="item.id"
@@ -95,16 +95,16 @@
                           v-for="button in actionButtons"
                           :key="button.name"
                         >
-                          <q-btn
+                          <c-button
                             class="item"
                             @click="onActions(button.event, item)"
                           >
                             <span class="txt">{{ button.name }}</span>
-                          </q-btn>
+                          </c-button>
                         </q-item>
                       </q-list>
                     </q-popup-edit>
-                  </q-btn>
+                  </c-button>
                 </div>
               </template>
             </EasyDataTable>
@@ -115,13 +115,13 @@
             <c-button
               :size="'medium'"
               :outline="true"
-              :btn-names="btnReCreate"
+              :btn-names="'재생성'"
             />
             &nbsp;
             <c-button
               :size="'medium'"
               :outline="true"
-              :btn-names="btnDelete"
+              :btn-names="'삭제'"
             />
           </div>
         </div>
@@ -215,12 +215,7 @@ const showRow = (item) => {
   console.log(item);
 };
 
-/* Btn Group */
 const ptitle = ref(title);
-const btnSign = ref("등록하기");
-const btnCreate = ref("생성하기");
-const btnReCreate = ref("재생성");
-const btnDelete = ref("삭제");
 </script>
 
 <style lang="scss" scoped>
