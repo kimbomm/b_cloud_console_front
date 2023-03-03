@@ -93,38 +93,33 @@
       <section class="section">
         <p class="sub_title">공유 여부</p>
         {{ mySharedProjects }}
-        {{projectList}}
+        {{ projectList }}
 
         <q-list class="p_list share">
+          <q-item class="item chkall">
+            <i class="ico folder" />
+            <q-item-section class="item_card">
+              <q-item-label class="name">name</q-item-label>
+              <!-- <q-item-label class="desc">{{ project.workspace_name }}</q-item-label> -->
+            </q-item-section>
+            <q-checkbox
+              v-model="isChkAll"
+              class="c_checkbox check_all"
+              @click="handleCheckGroupClick(index)"
+            />
+          </q-item>
 
-            <q-item class="item chkall">
-              <i class="ico folder" />
+          <template v-for="(project, innerIndex) in projectList" :key="innerIndex">
+            <q-item class="item subitem">
+              <i class="ico note" />
               <q-item-section class="item_card">
-                <q-item-label class="name">name</q-item-label>
-                <!-- <q-item-label class="desc">{{ project.workspace_name }}</q-item-label> -->
+                <q-item-label class="name">{{ project.name }}</q-item-label>
+                <q-item-label class="desc">{{ project.description }}</q-item-label>
               </q-item-section>
-              <q-checkbox
-                v-model="isChkAll"
-                class="c_checkbox check_all"
-                @click="handleCheckGroupClick(index)"
-              />
+
+              <q-checkbox class="c_checkbox" v-model="project.checked" />
             </q-item>
-
-            <template
-              v-for="(project, innerIndex) in projectList"
-              :key="innerIndex"
-            >
-              <q-item class="item subitem">
-                <i class="ico note" />
-                <q-item-section class="item_card">
-                  <q-item-label class="name">{{ project.name }}</q-item-label>
-                  <q-item-label class="desc">{{ project.description }}</q-item-label>
-                </q-item-section>
-
-                <q-checkbox class="c_checkbox" v-model="project.checked" />
-              </q-item>
-            </template>
-
+          </template>
         </q-list>
       </section>
     </template>
@@ -173,12 +168,7 @@
         </div>
       </q-card-section>
       <q-card-actions class="c_dialog_foot">
-        <q-btn
-          label="확인"
-          class="primary"
-          v-close-popup
-          @click="triggerSharedImageFail()"
-        />
+        <c-button :btn-names="`확인`" @click="triggerSharedImageFail()"> </c-button>
       </q-card-actions>
     </q-card>
   </q-dialog>
@@ -485,7 +475,7 @@ const getSahredImage = async (imgId) => {
         id: 0,
         min_nvidia_driver_version: "string",
         name: "string",
-        repository: "string"
+        repository: "string",
       },
       created_at: "2023-03-02T03:30:56.245Z",
       description: "string",
@@ -497,24 +487,24 @@ const getSahredImage = async (imgId) => {
         email: "string",
         id: 0,
         login_at: "2023-03-02T03:30:56.245Z",
-        name: "string"
+        name: "string",
       },
       status: "string",
       tag: "string",
-      type: "string"
+      type: "string",
     },
     shared_projects: [
       {
         description: "string",
         id: 0,
-        name: "string"
-      }
+        name: "string",
+      },
     ],
     shared_workspace: {
       description: "string",
       id: 0,
-      name: "string"
-    }
+      name: "string",
+    },
   };
 };
 
