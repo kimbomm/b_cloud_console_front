@@ -146,31 +146,25 @@
 
   <!-- End : 삭제 확인 알럿 -->
 
-  <!-- Start : 공유 실패 리스트 팝업 -->
-  <q-dialog v-model="alertTaskDeleteFailModal" class="c_dialog">
-    <q-card>
-      <q-card-section style="max-height: 290px" class="c_dialog_body">
-        <p class="title">
-          <strong>이미지 공유 실패</strong>
-        </p>
-        <p class="desc">
-          공유설정에 실패한 워크스페이스/프로젝트가 있습니다. 다시 시도해주세요
-        </p>
-        <div class="info negative">
-          <span v-for="(failedRequest, index) in failedRequests" :key="failedRequest"
-            >{{ failedRequest.name
-            }}{{ index !== failedRequests.length - 1 ? ", " : "" }}</span
-          >
-        </div>
-      </q-card-section>
-      <q-card-actions class="c_dialog_foot">
-        <c-button :btn-names="`확인`" @click="triggerSharedImageFail()" v-close-popup>
-        </c-button>
-      </q-card-actions>
-    </q-card>
-  </q-dialog>
+  <c-dialog v-model:visible="alertTaskDeleteFailModal" :message="'이미지 공유 실패'">
+    <template #contents>
+      <p class="desc">
+        공유설정에 실패한 워크스페이스/프로젝트가 있습니다. 다시 시도해주세요
+      </p>
+      <div class="info negative">
+        <span v-for="(failedRequest, index) in failedRequests" :key="failedRequest"
+          >{{ failedRequest.name
+          }}{{ index !== failedRequests.length - 1 ? ", " : "" }}</span
+        >
+      </div>
+    </template>
+    <template #footer>
+      <c-button btn-names="확인" @click="triggerSharedImageFail()" />
+    </template>
+  </c-dialog>
 </template>
 <script setup>
+
 import {
   ref, watch, reactive, computed
 } from "vue";
@@ -487,6 +481,7 @@ const triggerSharedSuccess = () => {
 };
 const triggerSharedImageFail = () => {
   isImageShareManagePopup.value = false;
+  alertTaskDeleteFailModal.value = false;
 
   $useCmFn.onNotify({
     message: "이미지 공유 설정에 실패하였습니다. 다시 시도해주세요.",
