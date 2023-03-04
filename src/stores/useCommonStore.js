@@ -4,7 +4,7 @@ import { ref } from "vue";
 export const useCommonStore = defineStore("common", () => {
   const me = ref(null);
   function setMe(meInfo) {
-    me.value = meInfo;
+    me.value = { ...meInfo };
   }
 
   const messageInfo = ref({
