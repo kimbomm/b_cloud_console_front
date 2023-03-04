@@ -490,6 +490,7 @@ import {
 } from "vue";
 import { useMeta } from "quasar";
 import { useRoute, onBeforeRouteUpdate } from "vue-router";
+import { useCommonStore } from "stores/useCommonStore.js";
 import { $utils } from "src/utils/utils";
 
 import {
@@ -509,6 +510,7 @@ useMeta(() => ({
 }));
 const ptitle = ref(title);
 const route = useRoute();
+const { me } = useCommonStore();
 const { workspaceId } = route.params;
 
 const userName = ref(null);
@@ -545,7 +547,6 @@ onBeforeRouteUpdate((to) => {
 });
 // route hash값 존재시 탭이동 끝
 
-const userId = ref(0);
 const modifyInfo = ref({
   name: "",
   description: ""
@@ -578,7 +579,7 @@ const actionButtons = [
 
 const getMe = async () => {
   try {
-    const myInfo = await WorkspaceService.getMemberInfo(workspaceId, userId.value);
+    const myInfo = await WorkspaceService.getMemberInfo(workspaceId, me.id);
     userInfo.value = myInfo;
     modifyInfo.value.description = {
       name: myInfo.name,
@@ -592,21 +593,18 @@ const getMe = async () => {
 };
 const init = async () => {
   try {
-    const { id } = await UserService.getMe();
-    userId.value = id;
-
     const [myInfo, projects, keys, apis] = await Promise.all([
-      WorkspaceService.getMemberInfo(workspaceId, userId.value),
-      ProjectService.getUserProjects(workspaceId, userId.value),
-      UserService.getSSHKeys(userId.value),
-      UserService.getApiKeys(userId.value),
+      WorkspaceService.getMemberInfo(workspaceId, me.id),
+      ProjectService.getUserProjects(workspaceId, me.id),
+      UserService.getSSHKeys(me.id),
+      UserService.getApiKeys(me.id),
     ]);
     userInfo.value = myInfo;
     userProjects.value = projects.projects;
     sshKeys.value = keys.ssh_keys;
     accessKey.value = apis.access_key;
   } catch (e) {
-    console.log(e);
+    console.error(e);
     return false;
   }
 };
@@ -657,12 +655,12 @@ const onActions = async (eventName, rowData) => {
         value: "확인",
         callback: async () => {
           try {
-            await UserService.delSSHKeys(userId.value, rowData.id);
+            await UserService.delSSHKeys(me.id, rowData.id);
             $useCmFn.onNotify({
               message: "SSH Key 삭제가 완료되었습니다.",
               type: "negative"
             });
-            sshKeys.value = await UserService.getSSHKeys(userId.value).ssh_keys;
+            sshKeys.value = await UserService.getSSHKeys(me.id).ssh_keys;
           } catch (e) {
             console.error(e);
             $useCmFn.onNotify({
@@ -687,7 +685,7 @@ const onApiRegist = async (reIssue = false) => {
   try {
     const res = !reIssue
       ? await UserService.createApiKeys(userInfo.value.id)
-      : await UserService.reIssueApiKeys(userId.value, accessKey.value);
+      : await UserService.reIssueApiKeys(me.id, accessKey.value);
     accessKey.value = res.access_key;
     secretKey.value = res.secret_key;
     apiIssueModal.value = true;
@@ -707,7 +705,7 @@ const onApiDelete = () => {
       value: "확인",
       callback: async () => {
         try {
-          const res = await UserService.delApiKeys(userId.value, accessKey.value);
+          const res = await UserService.delApiKeys(me.id, accessKey.value);
           console.log(res);
           $useCmFn.onNotify({
             message: "API Key 삭제가 완료되었습니다.",

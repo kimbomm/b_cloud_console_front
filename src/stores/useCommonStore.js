@@ -2,6 +2,11 @@ import { defineStore } from "pinia";
 import { ref } from "vue";
 
 export const useCommonStore = defineStore("common", () => {
+  const me = ref(null);
+  function setMe(meInfo) {
+    me.value = meInfo;
+  }
+
   const messageInfo = ref({
     visible: false,
     message: "",
@@ -50,6 +55,8 @@ export const useCommonStore = defineStore("common", () => {
     messageInfo.value.visible = false;
   }
   return {
+    me,
+    setMe,
     messageInfo,
     setMessageInfo,
     hideMessageInfo
