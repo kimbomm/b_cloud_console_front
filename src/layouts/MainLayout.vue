@@ -1,6 +1,7 @@
 <template>
   <q-layout ref="input" view="hHh Lpr lff" class="l-wrap l-console"
   :class="{iconMode: drawer, textMode: sideClick}">
+    <common-setting />
     <q-header class="l-header">
       <q-toolbar>
         <q-btn flat @click="drawer = !drawer" round dense icon="menu" class="c_icon menu" />
@@ -30,6 +31,7 @@ import { useMeta } from "quasar";
 // import { ProjectService } from "src/services";
 // import { $useCmFn } from "src/composables/useCommonFunction.js";
 // import { $utils } from "src/utils/utils";
+import CommonSetting from "components/layout/CommonSetting.vue";
 import TopNav from "components/layout/TopNav.vue";
 import SideBar from "components/layout/SideBar.vue";
 import CMessageBox from "components/common/CMessageBox.vue";
