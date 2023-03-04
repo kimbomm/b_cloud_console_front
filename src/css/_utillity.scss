@@ -2441,6 +2441,9 @@ $qhsize:48px;
         color:$green;
       }
     }
+    &--with-bottom {
+      padding-bottom: 0;
+    }
   }
   &.c_password{
     &.q-field{
