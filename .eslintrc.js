@@ -74,6 +74,9 @@ module.exports = {
     "import/no-extraneous-dependencies": "off",
     "import/prefer-default-export": "off",
     "prefer-promise-reject-errors": "off",
+    "vue/no-parsing-error": ["error", {
+      "control-character-reference": false
+    }],
     // allow debugger during development only
     "no-debugger": process.env.NODE_ENV === "production" ? "error" : "off",
   },

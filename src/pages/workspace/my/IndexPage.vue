@@ -1,488 +1,491 @@
 <template>
-  <Suspense>
-    <q-page class="p-content p-my p-index">
-      <div class="p-head">
-        <q-breadcrumbs
-          class="c_breadcrumb"
-          gutter="none"
-        >
-          <template v-slot:separator>
-            <q-icon />
-          </template>
-          <q-breadcrumbs-el
-            label="Account"
-            to="/"
-          />
-          <q-breadcrumbs-el label="내 정보" />
-        </q-breadcrumbs>
-        <h1 class="p-title">{{ ptitle }}</h1>
+  <q-page class="p-content p-my p-index">
+    <div class="p-head">
+      <q-breadcrumbs
+        class="c_breadcrumb"
+        gutter="none"
+      >
+        <template v-slot:separator>
+          <q-icon />
+        </template>
+        <q-breadcrumbs-el
+          label="Account"
+          to="/"
+        />
+        <q-breadcrumbs-el label="내 정보" />
+      </q-breadcrumbs>
+      <h1 class="p-title">{{ ptitle }}</h1>
+    </div>
+    <!-- //.p-head -->
+    <div class="p-body" :class="{ 'key-body': tabModel === 'key'}">
+      <div class="group-tabs">
+        <c-tab
+          v-model:value="tabModel"
+          :tabs="tabs"
+        />
       </div>
-      <!-- //.p-head -->
-      <div class="p-body" :class="{ 'key-body': tabModel === 'key'}">
-        <div class="group-tabs">
-          <c-tab
-            v-model:value="tabModel"
-            :tabs="tabs"
+      <!-- 내 정보 컨텐츠 -->
+      <template v-if="tabModel === 'my'">
+        <div class="my_info">
+          <q-item-section
+            v-model="editInfoModel"
+            :class="editInfoModel ? '' : 'is-show'"
+            class="item_card"
+          >
+            <q-item-label class="name">
+              {{ userInfo.name }}
+              <c-button
+                :only-icon="true"
+                @click="onEditStart"
+                class="edit"
+              />
+            </q-item-label>
+            <q-item-label class="subject">
+              {{ userInfo.description }}
+            </q-item-label>
+          </q-item-section>
+          <q-item-section
+            :class="editInfoModel ? 'is-show' : ''"
+            class="edit_card"
+          >
+            <section class="section">
+              <p class="sub_title">이름</p>
+              <div class="c_inpgroup">
+                <c-input-text
+                  ref="userName"
+                  v-model:value="modifyInfo.name"
+                  placeholder="이름을 입력해주세요"
+                  class="wsize608"
+                  :rules="nameRules"
+                  clearable
+                  outlined
+                />
+              </div>
+            </section>
+            <section class="section">
+              <p class="sub_title">소개</p>
+              <div class="c_inpgroup">
+                <c-input-text
+                  ref="userName"
+                  v-model:value="modifyInfo.description"
+                  placeholder="소개글을 입력해주세요"
+                  type="textarea"
+                  class="wsize_full hsize136"
+                  :bottom-slots="true"
+                  :maxlength="100"
+                  :counter="true"
+                  :input-style="{ height: '100%' }"
+                  clearable
+                  outlined
+                />
+              </div>
+            </section>
+            <div class="c_btngroup f_end">
+              <q-btn
+                class="c_btn line medium"
+                @click="onEditSave(false)"
+              >
+                <span class="txt">취소</span>
+              </q-btn>
+              <q-btn
+                class="c_btn medium"
+                @click="onEditSave(true)"
+              >
+                <span class="txt">저장</span>
+              </q-btn>
+            </div>
+          </q-item-section>
+        </div>
+        <div class="my_account">
+          <q-list class="account_list">
+            <q-item class="item">
+              <q-item-section class="item_card">
+                <q-item-label class="title">이메일</q-item-label>
+                <q-item-label class="info">{{ userInfo.email }}</q-item-label>
+              </q-item-section>
+              <q-item-section class="item_card">
+                <q-item-label class="title">워크스페이스 역할</q-item-label>
+                <q-item-label class="info">
+                  {{ $utils.getRoleName(userInfo.role, "workspace") }}
+                </q-item-label>
+              </q-item-section>
+              <!-- TODO: TBD 개발 -->
+              <!-- <q-item-section class="item_card">
+                <q-item-label class="title">
+                  카카오 공동체 계정 (LDAP)
+                  <q-btn class="ibtn help">
+                    <i class="ico help" /><span class="hidden">도움말</span>
+                    <q-popup-edit
+                      v-model="helpShow"
+                      anchor="top middle"
+                      class="c_popover bottom ldap"
+                    >
+                      <div class="inner">
+                        카카오 크루 전용 기능으로 LDAP 계정 등록시,<br />
+                        B^Cloud 알림을 카카오 알림톡으로 안내드립니다.
+                      </div>
+                    </q-popup-edit>
+                  </q-btn>
+                </q-item-label>
+                <q-item-label class="info">
+                  <div class="entry">
+                    <q-btn
+                      class="c_btn text"
+                      @click="LDAPLoginModal = true"
+                    >
+                      <span class="txt">등록하기</span>
+                    </q-btn>
+                  </div>
+                  <div class="entry">
+                    <span>root.choi</span>
+                    <q-btn class="c_btn text">
+                      <span class="txt">등록해제</span>
+                    </q-btn>
+                  </div>
+                </q-item-label>
+              </q-item-section> -->
+              <q-item-section class="item_card">
+                <q-item-label class="title">개인 스토리지</q-item-label>
+                <q-item-label class="info">
+                  <div class="stg_progress">
+                    <div class="state">
+                      <!-- TODO: 스토리지 API 개발중 -->
+                      <span class="start">150GiB</span>
+                      <span class="end">200GiB</span>
+                    </div>
+                    <progress
+                      value="75"
+                      max="100"
+                    />
+                  </div>
+                </q-item-label>
+              </q-item-section>
+            </q-item>
+            <q-item class="item column">
+              <q-item-section class="item_card">
+                <q-item-label class="title">소속 프로젝트 및 권한</q-item-label>
+                <q-item-label class="info">
+                  <q-chip
+                    v-for="item in userProjects"
+                    :key="item.id"
+                    class="c_chip"
+                  >
+                    <i class="ico note" />
+                    <strong>{{ item.name }}</strong>
+                    <em>{{ $utils.getRoleName(item.role, "project") }}</em>
+                  </q-chip>
+                </q-item-label>
+              </q-item-section>
+            </q-item>
+          </q-list>
+        </div>
+        <!-- TODO: TBD 개발 -->
+        <!-- <div class="c_btngroup f_start">
+          <q-btn
+            to="/common/withdrawal"
+            target="_blank"
+            class="c_btn alink"
+          >
+            <span class="txt">회원탈퇴</span>
+          </q-btn>
+        </div> -->
+      </template>
+      <!-- 내 정보 컨텐츠 끝-->
+      <!-- SSH&API KEY 컨텐츠 -->
+      <template v-else-if="tabModel === 'key'">
+        <div class="flex-top mt30">
+          <div class="notice-txt">
+            <p class="name">SSH Key</p>
+            <p
+              v-if="sshKeys.length !== 0"
+              class="disabled-txt"
+            >최대 5개까지 등록 가능합니다</p>
+          </div>
+          <c-button
+            :size="'medium'"
+            :outline="true"
+            :btn-names="'등록하기'"
+            @click="sshRegistModal = true"
           />
         </div>
-        <!-- 내 정보 컨텐츠 -->
-        <template v-if="tabModel === 'my'">
-          <div class="my_info">
-            <q-item-section
-              v-model="editInfoModel"
-              :class="editInfoModel ? '' : 'is-show'"
-              class="item_card"
-            >
-              <q-item-label class="name">
-                {{ userInfo.name }}
-                <q-btn
-                  class="ibtn edit"
-                  @click="onEditStart"
-                >
-                  <span class="hidden">편집</span>
-                </q-btn>
-              </q-item-label>
-              <q-item-label class="subject">
-                {{ userInfo.description }}
-              </q-item-label>
-            </q-item-section>
-            <q-item-section
-              :class="editInfoModel ? 'is-show' : ''"
-              class="edit_card"
-            >
-              <section class="section">
-                <p class="sub_title">이름</p>
-                <div class="c_inpgroup">
-                  <c-input-text
-                    ref="userName"
-                    v-model:value="modifyInfo.name"
-                    placeholder="이름을 입력해주세요"
-                    class="wsize608"
-                    :rules="nameRules"
-                    clearable
-                    outlined
-                  />
-                </div>
-              </section>
-              <section class="section">
-                <p class="sub_title">소개</p>
-                <div class="c_inpgroup">
-                  <c-input-text
-                    ref="userName"
-                    v-model:value="modifyInfo.description"
-                    placeholder="소개글을 입력해주세요"
-                    type="textarea"
-                    class="wsize_full hsize136"
-                    :bottom-slots="true"
-                    :maxlength="100"
-                    :counter="true"
-                    :input-style="{ height: '100%' }"
-                    clearable
-                    outlined
-                  />
-                </div>
-              </section>
-              <div class="c_btngroup f_end">
-                <q-btn
-                  class="c_btn line medium"
-                  @click="onEditSave(false)"
-                >
-                  <span class="txt">취소</span>
-                </q-btn>
-                <q-btn
-                  class="c_btn medium"
-                  @click="onEditSave(true)"
-                >
-                  <span class="txt">저장</span>
+        <section class="section">
+          <EasyDataTable
+            v-if="sshKeys.length !== 0"
+            :headers="headers"
+            :items="sshKeys"
+            :hide-footer="true"
+          >
+            <!-- @click-row="showRow" -->
+            <!-- name -->
+            <template #item-name="item">
+              <span class="txt">{{ item.name }}</span>
+            </template>
+            <!-- finger -->
+            <template #item-finger="item">
+              <span class="txt">{{ item.fingerprint }}</span>
+            </template>
+            <!-- registDate -->
+            <template #item-registDate="item">
+              <span class="txt">{{ $utils.paseseDate(item.created_at, 'YYYY-MM-DD hh:mm:ss') }}</span>
+            </template>
+            <!-- 버튼 그룹 -->
+            <template #item-buttons="item">
+              <div v-if="actionButtons" class="cell btngroup">
+                <q-btn class="c_btn ibtn dot">
+                  <i class="ico dots" /><span class="txt">클릭</span>
+                  <q-popup-edit
+                    v-model="item.id"
+                    class="dots_menu"
+                    anchor="top right"
+                  >
+                    <q-list style="min-width: 100px">
+                      <q-item
+                        v-for="button in actionButtons"
+                        :key="button.name"
+                      >
+                        <q-btn
+                          class="item"
+                          @click="onActions(button.event, item)"
+                        >
+                          <span class="txt">{{ button.name }}</span>
+                        </q-btn>
+                      </q-item>
+                    </q-list>
+                  </q-popup-edit>
                 </q-btn>
               </div>
-            </q-item-section>
+            </template>
+          </EasyDataTable>
+          <div v-else class="sign-up">
+            <p class="mb30">SSH Key를 등록해주세요.</p>
+            <c-button
+              :size="'medium'"
+              :btn-names="'등록하기'"
+              @click="sshRegistModal = true"
+            />
           </div>
-          <div class="my_account">
-            <q-list class="account_list">
-              <q-item class="item">
-                <q-item-section class="item_card">
-                  <q-item-label class="title">이메일</q-item-label>
-                  <q-item-label class="info">{{ userInfo.email }}</q-item-label>
-                </q-item-section>
-                <q-item-section class="item_card">
-                  <q-item-label class="title">워크스페이스 역할</q-item-label>
-                  <q-item-label class="info">
-                    {{ $utils.getRoleName(userInfo.role, "workspace") }}
-                  </q-item-label>
-                </q-item-section>
-                <!-- TODO: TBD 개발 -->
-                <!-- <q-item-section class="item_card">
-                  <q-item-label class="title">
-                    카카오 공동체 계정 (LDAP)
-                    <q-btn class="ibtn help">
-                      <i class="ico help" /><span class="hidden">도움말</span>
-                      <q-popup-edit
-                        v-model="helpShow"
-                        anchor="top middle"
-                        class="c_popover bottom ldap"
-                      >
-                        <div class="inner">
-                          카카오 크루 전용 기능으로 LDAP 계정 등록시,<br />
-                          B^Cloud 알림을 카카오 알림톡으로 안내드립니다.
-                        </div>
-                      </q-popup-edit>
-                    </q-btn>
-                  </q-item-label>
-                  <q-item-label class="info">
-                    <div class="entry">
-                      <q-btn
-                        class="c_btn text"
-                        @click="LDAPLoginModal = true"
-                      >
-                        <span class="txt">등록하기</span>
-                      </q-btn>
-                    </div>
-                    <div class="entry">
-                      <span>root.choi</span>
-                      <q-btn class="c_btn text">
-                        <span class="txt">등록해제</span>
-                      </q-btn>
-                    </div>
-                  </q-item-label>
-                </q-item-section> -->
-                <q-item-section class="item_card">
-                  <q-item-label class="title">개인 스토리지</q-item-label>
-                  <q-item-label class="info">
-                    <div class="stg_progress">
-                      <div class="state">
-                        <!-- TODO: 스토리지 API 개발중 -->
-                        <span class="start">150GiB</span>
-                        <span class="end">200GiB</span>
-                      </div>
-                      <progress
-                        value="75"
-                        max="100"
-                      />
-                    </div>
-                  </q-item-label>
-                </q-item-section>
-              </q-item>
-              <q-item class="item column">
-                <q-item-section class="item_card">
-                  <q-item-label class="title">소속 프로젝트 및 권한</q-item-label>
-                  <q-item-label class="info">
-                    <q-chip
-                      v-for="item in userProjects"
-                      :key="item.id"
-                      class="c_chip"
-                    >
-                      <i class="ico note" />
-                      <strong>{{ item.name }}</strong>
-                      <em>{{ $utils.getRoleName(item.role, "project") }}</em>
-                    </q-chip>
-                  </q-item-label>
-                </q-item-section>
-              </q-item>
-            </q-list>
-          </div>
-          <!-- TODO: TBD 개발 -->
-          <!-- <div class="c_btngroup f_start">
-            <q-btn
-              to="/common/withdrawal"
-              target="_blank"
-              class="c_btn alink"
-            >
-              <span class="txt">회원탈퇴</span>
-            </q-btn>
-          </div> -->
-        </template>
-        <!-- 내 정보 컨텐츠 끝-->
-        <!-- SSH&API KEY 컨텐츠 -->
-        <template v-else-if="tabModel === 'key'">
-          <div class="flex-top mt30">
-            <div class="notice-txt">
-              <p class="name">SSH Key</p>
-              <p
-                v-if="sshKeys.length !== 0"
-                class="disabled-txt"
-              >최대 5개까지 등록 가능합니다</p>
-            </div>
+        </section>
+        <div class="flex-top mt50">
+          <p class="name">API Key</p>
+          <div v-if="accessKey">
             <c-button
               :size="'medium'"
               :outline="true"
-              :btn-names="'등록하기'"
-              @click="onSshRegist"
+              :btn-names="'재생성'"
+              @click="onApiRegist(true)"
+            />
+            &nbsp;
+            <c-button
+              :size="'medium'"
+              :outline="true"
+              :btn-names="'삭제'"
+              @click="onApiDelete"
             />
           </div>
-          <section class="section">
-            <EasyDataTable
-              v-if="sshKeys.length !== 0"
-              :headers="headers"
-              :items="sshKeys"
-              :hide-footer="true"
-            >
-              <!-- @click-row="showRow" -->
-              <!-- name -->
-              <template #item-name="item">
-                <span class="txt">{{ item.name }}</span>
-              </template>
-              <!-- finger -->
-              <template #item-finger="item">
-                <span class="txt">{{ item.fingerprint }}</span>
-              </template>
-              <!-- registDate -->
-              <template #item-registDate="item">
-                <span class="txt">{{ $utils.paseseDate(item.created_at, 'YYYY-MM-DD hh:mm:ss') }}</span>
-              </template>
-              <!-- 버튼 그룹 -->
-              <template #item-buttons="item">
-                <div v-if="actionButtons" class="cell btngroup">
-                  <q-btn class="c_btn ibtn dot">
-                    <i class="ico dots" /><span class="txt">클릭</span>
-                    <q-popup-edit
-                      v-model="item.id"
-                      class="dots_menu"
-                      anchor="top right"
-                    >
-                      <q-list style="min-width: 100px">
-                        <q-item
-                          v-for="button in actionButtons"
-                          :key="button.name"
-                        >
-                          <q-btn
-                            class="item"
-                            @click="onActions(button.event, item)"
-                          >
-                            <span class="txt">{{ button.name }}</span>
-                          </q-btn>
-                        </q-item>
-                      </q-list>
-                    </q-popup-edit>
-                  </q-btn>
-                </div>
-              </template>
-            </EasyDataTable>
-            <div v-else class="sign-up">
-              <p class="mb30">SSH Key를 등록해주세요.</p>
-              <c-button
-                :size="'medium'"
-                :btn-names="'등록하기'"
-                @click="onSshRegist"
-              />
-            </div>
-          </section>
-          <div class="flex-top mt50">
-            <p class="name">API Key</p>
-            <div v-if="accessKey">
-              <c-button
-                :size="'medium'"
-                :outline="true"
-                :btn-names="'재생성'"
-                @click="onApiRegist(true)"
-              />
-              &nbsp;
-              <c-button
-                :size="'medium'"
-                :outline="true"
-                :btn-names="'삭제'"
-                @click="onApiDelete"
-              />
-            </div>
-          </div>
-          <section class="section">
-            <div v-if="accessKey" class="key-create">
-            <!-- <div v-if="false" class="key-create"> -->
-              <p>{{ accessKey }}</p>
-              <p>
-                생성일시
-                <span>33333</span>
-                <!-- <span>{{ createDate }}</span> -->
-              </p>
-            </div>
-            <div v-else class="sign-up">
-              <p>API Key를 생성해 주세요.</p>
-              <p class="mb30">생성시 Secret key는 팝업에서 1회만 확인 가능합니다.</p>
-              <c-button
-                :size="'medium'"
-                :btn-names="'생성하기'"
-                @click="onApiRegist"
-              />
-            </div>
-          </section>
-        </template>
-        <!-- SSH&API KEY 컨텐츠 끝-->
-        <div>
-
         </div>
-      </div>
-      <!-- Start : [sshkey & apikey] SSH Key&API Key - 등록 -->
-      <c-dialog
-        v-model:visible="sshRegistModal"
-        :message="'SSH Key 등록'"
-        :size="'large'"
-      >
-        <template #contents>
-          <section class="section">
-            <p class="sub_title">이름</p>
-            <div class="c_inpgroup">
-              <c-input-text
-                v-model:value="textName"
-                outlined
-                placeholder="최소 2자 최대 30자 입력"
-                clearable
-                class="wsize_full"
-                :rules="nameRules"
-              />
-            </div>
-          </section>
-          <section class="section relative">
-            <p class="sub_title">Public key</p>
-            <label class="c_file btntype absolute top-20 right">
-              <input
-                type="file"
-                @update:model-value="val => { files = val }"
-              />
-              <span class="file_text">파일업로드</span>
-            </label>
-            <div class="c_inpgroup">
-              <c-input-text
-                v-model:value="textDesc"
-                outlined
-                bottom-slots
-                type="textarea"
-                placeholder="Public key 를 입력하거나 파일을 업로드 해주세요."
-                clearable
-                counter
-                :count="10"
-                maxlength="500"
-                class="wsize_full hsize244"
-                :input-style="{height: '100%'}"
-              />
-            </div>
-          </section>
-        </template>
-        <template #footer>
-          <c-button
-            :outline="true"
-            :btn-names="'취소'"
-            @click="sshRegistModal = false"
-          />
-          <c-button
-            :btn-names="'저장'"
-            @click="sshRegistModal = false"
-          />
-        </template>
-      </c-dialog>
-      <!-- End : [sshkey & apikey] SSH Key&API Key - 등록 -->
-
-      <!-- Start : [sshkey & apikey] API Key 생성 -->
-      <c-dialog
-        v-model:visible="apiIssueModal"
-        :message="'API Key 생성'"
-        :size="'medium'"
-      >
-        <template #contents>
-          <q-banner class="c_banner caution small">
-            <template v-slot:avatar>
-              <q-icon class="noti" />
-            </template>
-            <div class="bn_head">
-              <strong class="title">주의</strong>
-            </div>
-            <div class="bn_body">
-              Secret Key는 최초 1회만 확인 가능합니다. 복사 후 이용해주세요.
-            </div>
-          </q-banner>
-          <section class="section">
-            <p class="sub_title">Access Key</p>
-            <div class="c_inpgroup keygroup">
-              <c-input-text
-                v-model:value="accessKey"
-                outlined
-                disable
-              />
-              <c-button
-                class="copy"
-                :only-icon="true"
-              >
-                <i class="ico copy" />
-              </c-button>
-            </div>
-          </section>
-          <section class="section">
-            <p class="sub_title">Secret Key</p>
-            <div class="c_inpgroup keygroup">
-              <c-input-text
-                outlined
-                v-model:value="secretKey"
-                disable
-              />
-              <c-button
-                class="copy"
-                :only-icon="true"
-              >
-                <i class="ico copy" />
-              </c-button>
-            </div>
-          </section>
-        </template>
-        <template #footer>
-          <c-button
-            :btn-names="'확인'"
-            @click="apiIssueModal = false"
-          />
-        </template>
-      </c-dialog>
-      <!-- End : [sshkey & apikey] API Key 생성 -->
-
-      <!-- TODO: TBD 개발 -->
-      <!-- Start : [내정보] LDAP 로그인(오픈 이후 개발) -->
-      <!-- <q-dialog
-        v-model="LDAPLoginModal"
-        class="c_dialog medium"
-      >
-        <q-card>
-          <q-card-section class="c_dialog_body">
-            <p class="title">
-              <strong>LDAP 로그인</strong>
+        <section class="section">
+          <div v-if="accessKey" class="key-create">
+          <!-- <div v-if="false" class="key-create"> -->
+            <p>{{ accessKey }}</p>
+            <p>
+              생성일시
+              <span>33333</span>
+              <!-- <span>{{ createDate }}</span> -->
             </p>
-            <section class="section">
-              <div class="c_inpgroup">
-                <q-input
-                  outlined
-                  v-model="ldapID"
-                  placeholder="LDAP ID"
-                  clearable
-                  class="wsize_full"
-                />
-              </div>
-            </section>
-            <section class="section">
-              <div class="c_inpgroup">
-                <q-input
-                  outlined
-                  v-model="ldapPW"
-                  placeholder="PW"
-                  clearable
-                  class="wsize_full"
-                />
-              </div>
-            </section>
-          </q-card-section>
-          <q-card-actions class="c_dialog_foot">
-            <q-btn
-              label="취소"
-              class="line"
-              v-close-popup
+          </div>
+          <div v-else class="sign-up">
+            <p>API Key를 생성해 주세요.</p>
+            <p class="mb30">생성시 Secret key는 팝업에서 1회만 확인 가능합니다.</p>
+            <c-button
+              :size="'medium'"
+              :btn-names="'생성하기'"
+              @click="onApiRegist"
             />
-            <q-btn
-              label="로그인"
-              class="primary"
-              v-close-popup
+          </div>
+        </section>
+      </template>
+      <!-- SSH&API KEY 컨텐츠 끝-->
+      <div>
+
+      </div>
+    </div>
+    <!-- Start : [sshkey & apikey] SSH Key&API Key - 등록 -->
+    <c-dialog
+      v-model:visible="sshRegistModal"
+      :message="'SSH Key 등록'"
+      :size="'large'"
+    >
+      <template #contents>
+        <section class="section">
+          <p class="sub_title">이름</p>
+          <div class="c_inpgroup">
+            <c-input-text
+              ref="refSshKeyName"
+              v-model:value="sshKeyName"
+              outlined
+              placeholder="최소 2자 최대 30자 입력"
+              clearable
+              class="wsize_full"
+              :rules="nameRules"
+            />
+          </div>
+        </section>
+        <section class="section relative">
+          <p class="sub_title">Public key</p>
+          <label class="c_file btntype absolute top-20 right">
+            <input
+              type="file"
+              @update:model-value="val => { files = val }"
+            />
+            <span class="file_text">파일업로드</span>
+          </label>
+          <div class="c_inpgroup">
+            <c-input-text
+              v-model:value="sshKey"
+              outlined
+              bottom-slots
+              type="textarea"
+              placeholder="다음으로 시작하는 SSH Key를 지원합니다.&#10;‘ssh-rsa’, ‘ssh-ed25519’, ‘ecdsa-sha2-nistp256’, ‘ecdsa-sha2-nistp384’, ‘ecdsa-sha2-nistp521’, ‘sk-ecdsa-sha2-nistp256@openssh.com’, ‘sk-ssh-ed25519@openssh.com’"
+              clearable
+              counter
+              :error="sshKeyError"
+              :maxlength="1000"
+              class="wsize_full hsize244"
+              :input-style="{height: '100%'}"
+            >
+              <template #error>
+                유효한 Public Key를 등록해주세요.
+              </template>
+            </c-input-text>
+          </div>
+        </section>
+      </template>
+      <template #footer>
+        <c-button
+          :outline="true"
+          :btn-names="'취소'"
+          @click="sshRegistModal = false"
+        />
+        <c-button
+          :btn-names="'저장'"
+          :disabled="!sshIsAvailableSave"
+          @click="onSshKeyRegist"
+        />
+      </template>
+    </c-dialog>
+    <!-- End : [sshkey & apikey] SSH Key&API Key - 등록 -->
+
+    <!-- Start : [sshkey & apikey] API Key 생성 -->
+    <c-dialog
+      v-model:visible="apiIssueModal"
+      :message="'API Key 생성'"
+      :size="'medium'"
+    >
+      <template #contents>
+        <q-banner class="c_banner caution small">
+          <template v-slot:avatar>
+            <q-icon class="noti" />
+          </template>
+          <div class="bn_head">
+            <strong class="title">주의</strong>
+          </div>
+          <div class="bn_body">
+            Secret Key는 최초 1회만 확인 가능합니다. 복사 후 이용해주세요.
+          </div>
+        </q-banner>
+        <section class="section">
+          <p class="sub_title">Access Key</p>
+          <div class="c_inpgroup keygroup">
+            <c-input-text
+              v-model:value="accessKey"
+              outlined
               disable
             />
-          </q-card-actions>
-        </q-card>
-      </q-dialog> -->
-      <!-- End : [내정보] LDAP 로그인(오픈 이후 개발) -->
-    </q-page>
-  </Suspense>
+            <c-button
+              class="copy"
+              :only-icon="true"
+            >
+              <i class="ico copy" />
+            </c-button>
+          </div>
+        </section>
+        <section class="section">
+          <p class="sub_title">Secret Key</p>
+          <div class="c_inpgroup keygroup">
+            <c-input-text
+              outlined
+              v-model:value="secretKey"
+              disable
+            />
+            <c-button
+              class="copy"
+              :only-icon="true"
+            >
+              <i class="ico copy" />
+            </c-button>
+          </div>
+        </section>
+      </template>
+      <template #footer>
+        <c-button
+          :btn-names="'확인'"
+          @click="apiIssueModal = false"
+        />
+      </template>
+    </c-dialog>
+    <!-- End : [sshkey & apikey] API Key 생성 -->
+
+    <!-- TODO: TBD 개발 -->
+    <!-- Start : [내정보] LDAP 로그인(오픈 이후 개발) -->
+    <!-- <q-dialog
+      v-model="LDAPLoginModal"
+      class="c_dialog medium"
+    >
+      <q-card>
+        <q-card-section class="c_dialog_body">
+          <p class="title">
+            <strong>LDAP 로그인</strong>
+          </p>
+          <section class="section">
+            <div class="c_inpgroup">
+              <q-input
+                outlined
+                v-model="ldapID"
+                placeholder="LDAP ID"
+                clearable
+                class="wsize_full"
+              />
+            </div>
+          </section>
+          <section class="section">
+            <div class="c_inpgroup">
+              <q-input
+                outlined
+                v-model="ldapPW"
+                placeholder="PW"
+                clearable
+                class="wsize_full"
+              />
+            </div>
+          </section>
+        </q-card-section>
+        <q-card-actions class="c_dialog_foot">
+          <q-btn
+            label="취소"
+            class="line"
+            v-close-popup
+          />
+          <q-btn
+            label="로그인"
+            class="primary"
+            v-close-popup
+            disable
+          />
+        </q-card-actions>
+      </q-card>
+    </q-dialog> -->
+    <!-- End : [내정보] LDAP 로그인(오픈 이후 개발) -->
+  </q-page>
 </template>
 <script setup>
 import {
@@ -642,26 +645,69 @@ const onEditSave = async (isSave) => {
  * sidebar life cycle과 달라
  * watch로 user정보 확인
  */
-watch(() => me.value, async () => {
+watch(() => !!me.value, async () => {
   await init();
 });
 onMounted(async () => {
-  if (me.value.id) {
+  if (me.value?.id) {
     await init();
   }
 });
 
 const sshRegistModal = ref(false);
 const apiIssueModal = ref(false);
-const onSshRegist = () => {
-  sshRegistModal.value = true;
+const refSshKeyName = ref("");
+const sshKeyName = ref("");
+const sshKey = ref("");
+const sshKeyError = ref(false);
+const sshIsAvailableSave = computed(() => !refSshKeyName.value.getHasError && Boolean(sshKey.value));
+// const sshKeyStartAt = [
+//   "ssh-rsa", "ssh-ed25519", "ecdsa-sha2-nistp256", "ecdsa-sha2-nistp384", "ecdsa-sha2-nistp521", "sk-ecdsa-sha2-nistp256@openssh.com", "sk-ssh-ed25519@openssh.com"
+// ];
+// const sshKeyRules = [
+//   (value) => (sshKeyStartAt.includes(value)) || "유효한 Public Key를 등록해주세요.",
+// ];
+
+/**
+ * SSH Key Modal Init
+ */
+const sshModalInit = () => {
+  sshKeyName.value = "";
+  sshKey.value = "";
+  sshKeyError.value = false;
+};
+/**
+ * SSH key 등록
+ */
+const onSshKeyRegist = async () => {
+  const params = {
+    name: sshKeyName.value,
+    description: "",
+    public_key: sshKey.value
+  };
+  try {
+    await UserService.registSSHKeys(me.value.id, params);
+    $useCmFn.onNotify({
+      message: "SSH Key 등록이 완료되었습니다.",
+      type: "positive"
+    });
+    sshKeys.value = await UserService.getSSHKeys(me.value.id).ssh_keys;
+    sshModalInit();
+  } catch (e) {
+    console.log("Error >>>", e.response);
+    $useCmFn.onNotify({
+      message: "SSH Key 등록에 실패하였습니다. 다시 시도해주세요.",
+      type: "negative"
+    });
+    sshKeyError.value = true;
+    return false;
+  }
 };
 
 /**
  * SSH Key 삭제
  */
 const onActions = async (eventName, rowData) => {
-  console.log("eventName, rowData >>>", eventName, rowData);
   if (eventName === "delete") {
     $useCmFn.onMessage({
       message: "SSH Key를 삭제하시겠습니까?",

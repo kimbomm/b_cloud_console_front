@@ -273,12 +273,10 @@
 </template>
 <script setup>
 import { ref, onMounted, watch } from "vue";
-import { UserService, AuthService, ProjectService } from "src/services";
+import { AuthService, ProjectService } from "src/services";
 import { googleLogout } from "vue3-google-login";
 import { $useCmFn } from "src/composables/useCommonFunction.js";
-import { useCommonStore } from "stores/useCommonStore.js";
 import { useRoute } from "vue-router";
-import { storeToRefs } from "pinia";
 import CInputText from "components/common/CInputText.vue";
 
 const route = useRoute();
@@ -391,14 +389,6 @@ const menuData = [
     ],
   },
 ];
-const { me } = storeToRefs(useCommonStore());
-const { setMe } = useCommonStore();
-const initMe = async () => {
-  await UserService.getMe().then((user) => {
-    setMe(user);
-  });
-};
-if (!me.value) initMe();
 
 const projectName = ref("");
 const projectDescription = ref("");

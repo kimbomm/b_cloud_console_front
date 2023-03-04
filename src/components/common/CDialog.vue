@@ -37,7 +37,9 @@
   </q-dialog>
 </template>
 <script setup>
-import { computed, useSlots } from "vue";
+import {
+  ref, watch, computed, useSlots
+} from "vue";
 // import { $utils } from "src/utils/utils";
 
 const slots = useSlots();
@@ -49,7 +51,7 @@ const slotClassList = computed(() => {
   }
   return classList.join(" ");
 });
-defineProps({
+const props = defineProps({
   visible: {
     type: Boolean,
     default: false
@@ -70,5 +72,11 @@ defineProps({
     type: String,
     default: ""
   },
+});
+
+const lazyVisible = ref(false);
+
+watch(() => props.visible, () => {
+  lazyVisible.value = props.visible;
 });
 </script>
