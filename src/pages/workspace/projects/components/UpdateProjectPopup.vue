@@ -66,6 +66,9 @@ import { useRoute } from "vue-router";
 import { $useCmFn } from "src/composables/useCommonFunction.js";
 
 import CInputText from "src/components/common/CInputText.vue";
+import { useProjectsStore } from "src/stores/projects";
+
+const projectsStore = useProjectsStore();
 
 const props = defineProps({
   projectCreateModal: Boolean,
@@ -80,6 +83,7 @@ const { RefDscription } = toRefs(props);
 
 const route = useRoute();
 const { workspaceId, projectId } = route.params;
+projectsStore.workspaceId = workspaceId;
 
 const projectName = ref("");
 const projectDescription = ref("");
@@ -140,11 +144,17 @@ watch(
   }
 );
 
+// 비동기 처리
+const useGetUserInfo = async () => {
+  await projectsStore.getUserInfo();
+};
+
 const triggerSuccess = () => {
   $useCmFn.onNotify({
     message: "편집 내용이 저장되었습니다.",
     type: "positive",
   });
+  useGetUserInfo();
 };
 const triggerFail = () => {
   $useCmFn.onNotify({
@@ -185,4 +195,10 @@ watchEffect(() => {
     resetProject();
   }
 });
+
+watch(() => useProjectsStore.projects, () => {
+  console.log("수정");
+  useProjectsStore.getUserInfo(workspaceId);
+}, { deep: true });
+
 </script>
