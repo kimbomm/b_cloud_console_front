@@ -490,8 +490,6 @@
 <script setup>
 import {
   ref,
-  watch,
-  onMounted,
   computed
 } from "vue";
 import { useMeta } from "quasar";
@@ -584,6 +582,9 @@ const actionButtons = [
   { name: "삭제", event: "delete" },
 ];
 
+/**
+ * workspace 내정보 가져오기
+ */
 const getMe = async () => {
   try {
     const myInfo = await WorkspaceService.getMemberInfo(workspaceId, me.value.id);
@@ -598,6 +599,9 @@ const getMe = async () => {
     return false;
   }
 };
+/**
+ * 초기화
+ */
 const init = async () => {
   try {
     const [myInfo, projects, keys, apis] = await Promise.all([
@@ -615,6 +619,11 @@ const init = async () => {
     return false;
   }
 };
+init();
+
+/**
+ * 내정보 수정 버튼 클릭
+ */
 const onEditStart = () => {
   modifyInfo.value = {
     name: userInfo.value.name,
@@ -622,6 +631,9 @@ const onEditStart = () => {
   };
   editInfoModel.value = true;
 };
+/**
+ * 내정보 변경 저장
+ */
 const onEditSave = async (isSave) => {
   if (!isSave) {
     editInfoModel.value = false;
@@ -639,20 +651,6 @@ const onEditSave = async (isSave) => {
     });
   }
 };
-
-/**
- * 새로고침시
- * sidebar life cycle과 달라
- * watch로 user정보 확인
- */
-watch(() => !!me.value, async () => {
-  await init();
-});
-onMounted(async () => {
-  if (me.value?.id) {
-    await init();
-  }
-});
 
 const sshRegistModal = ref(false);
 const apiIssueModal = ref(false);
