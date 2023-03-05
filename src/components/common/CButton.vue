@@ -36,7 +36,6 @@ const props = defineProps({
   },
   btnNames: {
     type: String,
-    required: true,
     default: "Button",
   },
 });
