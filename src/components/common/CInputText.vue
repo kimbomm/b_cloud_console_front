@@ -6,6 +6,7 @@
     :clearable="clearable"
     :disable="disable"
     :outlined="outlined"
+    :error="error"
     :bottom-slots="bottomSlots"
     :counter="counter"
     :maxlength="maxlength"
@@ -18,6 +19,9 @@
     :suffix="suffix"
     @update:model-value="onUpdateInput"
   >
+    <template v-if="$slots.error" v-slot:error>
+      <slot name="error" />
+    </template>
     <template v-if="$slots.prepend" v-slot:prepend>
       <slot name="prepend" />
     </template>
@@ -38,7 +42,6 @@ import {
   watch,
   defineEmits,
   onMounted,
-  nextTick,
   computed,
 } from "vue";
 import { $utils } from "src/utils/utils";
@@ -83,6 +86,10 @@ const props = defineProps({
   hint: {
     type: String,
     default: ""
+  },
+  error: {
+    type: Boolean,
+    default: false
   },
   type: {
     /**
@@ -158,10 +165,11 @@ onMounted(async () => {
  * input update event
  */
 const onUpdateInput = async () => {
-  emit("update:value", lazyValue.value);
-  emit("update");
-  await nextTick();
   await onValidate();
+  setTimeout(() => {
+    emit("update:value", lazyValue.value);
+    emit("update");
+  }, 50);
 };
 
 const onChangeVisible = () => {

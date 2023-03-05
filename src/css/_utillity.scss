@@ -2444,6 +2444,9 @@ $qhsize:48px;
         color:$green;
       }
     }
+    &--with-bottom {
+      padding-bottom: 0;
+    }
   }
   &.c_password{
     &.q-field{
@@ -2575,6 +2578,61 @@ $qhsize:48px;
         border-color:$color;
       }
     }
+  }
+  &.q-field{
+    &--disabled{
+      .q-field__control{
+        &:before{
+          background:$surface01;
+        }
+        &:after{
+          border-color:$surface03;
+        }
+      }
+    }
+    &--error{
+      .q-icon{
+        &.visibility_off{
+          background-image:url($iconUrl + '16/ico_visibility_pressed.svg');
+        }
+        &.visibility{
+          background-image:url($iconUrl + '16/ico_visibility_normal.svg');
+        }
+      }
+      .q-field__control{
+        &:after{
+          border-color:$red;
+        }
+      }
+      .q-field__bottom{
+        color:$red;
+      }
+    }
+    // &--positive{
+    //   .q-icon{
+    //     &.q-field__focusable-action{
+    //       background-image:url($iconUrl + '16/ico_complete_default.svg');
+    //       cursor:default;
+    //     }
+    //     &.visibility_off{
+    //       background-image:url($iconUrl + '16/ico_visibility_pressed.svg');
+    //     }
+    //     &.visibility{
+    //       background-image:url($iconUrl + '16/ico_visibility_normal.svg');
+    //     }
+    //   }
+    //   .q-field__control{
+    //     &:after{
+    //       border-color:$green;
+    //     }
+    //   }
+    //   .q-field__bottom{
+    //     color:$green;
+    //   }
+    // }
+    // &--with-bottom {
+    //   padding-bottom: 0;
+    // }
   }
 }
 .c_inpgroup{
