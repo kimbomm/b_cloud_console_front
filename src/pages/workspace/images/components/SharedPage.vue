@@ -20,7 +20,7 @@
     </template>
     <!-- image -->
     <template #item-image="item">
-      <span class="txt">{{ item.base_image_name }}</span>
+      <span class="txt">{{ item }}</span>
     </template>
 
     <!-- sharedBy -->
@@ -54,7 +54,7 @@ const headers = [
   },
   {
     text: "이미지",
-    value: "base_image_name",
+    value: "base_image.name",
     width: 350,
     sortable: true,
   },
