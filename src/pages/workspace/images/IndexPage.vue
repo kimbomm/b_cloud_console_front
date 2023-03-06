@@ -179,8 +179,8 @@ import CPagination from "src/components/common/CPagination.vue";
 import CTab from "src/components/common/CTab.vue";
 import CDialog from "src/components/common/CDialog.vue";
 import CButton from "src/components/common/CButton.vue";
-import { useProjectsStore } from "src/stores/useProjectStore";
 import { useCommonStore } from "src/stores/useCommonStore";
+import { useProjectsStore } from "src/stores/useProjectStore";
 
 import MyPage from "./components/MyPage.vue";
 import BasicPage from "./components/BasicPage.vue";
@@ -193,13 +193,12 @@ const route = useRoute();
 const { workspaceId } = route.params;
 
 projectsStore.workspaceId = workspaceId;
-
 const workspaceName = ref("");
 
 const getUserWorkspace = async () => {
   try {
     const { workspaces } = await WorkspaceService.getUserWorkspaceList(commonStore.me.id);
-    const found = workspaces.find((item) => item.id === 1);
+    const found = workspaces.find((item) => item.id === parseInt(workspaceId, 10));
     workspaceName.value = found.name;
   } catch (error) {
     console.log(error);
