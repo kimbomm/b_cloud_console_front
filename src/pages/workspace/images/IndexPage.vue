@@ -179,25 +179,26 @@ import CPagination from "src/components/common/CPagination.vue";
 import CTab from "src/components/common/CTab.vue";
 import CDialog from "src/components/common/CDialog.vue";
 import CButton from "src/components/common/CButton.vue";
-import { useProjectsStore } from "src/stores/projects";
+import { useProjectsStore } from "src/stores/useProjectStore";
+import { useCommonStore } from "src/stores/useCommonStore";
+
 import MyPage from "./components/MyPage.vue";
 import BasicPage from "./components/BasicPage.vue";
 import SharedPage from "./components/SharedPage.vue";
 
 const projectsStore = useProjectsStore();
+const commonStore = useCommonStore();
 
-const userId = 1; // 임시추가
 const route = useRoute();
 const { workspaceId } = route.params;
 
 projectsStore.workspaceId = workspaceId;
-projectsStore.userId = userId;
 
 const workspaceName = ref("");
 
 const getUserWorkspace = async () => {
   try {
-    const { workspaces } = await WorkspaceService.getUserWorkspaceList(userId);
+    const { workspaces } = await WorkspaceService.getUserWorkspaceList(commonStore.me.id);
     const found = workspaces.find((item) => item.id === 1);
     workspaceName.value = found.name;
   } catch (error) {
@@ -267,7 +268,7 @@ const transformDate = (value) => {
 // 내 이미지 가져오기
 const getMyImge = async () => {
   try {
-    const { images } = await imageService.getMyImages(workspaceId, userId);
+    const { images } = await imageService.getMyImages(workspaceId, commonStore.me.id);
     const updatedImages = $utils.sortType(
       transformDate({
         images,
@@ -315,7 +316,7 @@ const setImagesWithSharedUser = (updatedImages) => {
 // 임시 추가
 const getSharedImge = async () => {
   try {
-    const response = await imageService.getSharedImages(workspaceId, userId);
+    const response = await imageService.getSharedImages(workspaceId, commonStore.me.id);
     const images = response.shared_images;
     const updatedImages = transformDate({
       images,

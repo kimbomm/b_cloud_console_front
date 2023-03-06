@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import { ProjectService } from "src/services";
+import { useCommonStore } from "./useCommonStore"; //
 
 export const useProjectsStore = defineStore("projects", {
   state: () => ({
@@ -24,6 +25,13 @@ export const useProjectsStore = defineStore("projects", {
   actions: {
     // 현재 유저 프로젝트 리스트 출력
     async getUserInfo() {
+      const commonStore = useCommonStore();
+      if (!commonStore.me || !commonStore.me.id) {
+        return;
+      }
+
+      this.userId = commonStore.me.id;
+
       try {
         const { projects } = await ProjectService.getUserProjects(this.workspaceId, this.userId);
         this.SET_PROJECTS(projects);

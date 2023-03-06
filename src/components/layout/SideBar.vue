@@ -278,7 +278,7 @@ import {
 import { AuthService, ProjectService } from "src/services";
 import { googleLogout } from "vue3-google-login";
 import { $useCmFn } from "src/composables/useCommonFunction.js";
-import { useProjectsStore } from "src/stores/projects";
+import { useProjectsStore } from "src/stores/useProjectStore";
 import { useRoute } from "vue-router";
 import CInputText from "components/common/CInputText.vue";
 
@@ -289,7 +289,6 @@ const { params } = useRoute();
 const { workspaceId } = params;
 
 projectsStore.workspaceId = workspaceId;
-projectsStore.userId = 1; // 임시추가
 
 const itemSelected = ref(false);
 const projectCreateModal = ref(false);

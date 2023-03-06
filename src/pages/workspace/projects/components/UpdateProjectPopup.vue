@@ -66,7 +66,7 @@ import { useRoute } from "vue-router";
 import { $useCmFn } from "src/composables/useCommonFunction.js";
 
 import CInputText from "src/components/common/CInputText.vue";
-import { useProjectsStore } from "src/stores/projects";
+import { useProjectsStore } from "src/stores/useProjectStore";
 
 const projectsStore = useProjectsStore();
 
