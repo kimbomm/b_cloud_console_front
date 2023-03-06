@@ -39,6 +39,9 @@ export const useProjectsStore = defineStore("projects", {
         console.log(e);
         return false;
       }
+
+      const { projects } = await ProjectService.getUserProjects(this.workspaceId, this.userId);
+      this.actions.SET_PROJECTS(projects);
     },
 
     SET_PROJECTS(projects) {
