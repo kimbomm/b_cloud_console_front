@@ -2467,6 +2467,9 @@ $qhsize:48px;
     &.wsize_full{
       width:100%;
     }
+    .q-field__native{
+      font-size:$fs16;
+    }
     .q-field__append{
       position:relative;z-index:1;
       .unit{
@@ -2563,6 +2566,9 @@ $qhsize:48px;
   }
   &.hsize244{
     height:244px;
+  }
+  &.hsize328{
+    height:328px;
   }
   &.q-field--outlined{
     .q-field__control{

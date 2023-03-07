@@ -20,7 +20,10 @@
       <h1 class="p-title">{{ ptitle }}</h1>
     </div>
     <div class="p-body">
-      <p class="type">유형 <span class="essential">*</span></p>
+      <p class="title">
+        유형
+        <span class="essential">*</span>
+      </p>
       <c-dropdown
         class="type-dropdown"
         v-model:selected="selectedBasic"
@@ -28,40 +31,196 @@
         :options="options"
         @click="visible"
       />
-      <template v-if="visible === 'A'">
-        <div class="type-area area-box">
-          <p class="type-area_text">유형을 선택해주세요</p>
-        </div>
-      </template>
-      <!-- 고객지원-문의하기-스토리지 할당량 변경 -->
-      <template v-else-if="visible === 'B'">
-        <div class="amount-area area-box">
-          <p class="area-title">워크스페이스 스토리지 요청 할당량 입력&nbsp;<span class="essential">*</span></p>
-          <div class="unit_type">
-            <span class="tit">현재 사용량</span>
-            <span class="counter">
-              <em class="usage">190</em>
-              <i class="bar">/</i>
-              <strong class="quota">450</strong>
-            </span>
-          </div>
-          <div class="c_inpgroup flex-end">
-            <q-input
-              outlined
-              v-model="quota1"
-              type="number"
-              placeholder="50GiB 단위 입력"
-              clearable
-              class="inp_unit"
-            >
-              <template v-slot:append>
-                <span class="unit">GiB</span>
-              </template>
-            </q-input>
-            <span class="desc">최대 50,000</span>
-          </div>
-          <div class="request-input" aria-label="프로젝트 설명">
-            <p class="req_title" style="margin-bottom: 8px">요청 내용</p>
+      <div class="view_contents bg">
+        <template v-if="visible === 'A'">
+          <p class="type_choice">유형을 선택해주세요</p>
+        </template>
+        <!-- 고객지원-문의하기-스토리지 할당량 변경 -->
+        <template v-if="visible === 'B'">
+          <section class="section">
+            <p class="title">
+              워크스페이스 스토리지 요청 할당량 입력
+              <span class="essential">*</span>
+            </p>
+            <div class="unit_type">
+              <span class="tit">현재 사용량</span>
+              <span class="counter">
+                <em class="usage">190</em>
+                <i class="bar">/</i>
+                <strong class="quota">450</strong>
+              </span>
+            </div>
+            <div class="c_inpgroup flex-end">
+              <q-input
+                outlined
+                v-model="quota1"
+                type="number"
+                placeholder="50GiB 단위 입력"
+                clearable
+                class="inp_unit"
+              >
+                <template v-slot:append>
+                  <span class="unit">GiB</span>
+                </template>
+              </q-input>
+              <span class="desc">최대 50,000</span>
+            </div>
+          </section>
+          <section class="section">
+            <p class="title">요청 내용</p>
+            <div class="c_inpgroup">
+              <q-input
+                outlined
+                v-model="textDesc"
+                bottom-slots
+                type="textarea"
+                placeholder="문의내용을 입력해주세요."
+                counter
+                :count="10"
+                maxlength="1000"
+                class="wsize_full hsize328 fs16"
+              />
+            </div>
+          </section>
+        </template>
+
+        <!-- 고객지원-문의하기-리소스 할당량 변경 -->
+        <template v-if="visible === 'C'">
+          <section class="section">
+            <p class="title">
+              CPU, GPU 할당 요청량 입력
+              <span class="essential">*</span>
+            </p>
+            <p class="sub_title">CPU</p>
+            <div class="unit_type">
+              <span class="tit">현재 할당량</span>
+              <span class="counter">
+                <em class="usage">190</em>
+              </span>
+            </div>
+            <div class="flex_reg">
+              <span class="req">요청량</span>
+              <div class="c_inpgroup flex-end">
+                <q-input
+                  outlined
+                  v-model="quota2"
+                  type="number"
+                  placeholder="0"
+                  clearable
+                  class="inp_unit"
+                />
+                <span class="desc">권장 0</span>
+              </div>
+            </div>
+            <p class="sub_title">Tesla A100</p>
+            <div class="unit_type">
+              <span class="tit">현재 할당량</span>
+              <span class="counter">
+                <em class="usage">190</em>
+              </span>
+            </div>
+            <div class="flex_reg">
+              <span class="req">요청량</span>
+              <div class="c_inpgroup flex-end">
+                <q-input
+                  outlined
+                  v-model="quota3"
+                  type="number"
+                  placeholder="0"
+                  clearable
+                  class="inp_unit"
+                />
+              </div>
+            </div>
+          </section>
+          <section class="section">
+            <p class="title">요청 내용</p>
+            <div class="c_inpgroup">
+              <q-input
+                outlined
+                v-model="textDesc"
+                bottom-slots
+                type="textarea"
+                placeholder="문의내용을 입력해주세요."
+                counter
+                :count="10"
+                maxlength="1000"
+                class="wsize_full hsize328 fs16"
+              />
+            </div>
+          </section>
+        </template>
+
+        <!-- 고객지원-문의하기-오류/버그 제보 -->
+        <template v-if="visible === 'D'">
+          <section class="section">
+            <p class="title">
+              제목
+              <span class="essential">*</span>
+            </p>
+            <div class="c_inpgroup">
+              <q-input
+                outlined
+                v-model="textName"
+                placeholder="제목을 입력해주세요."
+                counter
+                :count="10"
+                maxlength="100"
+                clearable
+                class="wsize_full"
+              />
+            </div>
+          </section>
+          <section class="section">
+            <p class="title">
+              내용
+              <span class="essential">*</span>
+            </p>
+            <div class="c_inpgroup">
+              <q-input
+                outlined
+                v-model="textDesc"
+                bottom-slots
+                type="textarea"
+                placeholder="문의내용을 입력해주세요."
+                counter
+                :count="10"
+                maxlength="1000"
+                class="wsize_full hsize328 fs16"
+              />
+            </div>
+          </section>
+          <section class="section mb24">
+            <p class="title">파일 업로드</p>
+            <c-uploader />
+          </section>
+        </template>
+
+        <!-- 고객지원-문의하기-기타문의 -->
+        <template v-if="visible === 'E'">
+          <section class="section">
+            <p class="title">
+              제목
+              <span class="essential">*</span>
+            </p>
+            <div class="c_inpgroup">
+              <q-input
+                outlined
+                v-model="textName"
+                placeholder="제목을 입력해주세요."
+                counter
+                :count="10"
+                maxlength="100"
+                clearable
+                class="wsize_full"
+              />
+            </div>
+          </section>
+          <section class="section">
+            <p class="title">
+              내용
+              <span class="essential">*</span>
+            </p>
             <div class="c_inpgroup">
               <q-input
                 outlined
@@ -76,82 +235,14 @@
                 :input-style="{height: '100%'}"
               />
             </div>
-          </div>
-        </div>
-        <div class="c_btngroup f_end">
-          <c-button
-            :btn-names="'요청하기'"
-            :disabled="true"
-            class="req"
-            @click="triggerInfo()"
-          />
-        </div>
-      </template>
-      <!-- 고객지원-문의하기-리소스 할당량 변경 -->
-      <template v-else-if="visible === 'C'">
-        <div class="resource-area area-box">
-          <p class="title">CPU, GPU 할당 요청량 입력&nbsp;<span class="essential">*</span></p>
-          <section class="section" aria-label="CPU">
-            <p class="sub-title">CPU</p>
-            <div class="unit_type">
-              <span class="tit">현재 할당량</span>
-              <span class="counter">
-                <em class="usage">190</em>
-              </span>
-            </div>
-            <div class="req-box">
-              <span class="req">요청량</span>
-              <div class="c_inpgroup flex-end">
-                <q-input
-                  outlined
-                  v-model="quota2"
-                  type="number"
-                  placeholder="0"
-                  clearable
-                  class="inp_unit"
-                />
-                <span class="desc">권장 0</span>
-              </div>
-            </div>
-            <p class="sub-title">Tesla A100</p>
-            <div class="unit_type">
-              <span class="tit">현재 할당량</span>
-              <span class="counter">
-                <em class="usage">190</em>
-              </span>
-            </div>
-            <div class="req-box">
-              <span class="req">요청량</span>
-              <div class="c_inpgroup flex-end">
-                <q-input
-                  outlined
-                  v-model="quota3"
-                  type="number"
-                  placeholder="0"
-                  clearable
-                  class="inp_unit"
-                />
-              </div>
-            </div>
-            <div class="request-input">
-              <p class="req_title">요청 내용</p>
-              <div class="c_inpgroup">
-                <q-input
-                  outlined
-                  v-model="textDesc"
-                  bottom-slots
-                  type="textarea"
-                  placeholder="문의내용을 입력해주세요."
-                  counter
-                  :count="10"
-                  maxlength="1000"
-                  class="wsize_full hsize244 pl-px"
-                  :input-style="{height: '100%'}"
-                />
-              </div>
-            </div>
           </section>
-        </div>
+          <section class="section mb24">
+            <p class="title-file">파일 업로드</p>
+            <c-uploader />
+          </section>
+        </template>
+      </div>
+      <template v-if="visible === 'B' || visible === 'C'">
         <div class="c_btngroup f_end">
           <c-button
             :btn-names="'요청하기'"
@@ -161,42 +252,7 @@
           />
         </div>
       </template>
-      <!-- 고객지원-문의하기-오류/버그 제보 -->
-      <template v-else-if="visible === 'D'">
-        <div class="report-area area-box">
-          <p class="title">제목&nbsp;<span class="essential">*</span></p>
-          <div class="c_inpgroup">
-            <q-input
-              outlined
-              v-model="textDesc"
-              bottom-slots
-              type="textarea"
-              placeholder="제목을 입력해주세요."
-              counter
-              :count="10"
-              maxlength="100"
-              class="wsize_full hsize118 pl-px"
-              :input-style="{height: '100%'}"
-            />
-          </div>
-          <p class="title">내용&nbsp;<span class="essential">*</span></p>
-          <div class="c_inpgroup">
-            <q-input
-              outlined
-              v-model="textDesc"
-              bottom-slots
-              type="textarea"
-              placeholder="문의내용을 입력해주세요."
-              counter
-              :count="10"
-              maxlength="1000"
-              class="wsize_full hsize244 pl-px"
-              :input-style="{height: '100%'}"
-            />
-          </div>
-          <p class="title-file">파일 업로드</p>
-          <c-uploader />
-        </div>
+      <template v-if="visible === 'D'">
         <div class="c_btngroup f_end">
           <c-button
             :btn-names="'제보하기'"
@@ -206,48 +262,13 @@
           />
         </div>
       </template>
-      <!-- 고객지원-문의하기-기타문의 -->
-      <template v-else-if="visible === 'E'">
-        <div class="report-area area-box">
-          <p class="title">제목&nbsp;<span class="essential">*</span></p>
-          <div class="c_inpgroup">
-            <q-input
-              outlined
-              v-model="textDesc"
-              bottom-slots
-              type="textarea"
-              placeholder="제목을 입력해주세요."
-              counter
-              :count="10"
-              maxlength="100"
-              class="wsize_full hsize118 pl-px"
-              :input-style="{height: '100%'}"
-            />
-          </div>
-          <p class="title">내용&nbsp;<span class="essential">*</span></p>
-          <div class="c_inpgroup">
-            <q-input
-              outlined
-              v-model="textDesc"
-              bottom-slots
-              type="textarea"
-              placeholder="문의내용을 입력해주세요."
-              counter
-              :count="10"
-              maxlength="1000"
-              class="wsize_full hsize244 pl-px"
-              :input-style="{height: '100%'}"
-            />
-          </div>
-          <p class="title-file">파일 업로드</p>
-          <c-uploader />
-        </div>
+      <template v-if="visible === 'E'">
         <div class="c_btngroup f_end">
           <c-button
             :btn-names="'문의하기'"
             :disabled="true"
             class="req"
-            @click="triggerInfo()"
+            @click="triggerInfo2()"
           />
         </div>
       </template>
@@ -262,17 +283,16 @@ import CButton from "components/common/CButton.vue";
 import CDropdown from "components/common/CDropdown.vue";
 import CUploader from "components/common/CUploader.vue";
 
-const visible = ref("D");
 const title = ref("Support");
-const label = ref("유형선택");
 
 useMeta(() => ({
   title: title.value,
-  visible: "",
 }));
 
 const ptitle = ref(title);
 
+const visible = ref("D");
+const label = ref("유형선택");
 const options = ref([
   { label: "유형선택", value: 0 },
   { label: "워크스페이스 스토리지 용량 변경(관리자 전용)", value: 1 },

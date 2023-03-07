@@ -14,6 +14,14 @@
   .sub-text{
     font-size: $fs24; font-weight: $bold;
   }
+  .title{
+    font-size:$fs16;
+  }
+  .type-dropdown{
+    width: 608px;
+    margin-top:8px;
+    margin-bottom: 30px;
+  }
   /* 하단 버튼 영역 */
   .c_btngroup {
     margin-top: 50px;
@@ -110,6 +118,63 @@
     &.bg{
       border:0;
       background:$surface01;
+      .title{
+        font-size: $fs16;
+        ~ .sub_title,
+        ~ .unit_type,
+        ~ .c_uploader{
+          margin-top:24px;
+        }
+        ~ .c_inpgroup{
+          margin-top:8px;
+        }
+      }
+      .sub_title{
+        margin:0;padding:0;
+        font-size:$fs16;font-weight:$regular;
+        ~ .unit_type{
+          margin-top:16px;
+        }
+      }
+      .type_choice{
+        display:flex;
+        align-items: center;
+        justify-content: center;
+        height:calc(584px - 60px);
+        color:$gray500;
+      }
+      .flex_reg{
+        display: flex;
+        align-items: center;
+        justify-content: baseline;
+        margin-top:10px;
+        margin-bottom: 34px;
+        .req{
+          margin-right: 50px;
+          color: $gray500; font-size: $fs16;
+        }
+        .inp_unit{
+          background-color: $bg;
+        }
+        &:nth-last-child(1){
+          margin-bottom: 46px;
+        }
+        ~ .sub_title{
+          margin-top:34px;
+        }
+      }
+    }
+    .section:not(:first-child){
+      margin-top:46px;
+      &.mb24{
+        margin-top:24px;
+        &:last-child{
+          margin-bottom:0;
+        }
+      }
+      &:last-child{
+        margin-bottom:-6px;
+      }
     }
   }
   /* 상세 상단 타이틀 및 날짜 영역 */
@@ -246,136 +311,6 @@
       font-size: $fs16;
       &.checking{
         color: $gray300; font-size: $fs16;
-      }
-    }
-  }
-  &.p-write{
-    /** 요청하기 폼 & 버튼 **/
-    .request-input{
-      margin-top: 46px;
-      font-size: $fs16;
-      .sub_title{
-        margin-bottom: 8px;
-      }
-    }
-    /** //요청하기 폼 & 버튼 **/
-
-    /** 유형 input **/
-    .type{
-      width: 100%;
-      font-size: $fs16;
-      margin-bottom: 8px;
-    }
-    .type-dropdown{
-      width: 608px;
-      margin-bottom: 30px;
-    }
-    .type-area{
-      height: calc(100vh - 504px);
-      background-color: $surface00;
-      &_text{
-        position: relative;
-        top: 50%;
-        transform: translateY(-50%);
-        color: $gray500; text-align: center; font-size: $fs14;
-      }
-    }
-    /** //유형 input **/
-    .area-box{
-      width: 100%;
-      border-radius: $fs12;
-      background-color: $surface01;
-      .inp_unit{
-        background-color: $bg;
-      }
-      .area-title{
-        font-size: $fs16;
-        margin-bottom: 24px;
-      }
-    }
-    // 고객지원-1:1문의
-    .type-area{
-      height: calc(100vh - 504px);
-      background-color: $surface01;
-      &_text{
-        position: relative;
-        top: 50%;
-        transform: translateY(-50%);
-        color: $gray500; text-align: center; font-size: $fs14;
-      }
-    }
-    /** placeholder 폰트크기 **/
-    .pl-px{
-      font-size: $fs16;
-    }
-
-    // 고객지원-문의하기-스토리지 할당량 변경
-    .amount-area{
-      padding: 30px 30px 24px;
-      background-color: $surface01;
-
-    }
-    .c_btngroup{
-      margin-top: 40px;
-    }
-    .q-btn{
-      &.req{
-        width: 292px;
-      }
-    }
-    // 고객지원-문의하기-리소스 할당량 변경
-    .resource-area{
-      padding: 30px;
-      background-color: $surface01;
-      .title{
-        margin-bottom: 24px;
-        font-size: $fs16;
-      }
-      .sub-title{
-        margin-bottom: 16px;
-        font-size: $fs16;
-      }
-      .unit_type{
-        margin-bottom: 12px;
-        .counter{
-          .usage{color:$gray800;}
-        }
-      }
-      .req{
-        margin-right: 50px;
-        color: $gray500; font-size: $fs16;
-      }
-      .req_title{
-        margin-bottom: 8px;
-        font-size: $fs16;
-      }
-      .req-box{
-        display: flex;
-        align-items: center;
-        justify-content: baseline;
-        margin-bottom: 34px;
-        .inp_unit{
-          background-color: $bg;
-        }
-        &:nth-last-child(1){
-          margin-bottom: 46px;
-        }
-      }
-    }
-    // 고객지원-문의하기-오류/버그 제보
-    .report-area{
-      padding: 30px;
-      background-color: $surface01;
-      .title{
-        margin: 46px 0 8px;
-        font-size: $fs16;
-        &:first-child{
-          margin: 0 0 8px;
-        }
-      }
-      .title-file{
-        font-size: $fs16;
-        margin: 46px 0 24px;
       }
     }
   }
