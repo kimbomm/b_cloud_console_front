@@ -205,11 +205,12 @@
             :size="'medium'"
             :outline="true"
             :btn-names="'등록하기'"
+            :disabled="sshKeys.length >= 5"
             @click="sshRegistModal = true"
           />
         </div>
         <section class="section">
-          <EasyDataTable
+          <easy-data-table
             v-if="sshKeys.length !== 0"
             :headers="headers"
             :items="sshKeys"
@@ -255,7 +256,7 @@
                 </q-btn>
               </div>
             </template>
-          </EasyDataTable>
+          </easy-data-table>
           <div v-else class="sign-up">
             <p class="mb30">SSH Key를 등록해주세요.</p>
             <c-button
@@ -352,6 +353,7 @@
               :maxlength="1000"
               class="wsize_full hsize244"
               :input-style="{height: '100%'}"
+              @update="onSshUpdate"
             >
               <template #error>
                 유효한 Public Key를 등록해주세요.
@@ -490,7 +492,8 @@
 <script setup>
 import {
   ref,
-  computed
+  computed,
+  nextTick
 } from "vue";
 import { useMeta } from "quasar";
 import { useRoute, onBeforeRouteUpdate } from "vue-router";
@@ -658,7 +661,7 @@ const refSshKeyName = ref("");
 const sshKeyName = ref("");
 const sshKey = ref("");
 const sshKeyError = ref(false);
-const sshIsAvailableSave = computed(() => !refSshKeyName.value.getHasError && Boolean(sshKey.value));
+const sshIsAvailableSave = computed(() => !refSshKeyName.value?.getHasError && Boolean(sshKey.value));
 // const sshKeyStartAt = [
 //   "ssh-rsa", "ssh-ed25519", "ecdsa-sha2-nistp256", "ecdsa-sha2-nistp384", "ecdsa-sha2-nistp521", "sk-ecdsa-sha2-nistp256@openssh.com", "sk-ssh-ed25519@openssh.com"
 // ];
@@ -673,6 +676,10 @@ const sshModalInit = () => {
   sshKeyName.value = "";
   sshKey.value = "";
   sshKeyError.value = false;
+  sshRegistModal.value = false;
+};
+const onSshUpdate = () => {
+  sshKeyError.value = Boolean(!sshKey.value);
 };
 /**
  * SSH key 등록
@@ -689,8 +696,10 @@ const onSshKeyRegist = async () => {
       message: "SSH Key 등록이 완료되었습니다.",
       type: "positive"
     });
-    sshKeys.value = await UserService.getSSHKeys(me.value.id).ssh_keys;
-    sshModalInit();
+    await nextTick();
+    const keys = await UserService.getSSHKeys(me.value.id);
+    sshKeys.value = keys.ssh_keys;
+    await sshModalInit();
   } catch (e) {
     console.log("Error >>>", e.response);
     $useCmFn.onNotify({
@@ -718,7 +727,9 @@ const onActions = async (eventName, rowData) => {
               message: "SSH Key 삭제가 완료되었습니다.",
               type: "negative"
             });
-            sshKeys.value = await UserService.getSSHKeys(me.value.id).ssh_keys;
+            await nextTick();
+            const keys = await UserService.getSSHKeys(me.value.id);
+            sshKeys.value = keys.ssh_keys;
           } catch (e) {
             console.error(e);
             $useCmFn.onNotify({
