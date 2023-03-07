@@ -216,6 +216,10 @@ const instanceTotal = ref(0);
 const taskTotal = ref(0);
 const memberTotal = ref(0);
 
+useMeta(() => ({
+  title: projectInfo.value.name,
+}));
+
 const tabs = ref([
   { name: "instances", label: "인스턴스", total: instanceTotal },
   { name: "task_gorup", label: "태스크", total: taskTotal },
@@ -279,10 +283,6 @@ watch(
   },
   { immediate: true }
 );
-
-useMeta(() => ({
-  title: projectInfo.value.name,
-}));
 
 const projectMemberAddModal = ref(false);
 const memberSelOptions = ["프로젝트 관리자", "멤버"];

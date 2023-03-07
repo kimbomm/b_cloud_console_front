@@ -3,16 +3,18 @@
     <div class="table_set">
       <div class="l_set_inner">
         <div class="c_inpgroup">
-          <q-input
-            outlined
-            v-model="suffix"
+          <c-input-text
+            v-model:value="inputValue"
             placeholder="이름, 상태, 생성자 검색"
-            class="wsize292"
+            hint=""
+            class="wsize_full"
+            @update:value="inputValue = $event"
+            :clearable="true"
           >
             <template v-slot:prepend>
               <q-icon name="search" class="ico_search" />
             </template>
-          </q-input>
+          </c-input-text>
         </div>
 
         <div class="c_selectgroup">
@@ -167,23 +169,26 @@
 </template>
 <script setup>
 import { ref, watch, computed } from "vue";
-import CPagination from "components/common/CPagination.vue";
-import CDropdown from "components/common/CDropdown.vue";
 import { InstanceService } from "src/services";
 import { useRoute, useRouter } from "vue-router";
+import { throttle } from "lodash";
 
+import CPagination from "components/common/CPagination.vue";
+import CDropdown from "components/common/CDropdown.vue";
+import CInputText from "components/common/CInputText.vue";
+
+const inputValue = ref("");
 const route = useRoute();
 const router = useRouter();
 const projectList = ref([]);
 const isDefaultData = computed(() => !!projectList.value?.length);
 
-const props = defineProps(
-  {
-    tabModel: String
-  }
-);
+const props = defineProps({
+  tabModel: String,
+});
 
 const emit = defineEmits(["update:instanceTotal"]);
+
 const dataParams = ref({
   project_id: route.params.projectId,
   page: 1,
@@ -191,14 +196,18 @@ const dataParams = ref({
   status: ["running", "submitted", "pending"],
   sort_by: "created_at",
   order_by: "asc",
-  query: "test",
+  query: "안녕",
 });
 
 /* 인스턴스 리스트 */
 const getInstances = async () => {
   try {
-    const result = await InstanceService.getProjectIntances(route.params.projectId, dataParams.value);
+    const result = await InstanceService.getProjectIntances(
+      route.params.projectId,
+      dataParams.value
+    );
     projectList.value = result.instances;
+    console.log("projectList.valueprojectList.valueprojectList.value", projectList.value);
     emit("update:instanceTotal", result.total);
   } catch (error) {
     console.log(error);
@@ -220,12 +229,33 @@ const routerPush = () => {
   });
 };
 
-watch(() => props.tabModel, (newValue) => {
-  if (newValue === "instances") {
-    routerPush();
-    getInstances();
-  }
-}, { immediate: true });
+const updateSearchResults = () => {
+  console.log("Search results:", dataParams.value.query);
+  getInstances();
+  routerPush();
+};
+
+// 검색어 0.5초 간격으로 함수 호출
+watch(
+  inputValue,
+  throttle((newValue) => {
+    if (newValue !== dataParams.value.query) {
+      dataParams.value.query = newValue;
+      updateSearchResults();
+    }
+  }, 500)
+);
+
+watch(
+  () => props.tabModel,
+  (newValue) => {
+    if (newValue === "instances") {
+      routerPush();
+      getInstances();
+    }
+  },
+  { immediate: true }
+);
 
 watch(
   () => route.params.projectId,
@@ -234,8 +264,7 @@ watch(
       routerPush();
       getInstances();
     }
-  },
-
+  }
 );
 
 const label = ref("전체");
