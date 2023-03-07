@@ -1,11 +1,10 @@
 import { api } from "boot/axios";
 
 export const InstanceService = {
-
   /**
-   * 설명: workspace 멤버의 프로젝트 가져오기
-   * @param { number } workspaceId 워크스페이스 id
-   * @param { number } userId 유저 id
+   * 설명: 인스턴스 리스트 가져오기
+   * @param { number } projectId 프로젝트 id
+   * @param { Object } params 검색조건
    */
   async getIntances(projectId, params) {
     const response = await api.get(`/projects/${projectId}/instances`, params);

@@ -7,7 +7,8 @@
         </template>
         <q-breadcrumbs-el label="Projects" to="/" />
         <q-breadcrumbs-el :label="projectInfo.name" to="/" />
-        <q-breadcrumbs-el label="멤버" />
+        <q-breadcrumbs-el :label="selectedTab"  />
+
       </q-breadcrumbs>
       <h1 class="p-title">
         {{ projectInfo.name }}
@@ -180,7 +181,9 @@
   <!-- End : [프로젝트 - 멤버관리] 멤버 - 추가 -->
 </template>
 <script setup>
-import { ref, watch, onMounted } from "vue";
+import {
+  ref, watch, onMounted, computed
+} from "vue";
 import { useMeta } from "quasar";
 import { useRoute, useRouter } from "vue-router";
 import { ProjectService, InstanceService } from "src/services";
@@ -202,14 +205,19 @@ const newProjectDescription = ref("");
 const projectCreateModal = ref(false);
 const quotaChangeModal = ref(false);
 
-const tabs = [
+const tabs = ref([
   { name: "instances", label: "인스턴스", total: 2 },
   { name: "task_gorup", label: "태스크", total: 36 },
   { name: "member", label: "멤버", total: 19 },
-];
+]);
 const tabModel = ref("");
 
-const instanceData = ref({
+const selectedTab = computed(() => {
+  const select = tabs.value.find((tab) => tab.name === tabModel.value);
+  return select ? select.label : "";
+});
+
+const instanceParams = ref({
   project_id: route.params.projectId,
   page: 1,
   size: 1,
@@ -221,15 +229,15 @@ const instanceData = ref({
 
 const routerPush = () => {
   router.replace({
-    path: `/workspace/1/projects/${route.params.projectId}`,
+    path: `/workspace/${route.params.workspaceId}/projects/${route.params.projectId}`,
     query: {
       tab: [tabModel.value],
-      page: instanceData.value.page,
-      size: instanceData.value.size,
-      status: instanceData.value.status.join(","),
-      sort_by: instanceData.value.sort_by,
-      order_by: instanceData.value.order_by,
-      query: instanceData.value.query,
+      page: instanceParams.value.page,
+      size: instanceParams.value.size,
+      status: instanceParams.value.status.join(","),
+      sort_by: instanceParams.value.sort_by,
+      order_by: instanceParams.value.order_by,
+      query: instanceParams.value.query,
     },
   });
 };
@@ -242,9 +250,10 @@ const getUserInfo = async () => {
       route.params.workspaceId,
       route.params.projectId
     );
+    console.log(" projectInfo.value", projectInfo.value);
   } catch (error) {
     console.log(error);
-    // router.replace({ name: "NotFound" });
+    // router.replace({ name: "NotFound" }); //없는페이지 에러처리
     // throw error;
   }
 };
@@ -252,7 +261,7 @@ const getUserInfo = async () => {
 /* 인스턴스 리스트 */
 const getInstance = async () => {
   try {
-    const aaaa = await InstanceService.getIntances(1, instanceData.value);
+    const aaaa = await InstanceService.getIntances(1, instanceParams.value);
     console.log(aaaa);
   } catch (error) {
     console.log(error);
@@ -269,18 +278,23 @@ const getProjectList = async () => {
   }
 };
 
-const featchProjectDescripton = (projectId) => {
+// 현재 프로젝트 페이지
+const fetchProjectDescription = (projectId) => {
   const project = getListProject.value.find((p) => p.id === parseInt(projectId, 10));
   newProjectDescription.value = project.description;
 };
 
-const userInfoUpdate = async () => {
+const updateInfo = async () => {
   await getProjectList();
-  await featchProjectDescripton(route.params.projectId);
+  await fetchProjectDescription(route.params.projectId);
+};
+
+const setTabModel = () => {
+  tabModel.value = router.currentRoute.value.query.tab || "instances";
 };
 
 onMounted(() => {
-  tabModel.value = router.currentRoute.value.query.tab;
+  setTabModel();
 });
 watch(
   [tabModel],
@@ -289,13 +303,10 @@ watch(
   }
 );
 watch(
-
   () => route.params.projectId,
   async () => {
-    userInfoUpdate();
-    await getInstance();
-    await getUserInfo();
-    await routerPush();
+    setTabModel();
+    await Promise.all([updateInfo(), getUserInfo(), getInstance(), routerPush()]);
   },
 
   { immediate: true }
