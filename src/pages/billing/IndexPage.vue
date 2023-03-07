@@ -11,6 +11,7 @@
         <h1 class="p-title">{{ ptitle }}</h1>
         <div class="billing_btn">
           <c-button
+            :outline="true"
             :size="'medium'"
             :btn-names="btnName"
           >
@@ -90,7 +91,7 @@
                 <q-icon name="search" class="ico_search" />
               </template>
             </q-select>
-            <CDropdown
+            <c-dropdown
               v-model:selected="selectedBasic"
               :label="optLabel"
               :options="optNumber"
@@ -151,10 +152,8 @@
               <span class="txt">{{ item.pay }}</span>
             </template>
           </EasyDataTable>
+          <c-pagination />
         </section>
-        <div class="group-page">
-          <CPagination />
-        </div>
       </template>
     </div>
   </q-page>

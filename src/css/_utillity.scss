@@ -828,8 +828,11 @@ body.desktop .q-radio,
 }
 /* Component - Pagination .q-pagination */
 .c_pagination{
-  margin:0;
-  padding:0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 50px 0 0;
+  padding: 0;
   .q-focus-helper{
     display:none;
   }

@@ -1,4 +1,5 @@
 <script setup>
+import { defineEmits } from "vue";
 import { UserService } from "src/services";
 import { useCommonStore } from "stores/useCommonStore.js";
 import { storeToRefs } from "pinia";
@@ -10,5 +11,12 @@ const initMe = async () => {
     setMe(user);
   });
 };
-if (!me.value) initMe();
+
+const emit = defineEmits(["load"]);
+const init = async () => {
+  if (!me.value) await initMe();
+
+  await emit("load");
+};
+init();
 </script>
