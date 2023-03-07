@@ -576,7 +576,7 @@ const taskHeaders = [
   {
     text: "그룹 이름",
     value: "groupName",
-    width: 115,
+    width: 113,
     sortable: true,
   },
   {
@@ -601,7 +601,7 @@ const taskHeaders = [
   {
     text: "인스턴스 타입",
     value: "instanceType",
-    width: 130,
+    width: 120,
     sortable: false,
   },
   {
@@ -637,10 +637,10 @@ const taskHeaders = [
   {
     text: "로그확인",
     value: "log",
-    width: 80,
+    width: 79,
     sortable: false,
   },
-  { text: "", value: "buttons", width: 80 },
+  { text: "", value: "buttons", width: 75 },
 ];
 const taskItems = [
   {
