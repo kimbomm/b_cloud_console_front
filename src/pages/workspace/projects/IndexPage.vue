@@ -236,15 +236,16 @@ const routerPush = () => {
 
 // 프로젝트 리스트
 const getUserInfo = async () => {
+  console.log("onload 프로젝트 리스트");
   try {
     projectInfo.value = await ProjectService.getProject(
       route.params.workspaceId,
       route.params.projectId
     );
-    routerPush();
   } catch (error) {
-    router.replace({ name: "NotFound" });
-    throw error;
+    console.log(error);
+    // router.replace({ name: "NotFound" });
+    // throw error;
   }
 };
 
@@ -252,27 +253,11 @@ const getUserInfo = async () => {
 const getInstance = async () => {
   try {
     const aaaa = await InstanceService.getIntances(1, instanceData.value);
-    console.log("인스턴스 리스트", aaaa);
-
-    // routerPush();
+    console.log(aaaa);
   } catch (error) {
     console.log(error);
   }
 };
-
-watch(
-  [tabModel],
-  () => {
-    getInstance();
-    routerPush();
-  },
-  { immediate: true }
-);
-
-onMounted(() => {
-  getInstance();
-  tabModel.value = router.currentRoute.value.query.tab;
-});
 
 const getProjectList = async () => {
   try {
@@ -290,17 +275,27 @@ const featchProjectDescripton = (projectId) => {
 };
 
 const userInfoUpdate = async () => {
-  await getUserInfo();
   await getProjectList();
   await featchProjectDescripton(route.params.projectId);
 };
 
+onMounted(() => {
+  tabModel.value = router.currentRoute.value.query.tab;
+});
 watch(
+  [tabModel],
+  () => {
+    routerPush();
+  }
+);
+watch(
+
   () => route.params.projectId,
   async () => {
-    tabModel.value = "instances";
     userInfoUpdate();
     await getInstance();
+    await getUserInfo();
+    await routerPush();
   },
 
   { immediate: true }
