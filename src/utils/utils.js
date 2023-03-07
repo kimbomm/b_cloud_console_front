@@ -51,7 +51,13 @@ class Utils {
    * @returns { String }
    */
   paseseDate(value, format) {
-    return date.formatDate(value, format);
+    const regex = /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z/;
+    let dt = value;
+    if (regex.test(dt)) {
+      const offset = new Date().getTimezoneOffset() * 60000;
+      dt = new Date(new Date(dt).getTime() + offset);
+    }
+    return date.formatDate(dt, format);
   }
 
   /**
