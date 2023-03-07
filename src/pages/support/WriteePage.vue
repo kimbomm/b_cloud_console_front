@@ -237,7 +237,7 @@
             </div>
           </section>
           <section class="section mb24">
-            <p class="title-file">파일 업로드</p>
+            <p class="title">파일 업로드</p>
             <c-uploader />
           </section>
         </template>
