@@ -6,7 +6,7 @@ export const InstanceService = {
    * @param { number } projectId 프로젝트 id
    * @param { Object } params 검색조건
    */
-  async getIntances(projectId, params) {
+  async getProjectIntances(projectId, params) {
     const response = await api.get(`/projects/${projectId}/instances`, params);
     return response.data;
   },

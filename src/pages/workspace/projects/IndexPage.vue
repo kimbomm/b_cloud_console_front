@@ -7,8 +7,7 @@
         </template>
         <q-breadcrumbs-el label="Projects" to="/" />
         <q-breadcrumbs-el :label="projectInfo.name" to="/" />
-        <q-breadcrumbs-el :label="selectedTab"  />
-
+        <q-breadcrumbs-el :label="selectedTab" />
       </q-breadcrumbs>
       <h1 class="p-title">
         {{ projectInfo.name }}
@@ -75,7 +74,16 @@
           </div>
 
           <!-- 인스턴스 -->
-          <InstancePage v-if="tabModel ==='instances'" />
+          <div v-show="tabModel === 'instances'">
+            <InstancePage
+              :tabModel="tabModel"
+              @update:instanceTotal="instanceTotal = $event"
+            />
+          </div>
+          <div v-show="tabModel === 'task_gorup'">
+            <TaskPage :tabModel="tabModel" @update:taskTotal="taskTotal = $event" />
+          </div>
+          <div v-show="tabModel === 'member'">333</div>
         </div>
       </div>
     </div>
@@ -185,18 +193,18 @@ import {
   ref, watch, onMounted, computed
 } from "vue";
 import { useMeta } from "quasar";
-import { useRoute, useRouter } from "vue-router";
-import { ProjectService, InstanceService } from "src/services";
+import { useRoute } from "vue-router";
+import { ProjectService } from "src/services";
 
 import ProjectDashboard from "src/components/pages/ProjectDashboard.vue";
 // import CTable from "src/components/common/CTable.vue";
 import CDropdown from "components/common/CDropdown.vue";
 import InstancePage from "src/pages/workspace/projects/components/InstancePage.vue";
+import TaskPage from "src/pages/workspace/projects/components/TaskPage.vue";
 import UpdateProjectPopup from "./components/UpdateProjectPopup.vue";
 import ChangeAllocationPopup from "./components/ChangeAllocationPopup.vue";
 
 const route = useRoute();
-const router = useRouter();
 
 const projectInfo = ref({});
 const getListProject = ref({});
@@ -204,11 +212,14 @@ const newProjectDescription = ref("");
 
 const projectCreateModal = ref(false);
 const quotaChangeModal = ref(false);
+const instanceTotal = ref(0);
+const taskTotal = ref(0);
+const memberTotal = ref(0);
 
 const tabs = ref([
-  { name: "instances", label: "인스턴스", total: 2 },
-  { name: "task_gorup", label: "태스크", total: 36 },
-  { name: "member", label: "멤버", total: 19 },
+  { name: "instances", label: "인스턴스", total: instanceTotal },
+  { name: "task_gorup", label: "태스크", total: taskTotal },
+  { name: "member", label: "멤버", total: memberTotal },
 ]);
 const tabModel = ref("");
 
@@ -217,54 +228,17 @@ const selectedTab = computed(() => {
   return select ? select.label : "";
 });
 
-const instanceParams = ref({
-  project_id: route.params.projectId,
-  page: 1,
-  size: 1,
-  status: ["running", "submitted", "pending"],
-  sort_by: "created_at",
-  order_by: "asc",
-  query: "test",
-});
-
-const routerPush = () => {
-  router.replace({
-    path: `/workspace/${route.params.workspaceId}/projects/${route.params.projectId}`,
-    query: {
-      tab: [tabModel.value],
-      page: instanceParams.value.page,
-      size: instanceParams.value.size,
-      status: instanceParams.value.status.join(","),
-      sort_by: instanceParams.value.sort_by,
-      order_by: instanceParams.value.order_by,
-      query: instanceParams.value.query,
-    },
-  });
-};
-
 // 프로젝트 리스트
 const getUserInfo = async () => {
-  console.log("onload 프로젝트 리스트");
   try {
     projectInfo.value = await ProjectService.getProject(
       route.params.workspaceId,
       route.params.projectId
     );
-    console.log(" projectInfo.value", projectInfo.value);
   } catch (error) {
     console.log(error);
     // router.replace({ name: "NotFound" }); //없는페이지 에러처리
     // throw error;
-  }
-};
-
-/* 인스턴스 리스트 */
-const getInstance = async () => {
-  try {
-    const aaaa = await InstanceService.getIntances(1, instanceParams.value);
-    console.log(aaaa);
-  } catch (error) {
-    console.log(error);
   }
 };
 
@@ -278,7 +252,7 @@ const getProjectList = async () => {
   }
 };
 
-// 현재 프로젝트 페이지
+// 현재 프로젝트 페이지 정보
 const fetchProjectDescription = (projectId) => {
   const project = getListProject.value.find((p) => p.id === parseInt(projectId, 10));
   newProjectDescription.value = project.description;
@@ -290,25 +264,19 @@ const updateInfo = async () => {
 };
 
 const setTabModel = () => {
-  tabModel.value = router.currentRoute.value.query.tab || "instances";
+  tabModel.value = route.query.tab || "instances";
 };
 
 onMounted(() => {
   setTabModel();
 });
-watch(
-  [tabModel],
-  () => {
-    routerPush();
-  }
-);
+
 watch(
   () => route.params.projectId,
   async () => {
     setTabModel();
-    await Promise.all([updateInfo(), getUserInfo(), getInstance(), routerPush()]);
+    await Promise.all([updateInfo(), getUserInfo()]);
   },
-
   { immediate: true }
 );
 

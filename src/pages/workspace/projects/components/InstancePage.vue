@@ -1,5 +1,5 @@
 <template>
-  <template v-if="defaultData == true">
+  <template v-if="isDefaultData">
     <div class="table_set">
       <div class="l_set_inner">
         <div class="c_inpgroup">
@@ -166,20 +166,81 @@
   </template>
 </template>
 <script setup>
-import { ref } from "vue";
-import { useMeta } from "quasar";
+import { ref, watch, computed } from "vue";
 import CPagination from "components/common/CPagination.vue";
 import CDropdown from "components/common/CDropdown.vue";
+import { InstanceService } from "src/services";
+import { useRoute, useRouter } from "vue-router";
 
-const title = ref("Test Projects");
-useMeta(() => ({
-  title: title.value,
-}));
+const route = useRoute();
+const router = useRouter();
+const projectList = ref([]);
+const isDefaultData = computed(() => !!projectList.value?.length);
+
+const props = defineProps(
+  {
+    tabModel: String
+  }
+);
+
+const emit = defineEmits(["update:instanceTotal"]);
+const dataParams = ref({
+  project_id: route.params.projectId,
+  page: 1,
+  size: 1,
+  status: ["running", "submitted", "pending"],
+  sort_by: "created_at",
+  order_by: "asc",
+  query: "test",
+});
+
+/* 인스턴스 리스트 */
+const getInstances = async () => {
+  try {
+    const result = await InstanceService.getProjectIntances(route.params.projectId, dataParams.value);
+    projectList.value = result.instances;
+    emit("update:instanceTotal", result.total);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const routerPush = () => {
+  router.replace({
+    path: `/workspace/${route.params.workspaceId}/projects/${route.params.projectId}`,
+    query: {
+      tab: [props.tabModel],
+      page: dataParams.value.page,
+      size: dataParams.value.size,
+      status: dataParams.value.status.join(","),
+      sort_by: dataParams.value.sort_by,
+      order_by: dataParams.value.order_by,
+      query: dataParams.value.query,
+    },
+  });
+};
+
+watch(() => props.tabModel, (newValue) => {
+  if (newValue === "instances") {
+    routerPush();
+    getInstances();
+  }
+}, { immediate: true });
+
+watch(
+  () => route.params.projectId,
+  async () => {
+    if (props.tabModel === "instances") {
+      routerPush();
+      getInstances();
+    }
+  },
+
+);
 
 const label = ref("전체");
 const label2 = ref("10");
 const selectedCheck = ref(null);
-const defaultData = ref(true);
 const nDay = ref(7);
 
 const headers = [
