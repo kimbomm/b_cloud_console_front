@@ -108,97 +108,99 @@
           </ul>
         </div>
         <div class="manage_main_area">
-          <div class="btn_area">
+          <div class="tab_area">
             <q-tabs v-model="tab" align="left" class="c_tabs">
               <q-tab name="tabs1" label="스토리지"></q-tab>
               <q-tab name="tabs2" label="멤버"></q-tab>
             </q-tabs>
           </div>
-          <div class="table_set">
-            <div class="l_set_inner">
-              <div class="search_area">
-                <q-input
-                  outlined
-                  v-model="suffix"
-                  placeholder="이름, 이메일 검색"
-                  class="wsize292"
-                >
-                  <template v-slot:prepend>
-                    <q-icon name="search" class="ico_search" />
-                  </template>
-                </q-input>
-              </div>
-            </div>
-
-            <div class="r_set_inner">
-              <div class="view_cont_num">
-                <c-dropdown
-                  v-model:selected="selectedBasic"
-                  :label="label"
-                  :options="options"
-                  class="auto_size"
-                />
-              </div>
-            </div>
-          </div>
-          <div class="table_inner">
-            <EasyDataTable
-              :headers="headers"
-              :items="items"
-              :hide-footer="true"
-              empty-message="정보가 없습니다."
-              @click-row="showRow"
-            >
-              <!-- title -->
-              <template #item-title="item">
-                <span class="txt">{{ item.title }}</span>
-              </template>
-              <!-- email -->
-              <template #item-email="item">
-                <span class="txt">{{ item.email }}</span>
-              </template>
-              <!-- generated -->
-              <template #item-generated="item">
-                <span class="txt">{{ item.generated }}</span>
-              </template>
-              <!-- usage -->
-              <template #item-usage="item">
-                <span class="txt">{{ item.usage }}</span>
-              </template>
-              <!-- quota -->
-              <template #item-quota="item">
-                <span class="txt">{{ item.quota }}</span>
-              </template>
-              <!-- 버튼 그룹 -->
-              <template #item-buttons="item">
-                <div v-if="actionButtons" class="cell btngroup">
-                  <q-btn class="c_btn ibtn dot">
-                    <i class="ico dots" /><span class="txt">클릭</span>
-                    <q-popup-edit
-                      v-model="item.id"
-                      class="dots_menu"
-                      anchor="top right"
-                    >
-                      <q-list style="min-width: 100px">
-                        <q-item
-                          v-for="button in actionButtons"
-                          :key="button.name"
-                        >
-                          <q-btn
-                            class="item"
-                            @click="onActions(button.event, item)"
-                          >
-                            <span class="txt">{{ button.name }}</span>
-                          </q-btn>
-                        </q-item>
-                      </q-list>
-                    </q-popup-edit>
-                  </q-btn>
+          <template v-if="defaultData == true">
+            <div class="table_set">
+              <div class="l_set_inner">
+                <div class="search_area">
+                  <q-input
+                    outlined
+                    v-model="suffix"
+                    placeholder="이름, 이메일 검색"
+                    class="wsize292"
+                  >
+                    <template v-slot:prepend>
+                      <q-icon name="search" class="ico_search" />
+                    </template>
+                  </q-input>
                 </div>
-              </template>
-            </EasyDataTable>
-            <c-pagination />
-          </div>
+              </div>
+
+              <div class="r_set_inner">
+                <div class="view_cont_num">
+                  <c-dropdown
+                    v-model:selected="selectedBasic"
+                    :label="label"
+                    :options="options"
+                    class="auto_size"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="table_inner">
+              <EasyDataTable
+                :headers="headers"
+                :items="items"
+                :hide-footer="true"
+                empty-message="정보가 없습니다."
+                @click-row="showRow"
+              >
+                <!-- title -->
+                <template #item-title="item">
+                  <span class="txt">{{ item.title }}</span>
+                </template>
+                <!-- email -->
+                <template #item-email="item">
+                  <span class="txt">{{ item.email }}</span>
+                </template>
+                <!-- generated -->
+                <template #item-generated="item">
+                  <span class="txt">{{ item.generated }}</span>
+                </template>
+                <!-- usage -->
+                <template #item-usage="item">
+                  <span class="txt">{{ item.usage }}</span>
+                </template>
+                <!-- quota -->
+                <template #item-quota="item">
+                  <span class="txt">{{ item.quota }}</span>
+                </template>
+                <!-- 버튼 그룹 -->
+                <template #item-buttons="item">
+                  <div v-if="actionButtons" class="cell btngroup">
+                    <q-btn class="c_btn ibtn dot">
+                      <i class="ico dots" /><span class="txt">클릭</span>
+                      <q-popup-edit
+                        v-model="item.id"
+                        class="dots_menu"
+                        anchor="top right"
+                      >
+                        <q-list style="min-width: 100px">
+                          <q-item
+                            v-for="button in actionButtons"
+                            :key="button.name"
+                          >
+                            <q-btn
+                              class="item"
+                              @click="onActions(button.event, item)"
+                            >
+                              <span class="txt">{{ button.name }}</span>
+                            </q-btn>
+                          </q-item>
+                        </q-list>
+                      </q-popup-edit>
+                    </q-btn>
+                  </div>
+                </template>
+              </EasyDataTable>
+              <c-pagination />
+            </div>
+          </template>
         </div>
       </div>
     </div>
@@ -219,6 +221,7 @@ const ptitle = ref(title);
 const label = ref("10");
 const helpShow = ref(false);
 const tab = ref("tabs2");
+const defaultData = ref(true);
 
 const options = ref([
   { label: "10", value: 0 },

@@ -13,14 +13,14 @@
     </div>
     <!-- //.chead -->
     <div class="p-body">
-      <div class="container">
-        <div class="header">
-          <q-tabs v-model="tab" align="left" class="c_tabs">
-            <q-tab name="tabs1" label="내이미지" />
-            <q-tab name="tabs2" label="기본 이미지" />
-            <q-tab name="tabs3" label="공유받은 이미지" />
-          </q-tabs>
-        </div>
+      <div class="tab_area">
+        <q-tabs v-model="tab" align="left" class="c_tabs">
+          <q-tab name="tabs1" label="내이미지" />
+          <q-tab name="tabs2" label="기본 이미지" />
+          <q-tab name="tabs3" label="공유받은 이미지" />
+        </q-tabs>
+      </div>
+      <template v-if="defaultData == true">
         <div class="table_set">
           <div class="c_inpgroup">
             <q-input
@@ -36,14 +36,14 @@
             </q-input>
           </div>
           <div class="select_drop">
-            <CDropdown
+            <c-dropdown
               :label="optLabel"
               :options="optNumber"
               class="auto_size"
             />
           </div>
         </div>
-        <section class="section">
+        <div class="table_inner">
           <EasyDataTable
             :headers="headers"
             :items="items"
@@ -78,11 +78,9 @@
               <span class="txt clip">{{ item.sharedAt }}</span>
             </template>
           </EasyDataTable>
-        </section>
-        <div class="table_pagenav disflex_C">
-          <CPagination />
+          <c-pagination />
         </div>
-      </div>
+      </template>
     </div>
   </q-page>
 </template>
@@ -98,6 +96,7 @@ useMeta(() => ({ title: title.value }));
 const ptitle = ref(title);
 const tab = ref("tabs3");
 const optLabel = ref("10");
+const defaultData = ref(true);
 
 const headers = [
   {
@@ -179,4 +178,5 @@ const showRow = (item) => {
 <style lang="scss" scoped="scoped">
 @import "src/css/images.scss";
 @import "src/css/table.scss";
+@import "src/css/page.scss";
 </style>

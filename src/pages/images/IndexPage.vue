@@ -13,132 +13,126 @@
     </div>
     <!-- //.chead -->
     <div class="p-body">
-      <div class="container">
-        <div class="header">
-          <q-tabs v-model="tab" align="left" class="c_tabs">
-            <q-tab name="tabs1" label="내이미지" />
-            <q-tab name="tabs2" label="기본 이미지" />
-            <q-tab name="tabs3" label="공유받은 이미지" />
-          </q-tabs>
-        </div>
-        <template v-if="defaultData == true">
-          <div class="table_set">
-            <div class="c_inpgroup">
-              <q-input
-                outlined
-                v-model="suffix"
-                placeholder="이름,설명,기본이미지 검색"
-                clearable
-                class="wsize_full"
-              >
-                <template v-slot:prepend>
-                  <q-icon name="search" class="ico_search" />
-                </template>
-              </q-input>
-            </div>
-            <div class="select_drop">
-              <CDropdown
-                :label="optLabel"
-                :options="optNumber"
-                class="auto_size"
-              />
-            </div>
-          </div>
-          <section class="section">
-            <EasyDataTable
-              :headers="headers"
-              :items="items"
-              :hide-footer="true"
-              empty-message="정보가 없습니다."
-              @click-row="showRow"
+      <div class="tab_area">
+        <q-tabs v-model="tab" align="left" class="c_tabs">
+          <q-tab name="tabs1" label="내이미지" />
+          <q-tab name="tabs2" label="기본 이미지" />
+          <q-tab name="tabs3" label="공유받은 이미지" />
+        </q-tabs>
+      </div>
+      <template v-if="defaultData == true">
+        <div class="table_set">
+          <div class="c_inpgroup">
+            <q-input
+              outlined
+              v-model="suffix"
+              placeholder="이름,설명,기본이미지 검색"
+              clearable
+              class="wsize_full"
             >
-              <!-- id -->
-              <template #item-id="item">
-                <span class="txt">{{ item.id }}</span>
+              <template v-slot:prepend>
+                <q-icon name="search" class="ico_search" />
               </template>
-              <!-- title -->
-              <template #item-title="item">
-                <a href="#">
-                  <span class="txt">{{ item.title }}</span>
-                  <q-tooltip anchor="bottom middle" class="c_tooltip">
-                    <div class="inner">
-                      {{ item.title }}
-                    </div>
-                  </q-tooltip>
-                </a>
-              </template>
-              <!--
+            </q-input>
+          </div>
+          <div class="select_drop">
+            <c-dropdown
+              :label="optLabel"
+              :options="optNumber"
+              class="auto_size"
+            />
+          </div>
+        </div>
+        <div class="table_inner">
+          <EasyDataTable
+            :headers="headers"
+            :items="items"
+            :hide-footer="true"
+            empty-message="정보가 없습니다."
+            @click-row="showRow"
+          >
+            <!-- id -->
+            <template #item-id="item">
+              <span class="txt">{{ item.id }}</span>
+            </template>
+            <!-- title -->
+            <template #item-title="item">
+              <a href="#">
+                <span class="txt">{{ item.title }}</span>
+                <q-tooltip anchor="bottom middle" class="c_tooltip">
+                  <div class="inner">
+                    {{ item.title }}
+                  </div>
+                </q-tooltip>
+              </a>
+            </template>
+            <!--
                 상태값(status)
                 1. save, 저장(개인)
                 2. save_s, 저장(공유)
                 3. error, 오류
                 4. saving, 저장중
               -->
-              <template #item-status="item">
-                <q-badge v-if="item.status === 'save'" class="green">
-                  <span class="txt">저장(개인)</span>
-                </q-badge>
-                <q-badge v-if="item.status === 'save_s'" class="green">
-                  <span class="txt">저장(공유)</span>
-                </q-badge>
-                <q-badge v-else-if="item.status === 'error'" class="orange">
-                  <span class="txt">오류</span>
-                </q-badge>
-                <q-badge v-else-if="item.status === 'saving'" class="c_badge">
-                  <span class="txt">저장중</span>
-                </q-badge>
-              </template>
-              <!-- image -->
-              <template #item-image="item">
-                <a href="#">
-                  <span class="txt">{{ item.image }}</span>
-                </a>
-              </template>
-              <!-- createdAt -->
-              <template #item-createdAt="item">
-                <span class="txt">{{ item.createdAt }}</span>
-              </template>
-              <!-- 버튼 그룹 -->
-              <template #item-buttons="item">
-                <div v-if="actionButtons" class="cell btngroup">
-                  <q-btn class="c_btn ibtn dot">
-                    <i class="ico dots" /><span class="txt">클릭</span>
-                    <q-popup-edit
-                      v-model="item.id"
-                      class="dots_menu"
-                      anchor="top right"
-                    >
-                      <q-list style="min-width: 100px">
-                        <q-item
-                          v-for="button in actionButtons"
-                          :key="button.name"
+            <template #item-status="item">
+              <q-badge v-if="item.status === 'save'" class="green">
+                <span class="txt">저장(개인)</span>
+              </q-badge>
+              <q-badge v-if="item.status === 'save_s'" class="green">
+                <span class="txt">저장(공유)</span>
+              </q-badge>
+              <q-badge v-else-if="item.status === 'error'" class="orange">
+                <span class="txt">오류</span>
+              </q-badge>
+              <q-badge v-else-if="item.status === 'saving'" class="c_badge">
+                <span class="txt">저장중</span>
+              </q-badge>
+            </template>
+            <!-- image -->
+            <template #item-image="item">
+              <a href="#">
+                <span class="txt">{{ item.image }}</span>
+              </a>
+            </template>
+            <!-- createdAt -->
+            <template #item-createdAt="item">
+              <span class="txt">{{ item.createdAt }}</span>
+            </template>
+            <!-- 버튼 그룹 -->
+            <template #item-buttons="item">
+              <div v-if="actionButtons" class="cell btngroup">
+                <q-btn class="c_btn ibtn dot">
+                  <i class="ico dots" /><span class="txt">클릭</span>
+                  <q-popup-edit
+                    v-model="item.id"
+                    class="dots_menu"
+                    anchor="top right"
+                  >
+                    <q-list style="min-width: 100px">
+                      <q-item
+                        v-for="button in actionButtons"
+                        :key="button.name"
+                      >
+                        <q-btn
+                          class="item"
+                          @click="onActions(button.event, item)"
                         >
-                          <q-btn
-                            class="item"
-                            @click="onActions(button.event, item)"
-                          >
-                            <span class="txt">{{ button.name }}</span>
-                          </q-btn>
-                        </q-item>
-                      </q-list>
-                    </q-popup-edit>
-                  </q-btn>
-                </div>
-              </template>
-            </EasyDataTable>
-          </section>
-          <div class="table_pagenav disflex_C">
-            <CPagination />
-          </div>
-        </template>
-        <template v-else>
-          <div class="com_nondata_area">
-            <div class="nondata_box">
-              <p class="nondata_txt">생성한 내 이미지가 없습니다.</p>
-            </div>
-          </div>
-        </template>
-      </div>
+                          <span class="txt">{{ button.name }}</span>
+                        </q-btn>
+                      </q-item>
+                    </q-list>
+                  </q-popup-edit>
+                </q-btn>
+              </div>
+            </template>
+          </EasyDataTable>
+          <c-pagination />
+        </div>
+      </template>
+      <template v-else>
+        <div class="nondata_box">
+          <p class="nondata_txt">생성한 내 이미지가 없습니다.</p>
+        </div>
+      </template>
     </div>
   </q-page>
 </template>
@@ -258,4 +252,5 @@ const showRow = (item) => {
 <style lang="scss" scoped>
 @import "src/css/table.scss";
 @import "src/css/images.scss";
+@import "src/css/page.scss";
 </style>

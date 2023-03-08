@@ -12,96 +12,99 @@
     </div>
     <!-- //.chead -->
     <div class="p-body">
-      <div class="table_set">
-        <div class="l_set_inner">
-          <div class="search_area">
-            <q-select
-              outlined
-              placeholder="이름 상태 생성자 검색"
-              use-input
-              clearable
-              class="c_inpchip default_size"
-            >
-              <template v-slot:prepend>
-                <q-icon name="search" class="ico_search" />
-              </template>
-            </q-select>
-          </div>
-          <div class="now_storage_view">
-            <div class="storage_view_box">
-              <div class="generate_num">
-                <p class="gn_title">
-                  생성 가능 개수
-                  <q-btn class="ibtn help">
-                    <i class="ico help"
-                      ><span class="hidden">도움말</span>
-                      <q-popup-edit
-                        v-model="helpShow"
-                        anchor="bottom middle"
-                        self="bottom middle"
-                        class="c_popover storage_pop"
-                      >
-                        <div class="inner">
-                          <p>스토리지는 개인당 최대 5개 생성할 수 있습니다.</p>
-                        </div>
-                      </q-popup-edit>
-                    </i>
-                  </q-btn>
-                </p>
-                <p class="gn_data"><span class="now_num">2</span> / 5</p>
-              </div>
-              <div class="individual_dose">
-                <p class="id_title">개인 용량</p>
-                <p class="id_data"><span class="now_gib">350</span> / 500</p>
-                <p class="id_txt">GiB</p>
+      <template v-if="defaultData == true">
+        <div class="table_set">
+          <div class="l_set_inner">
+            <div class="search_area">
+              <q-select
+                outlined
+                placeholder="이름 상태 생성자 검색"
+                use-input
+                clearable
+                class="c_inpchip default_size"
+              >
+                <template v-slot:prepend>
+                  <q-icon name="search" class="ico_search" />
+                </template>
+              </q-select>
+            </div>
+            <div class="now_storage_view">
+              <div class="storage_view_box">
+                <div class="generate_num">
+                  <p class="gn_title">
+                    생성 가능 개수
+                    <q-btn class="ibtn help">
+                      <i class="ico help"
+                        ><span class="hidden">도움말</span>
+                        <q-popup-edit
+                          v-model="helpShow"
+                          anchor="bottom middle"
+                          self="bottom middle"
+                          class="c_popover storage_pop"
+                        >
+                          <div class="inner">
+                            <p>
+                              스토리지는 개인당 최대 5개 생성할 수 있습니다.
+                            </p>
+                          </div>
+                        </q-popup-edit>
+                      </i>
+                    </q-btn>
+                  </p>
+                  <p class="gn_data"><span class="now_num">2</span> / 5</p>
+                </div>
+                <div class="individual_dose">
+                  <p class="id_title">개인 용량</p>
+                  <p class="id_data"><span class="now_gib">350</span> / 500</p>
+                  <p class="id_txt">GiB</p>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="r_set_inner">
-          <c-button
-            :size="'medium'"
-            :outline="true"
-            :btn-names="'개인 용량 변경 요청'"
-          />
-          <div class="storage_add_btn">
+          <div class="r_set_inner">
             <c-button
               :size="'medium'"
               :outline="true"
-              :btn-names="'스토리지 추가'"
+              :btn-names="'개인 용량 변경 요청'"
             />
-          </div>
-          <div class="select_drop">
-            <c-dropdown
-              v-model:selected="selectedBasic"
-              :label="optLabel"
-              :options="optNumber"
-              class="auto_size"
-            />
+            <div class="storage_add_btn">
+              <c-button
+                :size="'medium'"
+                :outline="true"
+                :btn-names="'스토리지 추가'"
+              />
+            </div>
+            <div class="select_drop">
+              <c-dropdown
+                v-model:selected="selectedBasic"
+                :label="optLabel"
+                :options="optNumber"
+                class="auto_size"
+              />
+            </div>
           </div>
         </div>
-      </div>
-      <div class="table_main">
-        <EasyDataTable
-          :headers="headers"
-          :items="items"
-          :hide-footer="true"
-          empty-message="정보가 없습니다."
-          @click-row="showRow"
-        >
-          <!-- title -->
-          <template #item-title="item">
-            <span class="txt">{{ item.title }}</span>
-          </template>
-          <!-- description -->
-          <template #item-description="item">
-            <span class="txt">{{ item.description }}</span>
-          </template>
-          <!-- user -->
-          <template #item-user="item">
-            <span class="txt">{{ item.user }}</span>
-          </template>
-          <!--
+        <div class="table_main">
+          <EasyDataTable
+            :headers="headers"
+            :items="items"
+            :hide-footer="true"
+            empty-message="정보가 없습니다."
+            @click-row="showRow"
+          >
+            <!-- title -->
+            <template #item-title="item">
+              <span class="txt">{{ item.title }}</span>
+            </template>
+            <!-- description -->
+            <template #item-description="item">
+              <span class="txt">{{ item.description }}</span>
+            </template>
+            <!-- user -->
+            <template #item-user="item">
+              <span class="txt">{{ item.user }}</span>
+            </template>
+            <!--
             상태값(status)
             1. running, 운영중(개인)
             2. running_s, 운영중(공유)
@@ -109,62 +112,66 @@
             4. deleting, 삭제중
             5. restoring, 복원중
           -->
-          <template #item-status="item">
-            <q-badge v-if="item.status === 'running'" class="green">
-              <span class="txt">운영중(개인)</span>
-            </q-badge>
-            <q-badge v-else-if="item.status === 'running_s'" class="green">
-              <span class="txt">운영중(공유)</span>
-            </q-badge>
-            <q-badge v-else-if="item.status === 'making'" class="c_badge">
-              <span class="txt">생성중</span>
-            </q-badge>
-            <q-badge v-else-if="item.status === 'deleting'" class="c_badge">
-              <span class="txt">삭제중</span>
-            </q-badge>
-            <q-badge v-else-if="item.status === 'restoring'" class="c_badge">
-              <span class="txt">복원중</span>
-            </q-badge>
-          </template>
-          <!-- usingData -->
-          <template #item-usingData="item">
-            <span class="txt">{{ item.usingData }}</span>
-          </template>
-          <!-- createdAt -->
-          <template #item-createdAt="item">
-            <span class="txt">{{ item.createdAt }}</span>
-          </template>
-          <!-- authority -->
-          <template #item-authority="item">
-            <span class="txt">{{ item.authority }}</span>
-          </template>
-          <!-- 버튼 그룹 -->
-          <template #item-buttons="item">
-            <div v-if="actionButtons" class="cell btngroup">
-              <q-btn class="c_btn ibtn dot">
-                <i class="ico dots" /><span class="txt">클릭</span>
-                <q-popup-edit
-                  v-model="item.id"
-                  class="dots_menu"
-                  anchor="top right"
-                >
-                  <q-list style="min-width: 100px">
-                    <q-item v-for="button in actionButtons" :key="button.name">
-                      <q-btn
-                        class="item"
-                        @click="onActions(button.event, item)"
+            <template #item-status="item">
+              <q-badge v-if="item.status === 'running'" class="green">
+                <span class="txt">운영중(개인)</span>
+              </q-badge>
+              <q-badge v-else-if="item.status === 'running_s'" class="green">
+                <span class="txt">운영중(공유)</span>
+              </q-badge>
+              <q-badge v-else-if="item.status === 'making'" class="c_badge">
+                <span class="txt">생성중</span>
+              </q-badge>
+              <q-badge v-else-if="item.status === 'deleting'" class="c_badge">
+                <span class="txt">삭제중</span>
+              </q-badge>
+              <q-badge v-else-if="item.status === 'restoring'" class="c_badge">
+                <span class="txt">복원중</span>
+              </q-badge>
+            </template>
+            <!-- usingData -->
+            <template #item-usingData="item">
+              <span class="txt">{{ item.usingData }}</span>
+            </template>
+            <!-- createdAt -->
+            <template #item-createdAt="item">
+              <span class="txt">{{ item.createdAt }}</span>
+            </template>
+            <!-- authority -->
+            <template #item-authority="item">
+              <span class="txt">{{ item.authority }}</span>
+            </template>
+            <!-- 버튼 그룹 -->
+            <template #item-buttons="item">
+              <div v-if="actionButtons" class="cell btngroup">
+                <q-btn class="c_btn ibtn dot">
+                  <i class="ico dots" /><span class="txt">클릭</span>
+                  <q-popup-edit
+                    v-model="item.id"
+                    class="dots_menu"
+                    anchor="top right"
+                  >
+                    <q-list style="min-width: 100px">
+                      <q-item
+                        v-for="button in actionButtons"
+                        :key="button.name"
                       >
-                        <span class="txt">{{ button.name }}</span>
-                      </q-btn>
-                    </q-item>
-                  </q-list>
-                </q-popup-edit>
-              </q-btn>
-            </div>
-          </template>
-        </EasyDataTable>
-        <c-pagination />
-      </div>
+                        <q-btn
+                          class="item"
+                          @click="onActions(button.event, item)"
+                        >
+                          <span class="txt">{{ button.name }}</span>
+                        </q-btn>
+                      </q-item>
+                    </q-list>
+                  </q-popup-edit>
+                </q-btn>
+              </div>
+            </template>
+          </EasyDataTable>
+          <c-pagination />
+        </div>
+      </template>
     </div>
     <!-- Start : [스토리지] 개인스토리지 추가 -->
     <q-dialog v-model="storageAddModal" class="c_dialog large">
@@ -250,6 +257,7 @@ useMeta(() => ({
 const ptitle = ref(title);
 const optLabel = ref("10");
 const helpShow = ref(false);
+const defaultData = ref(true);
 
 const optNumber = ref([
   { label: "10", value: 0 },

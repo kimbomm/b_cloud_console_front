@@ -7,11 +7,9 @@ table{
 
 }
 .p-images{
-    .p-body{
-      .container {
         display: flex;
         flex-direction: column;
-        .header {
+        .tab_area {
           display: flex;
           margin-bottom: 30px;
         }
@@ -23,21 +21,6 @@ table{
           width: 438px;
         }
       }
-    }
-  }
 
-  .com_nondata_area{
-  .nondata_box{
-    width: 100%;
-    padding:130px 0;
-    text-align: center;
-    background-color: $surface01;
-    border-radius: 8px;
-    .nondata_txt{color:$gray500;}
-    .nondata_btn{
-      margin-top: 30px;
-      button{width: 99px;}
-    }
-  }
-}
+
 
