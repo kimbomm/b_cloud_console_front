@@ -13,64 +13,53 @@
     <div class="p-body">
       <!-- /* 멤버 - 메인(워크스페이스 관리자) */ -->
       <template v-if="defaultData == true">
-        <div class="flex-top table-set">
-          <div class="set-l set">
-            <div class="set-l_left">
-              <q-input
-                outlined
-                v-model="suffix"
-                placeholder="이름 이메일 검색"
-                class="member-input"
+        <div class="table_set">
+          <div class="l_set_inner">
+            <q-input
+              outlined
+              v-model="suffix"
+              placeholder="이름 이메일 검색"
+              class="wsize292"
               >
                 <template v-slot:prepend>
                   <q-icon name="search" class="ico_search" />
                 </template>
               </q-input>
-            </div>
-            <div class="set-l_right">
               <c-dropdown
                 v-model:selected="selectedBasic"
                 :label="label"
                 :options="options"
               />
-            </div>
           </div>
-          <div class="set-r set">
-            <div class="set-btn">
-              <c-button
-                :outline="true"
-                :size="'medium'"
-                :btn-names="'멤버추가'"
+          <div class="r_set_inner">
+            <c-button
+              :outline="true"
+              :size="'medium'"
+              :btn-names="'멤버추가'"
               >
-                <template #prepend>
-                  <i class="ico plus"></i>
-                </template>
-              </c-button>
-            </div>
-            <div class="set-btn remove_member_btn">
-              <c-button
-                :size="'medium'"
-                :outline="true"
-                disabled
-                :btn-names="'멤버삭제'"
+              <template #prepend>
+                <i class="ico plus"></i>
+              </template>
+            </c-button>
+            <c-button
+              :size="'medium'"
+              :outline="true"
+              disabled
+              :btn-names="'멤버삭제'"
               >
-                <template #prepend>
-                  <i class="ico plus" />
-                </template>
-              </c-button>
-            </div>
-            <div class="set-btn select-d">
-              <c-dropdown
-                v-model:selected="selectedBasic"
-                :label="label3"
-                :options="options2"
+              <template #prepend>
+                <i class="ico plus" />
+              </template>
+            </c-button>
+            <c-dropdown
+              v-model:selected="selectedBasic"
+              :label="label3"
+              :options="options2"
               />
-            </div>
           </div>
         </div>
         <!-- Table -->
-        <section class="section">
-          <EasyDataTable
+        <EasyDataTable
             class="c_table"
             :headers="headers"
             :items="items"
@@ -131,17 +120,17 @@
             <template #item-buttons="item">
               <div v-if="actionButtons || item.buttons" class="cell btngroup">
                 <!-- 초대 요청 확인 -->
-                <q-btn
+                <c-button
                   v-if="item.buttons"
                   class="c_btn"
+                  :btn-names="'초대요청 확인'"
                 >
                   <span class="txt">{{ item.buttons.name }}</span>
-                </q-btn>
+                </c-button>
               </div>
             </template>
           </EasyDataTable>
           <c-pagination />
-        </section>
         <!-- //Table -->
       </template>
       <!-- /* 멤버 - 메인(워크스페이스 멤버/정산관리자,게스트) */ -->
@@ -369,6 +358,5 @@ const ptitle = ref(title);
 </script>
 
 <style lang="scss" scoped>
-@import 'src/css/table';
 @import 'src/css/members';
 </style>

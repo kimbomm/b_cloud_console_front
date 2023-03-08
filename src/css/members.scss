@@ -1,3 +1,5 @@
+@import 'src/css/utillity';
+@import 'src/css/table';
 /* Member */
 .p-member{
   .q-input{font-size: $fs16;}
@@ -6,34 +8,10 @@
       margin-top: 20px;
     }
     // 멤버 - 메인(워크스페이스 관리자)
-    .table-set{
-      .set{display: flex; align-items: center; }
-      .set-l{
-        &_left{
-          .wsize292{width: 292px;}
-        }
-        .member-input{
-          width: 292px;
-        }
-        &_right{
-          position: relative;
-          padding-left: 33px;
-          &::before{
-            position: absolute; top: 50%; left: 16px; transform: translateY(-50%);
-            content: "";
-            width: 1px; height: 26px;
-            background-color: $surface05;
-          }
-          &:last-child{width: 253px;}
-        }
-      }
-      .set-r{
-        .set-btn{
-          margin-right: 10px;
-          &:last-child{ margin-right: 0;}
-        }
-        .select-d{width: 108px;}
-      }
+    .table_set{
+      background-color: pink;
+      display: flex;
+      justify-content: space-between;
     }
   }
   &.p-detail{

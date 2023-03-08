@@ -1,317 +1,319 @@
+@import "src/css/utillity";
+@import "src/css/table";
 /* Support */
 .p-support{
-  .section{margin-top: 20px;}
+  .flex-top{
+    margin-bottom:20px;
+  }
   .group-page{
     display: flex; justify-content: center; align-items: center;
     margin-top: 50px;
   }
   .essential{ color: $secondary-coral;}
-  &.p-index{
-    .p-body{
-      td a .txt{color: $gray800;}
-      .c_btngroup{
-        margin-top: 20px;;
+  .c_btngroup{
+    margin-top: 20px;
+  }
+  .sub-text{
+    font-size: $fs24; font-weight: $bold;
+  }
+  .title{
+    font-size:$fs16;
+  }
+  .type-dropdown{
+    width: 608px;
+    margin-top:8px;
+    margin-bottom: 30px;
+  }
+  /* 하단 버튼 영역 */
+  .c_btngroup {
+    margin-top: 50px;
+    .q-btn {
+      min-width: auto;
+      &:nth-last-child(1),
+      &:nth-last-child(1) ~ .q-btn {
+        min-width: 292px;
       }
-      .sub-text{
-        font-size: $fs24; font-weight: $bold;
+      &:nth-last-child(2),
+      &:nth-last-child(2) ~ .q-btn {
+        min-width: 180px;
       }
-      .page-nation{
-        margin: 57px auto 0;
+      &:not(:last-child) {
+        margin-right: 10px;
       }
-      /** 테이블 **/
-      .q-table thead tr th:first-child,
-      .q-table tbody tr td:first-child{
-        display: none;
+      &.list {
+        min-width: 70px !important;
       }
-      .q-table thead th:last-child{
-        display: none;
+      &.save {
+        min-width: 99px !important;
       }
-      /** //테이블 **/
+      &.w104 {
+        min-width: 104px !important;
+      }
+      &.wauto {
+        min-width: auto !important;
+      }
     }
   }
-  &.p-write{
-    .p-body{
-      /** 요청하기 폼 & 버튼 **/
-      .request-input{
-        margin-top: 46px;
-        font-size: $fs16;
-        .sub_title{
-          margin-bottom: 8px;
-        }
-      }
-      /** //요청하기 폼 & 버튼 **/
+  /* 상세 화면 이미지 비율 */
+  .figure {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    /*
+      Size 비율
+      높이 500px에 맞게 비율 유지 가로 길이는 고정
+      1:1 최대 500*500
+      3:4(width) 최대 w : 666
+      3:4(height) 최대 h : 500
+      16:9(width) 최대 w : 500
+      16:9(height) 최대 h : 500
+    */
+    img {
+      max-width: 100%;
+      max-height: 500px;
+      object-fit: contain;
+    }
+    picture,
+    .picture {
+      overflow: hidden;
+      display: inline-flex;
+      flex: none;
+      justify-content: center;
+      align-items: center;
+      max-width: 888px;
+      // min-width:500px;
+      min-height: 500px;
+      max-height: 500px;
+      background: $surface05;
+    }
+  }
 
-      /** 유형 input **/
-      .type{
-        width: 100%;
+  /* 상세 상단 정보 */
+  .divtbl {
+    display: flex;
+    align-items: center;
+    font-size: $fs16;
+    &:not(:last-child) {
+      margin-bottom: 8px;
+    }
+    > strong {
+      flex: none;
+      width: 102px;
+      color: $gray500;
+      font-weight: $regular;
+    }
+    > p {
+      flex: 1 auto;
+      color: $gray800;
+    }
+  }
+  // 상세 전체 감싸는 영역
+  .view_contents {
+    position: relative;
+    width: 100%;
+    padding: 30px;
+    border: 1px solid $surface05;
+    border-radius: 12px;
+    ~ .view_reply {
+      margin-top: 24px;
+    }
+    &.bg{
+      border:0;
+      background:$surface01;
+      .title{
         font-size: $fs16;
-        margin-bottom: 8px;
-      }
-      .type-dropdown{
-        width: 608px;
-        margin-bottom: 30px;
-      }
-      .type-area{
-        height: calc(100vh - 504px);
-        background-color: $surface00;
-        &_text{
-          position: relative;
-          top: 50%;
-          transform: translateY(-50%);
-          color: $gray500; text-align: center; font-size: $fs14;
+        ~ .sub_title,
+        ~ .unit_type,
+        ~ .c_uploader{
+          margin-top:24px;
+        }
+        ~ .c_inpgroup{
+          margin-top:8px;
         }
       }
-      /** //유형 input **/
-
-      .area-box{
-        width: 100%;
-        border-radius: $fs12;
-      }
-      // 고객지원-1:1문의
-      .type-area{
-        height: calc(100vh - 504px);
-        background-color: $surface01;
-        &_text{
-          position: relative;
-          top: 50%;
-          transform: translateY(-50%);
-          color: $gray500; text-align: center; font-size: $fs14;
+      .sub_title{
+        margin:0;padding:0;
+        font-size:$fs16;font-weight:$regular;
+        ~ .unit_type{
+          margin-top:16px;
         }
       }
-      /** placeholder 폰트크기 **/
-      .pl-px{
-        font-size: $fs16;
+      .type_choice{
+        display:flex;
+        justify-content: center;
+        align-items: center;
+        height:calc(584px - 60px);
+        color:$gray500;
       }
-
-      // 고객지원-문의하기-스토리지 할당량 변경
-      .amount-area{
-        padding: 30px 30px 24px;
-        background-color: $surface01;
-        .inp_unit{
-          background-color: $bg;
-        }
-        .area-title{
-          font-size: $fs16;
-          margin-bottom: 24px;
-        }
-      }
-      .req-btn{
-        margin-top: 40px !important;
-        width: 292px !important;
-      }
-      // 고객지원-문의하기-리소스 할당량 변경
-      .resource-area{
-        padding: 30px;
-        background-color: $surface01;
-        .title{
-          margin-bottom: 24px;
-          font-size: $fs16;
-        }
-        .sub-title{
-          margin-bottom: 16px;
-          font-size: $fs16;
-        }
-        .unit_type{
-          margin-bottom: 12px;
-          .counter{
-            .usage{color:$gray800;}
-          }
-        }
+      .flex_reg{
+        display: flex;
+        justify-content: baseline;
+        align-items: center;
+        margin-top:10px;
+        margin-bottom: 34px;
         .req{
           margin-right: 50px;
           color: $gray500; font-size: $fs16;
         }
-        .req_title{
-          margin-bottom: 8px;
-          font-size: $fs16;
+        .inp_unit{
+          background-color: $bg;
         }
-        .req-box{
-          display: flex;
-          align-items: center;
-          justify-content: baseline;
-          margin-bottom: 34px;
-          .inp_unit{
-            background-color: $bg;
-          }
-          &:nth-last-child(1){
-            margin-bottom: 46px;
-          }
+        &:nth-last-child(1){
+          margin-bottom: 46px;
         }
-      }
-      // 고객지원-문의하기-오류/버그 제보
-      .report-area{
-        padding: 30px;
-        background-color: $surface01;
-        .title{
-          margin: 46px 0 8px;
-          font-size: $fs16;
-          &:first-child{
-            margin: 0 0 8px;
-          }
-        }
-        .title-file{
-          font-size: $fs16;
-          margin: 46px 0 24px;
+        ~ .sub_title{
+          margin-top:34px;
         }
       }
     }
-  }
-  &.p-survey{
-
-  }
-  &.p-detail{
-    .p-body{
-      /** 확인 폼 **/
-      .q-badge{
-        position: absolute;
-        top: 30px; right: 30px;
+    .section:not(:first-child){
+      margin-top:46px;
+      &.mb24{
+        margin-top:24px;
+        &:last-child{
+          margin-bottom:0;
+        }
       }
-      .check-title{
+      &:last-child{
+        margin-bottom:-6px;
+      }
+    }
+  }
+  /* 상세 상단 타이틀 및 날짜 영역 */
+  .view_head {
+    position: relative;
+    .view_title {
+      position: relative;
+      margin-bottom: 12px;
+      font-size: $fs20;
+      font-weight: $bold;
+    }
+    .edit {
+      position: absolute;
+      top: 0;
+      right: 0;
+      color: $gray500;
+      font-size: $fs14;
+      cursor: pointer;
+      &:hover,
+      &:focus {
+        text-decoration: underline;
+        text-underline-position: under;
+      }
+      &:active {
+        color: $gray800;
+      }
+    }
+    .q-badge{
+      position: absolute;
+      top: 0; right: 0;
+    }
+    .info {
+      margin-bottom: 30px;
+      color: $gray500;
+      .type {
         position: relative;
-        margin-bottom: 12px;
-        font-size: $fs20; font-weight: $bold;
+        padding-left: 21px;
+        &::before {
+          content: "";
+          position: absolute;
+          top: 50%;
+          left: 10px;
+          width: 1px;
+          height: 12px;
+          background-color: $surface08;
+          transform: translateY(-50%);
+        }
       }
-      .check-date{
-        margin-bottom: 30px;
+    }
+    ~ .view_body {
+      margin-top: 30px;
+    }
+    + .view_subject {
+      margin-top: 30px;
+    }
+  }
+  /* 상세 정보 영역 */
+  .view_body {
+    padding: 0 0 20px;
+    border-bottom: 1px solid $surface02;
+    ~ .view_subject {
+      margin-top: 20px;
+    }
+  }
+  /* 상세 내용 영역 */
+  .view_subject {
+    color: $gray800;
+    font-size: $fs16;
+    .figure {
+      margin-top: 30px;
+    }
+    ~.req-wrap{
+      margin-top:20px;
+    }
+  }
+  /* 요청량 항목 및 항목별 정보 */
+  .req-wrap{
+    display: flex;
+    flex-wrap: wrap;
+    gap:16px;
+    position: relative;
+  }
+  .req-box{
+    width:362px;
+    min-height:98px;
+    padding:20px;
+    border-radius: 12px;
+    background-color: $surface01;
+    .amount-title{
+      margin-bottom: 20px;
+      color: $gray800; font-size: $fs16;
+    }
+    .current-amount, .request-amount{
+      color: $gray800; font-size: $fs16;
+    }
+    .current-amount{
+      span{
+        &:nth-child(1){
+          padding-left: 20px;
+        }
+      }
+    }
+    .c-span{color: $black;}
+    .request-amount{
+      margin-top: 16px;
+      span{
+        padding-left: 53px;
+        color: $black;
+      }
+    }
+  }
+  /* 상세 하단 답변 영역 */
+  .view_reply {
+    padding: 30px;
+    border-radius: 12px;
+    background-color: $surface01;
+    > p {
+      display: flex;
+      align-items: flex-end;
+      margin-bottom: 32px;
+      font-weight: $bold;
+      span {
+        margin-left: 14px;
         color: $gray500;
+        font-size: $fs12;
+        font-weight: $regular;
       }
-      .date-fx{
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-        .error-report{
-          position: relative;
-          padding-left: 21px;
-          &::before{
-            position: absolute;
-            top: 50%; left: 11px;
-            transform: translate(0, -50%);
-            content: "";
-            width: 1px; height: 12px;
-            background-color: $surface08;
-          }
-        }
+    }
+    .reply_title{
+      margin-bottom: 16px;
+      color: $gray800; font-size: $fs16; font-weight: $regular;
+    }
+    .reply_answer{
+      font-size: $fs16;
+      &.checking{
+        color: $gray300; font-size: $fs16;
       }
-      .check-contents{
-        margin-bottom: 20px;
-        font-size: $fs16; color: $gray800;
-      }
-      .check-img{
-        display: flex;
-        flex-wrap: wrap;
-        gap: 24px;
-        margin-top: 30px;
-        .img{
-          height: 500px;
-        }
-        .img1{
-          width: 500px;
-        }
-        .img2{
-          width: 666px;
-        }
-        .img3{
-          width: 375px;
-        }
-        .img4{
-          width: 281px;
-        }
-        .img5{
-          width: 888px;
-        }
-      }
-      .mb0{
-        margin-bottom: 0;
-      }
-      /** //확인 폼 **/
-
-      /** 답변 폼 **/
-      .check-reply{
-        padding: 30px;
-        // margin-bottom: 24px;
-        width: 100%;
-        border-radius: 12px;
-        background-color: $surface01;
-        &_title{
-          margin-bottom: 16px;
-          color: $gray800; font-size: $fs16;
-        }
-        &_answer{
-          font-size: $fs16;
-        }
-        .checking{
-          color: $gray300; font-size: $fs16;
-        }
-      }
-      /** // 답변 폼 **/
-
-      // 고개지원-1:1문의-스토리지 할당량 변경 문의내용 확인
-      .amount-check{
-        position: relative;
-        padding: 30px;
-        margin-bottom: $fs24;
-        width: 100%;
-        border-radius: 12px;
-        border: 1px solid $surface05;
-        &_req-box{
-          padding: 20px;
-          width: 362px; height: 98px;
-          border-radius: 12px;
-          background-color: $surface01;
-        }
-        &_req-box2{
-          padding: 20px;
-          margin-right: 16px; margin-bottom: 16px;
-          width: calc(100% / 4 - 12px);
-          min-height: 139px;
-          border-radius: 12px;
-          background-color: $surface01;
-          &:nth-child(4n){
-            margin-right: 0;
-          }
-          &:nth-last-child(-n + 4){
-            margin-bottom: 0;
-          }
-        }
-        .req-wrap{
-          display: flex;
-          flex-wrap: wrap;
-          // width: 1496px;
-          font-size: 0;
-          &::after{
-            content: "";
-            display: block;
-            clear: both;
-          }
-        }
-        .amount-title{
-          margin-bottom: 20px;
-          color: $gray800; font-size: $fs16;
-        }
-        .current-amount, .request-amount{
-          color: $gray800; font-size: $fs16;
-        }
-        .current-amount{
-          span{
-            &:nth-child(1){
-              padding-left: 20px;
-            }
-          }
-        }
-        .c-span{color: $black;}
-        .request-amount{
-          margin-top: 16px;
-          span{
-            padding-left: 53px;
-            color: $black;
-          }
-        }
-      }
-      .q-btn, .c_btn{
-        margin-top: 24px;
-        width: 70px;
-      }
-
     }
   }
 }
