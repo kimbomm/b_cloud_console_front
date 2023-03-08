@@ -386,5 +386,4 @@ const quota2 = ref(null);
 
 <style lang="scss" scoped>
 @import "./src/css/storage";
-@import "./src/css/table";
 </style>

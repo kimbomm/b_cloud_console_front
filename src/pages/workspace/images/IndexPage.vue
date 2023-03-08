@@ -13,68 +13,60 @@
     </div>
     <!-- //.chead -->
     <div class="p-body">
-      <div class="container">
-        <div class="group-tabs">
-          <div class="header">
-            <c-tab v-model:value="tabModel" :tabs="tabs" />
+      <div class="tab_area">
+        <c-tab v-model:value="tabModel" :tabs="tabs" />
+      </div>
+      <template v-if="defaultData == true">
+        <div class="table_set">
+          <div class="c_inpgroup">
+            <q-input
+              outlined
+              v-model="suffix"
+              placeholder="이름,설명,기본이미지 검색"
+              clearable
+              class="wsize_full"
+            >
+              <template v-slot:prepend>
+                <q-icon name="search" class="ico_search" />
+              </template>
+            </q-input>
+          </div>
+          <div class="select_drop">
+            <c-dropdown
+              :label="optLabel"
+              :options="optNumber"
+              class="auto_size"
+            />
           </div>
         </div>
-        <template v-if="defaultData == true">
-          <div class="table_set">
-            <div class="c_inpgroup">
-              <q-input
-                outlined
-                v-model="suffix"
-                placeholder="이름,설명,기본이미지 검색"
-                clearable
-                class="wsize_full"
-              >
-                <template v-slot:prepend>
-                  <q-icon name="search" class="ico_search" />
-                </template>
-              </q-input>
-            </div>
-            <div class="select_drop">
-              <CDropdown
-                :label="optLabel"
-                :options="optNumber"
-                class="auto_size"
-              />
-            </div>
-          </div>
 
-          <section class="section">
-            <div v-if="tabModel === 'myTab'">
-              <!-- 내이미지 -->
-              <MyPage
-                :imageList="imageList"
-                @onShare="onShare"
-                @onDelete="onDelete"
-                :getRowSelectedImage="getRowSelectedImage"
-                @update:getRowSelectedImage="handleRowDataClick"
-              />
-            </div>
-            <div v-if="tabModel === 'baseTab'">
-              <!-- 기본 이미지  -->
-              <BasicPage :imageList="imageList" />
-            </div>
-            <!-- 공유받은 이미지  -->
-            <div v-if="tabModel === 'sharedTab'">
-              <SharedPage :imageList="imageList" />
-            </div>
-          </section>
-          <div class="table_pagenav disflex_C">
-            <CPagination />
+        <div class="table_inner">
+          <div v-if="tabModel === 'myTab'">
+            <!-- 내이미지 -->
+            <MyPage
+              :imageList="imageList"
+              @onShare="onShare"
+              @onDelete="onDelete"
+              :getRowSelectedImage="getRowSelectedImage"
+              @update:getRowSelectedImage="handleRowDataClick"
+            />
           </div>
-        </template>
-        <template v-else>
-          <div class="com_nondata_area">
-            <div class="nondata_box">
-              <p class="nondata_txt">생성한 내 이미지가 없습니다.</p>
-            </div>
+          <div v-if="tabModel === 'baseTab'">
+            <!-- 기본 이미지  -->
+            <BasicPage :imageList="imageList" />
           </div>
-        </template>
-      </div>
+          <!-- 공유받은 이미지  -->
+          <div v-if="tabModel === 'sharedTab'">
+            <SharedPage :imageList="imageList" />
+          </div>
+          <c-pagination />
+        </div>
+      </template>
+      <template v-else>
+        <div class="nondata_box">
+          <p class="nondata_txt">생성한 내 이미지가 없습니다.</p>
+        </div>
+      </template>
     </div>
   </q-page>
 

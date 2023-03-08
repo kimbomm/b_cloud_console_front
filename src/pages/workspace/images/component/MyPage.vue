@@ -6,13 +6,12 @@
     empty-message="생성한 내 이미지가 없습니다."
     @click-row="showRow"
   >
-
-    <!-- id -->
-    <template #item-id="item">
+    <!-- name -->
+    <template #item-name="item">
       <span class="txt">{{ item.name }}</span>
     </template>
 
-    <!-- title -->
+    <!-- description -->
     <template #item-description="item">
       <a href="#">
         <span class="txt">{{ item.description }}</span>
@@ -26,15 +25,15 @@
     <template #item-status="item">
       <CBadgeState :item="item" />
     </template>
-    <!-- image -->
-    <template #item-image="item">
+    <!-- base-image -->
+    <template #item-base_image_name="item">
       <a href="#">
-      {{ item }}
-        <span class="txt">{{ item }}</span>
+        {{ item }}
+        <span class="txt">{{ item.base_image_name }}</span>
       </a>
     </template>
     <!-- createdAt -->
-    <template #item-createdAt="item">
+    <template #item-created_at="item">
       <span class="txt">{{ item.created_at }}</span>
     </template>
     <!-- 버튼 그룹 -->
@@ -65,7 +64,7 @@ import CBadgeState from "src/components/common/CBadgeState.vue";
 defineProps({
   imageList: Array,
   actionButtons: Array,
-  getRowSelectedImage: Object
+  getRowSelectedImage: Object,
 });
 
 const emit = defineEmits(["onShare", "onDelete", "update:getRowSelectedImage"]);
@@ -74,29 +73,29 @@ const headers = [
   {
     text: "이름",
     value: "name",
-    width: 120,
+    width: 150,
     sortable: true,
   },
   {
     text: "설명",
     value: "description",
-    width: 350,
+    width: 230,
+    widthAuto: true,
   },
   {
     text: "상태",
     value: "status",
-    width: 110,
   },
   {
     text: "기본 이미지",
     value: "base_image.name",
-    width: 350,
     sortable: true,
   },
   {
     text: "생성일시",
     value: "created_at",
-    width: 120,
+    width: 190,
+    widthAuto: true,
     sortable: true,
   },
   { text: "", value: "buttons", width: 80 },
@@ -130,4 +129,7 @@ const showRow = (item) => {
 .vue3-easy-data-table[data-v-5814f6fe] {
   border: none;
 }
+@import "src/css/table.scss";
+@import "src/css/images.scss";
+@import "src/css/page.scss";
 </style>

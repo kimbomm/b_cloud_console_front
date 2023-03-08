@@ -88,9 +88,9 @@
               </q-badge>
             </template>
             <!-- image -->
-            <template #item-image="item">
+            <template #item-base_image="item">
               <a href="#">
-                <span class="txt">{{ item.image }}</span>
+                <span class="txt">{{ item.base_image }}</span>
               </a>
             </template>
             <!-- createdAt -->
@@ -170,8 +170,8 @@ const headers = [
     value: "status",
   },
   {
-    text: "이미지",
-    value: "image",
+    text: "기본 이미지",
+    value: "base_image",
     sortable: true,
   },
   {
@@ -189,7 +189,7 @@ const items = [
     title:
       "테스트용 이미지 생성 테스트 테스트테스트용 이미지 생성 테스트 테스트테스트용 이미지 생성 테스트 테스트테스트용 이미지 생성 테스트 테스트테스트용",
     status: "saving",
-    image:
+    base_image:
       "tensorflow 2.9.0(python3, cuda11.2, ubutun20.04)tensorflow 2.9.0(python3, cuda11.2, ubutun20.04) ",
     createdAt: "2023.01.12 10:33:21",
   },
@@ -198,7 +198,7 @@ const items = [
     title:
       "테스트용 이미지 생성 테스트 테스트테스트용 이미지 생성 테스트 테스트테스트용 이미지 생성 테스트 테스트테스트용 이미지 생성 테스트 테스트테스트용",
     status: "save",
-    image:
+    base_image:
       "tensorflow 2.9.0(python3, cuda11.2, ubutun20.04)tensorflow 2.9.0(python3, cuda11.2, ubutun20.04) ",
     createdAt: "2023.01.12 10:33:21",
   },
@@ -206,7 +206,7 @@ const items = [
     id: "내이미지02",
     title: "테스트용 이미지 생성 테스트 테스트테스트용 테스트용 이미지 생성 ",
     status: "save_s",
-    image:
+    base_image:
       "tensorflow 2.9.0(python3, cuda11.2, ubutun20.04)tensorflow 2.9.0(python3, cuda11.2, ubutun20.04)",
     createdAt: "2023.01.12 10:33:21",
   },
@@ -214,7 +214,7 @@ const items = [
     id: "내이미지03",
     title: "테스트용 이미지 생성  ",
     status: "error",
-    image: "tensorflow 2.9.0(python3, cuda11.2, ubutun20.04)",
+    base_image: "tensorflow 2.9.0(python3, cuda11.2, ubutun20.04)",
     createdAt: "2023.01.12 10:33:21",
   },
 ];
@@ -250,7 +250,5 @@ const showRow = (item) => {
 </script>
 
 <style lang="scss" scoped>
-@import "src/css/table.scss";
 @import "src/css/images.scss";
-@import "src/css/page.scss";
 </style>

@@ -177,6 +177,4 @@ const showRow = (item) => {
 
 <style lang="scss" scoped="scoped">
 @import "src/css/images.scss";
-@import "src/css/table.scss";
-@import "src/css/page.scss";
 </style>

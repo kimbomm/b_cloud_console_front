@@ -55,10 +55,6 @@
             <template #item-id="item">
               <span class="txt">{{ item.id }}</span>
             </template>
-            <!-- title -->
-            <template #item-title="item">
-              <span class="txt">{{ item.title }}</span>
-            </template>
             <template #item-version="item">
               <span class="txt">{{ item.version }}</span>
             </template>
@@ -120,6 +116,4 @@ const optNumber = ref([
 
 <style lang="scss" scoped="scoped">
 @import "src/css/images.scss";
-@import "src/css/table.scss";
-@import "src/css/page.scss";
 </style>

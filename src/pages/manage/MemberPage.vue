@@ -318,5 +318,4 @@ const actionButtons = [
 
 <style lang="scss" scoped>
 @import "./src/css/manage";
-@import "./src/css/table";
 </style>

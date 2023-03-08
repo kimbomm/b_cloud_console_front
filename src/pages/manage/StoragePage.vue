@@ -514,6 +514,4 @@ const textDesc = ref(null);
 
 <style lang="scss" scoped>
 @import "./src/css/manage";
-@import "./src/css/table";
-@import "src/css/page.scss";
 </style>

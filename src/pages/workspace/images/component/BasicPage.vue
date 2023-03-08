@@ -27,7 +27,7 @@ const headers = [
   {
     text: "이름",
     value: "base_image.name",
-    width: 1160,
+    width: 800,
     sortable: true,
   },
   {
@@ -48,4 +48,5 @@ defineEmits(["showRow"]);
 <style lang="scss" scoped="scoped">
 @import "src/css/images.scss";
 @import "src/css/table.scss";
+@import "src/css/page.scss";
 </style>

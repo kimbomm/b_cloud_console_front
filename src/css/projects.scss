@@ -1,3 +1,6 @@
+@import "./_utillity.scss";
+@import "./table.scss";
+
 /* Projects */
 @mixin xscrollBar{
   &::-webkit-scrollbar {

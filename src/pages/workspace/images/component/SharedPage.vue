@@ -6,11 +6,13 @@
     empty-message="정보가 없습니다."
   >
     <!-- id -->
-    <template #item-id="item">
-      <span class="txt">{{ item.name }}</span>
+    <template #item-name="item">
+      <a>
+        <span class="txt">{{ item.name }}</span>
+      </a>
     </template>
     <!-- title -->
-    <template #item-title="item">
+    <template #item-description="item">
       <a href="#">
         <span class="txt">{{ item.description }}</span>
         <q-tooltip anchor="bottom middle" class="c_tooltip">
@@ -19,16 +21,16 @@
       </a>
     </template>
     <!-- image -->
-    <template #item-image="item">
+    <template #item-base_image_name="item">
       <span class="txt">{{ item.base_image_name }}</span>
     </template>
 
-    <!-- sharedBy -->
-    <template #item-sharedBy="item">
+    <!-- sharedUserWithEmail -->
+    <template #item-sharedUserWithEmail="item">
       <span class="txt">{{ item.sharedUserWithEmail }}</span>
     </template>
     <!-- sharedAt -->
-    <template #item-sharedAt="item">
+    <template #item-shared_at="item">
       <span class="txt clip">{{ item.shared_at }}</span>
     </template>
   </EasyDataTable>
