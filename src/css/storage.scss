@@ -3,7 +3,6 @@
 
 /* Storage */
 .p-storage{
-  &.p-index{
     .table_set{
       .l_set_inner{
         display: flex;
@@ -76,11 +75,10 @@
       }
     }
   }
-}
+
 
 ::v-deep{
   table{
-    table-layout:fixed;
     .cell.btngroup{min-width: 50px !important;}
   }
 }
