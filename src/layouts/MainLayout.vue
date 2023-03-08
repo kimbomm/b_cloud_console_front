@@ -1,6 +1,7 @@
 <template>
   <q-layout ref="input" view="hHh Lpr lff" class="l-wrap l-console"
   :class="{iconMode: drawer, textMode: sideClick}">
+    <common-setting @load="onLoad"/>
     <q-header class="l-header">
       <q-toolbar>
         <q-btn flat @click="drawer = !drawer" round dense icon="menu" class="c_icon menu" />
@@ -14,7 +15,7 @@
     </aside>
 
     <q-page-container class="l-container">
-      <router-view />
+      <router-view v-if="isLoaded" />
     </q-page-container>
     <c-message-box />
   </q-layout>
@@ -30,6 +31,7 @@ import { useMeta } from "quasar";
 // import { ProjectService } from "src/services";
 // import { $useCmFn } from "src/composables/useCommonFunction.js";
 // import { $utils } from "src/utils/utils";
+import CommonSetting from "components/layout/CommonSetting.vue";
 import TopNav from "components/layout/TopNav.vue";
 import SideBar from "components/layout/SideBar.vue";
 import CMessageBox from "components/common/CMessageBox.vue";
@@ -39,8 +41,13 @@ const metaData = {
   titleTemplate: (title) => `${title} | Brain Cloud`,
 };
 useMeta(metaData);
+const isLoaded = ref(false);
 const drawer = ref(false);
 const sideClick = ref(false);
+
+const onLoad = () => {
+  isLoaded.value = true;
+};
 
 // const route = useRoute();
 // const router = useRouter();
