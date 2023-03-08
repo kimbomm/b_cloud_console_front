@@ -7,7 +7,7 @@
         </template>
         <q-breadcrumbs-el label="Projects" to="/" />
         <q-breadcrumbs-el :label="projectInfo.name" to="/" />
-        <q-breadcrumbs-el label="멤버" />
+        <q-breadcrumbs-el :label="selectedTab" />
       </q-breadcrumbs>
       <h1 class="p-title">
         {{ projectInfo.name }}
@@ -74,7 +74,16 @@
           </div>
 
           <!-- 인스턴스 -->
-          <InstancePage v-if="tabModel ==='instances'" />
+          <div v-show="tabModel === 'instances'">
+            <InstancePage
+              :tabModel="tabModel"
+              @update:instanceTotal="instanceTotal = $event"
+            />
+          </div>
+          <div v-show="tabModel === 'task_gorup'">
+            <TaskPage :tabModel="tabModel" @update:taskTotal="taskTotal = $event" />
+          </div>
+          <div v-show="tabModel === 'member'">333</div>
         </div>
       </div>
     </div>
@@ -180,20 +189,22 @@
   <!-- End : [프로젝트 - 멤버관리] 멤버 - 추가 -->
 </template>
 <script setup>
-import { ref, watch, onMounted } from "vue";
+import {
+  ref, watch, onMounted, computed
+} from "vue";
 import { useMeta } from "quasar";
-import { useRoute, useRouter } from "vue-router";
-import { ProjectService, InstanceService } from "src/services";
+import { useRoute } from "vue-router";
+import { ProjectService } from "src/services";
 
 import ProjectDashboard from "src/components/pages/ProjectDashboard.vue";
 // import CTable from "src/components/common/CTable.vue";
 import CDropdown from "components/common/CDropdown.vue";
 import InstancePage from "src/pages/workspace/projects/components/InstancePage.vue";
+import TaskPage from "src/pages/workspace/projects/components/TaskPage.vue";
 import UpdateProjectPopup from "./components/UpdateProjectPopup.vue";
 import ChangeAllocationPopup from "./components/ChangeAllocationPopup.vue";
 
 const route = useRoute();
-const router = useRouter();
 
 const projectInfo = ref({});
 const getListProject = ref({});
@@ -201,38 +212,25 @@ const newProjectDescription = ref("");
 
 const projectCreateModal = ref(false);
 const quotaChangeModal = ref(false);
+const instanceTotal = ref(0);
+const taskTotal = ref(0);
+const memberTotal = ref(0);
 
-const tabs = [
-  { name: "instances", label: "인스턴스", total: 2 },
-  { name: "task_gorup", label: "태스크", total: 36 },
-  { name: "member", label: "멤버", total: 19 },
-];
+useMeta(() => ({
+  title: projectInfo.value.name,
+}));
+
+const tabs = ref([
+  { name: "instances", label: "인스턴스", total: instanceTotal },
+  { name: "task_gorup", label: "태스크", total: taskTotal },
+  { name: "member", label: "멤버", total: memberTotal },
+]);
 const tabModel = ref("");
 
-const instanceData = ref({
-  project_id: route.params.projectId,
-  page: 1,
-  size: 1,
-  status: ["running", "submitted", "pending"],
-  sort_by: "created_at",
-  order_by: "asc",
-  query: "test",
+const selectedTab = computed(() => {
+  const select = tabs.value.find((tab) => tab.name === tabModel.value);
+  return select ? select.label : "";
 });
-
-const routerPush = () => {
-  router.replace({
-    path: `/workspace/1/projects/${route.params.projectId}`,
-    query: {
-      tab: [tabModel.value],
-      page: instanceData.value.page,
-      size: instanceData.value.size,
-      status: instanceData.value.status.join(","),
-      sort_by: instanceData.value.sort_by,
-      order_by: instanceData.value.order_by,
-      query: instanceData.value.query,
-    },
-  });
-};
 
 // 프로젝트 리스트
 const getUserInfo = async () => {
@@ -241,38 +239,12 @@ const getUserInfo = async () => {
       route.params.workspaceId,
       route.params.projectId
     );
-    routerPush();
-  } catch (error) {
-    router.replace({ name: "NotFound" });
-    throw error;
-  }
-};
-
-/* 인스턴스 리스트 */
-const getInstance = async () => {
-  try {
-    const aaaa = await InstanceService.getIntances(1, instanceData.value);
-    console.log("인스턴스 리스트", aaaa);
-
-    // routerPush();
   } catch (error) {
     console.log(error);
+    // router.replace({ name: "NotFound" }); //없는페이지 에러처리
+    // throw error;
   }
 };
-
-watch(
-  [tabModel],
-  () => {
-    getInstance();
-    routerPush();
-  },
-  { immediate: true }
-);
-
-onMounted(() => {
-  getInstance();
-  tabModel.value = router.currentRoute.value.query.tab;
-});
 
 const getProjectList = async () => {
   try {
@@ -284,31 +256,33 @@ const getProjectList = async () => {
   }
 };
 
-const featchProjectDescripton = (projectId) => {
+// 현재 프로젝트 페이지 정보
+const fetchProjectDescription = (projectId) => {
   const project = getListProject.value.find((p) => p.id === parseInt(projectId, 10));
   newProjectDescription.value = project.description;
 };
 
-const userInfoUpdate = async () => {
-  await getUserInfo();
+const updateInfo = async () => {
   await getProjectList();
-  await featchProjectDescripton(route.params.projectId);
+  await fetchProjectDescription(route.params.projectId);
 };
+
+const setTabModel = () => {
+  tabModel.value = route.query.tab || "instances";
+};
+
+onMounted(() => {
+  setTabModel();
+});
 
 watch(
   () => route.params.projectId,
   async () => {
-    tabModel.value = "instances";
-    userInfoUpdate();
-    await getInstance();
+    setTabModel();
+    await Promise.all([updateInfo(), getUserInfo()]);
   },
-
   { immediate: true }
 );
-
-useMeta(() => ({
-  title: projectInfo.value.name,
-}));
 
 const projectMemberAddModal = ref(false);
 const memberSelOptions = ["프로젝트 관리자", "멤버"];
