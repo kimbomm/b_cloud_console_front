@@ -531,7 +531,7 @@ const groupHeaders = [
   {
     text: "생성자",
     value: "constructor",
-    width: 260,
+    width: 265,
     sortable: true,
   },
   { text: "", value: "buttons", width: 80 },

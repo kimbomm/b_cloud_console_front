@@ -367,6 +367,11 @@ const headers = [
     sortable: true,
   },
   {
+    text: "유형",
+    value: "type",
+    width: 100,
+  },
+  {
     text: "소유자",
     value: "user",
     width: 110,
@@ -396,6 +401,7 @@ const items = [
   {
     title: "aa프로젝트",
     desc: "개인이용 35자 이후 점처리",
+    type: "개인",
     user: "Root.choi",
     status: "running",
     usage: "45 / 100GiB",
@@ -414,6 +420,7 @@ const items = [
   {
     title: "aa프로젝트",
     desc: "개인이용 35자 이후 점처리",
+    type: "관리자생성",
     user: "Root.choi",
     status: "running_s",
     usage: "45 / 100GiB",
@@ -429,6 +436,7 @@ const items = [
   {
     title: "aa프로젝트",
     desc: "개인이용 35자 이후 점처리",
+    type: "개인",
     user: "Root.choi",
     status: "making",
     usage: "45 / 100GiB",
@@ -444,6 +452,7 @@ const items = [
   {
     title: "aa프로젝트",
     desc: "개인이용 35자 이후 점처리",
+    type: "개인",
     user: "Root.choi",
     status: "deleting",
     usage: "45 / 100GiB",
@@ -459,6 +468,7 @@ const items = [
   {
     title: "aa프로젝트",
     desc: "개인이용 35자 이후 점처리개인이용 35자 이후 점처리개인이용 35자 이후 점처리",
+    type: "관리장생성",
     user: "Root.choi",
     status: "restoring",
     usage: "45 / 100GiB",
