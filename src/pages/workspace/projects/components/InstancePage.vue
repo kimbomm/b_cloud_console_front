@@ -4,11 +4,10 @@
       <div class="l_set_inner">
         <div class="c_inpgroup">
           <c-input-text
-            v-model:value="inputValue"
+            v-model:value="searchData.query"
             placeholder="이름, 상태, 생성자 검색"
             hint=""
             class="wsize_full"
-            @update:value="inputValue = $event"
             :clearable="true"
           >
             <template v-slot:prepend>
@@ -18,12 +17,22 @@
         </div>
 
         <div class="c_selectgroup">
-          <CDropdown
+          <!-- <CDropdown
             v-model:selected="selectedCheck"
             :label="label"
             :options="options"
             :multiple="true"
+          /> -->
+          <!-- 임시추가 -->
+          <q-select
+            v-model="searchData.status"
+            multiple
+            :options="statusOption"
+            :label="label"
+            style="width: 250px"
+
           />
+
         </div>
       </div>
 
@@ -41,10 +50,11 @@
 
         <div class="view_cont_num">
           <CDropdown
-            v-model:selected="selectedBasic"
+            v-model:selected="dataparamStatus"
             :label="label2"
             :options="options2"
           />
+
         </div>
       </div>
     </div>
@@ -168,7 +178,9 @@
   </template>
 </template>
 <script setup>
-import { ref, watch, computed } from "vue";
+import {
+  ref, watch, computed, onMounted,
+} from "vue";
 import { InstanceService } from "src/services";
 import { useRoute, useRouter } from "vue-router";
 import { throttle } from "lodash";
@@ -177,7 +189,6 @@ import CPagination from "components/common/CPagination.vue";
 import CDropdown from "components/common/CDropdown.vue";
 import CInputText from "components/common/CInputText.vue";
 
-const inputValue = ref("");
 const route = useRoute();
 const router = useRouter();
 const projectList = ref([]);
@@ -186,18 +197,26 @@ const isDefaultData = computed(() => !!projectList.value?.length);
 const props = defineProps({
   tabModel: String,
 });
-
 const emit = defineEmits(["update:instanceTotal"]);
 
-const dataParams = ref({
-  project_id: route.params.projectId,
-  page: 1,
-  size: 1,
-  status: ["running", "submitted", "pending"],
-  sort_by: "created_at",
-  order_by: "asc",
-  query: "안녕",
-});
+const dataParams = ref({});
+
+const statusOption = ref([
+  { label: "전체", value: 0, status: [] },
+  { label: "대기중", value: 1, status: ["pending", "submitted"] },
+  { label: "시작중", value: 2, status: ["starting"] },
+  { label: "운영중", value: 3, status: ["running"] },
+  { label: "정지중", value: 4, status: ["stopping"] },
+  { label: "정지", value: 5, status: ["stopped"] },
+  { label: "삭제중", value: 6, status: ["deleting"] },
+  { label: "삭제예정(D-N)", value: 6, status: ["stopped ", "error"] },
+
+]);
+const options2 = ref([
+  { label: "10", value: 0 },
+  { label: "25", value: 1 },
+  { label: "50", value: 2 },
+]);
 
 /* 인스턴스 리스트 */
 const getInstances = async () => {
@@ -206,70 +225,120 @@ const getInstances = async () => {
       route.params.projectId,
       dataParams.value
     );
+
     projectList.value = result.instances;
-    console.log("projectList.valueprojectList.valueprojectList.value", projectList.value);
+
     emit("update:instanceTotal", result.total);
   } catch (error) {
     console.log(error);
   }
 };
 
+const searchData = ref({
+  query: "",
+  status: []
+});
+const initRouterData = () => {
+  dataParams.value = {
+    page: 1,
+  };
+
+  searchData.value = {
+    query: "",
+    status: []
+  };
+};
+
+const setRouterData = () => {
+  const { tab, ...query } = route.query;
+
+  searchData.value = query;
+  dataParams.value = {
+    ...query,
+    // query: "test5" //필터링 테스트
+  };
+};
+
 const routerPush = () => {
+  const query = {
+    tab: props.tabModel,
+    ...dataParams.value
+  };
+
   router.replace({
     path: `/workspace/${route.params.workspaceId}/projects/${route.params.projectId}`,
-    query: {
-      tab: [props.tabModel],
-      page: dataParams.value.page,
-      size: dataParams.value.size,
-      status: dataParams.value.status.join(","),
-      sort_by: dataParams.value.sort_by,
-      order_by: dataParams.value.order_by,
-      query: dataParams.value.query,
-    },
+    query,
   });
 };
 
-const updateSearchResults = () => {
-  console.log("Search results:", dataParams.value.query);
-  getInstances();
+watch(
+  () => searchData.value,
+  (newValue) => {
+    // 검색어 0.8초 간격으로 함수 호출
+    if (newValue.query) {
+      throttle(() => {
+        dataParams.value.query = newValue.query;
+      }, 800)();
+    }
+    if (newValue.status) {
+      const isStatus = newValue.status.some((item) => Object.keys(item).includes("status"));
+      if (isStatus) {
+        const result = newValue.status.map((item) => item.status).flat();
+        console.log("result", result);
+        dataParams.value.status = result;
+      } else {
+        const statusOption2 = statusOption.value.filter((option) => newValue.status.some((status) => option.status.includes(status)));
+        searchData.value.status = statusOption2;
+        console.log("statusOption2", statusOption2);
+      }
+    }
+  },
+  { deep: true }
+);
+
+const isCurrentTab = props.tabModel === "instances";
+
+watch(
+  () => dataParams.value,
+  () => {
+    routerPush();
+    getInstances();
+  },
+  { deep: true }
+);
+
+onMounted(() => {
+  if (isCurrentTab) {
+    setRouterData();
+  }
+});
+
+const updateInstances = () => {
+  initRouterData();
   routerPush();
 };
 
-// 검색어 0.5초 간격으로 함수 호출
-watch(
-  inputValue,
-  throttle((newValue) => {
-    if (newValue !== dataParams.value.query) {
-      dataParams.value.query = newValue;
-      updateSearchResults();
-    }
-  }, 500)
-);
-
 watch(
   () => props.tabModel,
-  (newValue) => {
-    if (newValue === "instances") {
-      routerPush();
-      getInstances();
+  async () => {
+    if (isCurrentTab) {
+      updateInstances();
     }
-  },
-  { immediate: true }
+  }
 );
 
 watch(
   () => route.params.projectId,
   async () => {
-    if (props.tabModel === "instances") {
-      routerPush();
-      getInstances();
+    if (route.name === "ProjectList" && isCurrentTab) {
+      updateInstances();
     }
   }
 );
 
 const label = ref("전체");
 const label2 = ref("10");
-const selectedCheck = ref(null);
+// const selectedCheck = ref(null);
 const nDay = ref(7);
 
 const headers = [
@@ -524,19 +593,6 @@ const onActions = (eventName, rowData) => {
 const showRow = (item) => {
   console.log(item);
 };
-
-const options = ref([
-  { label: "전체", value: 0 },
-  { label: "운영중", value: 1 },
-  { label: "정지중", value: 2 },
-  { label: "삭제중", value: 3 },
-  { label: "삭제", value: 4 },
-]);
-const options2 = ref([
-  { label: "10", value: 0 },
-  { label: "25", value: 1 },
-  { label: "50", value: 2 },
-]);
 </script>
 
 <style lang="scss" scoped>
