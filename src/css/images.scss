@@ -2,9 +2,7 @@
 @import "./table.scss";
 ::v-deep{
 table{
-  table-layout:fixed;
   .cell.btngroup{min-width: 50px !important;}
-  .txt.clip{max-width: inherit;}
 }
 
 }

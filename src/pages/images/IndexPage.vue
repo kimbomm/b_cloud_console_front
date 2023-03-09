@@ -57,7 +57,7 @@
             </template>
             <!-- title -->
             <template #item-title="item">
-              <a href="#">
+              <a>
                 <span class="txt">{{ item.title }}</span>
                 <q-tooltip anchor="bottom middle" class="c_tooltip">
                   <div class="inner">
@@ -89,7 +89,7 @@
             </template>
             <!-- image -->
             <template #item-base_image="item">
-              <a href="#">
+              <a>
                 <span class="txt">{{ item.base_image }}</span>
               </a>
             </template>

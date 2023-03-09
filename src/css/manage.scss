@@ -1,7 +1,6 @@
 @import "./_utillity.scss";
 @import "./table.scss";
 
-
 /* Workspace Manager */
 @mixin xscrollBar{
   &::-webkit-scrollbar {
@@ -382,7 +381,6 @@
 
 ::v-deep{
   table{
-    table-layout:fixed;
     .cell.btngroup{min-width: 50px !important;}
   }
 }
