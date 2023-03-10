@@ -169,7 +169,6 @@ const onUpdateInput = async () => {
   setTimeout(() => {
     const el = inputRef.value.getNativeElement();
     el.addEventListener("input", (e) => {
-      console.log("e", e.target.value);
       lazyValue.value = e.target.value;
       emit("update:value", e.target.value);
     });
