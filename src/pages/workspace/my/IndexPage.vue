@@ -336,7 +336,8 @@
           <label class="c_file btntype absolute top-20 right">
             <input
               type="file"
-              @update:model-value="val => { files = val }"
+              accept=".pub, .txt"
+              @change="onSshUpload"
             />
             <span class="file_text">파일업로드</span>
           </label>
@@ -797,6 +798,18 @@ const onApiDelete = () => {
   });
 };
 
+/**
+ * 설명: ssh key 파일 업로드
+ */
+const onSshUpload = (event) => {
+  const file = event.target.files[0];
+  const reader = new FileReader();
+  reader.readAsText(file);
+
+  reader.onload = () => {
+    sshKey.value = reader.result;
+  };
+};
 </script>
 
 <style lang="scss" scoped>
