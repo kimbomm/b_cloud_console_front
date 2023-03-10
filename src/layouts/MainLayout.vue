@@ -86,7 +86,7 @@ const getUserProjects = async (workspaceId) => {
   projectMenu.value = sortedList.map((data) => ({
     type: "pjtsub",
     label: data.name,
-    path: `/workspace/${workspaceId}/projects/${data.id}`,
+    path: `workspace/${workspaceId}/projects/${data.id}`,
   }));
 };
 
