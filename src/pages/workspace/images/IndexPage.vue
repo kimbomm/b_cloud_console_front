@@ -191,8 +191,6 @@ const commonStore = useCommonStore();
 
 const route = useRoute();
 const { workspaceId } = route.params;
-
-projectsStore.workspaceId = workspaceId;
 const workspaceName = ref("");
 
 const getUserWorkspace = async () => {
@@ -460,7 +458,7 @@ const getSahredImage = async (imgId) => {
 
 const makeSharedImage = async (value) => {
   const imgList = await getSahredImage(value.id);
-  const result = projectsStore.projects.map((project) => ({
+  const result = projectsStore.useProjects.map((project) => ({
     ...project,
     checked: !!imgList.find((image) => image.id === project.id),
   }));

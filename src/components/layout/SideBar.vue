@@ -273,23 +273,26 @@
 </template>
 <script setup>
 import {
-  ref, onMounted, watch, reactive
+  ref,
+  watch,
+  reactive,
+  defineEmits,
 } from "vue";
 import { AuthService, ProjectService } from "src/services";
 import { googleLogout } from "vue3-google-login";
 import { $useCmFn } from "src/composables/useCommonFunction.js";
-import { useProjectsStore } from "src/stores/useProjectStore";
 import { useRoute } from "vue-router";
 import CInputText from "components/common/CInputText.vue";
 
-const projectsStore = useProjectsStore();
-
+const props = defineProps({
+  projectMenu: {
+    type: Array,
+    default: () => []
+  }
+});
+const emit = defineEmits(["updateMenu"]);
+const route = useRoute();
 const menuList = ref([]);
-const { params } = useRoute();
-const { workspaceId } = params;
-
-projectsStore.workspaceId = workspaceId;
-
 const itemSelected = ref(false);
 const projectCreateModal = ref(false);
 const pjtToggle = ref(false);
@@ -443,7 +446,7 @@ watch(
 // 프로젝트 리스트 이름 메뉴에 추가
 const addMenuPjtProjects = () => {
   if (pjtTypeItem) {
-    menuList.value = projectsStore.projectMenu;
+    menuList.value = props.projectMenu;
     pjtTypeItem.children = menuList.value;
 
     const pjtTypeMap = new Map();
@@ -453,12 +456,6 @@ const addMenuPjtProjects = () => {
       }
     });
   }
-};
-
-// 비동기 처리
-const useGetUserInfo = async () => {
-  await projectsStore.getUserInfo();
-  addMenuPjtProjects();
 };
 
 const resetInputs = () => {
@@ -486,11 +483,12 @@ const newProject = async () => {
     name: projectName.value,
   };
   try {
+    const { workspaceId } = route.params;
     await ProjectService.createProject(workspaceId, dataParams);
     setTimeout(() => {
       triggerSuccess();
     }, 200);
-    await useGetUserInfo();
+    await emit("updateMenu");
   } catch (e) {
     triggerFail();
   }
@@ -506,12 +504,8 @@ const onMenuClick = () => {
   AuthService.postLogout();
 };
 
-onMounted(() => {
-  useGetUserInfo();
-});
-
-watch(() => projectsStore.projectMenu, () => {
-  menuList.value = projectsStore.projectMenu;
+watch(() => props.projectMenu, () => {
+  menuList.value = props.projectMenu;
   addMenuPjtProjects();
 }, { deep: true });
 

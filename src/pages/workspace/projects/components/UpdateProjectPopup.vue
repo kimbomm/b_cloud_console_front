@@ -66,16 +66,15 @@ import { useRoute } from "vue-router";
 import { $useCmFn } from "src/composables/useCommonFunction.js";
 
 import CInputText from "src/components/common/CInputText.vue";
-import { useProjectsStore } from "src/stores/useProjectStore";
+import { useProjectStore } from "src/stores/useProjectStore";
 
-const projectsStore = useProjectsStore();
+const projectsStore = useProjectStore();
 
 const props = defineProps({
   projectCreateModal: Boolean,
   projectInfo: Object,
   getListProject: Array,
   newProjectDescription: String
-
 });
 
 const emit = defineEmits(["userInfoUpdate"]);
@@ -83,7 +82,6 @@ const { RefDscription } = toRefs(props);
 
 const route = useRoute();
 const { workspaceId, projectId } = route.params;
-projectsStore.workspaceId = workspaceId;
 
 const projectName = ref("");
 const projectDescription = ref("");
@@ -178,7 +176,7 @@ const updateProject = async () => {
     await ProjectService.updateProject(workspaceId, projectId, params);
     setTimeout(() => {
       triggerSuccess();
-      emit("userInfoUpdate");
+      emit("updateProject");
     }, 100);
   } catch (e) {
     triggerFail();
@@ -195,10 +193,5 @@ watchEffect(() => {
     resetProject();
   }
 });
-
-watch(() => useProjectsStore.projects, () => {
-  console.log("수정");
-  useProjectsStore.getUserInfo(workspaceId);
-}, { deep: true });
 
 </script>
