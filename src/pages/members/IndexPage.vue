@@ -19,7 +19,7 @@
               outlined
               v-model="suffix"
               placeholder="이름 이메일 검색"
-              class="wsize292"
+              class="w292"
               >
                 <template v-slot:prepend>
                   <q-icon name="search" class="ico_search" />
@@ -29,6 +29,7 @@
                 v-model:selected="selectedBasic"
                 :label="label"
                 :options="options"
+                class="w220"
               />
           </div>
           <div class="r_set_inner">
@@ -36,6 +37,7 @@
               :outline="true"
               :size="'medium'"
               :btn-names="'멤버추가'"
+              class="btn"
               >
               <template #prepend>
                 <i class="ico plus"></i>
@@ -46,6 +48,7 @@
               :outline="true"
               disabled
               :btn-names="'멤버삭제'"
+              class="btn"
               >
               <template #prepend>
                 <i class="ico plus" />
@@ -55,11 +58,13 @@
               v-model:selected="selectedBasic"
               :label="label3"
               :options="options2"
+              class="auto_size"
               />
           </div>
         </div>
         <!-- Table -->
-        <EasyDataTable
+        <div class="table_inner">
+          <EasyDataTable
             class="c_table"
             :headers="headers"
             :items="items"
@@ -131,81 +136,75 @@
             </template>
           </EasyDataTable>
           <c-pagination />
+        </div>
         <!-- //Table -->
       </template>
       <!-- /* 멤버 - 메인(워크스페이스 멤버/정산관리자,게스트) */ -->
       <template v-else>
-        <div class="flex-top table-set">
-          <div class="set-l set">
-            <div class="set-l_left">
-              <q-input
-                outlined
-                v-model="suffix"
-                placeholder="이름 상태 생성자 검색"
-                class="member-input"
+        <div class="table_set">
+          <div class="l_set_inner">
+            <q-input
+              outlined
+              v-model="suffix"
+              placeholder="이름 이메일 검색"
+              class="w292"
               >
-                <template v-slot:prepend>
-                  <q-icon name="search" class="ico_search" />
-                </template>
-              </q-input>
-            </div>
-            <div class="set-l_right">
-              <c-dropdown
-                v-model:selected="selectedBasic"
-                :label="label2"
-                :options="options"
-              />
-            </div>
+              <template v-slot:prepend>
+                <q-icon name="search" class="ico_search" />
+              </template>
+            </q-input>
+            <c-dropdown
+              v-model:selected="selectedBasic"
+              :label="label2"
+              :options="options"
+              class="w220"
+            />
           </div>
-          <div class="set-r set">
-            <div class="set-btn">
-              <c-button
-                :outline="true"
-                :size="'medium'"
-                :btn-names="'멤버 초대 요청'"
-              >
-                <template #prepend>
-                  <i class="ico plus"></i>
-                </template>
-              </c-button>
-            </div>
-            <div class="set-btn select-d">
-              <c-dropdown
-                v-model:selected="selectedBasic"
-                :label="label3"
-                :options="options2"
-              />
-            </div>
+          <div class="r_set_inner">
+            <c-button
+              :outline="true"
+              :size="'medium'"
+              :btn-names="'멤버 초대 요청'"
+              class="btn"
+            >
+              <template #prepend>
+                <i class="ico plus"></i>
+              </template>
+            </c-button>
+            <c-dropdown
+              v-model:selected="selectedBasic"
+              :label="label3"
+              :options="options2"
+              class="auto_size"
+            />
           </div>
         </div>
         <!-- Table -->
-        <section class="section">
-          <EasyDataTable
-            :headers="headers2"
-            :items="items2"
-            :hide-footer="true"
-            empty-message="정보가 없습니다."
-            @click-row="showRow"
-          >
-          <!-- name -->
-          <template #item-name="item">
-            <span class="txt">{{ item.name.title }}</span>
-          </template>
-          <!-- email -->
-          <template #item-email="item">
-            <span class="txt">{{ item.email }}</span>
-          </template>
-          <!-- workspaceChar -->
-          <template #item-workspaceChar="item">
-            <span class="txt">{{ item.workspaceChar }}</span>
-          </template>
-          <!-- introduce -->
-          <template #item-introduce="item">
-            <span class="txt">{{ item.introduce }}</span>
-          </template>
-        </EasyDataTable>
-        <c-pagination />
-      </section>
+        <EasyDataTable
+          :headers="headers2"
+          :items="items2"
+          :hide-footer="true"
+          empty-message="정보가 없습니다."
+          @click-row="showRow"
+        >
+        <!-- name -->
+        <template #item-name="item">
+          <span class="txt">{{ item.name.title }}</span>
+        </template>
+        <!-- email -->
+        <template #item-email="item">
+          <span class="txt">{{ item.email }}</span>
+        </template>
+        <!-- workspaceChar -->
+        <template #item-workspaceChar="item">
+          <span class="txt">{{ item.workspaceChar }}</span>
+        </template>
+        <!-- introduce -->
+        <template #item-introduce="item">
+          <span class="txt">{{ item.introduce }}</span>
+        </template>
+      </EasyDataTable>
+      <c-pagination />
         <!-- //Table -->
       </template>
     </div>
@@ -218,7 +217,7 @@ import CDropdown from "components/common/CDropdown.vue";
 import CButton from "components/common/CButton.vue";
 import CPagination from "components/common/CPagination.vue";
 
-const defaultData = ref(true);
+const defaultData = ref(false);
 const title = ref("워크스페이스 1 Member");
 const label = ref("전체");
 const label2 = ref("역할전체");

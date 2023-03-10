@@ -48,134 +48,121 @@
       </p>
     </div>
     <!-- //.chead -->
-    <div class="p-body">
-      <div class="wrap p-memberInd">
-        <ProjectDashboard />
+    <div class="p-body p-memberInd">
+      <ProjectDashboard />
 
-        <div class="com_m_cont">
-          <div class="change_tab_btn">
-            <q-tabs
-              v-model="tab"
-              align="left"
-              class="c_tabs"
+      <q-tabs
+        v-model="tab"
+        align="left"
+        class="c_tabs"
+      >
+        <q-tab
+          name="tabs1"
+          label="인스턴스"
+        >
+          <q-badge>36</q-badge>
+        </q-tab>
+        <q-tab
+          name="tabs2"
+          label="태스크"
+        >
+          <q-badge>19</q-badge>
+        </q-tab>
+        <q-tab
+          name="tabs3"
+          label="멤버"
+        >
+          <q-badge>0</q-badge>
+        </q-tab>
+      </q-tabs>
+      <div class="table_set">
+        <div class="l_set_inner">
+          <div class="c_inpgroup">
+            <q-input
+              outlined
+              v-model="suffix"
+              placeholder="이름, 상태, 생성자 검색"
             >
-              <q-tab
-                name="tabs1"
-                label="인스턴스"
-              >
-                <q-badge>36</q-badge>
-              </q-tab>
-              <q-tab
-                name="tabs2"
-                label="태스크"
-              >
-                <q-badge>19</q-badge>
-              </q-tab>
-              <q-tab
-                name="tabs3"
-                label="멤버"
-              >
-                <q-badge>0</q-badge>
-              </q-tab>
-            </q-tabs>
+              <template v-slot:prepend>
+                <q-icon
+                  name="search"
+                  class="ico_search"
+                />
+              </template>
+            </q-input>
           </div>
-            <div class="table_set">
-              <div class="l_set_inner">
-                <div class="c_inpgroup">
-                  <q-input
-                    outlined
-                    v-model="suffix"
-                    placeholder="이름, 상태, 생성자 검색"
-                  >
-                    <template v-slot:prepend>
-                      <q-icon
-                        name="search"
-                        class="ico_search"
-                      />
-                    </template>
-                  </q-input>
-                </div>
-              </div>
-
-              <div class="r_set_inner">
-                <div class="instance_make_btn">
-                  <q-btn
-                    btnTypes=4
-                    type="button"
-                    class="c_btn line medium"
-                    @click="projectMemberAddModal = true"
-                  >
-                    <span class="txt">멤버 추가하기</span>
-                  </q-btn>
-                </div>
-
-                <div class="view_cont_num">
-                  <CDropdown
-                    v-model:selected="selectedBasic"
-                    :label="label2"
-                    :options="options2"
-                  />
-                </div>
-              </div>
-            </div>
-            <div class="table_area">
-              <EasyDataTable
-                v-model:items-selected="itemsSelected"
-                :headers="headers"
-                :items="items"
-                :hide-footer="true"
-                :body-row-class-name="bodyRowClassNameFunction"
-                empty-message="정보가 없습니다."
-              >
-                <!-- title -->
-                <template #item-title="item">
-                  <span class="txt">{{ item.title }}</span>
-                </template>
-                <!-- email -->
-                <template #item-email="item">
-                  <span class="txt">{{ item.email }}</span>
-                </template>
-                <!-- authority -->
-                <template #item-authority="item">
-                  <span class="txt">{{ item.authority }}</span>
-                </template>
-                <!-- costumer -->
-                <template #item-costumer="item">
-                  <span class="txt">{{ item.costumer }}</span>
-                </template>
-                <!-- 버튼 그룹 -->
-                <template #item-buttons="item">
-                  <div v-if="actionButtons" class="cell btngroup">
-                    <q-btn class="c_btn ibtn dot">
-                      <i class="ico dots" /><span class="txt">클릭</span>
-                      <q-popup-edit
-                        v-model="item.id"
-                        class="dots_menu"
-                        anchor="top right"
-                      >
-                        <q-list style="min-width: 100px">
-                          <q-item
-                            v-for="button in actionButtons"
-                            :key="button.name"
-                          >
-                            <q-btn
-                              class="item"
-                              @click="onActions(button.event, item)"
-                            >
-                              <span class="txt">{{ button.name }}</span>
-                            </q-btn>
-                          </q-item>
-                        </q-list>
-                      </q-popup-edit>
-                    </q-btn>
-                  </div>
-                </template>
-              </EasyDataTable>
-            </div>
-            <div class="table_pagenav disflex_C">
-              <CPagination />
-            </div>
         </div>
+
+        <div class="r_set_inner">
+          <c-button
+            :size="'medium'"
+            :outline="true"
+            :btn-names="'멤버 추가하기'"
+            class="make"
+            @click="projectMemberAddModal = true"
+          />
+          <c-dropdown
+            v-model:selected="selectedBasic"
+            :label="label2"
+            :options="options2"
+            class="auto_size"
+          />
+        </div>
+      </div>
+      <div class="table_inner">
+        <EasyDataTable
+          v-model:items-selected="itemsSelected"
+          :headers="headers"
+          :items="items"
+          :hide-footer="true"
+          :body-row-class-name="bodyRowClassNameFunction"
+          empty-message="정보가 없습니다."
+        >
+          <!-- title -->
+          <template #item-title="item">
+            <span class="txt">{{ item.title }}</span>
+          </template>
+          <!-- email -->
+          <template #item-email="item">
+            <span class="txt">{{ item.email }}</span>
+          </template>
+          <!-- authority -->
+          <template #item-authority="item">
+            <span class="txt">{{ item.authority }}</span>
+          </template>
+          <!-- costumer -->
+          <template #item-costumer="item">
+            <span class="txt">{{ item.costumer }}</span>
+          </template>
+          <!-- 버튼 그룹 -->
+          <template #item-buttons="item">
+            <div v-if="actionButtons" class="cell btngroup">
+              <q-btn class="c_btn ibtn dot">
+                <i class="ico dots" /><span class="txt">클릭</span>
+                <q-popup-edit
+                  v-model="item.id"
+                  class="dots_menu"
+                  anchor="top right"
+                >
+                  <q-list style="min-width: 100px">
+                    <q-item
+                      v-for="button in actionButtons"
+                      :key="button.name"
+                    >
+                      <q-btn
+                        class="item"
+                        @click="onActions(button.event, item)"
+                      >
+                        <span class="txt">{{ button.name }}</span>
+                      </q-btn>
+                    </q-item>
+                  </q-list>
+                </q-popup-edit>
+              </q-btn>
+            </div>
+          </template>
+        </EasyDataTable>
+        <c-pagination />
       </div>
     </div>
   </q-page>
@@ -302,6 +289,7 @@ import { ref } from "vue";
 import { useMeta } from "quasar";
 import ProjectDashboard from "src/components/pages/ProjectDashboard.vue";
 // import CTable from "src/components/common/CTable.vue";
+import CButton from "src/components/common/CButton.vue";
 import CPagination from "components/common/CPagination.vue";
 import CDropdown from "components/common/CDropdown.vue";
 

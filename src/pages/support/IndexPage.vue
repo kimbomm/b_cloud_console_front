@@ -12,10 +12,13 @@
     </div>
     <!-- //.chead -->
     <div class="p-body">
-      <div class="flex-top">
-        <p class="sub-text">문의내역</p>
-        <c-button :size="'medium'" :outline="true" :btn-names="'문의하기'" />
-      </div>
+      <p class="sub-text">문의내역</p>
+      <c-button
+        :size="'medium'"
+        :outline="true"
+        :btn-names="'문의하기'"
+        class="top_btn"
+      />
       <div class="table_inner">
         <EasyDataTable
           :headers="headers"

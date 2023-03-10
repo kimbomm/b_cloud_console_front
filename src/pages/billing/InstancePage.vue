@@ -8,140 +8,127 @@
         <q-breadcrumbs-el label="Billing" to="/billing/" />
         <q-breadcrumbs-el label="비용상세(관리자 전용)" to="/billing/instance" />
       </q-breadcrumbs>
-      <div class="top-btn">
-        <h1 class="p-title">{{ ptitle }}</h1>
-        <div class="csv_btn">
-          <c-button
-            :outline="true"
-            :size="'medium'"
-            :btn-names="btnName"
-          >
-            <template #prepend>
-              <i class="ico plus"></i>
-            </template>
-          </c-button>
-        </div>
-      </div>
+      <h1 class="p-title">{{ ptitle }}</h1>
+      <c-button
+        :outline="true"
+        :size="'small'"
+        :btn-names="'CSV 다운로드'"
+        class="top_btn down"
+      >
+        <template #prepend>
+          <i class="ico plus"></i>
+        </template>
+      </c-button>
     </div>
     <!-- //.chead -->
     <div class="p-body">
-      <div class="group-date">
-        <div class="fakebg">
-          <div class="from">
-            <q-input
-              outlined
-              v-model="dateFrom"
-              placeholder="2023.01.01"
-              class="inp_calendar"
-            >
-              <template v-slot:prepend>
-                <q-icon class="ico_calendar">
-                  <q-popup-proxy :offset="[0, 0]" class="c_datepicker">
-                    <q-date
-                      v-model="dateFrom"
-                      mask="YYYY.MM.DD"
-                      class="datepicker"
-                    />
-                    </q-popup-proxy>
-                  </q-icon>
-                </template>
-              </q-input>
-            </div>
-            <i class="bar" />
-            <div class="to">
-              <q-input
-                outlined
-                v-model="dateTo"
-                placeholder="2023.01.01"
-                class="inp_calendar"
-              >
-                <template v-slot:prepend>
-                  <q-icon class="ico_calendar">
-                    <q-popup-proxy
-                      :offset="[150, 0]"
-                      class="c_datepicker"
-                    >
-                    <q-date
-                      v-model="dateTo"
-                      mask="YYYY.MM.DD"
-                      class="datepicker"
-                    />
+      <div class="fakebg w292 mb40">
+        <div class="from">
+          <q-input
+            outlined
+            v-model="dateFrom"
+            placeholder="2023.01.01"
+            class="inp_calendar"
+          >
+            <template v-slot:prepend>
+              <q-icon class="ico_calendar">
+                <q-popup-proxy :offset="[0, 0]" class="c_datepicker">
+                  <q-date
+                    v-model="dateFrom"
+                    mask="YYYY.MM.DD"
+                    class="datepicker"
+                  />
                   </q-popup-proxy>
                 </q-icon>
               </template>
             </q-input>
           </div>
+          <i class="bar" />
+          <div class="to">
+            <q-input
+              outlined
+              v-model="dateTo"
+              placeholder="2023.01.01"
+              class="inp_calendar"
+            >
+              <template v-slot:prepend>
+                <q-icon class="ico_calendar">
+                  <q-popup-proxy
+                    :offset="[150, 0]"
+                    class="c_datepicker"
+                  >
+                  <q-date
+                    v-model="dateTo"
+                    mask="YYYY.MM.DD"
+                    class="datepicker"
+                  />
+                </q-popup-proxy>
+              </q-icon>
+            </template>
+          </q-input>
         </div>
       </div>
       <div class="pay-info mb40">
         <p class="pay-amount">워크스페이스 총 비용</p>
         <p class="pay"><span>39,220,000</span>&nbsp;원</p>
       </div>
-      <div class="ins-wrap">
-        <div class="group-tabs">
-          <q-tabs
-            v-model="tab"
-            align="left"
-            class="c_tabs"
-          >
-            <q-tab name="tabs1" label="멤버"></q-tab>
-            <q-tab name="tabs2" label="프로젝트"></q-tab>
-            <q-tab name="tabs3" label="인스턴스 타입"></q-tab>
-            <q-tab name="tabs4" label="스토리지"></q-tab>
-          </q-tabs>
-        </div>
-        <div class="table_set">
-          <c-dropdown
-            v-model:selected="selectedBasic"
-            :label="optLabel"
-            :options="optNumber"
-            class="auto_size"
-          />
-        </div>
+      <div class="table_set">
+        <q-tabs
+          v-model="tab"
+          align="left"
+          class="c_tabs"
+        >
+          <q-tab name="tabs1" label="멤버"></q-tab>
+          <q-tab name="tabs2" label="프로젝트"></q-tab>
+          <q-tab name="tabs3" label="인스턴스 타입"></q-tab>
+          <q-tab name="tabs4" label="스토리지"></q-tab>
+        </q-tabs>
+        <c-dropdown
+          v-model:selected="selectedBasic"
+          :label="optLabel"
+          :options="optNumber"
+          class="auto_size"
+        />
       </div>
       <template v-if="defaultData == true">
-        <div class="group-load">
-          <section class="section">
-            <EasyDataTable
-              :headers="headers"
-              :items="items"
-              :hide-footer="true"
-              empty-message="정보가 없습니다."
-              @click-row="showRow"
-            >
-              <!-- type -->
-              <template #item-type="item">
-                <span class="txt">{{ item.type }}</span>
-              </template>
-              <!-- typeDetail -->
-              <template #item-typeDetail="item">
-                <span class="txt">{{ item.typeDetail }}</span>
-              </template>
-              <!-- useHours -->
-              <template #item-useHours="item">
-                <span class="txt">{{ item.useHours }}</span>
-              </template>
-              <!-- useageFee -->
-              <template #item-useageFee="item">
-                <span class="txt">{{ item.useageFee }}</span>
-              </template>
-            </EasyDataTable>
-            <c-pagination />
-          </section>
+        <div class="table_inner">
+          <EasyDataTable
+            :headers="headers"
+            :items="items"
+            :hide-footer="true"
+            empty-message="정보가 없습니다."
+            @click-row="showRow"
+          >
+            <!-- type -->
+            <template #item-type="item">
+              <span class="txt">{{ item.type }}</span>
+            </template>
+            <!-- typeDetail -->
+            <template #item-typeDetail="item">
+              <span class="txt">{{ item.typeDetail }}</span>
+            </template>
+            <!-- useHours -->
+            <template #item-useHours="item">
+              <span class="txt">{{ item.useHours }}</span>
+            </template>
+            <!-- useageFee -->
+            <template #item-useageFee="item">
+              <span class="txt">{{ item.useageFee }}</span>
+            </template>
+          </EasyDataTable>
+          <c-pagination />
         </div>
       </template>
       <!-- 서비스 준비중입니다. -->
       <template v-else>
-        <div class="group-load">
-          <section class="section">
-            <EasyDataTable
-              :headers="headers"
-              :items="nodata"
-              :hide-footer="true"
-              :body-row-class-name="bodyRowClassNameFunction"
-              empty-message="서비스 준비중입니다."
-            />
-          </section>
+        <div class="table_inner">
+          <EasyDataTable
+            :headers="headers"
+            :items="nodata"
+            :hide-footer="true"
+            :body-row-class-name="bodyRowClassNameFunction"
+            empty-message="서비스 준비중입니다."
+          />
         </div>
       </template>
     </div>
@@ -156,7 +143,6 @@ import CPagination from "components/common/CPagination.vue";
 
 const defaultData = ref(true);
 const title = ref("워크스페이스 이용 요금");
-const btnName = ref("CSV 다운로드");
 
 useMeta(() => ({
   title: title.value,

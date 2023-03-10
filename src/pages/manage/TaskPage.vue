@@ -21,45 +21,44 @@
       <div class="p-detail-head">
         <h1 class="p-title">{{ ptitle }}</h1>
         <div class="resource_employ_btn">
-          <q-btn
-            btnTypes=4
-            type="button"
-            class="c_btn line medium"
+          <c-button
+            :outline="true"
+            size="medium"
+            :btn-names="'리소스 사용이력'"
           >
-            <i class="ico plus" /><span class="txt">리소스 사용이력</span>
-          </q-btn>
+          <template #prepend>
+            <i class="ico plus" />
+          </template>
+        </c-button>
         </div>
       </div>
     </div>
     <!-- //.chead -->
     <div class="p-body">
-      <div class="wrap tab_task">
-        <div class="tab_area">
-          <q-tabs
-            v-model="tab"
-            align="left"
-            class="c_tabs"
-          >
-            <q-tab
-              name="tabs1"
-              label="인스턴스"
-            >
-              <q-badge>36</q-badge>
-            </q-tab>
-            <q-tab
-              name="tabs2"
-              label="태스크"
-            >
-              <q-badge>19</q-badge>
-            </q-tab>
-          </q-tabs>
-        </div>
+      <q-tabs
+        v-model="tab"
+        align="left"
+        class="c_tabs tab_area"
+      >
+        <q-tab
+          name="tabs1"
+          label="인스턴스"
+        >
+          <q-badge>36</q-badge>
+        </q-tab>
+        <q-tab
+          name="tabs2"
+          label="태스크"
+        >
+          <q-badge>19</q-badge>
+        </q-tab>
+      </q-tabs>
         <div class="table_set">
           <div class="l_set_inner">
             <div class="search_input">
               <q-select
                 outlined
-                placeholder="이름 상태 생성자 검색"
+                placeholder="프로젝트, 그룹, 생성자 검색"
                 use-input
                 clearable
                 class="c_inpchip default_size"
@@ -84,37 +83,31 @@
                 ]"
               />
             </div>
-            <div class="project_select">
-              <CDropdown
-                v-model:selected="selectedBasic"
-                :label="optLabel2"
-                :options="optNumber2"
-                :multiple="true"
-                class="wsize230"
-              />
-            </div>
-            <div class="state_select">
-              <CDropdown
-                v-model:selected="selectedBasic"
-                :label="optLabel3"
-                :options="optNumber3"
-                :multiple="true"
-                class="wsize230"
-              />
-            </div>
+            <c-dropdown
+              v-model:selected="selectedBasic"
+              :label="optLabel2"
+              :options="optNumber2"
+              :multiple="true"
+              class="wsize230 project_select con_none"
+            />
+            <c-dropdown
+              v-model:selected="selectedBasic"
+              :label="optLabel3"
+              :options="optNumber3"
+              :multiple="true"
+              class="wsize230"
+            />
           </div>
           <div class="r_set_inner">
-            <div class="dropdown_area">
-              <CDropdown
-                v-model:selected="selectedBasic"
-                :label="optLabel"
-                :options="optNumber"
-                class="auto_size"
-              />
-            </div>
+            <c-dropdown
+              v-model:selected="selectedBasic"
+              :label="optLabel"
+              :options="optNumber"
+              class="auto_size"
+            />
           </div>
         </div>
-        <div class="table_main">
+        <div class="table_inner">
           <template v-if="segModel2 === 'one'">
             <EasyDataTable
               :headers="groupHeaders"
@@ -498,12 +491,9 @@
                 </div>
               </template>
             </EasyDataTable>
+            <c-pagination />
           </template>
         </div>
-        <div class="table_pagenav disflex_C mt32">
-          <CPagination />
-        </div>
-      </div>
     </div>
   </q-page>
 </template>
@@ -511,6 +501,7 @@
 import { ref } from "vue";
 import { useMeta } from "quasar";
 import CDropdown from "components/common/CDropdown.vue";
+import CButton from "src/components/common/CButton.vue";
 import CPagination from "components/common/CPagination.vue";
 
 const title = ref("Instance & Task");
@@ -630,7 +621,7 @@ const taskHeaders = [
     text: "생성자", value: "createdBy", width: 85, sortable: true
   },
   {
-    text: "생성일시", value: "createdAt", width: 160, sortable: true
+    text: "시작일시", value: "createdAt", width: 160, sortable: true
   },
   {
     text: "완료일시", value: "endDate", width: 160, sortable: true
@@ -883,5 +874,4 @@ const actionButtons = [
 
 <style lang="scss" scoped>
 @import "./src/css/manage";
-@import "./src/css/table";
 </style>
