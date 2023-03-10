@@ -1,5 +1,6 @@
 <template>
-  <template v-if="isDefaultData">
+        {{ projectList }}
+
     <div class="table_set">
       <div class="l_set_inner">
         <div class="c_inpgroup">
@@ -15,28 +16,18 @@
             </template>
           </c-input-text>
         </div>
-
         <div class="c_selectgroup">
-          <!-- <CDropdown
-            v-model:selected="selectedCheck"
+          <CDropdown
+            v-model:selected="searchData.status"
             :label="label"
-            :options="options"
-            :multiple="true"
-          /> -->
-          <!-- 임시추가 -->
-          <q-select
-            v-model="searchData.status"
-            multiple
             :options="statusOption"
-            :label="label"
-            style="width: 250px"
-
+            :multiple="true"
           />
-
         </div>
       </div>
 
       <div class="r_set_inner">
+
         <div class="instance_make_btn">
           <q-btn
             btnTypes="4"
@@ -58,6 +49,9 @@
         </div>
       </div>
     </div>
+
+  <template v-if="isDefaultData">
+
     <div class="change_table_area">
       <EasyDataTable
         :headers="headers"
@@ -191,15 +185,22 @@ import CInputText from "components/common/CInputText.vue";
 
 const route = useRoute();
 const router = useRouter();
+
 const projectList = ref([]);
+
 const isDefaultData = computed(() => !!projectList.value?.length);
 
 const props = defineProps({
   tabModel: String,
 });
-const emit = defineEmits(["update:instanceTotal"]);
+const isCurrentTab = props.tabModel === "instances";
 
+const emit = defineEmits(["update:instanceTotal"]);
 const dataParams = ref({});
+const searchData = ref({
+  query: "",
+  status: []
+});
 
 const statusOption = ref([
   { label: "전체", value: 0, status: [] },
@@ -218,15 +219,18 @@ const options2 = ref([
   { label: "50", value: 2 },
 ]);
 
-/* 인스턴스 리스트 */
+/*
+설명 : 인스턴스 리스트 호출
+*/
 const getInstances = async () => {
   try {
     const result = await InstanceService.getProjectIntances(
       route.params.projectId,
       dataParams.value
     );
-
+    console.log("route.params", route.params);
     projectList.value = result.instances;
+    console.log("projectList.value", projectList.value);
 
     emit("update:instanceTotal", result.total);
   } catch (error) {
@@ -234,10 +238,9 @@ const getInstances = async () => {
   }
 };
 
-const searchData = ref({
-  query: "",
-  status: []
-});
+/*
+설명 : 라우터 초기화
+*/
 const initRouterData = () => {
   dataParams.value = {
     page: 1,
@@ -249,89 +252,64 @@ const initRouterData = () => {
   };
 };
 
-const setRouterData = () => {
-  const { tab, ...query } = route.query;
+/*
+설명 : searchData 객체를 감시하여 dataParams 객체를 갱신
+*/
+watch(
+  () => searchData.value,
+  throttle((newValue,) => { // 변경 시 0.8초간 대기 후 실행
+    console.log("newValue", newValue);
+    if (newValue.query || newValue.query === "") {
+      dataParams.value.query = newValue.query;
+    }
+    if (newValue.status) {
+      const result = newValue.status.flatMap((item) => (Object.keys(item).includes("status") ? item.status : []));
+      if (newValue.status.some((item) => item.value === 0)) result.length = 0;
+      dataParams.value.status = result;
+    }
+    getInstances();
+  }, 800),
+  { deep: true }
+);
 
-  searchData.value = query;
-  dataParams.value = {
-    ...query,
-    // query: "test5" //필터링 테스트
-  };
-};
-
-const routerPush = () => {
-  const query = {
-    tab: props.tabModel,
-    ...dataParams.value
-  };
-
-  router.replace({
-    path: `/workspace/${route.params.workspaceId}/projects/${route.params.projectId}`,
-    query,
+/*
+설명 : 현재 탭 모델 정보를 쿼리 파라미터에 추가 후 현재 라우터로 변경
+*/
+const setRouter = () => {
+  router.push({
+    query: {
+      tab: [props.tabModel],
+    },
   });
 };
 
-watch(
-  () => searchData.value,
-  (newValue) => {
-    // 검색어 0.8초 간격으로 함수 호출
-    if (newValue.query) {
-      throttle(() => {
-        dataParams.value.query = newValue.query;
-      }, 800)();
-    }
-    if (newValue.status) {
-      const isStatus = newValue.status.some((item) => Object.keys(item).includes("status"));
-      if (isStatus) {
-        const result = newValue.status.map((item) => item.status).flat();
-        console.log("result", result);
-        dataParams.value.status = result;
-      } else {
-        const statusOption2 = statusOption.value.filter((option) => newValue.status.some((status) => option.status.includes(status)));
-        searchData.value.status = statusOption2;
-        console.log("statusOption2", statusOption2);
-      }
-    }
-  },
-  { deep: true }
-);
-
-const isCurrentTab = props.tabModel === "instances";
-
-watch(
-  () => dataParams.value,
-  () => {
-    routerPush();
-    getInstances();
-  },
-  { deep: true }
-);
-
 onMounted(() => {
   if (isCurrentTab) {
-    setRouterData();
+    getInstances();
+    setRouter();
   }
 });
 
-const updateInstances = () => {
-  initRouterData();
-  routerPush();
-};
-
+/*
+설명 :  탭 변경 시
+*/
 watch(
   () => props.tabModel,
   async () => {
     if (isCurrentTab) {
-      updateInstances();
+      setRouter();
     }
   }
 );
 
+/*
+설명 : 라우트 파라미터 변경 시 값 초기화
+*/
 watch(
-  () => route.params.projectId,
+  () => route.params,
   async () => {
-    if (route.name === "ProjectList" && isCurrentTab) {
-      updateInstances();
+    if (route.params.projectId) {
+      initRouterData();
     }
   }
 );
