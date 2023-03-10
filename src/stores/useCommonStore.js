@@ -2,9 +2,20 @@ import { defineStore } from "pinia";
 import { ref } from "vue";
 
 export const useCommonStore = defineStore("common", () => {
+  /**
+   * 설명: 내정보
+   */
   const me = ref(null);
   function setMe(meInfo) {
     me.value = { ...meInfo };
+  }
+
+  /**
+   * 설명: 유저 workspace 목록
+   */
+  const myWorkspaces = ref(null);
+  function setMyWorkspaces(workspaces) {
+    myWorkspaces.value = workspaces;
   }
 
   const messageInfo = ref({
@@ -57,6 +68,8 @@ export const useCommonStore = defineStore("common", () => {
   return {
     me,
     setMe,
+    myWorkspaces,
+    setMyWorkspaces,
     messageInfo,
     setMessageInfo,
     hideMessageInfo

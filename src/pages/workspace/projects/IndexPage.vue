@@ -24,7 +24,7 @@
               <UpdateProjectPopup
                 v-model="projectCreateModal"
                 :projectCreateModal="projectCreateModal"
-                @userInfoUpdate="userInfoUpdate()"
+                @updateProject="updateProject()"
                 :projectInfo="projectInfo"
                 :getListProject="getListProject"
                 :newProjectDescription="newProjectDescription"
@@ -195,7 +195,7 @@ import {
 import { useMeta } from "quasar";
 import { useRoute } from "vue-router";
 import { ProjectService } from "src/services";
-
+import { useProjectStore } from "stores/useProjectStore.js";
 import ProjectDashboard from "src/components/pages/ProjectDashboard.vue";
 // import CTable from "src/components/common/CTable.vue";
 import CDropdown from "components/common/CDropdown.vue";
@@ -205,7 +205,7 @@ import UpdateProjectPopup from "./components/UpdateProjectPopup.vue";
 import ChangeAllocationPopup from "./components/ChangeAllocationPopup.vue";
 
 const route = useRoute();
-
+const { setIsProjectChange } = useProjectStore();
 const projectInfo = ref({});
 const getListProject = ref({});
 const newProjectDescription = ref("");
@@ -233,7 +233,7 @@ const selectedTab = computed(() => {
 });
 
 // 프로젝트 리스트
-const getUserInfo = async () => {
+const getProjectInfo = async () => {
   try {
     projectInfo.value = await ProjectService.getProject(
       route.params.workspaceId,
@@ -279,7 +279,7 @@ watch(
   () => route.params.projectId,
   async () => {
     setTabModel();
-    await Promise.all([updateInfo(), getUserInfo()]);
+    await Promise.all([updateInfo(), getProjectInfo()]);
   },
   { immediate: true }
 );
@@ -307,6 +307,12 @@ const chipFilterFn = (val, update) => {
       );
     }
   });
+};
+
+const updateProject = () => {
+  updateInfo();
+  getProjectInfo();
+  setIsProjectChange(true);
 };
 </script>
 
