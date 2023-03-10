@@ -64,8 +64,10 @@
             </a>
           </template>
           <!-- image -->
-          <template #item-image="item">
-            <span class="txt">{{ item.image }}</span>
+          <template #item-base_image="item">
+            <a>
+              <span class="txt">{{ item.base_image }}</span>
+            </a>
           </template>
 
           <!-- sharedBy -->
@@ -99,30 +101,32 @@ const headers = [
   {
     text: "이름",
     value: "id",
-    width: 140,
+    width: 206,
     sortable: true,
   },
   {
     text: "설명",
     value: "title",
-    width: 340,
+    width: 135,
+    widthAuto: true,
   },
   {
     text: "기본 이미지",
-    value: "image",
-    width: 350,
+    value: "base_image",
+    width: 135,
     sortable: true,
+    widthAuto: true,
   },
   {
     text: "공유자",
     value: "sharedBy",
-    width: 250,
+    width: 318,
     sortable: true,
   },
   {
     text: "공유일시",
     value: "sharedAt",
-    width: 150,
+    width: 200,
     sortable: true,
   },
 ];
@@ -131,7 +135,7 @@ const items = [
     id: "내이미지01",
     title:
       "테스트용 이미지 생성 테스트 테스트테스트용 테스트용 이미지 생성테스트용 이미지 생성테스트용 이미지 생성 ",
-    image: "tensorflow 2.9.0(python3, cuda11.2, ubutun20.04) ",
+    base_image: "tensorflow 2.9.0(python3, cuda11.2, ubutun20.04) ",
     sharedBy: "김카브(root.choi@kakaobrain.com)",
     sharedAt: "2023.10.11 12:30:31",
   },
@@ -139,14 +143,14 @@ const items = [
     id: "내이미지02",
     title:
       "테스트용 이미지 생성 테스트 테스트테스트용 이미지 생성 테스트 테스트테스트용 이미지테스트용 이미지 생성 테스트 테스트테스트용 이미지 생성",
-    image: "tensorflow 2.9.0(python3, cuda11.2, ubutun20.04)",
+    base_image: "tensorflow 2.9.0(python3, cuda11.2, ubutun20.04)",
     sharedBy: "ewa(ewa.e@gmail.com)",
     sharedAt: "2023.10.11 12:30:31",
   },
   {
     id: "내이미지03",
     title: "테스트용 이미지 생성 테스트 테스트테스트용 테스트용 이미지 생성 ",
-    image: "tensorflow 2.9.0(python3, cuda11.2, ubutun20.04)",
+    base_image: "tensorflow 2.9.0(python3, cuda11.2, ubutun20.04)",
     sharedBy: "ewa(ewa.e@gmail.com)",
     sharedAt: "2023.10.11 12:30:31",
   },

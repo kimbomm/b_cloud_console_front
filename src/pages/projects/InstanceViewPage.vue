@@ -14,16 +14,12 @@
         <h1 class="p-title">
           {{ ptitle }}
         </h1>
-        <div class="monitoring_btn">
-          <q-btn
-            btnTypes="1"
-            type="button"
-            class="c_btn medium"
-            @click="workspaceHistoryBModal = true"
-          >
-            <span class="txt">모니터링</span>
-          </q-btn>
-        </div>
+        <c-button
+          :size="'medium'"
+          :outline="false"
+          :btn-names="'모니터링'"
+          class="monitoring_btn"
+        />
       </div>
     </div>
     <!-- //.chead -->
@@ -73,14 +69,15 @@
                     />
                   </div>
                   <div class="modify_btn">
-                    <q-btn
-                      label="취소"
-                      class="line"
+                    <c-button
+                      :size="'medium'"
+                      :outline="true"
+                      :btn-names="'취소'"
                       @click="datacheck = true"
                     />
-                    <q-btn
-                      label="저장"
-                      class="primary"
+                    <c-button
+                      :size="'medium'"
+                      :btn-names="'저장'"
                       @click="datacheck = true"
                     />
                   </div>
@@ -419,6 +416,7 @@
 <script setup>
 import { ref } from "vue";
 import { useMeta, useQuasar } from "quasar";
+import CButton from "components/common/CButton.vue";
 
 const title = ref("인스턴스 상세정보");
 const textName = ref(null);

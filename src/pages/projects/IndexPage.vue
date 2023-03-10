@@ -44,26 +44,25 @@
         <ProjectDashboard />
 
         <div class="com_m_cont">
-          <div class="change_tab_btn">
-            <q-tabs v-model="tab" align="left" class="c_tabs">
-              <q-tab name="tabs1" label="인스턴스">
-                <q-badge>36</q-badge>
-              </q-tab>
-              <q-tab name="tabs2" label="태스크">
-                <q-badge>19</q-badge>
-              </q-tab>
-              <q-tab name="tabs3" label="멤버">
-                <q-badge>0</q-badge>
-              </q-tab>
-            </q-tabs>
-          </div>
+          <q-tabs v-model="tab" align="left" class="c_tabs">
+            <q-tab name="tabs1" label="인스턴스">
+              <q-badge>36</q-badge>
+            </q-tab>
+            <q-tab name="tabs2" label="태스크">
+              <q-badge>19</q-badge>
+            </q-tab>
+            <q-tab name="tabs3" label="멤버">
+              <q-badge>0</q-badge>
+            </q-tab>
+          </q-tabs>
+
           <div class="table_set">
             <div class="l_set_inner">
               <div class="c_inpgroup">
                 <q-input
                   outlined
                   v-model="suffix"
-                  placeholder="이름, 상태, 생성자 검색"
+                  placeholder="이름 이메일 검색"
                 >
                   <template v-slot:prepend>
                     <q-icon name="search" class="ico_search" />
@@ -73,34 +72,29 @@
             </div>
 
             <div class="r_set_inner">
-              <div class="instance_make_btn">
-                <q-btn
-                  btnTypes="4"
-                  type="button"
-                  class="c_btn line medium"
-                  @click="projectMemberAddModal = true"
-                >
-                  <span class="txt">멤버 추가하기</span>
-                </q-btn>
-              </div>
-
-              <div class="view_cont_num">
-                <CDropdown
-                  v-model:selected="selectedBasic"
-                  :label="label2"
-                  :options="options2"
-                />
-              </div>
+              <c-button
+                :size="'medium'"
+                :outline="true"
+                :btn-names="'멤버 추가하기'"
+                class="instance_make_btn"
+              />
+              <c-dropdown
+                v-model:selected="selectedBasic"
+                :label="label2"
+                :options="options2"
+                class="view_cont_num"
+              />
             </div>
           </div>
-          <div class="table_area">
+
+          <div class="table_inner">
             <EasyDataTable
               v-model:items-selected="itemsSelected"
               :headers="headers"
               :items="items"
               :hide-footer="true"
               :body-row-class-name="bodyRowClassNameFunction"
-              empty-message="정보가 없습니다."
+              empty-message="검색 결과가 없습니다."
             >
               <!-- title -->
               <template #item-title="item">
@@ -187,7 +181,7 @@
                 </template>
               </q-select>
               <div class="c_selectgroup f_start">
-                <CDropdown
+                <c-dropdown
                   v-model:selected="memberSelModel"
                   :label="'프로젝트 관리자'"
                   :options="memberSelOptions"
@@ -255,9 +249,9 @@
 import { ref } from "vue";
 import { useMeta } from "quasar";
 import ProjectDashboard from "src/components/pages/ProjectDashboard.vue";
-// import CTable from "src/components/common/CTable.vue";
 import CPagination from "components/common/CPagination.vue";
 import CDropdown from "components/common/CDropdown.vue";
+import CButton from "components/common/CButton.vue";
 
 const title = ref("Test Projects");
 useMeta(() => ({
@@ -349,5 +343,4 @@ const chipFilterFn = (val, update) => {
 
 <style lang="scss" scoped>
 @import "./src/css/projects";
-@import "./src/css/table";
 </style>

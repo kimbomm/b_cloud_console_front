@@ -14,16 +14,7 @@
         <h1 class="p-title">
           {{ ptitle }}
         </h1>
-        <div class="monitoring_btn">
-          <q-btn
-            btnTypes="1"
-            type="button"
-            class="c_btn medium"
-            @click="workspaceHistoryBModal = true"
-          >
-            <span class="txt">모니터링</span>
-          </q-btn>
-        </div>
+        <c-button :size="'medium'" :outline="false" :btn-names="'모니터링'" />
       </div>
     </div>
     <!-- //.chead -->
@@ -138,7 +129,8 @@
             <ul class="command_list">
               <li>
                 <p class="com_txt">
-                  ~~~celebAHQwobg_EG3D_fromfs_FrzGBbMapSyn16.yaml
+                  python train.py --cfg_path
+                  ./configs/karmina_yz/single_domain/fromfs/celebAHQwobg_EG3D_fromfs_FrzGBbMapSyn16.yaml
                 </p>
               </li>
             </ul>
@@ -271,12 +263,12 @@
             V1.Xlarge(v100 GPU 1 / CPU 14 / MEM 122GB / DISK 80GB)
           </p>
           <div class="searcharea">
-            <CDropdown
+            <c-dropdown
               v-model:selected="chartSelectedBasic"
               :label="chartOptlabel"
               :options="chartSelOpt"
             />
-            <CDropdown
+            <c-dropdown
               v-model:selected="chartSelectedBasic2"
               :label="chartOptlabel2"
               :options="chartSelOpt2"
@@ -403,6 +395,7 @@
 <script setup>
 import { ref } from "vue";
 import { useMeta, useQuasar } from "quasar";
+import CButton from "components/common/CButton.vue";
 
 const title = ref("태스크 상세정보");
 const $q = useQuasar();
@@ -657,5 +650,4 @@ const series = [
 
 <style lang="scss" scoped>
 @import "./src/css/projects";
-@import "./src/css/table";
 </style>

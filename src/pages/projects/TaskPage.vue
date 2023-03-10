@@ -44,86 +44,76 @@
         <ProjectDashboard />
 
         <div class="com_m_cont">
-          <div class="change_tab_btn">
-            <q-tabs v-model="tab" align="left" class="c_tabs">
-              <q-tab name="tabs1" label="인스턴스">
-                <q-badge>36</q-badge>
-              </q-tab>
-              <q-tab name="tabs2" label="태스크">
-                <q-badge>19</q-badge>
-              </q-tab>
-              <q-tab name="tabs3" label="멤버">
-                <q-badge>0</q-badge>
-              </q-tab>
-            </q-tabs>
+          <q-tabs v-model="tab" align="left" class="c_tabs">
+            <q-tab name="tabs1" label="인스턴스">
+              <q-badge>36</q-badge>
+            </q-tab>
+            <q-tab name="tabs2" label="태스크">
+              <q-badge>19</q-badge>
+            </q-tab>
+            <q-tab name="tabs3" label="멤버">
+              <q-badge>0</q-badge>
+            </q-tab>
+          </q-tabs>
+
+          <div class="table_set">
+            <div class="l_set_inner">
+              <div class="c_inpgroup">
+                <q-input
+                  outlined
+                  v-model="suffix"
+                  placeholder="이름, 상태, 생성자 검색"
+                  class="wsize292"
+                >
+                  <template v-slot:prepend>
+                    <q-icon name="search" class="ico_search" />
+                  </template>
+                </q-input>
+              </div>
+
+              <!-- <div class="c_segmentedTab"> -->
+              <q-btn-toggle
+                v-model="segModel2"
+                class="c_tabcontrol medium"
+                toggle-color="primary"
+                flat
+                :options="[
+                  { label: '그룹보기', value: 'one' },
+                  { label: '태스크보기', value: 'two' },
+                ]"
+              />
+              <c-dropdown
+                v-model:selected="selectedCheck"
+                :label="label"
+                :options="options"
+                :multiple="true"
+                class="c_selectgroup"
+              />
+            </div>
+
+            <div class="r_set_inner">
+              <c-button
+                :size="'medium'"
+                :outline="true"
+                :btn-names="'태스크 생성하기'"
+                class="instance_make_btn"
+              />
+              <c-dropdown
+                v-model:selected="selectedBasic"
+                :label="label2"
+                :options="options2"
+                class="view_cont_num"
+              />
+            </div>
           </div>
           <template v-if="defaultData == true">
-            <div class="table_set">
-              <div class="l_set_inner">
-                <div class="c_inpgroup">
-                  <q-input
-                    outlined
-                    v-model="suffix"
-                    placeholder="이름, 상태, 생성자 검색"
-                    class="wsize292"
-                  >
-                    <template v-slot:prepend>
-                      <q-icon name="search" class="ico_search" />
-                    </template>
-                  </q-input>
-                </div>
-
-                <div class="c_segmentedTab">
-                  <q-btn-toggle
-                    v-model="segModel2"
-                    class="c_tabcontrol medium"
-                    toggle-color="primary"
-                    flat
-                    :options="[
-                      { label: '그룹보기', value: 'one' },
-                      { label: '태스크보기', value: 'two' },
-                    ]"
-                  />
-                </div>
-
-                <div class="c_selectgroup">
-                  <CDropdown
-                    v-model:selected="selectedCheck"
-                    :label="label"
-                    :options="options"
-                    :multiple="true"
-                  />
-                </div>
-              </div>
-
-              <div class="r_set_inner">
-                <div class="instance_make_btn">
-                  <q-btn
-                    btnTypes="4"
-                    type="button"
-                    class="c_btn line medium"
-                    to="/projects/taskdetail"
-                  >
-                    <span class="txt">태스크 생성하기</span>
-                  </q-btn>
-                </div>
-
-                <div class="view_cont_num">
-                  <CDropdown
-                    v-model:selected="selectedBasic"
-                    :label="label2"
-                    :options="options2"
-                  />
-                </div>
-              </div>
-            </div>
-            <div class="table_main">
+            <div class="table_inner">
               <template v-if="segModel2 === 'one'">
                 <EasyDataTable
                   :headers="headers"
                   :items="items"
                   :hide-footer="true"
-                  empty-message="정보가 없습니다."
+                  empty-message="생성된 태스크가 없습니다."
                   @click-row="showRow"
                 >
                   <!-- id -->
@@ -143,14 +133,7 @@
                   </template>
                   <!-- description -->
                   <template #item-description="item">
-                    <a href="#">
-                      <span class="txt clip">{{ item.description }}</span>
-                      <q-tooltip anchor="bottom middle" class="c_tooltip">
-                        <div class="inner">
-                          {{ item.description }}
-                        </div>
-                      </q-tooltip>
-                    </a>
+                    <span class="txt clip">{{ item.description }}</span>
                   </template>
                   <!--
                     상태값(status)
@@ -307,6 +290,7 @@
                     </div>
                   </template>
                 </EasyDataTable>
+                <c-pagination />
               </template>
               <template v-else-if="segModel2 === 'two'">
                 <EasyDataTable
@@ -477,17 +461,13 @@
                     </div>
                   </template>
                 </EasyDataTable>
+                <c-pagination />
               </template>
-            </div>
-            <div class="group">
-              <CPagination />
             </div>
           </template>
           <template v-else>
-            <div class="com_nondata_area">
-              <div class="nondata_box">
-                <p class="nondata_txt">생성된 태스크가 없습니다.</p>
-              </div>
+            <div class="nondata_box">
+              <p class="nondata_txt">생성된 태스크가 없습니다.</p>
             </div>
           </template>
         </div>
@@ -499,9 +479,9 @@
 import { ref } from "vue";
 import { useMeta } from "quasar";
 import ProjectDashboard from "src/components/pages/ProjectDashboard.vue";
-// import CTable from "src/components/common/CTable.vue";
 import CPagination from "components/common/CPagination.vue";
 import CDropdown from "components/common/CDropdown.vue";
+import CButton from "components/common/CButton.vue";
 
 const title = ref("Test Projects");
 useMeta(() => ({
@@ -562,13 +542,13 @@ const headers = [
   {
     text: "생성일시",
     value: "createdAt",
-    width: 170,
+    width: 210,
     sortable: true,
   },
   {
     text: "생성자",
     value: "createdBy",
-    width: 290,
+    width: 321,
     sortable: true,
   },
   { text: "", value: "buttons", width: 80 },
@@ -580,7 +560,7 @@ const items = [
     status: "group",
     description: "태스크 그룹 설명",
     createdAt: "2023.01.12 10:33:21",
-    createdBy: "root.choi (root.choi@kakaobrain.com)",
+    createdBy: "root.choi ",
     resource: {
       cpus: 28,
       gpu_device_model: "TESLA_V100",
@@ -599,7 +579,7 @@ const items = [
     status: "group",
     description: "태스크 그룹 설명",
     createdAt: "2023.01.12 10:33:21",
-    createdBy: "root.choi (root.choi@kakaobrain.com)",
+    createdBy: "root.choi ",
     resource: {
       cpus: 28,
       gpu_device_model: "TESLA_V100",
@@ -617,7 +597,7 @@ const items = [
     status: "group",
     description: "태스크 그룹 설명",
     createdAt: "2023.01.12 10:33:21",
-    createdBy: "root.choi (root.choi@kakaobrain.com)",
+    createdBy: "root.choi ",
     resource: {
       cpus: 28,
       gpu_device_model: "TESLA_V100",
@@ -937,5 +917,4 @@ const actionButtons2 = [
 
 <style lang="scss" scoped>
 @import "./src/css/projects";
-@import "./src/css/table";
 </style>
