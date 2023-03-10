@@ -1,48 +1,40 @@
+@import 'src/css/utillity';
+@import 'src/css/table';
 /* Member */
 .p-member{
   .q-input{font-size: $fs16;}
+  .l_set_inner{
+    position: relative;
+    .w292{
+      margin-right: 33px;
+      &::after{
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 56%;
+        width: 1px;
+        height: 26px;
+        background-color: $surface05;
+        transform: translate(70%, -50%);
+      }
+    }
+  }
+  .btn{
+    margin-right: 10px;
+  }
   &.p-index{
     .section{
       margin-top: 20px;
     }
     // 멤버 - 메인(워크스페이스 관리자)
-    .table-set{
-      .set{display: flex; align-items: center; }
-      .set-l{
-        &_left{
-          .wsize292{width: 292px;}
-        }
-        .member-input{
-          width: 292px;
-        }
-        &_right{
-          position: relative;
-          padding-left: 33px;
-          &::before{
-            position: absolute; top: 50%; left: 16px; transform: translateY(-50%);
-            content: "";
-            width: 1px; height: 26px;
-            background-color: $surface05;
-          }
-          &:last-child{width: 253px;}
-        }
-      }
-      .set-r{
-        .set-btn{
-          margin-right: 10px;
-          &:last-child{ margin-right: 0;}
-        }
-        .select-d{width: 108px;}
-      }
-    }
   }
   &.p-detail{
     position: relative;
     .deleteBtn{position: absolute; top: 50%; right: 0; transform: translateY(-50%);}
     .m-info{
-      margin-bottom: 24px;
       width: 100%; height: 260px;
-      border-radius: 12px; border: 1px solid $surface05;
+      margin-bottom: 24px; border: 1px solid $surface05;
+      border-radius: 12px;
     }
     .u-info{
       padding: 30px;
@@ -57,12 +49,12 @@
       > div{
         width: calc(100% / 3);
       }
-      .g-txt{margin-bottom: 8px; font-size: $fs16; color: $gray500;}
+      .g-txt{margin-bottom: 8px; color: $gray500; font-size: $fs16;}
       .b-txt{font-size: $fs16;}
     }
     .w-info{
-      padding: 30px;
       width: 100%;
+      padding: 30px;
       border-radius: 12px; background-color: $surface01;
       .t-flex{
         display: flex; justify-content: space-between; align-items: center;
@@ -75,13 +67,10 @@
         }
         .q-btn{min-height: 48px;}
       }
-      .pb{
-        padding-bottom: 40px;
-      }
       .g-txt{
-        margin: 0 24px 24px 0;
         width: 216px;
-        font-size: $fs16; color: $gray500;
+        margin: 0 24px 24px 0; color: $gray500;
+        font-size: $fs16;
       }
       .p-txt{
         margin-right: 24px;
@@ -117,6 +106,7 @@
     }
     .work-wrap{
       display: flex;
+      padding-bottom: 40px;
       .c_selectgroup{
         background-color: $bg;
       }
@@ -138,8 +128,8 @@
     .p-tWrap{
       display: flex;
       > p{
-        margin: 0 24px 24px 0;
         width: 216px;
+        margin: 0 24px 24px 0;
         color: $gray500; font-size: $fs16;
         &:last-child{margin: 0 24px 0 0;}
       }
@@ -151,8 +141,8 @@
         margin-bottom: 0;
       }
       .w216{
-        margin-right: 24px;
         width: 216px;
+        margin-right: 24px;
         &:last-child{margin-right: 0;}
       }
       .w250{
@@ -160,8 +150,8 @@
         width: 250px;
       }
       .sel-title{
-        margin-right: 86px;
         width: 156px;
+        margin-right: 86px;
       }
     }
     .error-txt{
@@ -185,9 +175,9 @@
     .line{
       position: relative;
       &::after{
+        content: "";
         position: absolute;
         top: -40px; left: 0;
-        content: "";
         width: 100%; height: 1px;
         background-color: $surface05;
       }

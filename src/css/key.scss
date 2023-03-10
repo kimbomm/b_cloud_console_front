@@ -1,5 +1,8 @@
+@import "src/css/utillity";
+@import "src/css/table";
 /* SSH Key & API Key */
 .p-index{
+  .mr10{margin-right: 10px;}
   .section{margin-top: 32px;}
   .key-box{
     &_title{
@@ -12,40 +15,41 @@
     flex-direction: column; justify-content: center; align-items: center;
     width: 100%; height: 272px;
     border-radius: 12px; background-color: $surface01;
-    > p{
-      font-size: $fs16; color: $gray500;
+    > p{ color: $gray500;
+      font-size: $fs16;
       &:first-child{ color: $gray800;}
       &:nth-child(2){margin-top: 4px;}
     }
   }
   .name{font-size: $fs20; font-weight: $bold;}
   .notice-txt{
-    display: flex; align-items: baseline; justify-content: center;
+    display: flex; justify-content: center; align-items: baseline;
     .disabled-txt{
       padding-left: 12px;
       color: $red;
     }
   }
   .key-create{
-    margin-top: 32px; padding: 30px;
     width: 100%;
+    margin-top: 20px;
+    padding: 30px;
     border-radius: 8px;
     background-color: $surface01;
     > p{
       margin-bottom: 20px;
       font-size: $fs20;
       &:last-child{
-        margin-bottom: 0;
-        font-size: $fs16; color: $gray500;
+        margin-bottom: 0; color: $gray500;
+        font-size: $fs16;
       }
       > span{
         position: relative;
         padding-left: 25px;
         &::before{
-          position: absolute; top: 50%; left: 12px; transform: translateY(-50%);
           content: "";
+          position: absolute; top: 50%; left: 12px;
           width: 1px; height: 16px;
-          background-color: $surface08;
+          background-color: $surface08; transform: translateY(-50%);
         }
       }
     }

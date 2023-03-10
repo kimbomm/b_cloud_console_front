@@ -72,13 +72,13 @@
           <!--  스토리지 할당량 변경 문의내용 확인  -->
           <template v-if="visible === 'A'">
             <div class="req-box">
-              <p class="current-amount">
+              <p class="amount">
                 현재 사용량
-                <span>3,000</span>&nbsp;/&nbsp;<span>2,750</span>
+                <span>3,000</span>/<span>2,750</span>
               </p>
-              <p class="request-amount">
+              <p class="amount">
                 요청량
-                <span>5,000</span>&nbsp;GiB
+                <span class="req-amount">5,000</span>GiB
               </p>
             </div>
           </template>
@@ -86,66 +86,66 @@
           <template v-if="visible === 'B'">
             <div class="req-box">
               <p class="amount-title">CPU</p>
-              <p class="current-amount">
+              <p class="amount">
                 현재 할당량
                 <span class="c-span">3,000</span>
               </p>
-              <p class="request-amount">
+              <p class="amount">
                 요청량
                 <span>5,000</span>
               </p>
             </div>
             <div class="req-box">
               <p class="amount-title">Tesla A100</p>
-              <p class="current-amount">
+              <p class="amount">
                 현재 할당량
                 <span class="c-span">3,000</span>
               </p>
-              <p class="request-amount">
+              <p class="amount">
                 요청량
                 <span>5,000</span>
               </p>
             </div>
             <div class="req-box">
               <p class="amount-title">Tesla V100</p>
-              <p class="current-amount">
+              <p class="amount">
                 현재 할당량
                 <span class="c-span">3,000</span>
               </p>
-              <p class="request-amount">
+              <p class="amount">
                 요청량
                 <span>5,000</span>
               </p>
             </div>
             <div class="req-box">
               <p class="amount-title">Tesla P40</p>
-              <p class="current-amount">
+              <p class="amount">
                 현재 할당량
                 <span class="c-span">3,000</span>
               </p>
-              <p class="request-amount">
+              <p class="amount">
                 요청량
                 <span>5,000</span>
               </p>
             </div>
             <div class="req-box">
               <p class="amount-title">Tesla V100</p>
-              <p class="current-amount">
+              <p class="amount">
                 현재 할당량
                 <span class="c-span">3,000</span>
               </p>
-              <p class="request-amount">
+              <p class="amount">
                 요청량
                 <span>5,000</span>
               </p>
             </div>
             <div class="req-box">
               <p class="amount-title">Tesla P40</p>
-              <p class="current-amount">
+              <p class="amount">
                 현재 할당량
                 <span class="c-span">3,000</span>
               </p>
-              <p class="request-amount">
+              <p class="amount">
                 요청량
                 <span>5,000</span>
               </p>
