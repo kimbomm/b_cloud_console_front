@@ -210,7 +210,7 @@ const statusOption = ref([
   { label: "정지중", value: 4, status: ["stopping"] },
   { label: "정지", value: 5, status: ["stopped"] },
   { label: "삭제중", value: 6, status: ["deleting"] },
-  { label: "삭제예정(D-N)", value: 6, status: ["stopped ", "error"] },
+  { label: "삭제예정(D-N)", value: 7, status: ["stopped ", "error"] },
 
 ]);
 const options2 = ref([
@@ -257,16 +257,12 @@ const initRouterData = () => {
 */
 watch(
   () => searchData.value,
-  throttle((newValue,) => { // 변경 시 0.8초간 대기 후 실행
-    console.log("newValue", newValue);
-    if (newValue.query || newValue.query === "") {
-      dataParams.value.query = newValue.query;
-    }
-    if (newValue.status) {
-      const result = newValue.status.flatMap((item) => (Object.keys(item).includes("status") ? item.status : []));
-      if (newValue.status.some((item) => item.value === 0)) result.length = 0;
-      dataParams.value.status = result;
-    }
+  throttle((newValue,) => {
+    if (newValue.query || newValue.query === "") dataParams.value.query = newValue.query;
+
+    const result = newValue.status ? newValue.status.flatMap((item) => (Object.keys(item).includes("status") ? item.status : [])) : [];
+    dataParams.value.status = result.length > 0 ? result.join(",") : result;
+
     getInstances();
   }, 800),
   { deep: true }
