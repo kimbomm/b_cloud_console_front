@@ -137,6 +137,17 @@ class Utils {
 
     return list.sort(sortFunc);
   }
+
+  /**
+   * 설명: return percentage
+   * @param { string, number } cur 현재 data
+   * @param { string, number } total 전체 data
+   */
+  getPercentData(cur, total) {
+    const curNum = Number(cur);
+    const totalNum = Number(total);
+    return (curNum / totalNum) * 100;
+  }
 }
 
 export const $utils = new Utils();

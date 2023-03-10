@@ -468,7 +468,7 @@
           </div>
         </div>
         <!-- Quota -->
-        <div class="storage-box_dash quota">
+        <div v-if="workspace" class="storage-box_dash quota">
           <p class="sub-title">Workspace Quota</p>
           <a href="#" class="morelink">
             <span>더보기</span>
@@ -479,14 +479,20 @@
               <div class="store">
                 <p class="name">CPU</p>
                 <div class="space">
-                  <p class="useage">24%</p>
-                  <p class="used"><span>24</span>&nbsp;/&nbsp;100</p>
+                  <p class="useage">
+                    {{ $utils.getPercentData(workspace.quota.used.cpu_milli, workspace.quota.total.cpu_milli) }}%
+                  </p>
+                  <p class="used">
+                    <span>{{ workspace.quota.used.cpu_milli }}</span>
+                    &nbsp;/&nbsp;
+                    {{ workspace.quota.total.cpu_milli }}
+                  </p>
                 </div>
                 <div class="quo_progress">
                   <div class="state">
                     <progress
-                      value="24"
-                      max="100"
+                      :value="workspace.quota.used.cpu_milli"
+                      :max="workspace.quota.total.cpu_milli"
                       class="space-chart"
                     />
                   </div>
@@ -497,14 +503,20 @@
               <div class="store">
                 <p class="name">Tesla A100_80G</p>
                 <div class="space">
-                  <p class="useage">24%</p>
-                  <p class="used"><span>24</span>&nbsp;/&nbsp;100</p>
+                  <p class="useage">
+                    {{ $utils.getPercentData(workspace.quota.used.a100_80g, workspace.quota.total.a100_80g) }}%
+                  </p>
+                  <p class="used">
+                    <span>{{ workspace.quota.used.a100_80g }}</span>
+                    &nbsp;/&nbsp;
+                    {{ workspace.quota.total.a100_80g }}
+                  </p>
                 </div>
                 <div class="quo_progress">
                   <div class="state">
                     <progress
-                      value="24"
-                      max="100"
+                      :value="workspace.quota.used.a100_80g"
+                      :max="workspace.quota.total.a100_80g"
                       class="space-chart"
                     />
                   </div>
@@ -515,32 +527,20 @@
               <div class="store">
                 <p class="name">Tesla A100_40G</p>
                 <div class="space">
-                  <p class="useage">75%</p>
-                  <p class="used"><span>75</span>&nbsp;/&nbsp;100</p>
+                  <p class="useage">
+                    {{ $utils.getPercentData(workspace.quota.used.a100_40g, workspace.quota.total.a100_40g) }}%
+                  </p>
+                  <p class="used">
+                    <span>{{ workspace.quota.used.a100_40g }}</span>
+                    &nbsp;/&nbsp;
+                    {{ workspace.quota.total.a100_40g }}
+                  </p>
                 </div>
                 <div class="quo_progress">
                   <div class="state">
                     <progress
-                      value="75"
-                      max="100"
-                      class="space-chart"
-                    />
-                  </div>
-                </div>
-              </div>
-              <!-- // store -->
-              <!-- store -->
-              <div class="store">
-                <p class="name">CPU</p>
-                <div class="space">
-                  <p class="useage">24%</p>
-                  <p class="used"><span>24</span>&nbsp;/&nbsp;100</p>
-                </div>
-                <div class="quo_progress">
-                  <div class="state">
-                    <progress
-                      value="24"
-                      max="100"
+                      :value="workspace.quota.used.a100_40g"
+                      :max="workspace.quota.total.a100_40g"
                       class="space-chart"
                     />
                   </div>
@@ -583,14 +583,15 @@
 
 <script setup>
 import { ref, onBeforeUnmount } from "vue";
+import { useRoute } from "vue-router";
 import { useMeta } from "quasar";
 import { $utils } from "src/utils/utils";
-import { NoticeService } from "src/services";
+import { WorkspaceService, NoticeService } from "src/services";
 
 useMeta(() => ({
   title: "Dashboard",
 }));
-
+const route = useRoute();
 const updateTime = $utils.paseseDate(new Date(), "YYYY.MM.DD HH:MM");
 
 const slide = ref(1);
@@ -624,6 +625,16 @@ const stores = ref([
   },
 ]);
 
+// workspace info
+const { workspaceId } = route.params;
+const workspace = ref(null);
+WorkspaceService.getWorkspace(workspaceId).then((data) => {
+  workspace.value = data;
+});
+// workspace info 끝
+
+// 배너
+// const banner = ref(null);
 // 공지사항
 const notices = ref([]);
 const NOTICE_TYPE = {
