@@ -257,12 +257,16 @@ const initRouterData = () => {
 */
 watch(
   () => searchData.value,
-  throttle((newValue,) => {
-    if (newValue.query || newValue.query === "") dataParams.value.query = newValue.query;
+  throttle((newValue,) => { // 변경 시 0.8초간 대기 후 실행
+    if (newValue.query || newValue.query === "") {
+      dataParams.value.query = newValue.query;
+    }
+    if (newValue.status) {
+      const result = newValue.status.flatMap((item) => (Object.keys(item).includes("status") ? item.status : []));
+      if (newValue.status.some((item) => item.value === 0)) result.length = 0;
 
-    const result = newValue.status ? newValue.status.flatMap((item) => (Object.keys(item).includes("status") ? item.status : [])) : [];
-    dataParams.value.status = result.length > 0 ? result.join(",") : result;
-
+      dataParams.value.status = result.length > 0 ? result.join(",") : result;
+    }
     getInstances();
   }, 800),
   { deep: true }
