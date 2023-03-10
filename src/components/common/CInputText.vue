@@ -167,7 +167,12 @@ onMounted(async () => {
 const onUpdateInput = async () => {
   await onValidate();
   setTimeout(() => {
-    emit("update:value", lazyValue.value);
+    const el = inputRef.value.getNativeElement();
+    el.addEventListener("input", (e) => {
+      console.log("e", e.target.value);
+      lazyValue.value = e.target.value;
+      emit("update:value", e.target.value);
+    });
     emit("update");
   }, 50);
 };
