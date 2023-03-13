@@ -53,8 +53,8 @@
             <!-- <div class="s_03_main"> -->
             <q-tabs v-model="tab" align="left" class="c_tabs">
               <q-tab name="tabs1" label="CPU"></q-tab>
-              <q-tab name="tabs2" label="GPU Tesla V100"></q-tab>
-              <q-tab name="tabs3" label="GPU Tesla A100_40G"></q-tab>
+              <q-tab name="tabs2" label="GPU V100"></q-tab>
+              <q-tab name="tabs3" label="GPU A100_40G"></q-tab>
             </q-tabs>
             <div class="now_selected_area">
               <div class="select_box">
@@ -416,7 +416,9 @@
                     </template>
                     <!-- description -->
                     <template #item-description="item">
-                      <span class="txt">{{ item.description }}</span>
+                      <a>
+                        <span class="txt">{{ item.description }}</span>
+                      </a>
                     </template>
                     <!--
                       상태값(status)
@@ -762,7 +764,7 @@ const instanceItems = [
     disk: "80GiB",
     resource: {
       cpus: 28,
-      gpu_device_model: "TESLA_V100",
+      gpu_device_model: "V100",
       gpus: 2,
       mem: 249856,
       zone: "public:normal",
@@ -775,7 +777,7 @@ const instanceItems = [
     disk: "80GiB",
     resource: {
       cpus: 28,
-      gpu_device_model: "TESLA_V100",
+      gpu_device_model: "V100",
       gpus: 2,
       mem: 249856,
       zone: "public:normal",
@@ -788,7 +790,7 @@ const instanceItems = [
     disk: "80GiB",
     resource: {
       cpus: 28,
-      gpu_device_model: "TESLA_V100",
+      gpu_device_model: "V100",
       gpus: 2,
       mem: 249856,
       zone: "public:normal",
@@ -1048,24 +1050,9 @@ const bodyRowClassNameFunction = (item) => {
  * @param { object } rowData get table row data
  */
 
-// const onCheck = (item) => {
-//   const data = instanceItems.filter((row) => row.title === item.title)[0];
-//   data.checkbox = itemsSelected.value.includes(item.title);
-// };
-
-// const onCheck2 = (item) => {
-//   const data = imgItems1.filter((row) => row.title === item.title)[0];
-//   data.checkbox = itemsSelected.value.includes(item.title);
-// };
-
-// const onCheck3 = (item) => {
-//   const data = storageItems.filter((row) => row.title === item.title)[0];
-//   data.checkbox = itemsSelected.value.includes(item.title);
-// };
-
 const datalist = [
   { title: "이름", value: "인스턴스 이름" },
-  { title: "인스턴스 타입", value: "Tesla V100" },
+  { title: "인스턴스 타입", value: "V100" },
   { title: "GPU", value: 1 },
   { title: "CPU", value: 14 },
   { title: "Memory", value: "122GB" },

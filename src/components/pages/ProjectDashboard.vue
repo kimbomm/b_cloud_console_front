@@ -11,10 +11,10 @@
 
             <div class="cont_head_inner">
               <ul>
-                <li :class="{'now_view' : viewTab == 0}" @click="viewTab = 0">
+                <li :class="{ now_view: viewTab == 0 }" @click="viewTab = 0">
                   {{ projectChart.tabtitle1 }}
                 </li>
-                <li :class="{'now_view' : viewTab == 1}" @click="viewTab = 1">
+                <li :class="{ now_view: viewTab == 1 }" @click="viewTab = 1">
                   {{ projectChart.tabtitle2 }}
                 </li>
               </ul>
@@ -24,15 +24,25 @@
           <div class="cont_main">
             <ul class="now_quota">
               <template v-if="viewTab == 0">
-                <li v-for="(workspace, i) in projectChart.workspaceQuota" :key="`${i}`">
+                <li
+                  v-for="(workspace, i) in projectChart.workspaceQuota"
+                  :key="`${i}`"
+                >
                   <div class="circle_chart small">
                     <div
                       class="circle"
-                      :style="`--value:(${workspace.value} / ${workspace.total}) * 100`">
+                      :style="`--value:(${workspace.value} / ${workspace.total}) * 100`"
+                    >
                       <svg viewBox="0 0 600 600">
                         <defs>
-                          <linearGradient id="paint0_linear" x1="50" x2="200" y1="200" y2="450"
-                            gradientUnits="userSpaceOnUse">
+                          <linearGradient
+                            id="paint0_linear"
+                            x1="50"
+                            x2="200"
+                            y1="200"
+                            y2="450"
+                            gradientUnits="userSpaceOnUse"
+                          >
                             <stop stop-color="#FF0000" />
                             <stop offset="1" stop-color="#4992FF" />
                           </linearGradient>
@@ -44,21 +54,32 @@
                   <div class="progress_info">
                     <p class="pro_info_name">{{ workspace.label }}</p>
                     <p class="pro_info_num">
-                      <span class="now_using">{{ workspace.value }}</span> / {{ workspace.total }}
+                      <span class="now_using">{{ workspace.value }}</span> /
+                      {{ workspace.total }}
                     </p>
                   </div>
                 </li>
               </template>
               <template v-if="viewTab == 1">
-                <li v-for="(project, i) in projectChart.projectQuota" :key="`${i}`">
+                <li
+                  v-for="(project, i) in projectChart.projectQuota"
+                  :key="`${i}`"
+                >
                   <div class="circle_chart small">
                     <div
                       class="circle"
-                      :style="`--value:(${project.value} / ${project.total}) * 100`">
+                      :style="`--value:(${project.value} / ${project.total}) * 100`"
+                    >
                       <svg viewBox="0 0 600 600">
                         <defs>
-                          <linearGradient id="paint0_linear" x1="50" x2="200" y1="200" y2="450"
-                            gradientUnits="userSpaceOnUse">
+                          <linearGradient
+                            id="paint0_linear"
+                            x1="50"
+                            x2="200"
+                            y1="200"
+                            y2="450"
+                            gradientUnits="userSpaceOnUse"
+                          >
                             <stop stop-color="#FF0000" />
                             <stop offset="1" stop-color="#4992FF" />
                           </linearGradient>
@@ -70,7 +91,8 @@
                   <div class="progress_info">
                     <p class="pro_info_name">{{ project.label }}</p>
                     <p class="pro_info_num">
-                      <span class="now_using">{{ project.value }}</span> / {{ project.total }}
+                      <span class="now_using">{{ project.value }}</span> /
+                      {{ project.total }}
                     </p>
                   </div>
                 </li>
@@ -163,12 +185,12 @@ const projectChartData = [
     tabtitle2: "프로젝트 할당량",
     workspaceQuota: [
       {
-        label: "Tesla V100",
+        label: "V100",
         value: "50",
         total: "100",
       },
       {
-        label: "Tesla A100",
+        label: "A100",
         value: "30",
         total: "100",
       },
@@ -180,12 +202,12 @@ const projectChartData = [
     ],
     projectQuota: [
       {
-        label: "Tesla V100",
+        label: "V100",
         value: "70",
         total: "100",
       },
       {
-        label: "Tesla A100",
+        label: "A100",
         value: "100",
         total: "100",
       },
@@ -194,7 +216,7 @@ const projectChartData = [
         value: "1500",
         total: "2000",
       },
-    ]
+    ],
   },
   {
     type: "cpu",
@@ -213,7 +235,7 @@ const projectChartData = [
     title: "비용",
     subtitle: "프로젝트 비용",
     value: "39,220,000",
-    date: "22.12.01 ~ 22.12.23"
+    date: "22.12.01 ~ 22.12.23",
   },
 ];
 </script>

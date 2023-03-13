@@ -273,28 +273,28 @@ const headers = [
   {
     text: "이름",
     value: "title",
-    width: 200,
+    width: 265,
     sortable: true,
   },
   {
     text: "이메일",
     value: "email",
-    width: 200,
+    width: 265,
     sortable: true,
   },
   {
     text: "프로젝트 권한",
     value: "authority",
-    width: 200,
+    width: 265,
     sortable: true,
   },
   {
     text: "소개",
     value: "costumer",
-    width: 200,
+    width: 265,
     sortable: false,
   },
-  { text: "", value: "buttons", width: 150 },
+  { text: "", value: "buttons", width: 80 },
 ];
 const items = [
   {

@@ -430,7 +430,7 @@ const items = [
     logCheck: "LOG",
     resource: {
       cpus: 28,
-      gpu_device_model: "TESLA_V100",
+      gpu_device_model: "V100",
       gpus: 2,
       mem: 249856,
       zone: "public:normal",
@@ -452,7 +452,7 @@ const items = [
     logCheck: "LOG",
     resource: {
       cpus: 28,
-      gpu_device_model: "TESLA_V100",
+      gpu_device_model: "V100",
       gpus: 2,
       mem: 249856,
       zone: "public:normal",
@@ -474,7 +474,7 @@ const items = [
     logCheck: "LOG",
     resource: {
       cpus: 28,
-      gpu_device_model: "TESLA_V100",
+      gpu_device_model: "V100",
       gpus: 2,
       mem: 249856,
       zone: "public:normal",
@@ -496,7 +496,7 @@ const items = [
     logCheck: "LOG",
     resource: {
       cpus: 28,
-      gpu_device_model: "TESLA_V100",
+      gpu_device_model: "V100",
       gpus: 2,
       mem: 249856,
       zone: "public:normal",
@@ -518,7 +518,7 @@ const items = [
     logCheck: "LOG",
     resource: {
       cpus: 28,
-      gpu_device_model: "TESLA_V100",
+      gpu_device_model: "V100",
       gpus: 2,
       mem: 249856,
       zone: "public:normal",
@@ -540,7 +540,7 @@ const items = [
     logCheck: "LOG",
     resource: {
       cpus: 28,
-      gpu_device_model: "TESLA_V100",
+      gpu_device_model: "V100",
       gpus: 2,
       mem: 249856,
       zone: "public:normal",
@@ -562,7 +562,7 @@ const items = [
     logCheck: "LOG",
     resource: {
       cpus: 28,
-      gpu_device_model: "TESLA_V100",
+      gpu_device_model: "V100",
       gpus: 2,
       mem: 249856,
       zone: "public:normal",
@@ -584,7 +584,7 @@ const items = [
     logCheck: "LOG",
     resource: {
       cpus: 28,
-      gpu_device_model: "TESLA_V100",
+      gpu_device_model: "V100",
       gpus: 2,
       mem: 249856,
       zone: "public:normal",
@@ -606,7 +606,7 @@ const items = [
     logCheck: "LOG",
     resource: {
       cpus: 28,
-      gpu_device_model: "TESLA_V100",
+      gpu_device_model: "V100",
       gpus: 2,
       mem: 249856,
       zone: "public:normal",
@@ -644,7 +644,7 @@ const showRow = (item) => {
 };
 
 const typeItem = [
-  { typeTitle: "GPU 모델", typeValue: "TESLA_V100" },
+  { typeTitle: "GPU 모델", typeValue: "V100" },
   { typeTitle: "GPU", typeValue: "2" },
   { typeTitle: "CPU", typeValue: "14" },
   { typeTitle: "Memory", typeValue: "122 GB" },

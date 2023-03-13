@@ -469,7 +469,7 @@ const triggerSuccess2 = (position) => {
   }, 100);
 };
 const typeItem = [
-  { typeTitle: "GPU 모델", typeValue: "TESLA_V100" },
+  { typeTitle: "GPU 모델", typeValue: "V100" },
   { typeTitle: "GPU", typeValue: "2" },
   { typeTitle: "CPU", typeValue: "14" },
   { typeTitle: "Memory", typeValue: "122 GB" },

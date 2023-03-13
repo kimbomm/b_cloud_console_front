@@ -111,9 +111,9 @@
             <q-badge v-if="item.status === 'running'" class="green">
               <span class="txt">운영중(개인)</span>
             </q-badge>
-            <q-badge v-else-if="item.status === 'running_s'" class="green">
+            <!-- <q-badge v-else-if="item.status === 'running_s'" class="green">
               <span class="txt">운영중(공유)</span>
-            </q-badge>
+            </q-badge> -->
             <q-badge v-else-if="item.status === 'making'" class="c_badge">
               <span class="txt">생성중</span>
             </q-badge>
@@ -322,7 +322,7 @@ const items = [
   {
     title: "개인작업용",
     description: "개인이용",
-    user: "root.choi",
+    user: "워크스페이스 관리자",
     status: "making",
     usingData: "45 / 100 GiB",
     createdAt: "2023.10.22 12:33:40",
@@ -331,7 +331,7 @@ const items = [
   {
     title: "개인작업용",
     description: "개인이용",
-    user: "root.choi",
+    user: "워크스페이스 관리자",
     status: "deleting",
     usingData: "45 / 100 GiB",
     createdAt: "2023.10.22 12:33:40",
@@ -340,7 +340,7 @@ const items = [
   {
     title: "개인작업용",
     description: "개인이용",
-    user: "root.choi",
+    user: "워크스페이스 관리자",
     status: "restoring",
     usingData: "45 / 100 GiB",
     createdAt: "2023.10.22 12:33:40",

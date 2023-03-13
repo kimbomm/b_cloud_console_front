@@ -329,7 +329,7 @@ const items = [
     createdBy: "root.choi",
     resource: {
       cpus: 28,
-      gpu_device_model: "TESLA_V100",
+      gpu_device_model: "V100",
       gpus: 2,
       mem: 249856,
       zone: "public:normal",
@@ -351,7 +351,7 @@ const items = [
     createdBy: "root.choi",
     resource: {
       cpus: 28,
-      gpu_device_model: "TESLA_V100",
+      gpu_device_model: "V100",
       gpus: 2,
       mem: 249856,
       zone: "public:normal",
@@ -370,7 +370,7 @@ const items = [
     createdBy: "root.choi",
     resource: {
       cpus: 28,
-      gpu_device_model: "TESLA_V100",
+      gpu_device_model: "V100",
       gpus: 2,
       mem: 249856,
       zone: "public:normal",
@@ -389,7 +389,7 @@ const items = [
     createdBy: "root.choi",
     resource: {
       cpus: 28,
-      gpu_device_model: "TESLA_V100",
+      gpu_device_model: "V100",
       gpus: 2,
       mem: 249856,
       zone: "public:normal",
@@ -408,7 +408,7 @@ const items = [
     createdBy: "root.choi",
     resource: {
       cpus: 28,
-      gpu_device_model: "TESLA_V100",
+      gpu_device_model: "V100",
       gpus: 2,
       mem: 249856,
       zone: "public:normal",
@@ -427,7 +427,7 @@ const items = [
     createdBy: "root.choi",
     resource: {
       cpus: 28,
-      gpu_device_model: "TESLA_V100",
+      gpu_device_model: "V100",
       gpus: 2,
       mem: 249856,
       zone: "public:normal",
@@ -450,7 +450,7 @@ const items = [
     createdBy: "root.choi",
     resource: {
       cpus: 28,
-      gpu_device_model: "TESLA_V100",
+      gpu_device_model: "V100",
       gpus: 2,
       mem: 249856,
       zone: "public:normal",
@@ -469,7 +469,7 @@ const items = [
     createdBy: "root.choi",
     resource: {
       cpus: 28,
-      gpu_device_model: "TESLA_V100",
+      gpu_device_model: "V100",
       gpus: 2,
       mem: 249856,
       zone: "public:normal",
