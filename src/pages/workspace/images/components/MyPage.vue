@@ -19,7 +19,7 @@
       </div>
     </div>
     <section class="section">
-      <EasyDataTable
+      <easy-data-table
         :headers="headers"
         :items="imageList"
         :hide-footer="true"
@@ -74,9 +74,9 @@
             </q-btn>
           </div>
         </template>
-      </EasyDataTable>
+      </easy-data-table>
     </section>
-    <CPagination />
+    <c-pagination />
   </template>
   <template v-else>
     <div class="com_nondata_area">

@@ -42,7 +42,7 @@
           </div>
         </div>
         <section class="section">
-          <EasyDataTable
+          <easy-data-table
             :headers="headers"
             :items="items"
             :hide-footer="true"
@@ -60,10 +60,10 @@
             <template #item-version="item">
               <span class="txt">{{ item.version }}</span>
             </template>
-            </EasyDataTable>
+            </easy-data-table>
         </section>
         <div class="table_pagenav disflex_C">
-          <CPagination />
+          <c-pagination />
         </div>
       </div>
     </div>

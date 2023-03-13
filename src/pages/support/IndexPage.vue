@@ -20,7 +20,7 @@
         class="top_btn"
       />
       <div class="table_inner">
-        <EasyDataTable
+        <easy-data-table
           :headers="headers"
           :items="items"
           :hide-footer="true"
@@ -68,7 +68,7 @@
             <span class="txt">확인중</span>
           </q-badge>
           </template>
-        </EasyDataTable>
+        </easy-data-table>
         <c-pagination />
       </div>
     </div>

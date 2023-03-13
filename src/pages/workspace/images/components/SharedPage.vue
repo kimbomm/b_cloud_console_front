@@ -19,7 +19,7 @@
       </div>
     </div>
     <section class="section">
-      <EasyDataTable
+      <easy-data-table
         :headers="headers"
         :items="imageList"
         :hide-footer="true"
@@ -51,9 +51,9 @@
         <template #item-sharedAt="item">
           <span class="txt clip">{{ item.shared_at }}</span>
         </template>
-      </EasyDataTable>
+      </easy-data-table>
     </section>
-    <CPagination />
+    <c-pagination />
   </template>
   <template v-else>
     <div class="com_nondata_area">

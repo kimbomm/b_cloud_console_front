@@ -164,7 +164,7 @@
           </div>
         </div>
         <div class="table_inner">
-          <EasyDataTable
+          <easy-data-table
             :headers="headers"
             :items="items"
             :hide-footer="true"
@@ -278,7 +278,7 @@
                 </q-btn>
               </div>
             </template>
-          </EasyDataTable>
+          </easy-data-table>
           <c-pagination />
         </div>
       </div>

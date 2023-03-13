@@ -59,7 +59,7 @@
         </div>
         <template v-if="defaultData == true">
           <div class="table_inner">
-            <EasyDataTable
+            <easy-data-table
               :headers="headers"
               :items="items"
               :hide-footer="true"
@@ -106,7 +106,7 @@
                   </q-btn>
                 </div>
               </template>
-            </EasyDataTable>
+            </easy-data-table>
           </div>
         <div class="flex-top mt50">
           <p class="name">API Key</p>

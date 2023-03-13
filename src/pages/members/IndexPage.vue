@@ -64,7 +64,7 @@
         </div>
         <!-- Table -->
         <div class="table_inner">
-          <EasyDataTable
+          <easy-data-table
             class="c_table"
             :headers="headers"
             :items="items"
@@ -134,7 +134,7 @@
                 </c-button>
               </div>
             </template>
-          </EasyDataTable>
+          </easy-data-table>
           <c-pagination />
         </div>
         <!-- //Table -->
@@ -180,7 +180,7 @@
           </div>
         </div>
         <!-- Table -->
-        <EasyDataTable
+        <easy-data-table
           :headers="headers2"
           :items="items2"
           :hide-footer="true"
@@ -203,7 +203,7 @@
         <template #item-introduce="item">
           <span class="txt">{{ item.introduce }}</span>
         </template>
-      </EasyDataTable>
+      </easy-data-table>
       <c-pagination />
         <!-- //Table -->
       </template>

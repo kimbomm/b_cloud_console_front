@@ -103,7 +103,7 @@
           />
         </div>
         <div class="table_inner">
-          <EasyDataTable
+          <easy-data-table
             :headers="headers"
             :items="items"
             :hide-footer="true"
@@ -122,7 +122,7 @@
             <template #item-useageFee="item">
               <span class="txt">{{ item.useageFee }}</span>
             </template>
-          </EasyDataTable>
+          </easy-data-table>
           <c-pagination />
         </div>
       </template>
@@ -148,7 +148,7 @@
           />
         </div>
         <div class="table_inner">
-          <EasyDataTable
+          <easy-data-table
             :headers="headers"
             :items="nodata"
             :hide-footer="true"

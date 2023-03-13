@@ -91,7 +91,7 @@
         />
       </div>
       <template v-if="defaultData == true">
-        <EasyDataTable
+        <easy-data-table
           :headers="headers"
           :items="items"
           :hide-footer="true"
@@ -110,12 +110,12 @@
           <template #item-useageFee="item">
             <span class="txt">{{ item.useageFee }}</span>
           </template>
-        </EasyDataTable>
+        </easy-data-table>
         <c-pagination />
       </template>
       <!-- 서비스 준비중입니다. -->
       <template v-else>
-        <EasyDataTable
+        <easy-data-table
           :headers="headers"
           :items="nodata"
           :hide-footer="true"

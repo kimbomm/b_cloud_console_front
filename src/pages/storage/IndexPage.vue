@@ -96,7 +96,7 @@
         </div>
       </div>
       <div class="table_main">
-        <EasyDataTable
+        <easy-data-table
           :headers="headers"
           :items="items"
           :hide-footer="true"
@@ -194,10 +194,10 @@
               </q-btn>
             </div>
           </template>
-        </EasyDataTable>
+        </easy-data-table>
       </div>
       <div class="table_pagenav disflex_C mt32">
-        <CPagination />
+        <c-pagination />
       </div>
     </div>
   </q-page>
