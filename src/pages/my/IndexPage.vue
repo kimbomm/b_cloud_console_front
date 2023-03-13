@@ -48,12 +48,12 @@
         >
           <q-item-label class="name">
             김카브
-            <q-btn
+            <c-button
               class="ibtn edit"
               @click="editInfoModel = !editInfoModel"
             >
               <span class="hidden">편집</span>
-            </q-btn>
+            </c-button>
           </q-item-label>
           <q-item-label class="subject">
             안녕하세요 저는 김카브 입니다. 소개텍스트
@@ -98,15 +98,18 @@
             </div>
           </section>
           <div class="c_btngroup f_end">
-            <q-btn class="c_btn line medium">
-              <span class="txt">취소</span>
-            </q-btn>
-            <q-btn
-              class="c_btn medium"
+            <c-button
+              :size="'medium'"
+              :outline="true"
+              :btn-names="'취소'"
+            />
+            <c-button
+              :size="'medium'"
+              :btn-names="'저장'"
               @click="editInfoModel = !editInfoModel"
             >
               <span class="txt">저장</span>
-            </q-btn>
+            </c-button>
           </div>
         </q-item-section>
       </div>
@@ -141,19 +144,20 @@
               <q-item-label class="info">
                 <!-- LDAP 등록전 -->
                 <div class="entry">
-                  <q-btn
+                  <c-button
+                    :btn-names="'등록하기'"
                     class="c_btn text"
                     @click="LDAPLoginModal = true"
                   >
-                    <span class="txt">등록하기</span>
-                  </q-btn>
+                  </c-button>
                 </div>
                 <!-- LDAP 등록후 -->
                 <!-- <div class="entry">
                   <span>root.choi</span>
-                  <q-btn class="c_btn text">
-                    <span class="txt">등록해제</span>
-                  </q-btn>
+                  <c-button
+                    :btn-names="'등록해제'"
+                    class="c_btn text"
+                  />
                 </div> -->
               </q-item-label>
             </q-item-section>
@@ -236,16 +240,15 @@
           </section>
         </q-card-section>
         <q-card-actions class="c_dialog_foot">
-          <q-btn
-            label="취소"
-            class="line"
+          <c-button
+            :outline="true"
+            :btn-names="'취소'"
             v-close-popup
           />
-          <q-btn
-            label="로그인"
-            class="primary"
+          <c-button
+            :btn-names="'로그인'"
             v-close-popup
-            disable
+            :disabled="true"
           />
         </q-card-actions>
       </q-card>
@@ -256,6 +259,7 @@
 <script setup>
 import { ref } from "vue";
 import { useMeta } from "quasar";
+import CButton from "src/components/common/CButton.vue";
 
 const title = ref("Account");
 useMeta(() => ({

@@ -46,7 +46,7 @@
       </template>
       <template v-if='visible == !true'>
         <div class="w-info">
-          <div class="w-info_work line pb">
+          <div class="w-info_work line">
             <div class="t-flex">
               <p class="title">워크스페이스</p>
               <div class="btnWrap">
@@ -69,7 +69,7 @@
               </div>
             </div>
           </div>
-          <div class="w-info_proj line pb">
+          <div class="w-info_proj line">
             <p class="title mt40">프로젝트</p>
             <div class="work-wrap">
               <div class="w-name">
@@ -123,7 +123,7 @@
           </div>
         </div>
         <div class="w-info">
-          <div class="w-info_work line pb">
+          <div class="w-info_work line">
             <div class="t-flex">
               <p class="title">워크스페이스</p>
               <div class="btnWrap">
@@ -164,7 +164,7 @@
               </div>
             </div>
           </div>
-          <div class="w-info_proj line pb">
+          <div class="w-info_proj line pb40">
             <p class="title mt40">프로젝트</p>
             <div class="p-tWrap">
               <p class="p-name">프로젝트 이름</p>
@@ -172,7 +172,7 @@
             </div>
             <div class="sel-box">
               <div class="sel-wrap">
-                <div class="sel-title">{{proName1}}</div>
+                <div class="sel-title fs16">{{proName1}}</div>
                 <div class="c_selectgroup w250">
                   <c-dropdown
                   v-model:selected="selectedBasic"
@@ -182,7 +182,7 @@
                 </div>
               </div>
               <div class="sel-wrap">
-                <div class="sel-title">{{proName2}}</div>
+                <div class="sel-title fs16">{{proName2}}</div>
                 <div class="c_selectgroup w250">
                   <c-dropdown
                   v-model:selected="selectedBasic"
@@ -231,7 +231,7 @@ import { useMeta } from "quasar";
 import CButton from "components/common/CButton.vue";
 import CDropdown from "components/common/CDropdown.vue";
 
-const visible = ref(true);
+const visible = ref(false);
 const title = ref("Member");
 
 const label = ref("프로젝트 이름");

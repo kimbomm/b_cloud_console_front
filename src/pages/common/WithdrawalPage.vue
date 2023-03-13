@@ -29,17 +29,19 @@
               <q-item-label class="item_header">
                 <span class="text">이용중인 리소스는 모두 반납해야 합니다.</span>
                 <!-- 확인전 -->
-                <!-- <q-btn class="c_btn">
-                  <span class="txt">확인하기</span>
-                </q-btn> -->
+                <!-- <c-button
+                  :btn-names="'확인하기'"
+                  class="c_btn"
+                /> -->
                 <!-- 확인후(반납해야할 리소스가 있는 경우) -->
                 <q-btn class="c_btn">
                   <span class="txt">다시 확인하기</span>
                 </q-btn>
                 <!-- 확인후(반납해야할 리소스가 없는 경우) -->
-                <!-- <q-btn class="c_btn">
-                  <span class="txt">확인완료</span>
-                </q-btn> -->
+                <!-- <c-button
+                  :btn-names="'확인완료'"
+                  class="c_btn"
+                />-->
               </q-item-label>
               <q-item-label class="item_body is-show">
                 <p class="text warning">반납되지 않은 리소스가 있습니다.</p>
@@ -69,17 +71,20 @@
               <q-item-label class="item_header">
                 <span class="text">관리자 역할/권한인 경우 소속 워크스페이스 또는 프로젝트에 다른 관리자 사용자가 있어야 합니다.</span>
                 <!-- 확인전 -->
-                <!-- <q-btn class="c_btn">
-                  <span class="txt">확인하기</span>
-                </q-btn> -->
+                <!-- <c-button
+                  :btn-names="'확인하기'"
+                  class="c_btn"
+                /> -->
                 <!-- 확인후(반납해야할 리소스가 있는 경우) -->
-                <q-btn class="c_btn">
-                  <span class="txt">다시 확인하기</span>
-                </q-btn>
+                <c-button
+                  :btn-names="'다시 확인하기'"
+                  class="c_btn"
+                />
                 <!-- 확인후(반납해야할 리소스가 없는 경우) -->
-                <!-- <q-btn class="c_btn">
-                  <span class="txt">확인완료</span>
-                </q-btn> -->
+                <!-- <c-button
+                  :btn-names="'확인완료'"
+                  class="c_btn"
+                /> -->
               </q-item-label>
               <q-item-label class="item_body is-show">
                 <p class="text warning">관리자 추가 지정이 필요한 그룹이 있습니다.</p>
@@ -111,17 +116,20 @@
               <q-item-label class="item_header">
                 <span class="text">회원탈퇴시 개인이 생성한 스토리지의 데이터는 모두 삭제되며, 복원 불가능합니다.</span>
                 <!-- 확인전 -->
-                <!-- <q-btn class="c_btn">
-                  <span class="txt">확인하기</span>
-                </q-btn> -->
+                <!-- <c-button
+                  :btn-names="'확인하기'"
+                  class="c_btn"
+                /> -->
                 <!-- 확인후(반납해야할 리소스가 있는 경우) -->
-                <!-- <q-btn class="c_btn">
-                  <span class="txt">다시 확인하기</span>
-                </q-btn> -->
+                <!-- <c-button
+                  :btn-names="'다시 확인하기'"
+                  class="c_btn"
+                /> -->
                 <!-- 확인후(반납해야할 리소스가 없는 경우) -->
-                <q-btn class="c_btn">
-                  <span class="txt">확인완료</span>
-                </q-btn>
+                <c-button
+                  :btn-names="'확인완료'"
+                  class="c_btn"
+                />
               </q-item-label>
             </q-item-section>
           </q-card>
@@ -161,12 +169,11 @@
         </section>
       </div>
       <div class="c_btngroup f_end">
-        <q-btn
-          class="c_btn medium"
-          disable
-        >
-          <span class="txt">회원탈퇴</span>
-        </q-btn>
+        <c-button
+          :size="'medium'"
+          :btn-names="'회원탈퇴'"
+          :disabled="true"
+        />
       </div>
     </div>
   </q-page>
@@ -174,6 +181,7 @@
 <script setup>
 import { ref } from "vue";
 import { useMeta } from "quasar";
+import CButton from "src/components/common/CButton.vue";
 
 const title = ref("회원탈퇴");
 useMeta(() => ({

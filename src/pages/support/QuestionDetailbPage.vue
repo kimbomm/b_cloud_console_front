@@ -75,7 +75,7 @@
               </p>
               <p class="request-amount">
                 요청량
-                <span>5,000</span>&nbsp;GiB
+                <span>5,000</span>&nbsp;GB
               </p>
             </div>
           </template>
@@ -93,7 +93,7 @@
               </p>
             </div>
             <div class="req-box">
-              <p class="amount-title">Tesla A100</p>
+              <p class="amount-title">A100</p>
               <p class="current-amount">
                 현재 할당량
                 <span class="c-span">3,000</span>
@@ -104,7 +104,7 @@
               </p>
             </div>
             <div class="req-box">
-              <p class="amount-title">Tesla V100</p>
+              <p class="amount-title">V100</p>
               <p class="current-amount">
                 현재 할당량
                 <span class="c-span">3,000</span>
@@ -115,7 +115,7 @@
               </p>
             </div>
             <div class="req-box">
-              <p class="amount-title">Tesla P40</p>
+              <p class="amount-title">P40</p>
               <p class="current-amount">
                 현재 할당량
                 <span class="c-span">3,000</span>
@@ -126,7 +126,7 @@
               </p>
             </div>
             <div class="req-box">
-              <p class="amount-title">Tesla V100</p>
+              <p class="amount-title">V100</p>
               <p class="current-amount">
                 현재 할당량
                 <span class="c-span">3,000</span>
@@ -137,7 +137,7 @@
               </p>
             </div>
             <div class="req-box">
-              <p class="amount-title">Tesla P40</p>
+              <p class="amount-title">P40</p>
               <p class="current-amount">
                 현재 할당량
                 <span class="c-span">3,000</span>
@@ -154,7 +154,7 @@
         <p class="reply_title">답변</p>
         <!-- 답변 내용이 있는경우 -->
         <div class="reply_answer">
-          5,000 GiB 스토리지 증량 처리 완료 되었습니다.
+          5,000 GB 스토리지 증량 처리 완료 되었습니다.
         </div>
 
         <!-- 답변 내용이 없는 경우 -->

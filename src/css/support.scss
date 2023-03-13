@@ -1,18 +1,25 @@
+@import "src/css/utillity";
+@import "src/css/table";
 /* Support */
 .p-support{
-  .flex-top{
-    margin-bottom:20px;
+  &.p-write{
+    .type{
+      width: 100%; height: 584px;
+      margin: 0 auto;
+      color: $gray500;
+      font-size: $fs14;
+      line-height: 584px;
+      text-align: center;
+    }
   }
-  .group-page{
-    display: flex; justify-content: center; align-items: center;
-    margin-top: 50px;
-  }
+  .bar_mr{padding: 0 8px;}
   .essential{ color: $secondary-coral;}
-  .c_btngroup{
-    margin-top: 20px;
+  .useage{
+    width: 79px; margin-right: 16px;
   }
-  .sub-text{
-    font-size: $fs24; font-weight: $bold;
+  .req{
+    margin-right: 50px;
+    color: $gray500; font-size: $fs16;
   }
   .title{
     font-size:$fs16;
@@ -24,7 +31,7 @@
   }
   /* 하단 버튼 영역 */
   .c_btngroup {
-    margin-top: 50px;
+    margin-top: 24px;
     .q-btn {
       min-width: auto;
       &:nth-last-child(1),

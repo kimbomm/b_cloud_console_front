@@ -1,3 +1,4 @@
+@import "src/css/table";
 /* 내 정보 */
 @mixin shadow{
   box-shadow: 0px 8px 20px -10px rgba(43, 53, 63, 0.08);
@@ -21,6 +22,9 @@
   }
   .q-btn{
     &.edit{
+      width: 28px;
+      height: 28px;
+      border: 1px solid #DCE0E8;
       background:url($iconUrl + '16/ico_edit_gray.svg') no-repeat 50% 50%;
     }
     &.text{
@@ -134,8 +138,8 @@
     margin:0;padding:0;
     .item{
       flex-direction: column;
-      justify-content: flex-start;
       flex-wrap:wrap;
+      justify-content: flex-start;
       margin:0;padding:0;
       .ico.help{margin-left: 6px;}
       &.column{
@@ -169,15 +173,15 @@
     }
     .title{
       display:inline-flex;
-      align-items: center;
       flex:none;
+      align-items: center;
       width:calc(180px + 64px);
       color:$gray500;font-size:$fs16;
     }
     .info{
       display:inline-flex;
-      align-items: center;
       flex:1 auto;
+      align-items: center;
       color:$black;font-size:$fs16;
       .q-chip:not(:last-child){
         margin-right:8px;

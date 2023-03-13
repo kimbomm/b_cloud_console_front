@@ -12,9 +12,31 @@
     </div>
     <!-- //.chead -->
     <div class="p-body">
-      <div class="flex-top">
-        <p class="sub-text">문의내역</p>
-        <c-button :size="'medium'" :outline="true" :btn-names="'문의하기'" />
+      <div class="table_set">
+        <q-input
+          outlined
+          v-model="suffix"
+          placeholder="이름 이메일 검색"
+          class="member-input wsize450"
+        >
+          <template v-slot:prepend>
+            <q-icon name="search" class="ico_search" />
+          </template>
+        </q-input>
+        <div>
+          <c-button
+            :size="'medium'"
+            :outline="true"
+            :btn-names="'문의하기'"
+            class="mr10"
+          />
+          <c-dropdown
+            v-model:selected="selectedBasic"
+            :label="label"
+            :options="options"
+            class="auto_size"
+          />
+        </div>
       </div>
       <div class="table_inner">
         <EasyDataTable
@@ -76,6 +98,7 @@
 import { ref } from "vue";
 import { useMeta } from "quasar";
 import CButton from "components/common/CButton.vue";
+import CDropdown from "src/components/common/CDropdown.vue";
 import CPagination from "components/common/CPagination.vue";
 
 const title = ref("Support");
@@ -135,6 +158,5 @@ const showRow = (item) => {
 </script>
 
 <style lang="scss" scoped>
-@import "./src/css/table";
 @import 'src/css/support';
 </style>

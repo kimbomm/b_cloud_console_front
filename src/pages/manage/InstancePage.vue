@@ -35,27 +35,24 @@
     </div>
     <!-- //.chead -->
     <div class="p-body">
-      <div class="wrap tab_instances">
-        <div class="tab_area">
-          <q-tabs
-            v-model="tab"
-            align="left"
-            class="c_tabs"
-          >
-            <q-tab
-              name="tabs1"
-              label="인스턴스"
-            >
-              <q-badge>36</q-badge>
-            </q-tab>
-            <q-tab
-              name="tabs2"
-              label="태스크"
-            >
-              <q-badge>19</q-badge>
-            </q-tab>
-          </q-tabs>
-        </div>
+      <q-tabs
+        v-model="tab"
+        align="left"
+        class="c_tabs tab_area"
+      >
+        <q-tab
+          name="tabs1"
+          label="인스턴스"
+        >
+          <q-badge>36</q-badge>
+        </q-tab>
+        <q-tab
+          name="tabs2"
+          label="태스크"
+        >
+          <q-badge>19</q-badge>
+        </q-tab>
+      </q-tabs>
         <div class="table_set">
           <div class="l_set_inner">
             <div class="search_input">
@@ -83,28 +80,24 @@
                 class="wsize230"
               />
             </div>
-            <div class="state_select">
-              <c-dropdown
-                v-model:selected="selectedBasic"
-                :label="optLabel3"
-                :options="optNumber3"
-                :multiple="true"
-                class="wsize230"
-              />
-            </div>
+            <c-dropdown
+              v-model:selected="selectedBasic"
+              :label="optLabel3"
+              :options="optNumber3"
+              :multiple="true"
+              class="wsize230"
+            />
           </div>
           <div class="r_set_inner">
-            <div class="dropdown_area">
-              <c-dropdown
-                v-model:selected="selectedBasic"
-                :label="optLabel"
-                :options="optNumber"
-                class="auto_size"
-              />
-            </div>
+            <c-dropdown
+              v-model:selected="selectedBasic"
+              :label="optLabel"
+              :options="optNumber"
+              class="auto_size"
+            />
           </div>
         </div>
-        <div class="table_main">
+        <div class="table_inner">
           <EasyDataTable
             :headers="headers"
             :items="items"
@@ -273,7 +266,6 @@
           </EasyDataTable>
           <c-pagination />
         </div>
-      </div>
     </div>
   </q-page>
 </template>
@@ -544,5 +536,4 @@ const showRow = (item) => {
 
 <style lang="scss" scoped>
 @import "./src/css/manage";
-@import "./src/css/table";
 </style>

@@ -174,5 +174,4 @@ const items = [
 
 <style lang="scss" scoped>
 @import "./src/css/my";
-@import "./src/css/table";
 </style>
