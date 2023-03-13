@@ -290,8 +290,7 @@
             <p>{{ accessKey }}</p>
             <p>
               생성일시
-              <span>33333</span>
-              <!-- <span>{{ createDate }}</span> -->
+              <span>{{ $utils.paseseDate(accessKeyCreatedAt, 'YYYY-MM-DD') }}</span>
             </p>
           </div>
           <div v-else class="sign-up">
@@ -581,6 +580,7 @@ const headers = [
 ];
 const sshKeys = ref([]);
 const accessKey = ref("");
+const accessKeyCreatedAt = ref("");
 const secretKey = ref("");
 const actionButtons = [
   { name: "삭제", event: "delete" },
@@ -618,6 +618,7 @@ const init = async () => {
     userProjects.value = projects.projects;
     sshKeys.value = keys.ssh_keys;
     accessKey.value = apis.access_key;
+    accessKeyCreatedAt.value = apis.created_at;
   } catch (e) {
     console.error(e);
     return false;
