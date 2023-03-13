@@ -11,4 +11,24 @@ export const InstanceService = {
     return response.data;
   },
 
+  /**
+   * 설명: 인스턴스 삭제
+   * @param { Number } projectId 프로젝트 id
+   * @param { Number } instanceId 인스턴스 id
+   */
+  async deleteIntance(projectId, instanceId) {
+    const response = await api.delete(`/projects/${projectId}/instances/${instanceId}`);
+    return response.data;
+  },
+
+  /**
+   * 설명: 인스턴스 정지
+   * @param { Number } projectId 프로젝트 id
+   * @param { Number } instanceId 인스턴스 id
+   */
+  async stopIntance(projectId, instanceId) {
+    const response = await api.post(`/projects/${projectId}/instances/${instanceId}/stop`);
+    return response.data;
+  },
+
 };
