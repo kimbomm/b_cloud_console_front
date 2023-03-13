@@ -154,6 +154,12 @@ watch(() => props.value, (changedValue) => {
 });
 
 onMounted(async () => {
+  const el = inputRef.value.getNativeElement();
+  el.addEventListener("input", (e) => {
+    lazyValue.value = e.target.value;
+    emit("update:value", e.target.value);
+  });
+
   if (props.type === "password") {
     classes.value.push("c_password");
     lazyType.value = "password";
@@ -167,11 +173,8 @@ onMounted(async () => {
 const onUpdateInput = async () => {
   await onValidate();
   setTimeout(() => {
-    const el = inputRef.value.getNativeElement();
-    el.addEventListener("input", (e) => {
-      lazyValue.value = e.target.value;
-      emit("update:value", e.target.value);
-    });
+    emit("update:value", lazyValue.value);
+
     emit("update");
   }, 50);
 };
