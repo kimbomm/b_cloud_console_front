@@ -33,6 +33,7 @@
               <q-btn class="item" @click="quotaChangeModal = true">
                 <span class="txt">할당량 변경 요청</span>
               </q-btn>
+
               <QuotaChangeRequest
                 v-model="quotaChangeModal"
                 :quotaChangeModal="quotaChangeModal"
@@ -40,6 +41,7 @@
                 @update:quotaChangeModal="(value)=>{quotaChangeModal = value}"
 
               />
+
             </q-item>
             <q-item>
               <q-btn class="item">

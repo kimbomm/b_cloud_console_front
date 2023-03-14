@@ -1,4 +1,5 @@
 <template>
+  <button @click="sttusTest()">데이터테스트</button>
   <div class="table_set">
     <div class="l_set_inner">
       <div class="c_inpgroup">
@@ -249,7 +250,15 @@ WorkspaceService.getWorkspace(workspaceId).then((data) => {
 const projectList = ref([]);
 const currentSelected = ref({});
 
+const sttusTest = () => {
+  /* 테스트 */
+  projectList.value.forEach((item) => {
+    item.status = "stopped";
+  });
+};
+
 const isDefaultData = computed(() => !!projectList.value?.length);
+
 const props = defineProps({
   tabModel: String,
 });

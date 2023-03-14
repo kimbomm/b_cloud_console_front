@@ -61,10 +61,11 @@
 import {
   ref, toRefs, watch, watchEffect
 } from "vue";
+import CInputText from "src/components/common/CInputText.vue";
+
 import { ProjectService } from "src/services";
 import { useRoute } from "vue-router";
 import { $useCmFn } from "src/composables/useCommonFunction.js";
-
 import { useProjectStore } from "src/stores/useProjectStore";
 
 const projectsStore = useProjectStore();
