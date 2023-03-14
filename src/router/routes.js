@@ -141,8 +141,8 @@ const routes = [
       // 이미지
       { path: "/workspace/:workspaceId/images", component: () => import("pages/workspace/images/IndexPage.vue") },
       // 멤버
-      { path: "/workspace/:workspaceId/members/", component: () => import("pages/members/IndexPage.vue") },
-      { path: "/workspace/:workspaceId/members/:memberId", component: () => import("pages/members/MemberDetailPage.vue") },
+      { path: "/workspace/:workspaceId/members/", component: () => import("pages/workspace/members/IndexPage.vue") },
+      { path: "/workspace/:workspaceId/members/:memberId", component: () => import("pages/workspace/members/MemberDetailPage.vue") },
       // 요금
       { path: "/workspace/:workspaceId/billing", component: () => import("pages/billing/IndexPage.vue") },
       { path: "/workspace/:workspaceId/billing/:billingId", component: () => import("pages/billing/BillingDetailPage.vue") },
