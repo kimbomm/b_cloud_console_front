@@ -23,7 +23,7 @@
               <UpdateProjectPopup
                 v-model="projectCreateModal"
                 :projectCreateModal="projectCreateModal"
-                @updateProject="updateProject()"
+                @updateProject="updateProject"
                 :projectInfo="projectInfo"
                 :getListProject="getListProject"
                 :newProjectDescription="newProjectDescription"
@@ -37,6 +37,7 @@
               <QuotaChangeRequest
                 v-model="quotaChangeModal"
                 :quotaChangeModal="quotaChangeModal"
+                @updateProject="updateProject"
                 :projectInfo="projectInfo"
                 @update:quotaChangeModal="(value)=>{quotaChangeModal = value}"
 
@@ -328,6 +329,7 @@ const chipFilterFn = (val, update) => {
 };
 
 const updateProject = () => {
+  console.log("updateProject실행");
   updateInfo();
   getProjectInfo();
   setIsProjectChange(true);

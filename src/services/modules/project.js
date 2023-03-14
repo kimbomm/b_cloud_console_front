@@ -86,7 +86,8 @@ export const ProjectService = {
    * @param { number } params 할당량 설정 상세
    */
   async putProjectQuota(projectId, params) {
-    const response = await api.put(`/projects/${projectId}/quota`, { params });
+    const response = await api.put(`/projects/${projectId}/quota`, params);
+
     return response.data;
   },
 
