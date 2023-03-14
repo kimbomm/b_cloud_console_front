@@ -19,6 +19,7 @@
             v-model:value="searchModel"
             placeholder="이름 이메일 검색"
             class="w292"
+            @update="onSearch"
             >
               <template #prepend>
                 <q-icon name="search" class="ico_search" />
@@ -153,7 +154,7 @@
             <span class="txt">{{ item.description }}</span>
           </template>
         </easy-data-table>
-        <c-pagination />
+        <c-pagination @change="onPaging"/>
       </div>
       <!-- //Table -->
     </div>
@@ -291,18 +292,25 @@ const rowsPerPage = ref(10);
 const myRole = ref("");
 const searchModel = ref("");
 const members = ref([]);
+const originMembers = ref([]);
 const chkGrp = ref([]);
 const checkedAll = ref(false);
 const onLoad = ref(false);
-const getMembers = async () => {
-  const { users } = await WorkspaceService.getWorkspaceMembers(workspaceId);
-  const { role } = await WorkspaceService.getMemberInfo(workspaceId, me.id);
+
+const setMembers = (users) => {
   members.value = users.map((user) => ({
     ...user,
     checked: false,
     disabled: false,
     joined: true
   }));
+};
+const getMembers = async () => {
+  const { users } = await WorkspaceService.getWorkspaceMembers(workspaceId);
+  const { role } = await WorkspaceService.getMemberInfo(workspaceId, me.id);
+  setMembers(users);
+  originMembers.value = users;
+
   myRole.value = role;
   onLoad.value = true;
 };
@@ -393,6 +401,15 @@ const bodyRowClassNameFunction = (item) => {
   if (item.checked) classList.push("row-selected");
   if (item.disabled) classList.push("row-disabled");
   return classList.join(" ");
+};
+
+const onSearch = () => {
+  const users = $utils.searchList(originMembers.value, ["name", "email"], searchModel.value);
+  setMembers(users);
+};
+
+const onPaging = () => {
+  console.log(">>>>");
 };
 
 const addMemberModal = ref(false);

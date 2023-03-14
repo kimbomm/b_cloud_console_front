@@ -148,6 +148,19 @@ class Utils {
     const totalNum = Number(total);
     return (curNum / totalNum) * 100;
   }
+
+  /**
+   * 설명: 검색 필터링
+   * 현재 조건: 입력값 일치
+   * 포함조건 필요(영문, 숫자, 특수문자)
+   * @param { array } list 전체리스트
+   * @param { array } targetKey 검색 조건이 되는 key
+   * @param { string } input 입력값
+   */
+  searchList(list, targetKey, input) {
+    const filteredList = list.filter((item) => targetKey.some((key) => item[key].match(new RegExp(input), "gi")));
+    return filteredList;
+  }
 }
 
 export const $utils = new Utils();
