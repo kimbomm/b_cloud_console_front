@@ -284,12 +284,12 @@
             V1.Xlarge(v100 GPU 1 / CPU 14 / MEM 122GB / DISK 80GB)
           </p>
           <div class="searcharea">
-            <CDropdown
+            <c-dropdown
               v-model:selected="chartSelectedBasic"
               :label="chartOptlabel"
               :options="chartSelOpt"
             />
-            <CDropdown
+            <C-dropdown
               v-model:selected="chartSelectedBasic2"
               :label="chartOptlabel2"
               :options="chartSelOpt2"
