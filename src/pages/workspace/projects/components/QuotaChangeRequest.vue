@@ -131,16 +131,14 @@ function createQuotaRules() {
   ];
 }
 
-const inputRules = {
-  cpu_milli: createQuotaRules(),
-  v100: createQuotaRules(),
-  a100_40g: createQuotaRules(),
-  a100_80g: createQuotaRules(),
-};
+const inputRules = ["cpu_milli", "v100", "a100_40g", "a100_80g"].reduce((acc, key) => {
+  acc[key] = createQuotaRules();
+  return acc;
+}, {});
 
 /* * 입력 값 하나라도 빈 값일 경우 유효성 체크  */
 watch(
-  inputData.value,
+  inputData,
   (newData) => {
     const allInputsFilled = Object.values(newData).every(
       (value) => value !== "" && value !== null
@@ -161,7 +159,7 @@ watch(
   }
 );
 
-const initProjectInfo = () => {
+const initProjectInput = () => {
   inputData.value = {
     cpu_milli: null,
     v100: null,
@@ -170,8 +168,10 @@ const initProjectInfo = () => {
   };
 };
 
-const onClose = () => {
+const onClose = async () => {
   emit("update:quotaChangeModal", false);
+  await initProjectInput();
+  isValid.value = true;
 };
 
 /*
@@ -187,9 +187,9 @@ const onSave = async () => {
     await ProjectService.putProjectQuota(projectId, params);
     emit("update:quotaChangeModal", false);
     emit("updateProject");
-    await initProjectInfo();
+    await initProjectInput();
   } catch (e) {
-    console.log("e", e);
+    console.log(e);
   }
 };
 </script>
