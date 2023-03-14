@@ -10,7 +10,6 @@
     icon-prev="prev"
     icon-next="next"
     class="c_pagination"
-    :key="key"
     @update:model-value="onChange"
   />
 </template>
@@ -37,7 +36,7 @@ const props = defineProps({
     default: 1
   }
 });
-const key = ref(0);
+
 const lazyCurrent = ref(1);
 const emit = defineEmits(["update:current", "change"]);
 watch(() => props.current, () => {
