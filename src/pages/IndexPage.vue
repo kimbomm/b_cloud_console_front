@@ -9,25 +9,19 @@
     </div>
     <!-- //.chead -->
     <div class="p-body">
-      <q-banner class="c_banner">
+      <q-banner v-if="banner.length > 0 && !isBannerSession" class="c_banner">
         <template v-slot:avatar>
           <q-icon class="noti" />
         </template>
         <div class="bn_head">
-          <em class="state">서비스</em>
-          <strong class="title">스토리지 안내드립니다.</strong>
+          <em class="state">{{ NOTICE_TYPE[banner[0].type].name }}</em>
+          <strong class="title">{{ banner[0].title }}</strong>
         </div>
         <div class="bn_body">
-          스토리지 사용 안내 드립니다.
-          스토리지 사용 안내 드립니다.
-          스토리지 사용 안내 드립니다.
-          스토리지 사용 안내 드립니다.
-          스토리지 사용 안내 드립니다.
-          스토리지 사용 안내 드립니다.
-          스토리지 사용 안내 드립니다.
+          <p v-html="banner[0].content" />
         </div>
         <template v-slot:action>
-          <q-btn class="xclose" />
+          <q-btn class="xclose" @click="onBannerClose" />
         </template>
       </q-banner>
       <!-- Slides -->
@@ -470,9 +464,6 @@
         <!-- Quota -->
         <div v-if="workspace" class="storage-box_dash quota">
           <p class="sub-title">Workspace Quota</p>
-          <a href="#" class="morelink">
-            <span>더보기</span>
-          </a>
           <div class="store-wrap">
             <q-scroll-area style="padding-right: 18px; height: 100%; max-width: 100%;">
               <!-- store -->
@@ -584,7 +575,7 @@
 <script setup>
 import { ref, onBeforeUnmount } from "vue";
 import { useRoute } from "vue-router";
-import { useMeta } from "quasar";
+import { useMeta, date } from "quasar";
 import { $utils } from "src/utils/utils";
 import { WorkspaceService, NoticeService } from "src/services";
 
@@ -628,15 +619,11 @@ const stores = ref([
 // workspace info
 const { workspaceId } = route.params;
 const workspace = ref(null);
-WorkspaceService.getWorkspace(workspaceId).then((data) => {
-  workspace.value = data;
-});
-// workspace info 끝
 
-// 배너
-// const banner = ref(null);
 // 공지사항
 const notices = ref([]);
+const banner = ref([]);
+const isBannerSession = ref(false);
 const NOTICE_TYPE = {
   service: {
     class: "service",
@@ -651,12 +638,30 @@ const NOTICE_TYPE = {
     name: "작업"
   },
 };
+
 const getNotices = async () => {
   const res = await NoticeService.getNotices();
   notices.value = res.notices;
+
+  const latest7daysNotices = notices.value.filter((notice) => {
+    const isLatest = date.getDateDiff(new Date(), $utils.paseseDate(notice.created_at));
+    return isLatest <= 7 && isLatest >= 0;
+  });
+  banner.value = latest7daysNotices.filter((item) => (!(workspace.value.zone === "private" && item.type === "community")));
+  if (banner.value.length > 0) {
+    isBannerSession.value = sessionStorage.getItem(`banner-${banner.value[0].id}`);
+  }
 };
-getNotices();
-// 공지사항 끝
+
+const onBannerClose = () => {
+  sessionStorage.setItem(`banner-${banner.value[0].id}`, true);
+  isBannerSession.value = true;
+};
+
+WorkspaceService.getWorkspace(workspaceId).then((data) => {
+  workspace.value = data;
+  getNotices();
+});
 
 // 10분단위 업데이트
 const interval = setInterval(() => {
