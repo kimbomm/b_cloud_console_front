@@ -80,4 +80,15 @@ export const ProjectService = {
     return response.data;
   },
 
+  /**
+   * 설명: 할당량 변경
+   * @param { number } projectId 프로젝트 id
+   * @param { number } params 할당량 설정 상세
+   */
+  async putProjectQuota(projectId, params) {
+    const response = await api.put(`/projects/${projectId}/quota`, params);
+
+    return response.data;
+  },
+
 };

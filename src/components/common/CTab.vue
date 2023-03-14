@@ -11,10 +11,10 @@
       :key="tab.name"
       :name="tab.name"
       :label="tab.label"
-    >
-    <slot name="total">
-      <q-badge>{{ tab.total !== undefined ? tab.total : '0' }}</q-badge>
-    </slot>
+      >
+      <slot name="total" v-if="tab.total !== undefined">
+        <q-badge>{{ tab.total }}</q-badge>
+      </slot>
   </q-tab>
 </q-tabs>
 </template>

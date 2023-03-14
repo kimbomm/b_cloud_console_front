@@ -1,75 +1,65 @@
 <template>
-  <template v-if="isDefaultData">
-    <div class="table_set">
-      <div class="l_set_inner">
-        <div class="c_inpgroup">
-          <c-input-text
-            v-model:value="searchData.query"
-            placeholder="이름, 상태, 생성자 검색"
-            hint=""
-            class="wsize_full"
-            :clearable="true"
-          >
-            <template v-slot:prepend>
-              <q-icon name="search" class="ico_search" />
-            </template>
-          </c-input-text>
-        </div>
-
-        <div class="c_selectgroup">
-          <!-- <CDropdown
-            v-model:selected="selectedCheck"
-            :label="label"
-            :options="options"
-            :multiple="true"
-          /> -->
-          <!-- 임시추가 -->
-          <q-select
-            v-model="searchData.status"
-            multiple
-            :options="statusOption"
-            :label="label"
-            style="width: 250px"
-
-          />
-
-        </div>
+  <div class="table_set">
+    <div class="l_set_inner">
+      <div class="c_inpgroup">
+        <c-input-text
+          v-model:value="searchData.query"
+          placeholder="이름, 상태, 생성자 검색"
+          hint=""
+          class="wsize_full"
+          :clearable="true"
+        >
+          <template v-slot:prepend>
+            <q-icon name="search" class="ico_search" />
+          </template>
+        </c-input-text>
       </div>
-
-      <div class="r_set_inner">
-        <div class="instance_make_btn">
-          <q-btn
-            btnTypes="4"
-            type="button"
-            class="c_btn line medium"
-            to="/projects/Instancedetail"
-          >
-            <span class="txt">인스턴스 생성하기</span>
-          </q-btn>
-        </div>
-
-        <div class="view_cont_num">
-          <CDropdown
-            v-model:selected="dataparamStatus"
-            :label="label2"
-            :options="options2"
-          />
-
-        </div>
+      <div class="c_selectgroup">
+        <CDropdown
+          v-model:selected="searchData.status"
+          :label="label"
+          :options="statusOption"
+          :multiple="true"
+        />
       </div>
     </div>
+
+    <div class="r_set_inner">
+      <div class="instance_make_btn">
+        <q-btn
+          btnTypes="4"
+          type="button"
+          class="c_btn line medium"
+          to="/projects/Instancedetail"
+        >
+          <span class="txt">인스턴스 생성하기</span>
+        </q-btn>
+      </div>
+
+      <div class="view_cont_num">
+        <CDropdown
+          v-model:selected="searchData.size"
+          :label="label2"
+          :options="options2"
+        />
+      </div>
+    </div>
+  </div>
+
+  <template v-if="isDefaultData">
     <div class="change_table_area">
       <easy-data-table
         :headers="headers"
-        :items="items"
+        :items="projectList"
         :hide-footer="true"
         empty-message="정보가 없습니다."
         @click-row="showRow"
+        v-model:server-options="serverOptions"
       >
         <!-- title -->
         <template #item-title="item">
           <a href="#">
-            <span class="txt">{{ item.title }}</span>
+            <span class="txt">{{ item.nickname }}</span>
             <q-tooltip anchor="bottom middle" class="c_tooltip">
               <div class="inner">
                 {{ item.title }}
@@ -77,79 +67,85 @@
             </q-tooltip>
           </a>
         </template>
-        <!--
-                  상태값(status)
-                  1. running, 운영중
-                  2. stopped, 정지
-                  3. pending, 대기중
-                  4. stopping, 정지중
-                  5. deleting, 삭제중
-                  6. starting, 시작중
-                  //TBD
-                  7. delete_cont, 삭제예정 D-n
-                  8. delete_day, 삭제예정 D-Day
-                -->
+
         <template #item-status="item">
-          <q-badge v-if="item.status === 'running'" class="green">
-            <span class="txt">운영중</span>
-          </q-badge>
-          <q-badge v-else-if="item.status === 'stopped'" class="orange">
-            <span class="txt">정지</span>
-          </q-badge>
-          <q-badge v-else-if="item.status === 'pending'" class="c_badge">
-            <span class="txt">대기중</span>
-          </q-badge>
-          <q-badge v-else-if="item.status === 'stopping'" class="c_badge">
-            <span class="txt">정지중</span>
-          </q-badge>
-          <q-badge v-else-if="item.status === 'deleting'" class="c_badge">
-            <span class="txt">삭제중</span>
-          </q-badge>
-          <q-badge v-else-if="item.status === 'starting'" class="c_badge">
-            <span class="txt">시작중</span>
-          </q-badge>
-          <q-badge v-else-if="item.status === 'delete_cont'" class="orange">
-            <span class="txt">삭제예정 D-{{ nDay }}</span>
-          </q-badge>
-          <q-badge v-else-if="item.status === 'delete_day'" class="orange">
-            <span class="txt">삭제예정 D-Day</span>
-          </q-badge>
+          <c-badgeState :item="item" />
         </template>
         <!-- ssh -->
         <template #item-ssh="item">
-          <q-badge class="copy square ssh icon" @click="onCopy(item)">
-            <span class="txt">{{ item.ssh }}</span>
+          <q-badge class="copy square ssh icon" @click="onCopy(item.jupyter_lab_token)">
+            <span class="txt">ssh</span>
           </q-badge>
         </template>
         <!-- jupyterLab -->
         <template #item-jupyterLab="item">
-          <q-badge class="copy square lab icon" @click="onCopy(item)">
-            <span class="txt">{{ item.jupyterLab }}</span>
+          <q-badge class="copy square lab icon">
+            {{ item.join }}
+            <span class="txt">JupyterLab</span>
           </q-badge>
         </template>
         <!-- 인스턴스 타입 -->
         <template #item-instanceType="item">
-          <q-badge class="text instance" @click="onCopy(item)">
-            <span class="txt"
-              >{{ item.instanceType
-              }}<i class="ico details">
+          <q-badge class="text instance">
+            <span class="txt">
+              {{ item.instance_type.name }}
+              <i class="ico details">
                 <q-tooltip anchor="bottom middle" class="c_tooltip insTypeTool">
                   <div class="inner">
-                    {{ item.instanceType }}
+                    GPU
+                    {{ item.instance_type.gpu }} / CPU {{ item.instance_type.cpu }} /MEM
+                    {{ item.instance_type.mem }}GB
                   </div>
                 </q-tooltip></i
               >
             </span>
           </q-badge>
         </template>
-        <!-- createdBy -->
-        <template #item-createdBy="item">
-          <span class="txt clip">{{ item.createdBy }}</span>
+        <template #item-gpu="item">
+          <span class="txt">
+            {{
+              $utils.getPercentData(
+                item.instance_type.gpu,
+                workspace.quota.total.cpu_milli
+              )
+            }}%
+          </span>
         </template>
+        <template #item-cpu="item">
+          <span class="txt"
+            >{{ item.cpu }}
+            {{
+              $utils.getPercentData(
+                item.instance_type.cpu,
+                workspace.quota.total.cpu_milli
+              )
+            }}%
+          </span>
+        </template>
+        <!-- gpu -->
+
+        <!-- createdBy -->
+        <template #item-createdAt="item">
+          <span class="txt clip">
+            {{ $utils.paseseDate(item.created_at, "YY.MM.DD HH:MM:ss") }}</span
+          >
+        </template>
+        <template #item-createdBy="item">
+          <span class="txt clip">{{ item.owner.name }}</span>
+        </template>
+
         <!-- 버튼 그룹 -->
         <template #item-buttons="item">
           <div v-if="actionButtons" class="cell btngroup">
-            <q-btn class="c_btn ibtn dot">
+            <q-btn
+              class="c_btn ibtn dot"
+              :disabled="
+                item.status === 'starting' ||
+                item.status === 'stopping' ||
+                item.status === 'deleting' ||
+                !item.status
+              "
+            >
               <i class="ico dots" /><span class="txt">클릭</span>
               <q-popup-edit v-model="item.id" class="dots_menu" anchor="top right">
                 <q-list style="min-width: 100px">
@@ -165,8 +161,9 @@
         </template>
       </easy-data-table>
     </div>
+
     <div class="table_pagenav disflex_C">
-      <c-pagination />
+      <CPagination />
     </div>
   </template>
   <template v-else>
@@ -176,31 +173,99 @@
       </div>
     </div>
   </template>
+
+  <!-- Start : [관리 - 인스턴스] 인스턴스 삭제 확인 Alert 팝업 -->
+  <c-dialog
+    v-model:visible="alertInstanceDelConfirmModal"
+    :message="'인스턴스를 삭제하시겠습니까?'"
+    :description="'삭제된 인스턴스는 복구되지 않습니다.'"
+  >
+    <!-- :callback-negative="triggerInstanceSuccess" -->
+    <template #negative>
+      {{ currentSelected.nickname }}
+    </template>
+    <template #footer>
+      <c-button :outline="true" btn-names="취소" @click="deleteInstnaceCancle" />
+      <c-button btn-names="확인" @click="deleteInstnace" />
+    </template>
+  </c-dialog>
+  <!-- End : [관리 - 인스턴스] 인스턴스 삭제 확인 Alert 팝업 -->
+
+  <!-- Start : [관리 - 인스턴스] 인스턴스 추가된 용량 (10GB 초과시 저장 되지 않음 안내) Alert 팝업 -->
+  <c-dialog
+    v-model:visible="alertInstanceAddVolumeInfoModal"
+    :message="'인스턴스 용량이 초과되어 정지시 현재 상태가 저장되지 않습니다. 정지 하시겠습니까?'"
+  >
+    <template #positive>
+      현재 용량 : {{ currentSelected.instance_type.local_storage }}GB (10BG 이하 저장
+      가능)
+    </template>
+    <template #footer>
+      <c-button :outline="true" btn-names="취소" @click="stopInstnaceCancle" />
+      <c-button btn-names="확인" @click="stopInstnace" />
+    </template>
+  </c-dialog>
+  <!-- End : [관리 - 인스턴스] 인스턴스 추가된 용량 (10GB 초과시 저장 되지 않음 안내) Alert 팝업 -->
+
+  <!-- [프로젝트 - 인스턴스] 프로젝트 - 인스턴스 - 이미지 생성 팝업 -->
+  <CreateImage
+    @update:projectInstanceImgCreateModal="(value)=>{projectInstanceImgCreateModal = value}"
+    :projectInstanceImgCreateModal="projectInstanceImgCreateModal"
+    v-model="projectInstanceImgCreateModal"
+  />
 </template>
 <script setup>
 import {
-  ref, watch, computed, onMounted,
+  ref, watch, computed, onMounted
 } from "vue";
-import { InstanceService } from "src/services";
-import { useRoute, useRouter } from "vue-router";
+import { InstanceService, WorkspaceService } from "src/services";
+import { useRoute } from "vue-router";
 import { throttle } from "lodash";
+import { copyToClipboard } from "quasar";
+import { $useCmFn } from "src/composables/useCommonFunction.js";
+import { $utils } from "src/utils/utils";
 
 import CPagination from "components/common/CPagination.vue";
 import CDropdown from "components/common/CDropdown.vue";
 import CInputText from "components/common/CInputText.vue";
+import CBadgeState from "src/components/common/CBadgeState.vue";
+import CDialog from "src/components/common/CDialog.vue";
+import CButton from "src/components/common/CButton.vue";
+import CreateImage from "./CreateImage.vue";
+
+const serverOptions = ref({
+  rowsPerPage: 50,
+});
 
 const route = useRoute();
-const router = useRouter();
+
+// workspace info
+const { workspaceId } = route.params;
+const workspace = ref(null);
+WorkspaceService.getWorkspace(workspaceId).then((data) => {
+  workspace.value = data;
+});
+
 const projectList = ref([]);
+const currentSelected = ref({});
+
 const isDefaultData = computed(() => !!projectList.value?.length);
 
 const props = defineProps({
   tabModel: String,
 });
+const isCurrentTab = props.tabModel === "instances";
+
 const emit = defineEmits(["update:instanceTotal"]);
 
 const dataParams = ref({});
+const searchData = ref({
+  query: "",
+  status: [],
+  size: 10,
+});
 
+const actionButtons = ref([]);
 const statusOption = ref([
   { label: "전체", value: 0, status: [] },
   { label: "대기중", value: 1, status: ["pending", "submitted"] },
@@ -209,24 +274,28 @@ const statusOption = ref([
   { label: "정지중", value: 4, status: ["stopping"] },
   { label: "정지", value: 5, status: ["stopped"] },
   { label: "삭제중", value: 6, status: ["deleting"] },
-  { label: "삭제예정(D-N)", value: 6, status: ["stopped ", "error"] },
-
+  { label: "삭제예정(D-N)", value: 7, status: ["stopped ", "error"] },
 ]);
 const options2 = ref([
-  { label: "10", value: 0 },
-  { label: "25", value: 1 },
-  { label: "50", value: 2 },
+  { label: "10", value: 0, size: 10 },
+  { label: "25", value: 1, size: 25 },
+  { label: "50", value: 2, size: 50 },
 ]);
 
-/* 인스턴스 리스트 */
+const alertInstanceDelConfirmModal = ref(false);
+const alertInstanceAddVolumeInfoModal = ref(false);
+
+const projectInstanceImgCreateModal = ref(false);
+
+/** 인스턴스 리스트 호출 */
 const getInstances = async () => {
   try {
     const result = await InstanceService.getProjectIntances(
       route.params.projectId,
       dataParams.value
     );
-
     projectList.value = result.instances;
+    console.log("resultresultresult", result);
 
     emit("update:instanceTotal", result.total);
   } catch (error) {
@@ -234,104 +303,55 @@ const getInstances = async () => {
   }
 };
 
-const searchData = ref({
-  query: "",
-  status: []
-});
+/** 초기화 */
 const initRouterData = () => {
   dataParams.value = {
     page: 1,
+    size: 10,
+    query: "",
+    status: [],
   };
-
   searchData.value = {
     query: "",
-    status: []
+    status: [],
   };
 };
 
-const setRouterData = () => {
-  const { tab, ...query } = route.query;
-
-  searchData.value = query;
-  dataParams.value = {
-    ...query,
-    // query: "test5" //필터링 테스트
-  };
-};
-
-const routerPush = () => {
-  const query = {
-    tab: props.tabModel,
-    ...dataParams.value
-  };
-
-  router.replace({
-    path: `/workspace/${route.params.workspaceId}/projects/${route.params.projectId}`,
-    query,
-  });
-};
-
+/*
+ * 설명 : searchData 객체를 감시하여 dataParams 객체를 갱신
+ * 변경 시 0.8초간 대기 후 실행
+ */
 watch(
   () => searchData.value,
-  (newValue) => {
-    // 검색어 0.8초 간격으로 함수 호출
-    if (newValue.query) {
-      throttle(() => {
-        dataParams.value.query = newValue.query;
-      }, 800)();
-    }
+  throttle((newValue) => {
+    dataParams.value.query = newValue.query || null;
+
     if (newValue.status) {
-      const isStatus = newValue.status.some((item) => Object.keys(item).includes("status"));
-      if (isStatus) {
-        const result = newValue.status.map((item) => item.status).flat();
-        console.log("result", result);
-        dataParams.value.status = result;
-      } else {
-        const statusOption2 = statusOption.value.filter((option) => newValue.status.some((status) => option.status.includes(status)));
-        searchData.value.status = statusOption2;
-        console.log("statusOption2", statusOption2);
-      }
+      const result = newValue.status.flatMap((item) => (Object.keys(item).includes("status") ? item.status : []));
+      if (newValue.status.some((item) => item.value === 0)) result.length = 0;
+      dataParams.value.status = result.length > 0 ? result.join(",") : result;
     }
-  },
-  { deep: true }
-);
-
-const isCurrentTab = props.tabModel === "instances";
-
-watch(
-  () => dataParams.value,
-  () => {
-    routerPush();
+    if (newValue.size) {
+      dataParams.value.size = newValue.size.size;
+    }
     getInstances();
-  },
+  }, 800),
   { deep: true }
 );
 
 onMounted(() => {
   if (isCurrentTab) {
-    setRouterData();
+    getInstances();
   }
 });
 
-const updateInstances = () => {
-  initRouterData();
-  routerPush();
-};
-
+/** 라우트 파라미터 변경 시 값 초기화 */
 watch(
-  () => props.tabModel,
+  () => route.params,
   async () => {
-    if (isCurrentTab) {
-      updateInstances();
-    }
-  }
-);
-
-watch(
-  () => route.params.projectId,
-  async () => {
-    if (route.name === "ProjectList" && isCurrentTab) {
-      updateInstances();
+    if (route.params.projectId) {
+      console.log("route.params변경");
+      initRouterData();
     }
   }
 );
@@ -339,7 +359,7 @@ watch(
 const label = ref("전체");
 const label2 = ref("10");
 // const selectedCheck = ref(null);
-const nDay = ref(7);
+// const nDay = ref(7);
 
 const headers = [
   {
@@ -406,179 +426,126 @@ const headers = [
   },
   { text: "", value: "buttons", width: 80 },
 ];
-const items = [
-  {
-    id: 132,
-    title: "A인스턴스A인스턴스A인스턴스A인스턴스A인스턴스A인 30자",
-    status: "running",
-    ssh: "ssh",
-    jupyterLab: "JupyterLab",
-    instanceType: "V1.XLARGE",
-    gpu: "49.5%",
-    cpu: "100%",
-    createdAt: "2023.01.12 10:33:21",
-    createdBy: "root.choi",
-    resource: {
-      cpus: 28,
-      gpu_device_model: "TESLA_V100",
-      gpus: 2,
-      mem: 249856,
-      zone: "public:normal",
-    },
-    buttons: {
-      name: "초대요청 확인",
-    },
-  },
-  {
-    id: 34,
-    title: "A인스턴스A인스턴스10자",
-    status: "stopped",
-    ssh: "ssh",
-    jupyterLab: "JupyterLab",
-    instanceType: "V1.XLARGE",
-    gpu: "49.5%",
-    cpu: "100%",
-    createdAt: "2023.01.12 10:33:21",
-    createdBy: "root.choi",
-    resource: {
-      cpus: 28,
-      gpu_device_model: "TESLA_V100",
-      gpus: 2,
-      mem: 249856,
-      zone: "public:normal",
-    },
-  },
-  {
-    id: 34,
-    title: "A인스턴스A인스턴스10자",
-    status: "deleting",
-    ssh: "ssh",
-    jupyterLab: "JupyterLab",
-    instanceType: "V1.XLARGE",
-    gpu: "49.5%",
-    cpu: "100%",
-    createdAt: "2023.01.12 10:33:21",
-    createdBy: "root.choi",
-    resource: {
-      cpus: 28,
-      gpu_device_model: "TESLA_V100",
-      gpus: 2,
-      mem: 249856,
-      zone: "public:normal",
-    },
-  },
-  {
-    id: 99999,
-    title: "A인스턴스A인스턴스A인스턴스A인A인스턴스A인스턴스A인스턴스A인 20자",
-    status: "stopping",
-    ssh: "ssh",
-    jupyterLab: "JupyterLab",
-    instanceType: "V1.XLARGE",
-    gpu: "49.5%",
-    cpu: "100%",
-    createdAt: "2023.01.12 10:33:21",
-    createdBy: "root.choi",
-    resource: {
-      cpus: 28,
-      gpu_device_model: "TESLA_V100",
-      gpus: 2,
-      mem: 249856,
-      zone: "public:normal",
-    },
-  },
-  {
-    id: 99999,
-    title: "A인스턴스A인스턴스A인스턴스A인 20자",
-    status: "starting",
-    ssh: "ssh",
-    jupyterLab: "JupyterLab",
-    instanceType: "V1.XLARGE",
-    gpu: "49.5%",
-    cpu: "100%",
-    createdAt: "2023.01.12 10:33:21",
-    createdBy: "root.choi",
-    resource: {
-      cpus: 28,
-      gpu_device_model: "TESLA_V100",
-      gpus: 2,
-      mem: 249856,
-      zone: "public:normal",
-    },
-  },
-  {
-    id: 132,
-    title: "A인스턴스A인스턴스A인스턴스A인스턴스A인스턴스A인 30자",
-    status: "pending",
-    ssh: "ssh",
-    jupyterLab: "JupyterLab",
-    instanceType: "V1.XLARGE",
-    gpu: "49.5%",
-    cpu: "100%",
-    createdAt: "2023.01.12 10:33:21",
-    createdBy: "root.choi",
-    resource: {
-      cpus: 28,
-      gpu_device_model: "TESLA_V100",
-      gpus: 2,
-      mem: 249856,
-      zone: "public:normal",
-    },
-    buttons: {
-      name: "초대요청 확인",
-    },
-  },
-  {
-    id: 99999,
-    title:
-      "A인스턴스A인스턴스A인스턴스A인A인스턴스A인스턴스A인스턴스A인A인스턴스A인스턴스A인스턴스A인A인스턴스A인스턴스A인스턴스A인 20자",
-    status: "delete_cont",
-    ssh: "ssh",
-    jupyterLab: "JupyterLab",
-    instanceType: "V1.XLARGE",
-    gpu: "49.5%",
-    cpu: "100%",
-    createdAt: "2023.01.12 10:33:21",
-    createdBy: "root.choi",
-    resource: {
-      cpus: 28,
-      gpu_device_model: "TESLA_V100",
-      gpus: 2,
-      mem: 249856,
-      zone: "public:normal",
-    },
-  },
-  {
-    id: 99999,
-    title: "A인스턴스A인스턴스A인스턴스A인 20자",
-    status: "delete_day",
-    ssh: "ssh",
-    jupyterLab: "JupyterLab",
-    instanceType: "V1.XLARGE",
-    gpu: "49.5%",
-    cpu: "100%",
-    createdAt: "2023.01.12 10:33:21",
-    createdBy: "root.choi",
-    resource: {
-      cpus: 28,
-      gpu_device_model: "TESLA_V100",
-      gpus: 2,
-      mem: 249856,
-      zone: "public:normal",
-    },
-  },
-];
-const actionButtons = [
-  { name: "정지", event: "stop" },
-  { name: "시작", event: "start" },
-  { name: "이미지 생성", event: "makingImg" },
-  { name: "삭제", event: "delete" },
-];
+
+const showRow = (item) => {
+  currentSelected.value = item;
+  console.log("선택", item);
+  const { status } = item;
+  switch (status) {
+    case "running":
+      actionButtons.value = [
+        { name: "정지", event: "stop" },
+        { name: "이미지 생성", event: "makingImg" },
+      ];
+      break;
+    case "stopped":
+    case "error":
+      actionButtons.value = [
+        { name: "시작", event: "start" },
+        { name: "삭제", event: "delete" },
+      ];
+      break;
+    case "pending":
+      actionButtons.value = [{ name: "삭제", event: "delete" }];
+      break;
+    case "starting":
+    case "stopping":
+    case "deleting":
+      actionButtons.value = [];
+      break;
+    default:
+      actionButtons.value = [];
+      break;
+  }
+};
+
+const triggerSuccess = (message) => {
+  setTimeout(() => {
+    $useCmFn.onNotify({
+      message: `${message}`,
+      type: "positive",
+    });
+  }, 100);
+};
+
+const triggerFail = (message) => {
+  $useCmFn.onNotify({
+    message: `${message}`,
+    type: "negative",
+  });
+};
+
 /**
  * 설명: 복사하기 버튼 이벤트
  * @param { object } rowData get table row data
  */
-const onCopy = (rowData) => {
-  console.log(rowData);
+const onCopy = (message) => {
+  copyToClipboard(message).then(() => {
+    triggerSuccess("SSH 접속 명령어가 복사되었습니다.");
+  });
+};
+
+/*
+* 설명 : 액션버튼 토글
+*/
+const toggleActionButtons = () => {
+  actionButtons.value = false;
+  setTimeout(() => {
+    actionButtons.value = true;
+  }, 50);
+};
+
+const deleteInstnaceCancle = () => {
+  alertInstanceDelConfirmModal.value = false;
+  toggleActionButtons();
+};
+
+/**  인스턴스 삭제 */
+const deleteInstnace = async () => {
+  try {
+    await InstanceService.deleteIntance(route.params.projectId, currentSelected.value.id);
+    triggerSuccess("인스턴스 삭제가 완료되었습니다.");
+    alertInstanceDelConfirmModal.value = false;
+    toggleActionButtons();
+
+    getInstances();
+  } catch (error) {
+    triggerFail("인스턴스 삭제를 실패하였습니다. 다시 시도해주세요.");
+    console.log(error);
+  }
+};
+
+/** 삭제확인 팝업 */
+const handleDeleteModal = () => {
+  alertInstanceDelConfirmModal.value = true;
+};
+
+const stopInstnaceCancle = () => {
+  alertInstanceAddVolumeInfoModal.value = false;
+};
+const stopInstnace = async () => {
+  try {
+    await InstanceService.stopIntance(route.params.projectId, currentSelected.value.id);
+    toggleActionButtons();
+    getInstances();
+    setTimeout(() => {
+      getInstances();
+    }, 4000);
+  } catch (error) {
+    console.log(error);
+  }
+};
+const startInstnace = async () => {
+  try {
+    await InstanceService.startIntance(route.params.projectId, currentSelected.value.id);
+    toggleActionButtons();
+    getInstances();
+    setTimeout(() => {
+      getInstances();
+    }, 4000);
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 /**
@@ -586,12 +553,40 @@ const onCopy = (rowData) => {
  * @param { string } eventName action event name
  * @param { object } rowData get table row data
  */
+
 const onActions = (eventName, rowData) => {
   console.log(eventName, rowData);
-};
 
-const showRow = (item) => {
-  console.log(item);
+  switch (eventName) {
+    case "delete":
+      handleDeleteModal();
+      break;
+
+    case "stop":
+      if (rowData.instance_type.local_storage > 10) {
+        alertInstanceAddVolumeInfoModal.value = true;
+      } else {
+        stopInstnace();
+      }
+      break;
+
+    case "start":
+      if (rowData.instance_type.mem > 1000) {
+        $useCmFn.onMessage({
+          message: `${rowData.nickname} 리소스 할당량이 부족하여<br />인스턴스를 실행 할 수 없습니다.`,
+        });
+      } else {
+        startInstnace();
+      }
+      break;
+
+    case "makingImg":
+      projectInstanceImgCreateModal.value = true;
+      break;
+
+    default:
+      break;
+  }
 };
 </script>
 
