@@ -380,78 +380,16 @@
   </template>
 </template>
 <script setup>
-import { ref, watch, computed } from "vue";
+import { ref } from "vue";
+import { useMeta } from "quasar";
+// import CTable from "src/components/common/CTable.vue";
 import CPagination from "components/common/CPagination.vue";
 import CDropdown from "components/common/CDropdown.vue";
-import { TaskService } from "src/services";
-import { useRoute, useRouter } from "vue-router";
 
-const route = useRoute();
-const router = useRouter();
-const projectList = ref([]);
-const isDefaultData = computed(() => !!projectList.value?.length);
-const props = defineProps(
-  {
-    tabModel: String
-  }
-);
-
-const emit = defineEmits(["update:taskTotal"]);
-
-const dataParams = ref({
-  project_id: route.params.projectId,
-  page: 1,
-  size: 1,
-  status: ["running", "submitted", "pending"],
-  sort_by: "created_at",
-  order_by: "asc",
-  query: "test",
-});
-
-/* 태스크 리스트 */
-const getTasks = async () => {
-  try {
-    const result = await TaskService.getProjectTasks(route.params.projectId, dataParams.value);
-    projectList.value = result.instances;
-    console.log("resultresultresultresult", result);
-    emit("update:taskTotal", result.total);
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-const routerPush = () => {
-  router.replace({
-    path: `/workspace/${route.params.workspaceId}/projects/${route.params.projectId}`,
-    query: {
-      tab: [props.tabModel],
-      page: dataParams.value.page,
-      size: dataParams.value.size,
-      status: dataParams.value.status.join(","),
-      sort_by: dataParams.value.sort_by,
-      order_by: dataParams.value.order_by,
-      query: dataParams.value.query,
-    },
-  });
-};
-
-watch(() => props.tabModel, (newValue) => {
-  if (newValue === "task_gorup") {
-    getTasks();
-    routerPush();
-  }
-}, { immediate: true });
-
-watch(
-  () => route.params.projectId,
-  async () => {
-    if (props.tabModel === "task_gorup") {
-      routerPush();
-      getTasks();
-    }
-  },
-
-);
+const title = ref("Test Projects");
+useMeta(() => ({
+  title: title.value,
+}));
 
 const label = ref("전체");
 const label2 = ref("10");
@@ -474,43 +412,22 @@ const options2 = ref([
 // 그룹보기
 const headers = [
   {
-    text: "그룹 ID",
-    value: "id",
-    width: 100,
-    sortable: false,
-    checkbox: true,
+    text: "그룹 ID", value: "id", width: 100, sortable: false, checkbox: true
   },
   {
-    text: "그룹 이름",
-    value: "groupTitle",
-    width: 135,
-    widthAuto: true,
-    sortable: true,
+    text: "그룹 이름", value: "groupTitle", width: 135, widthAuto: true, sortable: true
   },
   {
-    text: "설명",
-    value: "description",
-    width: 135,
-    widthAuto: true,
-    sortable: false,
+    text: "설명", value: "description", width: 135, widthAuto: true, sortable: false
   },
   {
-    text: "상태",
-    value: "status",
-    width: 170,
-    sortable: false,
+    text: "상태", value: "status", width: 170, sortable: false
   },
   {
-    text: "생성일시",
-    value: "createdAt",
-    width: 210,
-    sortable: true,
+    text: "생성일시", value: "createdAt", width: 170, sortable: true
   },
   {
-    text: "생성자",
-    value: "createdBy",
-    width: 300,
-    sortable: true,
+    text: "생성자", value: "createdBy", width: 290, sortable: true
   },
   { text: "", value: "buttons", width: 80 },
 ];
@@ -530,13 +447,12 @@ const items = [
       zone: "public:normal",
     },
     buttons: {
-      name: "초대요청 확인",
-    },
+      name: "초대요청 확인"
+    }
   },
   {
     id: 21,
-    groupTitle:
-      "Taskgroup1Taskgroup1Taskgroup1Taskgroup1Taskgroup1Taskgroup1Taskgroup1Taskgroup1Taskgroup1",
+    groupTitle: "Taskgroup1Taskgroup1Taskgroup1Taskgroup1Taskgroup1Taskgroup1Taskgroup1Taskgroup1Taskgroup1",
     status: "group",
     description: "태스크 그룹 설명",
     createdAt: "2023.01.12 10:33:21",
@@ -549,8 +465,8 @@ const items = [
       zone: "public:normal",
     },
     buttons: {
-      name: "초대요청 확인",
-    },
+      name: "초대요청 확인"
+    }
   },
   {
     id: 21,
@@ -567,78 +483,44 @@ const items = [
       zone: "public:normal",
     },
     buttons: {
-      name: "초대요청 확인",
-    },
+      name: "초대요청 확인"
+    }
   },
 ];
 // 테스크보기
 const headers2 = [
   {
-    text: "그룹 이름",
-    value: "groupTitle",
-    width: 130,
-    sortable: true,
+    text: "그룹 이름", value: "groupTitle", width: 130
   },
   {
-    text: "태스크 이름",
-    value: "title",
-    width: 133,
-    widthAuto: true,
-    sortable: true,
+    text: "태스크 이름", value: "title", width: 155, widthAuto: true, sortable: true
   },
   {
-    text: "상태",
-    value: "status",
-    width: 105,
-    sortable: true,
+    text: "상태", value: "status", width: 105, sortable: true
   },
   {
-    text: "ssh",
-    value: "ssh",
-    width: 80,
-    sortable: false,
+    text: "ssh", value: "ssh", width: 80, sortable: false
   },
   {
-    text: "인스턴스 타입",
-    value: "instanceType",
-    width: 140,
-    sortable: true,
+    text: "인스턴스 타입", value: "instanceType", width: 138, sortable: true
   },
   {
-    text: "GPU",
-    value: "gpu",
-    width: 65,
-    sortable: false,
+    text: "GPU", value: "gpu", width: 65, sortable: false
   },
   {
-    text: "CPU",
-    value: "cpu",
-    width: 65,
-    sortable: false,
+    text: "CPU", value: "cpu", width: 65, sortable: false
   },
   {
-    text: "생성자",
-    value: "createdBy",
-    width: 80,
-    sortable: true,
+    text: "생성자", value: "createdBy", width: 80, sortable: true
   },
   {
-    text: "시작일시",
-    value: "startDate",
-    width: 155,
-    sortable: true,
+    text: "시작일시", value: "startDate", width: 155, sortable: true
   },
   {
-    text: "완료일시",
-    value: "endDate",
-    width: 155,
-    sortable: true,
+    text: "완료일시", value: "endDate", width: 155, sortable: true
   },
   {
-    text: "로그확인",
-    value: "logCheck",
-    width: 70,
-    sortable: false,
+    text: "로그확인", value: "logCheck", width: 70, sortable: false,
   },
   { text: "", value: "buttons", width: 80 },
 ];
@@ -663,8 +545,8 @@ const items2 = [
       zone: "public:normal",
     },
     buttons: {
-      name: "초대요청 확인",
-    },
+      name: "초대요청 확인"
+    }
   },
   {
     groupTitle: "그룹12",
@@ -686,13 +568,12 @@ const items2 = [
       zone: "public:normal",
     },
     buttons: {
-      name: "초대요청 확인",
-    },
+      name: "초대요청 확인"
+    }
   },
   {
     groupTitle: "그룹12",
-    title:
-      "asdasdasdsaasdasdasdsaasdasdasdsaasdasdasdsaasdasdasdsaasdasdasdsaasdasdasdsaasdasdasdsaasdasdasdsaasdasdasdsaasdasdasdsaasdasdasdsaasdasdasdsaasdasdasdsaasdasdasdsaasdasdasdsa",
+    title: "asdasdasdsaasdasdasdsaasdasdasdsaasdasdasdsaasdasdasdsaasdasdasdsaasdasdasdsaasdasdasdsaasdasdasdsaasdasdasdsaasdasdasdsaasdasdasdsaasdasdasdsaasdasdasdsaasdasdasdsaasdasdasdsa",
     status: "stopped",
     ssh: "ssh",
     instanceType: "V1.XLARGE",
@@ -710,8 +591,8 @@ const items2 = [
       zone: "public:normal",
     },
     buttons: {
-      name: "초대요청 확인",
-    },
+      name: "초대요청 확인"
+    }
   },
   {
     groupTitle: "그룹12",
@@ -733,8 +614,8 @@ const items2 = [
       zone: "public:normal",
     },
     buttons: {
-      name: "초대요청 확인",
-    },
+      name: "초대요청 확인"
+    }
   },
   {
     groupTitle: "그룹12",
@@ -756,8 +637,8 @@ const items2 = [
       zone: "public:normal",
     },
     buttons: {
-      name: "초대요청 확인",
-    },
+      name: "초대요청 확인"
+    }
   },
   {
     groupTitle: "그룹12",
@@ -779,8 +660,8 @@ const items2 = [
       zone: "public:normal",
     },
     buttons: {
-      name: "초대요청 확인",
-    },
+      name: "초대요청 확인"
+    }
   },
   {
     groupTitle: "그룹12",
@@ -802,8 +683,8 @@ const items2 = [
       zone: "public:normal",
     },
     buttons: {
-      name: "초대요청 확인",
-    },
+      name: "초대요청 확인"
+    }
   },
   {
     groupTitle: "그룹12",
@@ -825,8 +706,8 @@ const items2 = [
       zone: "public:normal",
     },
     buttons: {
-      name: "초대요청 확인",
-    },
+      name: "초대요청 확인"
+    }
   },
   {
     groupTitle: "그룹12",
@@ -848,8 +729,8 @@ const items2 = [
       zone: "public:normal",
     },
     buttons: {
-      name: "초대요청 확인",
-    },
+      name: "초대요청 확인"
+    }
   },
 ];
 /**

@@ -31,4 +31,14 @@ export const InstanceService = {
     return response.data;
   },
 
+  /**
+   * 설명: 인스턴스 시작
+   * @param { Number } projectId 프로젝트 id
+   * @param { Number } instanceId 인스턴스 id
+   */
+  async startIntance(projectId, instanceId) {
+    const response = await api.post(`/projects/${projectId}/instances/${instanceId}/start`);
+    return response.data;
+  },
+
 };

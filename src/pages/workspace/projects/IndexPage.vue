@@ -60,30 +60,26 @@
         <div class="com_m_cont">
           <div class="change_tab_btn">
             <q-tabs v-model="tabModel" align="left" class="c_tabs">
-              <q-tab
-                v-for="tab in tabs"
-                :key="tab.name"
-                :index="tab"
-                :name="tab.name"
-                :label="tab.label"
-                @input="selectedTab = tab"
-              >
-                <q-badge>{{ tab.total }}</q-badge>
-              </q-tab>
+              <c-tab v-model:value="tabModel" :tabs="tabs" />
             </q-tabs>
           </div>
 
-          <!-- 인스턴스 -->
-          <div v-show="tabModel === 'instances'">
-            <InstancePage
-              :tabModel="tabModel"
-              @update:instanceTotal="instanceTotal = $event"
-            />
-          </div>
-          <div v-show="tabModel === 'task_gorup'">
-            <TaskPage :tabModel="tabModel" @update:taskTotal="taskTotal = $event" />
-          </div>
-          <div v-show="tabModel === 'member'">333</div>
+          <q-tab-panels v-model="tabModel">
+            <q-tab-panel name="instances">
+              <!-- 인스턴스 -->
+              <InstancePage
+                :tabModel="tabModel"
+                @update:instanceTotal="instanceTotal = $event"
+              />
+            </q-tab-panel>
+            <q-tab-panel name="task_gorup">
+              <!-- 태스크 -->
+              <TaskPage :tabModel="tabModel" @update:taskTotal="taskTotal = $event" />
+            </q-tab-panel>
+            <q-tab-panel name="member">
+              <!-- 멤버 -->
+            </q-tab-panel>
+          </q-tab-panels>
         </div>
       </div>
     </div>
@@ -189,15 +185,17 @@
   <!-- End : [프로젝트 - 멤버관리] 멤버 - 추가 -->
 </template>
 <script setup>
-import {
-  ref, watch, onMounted, computed
-} from "vue";
+import { ref, watch, computed } from "vue";
 import { useMeta } from "quasar";
-import { useRoute } from "vue-router";
+import { useRoute, onBeforeRouteUpdate } from "vue-router";
 import { ProjectService } from "src/services";
 import { useProjectStore } from "stores/useProjectStore.js";
+import { $utils } from "src/utils/utils";
+
 import ProjectDashboard from "src/components/pages/ProjectDashboard.vue";
 // import CTable from "src/components/common/CTable.vue";
+import CTab from "src/components/common/CTab.vue";
+
 import CDropdown from "components/common/CDropdown.vue";
 import InstancePage from "src/pages/workspace/projects/components/InstancePage.vue";
 import TaskPage from "src/pages/workspace/projects/components/TaskPage.vue";
@@ -206,6 +204,7 @@ import QuotaChangeRequest from "./components/QuotaChangeRequest.vue";
 
 const route = useRoute();
 const { setIsProjectChange } = useProjectStore();
+
 const projectInfo = ref({});
 const getListProject = ref({});
 const newProjectDescription = ref("");
@@ -220,19 +219,43 @@ useMeta(() => ({
   title: projectInfo.value.name,
 }));
 
+// 프로젝트 탭
+/**
+ * route hash값 존재시
+ * tabModel 셋팅: 탭 이동
+ */
+
+const tabModel = ref("instances");
+
 const tabs = ref([
   { name: "instances", label: "인스턴스", total: instanceTotal },
   { name: "task_gorup", label: "태스크", total: taskTotal },
   { name: "member", label: "멤버", total: memberTotal },
 ]);
-const tabModel = ref("");
+
+const getTabsName = computed(() => tabs.value.map((tab) => tab.name));
+const { hash } = route;
+function setTabModel(hs) {
+  const nHash = $utils.getHash(hs || hash);
+  if (nHash && getTabsName.value.includes(nHash)) {
+    tabModel.value = nHash;
+  } else {
+    const [firstValue] = getTabsName.value;
+    tabModel.value = firstValue;
+  }
+}
+setTabModel();
+
+onBeforeRouteUpdate((to) => {
+  setTabModel(to.hash);
+});
 
 const selectedTab = computed(() => {
   const select = tabs.value.find((tab) => tab.name === tabModel.value);
   return select ? select.label : "";
 });
 
-// 프로젝트 리스트
+// 프로젝트 상세
 const getProjectInfo = async () => {
   try {
     projectInfo.value = await ProjectService.getProject(
@@ -259,7 +282,6 @@ const getProjectList = async () => {
 // 현재 프로젝트 페이지 정보
 const fetchProjectDescription = (projectId) => {
   const project = getListProject.value.find((p) => p.id === parseInt(projectId, 10));
-  console.log("project", project);
   newProjectDescription.value = project.description;
 };
 
@@ -268,18 +290,9 @@ const updateInfo = async () => {
   await fetchProjectDescription(route.params.projectId);
 };
 
-const setTabModel = () => {
-  tabModel.value = route.query.tab || "instances";
-};
-
-onMounted(() => {
-  setTabModel();
-});
-
 watch(
   () => route.params.projectId,
   async () => {
-    setTabModel();
     await Promise.all([updateInfo(), getProjectInfo()]);
   },
   { immediate: true }

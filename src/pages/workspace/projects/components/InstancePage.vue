@@ -1,5 +1,4 @@
 <template>
-  <button @click="sttusTest()">데이터테스트</button>
   <div class="table_set">
     <div class="l_set_inner">
       <div class="c_inpgroup">
@@ -49,7 +48,7 @@
 
   <template v-if="isDefaultData">
     <div class="change_table_area">
-      <EasyDataTable
+      <easy-data-table
         :headers="headers"
         :items="projectList"
         :hide-footer="true"
@@ -104,13 +103,23 @@
         </template>
         <template #item-gpu="item">
           <span class="txt">
-            {{ $utils.getPercentData(item.instance_type.gpu, workspace.quota.total.cpu_milli) }}%
+            {{
+              $utils.getPercentData(
+                item.instance_type.gpu,
+                workspace.quota.total.cpu_milli
+              )
+            }}%
           </span>
         </template>
         <template #item-cpu="item">
           <span class="txt"
             >{{ item.cpu }}
-            {{ $utils.getPercentData(item.instance_type.cpu, workspace.quota.total.cpu_milli) }}%
+            {{
+              $utils.getPercentData(
+                item.instance_type.cpu,
+                workspace.quota.total.cpu_milli
+              )
+            }}%
           </span>
         </template>
         <!-- gpu -->
@@ -127,9 +136,16 @@
 
         <!-- 버튼 그룹 -->
         <template #item-buttons="item">
-
           <div v-if="actionButtons" class="cell btngroup">
-            <q-btn class="c_btn ibtn dot" :disabled="(item.status === 'starting' || item.status === 'stopping' || item.status === 'deleting' || !item.status)">
+            <q-btn
+              class="c_btn ibtn dot"
+              :disabled="
+                item.status === 'starting' ||
+                item.status === 'stopping' ||
+                item.status === 'deleting' ||
+                !item.status
+              "
+            >
               <i class="ico dots" /><span class="txt">클릭</span>
               <q-popup-edit v-model="item.id" class="dots_menu" anchor="top right">
                 <q-list style="min-width: 100px">
@@ -143,7 +159,7 @@
             </q-btn>
           </div>
         </template>
-      </EasyDataTable>
+      </easy-data-table>
     </div>
 
     <div class="table_pagenav disflex_C">
@@ -169,45 +185,41 @@
       {{ currentSelected.nickname }}
     </template>
     <template #footer>
-      <c-button
-        :outline="true"
-        btn-names="취소"
-        @click="deleteInstnaceCancle"
-      />
+      <c-button :outline="true" btn-names="취소" @click="deleteInstnaceCancle" />
       <c-button btn-names="확인" @click="deleteInstnace" />
     </template>
   </c-dialog>
   <!-- End : [관리 - 인스턴스] 인스턴스 삭제 확인 Alert 팝업 -->
 
-   <!-- Start : [관리 - 인스턴스] 인스턴스 추가된 용량 (10GB 초과시 저장 되지 않음 안내) Alert 팝업 -->
-   <c-dialog
-      v-model:visible="alertInstanceAddVolumeInfoModal"
-      :message="'인스턴스 용량이 초과되어 정지시 현재 상태가 저장되지 않습니다. 정지 하시겠습니까?'"
-    >
-      <template #positive>
-        현재 용량 : {{currentSelected.instance_type.local_storage}}GB (10BG 이하 저장 가능)
-      </template>
-      <template #footer>
-        <c-button
-          :outline="true"
-          btn-names="취소"
-          @click="stopInstnaceCancle"
-        />
-        <c-button
-          btn-names="확인"
-          @click="stopInstnace"
-        />
-      </template>
-    </c-dialog>
-    <!-- End : [관리 - 인스턴스] 인스턴스 추가된 용량 (10GB 초과시 저장 되지 않음 안내) Alert 팝업 -->
+  <!-- Start : [관리 - 인스턴스] 인스턴스 추가된 용량 (10GB 초과시 저장 되지 않음 안내) Alert 팝업 -->
+  <c-dialog
+    v-model:visible="alertInstanceAddVolumeInfoModal"
+    :message="'인스턴스 용량이 초과되어 정지시 현재 상태가 저장되지 않습니다. 정지 하시겠습니까?'"
+  >
+    <template #positive>
+      현재 용량 : {{ currentSelected.instance_type.local_storage }}GB (10BG 이하 저장
+      가능)
+    </template>
+    <template #footer>
+      <c-button :outline="true" btn-names="취소" @click="stopInstnaceCancle" />
+      <c-button btn-names="확인" @click="stopInstnace" />
+    </template>
+  </c-dialog>
+  <!-- End : [관리 - 인스턴스] 인스턴스 추가된 용량 (10GB 초과시 저장 되지 않음 안내) Alert 팝업 -->
 
+  <!-- [프로젝트 - 인스턴스] 프로젝트 - 인스턴스 - 이미지 생성 팝업 -->
+  <CreateImage
+    @update:projectInstanceImgCreateModal="updateProjectInstanceImgCreateModal"
+    :projectInstanceImgCreateModal="projectInstanceImgCreateModal"
+    v-model="projectInstanceImgCreateModal"
+  />
 </template>
 <script setup>
 import {
   ref, watch, computed, onMounted
 } from "vue";
 import { InstanceService, WorkspaceService } from "src/services";
-import { useRoute, useRouter } from "vue-router";
+import { useRoute } from "vue-router";
 import { throttle } from "lodash";
 import { copyToClipboard } from "quasar";
 import { $useCmFn } from "src/composables/useCommonFunction.js";
@@ -219,13 +231,13 @@ import CInputText from "components/common/CInputText.vue";
 import CBadgeState from "src/components/common/CBadgeState.vue";
 import CDialog from "src/components/common/CDialog.vue";
 import CButton from "src/components/common/CButton.vue";
+import CreateImage from "./CreateImage.vue";
 
 const serverOptions = ref({
   rowsPerPage: 50,
 });
 
 const route = useRoute();
-const router = useRouter();
 
 // workspace info
 const { workspaceId } = route.params;
@@ -237,15 +249,7 @@ WorkspaceService.getWorkspace(workspaceId).then((data) => {
 const projectList = ref([]);
 const currentSelected = ref({});
 
-const sttusTest = () => {
-  /* 테스트 */
-  projectList.value.forEach((item) => {
-    item.status = "stopped";
-  });
-};
-
 const isDefaultData = computed(() => !!projectList.value?.length);
-
 const props = defineProps({
   tabModel: String,
 });
@@ -261,7 +265,6 @@ const searchData = ref({
 });
 
 const actionButtons = ref([]);
-// const isActionDisabled = ref(false);
 const statusOption = ref([
   { label: "전체", value: 0, status: [] },
   { label: "대기중", value: 1, status: ["pending", "submitted"] },
@@ -281,9 +284,9 @@ const options2 = ref([
 const alertInstanceDelConfirmModal = ref(false);
 const alertInstanceAddVolumeInfoModal = ref(false);
 
-/*
-설명 : 인스턴스 리스트 호출
-*/
+const projectInstanceImgCreateModal = ref(false);
+
+/** 인스턴스 리스트 호출 */
 const getInstances = async () => {
   try {
     const result = await InstanceService.getProjectIntances(
@@ -299,9 +302,7 @@ const getInstances = async () => {
   }
 };
 
-/*
-설명 : 라우터 초기화
-*/
+/** 초기화 */
 const initRouterData = () => {
   dataParams.value = {
     page: 1,
@@ -316,9 +317,9 @@ const initRouterData = () => {
 };
 
 /*
-설명 : searchData 객체를 감시하여 dataParams 객체를 갱신
-변경 시 0.8초간 대기 후 실행
-*/
+ * 설명 : searchData 객체를 감시하여 dataParams 객체를 갱신
+ * 변경 시 0.8초간 대기 후 실행
+ */
 watch(
   () => searchData.value,
   throttle((newValue) => {
@@ -337,39 +338,13 @@ watch(
   { deep: true }
 );
 
-/*
-설명 : 현재 탭 모델 정보를 쿼리 파라미터에 추가 후 현재 라우터로 변경
-*/
-const setRouter = () => {
-  router.push({
-    query: {
-      tab: [props.tabModel],
-    },
-  });
-};
-
 onMounted(() => {
   if (isCurrentTab) {
     getInstances();
-    setRouter();
   }
 });
 
-/*
-설명 :  탭 변경 시
-*/
-watch(
-  () => props.tabModel,
-  async () => {
-    if (isCurrentTab) {
-      setRouter();
-    }
-  }
-);
-
-/*
-설명 : 라우트 파라미터 변경 시 값 초기화
-*/
+/** 라우트 파라미터 변경 시 값 초기화 */
 watch(
   () => route.params,
   async () => {
@@ -453,6 +428,7 @@ const headers = [
 
 const showRow = (item) => {
   currentSelected.value = item;
+  console.log("선택", item);
   const { status } = item;
   switch (status) {
     case "running":
@@ -523,9 +499,7 @@ const deleteInstnaceCancle = () => {
   toggleActionButtons();
 };
 
-/*
-설명 : 인스턴스 삭제
-*/
+/**  인스턴스 삭제 */
 const deleteInstnace = async () => {
   try {
     await InstanceService.deleteIntance(route.params.projectId, currentSelected.value.id);
@@ -540,9 +514,7 @@ const deleteInstnace = async () => {
   }
 };
 
-/*
-설명: 삭제확인 팝업
-*/
+/** 삭제확인 팝업 */
 const handleDeleteModal = () => {
   alertInstanceDelConfirmModal.value = true;
 };
@@ -553,37 +525,69 @@ const stopInstnaceCancle = () => {
 const stopInstnace = async () => {
   try {
     await InstanceService.stopIntance(route.params.projectId, currentSelected.value.id);
+    toggleActionButtons();
     getInstances();
+    setTimeout(() => {
+      getInstances();
+    }, 4000);
+  } catch (error) {
+    console.log(error);
+  }
+};
+const startInstnace = async () => {
+  try {
+    await InstanceService.startIntance(route.params.projectId, currentSelected.value.id);
+    toggleActionButtons();
+    getInstances();
+    setTimeout(() => {
+      getInstances();
+    }, 4000);
   } catch (error) {
     console.log(error);
   }
 };
 
+const updateProjectInstanceImgCreateModal = (isValue) => {
+  projectInstanceImgCreateModal.value = isValue;
+};
 /**
  * 설명: row Action 버튼 이벤트
  * @param { string } eventName action event name
  * @param { object } rowData get table row data
  */
+
 const onActions = (eventName, rowData) => {
   console.log(eventName, rowData);
-  if (eventName === "delete") {
-    handleDeleteModal();
-  }
-  if (eventName === "stop") {
-    console.log("curr", currentSelected.value);
 
-    if (currentSelected.value.instance_type.local_storage > 30) {
-      alertInstanceAddVolumeInfoModal.value = true;
-    } else {
-      stopInstnace();
-    }
-  }
+  switch (eventName) {
+    case "delete":
+      handleDeleteModal();
+      break;
 
-  if (eventName === "start") {
-    console.log(rowData);
-    /*
-    리소스가 부족한 그룹?
-    */
+    case "stop":
+      if (rowData.instance_type.local_storage > 10) {
+        alertInstanceAddVolumeInfoModal.value = true;
+      } else {
+        stopInstnace();
+      }
+      break;
+
+    case "start":
+      if (rowData.instance_type.mem > 1000) {
+        $useCmFn.onMessage({
+          message: `${rowData.nickname} 리소스 할당량이 부족하여<br />인스턴스를 실행 할 수 없습니다.`,
+        });
+      } else {
+        startInstnace();
+      }
+      break;
+
+    case "makingImg":
+      projectInstanceImgCreateModal.value = true;
+      break;
+
+    default:
+      break;
   }
 };
 </script>
