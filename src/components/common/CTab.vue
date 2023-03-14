@@ -4,14 +4,19 @@
     align="left"
     class="c_tabs"
     @update:model-value="onChange"
+
   >
     <q-tab
       v-for="tab in tabs"
       :key="tab.name"
       :name="tab.name"
       :label="tab.label"
-    ></q-tab>
-  </q-tabs>
+    >
+    <slot name="total">
+      <q-badge>{{ tab.total !== undefined ? tab.total : '0' }}</q-badge>
+    </slot>
+  </q-tab>
+</q-tabs>
 </template>
 <script setup>
 import {
@@ -32,7 +37,7 @@ const props = defineProps({
   tabs: {
     type: Array,
     default: () => []
-  }
+  },
 });
 const emit = defineEmits(["update:value"]);
 const lazyModel = ref();
