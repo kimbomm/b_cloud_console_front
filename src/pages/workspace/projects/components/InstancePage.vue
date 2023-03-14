@@ -209,7 +209,7 @@
 
   <!-- [프로젝트 - 인스턴스] 프로젝트 - 인스턴스 - 이미지 생성 팝업 -->
   <CreateImage
-    @update:projectInstanceImgCreateModal="updateProjectInstanceImgCreateModal"
+    @update:projectInstanceImgCreateModal="(value)=>{projectInstanceImgCreateModal = value}"
     :projectInstanceImgCreateModal="projectInstanceImgCreateModal"
     v-model="projectInstanceImgCreateModal"
   />
@@ -485,7 +485,7 @@ const onCopy = (message) => {
 };
 
 /*
-설명 : 액션버튼 토글
+* 설명 : 액션버튼 토글
 */
 const toggleActionButtons = () => {
   actionButtons.value = false;
@@ -547,9 +547,6 @@ const startInstnace = async () => {
   }
 };
 
-const updateProjectInstanceImgCreateModal = (isValue) => {
-  projectInstanceImgCreateModal.value = isValue;
-};
 /**
  * 설명: row Action 버튼 이벤트
  * @param { string } eventName action event name

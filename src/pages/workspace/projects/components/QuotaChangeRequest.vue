@@ -20,18 +20,17 @@
             </span>
           </div>
           <div class="c_inpgroup flex-end">
-            <q-input
-              outlined
-              v-model="quota1"
-              type="number"
-              placeholder="50GB 단위 입력"
-              clearable
+            <c-input-text
               class="inp_unit"
+              v-model:value="quota1"
+              placeholder="50GB 단위 입력"
+              suffix="GB"
             >
               <template v-slot:append>
                 <span class="unit">GB</span>
               </template>
-            </q-input>
+            </c-input-text>
+
             <span class="desc">최대 50,000</span>
           </div>
         </section>
@@ -46,18 +45,16 @@
             </span>
           </div>
           <div class="c_inpgroup flex-end">
-            <q-input
-              outlined
-              v-model="quota2"
-              type="number"
-              placeholder="50GB 단위 입력"
-              clearable
+            <c-input-text
               class="inp_unit"
+              v-model:value="quota2"
+              placeholder="50GB 단위 입력"
+              suffix="GB"
             >
               <template v-slot:append>
                 <span class="unit">GB</span>
               </template>
-            </q-input>
+            </c-input-text>
             <span class="desc">최대 50,000</span>
           </div>
         </section>
@@ -72,18 +69,18 @@
             </span>
           </div>
           <div class="c_inpgroup flex-end">
-            <q-input
-              outlined
-              v-model="quota3"
-              type="number"
-              placeholder="50GB 단위 입력"
-              clearable
+
+            <c-input-text
               class="inp_unit"
+              v-model:value="quota3"
+              placeholder="50GB 단위 입력"
+              suffix="GB"
             >
               <template v-slot:append>
                 <span class="unit">GB</span>
               </template>
-            </q-input>
+            </c-input-text>
+
             <span class="desc">최대 50,000</span>
           </div>
         </section>
@@ -98,50 +95,64 @@
             </span>
           </div>
           <div class="c_inpgroup flex-end">
-            <q-input
-              outlined
-              v-model="quota4"
-              type="number"
-              placeholder="50GB 단위 입력"
-              clearable
+            <c-input-text
               class="inp_unit"
+              v-model:value="quota4"
+              placeholder="50GB 단위 입력"
+              suffix="GB"
             >
               <template v-slot:append>
                 <span class="unit">GB</span>
               </template>
-            </q-input>
+            </c-input-text>
+
             <span class="desc">최대 50,000</span>
           </div>
         </section>
       </div>
     </template>
     <template #footer>
-      <c-button
-        :outline="true"
-        :btn-names="'취소'"
-        @click="onClose"
-      />
-      <c-button
-        :btn-names="'확인'"
-        @click="onClose"
-      />
+      <c-button :outline="true" :btn-names="'취소'" @click="onClose" />
+      <c-button :btn-names="'확인'" @click="onSave" />
     </template>
   </c-dialog>
 </template>
 
 <script setup>
-// import { defineEmits } from "vue";
 import CDialog from "src/components/common/CDialog.vue";
 import CButton from "src/components/common/CButton.vue";
+import CInputText from "components/common/CInputText.vue";
 
-defineProps({
-  quotaChangeModal: Boolean
+import { watch } from "vue";
 
+const props = defineProps({
+  quotaChangeModal: {
+    type: Boolean,
+  },
+  projectInfo: {
+    type: Object,
+  },
 });
 
+const emit = defineEmits(["update:quotaChangeModal"]);
+
+watch(props.quotaChangeModal, (newValue) => {
+  if (newValue) {
+    console.log("newValue", newValue);
+  }
+});
+
+console.log("props", props);
+
 const onClose = () => {
+  console.log("취소");
+  emit("update:quotaChangeModal", false);
 };
 
+const onSave = () => {
+  console.log("확인");
+  emit("update:quotaChangeModal", false);
+};
 </script>
 
 <style lang="scss" scoped></style>

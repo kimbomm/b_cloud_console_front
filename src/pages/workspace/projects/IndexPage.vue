@@ -20,7 +20,6 @@
               <q-btn class="item" @click="projectCreateModal = true">
                 <span class="txt">이름/설명 편집</span>
               </q-btn>
-
               <UpdateProjectPopup
                 v-model="projectCreateModal"
                 :projectCreateModal="projectCreateModal"
@@ -37,6 +36,9 @@
               <QuotaChangeRequest
                 v-model="quotaChangeModal"
                 :quotaChangeModal="quotaChangeModal"
+                :projectInfo="projectInfo"
+                @update:quotaChangeModal="(value)=>{quotaChangeModal = value}"
+
               />
             </q-item>
             <q-item>
