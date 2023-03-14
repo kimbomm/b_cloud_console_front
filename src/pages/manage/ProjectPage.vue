@@ -237,7 +237,7 @@
           </div>
         </div>
         <div class="table_inner">
-          <EasyDataTable
+          <easy-data-table
             :headers="mngTaskHeader"
             :items="mngTaskItems"
             :hide-footer="true"
@@ -468,7 +468,7 @@
                 </q-btn>
               </div>
             </template>
-          </EasyDataTable>
+          </easy-data-table>
           <c-pagination />
         </div>
       </div>

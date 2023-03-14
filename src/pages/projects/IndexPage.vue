@@ -110,7 +110,7 @@
         </div>
       </div>
       <div class="table_inner">
-        <EasyDataTable
+        <easy-data-table
           v-model:items-selected="itemsSelected"
           :headers="headers"
           :items="items"
@@ -161,7 +161,7 @@
               </q-btn>
             </div>
           </template>
-        </EasyDataTable>
+        </easy-data-table>
         <c-pagination />
       </div>
     </div>

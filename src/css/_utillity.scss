@@ -1003,6 +1003,18 @@ body.desktop .q-radio,
   }
 }
 .txt{white-space: nowrap;}
+.q-tab-panels {
+  overflow: visible;
+  .q-panel {
+    overflow: visible;
+    padding: initial;
+    font-size: initial;
+    color: initial;
+    .q-tab-panel {
+      padding: 0;
+    }
+  }
+}
 /* Component - Breadcrumb .q-breadcrumbs */
 .c_breadcrumb{
   font-size:$fs12;font-weight:$regular;

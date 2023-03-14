@@ -107,7 +107,7 @@ const init = async () => {
   const { workspaceId } = route.params;
   await getUserProjects(workspaceId);
 
-  setMyWorkspaces(workspaceList);
+  setMyWorkspaces(workspaceList.workspaces);
   workspaces.value = workspaceList;
   isLoaded.value = true;
 };

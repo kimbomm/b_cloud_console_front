@@ -130,7 +130,7 @@
               </div>
             </div>
             <div class="change_table_area">
-              <EasyDataTable
+              <easy-data-table
                 :headers="headers"
                 :items="items"
                 :hide-footer="true"
@@ -280,10 +280,10 @@
                     </q-btn>
                   </div>
                 </template>
-              </EasyDataTable>
+              </easy-data-table>
             </div>
             <div class="table_pagenav disflex_C">
-              <CPagination />
+              <c-pagination />
             </div>
           </template>
           <template v-else>

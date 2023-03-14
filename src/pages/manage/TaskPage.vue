@@ -109,7 +109,7 @@
         </div>
         <div class="table_inner">
           <template v-if="segModel2 === 'one'">
-            <EasyDataTable
+            <easy-data-table
               :headers="groupHeaders"
               :items="groupItems"
               :hide-footer="true"
@@ -296,10 +296,10 @@
                   </q-btn>
                 </div>
               </template>
-            </EasyDataTable>
+            </easy-data-table>
           </template>
           <template v-else-if="segModel2 === 'two'">
-            <EasyDataTable
+            <easy-data-table
               :headers="taskHeaders"
               :items="taskItems"
               :hide-footer="true"
@@ -490,7 +490,7 @@
                   </q-btn>
                 </div>
               </template>
-            </EasyDataTable>
+            </easy-data-table>
             <c-pagination />
           </template>
         </div>
