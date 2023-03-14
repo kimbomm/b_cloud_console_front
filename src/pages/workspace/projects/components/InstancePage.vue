@@ -49,7 +49,7 @@
 
   <template v-if="isDefaultData">
     <div class="change_table_area">
-      <easy-data-table
+      <EasyDataTable
         :headers="headers"
         :items="projectList"
         :hide-footer="true"
@@ -143,11 +143,11 @@
             </q-btn>
           </div>
         </template>
-      </easy-data-table>
+      </EasyDataTable>
     </div>
 
     <div class="table_pagenav disflex_C">
-      <c-pagination />
+      <CPagination />
     </div>
   </template>
   <template v-else>

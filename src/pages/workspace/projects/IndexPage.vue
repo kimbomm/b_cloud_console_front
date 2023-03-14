@@ -34,7 +34,7 @@
               <q-btn class="item" @click="quotaChangeModal = true">
                 <span class="txt">할당량 변경 요청</span>
               </q-btn>
-              <ChangeAllocationPopup
+              <QuotaChangeRequest
                 v-model="quotaChangeModal"
                 :quotaChangeModal="quotaChangeModal"
               />
@@ -202,7 +202,7 @@ import CDropdown from "components/common/CDropdown.vue";
 import InstancePage from "src/pages/workspace/projects/components/InstancePage.vue";
 import TaskPage from "src/pages/workspace/projects/components/TaskPage.vue";
 import UpdateProjectPopup from "./components/UpdateProjectPopup.vue";
-import ChangeAllocationPopup from "./components/ChangeAllocationPopup.vue";
+import QuotaChangeRequest from "./components/QuotaChangeRequest.vue";
 
 const route = useRoute();
 const { setIsProjectChange } = useProjectStore();
@@ -259,6 +259,7 @@ const getProjectList = async () => {
 // 현재 프로젝트 페이지 정보
 const fetchProjectDescription = (projectId) => {
   const project = getListProject.value.find((p) => p.id === parseInt(projectId, 10));
+  console.log("project", project);
   newProjectDescription.value = project.description;
 };
 

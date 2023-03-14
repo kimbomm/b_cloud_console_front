@@ -68,7 +68,7 @@ import { $useCmFn } from "src/composables/useCommonFunction.js";
 import CInputText from "src/components/common/CInputText.vue";
 import { useProjectStore } from "src/stores/useProjectStore";
 
-const projectStore = useProjectStore();
+const projectsStore = useProjectStore();
 
 const props = defineProps({
   projectCreateModal: Boolean,
@@ -77,7 +77,7 @@ const props = defineProps({
   newProjectDescription: String
 });
 
-const emit = defineEmits(["userInfoUpdate"]);
+const emit = defineEmits(["updateProject"]);
 const { RefDscription } = toRefs(props);
 
 const route = useRoute();
@@ -144,7 +144,7 @@ watch(
 
 // 비동기 처리
 const useGetUserInfo = async () => {
-  await projectStore.getUserInfo();
+  projectsStore.setUseProjects();
 };
 
 const triggerSuccess = () => {

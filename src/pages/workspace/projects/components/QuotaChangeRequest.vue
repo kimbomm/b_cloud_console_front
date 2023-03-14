@@ -24,12 +24,12 @@
               outlined
               v-model="quota1"
               type="number"
-              placeholder="50GiB 단위 입력"
+              placeholder="50GB 단위 입력"
               clearable
               class="inp_unit"
             >
               <template v-slot:append>
-                <span class="unit">GiB</span>
+                <span class="unit">GB</span>
               </template>
             </q-input>
             <span class="desc">최대 50,000</span>
@@ -50,12 +50,12 @@
               outlined
               v-model="quota2"
               type="number"
-              placeholder="50GiB 단위 입력"
+              placeholder="50GB 단위 입력"
               clearable
               class="inp_unit"
             >
               <template v-slot:append>
-                <span class="unit">GiB</span>
+                <span class="unit">GB</span>
               </template>
             </q-input>
             <span class="desc">최대 50,000</span>
@@ -76,12 +76,12 @@
               outlined
               v-model="quota3"
               type="number"
-              placeholder="50GiB 단위 입력"
+              placeholder="50GB 단위 입력"
               clearable
               class="inp_unit"
             >
               <template v-slot:append>
-                <span class="unit">GiB</span>
+                <span class="unit">GB</span>
               </template>
             </q-input>
             <span class="desc">최대 50,000</span>
@@ -102,12 +102,12 @@
               outlined
               v-model="quota4"
               type="number"
-              placeholder="50GiB 단위 입력"
+              placeholder="50GB 단위 입력"
               clearable
               class="inp_unit"
             >
               <template v-slot:append>
-                <span class="unit">GiB</span>
+                <span class="unit">GB</span>
               </template>
             </q-input>
             <span class="desc">최대 50,000</span>
@@ -130,18 +130,16 @@
 </template>
 
 <script setup>
-import { defineEmits } from "vue";
+// import { defineEmits } from "vue";
 import CDialog from "src/components/common/CDialog.vue";
 import CButton from "src/components/common/CButton.vue";
 
-const emit = defineEmits(["update:quotaChangeModal"]);
 defineProps({
   quotaChangeModal: Boolean
 
 });
 
 const onClose = () => {
-  emit("update:quotaChangeModal", false);
 };
 
 </script>
