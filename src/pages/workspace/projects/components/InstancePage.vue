@@ -30,7 +30,7 @@
           btnTypes="4"
           type="button"
           class="c_btn line medium"
-          to="/projects/Instancedetail"
+         @click="createInstance"
         >
           <span class="txt">인스턴스 생성하기</span>
         </q-btn>
@@ -113,7 +113,7 @@
         </template>
         <template #item-cpu="item">
           <span class="txt"
-            >{{ item.cpu }}
+            >
             {{
               $utils.getPercentData(
                 item.instance_type.cpu,
@@ -191,6 +191,27 @@
   </c-dialog>
   <!-- End : [관리 - 인스턴스] 인스턴스 삭제 확인 Alert 팝업 -->
 
+    <!-- Start : [프로젝트 - 인스턴스] 인스턴스 용량 초과로 인한 이미지 생성 불가 Alert 팝업 -->
+    <c-dialog
+      v-model:visible="alertInstanceOverImageModal"
+      :message="'용량이 초과하여 이미지 생성이 불가능합니다.'"
+      :description="'추가된 용량이 10GiB 이하만 이미지 생성가능'"
+    >
+      <template #negative>현재 추가된 용량 : {{ currentSelected.instance_type.local_storage }}GB</template>
+      <template #footer>
+        <c-button
+          :outline="true"
+          btn-names="취소"
+          @click="alertInstanceOverImageModal = false"
+        />
+        <c-button
+          btn-names="확인"
+          @click="alertInstanceOverImageModal = false"
+        />
+      </template>
+    </c-dialog>
+    <!-- End : [프로젝트 - 인스턴스] 인스턴스 용량 초과로 인한 이미지 생성 불가 Alert 팝업 -->
+
   <!-- Start : [관리 - 인스턴스] 인스턴스 추가된 용량 (10GB 초과시 저장 되지 않음 안내) Alert 팝업 -->
   <c-dialog
     v-model:visible="alertInstanceAddVolumeInfoModal"
@@ -219,7 +240,7 @@ import {
   ref, watch, computed, onMounted
 } from "vue";
 import { InstanceService, WorkspaceService } from "src/services";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { throttle } from "lodash";
 import { copyToClipboard } from "quasar";
 import { $useCmFn } from "src/composables/useCommonFunction.js";
@@ -238,6 +259,7 @@ const serverOptions = ref({
 });
 
 const route = useRoute();
+const router = useRouter();
 
 // workspace info
 const { workspaceId } = route.params;
@@ -248,11 +270,15 @@ WorkspaceService.getWorkspace(workspaceId).then((data) => {
 
 const projectList = ref([]);
 const currentSelected = ref({});
-
 const isDefaultData = computed(() => !!projectList.value?.length);
 
 const props = defineProps({
-  tabModel: String,
+  tabModel: {
+    Object: String
+  },
+  projectInfo: {
+    type: Object
+  }
 });
 const isCurrentTab = props.tabModel === "instances";
 
@@ -284,8 +310,10 @@ const options2 = ref([
 
 const alertInstanceDelConfirmModal = ref(false);
 const alertInstanceAddVolumeInfoModal = ref(false);
-
 const projectInstanceImgCreateModal = ref(false);
+const alertInstanceOverImageModal = ref(false);
+
+const projectQuotaUsed = ref({});
 
 /** 인스턴스 리스트 호출 */
 const getInstances = async () => {
@@ -295,8 +323,6 @@ const getInstances = async () => {
       dataParams.value
     );
     projectList.value = result.instances;
-    console.log("resultresultresult", result);
-
     emit("update:instanceTotal", result.total);
   } catch (error) {
     console.log(error);
@@ -317,13 +343,20 @@ const initRouterData = () => {
   };
 };
 
+const createInstance = () => {
+  router.push({
+    name: "createInstance",
+    params: { workspaceId, projectId: route.params.projectId },
+  });
+};
+
 /*
  * 설명 : searchData 객체를 감시하여 dataParams 객체를 갱신
  * 변경 시 0.8초간 대기 후 실행
  */
 watch(
   () => searchData.value,
-  throttle((newValue) => {
+  throttle(async (newValue) => {
     dataParams.value.query = newValue.query || null;
 
     if (newValue.status) {
@@ -338,19 +371,16 @@ watch(
   }, 800),
   { deep: true }
 );
-
-onMounted(() => {
+onMounted(async () => {
   if (isCurrentTab) {
-    getInstances();
+    await getInstances();
   }
 });
-
 /** 라우트 파라미터 변경 시 값 초기화 */
 watch(
   () => route.params,
   async () => {
-    if (route.params.projectId) {
-      console.log("route.params변경");
+    if (route.name === "ProjectList") {
       initRouterData();
     }
   }
@@ -361,75 +391,8 @@ const label2 = ref("10");
 // const selectedCheck = ref(null);
 // const nDay = ref(7);
 
-const headers = [
-  {
-    text: "ID",
-    value: "id",
-    width: 75,
-    sortable: false,
-    checkbox: true,
-  },
-  {
-    text: "이름",
-    value: "title",
-    width: 133,
-    widthAuto: true,
-    sortable: true,
-  },
-  {
-    text: "상태",
-    value: "status",
-    width: 140,
-    sortable: true,
-  },
-  {
-    text: "ssh",
-    value: "ssh",
-    width: 80,
-    sortable: false,
-  },
-  {
-    text: "JupyterLab",
-    value: "jupyterLab",
-    width: 135,
-    sortable: false,
-  },
-  {
-    text: "인스턴스 타입",
-    value: "instanceType",
-    width: 138,
-    sortable: true,
-  },
-  {
-    text: "GPU",
-    value: "gpu",
-    width: 60,
-    sortable: false,
-  },
-  {
-    text: "CPU",
-    value: "cpu",
-    width: 60,
-    sortable: false,
-  },
-  {
-    text: "생성일시",
-    value: "createdAt",
-    width: 165,
-    sortable: true,
-  },
-  {
-    text: "생성자",
-    value: "createdBy",
-    width: 85,
-    sortable: true,
-  },
-  { text: "", value: "buttons", width: 80 },
-];
-
 const showRow = (item) => {
   currentSelected.value = item;
-  console.log("선택", item);
   const { status } = item;
   switch (status) {
     case "running":
@@ -508,7 +471,7 @@ const deleteInstnace = async () => {
     alertInstanceDelConfirmModal.value = false;
     toggleActionButtons();
 
-    getInstances();
+    await getInstances();
   } catch (error) {
     triggerFail("인스턴스 삭제를 실패하였습니다. 다시 시도해주세요.");
     console.log(error);
@@ -555,8 +518,7 @@ const startInstnace = async () => {
  */
 
 const onActions = (eventName, rowData) => {
-  console.log(eventName, rowData);
-
+  projectQuotaUsed.value = props.projectInfo.quota.used;
   switch (eventName) {
     case "delete":
       handleDeleteModal();
@@ -581,13 +543,84 @@ const onActions = (eventName, rowData) => {
       break;
 
     case "makingImg":
-      projectInstanceImgCreateModal.value = true;
+      if (rowData.instance_type.local_storage > 10) {
+        alertInstanceOverImageModal.value = true;
+      } else {
+        projectInstanceImgCreateModal.value = true;
+      }
       break;
 
     default:
       break;
   }
 };
+
+const headers = [
+  {
+    text: "ID",
+    value: "id",
+    width: 75,
+    sortable: false,
+    checkbox: true,
+  },
+  {
+    text: "이름",
+    value: "title",
+    width: 133,
+    widthAuto: true,
+    sortable: true,
+  },
+  {
+    text: "상태",
+    value: "status",
+    width: 140,
+    sortable: true,
+  },
+  {
+    text: "ssh",
+    value: "ssh",
+    width: 80,
+    sortable: false,
+  },
+  {
+    text: "JupyterLab",
+    value: "jupyterLab",
+    width: 135,
+    sortable: false,
+  },
+  {
+    text: "인스턴스 타입",
+    value: "instanceType",
+    width: 138,
+    sortable: true,
+  },
+  {
+    text: "GPU",
+    value: "gpu",
+    width: 60,
+    sortable: false,
+  },
+  {
+    text: "CPU",
+    value: "cpu",
+    width: 60,
+    sortable: false,
+  },
+  {
+    text: "생성일시",
+    value: "createdAt",
+    width: 165,
+    sortable: true,
+  },
+  {
+    text: "생성자",
+    value: "createdBy",
+    width: 85,
+    sortable: true,
+  },
+  { text: "", value: "buttons", width: 80 },
+];
+
 </script>
 
 <style lang="scss" scoped>

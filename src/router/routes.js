@@ -128,7 +128,7 @@ const routes = [
       },
       { path: "/projects/projectdetail", component: () => import("pages/workspace/projects/ProjectDetailPage.vue") },
       // 프로젝트 - 인스턴스 : 생성, 상세
-      { path: "/workspace/:workspaceId/projects/:projectId/instance/create", component: () => import("pages/workspace/projects/InstanceDetailPage.vue") },
+      { path: "/workspace/:workspaceId/projects/:projectId/instance/create", name: "createInstance", component: () => import("pages/workspace/projects/InstanceDetailPage.vue") },
       { path: "/workspace/:workspaceId/projects/:projectId/instance/:instanceId", component: () => import("pages/workspace/projects/InstanceViewPage.vue") },
       // 프로젝트 - 테스크 : 생성, 상세, 그룹상세
       // TODO: 그룹상세 url
