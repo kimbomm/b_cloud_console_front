@@ -12,11 +12,11 @@
       :name="tab.name"
       :label="tab.label"
     >
-    <slot name="total" v-if="tab.total">
-      <q-badge>{{ tab.total }}</q-badge>
+    <slot name="total">
+      <q-badge>{{ tab.total !== undefined ? tab.total : '0' }}</q-badge>
     </slot>
-    </q-tab>
-  </q-tabs>
+  </q-tab>
+</q-tabs>
 </template>
 <script setup>
 import {
