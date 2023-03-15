@@ -1,33 +1,27 @@
 <template>
   <q-page class="p-content p-console">
     <div class="p-head">
-      <h1 class="p-title">{{ ptitle }}</h1>
+      <h1 class="p-title">Dashboard</h1>
       <p class="desc">
         <i class="ico time" />
-        <span class="txt">업데이트 시간 <span class="time">2023.10.33 14:33</span></span>
+        <span class="txt">업데이트 시간 <span class="time">{{ updateTime }}</span></span>
       </p>
     </div>
     <!-- //.chead -->
     <div class="p-body">
-      <q-banner class="c_banner">
+      <q-banner v-if="banner.length > 0 && !isBannerSession" class="c_banner">
         <template v-slot:avatar>
           <q-icon class="noti" />
         </template>
         <div class="bn_head">
-          <em class="state">서비스</em>
-          <strong class="title">스토리지 안내드립니다.</strong>
+          <em class="state">{{ NOTICE_TYPE[banner[0].type].name }}</em>
+          <strong class="title">{{ banner[0].title }}</strong>
         </div>
         <div class="bn_body">
-          스토리지 사용 안내 드립니다.
-          스토리지 사용 안내 드립니다.
-          스토리지 사용 안내 드립니다.
-          스토리지 사용 안내 드립니다.
-          스토리지 사용 안내 드립니다.
-          스토리지 사용 안내 드립니다.
-          스토리지 사용 안내 드립니다.
+          <p v-html="banner[0].content" />
         </div>
         <template v-slot:action>
-          <q-btn class="xclose" />
+          <q-btn class="xclose" @click="onBannerClose" />
         </template>
       </q-banner>
       <!-- Slides -->
@@ -468,25 +462,28 @@
           </div>
         </div>
         <!-- Quota -->
-        <div class="storage-box_dash quota">
+        <div v-if="workspace" class="storage-box_dash quota">
           <p class="sub-title">Workspace Quota</p>
-          <a href="#" class="morelink">
-            <span>더보기</span>
-          </a>
           <div class="store-wrap">
             <q-scroll-area style="padding-right: 18px; height: 100%; max-width: 100%;">
               <!-- store -->
               <div class="store">
                 <p class="name">CPU</p>
                 <div class="space">
-                  <p class="useage">24%</p>
-                  <p class="used"><span>24</span>&nbsp;/&nbsp;100</p>
+                  <p class="useage">
+                    {{ $utils.getPercentData(workspace.quota.used.cpu_milli, workspace.quota.total.cpu_milli) }}%
+                  </p>
+                  <p class="used">
+                    <span>{{ workspace.quota.used.cpu_milli }}</span>
+                    &nbsp;/&nbsp;
+                    {{ workspace.quota.total.cpu_milli }}
+                  </p>
                 </div>
                 <div class="quo_progress">
                   <div class="state">
                     <progress
-                      value="24"
-                      max="100"
+                      :value="workspace.quota.used.cpu_milli"
+                      :max="workspace.quota.total.cpu_milli"
                       class="space-chart"
                     />
                   </div>
@@ -497,14 +494,20 @@
               <div class="store">
                 <p class="name">Tesla A100_80G</p>
                 <div class="space">
-                  <p class="useage">24%</p>
-                  <p class="used"><span>24</span>&nbsp;/&nbsp;100</p>
+                  <p class="useage">
+                    {{ $utils.getPercentData(workspace.quota.used.a100_80g, workspace.quota.total.a100_80g) }}%
+                  </p>
+                  <p class="used">
+                    <span>{{ workspace.quota.used.a100_80g }}</span>
+                    &nbsp;/&nbsp;
+                    {{ workspace.quota.total.a100_80g }}
+                  </p>
                 </div>
                 <div class="quo_progress">
                   <div class="state">
                     <progress
-                      value="24"
-                      max="100"
+                      :value="workspace.quota.used.a100_80g"
+                      :max="workspace.quota.total.a100_80g"
                       class="space-chart"
                     />
                   </div>
@@ -515,32 +518,20 @@
               <div class="store">
                 <p class="name">Tesla A100_40G</p>
                 <div class="space">
-                  <p class="useage">75%</p>
-                  <p class="used"><span>75</span>&nbsp;/&nbsp;100</p>
+                  <p class="useage">
+                    {{ $utils.getPercentData(workspace.quota.used.a100_40g, workspace.quota.total.a100_40g) }}%
+                  </p>
+                  <p class="used">
+                    <span>{{ workspace.quota.used.a100_40g }}</span>
+                    &nbsp;/&nbsp;
+                    {{ workspace.quota.total.a100_40g }}
+                  </p>
                 </div>
                 <div class="quo_progress">
                   <div class="state">
                     <progress
-                      value="75"
-                      max="100"
-                      class="space-chart"
-                    />
-                  </div>
-                </div>
-              </div>
-              <!-- // store -->
-              <!-- store -->
-              <div class="store">
-                <p class="name">CPU</p>
-                <div class="space">
-                  <p class="useage">24%</p>
-                  <p class="used"><span>24</span>&nbsp;/&nbsp;100</p>
-                </div>
-                <div class="quo_progress">
-                  <div class="state">
-                    <progress
-                      value="24"
-                      max="100"
+                      :value="workspace.quota.used.a100_40g"
+                      :max="workspace.quota.total.a100_40g"
                       class="space-chart"
                     />
                   </div>
@@ -555,85 +546,22 @@
       <div class="section notice-box">
         <p class="sub-title">Notice</p>
         <q-list class="c_collapse">
-          <q-expansion-item group="notigroup" default-opened header-class="collapse_head">
+          <q-expansion-item
+            v-for="notice in notices"
+            :key="notice.id"
+            group="notigroup"
+            header-class="collapse_head"
+          >
             <template v-slot:header>
-              <q-icon class="service" />
-              <q-item-section class="state"><strong>서비스</strong></q-item-section>
-              <q-item-section class="title"><span>스토리지 사용안내 제목입니다</span></q-item-section>
-              <q-item-section side class="date"><span>23.01.03 18:33</span></q-item-section>
+              <q-icon :class="NOTICE_TYPE[notice.type].class" />
+              <q-item-section class="state"><strong>{{ NOTICE_TYPE[notice.type].name }}</strong></q-item-section>
+              <q-item-section class="title"><span>{{ notice.title }}</span></q-item-section>
+              <!-- <q-item-section side class="date"><span>{{ $utils.paseseDate(new Date(notice.created_at).toUTCString(), "YY.MM.DD hh:mm") }}</span></q-item-section> -->
+              <q-item-section side class="date"><span>{{ $utils.paseseDate(notice.created_at, "YY.MM.DD HH:MM") }}</span></q-item-section>
             </template>
             <q-card class="collapse_body">
               <q-card-section>
-                <div class="text_data">
-                  스토리지 사용안내 드립니다.
-                  스토리지 용량을 초과해서 사용하실 경우 기존 사용금액보다 더 많은 사용금액을 지불 할 수 있습니다.
-                  스토리지 사용안내 드립니다.
-                  스토리지 용량을 초과해서 사용하실 경우 기존 사용금액보다 더 많은 사용금액을 지불 할 수 있습니다.
-                  스토리지 사용안내 드립니다.
-                  스토리지 용량을 초과해서 사용하실 경우 기존 사용금액보다 더 많은 사용금액을 지불 할 수 있습니다.
-                  스토리지 사용안내 드립니다.
-                  스토리지 용량을 초과해서 사용하실 경우 기존 사용금액보다 더 많은 사용금액을 지불 할 수 있습니다.
-                  스토리지 사용안내 드립니다.
-                  스토리지 용량을 초과해서 사용하실 경우 기존 사용금액보다 더 많은 사용금액을 지불 할 수 있습니다.
-                  스토리지 사용안내 드립니다.
-                  스토리지 용량을 초과해서 사용하실 경우 기존 사용금액보다 더 많은 사용금액을 지불 할 수 있습니다.
-                </div>
-                <a href="#" class="alink">자세히 보기</a>
-              </q-card-section>
-            </q-card>
-          </q-expansion-item>
-
-          <q-expansion-item group="notigroup" header-class="collapse_head">
-            <template v-slot:header>
-              <q-icon class="community" />
-              <q-item-section class="state"><strong>공동체</strong></q-item-section>
-              <q-item-section class="title"><span>스토리지 사용안내 제목입니다</span></q-item-section>
-              <q-item-section side class="date"><span>23.01.03 18:33</span></q-item-section>
-            </template>
-            <q-card class="collapse_body">
-              <q-card-section>
-                <div class="text_data">
-                  스토리지 사용안내 드립니다.
-                  스토리지 용량을 초과해서 사용하실 경우 기존 사용금액보다 더 많은 사용금액을 지불 할 수 있습니다.
-                  스토리지 사용안내 드립니다.
-                  스토리지 용량을 초과해서 사용하실 경우 기존 사용금액보다 더 많은 사용금액을 지불 할 수 있습니다.
-                  스토리지 사용안내 드립니다.
-                  스토리지 용량을 초과해서 사용하실 경우 기존 사용금액보다 더 많은 사용금액을 지불 할 수 있습니다.
-                  스토리지 사용안내 드립니다.
-                  스토리지 용량을 초과해서 사용하실 경우 기존 사용금액보다 더 많은 사용금액을 지불 할 수 있습니다.
-                  스토리지 사용안내 드립니다.
-                  스토리지 용량을 초과해서 사용하실 경우 기존 사용금액보다 더 많은 사용금액을 지불 할 수 있습니다.
-                  스토리지 사용안내 드립니다.
-                  스토리지 용량을 초과해서 사용하실 경우 기존 사용금액보다 더 많은 사용금액을 지불 할 수 있습니다.
-                </div>
-                <a href="#" class="alink">자세히 보기</a>
-              </q-card-section>
-            </q-card>
-          </q-expansion-item>
-
-          <q-expansion-item group="notigroup" header-class="collapse_head">
-            <template v-slot:header>
-              <q-icon class="work" />
-              <q-item-section class="state"><strong>작업</strong></q-item-section>
-              <q-item-section class="title"><span>스토리지 사용안내 제목입니다</span></q-item-section>
-              <q-item-section side class="date"><span>23.01.03 18:33</span></q-item-section>
-            </template>
-            <q-card class="collapse_body">
-              <q-card-section>
-                <div class="text_data">
-                  스토리지 사용안내 드립니다.
-                  스토리지 용량을 초과해서 사용하실 경우 기존 사용금액보다 더 많은 사용금액을 지불 할 수 있습니다.
-                  스토리지 사용안내 드립니다.
-                  스토리지 용량을 초과해서 사용하실 경우 기존 사용금액보다 더 많은 사용금액을 지불 할 수 있습니다.
-                  스토리지 사용안내 드립니다.
-                  스토리지 용량을 초과해서 사용하실 경우 기존 사용금액보다 더 많은 사용금액을 지불 할 수 있습니다.
-                  스토리지 사용안내 드립니다.
-                  스토리지 용량을 초과해서 사용하실 경우 기존 사용금액보다 더 많은 사용금액을 지불 할 수 있습니다.
-                  스토리지 사용안내 드립니다.
-                  스토리지 용량을 초과해서 사용하실 경우 기존 사용금액보다 더 많은 사용금액을 지불 할 수 있습니다.
-                  스토리지 사용안내 드립니다.
-                  스토리지 용량을 초과해서 사용하실 경우 기존 사용금액보다 더 많은 사용금액을 지불 할 수 있습니다.
-                </div>
+                <div class="text_data" v-html="notice.content" />
                 <a href="#" class="alink">자세히 보기</a>
               </q-card-section>
             </q-card>
@@ -645,14 +573,18 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
-import { useMeta } from "quasar";
+import { ref, onBeforeUnmount } from "vue";
+import { useRoute } from "vue-router";
+import { useMeta, date } from "quasar";
+import { $utils } from "src/utils/utils";
+import { WorkspaceService, NoticeService } from "src/services";
 
-const title = ref("Dashboard");
 useMeta(() => ({
-  title: title.value,
+  title: "Dashboard",
 }));
-const ptitle = ref(title);
+const route = useRoute();
+const updateTime = $utils.paseseDate(new Date(), "YYYY.MM.DD HH:MM");
+
 const slide = ref(1);
 const slide2 = ref(1);
 const instanceData = ref(true);
@@ -683,6 +615,64 @@ const stores = ref([
     title: "삭제중", caption: "스토리지 설명", current: "3,000", total: "10,000", value: 100
   },
 ]);
+
+// workspace info
+const { workspaceId } = route.params;
+const workspace = ref(null);
+
+// 공지사항
+const notices = ref([]);
+const banner = ref([]);
+const isBannerSession = ref(false);
+const NOTICE_TYPE = {
+  service: {
+    class: "service",
+    name: "서비스"
+  },
+  community: {
+    class: "community",
+    name: "공동체"
+  },
+  work: {
+    class: "work",
+    name: "작업"
+  },
+};
+
+const getNotices = async () => {
+  const res = await NoticeService.getNotices();
+  notices.value = res.notices;
+
+  const latest7daysNotices = notices.value.filter((notice) => {
+    const isLatest = date.getDateDiff(new Date(), $utils.paseseDate(notice.created_at));
+    return isLatest <= 7 && isLatest >= 0;
+  });
+  banner.value = latest7daysNotices.filter((item) => (!(workspace.value.zone === "private" && item.type === "community")));
+  if (banner.value.length > 0) {
+    isBannerSession.value = sessionStorage.getItem(`banner-${banner.value[0].id}`);
+  }
+};
+
+const onBannerClose = () => {
+  sessionStorage.setItem(`banner-${banner.value[0].id}`, true);
+  isBannerSession.value = true;
+};
+
+WorkspaceService.getWorkspace(workspaceId).then((data) => {
+  workspace.value = data;
+  getNotices();
+});
+
+// 10분단위 업데이트
+const interval = setInterval(() => {
+  getNotices();
+  updateTime.value = $utils.paseseDate(new Date(), "YYYY.MM.DD HH:MM");
+}, 10 * 60 * 1000);
+
+onBeforeUnmount(() => {
+  clearInterval(interval);
+});
+// 10분단위 업데이트 끝
 </script>
 
 <style lang="scss" scoped>

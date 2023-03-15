@@ -60,4 +60,35 @@ export const ProjectService = {
     return response.data;
   },
 
+  /**
+   * 설명: 이미지 공유 하기
+   * @param { String } projectId 워크스페이스 id
+   * @param { String } imgId 이미지 id
+   */
+  async postShareWorkspaceImage(projectId, imgId) {
+    const response = await api.post(`/projects/${projectId}/images/${imgId}/share`);
+    return response.data;
+  },
+
+  /**
+   * 설명: 이미지 공유 해제하기
+   * @param { number } projectId 워크스페이스 id
+   * @param { number } imgId 이미지 id
+   */
+  async postUnShareWorkspaceImage(projectId, imgId) {
+    const response = await api.post(`/projects/${projectId}/images/${imgId}/unshare`);
+    return response.data;
+  },
+
+  /**
+   * 설명: 할당량 변경
+   * @param { number } projectId 프로젝트 id
+   * @param { number } params 할당량 설정 상세
+   */
+  async putProjectQuota(projectId, params) {
+    const response = await api.put(`/projects/${projectId}/quota`, params);
+
+    return response.data;
+  },
+
 };

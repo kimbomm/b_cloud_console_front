@@ -272,23 +272,33 @@
   </q-scroll-area>
 </template>
 <script setup>
-import { ref, onMounted, watch } from "vue";
+import {
+  ref,
+  watch,
+  reactive,
+  defineEmits,
+} from "vue";
 import { AuthService, ProjectService } from "src/services";
 import { googleLogout } from "vue3-google-login";
 import { $useCmFn } from "src/composables/useCommonFunction.js";
-
 import { useRoute } from "vue-router";
 import CInputText from "components/common/CInputText.vue";
 
+const props = defineProps({
+  projectMenu: {
+    type: Array,
+    default: () => []
+  }
+});
+const emit = defineEmits(["updateMenu"]);
 const route = useRoute();
-const { workspaceId } = route.params;
-
+const menuList = ref([]);
 const itemSelected = ref(false);
 const projectCreateModal = ref(false);
 const pjtToggle = ref(false);
 const setToggle = ref(false);
 const moreToggle = ref(false);
-const menuData = [
+const menuData = reactive([
   {
     type: "dash",
     label: "Dashboard",
@@ -300,16 +310,6 @@ const menuData = [
     label: "Projects",
     icon: "ico_projects",
     children: [
-      // {
-      //   type: "pjtsub",
-      //   label: "Test project",
-      //   path: "projects/task",
-      // },
-      // {
-      //   type: "pjtsub",
-      //   label: "Test project - Test012 Test012 Test012 Test012",
-      //   path: "projects/instance",
-      // },
     ],
   },
   {
@@ -389,7 +389,9 @@ const menuData = [
       },
     ],
   },
-];
+]);
+
+const pjtTypeItem = menuData.find((item) => item.type === "pjt");
 
 const projectName = ref("");
 const projectDescription = ref("");
@@ -443,31 +445,18 @@ watch(
 
 // 프로젝트 리스트 이름 메뉴에 추가
 const addMenuPjtProjects = () => {
-  const pjtTypeItem = menuData.find((item) => item.type === "pjt");
-
   if (pjtTypeItem) {
-    pjtTypeItem.children = getListProject.value.map((data) => ({
-      type: "pjtsub",
-      label: data.name,
-      path: `workspace/${workspaceId}/projects/${data.id}`,
-    }));
+    menuList.value = props.projectMenu;
+    pjtTypeItem.children = menuList.value;
+
+    const pjtTypeMap = new Map();
+    menuData.forEach((item, index) => {
+      if (item.type === "pjt") {
+        pjtTypeMap.set(index, item);
+      }
+    });
   }
 };
-
-const getUserInfo = async () => {
-  try {
-    const { projects } = await ProjectService.getListProject(workspaceId);
-    getListProject.value = projects;
-    addMenuPjtProjects();
-  } catch (e) {
-    console.log(e);
-    return false;
-  }
-};
-
-onMounted(() => {
-  getUserInfo();
-});
 
 const resetInputs = () => {
   projectName.value = "";
@@ -489,16 +478,17 @@ const triggerFail = () => {
 };
 
 const newProject = async () => {
-  const params = {
+  const dataParams = {
     description: projectDescription.value,
     name: projectName.value,
   };
   try {
-    await ProjectService.createProject(workspaceId, params);
+    const { workspaceId } = route.params;
+    await ProjectService.createProject(workspaceId, dataParams);
     setTimeout(() => {
       triggerSuccess();
-      getUserInfo();
-    }, 100);
+    }, 200);
+    await emit("updateMenu");
   } catch (e) {
     triggerFail();
   }
@@ -513,5 +503,11 @@ const onMenuClick = () => {
   googleLogout();
   AuthService.postLogout();
 };
+
+watch(() => props.projectMenu, () => {
+  menuList.value = props.projectMenu;
+  addMenuPjtProjects();
+}, { deep: true });
+
 </script>
 <style lang="scss" scoped></style>

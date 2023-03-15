@@ -61,21 +61,23 @@
 import {
   ref, toRefs, watch, watchEffect
 } from "vue";
+import CInputText from "src/components/common/CInputText.vue";
+
 import { ProjectService } from "src/services";
 import { useRoute } from "vue-router";
 import { $useCmFn } from "src/composables/useCommonFunction.js";
+import { useProjectStore } from "src/stores/useProjectStore";
 
-import CInputText from "src/components/common/CInputText.vue";
+const projectsStore = useProjectStore();
 
 const props = defineProps({
   projectCreateModal: Boolean,
   projectInfo: Object,
   getListProject: Array,
   newProjectDescription: String
-
 });
 
-const emit = defineEmits(["userInfoUpdate"]);
+const emit = defineEmits(["updateProject"]);
 const { RefDscription } = toRefs(props);
 
 const route = useRoute();
@@ -140,11 +142,17 @@ watch(
   }
 );
 
+// 비동기 처리
+const useGetUserInfo = async () => {
+  projectsStore.setUseProjects();
+};
+
 const triggerSuccess = () => {
   $useCmFn.onNotify({
     message: "편집 내용이 저장되었습니다.",
     type: "positive",
   });
+  useGetUserInfo();
 };
 const triggerFail = () => {
   $useCmFn.onNotify({
@@ -168,7 +176,7 @@ const updateProject = async () => {
     await ProjectService.updateProject(workspaceId, projectId, params);
     setTimeout(() => {
       triggerSuccess();
-      emit("userInfoUpdate");
+      emit("updateProject");
     }, 100);
   } catch (e) {
     triggerFail();
@@ -185,4 +193,5 @@ watchEffect(() => {
     resetProject();
   }
 });
+
 </script>

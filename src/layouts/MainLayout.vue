@@ -15,7 +15,7 @@
           icon="menu"
           class="c_icon menu"
         />
-        <top-nav />
+        <top-nav :workspaces="workspaces" @changeWorkspace="changeWorkspace" />
       </q-toolbar>
     </q-header>
 
@@ -28,23 +28,24 @@
         icon="menu"
         class="c_icon menu"
       />
-      <side-bar />
+      <side-bar :project-menu="projectMenu" @updateMenu="updateMenu" />
     </aside>
 
     <q-page-container class="l-container">
-      <router-view />
+      <router-view v-if="isLoaded" />
     </q-page-container>
     <c-message-box />
   </q-layout>
 </template>
 
 <script setup>
-import {
-  ref,
-  // watch
-} from "vue";
+import { ref, watch } from "vue";
 import { useMeta } from "quasar";
-// import { useRoute, useRouter } from "vue-router";
+import { UserService, WorkspaceService, ProjectService } from "src/services";
+import { useCommonStore } from "stores/useCommonStore.js";
+import { useProjectStore } from "stores/useProjectStore.js";
+import { storeToRefs } from "pinia";
+import { useRoute, useRouter } from "vue-router";
 // import { ProjectService } from "src/services";
 // import { $useCmFn } from "src/composables/useCommonFunction.js";
 // import { $utils } from "src/utils/utils";
@@ -57,8 +58,92 @@ const metaData = {
   titleTemplate: (title) => `${title} | Brain Cloud`,
 };
 useMeta(metaData);
+const route = useRoute();
+const router = useRouter();
+const isLoaded = ref(false);
 const drawer = ref(false);
 const sideClick = ref(false);
+
+const { me } = storeToRefs(useCommonStore());
+const { isProjectChange } = storeToRefs(useProjectStore());
+const { setMe, setMyWorkspaces } = useCommonStore();
+const { setIsProjectChange } = useProjectStore();
+const workspaces = ref([]);
+
+const initMe = async () => {
+  await UserService.getMe()
+    .then((user) => {
+      setMe(user);
+    })
+    .catch(() => {
+      console.log("유저 정보가 없습니다.");
+    });
+};
+
+/**
+ * 설명: 내 워크스페이스 > 프로젝트 목록 가져오기
+ */
+const projectStore = useProjectStore();
+const projectMenu = ref([]);
+const getUserProjects = async (workspaceId) => {
+  const { projects } = await ProjectService.getUserProjects(
+    workspaceId,
+    me.value.id
+  );
+  projectStore.setUseProjects(projects);
+
+  const sortedList = projects.sort((a, b) => a.id - b.id);
+  projectMenu.value = sortedList.map((data) => ({
+    type: "pjtsub",
+    label: data.name,
+    path: `workspace/${workspaceId}/projects/${data.id}`,
+  }));
+};
+
+const updateMenu = () => {
+  const { workspaceId } = route.params;
+  getUserProjects(workspaceId);
+};
+
+/**
+ * 설명: 초기화
+ */
+const init = async () => {
+  if (!me.value) await initMe();
+  const [workspaceList] = await Promise.all([
+    WorkspaceService.getUserWorkspaceList(me.value.id),
+  ]);
+
+  const { workspaceId } = route.params;
+  await getUserProjects(workspaceId);
+
+  setMyWorkspaces(workspaceList.workspaces);
+  workspaces.value = workspaceList;
+  isLoaded.value = true;
+};
+init();
+
+/**
+ * workspace 변경시 이벤트
+ */
+const changeWorkspace = (workspace) => {
+  const workspaceId = workspace.value;
+  router.push(`/workspace/${workspaceId}/projects`);
+  getUserProjects(workspaceId);
+};
+
+/**
+ * 설명: 워크스페이스 > 프로젝트 > 대시보드 > 프로젝트 변경시
+ */
+watch(
+  () => isProjectChange.value,
+  async () => {
+    if (isProjectChange.value) {
+      await updateMenu();
+      await setIsProjectChange(false);
+    }
+  }
+);
 
 // const route = useRoute();
 // const router = useRouter();

@@ -8,7 +8,7 @@
       <section class="section">
         <h2 class="h6">Default - class="c_pagination"</h2>
         <div class="group">
-          <CPagination />
+          <c-pagination />
         </div>
       </section>
       <section class="section">

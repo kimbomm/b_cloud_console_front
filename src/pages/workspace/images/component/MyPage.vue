@@ -1,5 +1,5 @@
 <template>
-  <EasyDataTable
+  <easy-data-table
     :headers="headers"
     :items="imageList"
     :hide-footer="true"
@@ -53,7 +53,7 @@
         </q-btn>
       </div>
     </template>
-  </EasyDataTable>
+  </easy-data-table>
 </template>
 
 <script setup>

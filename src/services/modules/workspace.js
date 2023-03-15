@@ -10,28 +10,29 @@ export const WorkspaceService = {
     const response = await api.get(`/workspaces/${workspaceId}/members/${userId}`);
     return response.data;
   },
-
   /**
-   * 설명: 이미지 공유 선택하기
-   * @param { String } workspaceId 워크스페이스 id
-   * @param { String } imgId 이미지 id
+   * 설명: 유저 워크스페이스 리스트
+   * @param { number } userId 유저 id
    */
-  async postShareWorkspaceImage(workspaceId, imgId, params) {
-    console.log("params", params);
-
-    const response = await api.post(`/workspaces/${workspaceId}/images/${imgId}/share`, params);
+  async getUserWorkspaceList(userId) {
+    const response = await api.get(`/users/${userId}/workspaces`);
     return response.data;
   },
-
   /**
-   * 설명: 이미지 공유 선택 해제하기
+   * 설명: 워크스페이스 정보 - 대시보드
    * @param { number } workspaceId 워크스페이스 id
-   * @param { number } imgId 이미지 id
    */
-  async postUnShareWorkspaceImage(workspaceId, imgId, params) {
-    console.log("params", params);
-    const response = await api.post(`/workspaces/${workspaceId}/images/${imgId}/share`, params);
+  async getWorkspace(workspaceId) {
+    const response = await api.get(`/workspaces/${workspaceId}`);
     return response.data;
   },
+  /**
+   * 설명: 워크스페이스 멤버
+   * @param { number } workspaceId 워크스페이스 id
+   */
+  async getWorkspaceMembers(workspaceId) {
+    const response = await api.get(`/workspaces/${workspaceId}/members`);
+    return response.data;
+  }
 
 };

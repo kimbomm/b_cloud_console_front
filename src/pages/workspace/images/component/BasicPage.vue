@@ -1,5 +1,5 @@
 <template>
-  <EasyDataTable
+  <easy-data-table
     :headers="headers"
     :items="imageList"
     :hide-footer="true"
@@ -14,7 +14,7 @@
     <template #item-version="item">
       <span class="txt">{{ item }}</span>
     </template>
-  </EasyDataTable>
+  </easy-data-table>
 </template>
 <script setup="setup">
 import { ref } from "vue";

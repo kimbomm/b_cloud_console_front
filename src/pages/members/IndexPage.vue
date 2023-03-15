@@ -13,62 +13,73 @@
     <div class="p-body">
       <!-- /* 멤버 - 메인(워크스페이스 관리자) */ -->
       <template v-if="defaultData == true">
-        <div class="flex-top table-set">
-          <div class="set-l set">
-            <div class="set-l_left">
-              <q-input
-                outlined
-                v-model="suffix"
-                placeholder="이름 이메일 검색"
-                class="member-input"
-              >
-                <template v-slot:prepend>
-                  <q-icon name="search" class="ico_search" />
-                </template>
-              </q-input>
-            </div>
-            <div class="set-l_right">
-              <CDropdown
-                v-model:selected="selectedBasic"
-                :label="label"
-                :options="options"
-              />
-            </div>
+        <div class="table_set">
+          <div class="l_set_inner">
+            <q-input
+              outlined
+              v-model="suffix"
+              placeholder="이름 이메일 검색"
+              class="w292"
+            >
+              <template v-slot:prepend>
+                <q-icon name="search" class="ico_search" />
+              </template>
+            </q-input>
+            <c-dropdown
+              v-model:selected="selectedBasic"
+              :label="label"
+              :options="options"
+              class="w220"
+            />
           </div>
-          <div class="set-r set">
-            <div class="set-btn">
-              <c-button :size="'medium'" :btn-names="'멤버추가'">
-                <template #prepend>
-                  <i class="ico plus"></i>
-                </template>
-              </c-button>
-            </div>
-            <div class="set-btn remove_member_btn">
-              <c-button
-                :size="'medium'"
-                :btn-types="51"
-                :btn-names="'멤버삭제'"
-              />
-            </div>
-            <div class="set-btn select-d">
-              <CDropdown
-                v-model:selected="selectedBasic"
-                :label="label3"
-                :options="options2"
-              />
-            </div>
+          <div class="r_set_inner">
+            <c-button
+              :outline="true"
+              :size="'medium'"
+              :btn-names="'멤버추가'"
+              class="btn"
+            >
+              <template #prepend>
+                <i class="ico plus"></i>
+              </template>
+            </c-button>
+            <c-button
+              :size="'medium'"
+              :outline="true"
+              disabled
+              :btn-names="'멤버삭제'"
+              class="btn"
+            >
+              <template #prepend>
+                <i class="ico plus" />
+              </template>
+            </c-button>
+            <c-dropdown
+              v-model:selected="selectedBasic"
+              :label="label3"
+              :options="options2"
+              class="auto_size"
+            />
           </div>
         </div>
         <!-- Table -->
-        <section class="section">
-          <EasyDataTable
-            v-model:items-selected="itemsSelected"
+        <div class="table_inner">
+          <easy-data-table
+            class="c_table"
             :headers="headers"
             :items="items"
             :hide-footer="true"
             :body-row-class-name="bodyRowClassNameFunction"
             empty-message="정보가 없습니다."
           >
+            <template #item-checkbox="item">
+              <q-checkbox
+                v-model="itemsSelected"
+                :val="item.id"
+                :disable="item.disabled"
+                @click="onCheck(item)"
+              />
+            </template>
             <!-- name -->
             <template #item-name="item">
               <template v-if="item.name.join == true">
@@ -114,90 +125,87 @@
             <template #item-buttons="item">
               <div v-if="actionButtons || item.buttons" class="cell btngroup">
                 <!-- 초대 요청 확인 -->
-                <q-btn v-if="item.buttons" class="c_btn">
+                <c-button
+                  v-if="item.buttons"
+                  class="c_btn"
+                  :btn-names="'초대요청 확인'"
+                >
                   <span class="txt">{{ item.buttons.name }}</span>
-                </q-btn>
+                </c-button>
               </div>
             </template>
-          </EasyDataTable>
-        </section>
-        <!-- //Table -->
-        <div class="table_pagenav disflex_C">
-          <CPagination />
+          </easy-data-table>
+          <c-pagination />
         </div>
+        <!-- //Table -->
       </template>
       <!-- /* 멤버 - 메인(워크스페이스 멤버/정산관리자,게스트) */ -->
       <template v-else>
-        <div class="flex-top table-set">
-          <div class="set-l set">
-            <div class="set-l_left">
-              <q-input
-                outlined
-                v-model="suffix"
-                placeholder="이름 상태 생성자 검색"
-                class="member-input"
-              >
-                <template v-slot:prepend>
-                  <q-icon name="search" class="ico_search" />
-                </template>
-              </q-input>
-            </div>
-            <div class="set-l_right">
-              <CDropdown
-                v-model:selected="selectedBasic"
-                :label="label2"
-                :options="options"
-              />
-            </div>
+        <div class="table_set">
+          <div class="l_set_inner">
+            <q-input
+              outlined
+              v-model="suffix"
+              placeholder="이름 이메일 검색"
+              class="w292"
+            >
+              <template v-slot:prepend>
+                <q-icon name="search" class="ico_search" />
+              </template>
+            </q-input>
+            <c-dropdown
+              v-model:selected="selectedBasic"
+              :label="label2"
+              :options="options"
+              class="w220"
+            />
           </div>
-          <div class="set-r set">
-            <div class="set-btn">
-              <c-button :size="'medium'" :btn-names="'멤버 초대 요청'">
-                <template #prepend>
-                  <i class="ico plus"></i>
-                </template>
-              </c-button>
-            </div>
-            <div class="set-btn select-d">
-              <CDropdown
-                v-model:selected="selectedBasic"
-                :label="label3"
-                :options="options2"
-              />
-            </div>
+          <div class="r_set_inner">
+            <c-button
+              :outline="true"
+              :size="'medium'"
+              :btn-names="'멤버 초대 요청'"
+              class="btn"
+            >
+              <template #prepend>
+                <i class="ico plus"></i>
+              </template>
+            </c-button>
+            <c-dropdown
+              v-model:selected="selectedBasic"
+              :label="label3"
+              :options="options2"
+              class="auto_size"
+            />
           </div>
         </div>
         <!-- Table -->
-        <section class="section">
-          <EasyDataTable
-            :headers="headers2"
-            :items="items2"
-            :hide-footer="true"
-            empty-message="정보가 없습니다."
-            @click-row="showRow"
-          >
-            <!-- name -->
-            <template #item-name="item">
-              <span class="txt">{{ item.name.title }}</span>
-            </template>
-            <!-- email -->
-            <template #item-email="item">
-              <span class="txt">{{ item.email }}</span>
-            </template>
-            <!-- workspaceChar -->
-            <template #item-workspaceChar="item">
-              <span class="txt">{{ item.workspaceChar }}</span>
-            </template>
-            <!-- introduce -->
-            <template #item-introduce="item">
-              <span class="txt">{{ item.introduce }}</span>
-            </template>
-          </EasyDataTable>
-        </section>
+        <easy-data-table
+          :headers="headers2"
+          :items="items2"
+          :hide-footer="true"
+          empty-message="정보가 없습니다."
+          @click-row="showRow"
+        >
+          <!-- name -->
+          <template #item-name="item">
+            <span class="txt">{{ item.name.title }}</span>
+          </template>
+          <!-- email -->
+          <template #item-email="item">
+            <span class="txt">{{ item.email }}</span>
+          </template>
+          <!-- workspaceChar -->
+          <template #item-workspaceChar="item">
+            <span class="txt">{{ item.workspaceChar }}</span>
+          </template>
+          <!-- introduce -->
+          <template #item-introduce="item">
+            <span class="txt">{{ item.introduce }}</span>
+          </template>
+        </easy-data-table>
+        <c-pagination />
         <!-- //Table -->
-        <div class="table_pagenav disflex_C">
-          <CPagination />
-        </div>
       </template>
     </div>
   </q-page>
@@ -236,22 +244,27 @@ const itemsSelected = ref([]);
 
 const headers = [
   {
+    text: "",
+    value: "checkbox",
+    width: 80,
+  },
+  {
     text: "이름",
     value: "name",
-    width: 266,
+    width: 220,
     sortable: true,
     checkbox: true,
   },
   {
     text: "이메일",
     value: "email",
-    width: 293,
+    width: 272,
     sortable: true,
   },
   {
     text: "워크스페이스 역할",
     value: "workspaceChar",
-    width: 242,
+    width: 200,
     sortable: false,
   },
   {
@@ -259,6 +272,7 @@ const headers = [
     value: "introduce",
     sortable: false,
   },
+  { text: "", value: "buttons" },
 ];
 const items = [
   {
@@ -269,6 +283,9 @@ const items = [
     email: "billing@workspace1.com",
     workspaceChar: "정산 관리자",
     introduce: "안녕하세요",
+    buttons: {
+      name: "초대요청 확인",
+    },
   },
   {
     name: {
@@ -297,20 +314,14 @@ const bodyRowClassNameFunction = (item) => {
   const classList = [];
   if (item.buttons) classList.push("row-button");
   if (item.checkbox) classList.push("row-selected");
+  if (item.disabled) classList.push("row-disabled");
   return classList.join(" ");
 };
 
-/**
- * 설명: 복사하기 버튼 이벤트
- * @param { object } rowData get table row data
- */
-
-/**
- * 설명: row Action 버튼 이벤트
- * @param { string } eventName action event name
- * @param { object } rowData get table row data
- */
-
+const onCheck = (item) => {
+  const data = items.filter((row) => row.id === item.id)[0];
+  data.checkbox = itemsSelected.value.includes(item.id);
+};
 // Table2
 const headers2 = [
   {
@@ -372,6 +383,5 @@ const ptitle = ref(title);
 </script>
 
 <style lang="scss" scoped>
-@import "src/css/table";
 @import "src/css/members";
 </style>

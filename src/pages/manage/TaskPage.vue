@@ -13,8 +13,8 @@
         <h1 class="p-title">{{ ptitle }}</h1>
         <div class="resource_employ_btn">
           <c-button
-            :size="'medium'"
             :outline="true"
+            size="medium"
             :btn-names="'리소스 사용이력'"
           >
             <template #prepend>
@@ -97,7 +97,7 @@
           </div>
           <div class="table_main">
             <template v-if="segModel2 === 'one'">
-              <EasyDataTable
+              <easy-data-table
                 :headers="groupHeaders"
                 :items="groupItems"
                 :hide-footer="true"
@@ -285,11 +285,11 @@
                     </q-btn>
                   </div>
                 </template>
-              </EasyDataTable>
+              </easy-data-table>
               <c-pagination />
             </template>
             <template v-else-if="segModel2 === 'two'">
-              <EasyDataTable
+              <easy-data-table
                 :headers="taskHeaders"
                 :items="taskItems"
                 :hide-footer="true"
@@ -453,7 +453,7 @@
                     </q-btn>
                   </div>
                 </template>
-              </EasyDataTable>
+              </easy-data-table>
               <c-pagination />
             </template>
           </div>
@@ -466,8 +466,8 @@
 import { ref } from "vue";
 import { useMeta } from "quasar";
 import CDropdown from "components/common/CDropdown.vue";
+import CButton from "src/components/common/CButton.vue";
 import CPagination from "components/common/CPagination.vue";
-import CButton from "components/common/CButton.vue";
 
 const title = ref("Instance & Task");
 useMeta(() => ({
@@ -638,7 +638,7 @@ const taskHeaders = [
     sortable: true,
   },
   {
-    text: "생성일시",
+    text: "시작일시",
     value: "createdAt",
     width: 160,
     sortable: true,

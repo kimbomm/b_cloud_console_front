@@ -1,32 +1,11 @@
+@import 'src/css/utillity';
+@import 'src/css/table';
 /* Billing */
 .p-billing{
+  position: relative;
   .txt{color: $gray800;}
   .section{margin-top: 20px;}
-  /* Billing 공통 css */
-  .top-btn{
-    width: 100%;
-    display: flex; justify-content: space-between; align-items: center;
-  }
-  .group-date{
-    margin-bottom: 40px;
-    width: 292px;
-    .inp_calendar{
-      margin-right: 10px;
-    }
-  }
-  .group{
-    .c_inpchip{
-      width: 450px;
-    }
-  }
-  .group-tabs{
-    .c_tabs{
-      min-height: 48px;
-    }
-  }
-  .table_set{
-    margin-bottom: 0;
-  }
+  .top_btn{position: absolute; top: 50%; right: 0; transform: translateY(-50%);}
   .pay-info{
     padding: 30px;
     width: 100%;
@@ -51,68 +30,8 @@
   .pay span{
     font-size: 40px; font-weight: $bold;
   }
-  .group-page{
-    display: flex; justify-content: center; align-items: center;
-    margin-top: 50px;
-  }
-  .preparing{
-    width: 100%; height: 868px;
-    border-radius: 8px; background-color: $surface01;
-    > p{
-      position: relative;
-      top: 50%; transform: translateY(-50%);
-      text-align: center; color: $gray500; font-size: $fs14;
-    }
-  }
-  /* //Billing 공통 css */
-
-  /* instance, storage 공통 css  */
-  .group-load{
-    .group-table{
-      &_page{
-        display: flex; justify-content: center; align-items: center;
-        margin-top: 50px;
-      }
-    }
-  }
-  .table_set{
-    .wsize450{width: 450px;}
-  }
-  /*  // instance, storage 공통 css */
-
-  &.p-index{
-    .p-head{
-      .billing_btn{
-        .c_btn.line{
-          .ico{
-            background-image: url(/src/assets/images/icon/16/ico_money_normal.svg);
-          }
-        }
-      }
-    }
-    .p-body{
-      .pay-notice{
-        margin-top: 16px;
-        color: $gray500; font-size: $fs14;
-      }
-    }
-  }
-  &.p-detail{
-  }
-  &.p-member{
-  }
-  &.p-storage{
-    .p-body{
-      .ins-wrap{
-        display: flex; justify-content: space-between; align-items: center;
-      }
-    }
-  }
-  &.p-instance{
-    .p-body{
-      .ins-wrap{
-        display: flex; justify-content: space-between; align-items: center;
-      }
-    }
+  .pay-notice{
+    margin-top: 16px;
+    color: $gray500; font-size: $fs14;
   }
 }

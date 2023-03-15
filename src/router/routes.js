@@ -121,7 +121,11 @@ const routes = [
       // Dashboard
       { path: "/workspace/:workspaceId/projects", component: () => import("pages/IndexPage.vue") },
       // 프로젝트
-      { path: "/workspace/:workspaceId/projects/:projectId", component: () => import("pages/workspace/projects/IndexPage.vue") },
+      {
+        path: "/workspace/:workspaceId/projects/:projectId",
+        component: () => import("pages/workspace/projects/IndexPage.vue"),
+        name: "ProjectList",
+      },
       { path: "/projects/projectdetail", component: () => import("pages/workspace/projects/ProjectDetailPage.vue") },
       // 프로젝트 - 인스턴스 : 생성, 상세
       { path: "/workspace/:workspaceId/projects/:projectId/instance/create", component: () => import("pages/workspace/projects/InstanceDetailPage.vue") },
@@ -137,8 +141,8 @@ const routes = [
       // 이미지
       { path: "/workspace/:workspaceId/images", component: () => import("pages/workspace/images/IndexPage.vue") },
       // 멤버
-      { path: "/workspace/:workspaceId/members/", component: () => import("pages/members/IndexPage.vue") },
-      { path: "/workspace/:workspaceId/members/:memberId", component: () => import("pages/members/MemberDetailPage.vue") },
+      { path: "/workspace/:workspaceId/members/", component: () => import("pages/workspace/members/IndexPage.vue") },
+      { path: "/workspace/:workspaceId/members/:memberId", component: () => import("pages/workspace/members/MemberDetailPage.vue") },
       // 요금
       { path: "/workspace/:workspaceId/billing", component: () => import("pages/billing/IndexPage.vue") },
       { path: "/workspace/:workspaceId/billing/:billingId", component: () => import("pages/billing/BillingDetailPage.vue") },
@@ -157,6 +161,7 @@ const routes = [
   // but you can also remove it
   {
     path: "/:catchAll(.*)*",
+    name: "NotFound",
     component: () => import("pages/ErrorNotFound.vue"),
   },
   // sample page

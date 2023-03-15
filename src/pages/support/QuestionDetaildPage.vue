@@ -6,58 +6,76 @@
           <q-icon />
         </template>
         <q-breadcrumbs-el label="Workspace Manager" to="/support" />
-        <q-breadcrumbs-el label="Support" to="/support" />
+        <q-breadcrumbs-el label="Support" />
       </q-breadcrumbs>
       <h1 class="p-title">{{ ptitle }}</h1>
     </div>
     <!-- //.chead -->
     <div class="p-body">
-      <!--   고객지원-1:1문의-스토리지 할당량 변경 문의내용 확인   -->
-      <template v-if="visible === 'A'">
-        <div class="amount-check">
-          <p class="check-title">
+      <div class="view_contents">
+        <div class="view_head">
+          <p class="view_title">
             워크스페이스 스토리지 용량 변경 (관리자 전용)
           </p>
-          <div class="q-badge green">답변완료</div>
-          <p class="check-date">2023.04.01&nbsp;11:30:44</p>
-          <p class="check-contents">
-            워크스페이스 스토리지 중량 요청 드립니다.
+          <q-badge class="green">
+            <span class="txt">답변완료</span>
+          </q-badge>
+          <p class="info">
+            <span class="date">2023.04.01 11:30:44</span>
+            <template v-if="visible === 'C'">
+              <span class="type">오류/버그 제보</span>
+            </template>
+            <template v-if="visible === 'D'">
+              <span class="type">기타</span>
+            </template>
           </p>
-          <div class="amount-check_req-box">
-            <p class="current-amount">
-              현재 사용량
-              <span>3,000</span>&nbsp;/&nbsp;<span>2,750</span>
-            </p>
-            <p class="request-amount">
-              요청량
-              <span>5,000</span>&nbsp;GiB
-            </p>
-          </div>
         </div>
-        <div class="check-reply">
-          <p class="check-reply_title">답변</p>
-          <p class="check-reply_answer">
-            5,000 GiB 스토리지 증량 처리 완료 되었습니다.
-          </p>
-          <!-- <p class="amount-reply_answer checking">관리자가 확인 중 입니다.</p> -->
+        <div class="view_subject">
+          워크스페이스 스토리지 중량 요청 드립니다.
+          <!-- 오류/버그제보 내용 확인 -->
+          <template v-if="visible === 'C'">
+            <!-- 이미지 추가 영역 -->
+            <div class="figure">
+              <picture
+                v-for="figureImg in imgData"
+                :key="figureImg"
+                class="picture"
+              >
+                <img :src="figureImg.path" :alt="figureImg.desc" />
+              </picture>
+            </div>
+          </template>
+          <!-- 기타문의 내용 확인 -->
+          <template v-if="visible === 'D'">
+            <!-- 이미지 추가 영역 -->
+            <div class="figure">
+              <picture
+                v-for="figureImg in imgData"
+                :key="figureImg"
+                class="picture"
+              >
+                <img :src="figureImg.path" :alt="figureImg.desc" />
+              </picture>
+            </div>
+          </template>
         </div>
-        <div class="c_btngroup">
-          <c-button :btn-names="listBtn" class="list-btn" to="/support/" />
-        </div>
-      </template>
-      <!-- 고객지원-1:1문의-리소스 할당량 변경 문의내용 확인 -->
-      <template v-else-if="visible === 'B'">
-        <div class="amount-check">
-          <p class="check-title">
-            워크스페이스 CPU, GPU 할당량 변경 (관리자 전용)
-          </p>
-          <div class="q-badge green">답변완료</div>
-          <p class="check-date">2023.04.01&nbsp;11:30:44</p>
-          <p class="check-contents">
-            워크스페이스 스토리지 중량 요청 드립니다.
-          </p>
-          <div class="req-wrap">
-            <div class="amount-check_req-box2">
+        <div class="req-wrap">
+          <!--  스토리지 할당량 변경 문의내용 확인  -->
+          <template v-if="visible === 'A'">
+            <div class="req-box">
+              <p class="current-amount">
+                현재 사용량
+                <span>3,000</span>&nbsp;/&nbsp;<span>2,750</span>
+              </p>
+              <p class="request-amount">
+                요청량
+                <span>5,000</span>&nbsp;GiB
+              </p>
+            </div>
+          </template>
+          <!-- 리소스 할당량 변경 문의내용 확인 -->
+          <template v-if="visible === 'B'">
+            <div class="req-box">
               <p class="amount-title">CPU</p>
               <p class="current-amount">
                 현재 할당량
@@ -68,7 +86,7 @@
                 <span>5,000</span>
               </p>
             </div>
-            <div class="amount-check_req-box2">
+            <div class="req-box">
               <p class="amount-title">Tesla A100</p>
               <p class="current-amount">
                 현재 할당량
@@ -79,7 +97,7 @@
                 <span>5,000</span>
               </p>
             </div>
-            <div class="amount-check_req-box2">
+            <div class="req-box">
               <p class="amount-title">Tesla V100</p>
               <p class="current-amount">
                 현재 할당량
@@ -90,7 +108,7 @@
                 <span>5,000</span>
               </p>
             </div>
-            <div class="amount-check_req-box2">
+            <div class="req-box">
               <p class="amount-title">Tesla P40</p>
               <p class="current-amount">
                 현재 할당량
@@ -101,107 +119,99 @@
                 <span>5,000</span>
               </p>
             </div>
+            <div class="req-box">
+              <p class="amount-title">Tesla V100</p>
+              <p class="current-amount">
+                현재 할당량
+                <span class="c-span">3,000</span>
+              </p>
+              <p class="request-amount">
+                요청량
+                <span>5,000</span>
+              </p>
+            </div>
+            <div class="req-box">
+              <p class="amount-title">Tesla P40</p>
+              <p class="current-amount">
+                현재 할당량
+                <span class="c-span">3,000</span>
+              </p>
+              <p class="request-amount">
+                요청량
+                <span>5,000</span>
+              </p>
+            </div>
+          </template>
+        </div>
+      </div>
+      <div class="view_reply">
+        <p class="reply_title">답변</p>
+        <!-- 답변 내용이 있는경우 -->
+        <div class="reply_answer">
+          5,000 GiB 스토리지 증량 처리 완료 되었습니다.
+        </div>
+
+        <!-- 답변 내용이 없는 경우 -->
+        <!--
+          <div class="reply_answer checking">
+            관리자가 확인 중 입니다.
           </div>
-        </div>
-        <div class="check-reply">
-          <p class="check-reply_title">답변</p>
-          <p class="check-reply_answer">
-            5,000 GiB 스토리지 증량 처리 완료 되었습니다.
-          </p>
-          <!-- <p class="amount-reply_answer checking">관리자가 확인 중 입니다.</p> -->
-        </div>
-        <div class="c_btngroup">
-          <c-button :btn-names="listBtn" class="list-btn" to="/support/" />
-        </div>
-      </template>
-      <!-- 고객지원-1:1문의-오류/버그제보 내용 확인 -->
-      <template v-else-if="visible === 'C'">
-        <div class="amount-check">
-          <p class="check-title">
-            오류 버그 제보 드립니다.&nbsp;<span>제목입니다.</span>
-          </p>
-          <div class="q-badge green">답변완료</div>
-          <p class="check-date date-fx">
-            2023.04.01&nbsp;11:30:44
-            <span class="error-report">오류/버그 제보</span>
-          </p>
-          <p class="check-contents mb0">오류 버그 제보 드립니다.</p>
-          <!-- 이미지 추가 -->
-          <div class="check-img">
-            <img src="" alt="" class="img img1" />
-            <img src="" alt="" class="img img1" />
-            <img src="" alt="" class="img img2" />
-            <img src="" alt="" class="img img3" />
-            <img src="" alt="" class="img img4" />
-            <img src="" alt="" class="img img5" />
-          </div>
-        </div>
-        <div class="check-reply">
-          <p class="check-reply_title">답변</p>
-          <p class="check-reply_answer">감사합니다. 수정하도록 하겠습니다.</p>
-          <!-- <p class="amount-reply_answer checking">관리자가 확인 중 입니다.</p> -->
-        </div>
-        <div class="c_btngroup">
-          <c-button
-            :btn-names="listBtn"
-            class="list-btn flex-end"
-            to="/support/"
-          />
-        </div>
-      </template>
-      <!-- 고객지원-1:1문의-기타문의 내용 확인 -->
-      <template v-else-if="visible === 'D'">
-        <div class="amount-check">
-          <p class="check-title">
-            서비스 이용 문의드립니다.&nbsp;<span>제목입니다.</span>
-          </p>
-          <div class="q-badge green">답변완료</div>
-          <p class="check-date date-fx">
-            2023.04.01&nbsp;11:30:44
-            <span class="error-report">기타</span>
-          </p>
-          <p class="check-contents mb0">오류 버그 제보 드립니다.</p>
-          <!-- 이미지 추가 -->
-          <div class="check-img">
-            <img src="" alt="" class="img img1" />
-            <img src="" alt="" class="img img1" />
-            <img src="" alt="" class="img img2" />
-            <img src="" alt="" class="img img3" />
-            <img src="" alt="" class="img img4" />
-            <img src="" alt="" class="img img5" />
-          </div>
-        </div>
-        <div class="check-reply">
-          <p class="check-reply_title">답변</p>
-          <p class="check-reply_answer">답변드립니다.</p>
-          <!-- <p class="amount-reply_answer checking">관리자가 확인 중 입니다.</p> -->
-        </div>
-        <div class="c_btngroup">
-          <c-button :btn-names="listBtn" class="list-btn" to="/support/" />
-        </div>
-      </template>
+        -->
+      </div>
+      <div class="c_btngroup f_end">
+        <c-button :size="'medium'" :btn-names="'목록'" class="list" />
+      </div>
     </div>
   </q-page>
 </template>
 <script setup>
 import { ref } from "vue";
 import { useMeta } from "quasar";
+import CButton from "components/common/CButton.vue";
 
 const title = ref("Support");
-const visible = ref("D");
 useMeta(() => ({
   title: title.value,
-  visible,
 }));
-
 const ptitle = ref(title);
+
+const visible = ref("D");
+const imgData = [
+  {
+    path: "http://unsplash.it/600/600?image=180",
+    desc: "",
+  },
+  {
+    path: "http://unsplash.it/800/600?image=180",
+    desc: "",
+  },
+  {
+    path: "https://interactive-examples.mdn.mozilla.net/media/examples/plumeria.jpg",
+    desc: "",
+  },
+  {
+    path: "https://ichef.bbci.co.uk/news/640/cpsprodpb/E172/production/_126241775_getty_cats.png",
+    desc: "",
+  },
+  {
+    path: "https://image.yes24.com/goods/60896840/XL",
+    desc: "",
+  },
+  {
+    path: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJRVyLbmUUrp61vQ7_fkz35ViGCYwX8iSAZw&usqp=CAU",
+    desc: "",
+  },
+  {
+    path: "https://cdn.eyesmag.com/content/uploads/posts/2022/08/08/main-ad65ae47-5a50-456d-a41f-528b63071b7b.jpg",
+    desc: "",
+  },
+  {
+    path: "http://c.files.bbci.co.uk/4532/production/_126241771_gettyimages-1224404559-1.jpg",
+    desc: "",
+  },
+];
 </script>
 
 <style lang="scss" scoped>
 @import "src/css/support";
-.c_btngroup {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 24px;
-}
 </style>

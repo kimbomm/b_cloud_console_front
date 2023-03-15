@@ -189,31 +189,32 @@
           </div>
         </div>
 
-        <p class="sub_title">태스크</p>
-        <div class="table_inner">
-          <easy-data-table
-            :headers="headers"
-            :items="items"
-            :hide-footer="true"
-            empty-message="정보가 없습니다."
-            @click-row="showRow"
-          >
-            <!-- id -->
-            <template #item-id="item">
-              <span class="txt clip">{{ item.id }}</span>
-            </template>
-            <!-- title -->
-            <template #item-title="item">
-              <a href="#">
-                <span class="txt">{{ item.title }}</span>
-                <q-tooltip anchor="bottom middle" class="c_tooltip">
-                  <div class="inner">
-                    {{ item.title }}
-                  </div>
-                </q-tooltip>
-              </a>
-            </template>
-            <!--
+        <div class="task_table_area">
+          <p class="sub_title">태스크</p>
+          <div class="task_inner">
+            <EasyDataTable
+              :headers="headers"
+              :items="items"
+              :hide-footer="true"
+              empty-message="정보가 없습니다."
+              @click-row="showRow"
+            >
+              <!-- id -->
+              <template #item-id="item">
+                <span class="txt clip">{{ item.id }}</span>
+              </template>
+              <!-- title -->
+              <template #item-title="item">
+                <a href="#">
+                  <span class="txt">{{ item.title }}</span>
+                  <q-tooltip anchor="bottom middle" class="c_tooltip">
+                    <div class="inner">
+                      {{ item.title }}
+                    </div>
+                  </q-tooltip>
+                </a>
+              </template>
+              <!--
                 상태값(status)
                 1. finished, 완료
                 2. stopped, 실패
@@ -225,112 +226,118 @@
                 8. deleting, 삭제중
                 9. unknown
               -->
-            <template #item-status="item">
-              <q-badge v-if="item.status === 'finished'" class="green">
-                <span class="txt">완료</span>
-              </q-badge>
-              <q-badge v-else-if="item.status === 'stopped'" class="orange">
-                <span class="txt">실패</span>
-              </q-badge>
-              <q-badge v-else-if="item.status === 'pending'" class="c_badge">
-                <span class="txt">대기중</span>
-              </q-badge>
-              <q-badge v-else-if="item.status === 'making'" class="c_badge">
-                <span class="txt">생성중</span>
-              </q-badge>
-              <q-badge v-else-if="item.status === 'starting'" class="c_badge">
-                <span class="txt">실행중</span>
-              </q-badge>
-              <q-badge v-else-if="item.status === 'canceling'" class="c_badge">
-                <span class="txt">취소중</span>
-              </q-badge>
-              <q-badge v-else-if="item.status === 'deleting'" class="c_badge">
-                <span class="txt">삭제중</span>
-              </q-badge>
-              <q-badge v-else-if="item.status === 'cancel'" class="c_badge">
-                <span class="txt">취소</span>
-              </q-badge>
-              <q-badge v-else class="c_badge">
-                <span class="txt">Unknown</span>
-              </q-badge>
-            </template>
-            <!-- ssh -->
-            <template #item-ssh="item">
-              <q-badge class="copy square ssh icon" @click="onCopy(item)">
-                <span class="txt">{{ item.ssh }}</span>
-              </q-badge>
-            </template>
-            <!-- 인스턴스 타입 -->
-            <template #item-instanceType="item">
-              <q-badge class="text instance" @click="onCopy(item)">
-                <span class="txt"
-                  >{{ item.instanceType
-                  }}<i class="ico details">
-                    <q-tooltip
-                      anchor="bottom middle"
-                      class="c_tooltip insTypeTool"
-                    >
-                      <div class="inner">
-                        {{ item.instanceType }}
-                        {{ item.instanceType }}
-                        {{ item.instanceType }}
-                      </div>
-                    </q-tooltip></i
-                  >
-                </span>
-              </q-badge>
-            </template>
-            <!-- cpu -->
-            <template #item-cpu="item">
-              <span class="txt">{{ item.cpu }}</span>
-            </template>
-            <!-- gpu -->
-            <template #item-gpu="item">
-              <span class="txt">{{ item.gpu }}</span>
-            </template>
-            <!-- createdAt -->
-            <template #item-createdAt="item">
-              <span class="txt">{{ item.createdAt }}</span>
-            </template>
-            <!-- endDate -->
-            <template #item-endDate="item">
-              <span class="txt">{{ item.endDate }}</span>
-            </template>
-            <!-- logCheck -->
-            <template #item-logCheck="item">
-              <a href="#">
-                <span class="txt logbadge">{{ item.logCheck }}</span>
-              </a>
-            </template>
-            <!-- 버튼 그룹 -->
-            <template #item-buttons="item">
-              <div v-if="actionButtons" class="cell btngroup">
-                <q-btn class="c_btn ibtn dot">
-                  <i class="ico dots" /><span class="txt">클릭</span>
-                  <q-popup-edit
-                    v-model="item.id"
-                    class="dots_menu"
-                    anchor="top right"
-                  >
-                    <q-list style="min-width: 100px">
-                      <q-item
-                        v-for="button in actionButtons"
-                        :key="button.name"
+              <template #item-status="item">
+                <q-badge v-if="item.status === 'finished'" class="green">
+                  <span class="txt">완료</span>
+                </q-badge>
+                <q-badge v-else-if="item.status === 'stopped'" class="orange">
+                  <span class="txt">실패</span>
+                </q-badge>
+                <q-badge v-else-if="item.status === 'pending'" class="c_badge">
+                  <span class="txt">대기중</span>
+                </q-badge>
+                <q-badge v-else-if="item.status === 'making'" class="c_badge">
+                  <span class="txt">생성중</span>
+                </q-badge>
+                <q-badge v-else-if="item.status === 'starting'" class="c_badge">
+                  <span class="txt">실행중</span>
+                </q-badge>
+                <q-badge
+                  v-else-if="item.status === 'canceling'"
+                  class="c_badge"
+                >
+                  <span class="txt">취소중</span>
+                </q-badge>
+                <q-badge v-else-if="item.status === 'deleting'" class="c_badge">
+                  <span class="txt">삭제중</span>
+                </q-badge>
+                <q-badge v-else-if="item.status === 'cancel'" class="c_badge">
+                  <span class="txt">취소</span>
+                </q-badge>
+                <q-badge v-else class="c_badge">
+                  <span class="txt">Unknown</span>
+                </q-badge>
+              </template>
+              <!-- ssh -->
+              <template #item-ssh="item">
+                <q-badge class="copy square ssh icon" @click="onCopy(item)">
+                  <span class="txt">{{ item.ssh }}</span>
+                </q-badge>
+              </template>
+              <!-- 인스턴스 타입 -->
+              <template #item-instanceType="item">
+                <q-badge class="text instance" @click="onCopy(item)">
+                  <span class="txt"
+                    >{{ item.instanceType
+                    }}<i class="ico details">
+                      <q-tooltip
+                        anchor="bottom middle"
+                        class="c_tooltip insTypeTool"
                       >
-                        <q-btn
-                          class="item"
-                          @click="onActions(button.event, item)"
+                        <div class="inner">
+                          {{ item.instanceType }}
+                          {{ item.instanceType }}
+                          {{ item.instanceType }}
+                        </div>
+                      </q-tooltip></i
+                    >
+                  </span>
+                </q-badge>
+              </template>
+              <!-- cpu -->
+              <template #item-cpu="item">
+                <span class="txt">{{ item.cpu }}</span>
+              </template>
+              <!-- gpu -->
+              <template #item-gpu="item">
+                <span class="txt">{{ item.gpu }}</span>
+              </template>
+              <!-- createdAt -->
+              <template #item-createdAt="item">
+                <span class="txt">{{ item.createdAt }}</span>
+              </template>
+              <!-- endDate -->
+              <template #item-endDate="item">
+                <span class="txt">{{ item.endDate }}</span>
+              </template>
+              <!-- logCheck -->
+              <template #item-logCheck="item">
+                <a href="#">
+                  <span class="txt logbadge">{{ item.logCheck }}</span>
+                </a>
+              </template>
+              <!-- 버튼 그룹 -->
+              <template #item-buttons="item">
+                <div v-if="actionButtons" class="cell btngroup">
+                  <q-btn class="c_btn ibtn dot">
+                    <i class="ico dots" /><span class="txt">클릭</span>
+                    <q-popup-edit
+                      v-model="item.id"
+                      class="dots_menu"
+                      anchor="top right"
+                    >
+                      <q-list style="min-width: 100px">
+                        <q-item
+                          v-for="button in actionButtons"
+                          :key="button.name"
                         >
-                          <span class="txt">{{ button.name }}</span>
-                        </q-btn>
-                      </q-item>
-                    </q-list>
-                  </q-popup-edit>
-                </q-btn>
-              </div>
-            </template>
-          </easy-data-table>
-          <c-pagination />
+                          <q-btn
+                            class="item"
+                            @click="onActions(button.event, item)"
+                          >
+                            <span class="txt">{{ button.name }}</span>
+                          </q-btn>
+                        </q-item>
+                      </q-list>
+                    </q-popup-edit>
+                  </q-btn>
+                </div>
+              </template>
+            </EasyDataTable>
+          </div>
+          <div class="task_pagenav disflex_C">
+            <CPagination />
+          </div>
         </div>
       </div>
     </div>

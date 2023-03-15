@@ -12,61 +12,55 @@
     </div>
     <!-- //.chead -->
     <div class="p-body">
-      <div class="flex-top">
-        <p class="sub-text">문의내역</p>
-        <c-button
-          :size="'medium'"
-          :outline="true"
-          :btn-names="supportBtn"
-          to="/support/write"
-        />
-      </div>
-      <template v-if="defaultData == true">
-        <section class="section">
-          <EasyDataTable
-            :headers="headers"
-            :items="items"
-            :hide-footer="true"
-            empty-message="정보가 없습니다."
-            @click-row="showRow"
-          >
-            <!-- type -->
-            <template #item-type="item">
-              <span class="txt">{{ item.type }}</span>
-            </template>
-            <!-- title -->
-            <template #item-title="item">
-              <a href="#">
-                <span class="txt">{{ item.title }}</span>
-                <q-tooltip anchor="bottom middle" class="c_tooltip">
-                  <div class="inner">
-                    {{ item.title }}
-                  </div>
-                </q-tooltip>
-              </a>
-            </template>
-            <!-- inquiry -->
-            <template #item-inquiry="item">
-              <span class="txt">{{ item.inquiry }}</span>
-            </template>
-            <!--
-            상태값(replyStatus)
-            1. running, 답변완료
-            2. 확인중
-            -->
-            <template #item-replyStatus="item">
-              <q-badge v-if="item.replyStatus === 'running'" class="green">
-                <span class="txt">답변완료</span>
-              </q-badge>
-              <q-badge v-else class="c_badge">
-                <span class="txt">확인중</span>
-              </q-badge>
-            </template>
-          </EasyDataTable>
-        </section>
-      </template>
-      <div class="group-page">
-        <CPagination />
+      <p class="sub-text">문의내역</p>
+      <c-button
+        :size="'medium'"
+        :outline="true"
+        :btn-names="'문의하기'"
+        class="top_btn"
+      />
+      <div class="table_inner">
+        <easy-data-table
+          :headers="headers"
+          :items="items"
+          :hide-footer="true"
+          empty-message="정보가 없습니다."
+          @click-row="showRow"
+        >
+          <!-- type -->
+          <template #item-type="item">
+            <span class="txt">{{ item.type }}</span>
+          </template>
+          <!-- title -->
+          <template #item-title="item">
+            <a href="#">
+              <span class="txt">{{ item.title }}</span>
+              <q-tooltip anchor="bottom middle" class="c_tooltip">
+                <div class="inner">
+                  {{ item.title }}
+                </div>
+              </q-tooltip>
+            </a>
+          </template>
+          <!-- inquiry -->
+          <template #item-inquiry="item">
+            <span class="txt">{{ item.inquiry }}</span>
+          </template>
+          <!--
+          상태값(replyStatus)
+          1. running, 답변완료
+          2. 확인중
+          -->
+          <template #item-replyStatus="item">
+            <q-badge v-if="item.replyStatus === 'running'" class="green">
+              <span class="txt">답변완료</span>
+            </q-badge>
+            <q-badge v-else class="c_badge">
+              <span class="txt">확인중</span>
+            </q-badge>
+          </template>
+        </easy-data-table>
+        <c-pagination />
       </div>
     </div>
   </q-page>
@@ -75,9 +69,9 @@
 <script setup>
 import { ref } from "vue";
 import { useMeta } from "quasar";
+import CButton from "components/common/CButton.vue";
 import CPagination from "components/common/CPagination.vue";
 
-const defaultData = ref(true);
 const title = ref("Support");
 const ptitle = ref(title);
 
@@ -109,7 +103,7 @@ const headers = [
   {
     text: "답변상태",
     value: "replyStatus",
-    width: 112,
+    width: 120,
     sortable: true,
   },
 ];
@@ -147,11 +141,5 @@ const showRow = (item) => {
 </script>
 
 <style lang="scss" scoped>
-@import "./src/css/table";
 @import "src/css/support";
-::v-deep {
-  table {
-    table-layout: fixed;
-  }
-}
 </style>

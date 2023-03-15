@@ -32,22 +32,65 @@ const state = computed(() => {
       text = "저장(개인)";
       className = "green";
       break;
-      /* 임시 추가 */
+
     case "saved":
       text = "저장(개인)";
       className = "green";
       break;
+
     case "save_s":
       text = "저장(공유)";
       className = "green";
       break;
+
     case "error":
       text = "오류";
       className = "orange";
       break;
+
     case "saving":
       text = "저장중";
       className = "c_badge";
+      break;
+
+    case "running":
+      text = "운영중";
+      className = "green";
+      break;
+
+    case "stopped":
+      text = "정지";
+      className = "orange";
+      break;
+
+    case "pending":
+      text = "대기중";
+      className = "c_badge";
+      break;
+
+    case "stopping":
+      text = "정지중";
+      className = "c_badge";
+      break;
+
+    case "deleting":
+      text = "삭제중";
+      className = "c_badge";
+      break;
+
+    case "starting":
+      text = "시작중";
+      className = "c_badge";
+      break;
+
+    case "delete_cont":
+      text = "삭제예정";
+      className = "orange";
+      break;
+
+    case "delete_day":
+      text = "삭제예정";
+      className = "orange";
       break;
 
     default:

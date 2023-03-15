@@ -7,7 +7,7 @@
         </template>
         <q-breadcrumbs-el label="Projects" to="/" />
         <q-breadcrumbs-el :label="projectInfo.name" to="/" />
-        <q-breadcrumbs-el label="멤버" />
+        <q-breadcrumbs-el :label="selectedTab" />
       </q-breadcrumbs>
       <h1 class="p-title">
         {{ projectInfo.name }}
@@ -20,11 +20,10 @@
               <q-btn class="item" @click="projectCreateModal = true">
                 <span class="txt">이름/설명 편집</span>
               </q-btn>
-
               <UpdateProjectPopup
                 v-model="projectCreateModal"
                 :projectCreateModal="projectCreateModal"
-                @userInfoUpdate="userInfoUpdate()"
+                @updateProject="updateProject"
                 :projectInfo="projectInfo"
                 :getListProject="getListProject"
                 :newProjectDescription="newProjectDescription"
@@ -32,12 +31,18 @@
             </q-item>
             <q-item>
               <q-btn class="item" @click="quotaChangeModal = true">
-                <span class="txt">할당량 변경 요청</span> </q-btn
-              >
-              <ChangeAllocationPopup
+                <span class="txt">할당량 변경 요청</span>
+              </q-btn>
+
+              <QuotaChangeRequest
                 v-model="quotaChangeModal"
                 :quotaChangeModal="quotaChangeModal"
+                @updateProject="updateProject"
+                :projectInfo="projectInfo"
+                @update:quotaChangeModal="(value)=>{quotaChangeModal = value}"
+
               />
+
             </q-item>
             <q-item>
               <q-btn class="item">
@@ -59,111 +64,27 @@
 
         <div class="com_m_cont">
           <div class="change_tab_btn">
-            <q-tabs v-model="tab" align="left" class="c_tabs">
-              <q-tab name="tabs1" label="인스턴스">
-                <q-badge>36</q-badge>
-              </q-tab>
-              <q-tab name="tabs2" label="태스크">
-                <q-badge>19</q-badge>
-              </q-tab>
-              <q-tab name="tabs3" label="멤버">
-                <q-badge>0</q-badge>
-              </q-tab>
+            <q-tabs v-model="tabModel" align="left" class="c_tabs">
+              <c-tab v-model:value="tabModel" :tabs="tabs" />
             </q-tabs>
           </div>
-          <div class="table_set">
-            <div class="l_set_inner">
-              <div class="c_inpgroup">
-                <q-input
-                  outlined
-                  v-model="suffix"
-                  placeholder="이름, 상태, 생성자 검색"
-                >
-                  <template v-slot:prepend>
-                    <q-icon name="search" class="ico_search" />
-                  </template>
-                </q-input>
-              </div>
-            </div>
 
-            <div class="r_set_inner">
-              <div class="instance_make_btn">
-                <q-btn
-                  btnTypes="4"
-                  type="button"
-                  class="c_btn line medium"
-                  @click="projectMemberAddModal = true"
-                >
-                  <span class="txt">멤버 추가하기</span>
-                </q-btn>
-              </div>
-
-              <div class="view_cont_num">
-                <CDropdown
-                  v-model:selected="selectedBasic"
-                  :label="label2"
-                  :options="options2"
-                />
-              </div>
-            </div>
-          </div>
-          <div class="table_area">
-            <EasyDataTable
-              v-model:items-selected="itemsSelected"
-              :headers="headers"
-              :items="items"
-              :hide-footer="true"
-              :body-row-class-name="bodyRowClassNameFunction"
-              empty-message="정보가 없습니다."
-            >
-              <!-- title -->
-              <template #item-title="item">
-                <span class="txt">{{ item.title }}</span>
-              </template>
-              <!-- email -->
-              <template #item-email="item">
-                <span class="txt">{{ item.email }}</span>
-              </template>
-              <!-- authority -->
-              <template #item-authority="item">
-                <span class="txt">{{ item.authority }}</span>
-              </template>
-              <!-- costumer -->
-              <template #item-costumer="item">
-                <span class="txt">{{ item.costumer }}</span>
-              </template>
-              <!-- 버튼 그룹 -->
-              <template #item-buttons="item">
-                <div v-if="actionButtons" class="cell btngroup">
-                  <q-btn class="c_btn ibtn dot">
-                    <i class="ico dots" /><span class="txt">클릭</span>
-                    <q-popup-edit
-                      v-model="item.id"
-                      class="dots_menu"
-                      anchor="top right"
-                    >
-                      <q-list style="min-width: 100px">
-                        <q-item
-                          v-for="button in actionButtons"
-                          :key="button.name"
-                        >
-                          <q-btn
-                            class="item"
-                            @click="onActions(button.event, item)"
-                          >
-                            <span class="txt">{{ button.name }}</span>
-                          </q-btn>
-                        </q-item>
-                      </q-list>
-                    </q-popup-edit>
-                  </q-btn>
-                </div>
-              </template>
-            </EasyDataTable>
-          </div>
-          <div class="table_pagenav disflex_C">
-            <CPagination />
-          </div>
+          <q-tab-panels v-model="tabModel">
+            <q-tab-panel name="instances">
+              <!-- 인스턴스 -->
+              <InstancePage
+                :tabModel="tabModel"
+                @update:instanceTotal="instanceTotal = $event"
+              />
+            </q-tab-panel>
+            <q-tab-panel name="task_gorup">
+              <!-- 태스크 -->
+              <TaskPage :tabModel="tabModel" @update:taskTotal="taskTotal = $event" />
+            </q-tab-panel>
+            <q-tab-panel name="member">
+              <!-- 멤버 -->
+            </q-tab-panel>
+          </q-tab-panels>
         </div>
       </div>
     </div>
@@ -269,19 +190,25 @@
   <!-- End : [프로젝트 - 멤버관리] 멤버 - 추가 -->
 </template>
 <script setup>
-import { ref, watch } from "vue";
+import { ref, watch, computed } from "vue";
 import { useMeta } from "quasar";
-import { useRoute } from "vue-router";
+import { useRoute, onBeforeRouteUpdate } from "vue-router";
 import { ProjectService } from "src/services";
+import { useProjectStore } from "stores/useProjectStore.js";
+import { $utils } from "src/utils/utils";
 
 import ProjectDashboard from "src/components/pages/ProjectDashboard.vue";
 // import CTable from "src/components/common/CTable.vue";
-import CPagination from "components/common/CPagination.vue";
+import CTab from "src/components/common/CTab.vue";
+
 import CDropdown from "components/common/CDropdown.vue";
-import UpdateProjectPopup from "./component/UpdateProjectPopup.vue";
-import ChangeAllocationPopup from "./component/ChangeAllocationPopup.vue";
+import InstancePage from "src/pages/workspace/projects/components/InstancePage.vue";
+import TaskPage from "src/pages/workspace/projects/components/TaskPage.vue";
+import UpdateProjectPopup from "./components/UpdateProjectPopup.vue";
+import QuotaChangeRequest from "./components/QuotaChangeRequest.vue";
 
 const route = useRoute();
+const { setIsProjectChange } = useProjectStore();
 
 const projectInfo = ref({});
 const getListProject = ref({});
@@ -289,13 +216,62 @@ const newProjectDescription = ref("");
 
 const projectCreateModal = ref(false);
 const quotaChangeModal = ref(false);
+const instanceTotal = ref(0);
+const taskTotal = ref(0);
+const memberTotal = ref(0);
 
-// 프로젝트 리스트
-const getUserInfo = async () => {
-  projectInfo.value = await ProjectService.getProject(
-    route.params.workspaceId,
-    route.params.projectId
-  );
+useMeta(() => ({
+  title: projectInfo.value.name,
+}));
+
+// 프로젝트 탭
+/**
+ * route hash값 존재시
+ * tabModel 셋팅: 탭 이동
+ */
+
+const tabModel = ref("instances");
+
+const tabs = ref([
+  { name: "instances", label: "인스턴스", total: instanceTotal },
+  { name: "task_gorup", label: "태스크", total: taskTotal },
+  { name: "member", label: "멤버", total: memberTotal },
+]);
+
+const getTabsName = computed(() => tabs.value.map((tab) => tab.name));
+const { hash } = route;
+function setTabModel(hs) {
+  const nHash = $utils.getHash(hs || hash);
+  if (nHash && getTabsName.value.includes(nHash)) {
+    tabModel.value = nHash;
+  } else {
+    const [firstValue] = getTabsName.value;
+    tabModel.value = firstValue;
+  }
+}
+setTabModel();
+
+onBeforeRouteUpdate((to) => {
+  setTabModel(to.hash);
+});
+
+const selectedTab = computed(() => {
+  const select = tabs.value.find((tab) => tab.name === tabModel.value);
+  return select ? select.label : "";
+});
+
+// 프로젝트 상세
+const getProjectInfo = async () => {
+  try {
+    projectInfo.value = await ProjectService.getProject(
+      route.params.workspaceId,
+      route.params.projectId
+    );
+  } catch (error) {
+    console.log(error);
+    // router.replace({ name: "NotFound" }); //없는페이지 에러처리
+    // throw error;
+  }
 };
 
 const getProjectList = async () => {
@@ -308,85 +284,24 @@ const getProjectList = async () => {
   }
 };
 
-const featchProjectDescripton = (projectId) => {
+// 현재 프로젝트 페이지 정보
+const fetchProjectDescription = (projectId) => {
   const project = getListProject.value.find((p) => p.id === parseInt(projectId, 10));
   newProjectDescription.value = project.description;
+};
+
+const updateInfo = async () => {
+  await getProjectList();
+  await fetchProjectDescription(route.params.projectId);
 };
 
 watch(
   () => route.params.projectId,
   async () => {
-    await getUserInfo();
-    await getProjectList();
-    await featchProjectDescripton(route.params.projectId);
+    await Promise.all([updateInfo(), getProjectInfo()]);
   },
   { immediate: true }
 );
-
-const userInfoUpdate = async () => {
-  await getUserInfo();
-  await getProjectList();
-  await featchProjectDescripton(route.params.projectId);
-};
-
-useMeta(() => ({
-  title: projectInfo.value.name,
-}));
-
-const tab = ref("tabs3");
-const label2 = ref("10");
-
-const options2 = ref([
-  { label: "10", value: 0 },
-  { label: "25", value: 1 },
-  { label: "50", value: 2 },
-]);
-
-const headers = [
-  {
-    text: "이름",
-    value: "title",
-    width: 200,
-    sortable: true,
-  },
-  {
-    text: "이메일",
-    value: "email",
-    width: 200,
-    sortable: true,
-  },
-  {
-    text: "프로젝트 권한",
-    value: "authority",
-    width: 200,
-    sortable: true,
-  },
-  {
-    text: "소개",
-    value: "costumer",
-    width: 200,
-    sortable: false,
-  },
-  { text: "", value: "buttons", width: 150 },
-];
-const items = [
-  {
-    title: "김카브",
-    email: "root.choi@kakaobrain.com",
-    authority: "프로젝트 매니저",
-    costumer: "00팀 000담당",
-  },
-  {
-    title: "김카브",
-    email: "root.choi@kakaobrain.com",
-    authority: "프로젝트 매니저",
-    costumer: "00팀 000담당",
-  },
-];
-const actionButtons = [
-  { name: "권한변경", event: "authorityChange" },
-  { name: "삭제", event: "delete" },
-];
 
 const projectMemberAddModal = ref(false);
 const memberSelOptions = ["프로젝트 관리자", "멤버"];
@@ -411,6 +326,13 @@ const chipFilterFn = (val, update) => {
       );
     }
   });
+};
+
+const updateProject = () => {
+  console.log("updateProject실행");
+  updateInfo();
+  getProjectInfo();
+  setIsProjectChange(true);
 };
 </script>
 
