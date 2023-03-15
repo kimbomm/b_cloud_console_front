@@ -9,10 +9,7 @@
         <p class="title">
           <strong>{{ message }}</strong>
         </p>
-        <p
-          v-if="description"
-          class="desc"
-        >{{ description }}</p>
+        <p v-if="description" class="desc" v-html="description"></p>
         <div v-if="$slots.positive || $slots.negative" :class="slotClassList">
           <slot name="positive"></slot>
           <slot name="negative"></slot>
