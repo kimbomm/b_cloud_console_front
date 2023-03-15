@@ -42,7 +42,7 @@
     <div class="p-body">
       <section class="section">
         <h2 class="h6">검색 결과가 없을때</h2>
-        <EasyDataTable
+        <easy-data-table
           :headers="headers"
           :items="nodata"
           :hide-footer="true"
@@ -136,12 +136,12 @@
               </q-btn>
             </div>
           </template>
-        </EasyDataTable>
+        </easy-data-table>
       </section>
 
       <section class="section">
         <h2 class="h6">Type1</h2>
-        <EasyDataTable
+        <easy-data-table
           :headers="headers"
           :items="items"
           :hide-footer="true"
@@ -234,12 +234,12 @@
               </q-btn>
             </div>
           </template>
-        </EasyDataTable>
+        </easy-data-table>
       </section>
 
       <section class="section">
         <h2 class="h6">Type2</h2>
-        <EasyDataTable
+        <easy-data-table
           :headers="headers"
           :items="items"
           :hide-footer="true"
@@ -338,12 +338,12 @@
               </q-btn>
             </div>
           </template>
-        </EasyDataTable>
+        </easy-data-table>
       </section>
 
       <section class="section">
         <h2 class="h6">Type3</h2>
-        <EasyDataTable
+        <easy-data-table
           v-model:items-selected="itemsSelected"
           :headers="headers"
           :items="items"
@@ -443,12 +443,12 @@
               </q-btn>
             </div>
           </template>
-        </EasyDataTable>
+        </easy-data-table>
       </section>
 
       <section class="section">
         <h2 class="h6">Type4</h2>
-        <EasyDataTable
+        <easy-data-table
           v-model:items-selected="itemsSelected"
           :headers="headers"
           :items="items"
@@ -620,12 +620,12 @@
               ><span class="txt">선택 취소하기</span></q-btn
             >
           </template>
-        </EasyDataTable>
+        </easy-data-table>
       </section>
 
       <section class="section">
         <h2 class="h6">관리 - 프로젝트</h2>
-        <EasyDataTable
+        <easy-data-table
           :headers="mngTaskHeader"
           :items="mngTaskItems"
           :hide-footer="true"
@@ -839,7 +839,7 @@
               </q-btn>
             </div>
           </template>
-        </EasyDataTable>
+        </easy-data-table>
       </section>
     </div>
   </q-page>

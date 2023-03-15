@@ -159,7 +159,7 @@
               </div>
             </div>
           </div>
-          <div class="w-info_proj line pb">
+          <div class="w-info_proj line pb40">
             <p class="title mt40">프로젝트</p>
             <div class="p-tWrap">
               <p class="p-name">프로젝트 이름</p>

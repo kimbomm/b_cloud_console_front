@@ -12,17 +12,15 @@
     </div>
     <!-- //.chead -->
     <div class="p-body key-body">
-      <div class="group-tabs">
-        <q-tabs
-          v-model="tab"
-          align="left"
-          class="c_tabs"
-        >
-          <q-tab name="tabs1" label="내 정보"></q-tab>
-          <q-tab name="tabs2" label="내 알림"></q-tab>
-          <q-tab name="tabs3" label="SSH key & API key"></q-tab>
-        </q-tabs>
-      </div>
+      <q-tabs
+        v-model="tab"
+        align="left"
+        class="c_tabs"
+      >
+        <q-tab name="tabs1" label="내 정보"></q-tab>
+        <q-tab name="tabs2" label="내 알림"></q-tab>
+        <q-tab name="tabs3" label="SSH key & API key"></q-tab>
+      </q-tabs>
       <template v-if="visible == 'A'">
         <div class="key-box">
           <p class="key-box_title mt40">SSH Key</p>
@@ -32,22 +30,22 @@
                 :size="'medium'"
                 :btn-names="'등록하기'"
               />
-            </div>
           </div>
-          <div class="key-box">
-            <p class="key-box_title mt60">API Key</p>
-            <div class="sign-up">
-              <p>API Key를 생성해 주세요.</p>
-              <p class="mb30">생성시 Secret key는 팝업에서 1회만 확인 가능합니다.</p>
-              <c-button
-                :size="'medium'"
-                :btn-names="'생성하기'"
-              />
-            </div>
+        </div>
+        <div class="key-box">
+          <p class="key-box_title mt60">API Key</p>
+          <div class="sign-up">
+            <p>API Key를 생성해 주세요.</p>
+            <p class="mb30">생성시 Secret key는 팝업에서 1회만 확인 가능합니다.</p>
+            <c-button
+              :size="'medium'"
+              :btn-names="'생성하기'"
+            />
           </div>
+        </div>
       </template>
       <template v-else>
-        <div class="flex-top mt40">
+        <div class="flex-top mt40 mb20">
           <div class="notice-txt">
             <p class="name">SSH Key</p>
             <!-- 5개가 등록된 경우 (비활성화) -->
@@ -60,8 +58,8 @@
           />
         </div>
         <template v-if="defaultData == true">
-          <section class="section">
-            <EasyDataTable
+          <div class="table_inner">
+            <easy-data-table
               :headers="headers"
               :items="items"
               :hide-footer="true"
@@ -82,8 +80,9 @@
               </template>
               <!-- 버튼 그룹 -->
               <template #item-buttons="item">
-                <div v-if="actionButtons" class="cell btngroup">
-                  <c-button class="c_btn ibtn dot">
+                <div v-if="actionButtons || item.buttons" class="cell">
+                  <!-- row action menu -->
+                  <q-btn class="c_btn ibtn dot">
                     <i class="ico dots" /><span class="txt">클릭</span>
                     <q-popup-edit
                       v-model="item.id"
@@ -95,29 +94,29 @@
                           v-for="button in actionButtons"
                           :key="button.name"
                         >
-                          <c-button
+                          <q-btn
                             class="item"
                             @click="onActions(button.event, item)"
                           >
                             <span class="txt">{{ button.name }}</span>
-                          </c-button>
+                          </q-btn>
                         </q-item>
                       </q-list>
                     </q-popup-edit>
-                  </c-button>
+                  </q-btn>
                 </div>
               </template>
-            </EasyDataTable>
-        </section>
-        <div class="flex-top mt60">
+            </easy-data-table>
+          </div>
+        <div class="flex-top mt50">
           <p class="name">API Key</p>
           <div>
             <c-button
               :size="'medium'"
               :outline="true"
               :btn-names="'재생성'"
+              class="mr10"
             />
-            &nbsp;
             <c-button
               :size="'medium'"
               :outline="true"
@@ -219,6 +218,5 @@ const ptitle = ref(title);
 </script>
 
 <style lang="scss" scoped>
-@import "./src/css/table";
 @import 'src/css/key';
 </style>

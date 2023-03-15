@@ -69,7 +69,7 @@
               </div>
             </div>
             <div class="s_03_table">
-              <EasyDataTable
+              <easy-data-table
                 class="c_table check"
                 :headers="instanceHeaders"
                 :items="instanceItems"
@@ -107,7 +107,7 @@
                     <span class="txt">선택 취소하기</span>
                   </q-btn>
                 </template>
-              </EasyDataTable>
+              </easy-data-table>
               <c-pagination />
             </div>
           </div>
@@ -133,8 +133,8 @@
             </div>
             <template v-if="tab2 === 'tabs1'">
               <div class="table_inner">
-                <EasyDataTable
-                  class="c_table check"
+                <easy-data-table
+                  v-model:items-selected="itemsSelected"
                   :headers="imgHeader1"
                   :items="imgItems1"
                   :hide-footer="true"
@@ -163,14 +163,14 @@
                       <span class="txt">선택 취소하기</span>
                     </q-btn>
                   </template>
-                </EasyDataTable>
+                </easy-data-table>
                 <c-pagination />
               </div>
             </template>
             <template v-if="tab2 === 'tabs2'">
               <template v-if="defaultData == true">
                 <div class="table_inner">
-                  <EasyDataTable
+                  <easy-data-table
                     class="c_table check"
                     :headers="imgHeader2"
                     :items="imgItems2"
@@ -327,7 +327,7 @@
                         <span class="txt">선택 취소하기</span>
                       </q-btn>
                     </template>
-                  </EasyDataTable>
+                  </easy-data-table>
                   <c-pagination />
                 </div>
               </template>
@@ -340,7 +340,7 @@
             <template v-if="tab2 === 'tabs3'">
               <template v-if="defaultData == true">
                 <div class="table_inner">
-                  <EasyDataTable
+                  <easy-data-table
                     class="c_table check"
                     :headers="imgHeader3"
                     :items="imgItems3"
@@ -374,7 +374,7 @@
                         <span class="txt">선택 취소하기</span>
                       </q-btn>
                     </template>
-                  </EasyDataTable>
+                  </easy-data-table>
                   <c-pagination />
                 </div>
               </template>
@@ -394,8 +394,8 @@
                   선택
                 </div>
                 <div class="table_inner">
-                  <EasyDataTable
-                    class="c_table"
+                  <easy-data-table
+                    v-model:items-selected="itemsSelected"
                     :headers="storageHeader"
                     :items="storageItems"
                     :hide-footer="true"
@@ -451,7 +451,7 @@
                         <span class="txt">선택 취소하기</span>
                       </q-btn>
                     </template>
-                  </EasyDataTable>
+                  </easy-data-table>
                   <c-pagination />
                 </div>
               </div>
@@ -467,7 +467,7 @@
             <!-- <div class="s_06_main"> -->
             <template v-if="defaultData == true">
               <div class="table_inner">
-                <EasyDataTable
+                <easy-data-table
                   class="c_table check"
                   :headers="sshKeyHeader"
                   :items="sshKeyItems"
@@ -495,7 +495,7 @@
                   <template #item-registrationDat="item">
                     <span class="txt">{{ item.registrationDat }}</span>
                   </template>
-                </EasyDataTable>
+                </easy-data-table>
               </div>
             </template>
             <template v-else>

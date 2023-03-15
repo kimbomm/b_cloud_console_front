@@ -25,12 +25,12 @@
 
       <div class="view_contents bg">
         <template v-if="visible === 'A'">
-          <p class="type_choice">유형을 선택해주세요</p>
+          <p class="type">유형을 선택해주세요</p>
         </template>
         <!-- 고객지원-문의하기-스토리지 할당량 변경 -->
         <template v-if="visible === 'B'">
           <section class="section">
-            <p class="title">
+            <p class="title mb24">
               워크스페이스 스토리지 요청 할당량 입력
               <span class="essential">*</span>
             </p>
@@ -59,7 +59,7 @@
             </div>
           </section>
           <section class="section">
-            <p class="title">요청 내용</p>
+            <p class="title mb8">요청 내용</p>
             <div class="c_inpgroup">
               <q-input
                 outlined
@@ -79,18 +79,16 @@
         <!-- 고객지원-문의하기-리소스 할당량 변경 -->
         <template v-if="visible === 'C'">
           <section class="section">
-            <p class="title">
+            <p class="title mb24">
               CPU, GPU 할당 요청량 입력
               <span class="essential">*</span>
             </p>
-            <p class="sub_title">CPU</p>
+            <p class="sub_title mb24">CPU</p>
             <div class="unit_type">
-              <span class="tit">현재 할당량</span>
-              <span class="counter">
-                <em class="usage">190</em>
-              </span>
+              <span class="useage">현재 할당량</span>
+              <span class="counter">190</span>
             </div>
-            <div class="flex_reg">
+            <div class="unit_type">
               <span class="req">요청량</span>
               <div class="c_inpgroup flex-end">
                 <q-input
@@ -106,12 +104,10 @@
             </div>
             <p class="sub_title">Tesla A100</p>
             <div class="unit_type">
-              <span class="tit">현재 할당량</span>
-              <span class="counter">
-                <em class="usage">190</em>
-              </span>
+              <span class="useage">현재 할당량</span>
+              <span class="counter">190</span>
             </div>
-            <div class="flex_reg">
+            <div class="unit_type">
               <span class="req">요청량</span>
               <div class="c_inpgroup flex-end">
                 <q-input
@@ -126,7 +122,7 @@
             </div>
           </section>
           <section class="section">
-            <p class="title">요청 내용</p>
+            <p class="title mb8">요청 내용</p>
             <div class="c_inpgroup">
               <q-input
                 outlined
@@ -146,7 +142,7 @@
         <!-- 고객지원-문의하기-오류/버그 제보 -->
         <template v-if="visible === 'D'">
           <section class="section">
-            <p class="title">
+            <p class="title mb8">
               제목
               <span class="essential">*</span>
             </p>
@@ -164,7 +160,7 @@
             </div>
           </section>
           <section class="section">
-            <p class="title">
+            <p class="title mb8">
               내용
               <span class="essential">*</span>
             </p>
@@ -183,7 +179,7 @@
             </div>
           </section>
           <section class="section mb24">
-            <p class="title">파일 업로드</p>
+            <p class="title mb24">파일 업로드</p>
             <c-uploader />
           </section>
         </template>
@@ -191,7 +187,7 @@
         <!-- 고객지원-문의하기-기타문의 -->
         <template v-if="visible === 'E'">
           <section class="section">
-            <p class="title">
+            <p class="title mb8">
               제목
               <span class="essential">*</span>
             </p>
@@ -210,7 +206,7 @@
             </div>
           </section>
           <section class="section">
-            <p class="title">
+            <p class="title mb8">
               내용
               <span class="essential">*</span>
             </p>
@@ -230,7 +226,7 @@
             </div>
           </section>
           <section class="section mb24">
-            <p class="title">파일 업로드</p>
+            <p class="title mb24">파일 업로드</p>
             <c-uploader />
           </section>
         </template>
@@ -240,7 +236,6 @@
           <c-button
             :btn-names="'요청하기'"
             :disabled="true"
-            class="req"
             @click="triggerInfo()"
           />
         </div>
@@ -250,7 +245,6 @@
           <c-button
             :btn-names="'제보하기'"
             :disabled="true"
-            class="req"
             @click="triggerInfo2()"
           />
         </div>
@@ -260,7 +254,6 @@
           <c-button
             :btn-names="'문의하기'"
             :disabled="true"
-            class="req"
             @click="triggerInfo2()"
           />
         </div>

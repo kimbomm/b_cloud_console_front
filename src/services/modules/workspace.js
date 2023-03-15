@@ -18,5 +18,21 @@ export const WorkspaceService = {
     const response = await api.get(`/users/${userId}/workspaces`);
     return response.data;
   },
+  /**
+   * 설명: 워크스페이스 정보 - 대시보드
+   * @param { number } workspaceId 워크스페이스 id
+   */
+  async getWorkspace(workspaceId) {
+    const response = await api.get(`/workspaces/${workspaceId}`);
+    return response.data;
+  },
+  /**
+   * 설명: 워크스페이스 멤버
+   * @param { number } workspaceId 워크스페이스 id
+   */
+  async getWorkspaceMembers(workspaceId) {
+    const response = await api.get(`/workspaces/${workspaceId}/members`);
+    return response.data;
+  }
 
 };

@@ -61,29 +61,25 @@
                 class="wsize230"
               />
             </div>
-            <div class="state_select">
-              <c-dropdown
-                v-model:selected="selectedBasic"
-                :label="optLabel3"
-                :options="optNumber3"
-                :multiple="true"
-                class="wsize230"
-              />
-            </div>
+            <c-dropdown
+              v-model:selected="selectedBasic"
+              :label="optLabel3"
+              :options="optNumber3"
+              :multiple="true"
+              class="wsize230"
+            />
           </div>
           <div class="r_set_inner">
-            <div class="dropdown_area">
-              <c-dropdown
-                v-model:selected="selectedBasic"
-                :label="optLabel"
-                :options="optNumber"
-                class="auto_size"
-              />
-            </div>
+            <c-dropdown
+              v-model:selected="selectedBasic"
+              :label="optLabel"
+              :options="optNumber"
+              class="auto_size"
+            />
           </div>
         </div>
-        <div class="table_main">
-          <EasyDataTable
+        <div class="table_inner">
+          <easy-data-table
             :headers="headers"
             :items="items"
             :hide-footer="true"
@@ -215,7 +211,7 @@
                 </q-btn>
               </div>
             </template>
-          </EasyDataTable>
+          </easy-data-table>
           <c-pagination />
         </div>
       </div>
@@ -523,5 +519,4 @@ const showRow = (item) => {
 
 <style lang="scss" scoped>
 @import "./src/css/manage";
-@import "./src/css/table";
 </style>

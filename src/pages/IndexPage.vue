@@ -9,25 +9,19 @@
     </div>
     <!-- //.chead -->
     <div class="p-body">
-      <q-banner class="c_banner">
+      <q-banner v-if="banner.length > 0 && !isBannerSession" class="c_banner">
         <template v-slot:avatar>
           <q-icon class="noti" />
         </template>
         <div class="bn_head">
-          <em class="state">서비스</em>
-          <strong class="title">스토리지 안내드립니다.</strong>
+          <em class="state">{{ NOTICE_TYPE[banner[0].type].name }}</em>
+          <strong class="title">{{ banner[0].title }}</strong>
         </div>
         <div class="bn_body">
-          스토리지 사용 안내 드립니다.
-          스토리지 사용 안내 드립니다.
-          스토리지 사용 안내 드립니다.
-          스토리지 사용 안내 드립니다.
-          스토리지 사용 안내 드립니다.
-          스토리지 사용 안내 드립니다.
-          스토리지 사용 안내 드립니다.
+          <p v-html="banner[0].content" />
         </div>
         <template v-slot:action>
-          <q-btn class="xclose" />
+          <q-btn class="xclose" @click="onBannerClose" />
         </template>
       </q-banner>
       <!-- Slides -->
@@ -468,25 +462,28 @@
           </div>
         </div>
         <!-- Quota -->
-        <div class="storage-box_dash quota">
+        <div v-if="workspace" class="storage-box_dash quota">
           <p class="sub-title">Workspace Quota</p>
-          <a href="#" class="morelink">
-            <span>더보기</span>
-          </a>
           <div class="store-wrap">
             <q-scroll-area style="padding-right: 18px; height: 100%; max-width: 100%;">
               <!-- store -->
               <div class="store">
                 <p class="name">CPU</p>
                 <div class="space">
-                  <p class="useage">24%</p>
-                  <p class="used"><span>24</span>&nbsp;/&nbsp;100</p>
+                  <p class="useage">
+                    {{ $utils.getPercentData(workspace.quota.used.cpu_milli, workspace.quota.total.cpu_milli) }}%
+                  </p>
+                  <p class="used">
+                    <span>{{ workspace.quota.used.cpu_milli }}</span>
+                    &nbsp;/&nbsp;
+                    {{ workspace.quota.total.cpu_milli }}
+                  </p>
                 </div>
                 <div class="quo_progress">
                   <div class="state">
                     <progress
-                      value="24"
-                      max="100"
+                      :value="workspace.quota.used.cpu_milli"
+                      :max="workspace.quota.total.cpu_milli"
                       class="space-chart"
                     />
                   </div>
@@ -497,14 +494,20 @@
               <div class="store">
                 <p class="name">Tesla A100_80G</p>
                 <div class="space">
-                  <p class="useage">24%</p>
-                  <p class="used"><span>24</span>&nbsp;/&nbsp;100</p>
+                  <p class="useage">
+                    {{ $utils.getPercentData(workspace.quota.used.a100_80g, workspace.quota.total.a100_80g) }}%
+                  </p>
+                  <p class="used">
+                    <span>{{ workspace.quota.used.a100_80g }}</span>
+                    &nbsp;/&nbsp;
+                    {{ workspace.quota.total.a100_80g }}
+                  </p>
                 </div>
                 <div class="quo_progress">
                   <div class="state">
                     <progress
-                      value="24"
-                      max="100"
+                      :value="workspace.quota.used.a100_80g"
+                      :max="workspace.quota.total.a100_80g"
                       class="space-chart"
                     />
                   </div>
@@ -515,32 +518,20 @@
               <div class="store">
                 <p class="name">Tesla A100_40G</p>
                 <div class="space">
-                  <p class="useage">75%</p>
-                  <p class="used"><span>75</span>&nbsp;/&nbsp;100</p>
+                  <p class="useage">
+                    {{ $utils.getPercentData(workspace.quota.used.a100_40g, workspace.quota.total.a100_40g) }}%
+                  </p>
+                  <p class="used">
+                    <span>{{ workspace.quota.used.a100_40g }}</span>
+                    &nbsp;/&nbsp;
+                    {{ workspace.quota.total.a100_40g }}
+                  </p>
                 </div>
                 <div class="quo_progress">
                   <div class="state">
                     <progress
-                      value="75"
-                      max="100"
-                      class="space-chart"
-                    />
-                  </div>
-                </div>
-              </div>
-              <!-- // store -->
-              <!-- store -->
-              <div class="store">
-                <p class="name">CPU</p>
-                <div class="space">
-                  <p class="useage">24%</p>
-                  <p class="used"><span>24</span>&nbsp;/&nbsp;100</p>
-                </div>
-                <div class="quo_progress">
-                  <div class="state">
-                    <progress
-                      value="24"
-                      max="100"
+                      :value="workspace.quota.used.a100_40g"
+                      :max="workspace.quota.total.a100_40g"
                       class="space-chart"
                     />
                   </div>
@@ -583,14 +574,15 @@
 
 <script setup>
 import { ref, onBeforeUnmount } from "vue";
-import { useMeta } from "quasar";
+import { useRoute } from "vue-router";
+import { useMeta, date } from "quasar";
 import { $utils } from "src/utils/utils";
-import { NoticeService } from "src/services";
+import { WorkspaceService, NoticeService } from "src/services";
 
 useMeta(() => ({
   title: "Dashboard",
 }));
-
+const route = useRoute();
 const updateTime = $utils.paseseDate(new Date(), "YYYY.MM.DD HH:MM");
 
 const slide = ref(1);
@@ -624,8 +616,14 @@ const stores = ref([
   },
 ]);
 
+// workspace info
+const { workspaceId } = route.params;
+const workspace = ref(null);
+
 // 공지사항
 const notices = ref([]);
+const banner = ref([]);
+const isBannerSession = ref(false);
 const NOTICE_TYPE = {
   service: {
     class: "service",
@@ -640,12 +638,30 @@ const NOTICE_TYPE = {
     name: "작업"
   },
 };
+
 const getNotices = async () => {
   const res = await NoticeService.getNotices();
   notices.value = res.notices;
+
+  const latest7daysNotices = notices.value.filter((notice) => {
+    const isLatest = date.getDateDiff(new Date(), $utils.paseseDate(notice.created_at));
+    return isLatest <= 7 && isLatest >= 0;
+  });
+  banner.value = latest7daysNotices.filter((item) => (!(workspace.value.zone === "private" && item.type === "community")));
+  if (banner.value.length > 0) {
+    isBannerSession.value = sessionStorage.getItem(`banner-${banner.value[0].id}`);
+  }
 };
-getNotices();
-// 공지사항 끝
+
+const onBannerClose = () => {
+  sessionStorage.setItem(`banner-${banner.value[0].id}`, true);
+  isBannerSession.value = true;
+};
+
+WorkspaceService.getWorkspace(workspaceId).then((data) => {
+  workspace.value = data;
+  getNotices();
+});
 
 // 10분단위 업데이트
 const interval = setInterval(() => {

@@ -39,112 +39,107 @@
       </p>
     </div>
     <!-- //.chead -->
-    <div class="p-body">
-      <div class="wrap p-memberInd">
-        <ProjectDashboard />
+    <div class="p-body p-memberInd">
+      <ProjectDashboard />
 
-        <div class="com_m_cont">
-          <q-tabs v-model="tab" align="left" class="c_tabs">
-            <q-tab name="tabs1" label="인스턴스">
-              <q-badge>36</q-badge>
-            </q-tab>
-            <q-tab name="tabs2" label="태스크">
-              <q-badge>19</q-badge>
-            </q-tab>
-            <q-tab name="tabs3" label="멤버">
-              <q-badge>0</q-badge>
-            </q-tab>
-          </q-tabs>
+      <div class="com_m_cont">
+        <q-tabs v-model="tab" align="left" class="c_tabs">
+          <q-tab name="tabs1" label="인스턴스">
+            <q-badge>36</q-badge>
+          </q-tab>
+          <q-tab name="tabs2" label="태스크">
+            <q-badge>19</q-badge>
+          </q-tab>
+          <q-tab name="tabs3" label="멤버">
+            <q-badge>0</q-badge>
+          </q-tab>
+        </q-tabs>
 
-          <div class="table_set">
-            <div class="l_set_inner">
-              <div class="c_inpgroup">
-                <q-input
-                  outlined
-                  v-model="suffix"
-                  placeholder="이름 이메일 검색"
-                >
-                  <template v-slot:prepend>
-                    <q-icon name="search" class="ico_search" />
-                  </template>
-                </q-input>
-              </div>
-            </div>
-
-            <div class="r_set_inner">
-              <c-button
-                :size="'medium'"
-                :outline="true"
-                :btn-names="'멤버 추가하기'"
-                class="instance_make_btn"
-              />
-              <c-dropdown
-                v-model:selected="selectedBasic"
-                :label="label2"
-                :options="options2"
-                class="view_cont_num"
-              />
+        <div class="table_set">
+          <div class="l_set_inner">
+            <div class="c_inpgroup">
+              <q-input outlined v-model="suffix" placeholder="이름 이메일 검색">
+                <template v-slot:prepend>
+                  <q-icon name="search" class="ico_search" />
+                </template>
+              </q-input>
             </div>
           </div>
 
-          <div class="table_inner">
-            <EasyDataTable
-              v-model:items-selected="itemsSelected"
-              :headers="headers"
-              :items="items"
-              :hide-footer="true"
-              :body-row-class-name="bodyRowClassNameFunction"
-              empty-message="검색 결과가 없습니다."
-            >
-              <!-- title -->
-              <template #item-title="item">
-                <span class="txt">{{ item.title }}</span>
-              </template>
-              <!-- email -->
-              <template #item-email="item">
-                <span class="txt">{{ item.email }}</span>
-              </template>
-              <!-- authority -->
-              <template #item-authority="item">
-                <span class="txt">{{ item.authority }}</span>
-              </template>
-              <!-- costumer -->
-              <template #item-costumer="item">
-                <span class="txt">{{ item.costumer }}</span>
-              </template>
-              <!-- 버튼 그룹 -->
-              <template #item-buttons="item">
-                <div v-if="actionButtons" class="cell btngroup">
-                  <q-btn class="c_btn ibtn dot">
-                    <i class="ico dots" /><span class="txt">클릭</span>
-                    <q-popup-edit
-                      v-model="item.id"
-                      class="dots_menu"
-                      anchor="top right"
-                    >
-                      <q-list style="min-width: 100px">
-                        <q-item
-                          v-for="button in actionButtons"
-                          :key="button.name"
+          <div class="r_set_inner">
+            <c-button
+              :size="'medium'"
+              :outline="true"
+              :btn-names="'멤버 추가하기'"
+              class="instance_make_btn"
+            />
+            <c-dropdown
+              v-model:selected="selectedBasic"
+              :label="label2"
+              :options="options2"
+              class="view_cont_num"
+            />
+          </div>
+        </div>
+
+        <div class="table_inner">
+          <easy-data-table
+            v-model:items-selected="itemsSelected"
+            :headers="headers"
+            :items="items"
+            :hide-footer="true"
+            :body-row-class-name="bodyRowClassNameFunction"
+            empty-message="검색 결과가 없습니다."
+          >
+            <!-- title -->
+            <template #item-title="item">
+              <span class="txt">{{ item.title }}</span>
+            </template>
+            <!-- email -->
+            <template #item-email="item">
+              <span class="txt">{{ item.email }}</span>
+            </template>
+            <!-- authority -->
+            <template #item-authority="item">
+              <span class="txt">{{ item.authority }}</span>
+            </template>
+            <!-- costumer -->
+            <template #item-costumer="item">
+              <span class="txt">{{ item.costumer }}</span>
+            </template>
+            <!-- 버튼 그룹 -->
+            <template #item-buttons="item">
+              <div v-if="actionButtons" class="cell btngroup">
+                <q-btn class="c_btn ibtn dot">
+                  <i class="ico dots" /><span class="txt">클릭</span>
+                  <q-popup-edit
+                    v-model="item.id"
+                    class="dots_menu"
+                    anchor="top right"
+                  >
+                    <q-list style="min-width: 100px">
+                      <q-item
+                        v-for="button in actionButtons"
+                        :key="button.name"
+                      >
+                        <q-btn
+                          class="item"
+                          @click="onActions(button.event, item)"
                         >
-                          <q-btn
-                            class="item"
-                            @click="onActions(button.event, item)"
-                          >
-                            <span class="txt">{{ button.name }}</span>
-                          </q-btn>
-                        </q-item>
-                      </q-list>
-                    </q-popup-edit>
-                  </q-btn>
-                </div>
-              </template>
-            </EasyDataTable>
-            <c-pagination />
-          </div>
+                          <span class="txt">{{ button.name }}</span>
+                        </q-btn>
+                      </q-item>
+                    </q-list>
+                  </q-popup-edit>
+                </q-btn>
+              </div>
+            </template>
+          </easy-data-table>
+          <c-pagination />
         </div>
       </div>
     </div>
+
     <!-- Start : [프로젝트 - 멤버관리] 멤버 - 추가 -->
     <q-dialog v-model="projectMemberAddModal" class="c_dialog medium">
       <q-card>

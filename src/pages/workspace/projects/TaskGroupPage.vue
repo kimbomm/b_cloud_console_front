@@ -195,7 +195,7 @@
         <div class="task_table_area">
           <p class="sub_title">태스크</p>
           <div class="task_inner">
-            <EasyDataTable
+            <easy-data-table
               :headers="headers"
               :items="items"
               :hide-footer="true"
@@ -367,10 +367,10 @@
                   </q-btn>
                 </div>
               </template>
-            </EasyDataTable>
+            </easy-data-table>
           </div>
           <div class="task_pagenav disflex_C">
-            <CPagination />
+            <c-pagination />
           </div>
         </div>
       </div>

@@ -7,7 +7,7 @@
       <section class="section">
         <h2 class="h6">Type1</h2>
         <div class="group">
-          <EasyDataTable
+          <easy-data-table
             class="c_table"
             :headers="headers.filter((header) => header.value !== 'checkbox')"
             :items="items"
@@ -94,13 +94,13 @@
                 </q-btn>
               </div>
             </template>
-          </EasyDataTable>
+          </easy-data-table>
         </div>
       </section>
       <section class="section">
         <h2 class="h6">Type2</h2>
         <div class="group">
-          <EasyDataTable
+          <easy-data-table
             class="c_table"
             :headers="headers.filter((header) => header.value !== 'checkbox')"
             :items="items"
@@ -199,13 +199,13 @@
                 </q-btn>
               </div>
             </template>
-          </EasyDataTable>
+          </easy-data-table>
         </div>
       </section>
       <section class="section">
         <h2 class="h6">Type3</h2>
         <div class="group">
-          <EasyDataTable
+          <easy-data-table
             class="c_table"
             :headers="headers"
             :items="items"
@@ -285,7 +285,7 @@
                 ><span class="txt">선택 취소하기</span></q-btn
               >
             </template>
-          </EasyDataTable>
+          </easy-data-table>
         </div>
       </section>
     </div>

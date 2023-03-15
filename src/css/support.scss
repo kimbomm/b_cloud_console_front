@@ -1,17 +1,14 @@
+@import "src/css/utillity";
+@import "src/css/table";
 /* Support */
 .p-support{
-  .flex-top{
-    margin-bottom:20px;
+  .p-body{
+    position: relative;
   }
-  .group-page{
-    display: flex; justify-content: center; align-items: center;
-    margin-top: 50px;
-  }
+  .top_btn{position: absolute; top: 0; right: 0; transform: translateY(-50%);}
   .essential{ color: $secondary-coral;}
-  .c_btngroup{
-    margin-top: 20px;
-  }
   .sub-text{
+    margin-bottom: 20px;
     font-size: $fs24; font-weight: $bold;
   }
   .title{
@@ -24,7 +21,7 @@
   }
   /* 하단 버튼 영역 */
   .c_btngroup {
-    margin-top: 50px;
+    margin-top: 40px;
     .q-btn {
       min-width: auto;
       &:nth-last-child(1),
@@ -52,117 +49,96 @@
       }
     }
   }
-  /* 상세 화면 이미지 비율 */
-  .figure {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 24px;
-    /*
-      Size 비율
-      높이 500px에 맞게 비율 유지 가로 길이는 고정
-      1:1 최대 500*500
-      3:4(width) 최대 w : 666
-      3:4(height) 최대 h : 500
-      16:9(width) 최대 w : 500
-      16:9(height) 최대 h : 500
-    */
-    img {
-      object-fit: contain;
-      max-width: 100%;
-      max-height: 500px;
-    }
-    picture,
-    .picture {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      flex: none;
-      overflow: hidden;
-      // min-width:500px;
-      min-height: 500px;
-      max-width: 888px;
-      max-height: 500px;
-      background: $surface05;
-    }
-  }
-
-  /* 상세 상단 정보 */
-  .divtbl {
-    display: flex;
-    align-items: center;
-    font-size: $fs16;
-    &:not(:last-child) {
-      margin-bottom: 8px;
-    }
-    > strong {
-      flex: none;
-      width: 102px;
-      color: $gray500;
-      font-weight: $regular;
-    }
-    > p {
-      flex: 1 auto;
-      color: $gray800;
-    }
-  }
-  // 상세 전체 감싸는 영역
-  .view_contents {
-    position: relative;
-    padding: 30px;
-    width: 100%;
-    border-radius: 12px;
-    border: 1px solid $surface05;
-    ~ .view_reply {
-      margin-top: 24px;
-    }
-    &.bg{
-      border:0;
-      background:$surface01;
-      .title{
-        font-size: $fs16;
-        ~ .sub_title,
-        ~ .unit_type,
-        ~ .c_uploader{
-          margin-top:24px;
-        }
-        ~ .c_inpgroup{
-          margin-top:8px;
-        }
-      }
+  &.p-write{
+     /** 요청하기 폼 & 버튼 **/
+    .request-input{
+      margin-top: 46px;
+      font-size: $fs16;
       .sub_title{
-        margin:0;padding:0;
-        font-size:$fs16;font-weight:$regular;
-        ~ .unit_type{
-          margin-top:16px;
-        }
+        margin-bottom: 8px;
       }
-      .type_choice{
-        display:flex;
-        align-items: center;
-        justify-content: center;
-        height:calc(584px - 60px);
-        color:$gray500;
+    }
+    /** //요청하기 폼 & 버튼 **/
+
+    /** 유형 input **/
+    .type{
+      width: 100%; height: 584px;
+      margin: 0 auto;
+      color: $gray500;
+      font-size: $fs14;
+      line-height: 584px;
+      text-align: center;
+    }
+    .type-dropdown{
+      width: 608px;
+      margin-bottom: 30px;
+    }
+    .type-area{
+      height: calc(100vh - 504px);
+      background-color: $surface00;
+      &_text{
+        position: relative;
+        top: 50%;
+        color: $gray500; font-size: $fs14; text-align: center;
+        transform: translateY(-50%);
       }
-      .flex_reg{
-        display: flex;
-        align-items: center;
-        justify-content: baseline;
-        margin-top:10px;
-        margin-bottom: 34px;
-        .req{
-          margin-right: 50px;
-          color: $gray500; font-size: $fs16;
-        }
-        .inp_unit{
-          background-color: $bg;
-        }
-        &:nth-last-child(1){
-          margin-bottom: 46px;
-        }
-        ~ .sub_title{
-          margin-top:34px;
-        }
+    }
+    .useage{
+      width: 79px; margin-right: 16px;
+    }
+    /** //유형 input **/
+
+    .area-box{
+      width: 100%;
+      border-radius: $fs12;
+    }
+    // 고객지원-1:1문의
+    .type-area{
+      height: calc(100vh - 504px);
+      background-color: $surface01;
+      &_text{
+        position: relative;
+        top: 50%;
+        color: $gray500; font-size: $fs14; text-align: center;
+        transform: translateY(-50%);
       }
+    }
+    /** placeholder 폰트크기 **/
+    .pl-px{
+      font-size: $fs16;
+      ~ .sub_title,
+      ~ .unit_type,
+      ~ .c_uploader{
+        margin-top:24px;
+      }
+      ~ .c_inpgroup{
+        margin-top:8px;
+        background-color: red;
+      }
+    }
+    .sub_title{
+      margin:0;padding:0;
+      font-size:$fs16;font-weight:$regular;
+      ~ .unit_type{
+        margin-top:16px;
+      }
+
+      .inp_unit{
+        background-color: $bg;
+      }
+      &:nth-last-child(1){
+        margin-bottom: 46px;
+      }
+      ~ .sub_title{
+        margin-top:34px;
+      }
+    }
+    .req{
+      margin-right: 50px;
+      color: $gray500; font-size: $fs16;
+    }
+    .counter{
+      color:$gray800;
     }
     .section:not(:first-child){
       margin-top:46px;
@@ -177,141 +153,132 @@
       }
     }
   }
-  /* 상세 상단 타이틀 및 날짜 영역 */
-  .view_head {
-    position: relative;
-    .view_title {
-      position: relative;
-      margin-bottom: 12px;
-      font-size: $fs20;
-      font-weight: $bold;
-    }
-    .edit {
-      position: absolute;
-      top: 0;
-      right: 0;
-      cursor: pointer;
-      color: $gray500;
-      font-size: $fs14;
-      &:hover,
-      &:focus {
-        text-decoration: underline;
-        text-underline-position: under;
-      }
-      &:active {
-        color: $gray800;
-      }
-    }
+  &.p-survey{
+
+  }
+  &.p-detail{
     .q-badge{
       position: absolute;
       top: 0; right: 0;
     }
-    .info {
-      margin-bottom: 30px;
-      color: $gray500;
-      .type {
-        position: relative;
-        padding-left: 21px;
-        &::before {
-          position: absolute;
-          top: 50%;
-          left: 10px;
-          transform: translateY(-50%);
-          content: "";
-          width: 1px;
-          height: 12px;
-          background-color: $surface08;
-        }
-      }
-    }
-    ~ .view_body {
-      margin-top: 30px;
-    }
-    + .view_subject {
-      margin-top: 30px;
-    }
-  }
-  /* 상세 정보 영역 */
-  .view_body {
-    padding: 0 0 20px;
-    border-bottom: 1px solid $surface02;
-    ~ .view_subject {
+    .req-box{
+      width: 362px; height: 98px;
       margin-top: 20px;
-    }
-  }
-  /* 상세 내용 영역 */
-  .view_subject {
-    color: $gray800;
-    font-size: $fs16;
-    .figure {
-      margin-top: 30px;
-    }
-    ~.req-wrap{
-      margin-top:20px;
-    }
-  }
-  /* 요청량 항목 및 항목별 정보 */
-  .req-wrap{
-    display: flex;
-    flex-wrap: wrap;
-    gap:16px;
-    position: relative;
-  }
-  .req-box{
-    width:362px;
-    min-height:98px;
-    padding:20px;
-    border-radius: 12px;
-    background-color: $surface01;
-    .amount-title{
-      margin-bottom: 20px;
-      color: $gray800; font-size: $fs16;
-    }
-    .current-amount, .request-amount{
-      color: $gray800; font-size: $fs16;
-    }
-    .current-amount{
-      span{
-        &:nth-child(1){
-          padding-left: 20px;
+      padding: 20px;
+      border-radius: 12px;
+      background-color: $surface01;
+      font-size: $fs16;
+      .amount{
+        margin-bottom: 16px;
+        color: $gray800;
+        &:last-child{
+          margin-bottom: 0;
+        }
+        > span{
+          margin: 0 8px;
         }
       }
-    }
-    .c-span{color: $black;}
-    .request-amount{
-      margin-top: 16px;
-      span{
-        padding-left: 53px;
+      .req-amount{
+        // background-color: red;
+        padding-left: 20px;
         color: $black;
       }
     }
+    // .req-box2{
+    //   width: calc(100% / 4 - 12px);
+    //   min-height: 139px;
+    //   margin-right: 16px; margin-bottom: 16px;
+    //   padding: 20px;
+    //   border-radius: 12px;
+    //   background-color: $surface01;
+    //   &:nth-child(4n){
+    //     margin-right: 0;
+    //   }
+    //   &:nth-last-child(-n + 4){
+    //     margin-bottom: 0;
+    //   }
+    // }
   }
-  /* 상세 하단 답변 영역 */
-  .view_reply {
-    padding: 30px;
-    border-radius: 12px;
+}
+ // 상세 전체 감싸는 영역
+.view_contents {
+  position: relative;
+  width: 100%;
+  padding: 30px;
+  border: 1px solid $surface05;
+  border-radius: 12px;
+  ~ .view_reply {
+    margin-top: 24px;
+  }
+  &.bg{
     background-color: $surface01;
-    > p {
-      display: flex;
-      align-items: flex-end;
-      margin-bottom: 32px;
-      font-weight: $bold;
-      span {
-        margin-left: 14px;
-        color: $gray500;
-        font-size: $fs12;
-        font-weight: $regular;
+  }
+}
+/* 상세 상단 타이틀 및 날짜 영역 */
+.view_head {
+  position: relative;
+  .view_title {
+    position: relative;
+    margin-bottom: 12px;
+    font-size: $fs20;
+    font-weight: $bold;
+  }
+  .info {
+    margin-bottom: 30px;
+    color: $gray500;
+    .type {
+      position: relative;
+      padding-left: 21px;
+      &::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 10px;
+        width: 1px;
+        height: 12px;
+        background-color: $surface08;
+        transform: translateY(-50%);
       }
     }
-    .reply_title{
-      margin-bottom: 16px;
-      color: $gray800; font-size: $fs16; font-weight: $regular;
-    }
-    .reply_answer{
-      font-size: $fs16;
-      &.checking{
-        color: $gray300; font-size: $fs16;
-      }
+  }
+  ~ .view_body {
+    margin-top: 30px;
+  }
+  + .view_subject {
+    margin-top: 30px;
+  }
+}
+/* 상세 정보 영역 */
+.view_body {
+  padding: 0 0 20px;
+  border-bottom: 1px solid $surface02;
+  ~ .view_subject {
+    margin-top: 20px;
+  }
+}
+/* 상세 내용 영역 */
+.view_subject {
+  color: $gray800;
+  font-size: $fs16;
+  .figure {
+    margin-top: 30px;
+  }
+}
+/* 상세 하단 답변 영역 */
+.view_reply {
+  padding: 30px;
+  border-radius: 12px;
+  background-color: $surface01;
+  > p {
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: 16px;
+    color: $gray800;
+    span {
+      margin-left: 14px;
+      color: $gray500;
+      font-size: $fs12;
+      font-weight: $regular;
     }
   }
 }

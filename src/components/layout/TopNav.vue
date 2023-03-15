@@ -8,14 +8,13 @@
       >
     </router-link>
     <div class="c_selectgroup">
-      <q-select
-        filled
-        v-model="menumodel"
+      <c-dropdown
+        v-model:selected="workspaceModel"
         :options="menuopt"
-        options-selected-class="is-active"
+        :filled="true"
         popup-content-class="smtext topmenu_opt"
-        label="Workspace 01"
-        class="c_dropdown smtext"
+        class="smtext"
+        @selected="onSelected"
       />
     </div>
     <q-btn to="/" class="c_btn c_icon top_guidemenu">
@@ -24,11 +23,28 @@
   </div>
 </template>
 <script setup>
-import { ref } from "vue";
+import {
+  ref, watch, defineEmits
+} from "vue";
+import CDropdown from "components/common/CDropdown.vue";
 
-const menumodel = ref("Workspace 01");
-const menuopt = ref([
-  "Workspace 01", "Workspace 02", "Workspace 03", "Workspace 04 - Workspace 04",
-]);
+const emit = defineEmits(["changeWorkspace"]);
+const props = defineProps({
+  workspaces: {
+    type: Array,
+    default: () => []
+  }
+});
+const workspaceModel = ref("");
+const menuopt = ref([]);
+
+watch(() => props.workspaces, (prop) => {
+  menuopt.value = prop.workspaces ? prop.workspaces.map((item) => ({ value: item.id, label: item.name })) : [];
+  workspaceModel.value = menuopt.value[0].label;
+});
+
+const onSelected = (option) => {
+  emit("changeWorkspace", option);
+};
 </script>
 <style lang="scss" scoped></style>

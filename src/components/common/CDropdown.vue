@@ -6,9 +6,9 @@
     :disable="disabled"
     :options="options"
     :options-selected-class="'is-active'"
-    :popup-content-class="type === 'text' ? 'smtext' : ''"
-    :outlined="type !== 'text'"
-    :filled="type === 'text'"
+    :popup-content-class="popupContentClass"
+    :outlined="outlined"
+    :filled="filled"
     :multiple="multiple"
     @update:model-value="onUpdate"
   >
@@ -52,6 +52,20 @@ const props = defineProps({
     default: false
   },
   /**
+   * 설명: outlined 여부
+   */
+  outlined: {
+    type: Boolean,
+    default: false
+  },
+  /**
+   * 설명: filled 여부
+   */
+  filled: {
+    type: Boolean,
+    default: false
+  },
+  /**
    * 설명: multi-select 여부
    */
   multiple: {
@@ -73,6 +87,14 @@ const props = defineProps({
   type: {
     type: String,
     default: ""
+  },
+  popupContentClass: {
+    type: String,
+    default: ""
+  },
+  class: {
+    type: String,
+    default: ""
   }
 });
 
@@ -84,20 +106,19 @@ const DropdownClasses = computed(() => {
   if (props.type === "text") {
     classList.push("smtext");
   }
-  return classList.join(" ");
+  return `${classList.join(" ")} ${props.class}`;
 });
 
 const onUpdate = (value) => {
   emit("update:selected", value);
+  emit("selected", value);
 };
 
 /**
  * 설명: 최초 페이지 dropdown value값 초기화시 셋팅
  */
-watch(() => attrs.selected, (cur, prev) => {
-  if (!prev) {
-    lazyValue.value = cur;
-  }
+watch(() => attrs.selected, (cur) => {
+  lazyValue.value = cur;
 });
 
 onMounted(() => {

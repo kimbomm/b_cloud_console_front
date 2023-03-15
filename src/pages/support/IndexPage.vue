@@ -12,13 +12,15 @@
     </div>
     <!-- //.chead -->
     <div class="p-body">
-      <div class="flex-top">
-        <p class="sub-text">문의내역</p>
-        <c-button :size="'medium'" :outline="true" :btn-names="'문의하기'" />
-      </div>
-
+      <p class="sub-text">문의내역</p>
+      <c-button
+        :size="'medium'"
+        :outline="true"
+        :btn-names="'문의하기'"
+        class="top_btn"
+      />
       <div class="table_inner">
-        <EasyDataTable
+        <easy-data-table
           :headers="headers"
           :items="items"
           :hide-footer="true"
@@ -57,7 +59,7 @@
               <span class="txt">확인중</span>
             </q-badge>
           </template>
-        </EasyDataTable>
+        </easy-data-table>
         <c-pagination />
       </div>
     </div>
@@ -139,6 +141,5 @@ const showRow = (item) => {
 </script>
 
 <style lang="scss" scoped>
-@import "./src/css/table";
 @import "src/css/support";
 </style>

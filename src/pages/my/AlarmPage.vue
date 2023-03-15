@@ -49,7 +49,7 @@
           </div>
         </div>
         <div class="table_inner">
-          <EasyDataTable
+          <easy-data-table
             :headers="headers"
             :items="items"
             :hide-footer="true"
@@ -72,10 +72,10 @@
             <template #item-readStatus="item">
               <span class="txt">{{ item.readStatus }}</span>
             </template>
-          </EasyDataTable>
+          </easy-data-table>
         </div>
         <div class="table_pagenav disflex_C">
-          <CPagination />
+          <c-pagination />
         </div>
       </div>
     </div>
