@@ -54,15 +54,19 @@
         :hide-footer="true"
         empty-message="정보가 없습니다."
         @click-row="showRow"
-        v-model:server-options="serverOptions"
-      >
+        rowsPerPage="50"
+        >
+        <!-- id -->
+        <template #item-id="item">
+          <span class="txt">{{ item.id }}</span>
+        </template>
         <!-- title -->
-        <template #item-title="item">
+        <template #item-nickname="item">
           <a href="#">
             <span class="txt">{{ item.nickname }}</span>
             <q-tooltip anchor="bottom middle" class="c_tooltip">
               <div class="inner">
-                {{ item.title }}
+                {{ item.nickname }}
               </div>
             </q-tooltip>
           </a>
@@ -163,7 +167,8 @@
     </div>
 
     <div class="table_pagenav disflex_C">
-      <CPagination />
+      <c-pagination @update:current="test1"/>
+
     </div>
   </template>
   <template v-else>
@@ -233,6 +238,7 @@
     @update:projectInstanceImgCreateModal="(value)=>{projectInstanceImgCreateModal = value}"
     :projectInstanceImgCreateModal="projectInstanceImgCreateModal"
     v-model="projectInstanceImgCreateModal"
+    :currentSelected="currentSelected"
   />
 </template>
 <script setup>
@@ -254,9 +260,74 @@ import CDialog from "src/components/common/CDialog.vue";
 import CButton from "src/components/common/CButton.vue";
 import CreateImage from "./CreateImage.vue";
 
-const serverOptions = ref({
-  rowsPerPage: 50,
-});
+const headers = [
+  {
+    text: "ID",
+    value: "id",
+    width: 75,
+    checkbox: true,
+  },
+  {
+    text: "이름",
+    value: "nickname",
+    width: 133,
+    widthAuto: true,
+    sortable: true,
+  },
+  {
+    text: "상태",
+    value: "status",
+    width: 140,
+    sortable: true,
+  },
+  {
+    text: "ssh",
+    value: "ssh",
+    width: 80,
+    sortable: false,
+  },
+  {
+    text: "JupyterLab",
+    value: "jupyterLab",
+    width: 135,
+    sortable: false,
+  },
+  {
+    text: "인스턴스 타입",
+    value: "instance_type.name",
+    width: 138,
+    sortable: true,
+  },
+  {
+    text: "GPU",
+    value: "gpu",
+    width: 60,
+    sortable: false,
+  },
+  {
+    text: "CPU",
+    value: "cpu",
+    width: 60,
+    sortable: false,
+  },
+  {
+    text: "생성일시",
+    value: "createdAt",
+    width: 165,
+    sortable: true,
+  },
+  {
+    text: "생성자",
+    value: "createdBy",
+    width: 85,
+    sortable: true,
+  },
+  { text: "", value: "buttons", width: 80 },
+];
+
+// const serverOptions = ref({
+//   rowsPerPage: 50,
+// });
 
 const route = useRoute();
 const router = useRouter();
@@ -315,7 +386,7 @@ const alertInstanceOverImageModal = ref(false);
 
 const projectQuotaUsed = ref({});
 
-/** 인스턴스 리스트 호출 */
+/* * 인스턴스 목록 호출 */
 const getInstances = async () => {
   try {
     const result = await InstanceService.getProjectIntances(
@@ -323,13 +394,14 @@ const getInstances = async () => {
       dataParams.value
     );
     projectList.value = result.instances;
+    console.log("projectList.value", projectList.value);
     emit("update:instanceTotal", result.total);
   } catch (error) {
     console.log(error);
   }
 };
 
-/** 초기화 */
+/* * 초기화 */
 const initRouterData = () => {
   dataParams.value = {
     page: 1,
@@ -343,6 +415,7 @@ const initRouterData = () => {
   };
 };
 
+/* * 인스턴스 생성 */
 const createInstance = () => {
   router.push({
     name: "createInstance",
@@ -350,8 +423,12 @@ const createInstance = () => {
   });
 };
 
+const pageReset = () => {
+  searchData.value.page = 1;
+};
+
 /*
- * 설명 : searchData 객체를 감시하여 dataParams 객체를 갱신
+ * 설명 :  인스턴스 검색,필터
  * 변경 시 0.8초간 대기 후 실행
  */
 watch(
@@ -366,6 +443,10 @@ watch(
     }
     if (newValue.size) {
       dataParams.value.size = newValue.size.size;
+      pageReset();
+    }
+    if (newValue.page) {
+      dataParams.value.page = newValue.page;
     }
     getInstances();
   }, 800),
@@ -376,9 +457,15 @@ onMounted(async () => {
     await getInstances();
   }
 });
-/** 라우트 파라미터 변경 시 값 초기화 */
+
+const test1 = (num) => {
+  console.log("sdf", num);
+  searchData.value.page = num;
+};
+
+/* * 라우트 파라미터 변경 시 값 초기화 */
 watch(
-  () => route.params,
+  () => route.params.projectId,
   async () => {
     if (route.name === "ProjectList") {
       initRouterData();
@@ -422,6 +509,7 @@ const showRow = (item) => {
   }
 };
 
+/* *  성공 메세지 */
 const triggerSuccess = (message) => {
   setTimeout(() => {
     $useCmFn.onNotify({
@@ -431,6 +519,7 @@ const triggerSuccess = (message) => {
   }, 100);
 };
 
+/* *  실패 메세지 */
 const triggerFail = (message) => {
   $useCmFn.onNotify({
     message: `${message}`,
@@ -448,9 +537,7 @@ const onCopy = (message) => {
   });
 };
 
-/*
-* 설명 : 액션버튼 토글
-*/
+/* *  액션버튼 토글 */
 const toggleActionButtons = () => {
   actionButtons.value = false;
   setTimeout(() => {
@@ -458,12 +545,13 @@ const toggleActionButtons = () => {
   }, 50);
 };
 
+/* *  인스턴스 삭제 취소 */
 const deleteInstnaceCancle = () => {
   alertInstanceDelConfirmModal.value = false;
   toggleActionButtons();
 };
 
-/**  인스턴스 삭제 */
+/* *  인스턴스 삭제 */
 const deleteInstnace = async () => {
   try {
     await InstanceService.deleteIntance(route.params.projectId, currentSelected.value.id);
@@ -483,9 +571,14 @@ const handleDeleteModal = () => {
   alertInstanceDelConfirmModal.value = true;
 };
 
+/*
+* 인스턴스 정지 취소
+*/
 const stopInstnaceCancle = () => {
   alertInstanceAddVolumeInfoModal.value = false;
 };
+
+/* * 인스턴스 정지 */
 const stopInstnace = async () => {
   try {
     await InstanceService.stopIntance(route.params.projectId, currentSelected.value.id);
@@ -498,6 +591,8 @@ const stopInstnace = async () => {
     console.log(error);
   }
 };
+
+/* * 인스턴스 시작 */
 const startInstnace = async () => {
   try {
     await InstanceService.startIntance(route.params.projectId, currentSelected.value.id);
@@ -554,72 +649,6 @@ const onActions = (eventName, rowData) => {
       break;
   }
 };
-
-const headers = [
-  {
-    text: "ID",
-    value: "id",
-    width: 75,
-    sortable: false,
-    checkbox: true,
-  },
-  {
-    text: "이름",
-    value: "title",
-    width: 133,
-    widthAuto: true,
-    sortable: true,
-  },
-  {
-    text: "상태",
-    value: "status",
-    width: 140,
-    sortable: true,
-  },
-  {
-    text: "ssh",
-    value: "ssh",
-    width: 80,
-    sortable: false,
-  },
-  {
-    text: "JupyterLab",
-    value: "jupyterLab",
-    width: 135,
-    sortable: false,
-  },
-  {
-    text: "인스턴스 타입",
-    value: "instanceType",
-    width: 138,
-    sortable: true,
-  },
-  {
-    text: "GPU",
-    value: "gpu",
-    width: 60,
-    sortable: false,
-  },
-  {
-    text: "CPU",
-    value: "cpu",
-    width: 60,
-    sortable: false,
-  },
-  {
-    text: "생성일시",
-    value: "createdAt",
-    width: 165,
-    sortable: true,
-  },
-  {
-    text: "생성자",
-    value: "createdBy",
-    width: 85,
-    sortable: true,
-  },
-  { text: "", value: "buttons", width: 80 },
-];
 
 </script>
 

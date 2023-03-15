@@ -41,25 +41,32 @@
     </template>
     <template #footer>
       <c-button :outline="true" btn-names="취소" @click="triggerImgWarning" />
-      <c-button btn-names="확인" @click="triggerImgSuccess" :disable="isValidProjectSave"
+      <c-button btn-names="확인" @click="createImage" :disable="isValidProjectSave"
        />
     </template>
   </c-dialog>
 </template>
 
 <script setup>
-
+import { ref, watch } from "vue";
 import { $useCmFn } from "src/composables/useCommonFunction.js";
+import { InstanceService } from "src/services";
+import { useRoute } from "vue-router";
 
 import CDialog from "src/components/common/CDialog.vue";
 import CButton from "src/components/common/CButton.vue";
 import CInputText from "src/components/common/CInputText.vue";
-import { ref, watch } from "vue";
 
 const emit = defineEmits(["update:projectInstanceImgCreateModal"]);
+const route = useRoute();
 
-defineProps({
-  projectInstanceImgCreateModal: Boolean,
+const props = defineProps({
+  projectInstanceImgCreateModal: {
+    type: Boolean
+  },
+  currentSelected: {
+    type: Object
+  }
 });
 
 const projectName = ref("");
@@ -109,13 +116,33 @@ const triggerImgWarning = () => {
   });
   emit("update:projectInstanceImgCreateModal", false);
 };
-
 const triggerImgSuccess = () => {
   $useCmFn.onNotify({
     message: "이미지가 생성되었습니다.",
     type: "positive",
   });
   emit("update:projectInstanceImgCreateModal", false);
+};
+
+const resetInput = () => {
+  projectDescription.value = "";
+  projectName.value = "";
+};
+
+const createImage = async () => {
+  const data = {
+    description: projectDescription.value,
+    name: projectName.value,
+  };
+
+  try {
+    await InstanceService.saveIntanceImage(route.params.projectId, props.currentSelected.id, data);
+    triggerImgSuccess();
+  } catch (error) {
+    triggerImgWarning();
+    console.log(error);
+  }
+  resetInput();
 };
 
 </script>
