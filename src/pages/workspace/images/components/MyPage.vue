@@ -346,11 +346,12 @@ const deleteShareData = async () => {
 // 공유받은 이미지 정보 가져오기 !!오류 임시데이터
 const getSahredImage = async (imgId) => {
   console.log("임시 ,imgId", imgId);
-  // try {
-  //   await imageService.getSahredInfoImage(workspaceId, 0);
-  // } catch (e) {
-  //   console.log(e);
-  // }
+  try {
+    const result = await imageService.getSahredInfoImage(workspaceId, imgId);
+    console.log("resultresultresult", result);
+  } catch (e) {
+    console.log(e);
+  }
 
   const result = {
     image: {
@@ -453,38 +454,70 @@ const triggerSharedImageFail = () => {
 };
 
 // 공유 대상 저장, 공유해제 대상 axios 요청
+// const handleShareImageRequests = async ({ falseChecked, trueChecked }) => {
+//   failedRequests.value = []; // 실패리스트
+
+//   try {
+//     await Promise.all(
+//       trueChecked.map(async (item) => {
+//         try {
+//           await ProjectService.postShareWorkspaceImage(item.id, popupState.value.id);
+//           triggerSharedSuccess();
+//         } catch (error) {
+//           failedRequests.value.push({ id: item.id, name: item.name });
+//           alertTaskDeleteFailModal.value = true;
+//           console.log(error);
+//         }
+//       })
+//     );
+//   } catch (error) {
+//     console.error(error);
+//   }
+
+//   await Promise.all(
+//     falseChecked.map(async (item) => {
+//       try {
+//         await ProjectService.postUnShareWorkspaceImage(item.id, popupState.value.id);
+//         triggerSharedSuccess();
+//       } catch (error) {
+//         failedRequests.value.push({ id: item.id, name: item.name });
+//         alertTaskDeleteFailModal.value = true;
+//         console.log(error);
+//       }
+//     })
+//   );
+// };
+
 const handleShareImageRequests = async ({ falseChecked, trueChecked }) => {
   failedRequests.value = []; // 실패리스트
 
-  try {
-    await Promise.all(
-      trueChecked.map(async (item) => {
-        try {
-          await ProjectService.postShareWorkspaceImage(item.id, popupState.value.id);
-          triggerSharedSuccess();
-        } catch (error) {
-          failedRequests.value.push({ id: item.id, name: item.name });
-          alertTaskDeleteFailModal.value = true;
-          console.log(error);
-        }
-      })
-    );
-  } catch (error) {
-    console.error(error);
-  }
-
-  await Promise.all(
-    falseChecked.map(async (item) => {
-      try {
-        await ProjectService.postUnShareWorkspaceImage(item.id, popupState.value.id);
-        triggerSharedSuccess();
-      } catch (error) {
-        failedRequests.value.push({ id: item.id, name: item.name });
-        alertTaskDeleteFailModal.value = true;
-        console.log(error);
-      }
+  const sharePromises = trueChecked.map(async (item) => ProjectService.postShareWorkspaceImage(item.id, popupState.value.id)
+    .then(() => {
+      triggerSharedSuccess();
     })
-  );
+    .catch((error) => {
+      console.log(error);
+      return { id: item.id, name: item.name };
+    }));
+
+  const unsharePromises = falseChecked.map(async (item) => ProjectService.postUnShareWorkspaceImage(item.id, popupState.value.id)
+    .then(() => {
+      triggerSharedSuccess();
+    })
+    .catch((error) => {
+      console.log(error);
+      return { id: item.id, name: item.name };
+    }));
+
+  const allPromises = [...sharePromises, ...unsharePromises];
+  const results = await Promise.allSettled(allPromises);
+  console.log("resultsresults", results);
+  results.forEach((result) => {
+    if (result.status === "rejected") {
+      failedRequests.value.push(result.reason);
+      alertTaskDeleteFailModal.value = true;
+    }
+  });
 };
 
 // 저장 시 checked true,false 각 배열 분리
