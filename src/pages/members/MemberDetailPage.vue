@@ -175,9 +175,9 @@
                 <div class="sel-title fs16">{{proName1}}</div>
                 <div class="c_selectgroup w250">
                   <c-dropdown
-                  v-model:selected="selectedBasic"
-                  :label="label2"
-                  :options="options"
+                    v-model:selected="selectedBasic"
+                    :label="label2"
+                    :options="options"
                   />
                 </div>
               </div>
@@ -185,9 +185,9 @@
                 <div class="sel-title fs16">{{proName2}}</div>
                 <div class="c_selectgroup w250">
                   <c-dropdown
-                  v-model:selected="selectedBasic"
-                  :label="label2"
-                  :options="options"
+                    v-model:selected="selectedBasic"
+                    :label="label2"
+                    :options="options"
                   />
                 </div>
               </div>
@@ -209,12 +209,12 @@
                   outlined
                   v-model="quota1"
                   type="number"
-                  placeholder="50GiB 단위 입력"
+                  placeholder="50GB 단위 입력"
                   clearable
                   class="inp_unit"
                 >
                   <template v-slot:append>
-                    <span class="unit">GiB</span>
+                    <span class="unit">GB</span>
                   </template>
                 </q-input>
                 <span class="desc">최대 50,000</span>
@@ -231,7 +231,7 @@ import { useMeta } from "quasar";
 import CButton from "components/common/CButton.vue";
 import CDropdown from "components/common/CDropdown.vue";
 
-const visible = ref(false);
+const visible = ref(true);
 const title = ref("Member");
 
 const label = ref("프로젝트 이름");

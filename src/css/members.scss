@@ -6,13 +6,14 @@
   .l_set_inner{
     position: relative;
     .w292{
+      position: relative;
       width: 292px;
       margin-right: 33px;
       &::after{
         content: "";
         position: absolute;
         top: 50%;
-        right: 266px;
+        right: -16px;
         width: 1px;
         height: 26px;
         background-color: $surface05;
@@ -157,7 +158,8 @@
     }
     .error-txt{
       position: absolute;
-      bottom: 19px; left: 240px;
+      bottom: 20px;
+      left: 240px;
       color: $red; font-size: $fs14;
     }
     .delete-btn{
