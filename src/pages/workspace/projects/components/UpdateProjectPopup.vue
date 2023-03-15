@@ -59,7 +59,7 @@
 
 <script setup>
 import {
-  ref, toRefs, watch, watchEffect
+  ref, watch, watchEffect
 } from "vue";
 import CInputText from "src/components/common/CInputText.vue";
 
@@ -78,8 +78,6 @@ const props = defineProps({
 });
 
 const emit = defineEmits(["updateProject"]);
-const { RefDscription } = toRefs(props);
-
 const route = useRoute();
 const { workspaceId, projectId } = route.params;
 
@@ -183,10 +181,6 @@ const updateProject = async () => {
     resetProject();
   }
 };
-
-watch(RefDscription, () => {
-  projectDescription.value = RefDscription;
-});
 
 watchEffect(() => {
   if (props.projectCreateModal) {

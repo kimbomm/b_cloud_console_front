@@ -75,6 +75,7 @@ import CDialog from "src/components/common/CDialog.vue";
 import CButton from "src/components/common/CButton.vue";
 import CInputText from "components/common/CInputText.vue";
 import { useRoute } from "vue-router";
+import { $useCmFn } from "src/composables/useCommonFunction.js";
 import { watch, ref, computed } from "vue";
 
 const route = useRoute();
@@ -174,6 +175,13 @@ const onClose = async () => {
   isValid.value = true;
 };
 
+const triggerSuccess = (message) => {
+  $useCmFn.onNotify({
+    message,
+    type: "positive",
+  });
+};
+
 /*
  * 설명 : 입력값 type Number로 변경
  * 요청 시 값이 숫자여야함
@@ -188,6 +196,7 @@ const onSave = async () => {
     emit("update:quotaChangeModal", false);
     emit("updateProject");
     await initProjectInput();
+    triggerSuccess("할당량 변경 요청이 완료되었습니다.");
   } catch (e) {
     console.log(e);
   }
