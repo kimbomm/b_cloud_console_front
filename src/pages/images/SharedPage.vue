@@ -13,15 +13,13 @@
     </div>
     <!-- //.chead -->
     <div class="p-body">
-      <div class="tab_area">
-        <q-tabs v-model="tab" align="left" class="c_tabs">
-          <q-tab name="tabs1" label="내이미지" />
-          <q-tab name="tabs2" label="기본 이미지" />
-          <q-tab name="tabs3" label="공유받은 이미지" />
-        </q-tabs>
-      </div>
-      <template v-if="defaultData == true">
-        <div class="table_set">
+      <q-tabs v-model="tab" align="left" class="c_tabs">
+        <q-tab name="tabs1" label="내이미지" />
+        <q-tab name="tabs2" label="기본 이미지" />
+        <q-tab name="tabs3" label="공유받은 이미지" />
+      </q-tabs>
+      <div class="table_set">
+        <div class="l_set_inner">
           <div class="c_inpgroup">
             <q-input
               outlined="outlined"
@@ -35,52 +33,54 @@
               </template>
             </q-input>
           </div>
-          <div class="select_drop">
-            <c-dropdown
-              :label="optLabel"
-              :options="optNumber"
-              class="auto_size"
-            />
-          </div>
         </div>
-        <div class="table_inner">
-          <EasyDataTable
-            :headers="headers"
-            :items="items"
-            :hide-footer="true"
-            empty-message="정보가 없습니다."
-            @click-row="showRow"
-          >
-            <!-- id -->
-            <template #item-id="item">
-              <span class="txt">{{ item.id }}</span>
-            </template>
-            <!-- title -->
-            <template #item-title="item">
-              <a href="#">
-                <span class="txt">{{ item.title }}</span>
-                <q-tooltip anchor="bottom middle" class="c_tooltip">
-                  <div class="inner">{{ item.title }}</div>
-                </q-tooltip>
-              </a>
-            </template>
-            <!-- image -->
-            <template #item-image="item">
-              <span class="txt">{{ item.image }}</span>
-            </template>
+        <div class="r_set_inner">
+          <c-dropdown
+            :label="optLabel"
+            :options="optNumber"
+            class="auto_size"
+          />
+        </div>
+      </div>
+      <div class="table_inner">
+        <easy-data-table
+          :headers="headers"
+          :items="items"
+          :hide-footer="true"
+          empty-message="정보가 없습니다."
+          @click-row="showRow"
+        >
+          <!-- id -->
+          <template #item-id="item">
+            <span class="txt">{{ item.id }}</span>
+          </template>
+          <!-- title -->
+          <template #item-title="item">
+            <a href="#">
+              <span class="txt">{{ item.title }}</span>
+              <q-tooltip anchor="bottom middle" class="c_tooltip">
+                <div class="inner">{{ item.title }}</div>
+              </q-tooltip>
+            </a>
+          </template>
+          <!-- image -->
+          <template #item-base_image="item">
+            <a>
+              <span class="txt">{{ item.base_image }}</span>
+            </a>
+          </template>
 
-            <!-- sharedBy -->
-            <template #item-sharedBy="item">
-              <span class="txt">{{ item.sharedBy }}</span>
-            </template>
-            <!-- sharedAt -->
-            <template #item-sharedAt="item">
-              <span class="txt clip">{{ item.sharedAt }}</span>
-            </template>
-          </EasyDataTable>
-          <c-pagination />
-        </div>
-      </template>
+          <!-- sharedBy -->
+          <template #item-sharedBy="item">
+            <span class="txt">{{ item.sharedBy }}</span>
+          </template>
+          <!-- sharedAt -->
+          <template #item-sharedAt="item">
+            <span class="txt clip">{{ item.sharedAt }}</span>
+          </template>
+        </easy-data-table>
+        <c-pagination />
+      </div>
     </div>
   </q-page>
 </template>
@@ -96,36 +96,37 @@ useMeta(() => ({ title: title.value }));
 const ptitle = ref(title);
 const tab = ref("tabs3");
 const optLabel = ref("10");
-const defaultData = ref(true);
 
 const headers = [
   {
     text: "이름",
     value: "id",
-    width: 140,
+    width: 206,
     sortable: true,
   },
   {
     text: "설명",
     value: "title",
-    width: 340,
+    width: 135,
+    widthAuto: true,
   },
   {
-    text: "이미지",
-    value: "image",
-    width: 350,
+    text: "기본 이미지",
+    value: "base_image",
+    width: 135,
     sortable: true,
+    widthAuto: true,
   },
   {
     text: "공유자",
     value: "sharedBy",
-    width: 250,
+    width: 318,
     sortable: true,
   },
   {
     text: "공유일시",
     value: "sharedAt",
-    width: 150,
+    width: 200,
     sortable: true,
   },
 ];
@@ -134,7 +135,7 @@ const items = [
     id: "내이미지01",
     title:
       "테스트용 이미지 생성 테스트 테스트테스트용 테스트용 이미지 생성테스트용 이미지 생성테스트용 이미지 생성 ",
-    image: "tensorflow 2.9.0(python3, cuda11.2, ubutun20.04) ",
+    base_image: "tensorflow 2.9.0(python3, cuda11.2, ubutun20.04) ",
     sharedBy: "김카브(root.choi@kakaobrain.com)",
     sharedAt: "2023.10.11 12:30:31",
   },
@@ -142,14 +143,14 @@ const items = [
     id: "내이미지02",
     title:
       "테스트용 이미지 생성 테스트 테스트테스트용 이미지 생성 테스트 테스트테스트용 이미지테스트용 이미지 생성 테스트 테스트테스트용 이미지 생성",
-    image: "tensorflow 2.9.0(python3, cuda11.2, ubutun20.04)",
+    base_image: "tensorflow 2.9.0(python3, cuda11.2, ubutun20.04)",
     sharedBy: "ewa(ewa.e@gmail.com)",
     sharedAt: "2023.10.11 12:30:31",
   },
   {
     id: "내이미지03",
     title: "테스트용 이미지 생성 테스트 테스트테스트용 테스트용 이미지 생성 ",
-    image: "tensorflow 2.9.0(python3, cuda11.2, ubutun20.04)",
+    base_image: "tensorflow 2.9.0(python3, cuda11.2, ubutun20.04)",
     sharedBy: "ewa(ewa.e@gmail.com)",
     sharedAt: "2023.10.11 12:30:31",
   },

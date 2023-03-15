@@ -50,58 +50,111 @@
           </div>
           <div class="s_03 pb78">
             <p class="sub_title2">인스턴스 타입<i class="ess">*</i></p>
-            <div class="s_03_main">
-              <div class="s_03_tab">
-                <q-tabs v-model="tab" align="left" class="c_tabs">
-                  <q-tab name="tabs1" label="CPU"></q-tab>
-                  <q-tab name="tabs2" label="GPU Tesla V100"></q-tab>
-                  <q-tab name="tabs3" label="GPU Tesla A100_40G"></q-tab>
-                </q-tabs>
+            <!-- <div class="s_03_main"> -->
+            <q-tabs v-model="tab" align="left" class="c_tabs">
+              <q-tab name="tabs1" label="CPU"></q-tab>
+              <q-tab name="tabs2" label="GPU V100"></q-tab>
+              <q-tab name="tabs3" label="GPU A100_40G"></q-tab>
+            </q-tabs>
+            <div class="now_selected_area">
+              <div class="select_box">
+                <q-item class="select_title">
+                  <p class="select_title_inner">선택된 타입</p>
+                </q-item>
+                <q-item class="select_value">
+                  <p class="select_value_inner">
+                    cg.nano (CPU 2 / MEM 122GB / DISK 80GiB)
+                  </p>
+                </q-item>
               </div>
-              <div class="now_selected_area">
-                <div class="select_box">
-                  <q-item class="select_title">
-                    <p class="select_title_inner">선택된 타입</p>
-                  </q-item>
-                  <q-item class="select_value">
-                    <p class="select_value_inner">
-                      cg.nano (CPU 2 / MEM 122GB / DISK 80GiB)
-                    </p>
-                  </q-item>
-                </div>
+            </div>
+            <div class="s_03_table">
+              <easy-data-table
+                class="c_table check"
+                :headers="instanceHeaders"
+                :items="instanceItems"
+                :hide-footer="true"
+                :body-row-class-name="bodyRowClassNameFunction"
+                empty-message="데이터가 없습니다."
+              >
+                <template #item-checkbox="item">
+                  <q-checkbox
+                    v-model="itemsSelected"
+                    :val="item.title"
+                    :disable="item.disabled"
+                    @click="onCheck(item)"
+                  />
+                </template>
+                <!-- title -->
+                <template #item-title="item">
+                  <span class="txt">{{ item.title }}</span>
+                </template>
+                <!-- cpu -->
+                <template #item-cpu="item">
+                  <span class="txt">{{ item.cpu }}</span>
+                </template>
+                <!-- memory -->
+                <template #item-memory="item">
+                  <span class="txt">{{ item.memory }}</span>
+                </template>
+                <!-- disk -->
+                <template #item-disk="item">
+                  <span class="txt">{{ item.disk }}</span>
+                </template>
+                <!-- 버튼 그룹 -->
+                <template #item-buttons="item">
+                  <q-btn v-if="item.checkbox" class="text">
+                    <span class="txt">선택 취소하기</span>
+                  </q-btn>
+                </template>
+              </easy-data-table>
+              <c-pagination />
+            </div>
+          </div>
+          <div class="s_04 pb78">
+            <p class="sub_title2">이미지<i class="ess">*</i></p>
+            <!-- <div class="s_04_main"> -->
+            <q-tabs v-model="tab2" align="left" class="c_tabs">
+              <q-tab name="tabs1" label="기본 이미지"></q-tab>
+              <q-tab name="tabs2" label="내이미지"></q-tab>
+              <q-tab name="tabs3" label="공유받은 이미지"></q-tab>
+            </q-tabs>
+            <div class="now_selected_area">
+              <div class="select_box">
+                <q-item class="select_title">
+                  <p class="select_title_inner">선택된 타입</p>
+                </q-item>
+                <q-item class="select_value">
+                  <p class="select_value_inner">
+                    tensorflow 2.9.0 (python3, cuda11.2, ubuntu20.04)
+                  </p>
+                </q-item>
               </div>
-              <div class="s_03_table">
-                <EasyDataTable
-                  v-model:items-selected="itemsSelected"
-                  :headers="instanceHeaders"
-                  :items="instanceItems"
+            </div>
+            <template v-if="tab2 === 'tabs1'">
+              <div class="table_inner">
+                <easy-data-table
+                  :headers="imgHeader1"
+                  :items="imgItems1"
                   :hide-footer="true"
                   :body-row-class-name="bodyRowClassNameFunction"
-                  empty-message="정보가 없습니다."
+                  empty-message="데이터가 없습니다."
                 >
+                  <template #item-checkbox="item">
+                    <q-checkbox
+                      v-model="itemsSelected"
+                      :val="item.title"
+                      :disable="item.disabled"
+                      @click="onCheck2(item)"
+                    />
+                  </template>
                   <!-- title -->
                   <template #item-title="item">
-                    <a href="#">
-                      <span class="txt">{{ item.title }}</span>
-                    </a>
+                    <span class="txt">{{ item.title }}</span>
                   </template>
-                  <!-- cpu -->
-                  <template #item-cpu="item">
-                    <a href="#">
-                      <span class="txt">{{ item.cpu }}</span>
-                    </a>
-                  </template>
-                  <!-- memory -->
-                  <template #item-memory="item">
-                    <a href="#">
-                      <span class="txt">{{ item.memory }}</span>
-                    </a>
-                  </template>
-                  <!-- disk -->
-                  <template #item-disk="item">
-                    <a href="#">
-                      <span class="txt">{{ item.disk }}</span>
-                    </a>
+                  <!-- nvida -->
+                  <template #item-nvida="item">
+                    <span class="txt">{{ item.nvida }}</span>
                   </template>
                   <!-- 버튼 그룹 -->
                   <template #item-buttons="item">
@@ -109,319 +162,227 @@
                       <span class="txt">선택 취소하기</span>
                     </q-btn>
                   </template>
-                </EasyDataTable>
+                </easy-data-table>
+                <c-pagination />
               </div>
-              <div class="disflex_C mt32">
-                <CPagination />
-              </div>
-            </div>
-          </div>
-          <div class="s_04 pb78">
-            <p class="sub_title2">이미지<i class="ess">*</i></p>
-            <div class="s_04_main">
-              <div class="s_04_tab">
-                <q-tabs v-model="tab2" align="left" class="c_tabs">
-                  <q-tab name="tabs1" label="기본 이미지"></q-tab>
-                  <q-tab name="tabs2" label="내이미지"></q-tab>
-                  <q-tab name="tabs3" label="공유받은 이미지"></q-tab>
-                </q-tabs>
-              </div>
-              <div class="now_selected_area">
-                <div class="select_box">
-                  <q-item class="select_title">
-                    <p class="select_title_inner">선택된 타입</p>
-                  </q-item>
-                  <q-item class="select_value">
-                    <p class="select_value_inner">
-                      tensorflow 2.9.0 (python3, cuda11.2, ubuntu20.04)
-                    </p>
-                  </q-item>
-                </div>
-              </div>
-              <template v-if="tab2 === 'tabs1'">
-                <template v-if="defaultData == true">
-                  <div class="s_04_table">
-                    <EasyDataTable
-                      v-model:items-selected="itemsSelected"
-                      :headers="imgHeader1"
-                      :items="imgItems1"
-                      :hide-footer="true"
-                      :body-row-class-name="bodyRowClassNameFunction"
-                      empty-message="정보가 없습니다."
-                    >
-                      <!-- title -->
-                      <template #item-title="item">
-                        <a href="#">
-                          <span class="txt">{{ item.title }}</span>
-                          <q-tooltip anchor="bottom middle" class="c_tooltip">
-                            <div class="inner">
-                              {{ item.title }}
-                            </div>
-                          </q-tooltip>
-                        </a>
-                      </template>
-                      <!-- nvida -->
-                      <template #item-nvida="item">
-                        <a href="#">
-                          <span class="txt">{{ item.nvida }}</span>
-                        </a>
-                      </template>
-                      <!-- 버튼 그룹 -->
-                      <template #item-buttons="item">
-                        <q-btn v-if="item.checkbox" class="text">
-                          <span class="txt">선택 취소하기</span>
-                        </q-btn>
-                      </template>
-                    </EasyDataTable>
-                  </div>
-                  <div class="disflex_C mt32">
-                    <CPagination />
-                  </div>
-                </template>
-                <template v-else>
-                  <div class="com_nondata_area">
-                    <div class="nondata_box">
-                      <p class="nondata_txt">생성된 이미지가 없습니다.</p>
-                    </div>
-                  </div>
-                </template>
-              </template>
-              <template v-if="tab2 === 'tabs2'">
-                <template v-if="defaultData == true">
-                  <div class="s_04_table">
-                    <EasyDataTable
-                      v-model:items-selected="itemsSelected"
-                      :headers="imgHeader2"
-                      :items="imgItems2"
-                      :hide-footer="true"
-                      :body-row-class-name="bodyRowClassNameFunction"
-                      empty-message="정보가 없습니다."
-                    >
-                      <!-- title -->
-                      <template #item-title="item">
-                        <a href="#">
-                          <span class="txt">{{ item.title }}</span>
-                          <q-tooltip anchor="bottom middle" class="c_tooltip">
-                            <div class="inner">
-                              {{ item.title }}
-                            </div>
-                          </q-tooltip>
-                        </a>
-                      </template>
-                      <!-- description -->
-                      <template #item-description="item">
-                        <a href="#">
-                          <span class="txt">{{ item.description }}</span>
-                          <q-tooltip anchor="bottom middle" class="c_tooltip">
-                            <div class="inner">
-                              {{ item.description }}
-                            </div>
-                          </q-tooltip>
-                        </a>
-                      </template>
-                      <!--
+            </template>
+            <template v-if="tab2 === 'tabs2'">
+              <template v-if="defaultData == true">
+                <div class="table_inner">
+                  <easy-data-table
+                    class="c_table check"
+                    :headers="imgHeader2"
+                    :items="imgItems2"
+                    :hide-footer="true"
+                    :body-row-class-name="bodyRowClassNameFunction"
+                    empty-message="데이터가 없습니다."
+                  >
+                    <template #item-checkbox="item">
+                      <q-checkbox
+                        v-model="itemsSelected"
+                        :val="item.title"
+                        :disable="item.disabled"
+                        @click="onCheck2(item)"
+                      />
+                    </template>
+
+                    <!-- title -->
+                    <template #item-title="item">
+                      <span class="txt">{{ item.title }}</span>
+                    </template>
+                    <!-- description -->
+                    <template #item-description="item">
+                      <span class="txt">{{ item.description }}</span>
+                    </template>
+                    <!--
                           상태값(status)
                           1. sharing, 저장(공유)
                           2. error, 오류
                           3. inStorage, 저장중
                         -->
-                      <template #item-status="item">
-                        <q-badge v-if="item.status === 'sharing'" class="green">
-                          <span class="txt">저장(공유)</span>
-                        </q-badge>
-                        <q-badge
-                          v-else-if="item.status === 'error'"
-                          class="orange"
-                        >
-                          <span class="txt">오류</span>
-                        </q-badge>
-                        <q-badge v-else-if="item.status === 'inStorage'">
-                          <span class="txt">저장중</span>
-                        </q-badge>
-                        <q-item
-                          v-else-if="item.status === 'group'"
-                          class="badge_group"
-                        >
-                          <div class="badge">
-                            <q-badge class="green">
-                              <span class="txt">7</span>
-                            </q-badge>
-                            <q-badge class="orange">
-                              <span class="txt">20</span>
-                            </q-badge>
-                            <q-badge class="c_badge">
-                              <span class="txt">27</span>
-                            </q-badge>
-                          </div>
+                    <template #item-status="item">
+                      <q-badge v-if="item.status === 'sharing'" class="green">
+                        <span class="txt">저장(공유)</span>
+                      </q-badge>
+                      <q-badge
+                        v-else-if="item.status === 'error'"
+                        class="orange"
+                      >
+                        <span class="txt">오류</span>
+                      </q-badge>
+                      <q-badge v-else-if="item.status === 'inStorage'">
+                        <span class="txt">저장중</span>
+                      </q-badge>
+                      <q-item
+                        v-else-if="item.status === 'group'"
+                        class="badge_group"
+                      >
+                        <div class="badge">
+                          <q-badge class="green">
+                            <span class="txt">7</span>
+                          </q-badge>
+                          <q-badge class="orange">
+                            <span class="txt">20</span>
+                          </q-badge>
+                          <q-badge class="c_badge">
+                            <span class="txt">27</span>
+                          </q-badge>
+                        </div>
 
-                          <q-popup-edit
-                            v-model="badgeGroup"
-                            self="bottom middle"
-                            class="badge_menu"
-                          >
-                            <div class="inner">
-                              <q-list>
-                                <q-item>
-                                  <q-item-section>
-                                    <div class="badge_item">
-                                      <q-badge class="green">
-                                        <span class="txt">실행중</span>
-                                      </q-badge>
-                                      <span class="count">2</span>
-                                    </div>
-                                  </q-item-section>
-                                  <q-item-section>
-                                    <div class="badge_item">
-                                      <q-badge>
-                                        <span class="txt">생성중</span>
-                                      </q-badge>
-                                      <span class="count">2</span>
-                                    </div>
-                                  </q-item-section>
-                                </q-item>
-                                <q-item>
-                                  <q-item-section>
-                                    <div class="badge_item">
-                                      <q-badge class="green">
-                                        <span class="txt">완료</span>
-                                      </q-badge>
-                                      <span class="count">5</span>
-                                    </div>
-                                  </q-item-section>
-                                  <q-item-section>
-                                    <div class="badge_item">
-                                      <q-badge>
-                                        <span class="txt">재시작중</span>
-                                      </q-badge>
-                                      <span class="count">5</span>
-                                    </div>
-                                  </q-item-section>
-                                </q-item>
-                                <q-item>
-                                  <q-item-section>
-                                    <div class="badge_item">
-                                      <q-badge class="orange">
-                                        <span class="txt">취소</span>
-                                      </q-badge>
-                                      <span class="count">10</span>
-                                    </div>
-                                  </q-item-section>
-                                  <q-item-section>
-                                    <div class="badge_item">
-                                      <q-badge>
-                                        <span class="txt">취소중</span>
-                                      </q-badge>
-                                      <span class="count">10</span>
-                                    </div>
-                                  </q-item-section>
-                                </q-item>
-                                <q-item>
-                                  <q-item-section>
-                                    <div class="badge_item">
-                                      <q-badge class="orange">
-                                        <span class="txt">실패</span>
-                                      </q-badge>
-                                      <span class="count">10</span>
-                                    </div>
-                                  </q-item-section>
-                                  <q-item-section>
-                                    <div class="badge_item">
-                                      <q-badge>
-                                        <span class="txt">삭제중</span>
-                                      </q-badge>
-                                      <span class="count">10</span>
-                                    </div>
-                                  </q-item-section>
-                                </q-item>
-                              </q-list>
-                            </div>
-                          </q-popup-edit>
-                        </q-item>
-                        <q-badge v-else class="c_badge">
-                          <span class="txt">생성중</span>
-                        </q-badge>
-                      </template>
-                      <!-- createdAt -->
-                      <template #item-createdAt="item">
-                        <a href="#">
-                          <span class="txt">{{ item.createdAt }}</span>
-                        </a>
-                      </template>
-                      <!-- 버튼 그룹 -->
-                      <template #item-buttons="item">
-                        <q-btn v-if="item.checkbox" class="text">
-                          <span class="txt">선택 취소하기</span>
-                        </q-btn>
-                      </template>
-                    </EasyDataTable>
-                  </div>
-                  <div class="disflex_C mt32">
-                    <CPagination />
-                  </div>
-                </template>
-                <template v-else>
-                  <div class="com_nondata_area">
-                    <div class="nondata_box">
-                      <p class="nondata_txt">생성된 이미지가 없습니다.</p>
-                    </div>
-                  </div>
-                </template>
+                        <q-popup-edit
+                          v-model="badgeGroup"
+                          self="bottom middle"
+                          class="badge_menu"
+                        >
+                          <div class="inner">
+                            <q-list>
+                              <q-item>
+                                <q-item-section>
+                                  <div class="badge_item">
+                                    <q-badge class="green">
+                                      <span class="txt">실행중</span>
+                                    </q-badge>
+                                    <span class="count">2</span>
+                                  </div>
+                                </q-item-section>
+                                <q-item-section>
+                                  <div class="badge_item">
+                                    <q-badge>
+                                      <span class="txt">생성중</span>
+                                    </q-badge>
+                                    <span class="count">2</span>
+                                  </div>
+                                </q-item-section>
+                              </q-item>
+                              <q-item>
+                                <q-item-section>
+                                  <div class="badge_item">
+                                    <q-badge class="green">
+                                      <span class="txt">완료</span>
+                                    </q-badge>
+                                    <span class="count">5</span>
+                                  </div>
+                                </q-item-section>
+                                <q-item-section>
+                                  <div class="badge_item">
+                                    <q-badge>
+                                      <span class="txt">재시작중</span>
+                                    </q-badge>
+                                    <span class="count">5</span>
+                                  </div>
+                                </q-item-section>
+                              </q-item>
+                              <q-item>
+                                <q-item-section>
+                                  <div class="badge_item">
+                                    <q-badge class="orange">
+                                      <span class="txt">취소</span>
+                                    </q-badge>
+                                    <span class="count">10</span>
+                                  </div>
+                                </q-item-section>
+                                <q-item-section>
+                                  <div class="badge_item">
+                                    <q-badge>
+                                      <span class="txt">취소중</span>
+                                    </q-badge>
+                                    <span class="count">10</span>
+                                  </div>
+                                </q-item-section>
+                              </q-item>
+                              <q-item>
+                                <q-item-section>
+                                  <div class="badge_item">
+                                    <q-badge class="orange">
+                                      <span class="txt">실패</span>
+                                    </q-badge>
+                                    <span class="count">10</span>
+                                  </div>
+                                </q-item-section>
+                                <q-item-section>
+                                  <div class="badge_item">
+                                    <q-badge>
+                                      <span class="txt">삭제중</span>
+                                    </q-badge>
+                                    <span class="count">10</span>
+                                  </div>
+                                </q-item-section>
+                              </q-item>
+                            </q-list>
+                          </div>
+                        </q-popup-edit>
+                      </q-item>
+                      <q-badge v-else class="c_badge">
+                        <span class="txt">생성중</span>
+                      </q-badge>
+                    </template>
+                    <!-- createdAt -->
+                    <template #item-createdAt="item">
+                      <span class="txt">{{ item.createdAt }}</span>
+                    </template>
+                    <!-- 버튼 그룹 -->
+                    <template #item-buttons="item">
+                      <q-btn v-if="item.checkbox" class="text">
+                        <span class="txt">선택 취소하기</span>
+                      </q-btn>
+                    </template>
+                  </easy-data-table>
+                  <c-pagination />
+                </div>
               </template>
-              <template v-if="tab2 === 'tabs3'">
-                <template v-if="defaultData == true">
-                  <div class="s_04_table">
-                    <EasyDataTable
-                      v-model:items-selected="itemsSelected"
-                      :headers="imgHeader3"
-                      :items="imgItems3"
-                      :hide-footer="true"
-                      :body-row-class-name="bodyRowClassNameFunction"
-                      empty-message="정보가 없습니다."
-                    >
-                      <!-- title -->
-                      <template #item-title="item">
-                        <a href="#">
-                          <span class="txt">{{ item.title }}</span>
-                        </a>
-                      </template>
-                      <!-- description -->
-                      <template #item-description="item">
-                        <a href="#">
-                          <span class="txt">{{ item.description }}</span>
-                          <q-tooltip anchor="bottom middle" class="c_tooltip">
-                            <div class="inner">
-                              {{ item.description }}
-                            </div>
-                          </q-tooltip>
-                        </a>
-                      </template>
-                      <!-- owner -->
-                      <template #item-owner="item">
-                        <a href="#">
-                          <span class="txt">{{ item.owner }}</span>
-                        </a>
-                      </template>
-                      <!-- 버튼 그룹 -->
-                      <template #item-buttons="item">
-                        <q-btn v-if="item.checkbox" class="text">
-                          <span class="txt">선택 취소하기</span>
-                        </q-btn>
-                      </template>
-                    </EasyDataTable>
-                  </div>
-                  <div class="disflex_C mt32">
-                    <CPagination />
-                  </div>
-                </template>
-                <template v-else>
-                  <div class="com_nondata_area">
-                    <div class="nondata_box">
-                      <p class="nondata_txt">공유받은 이미지가 없습니다.</p>
-                    </div>
-                  </div>
-                </template>
+              <template v-else>
+                <div class="nondata_box">
+                  <p class="nondata_txt">생성된 이미지가 없습니다.</p>
+                </div>
               </template>
-            </div>
+            </template>
+            <template v-if="tab2 === 'tabs3'">
+              <template v-if="defaultData == true">
+                <div class="table_inner">
+                  <easy-data-table
+                    class="c_table check"
+                    :headers="imgHeader3"
+                    :items="imgItems3"
+                    :hide-footer="true"
+                    :body-row-class-name="bodyRowClassNameFunction"
+                    empty-message="데이터가 없습니다."
+                  >
+                    <template #item-checkbox="item">
+                      <q-checkbox
+                        v-model="itemsSelected"
+                        :val="item.title"
+                        :disable="item.disabled"
+                        @click="onCheck2(item)"
+                      />
+                    </template>
+                    <!-- title -->
+                    <template #item-title="item">
+                      <span class="txt">{{ item.title }}</span>
+                    </template>
+                    <!-- description -->
+                    <template #item-description="item">
+                      <span class="txt">{{ item.description }}</span>
+                    </template>
+                    <!-- owner -->
+                    <template #item-owner="item">
+                      <span class="txt">{{ item.owner }}</span>
+                    </template>
+                    <!-- 버튼 그룹 -->
+                    <template #item-buttons="item">
+                      <q-btn v-if="item.checkbox" class="text">
+                        <span class="txt">선택 취소하기</span>
+                      </q-btn>
+                    </template>
+                  </easy-data-table>
+                  <c-pagination />
+                </div>
+              </template>
+              <template v-else>
+                <div class="nondata_box">
+                  <p class="nondata_txt">공유받은 이미지가 없습니다.</p>
+                </div>
+              </template>
+            </template>
           </div>
           <div class="s_05 pb78">
             <p class="sub_title2">스토리지</p>
@@ -431,30 +392,30 @@
                   <p><span class="change_num">0</span> / 5</p>
                   선택
                 </div>
-                <div class="s_05_table">
-                  <EasyDataTable
-                    v-model:items-selected="itemsSelected"
+                <div class="table_inner">
+                  <easy-data-table
                     :headers="storageHeader"
                     :items="storageItems"
                     :hide-footer="true"
                     :body-row-class-name="bodyRowClassNameFunction"
-                    empty-message="정보가 없습니다."
+                    empty-message="데이터가 없습니다."
                   >
+                    <template #item-checkbox="item">
+                      <q-checkbox
+                        v-model="itemsSelected"
+                        :val="item.title"
+                        :disable="item.disabled"
+                        @click="onCheck3(item)"
+                      />
+                    </template>
                     <!-- 이름 -->
                     <template #item-title="item">
-                      <a href="#">
-                        <span class="txt">{{ item.title }}</span>
-                      </a>
+                      <span class="txt">{{ item.title }}</span>
                     </template>
                     <!-- description -->
                     <template #item-description="item">
-                      <a href="#">
+                      <a>
                         <span class="txt">{{ item.description }}</span>
-                        <q-tooltip anchor="bottom middle" class="c_tooltip">
-                          <div class="inner">
-                            {{ item.description }}
-                          </div>
-                        </q-tooltip>
                       </a>
                     </template>
                     <!--
@@ -476,15 +437,11 @@
                     </template>
                     <!-- 소유자 -->
                     <template #item-user="item">
-                      <a href="#">
-                        <span class="txt">{{ item.user }}</span>
-                      </a>
+                      <span class="txt">{{ item.user }}</span>
                     </template>
                     <!-- 접근권한 -->
                     <template #item-authority="item">
-                      <a href="#">
-                        <span class="txt">{{ item.authority }}</span>
-                      </a>
+                      <span class="txt">{{ item.authority }}</span>
                     </template>
                     <!-- 버튼 그룹 -->
                     <template #item-buttons="item">
@@ -492,73 +449,63 @@
                         <span class="txt">선택 취소하기</span>
                       </q-btn>
                     </template>
-                  </EasyDataTable>
-                </div>
-                <div class="disflex_C mt32">
-                  <CPagination />
+                  </easy-data-table>
+                  <c-pagination />
                 </div>
               </div>
             </template>
             <template v-else>
-              <div class="com_nondata_area">
-                <div class="nondata_box">
-                  <p class="nondata_txt">이용가능한 스토리지가 없습니다.</p>
-                </div>
+              <div class="nondata_box">
+                <p class="nondata_txt">이용가능한 스토리지가 없습니다.</p>
               </div>
             </template>
           </div>
           <div class="s_06 pb78">
             <p class="sub_title2">SSH Key<i class="ess">*</i></p>
-            <div class="s_06_main">
-              <template v-if="defaultData == true">
-                <div class="s_06_table">
-                  <EasyDataTable
-                    v-model:items-selected="itemsSelected"
-                    :headers="sshKeyHeader"
-                    :items="sshKeyItems"
-                    :hide-footer="true"
-                    :body-row-class-name="bodyRowClassNameFunction"
-                    empty-message="정보가 없습니다."
-                  >
-                    <!-- title -->
-                    <template #item-title="item">
-                      <a href="#">
-                        <span class="txt">{{ item.title }}</span>
-                      </a>
-                    </template>
-                    <!-- fingerprint -->
-                    <template #item-fingerprint="item">
-                      <a href="#">
-                        <span class="txt">{{ item.fingerprint }}</span>
-                        <q-tooltip anchor="bottom middle" class="c_tooltip">
-                          <div class="inner">
-                            {{ item.fingerprint }}
-                          </div>
-                        </q-tooltip>
-                      </a>
-                    </template>
-                    <!-- registrationDat -->
-                    <template #item-registrationDat="item">
-                      <a href="#">
-                        <span class="txt">{{ item.registrationDat }}</span>
-                      </a>
-                    </template>
-                  </EasyDataTable>
+            <!-- <div class="s_06_main"> -->
+            <template v-if="defaultData == true">
+              <div class="table_inner">
+                <easy-data-table
+                  class="c_table check"
+                  :headers="sshKeyHeader"
+                  :items="sshKeyItems"
+                  :hide-footer="true"
+                  :body-row-class-name="bodyRowClassNameFunction"
+                  empty-message="데이터가 없습니다."
+                >
+                  <template #item-checkbox="item">
+                    <q-checkbox
+                      v-model="itemsSelected"
+                      :val="item.title"
+                      :disable="item.disabled"
+                      @click="onCheck3(item)"
+                    />
+                  </template>
+                  <!-- title -->
+                  <template #item-title="item">
+                    <span class="txt">{{ item.title }}</span>
+                  </template>
+                  <!-- fingerprint -->
+                  <template #item-fingerprint="item">
+                    <span class="txt">{{ item.fingerprint }}</span>
+                  </template>
+                  <!-- registrationDat -->
+                  <template #item-registrationDat="item">
+                    <span class="txt">{{ item.registrationDat }}</span>
+                  </template>
+                </easy-data-table>
+              </div>
+            </template>
+            <template v-else>
+              <div class="nondata_box">
+                <p class="nondata_txt">생성된 인스턴스가 없습니다.</p>
+                <div class="nondata_btn">
+                  <q-btn btnTypes="1" type="button" class="c_btn medium">
+                    <span class="txt">등록하기</span>
+                  </q-btn>
                 </div>
-              </template>
-              <template v-else>
-                <div class="com_nondata_area">
-                  <div class="nondata_box">
-                    <p class="nondata_txt">생성된 인스턴스가 없습니다.</p>
-                    <div class="nondata_btn">
-                      <q-btn btnTypes="1" type="button" class="c_btn medium">
-                        <span class="txt">등록하기</span>
-                      </q-btn>
-                    </div>
-                  </div>
-                </div>
-              </template>
-            </div>
+              </div>
+            </template>
           </div>
           <div class="s_07">
             <p class="sub_title2">포트 번호 입력</p>
@@ -777,40 +724,45 @@ const chipFilterFn = (val, update) => {
 // 인스턴스 타입 테이블
 const instanceHeaders = [
   {
+    text: "",
+    value: "checkbox",
+    width: 80,
+  },
+  {
     text: "이름",
     value: "title",
-    width: 150,
+    width: 133,
     widthAuto: true,
     sortable: false,
   },
   {
     text: "CPU",
     value: "cpu",
-    width: 145,
+    width: 150,
     sortable: false,
   },
   {
     text: "Memory",
     value: "memory",
-    width: 145,
+    width: 150,
     sortable: false,
   },
   {
     text: "Disk",
     value: "disk",
-    width: 145,
+    width: 150,
     sortable: false,
   },
 ];
 const instanceItems = [
   {
-    title: "CG.nano",
+    title: "CG.nano1",
     cpu: "8",
     memory: "18GiB",
     disk: "80GiB",
     resource: {
       cpus: 28,
-      gpu_device_model: "TESLA_V100",
+      gpu_device_model: "V100",
       gpus: 2,
       mem: 249856,
       zone: "public:normal",
@@ -823,7 +775,7 @@ const instanceItems = [
     disk: "80GiB",
     resource: {
       cpus: 28,
-      gpu_device_model: "TESLA_V100",
+      gpu_device_model: "V100",
       gpus: 2,
       mem: 249856,
       zone: "public:normal",
@@ -836,7 +788,7 @@ const instanceItems = [
     disk: "80GiB",
     resource: {
       cpus: 28,
-      gpu_device_model: "TESLA_V100",
+      gpu_device_model: "V100",
       gpus: 2,
       mem: 249856,
       zone: "public:normal",
@@ -845,6 +797,11 @@ const instanceItems = [
 ];
 // 이미지 테이블_기본이미지
 const imgHeader1 = [
+  {
+    text: "",
+    value: "checkbox",
+    width: 80,
+  },
   {
     text: "이름",
     value: "title",
@@ -872,6 +829,11 @@ const imgItems1 = [
 // 이미지 테이블_내이미지
 const imgHeader2 = [
   {
+    text: "",
+    value: "checkbox",
+    width: 80,
+  },
+  {
     text: "이름",
     value: "title",
     width: 140,
@@ -887,7 +849,7 @@ const imgHeader2 = [
   {
     text: "상태",
     value: "status",
-    width: 110,
+    width: 120,
     sortable: false,
   },
   {
@@ -920,15 +882,20 @@ const imgItems2 = [
 // 이미지 테이블_공유받은 이미지
 const imgHeader3 = [
   {
+    text: "",
+    value: "checkbox",
+    width: 80,
+  },
+  {
     text: "이름",
     value: "title",
-    width: 110,
+    width: 170,
     sortable: false,
   },
   {
     text: "설명",
     value: "description",
-    width: 200,
+    width: 133,
     widthAuto: true,
     sortable: false,
   },
@@ -960,6 +927,11 @@ const imgItems3 = [
 // 스토리지 테이블
 const storageHeader = [
   {
+    text: "",
+    value: "checkbox",
+    width: 80,
+  },
+  {
     text: "이름",
     value: "title",
     width: 100,
@@ -968,26 +940,26 @@ const storageHeader = [
   {
     text: "설명",
     value: "description",
-    width: 200,
+    width: 133,
     widthAuto: true,
     sortable: false,
   },
   {
     text: "상태",
     value: "status",
-    width: 90,
+    width: 103,
     sortable: false,
   },
   {
     text: "소유자",
     value: "user",
-    width: 100,
+    width: 150,
     sortable: false,
   },
   {
     text: "접근권한",
     value: "authority",
-    width: 100,
+    width: 150,
     sortable: false,
   },
 ];
@@ -1018,6 +990,11 @@ const storageItems = [
 // SSH Key 테이블
 const sshKeyHeader = [
   {
+    text: "",
+    value: "checkbox",
+    width: 80,
+  },
+  {
     text: "이름",
     value: "title",
     width: 110,
@@ -1033,7 +1010,7 @@ const sshKeyHeader = [
   {
     text: "등록일시",
     value: "registrationDat",
-    width: 200,
+    width: 328,
     sortable: false,
   },
 ];
@@ -1056,7 +1033,7 @@ const sshKeyItems = [
 const bodyRowClassNameFunction = (item) => {
   const classList = [];
   if (item.buttons) classList.push("row-button");
-  if (item.checkbox) classList.push("row-selected");
+  // if (item.checkbox) classList.push("row-selected");
   return classList.join(" ");
 };
 
@@ -1073,7 +1050,7 @@ const bodyRowClassNameFunction = (item) => {
 
 const datalist = [
   { title: "이름", value: "인스턴스 이름" },
-  { title: "인스턴스 타입", value: "Tesla V100" },
+  { title: "인스턴스 타입", value: "V100" },
   { title: "GPU", value: 1 },
   { title: "CPU", value: 14 },
   { title: "Memory", value: "122GB" },
@@ -1091,5 +1068,4 @@ const datalistLen = datalist.length;
 
 <style lang="scss" scoped>
 @import "./src/css/projects";
-@import "./src/css/table";
 </style>

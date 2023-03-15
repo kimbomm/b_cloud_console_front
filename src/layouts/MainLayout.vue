@@ -1,15 +1,33 @@
 <template>
-  <q-layout ref="input" view="hHh Lpr lff" class="l-wrap l-console"
-  :class="{iconMode: drawer, textMode: sideClick}">
+  <q-layout
+    ref="input"
+    view="hHh Lpr lff"
+    class="l-wrap l-console"
+    :class="{ iconMode: drawer, textMode: sideClick }"
+  >
     <q-header class="l-header">
       <q-toolbar>
-        <q-btn flat @click="drawer = !drawer" round dense icon="menu" class="c_icon menu" />
+        <q-btn
+          flat
+          @click="drawer = !drawer"
+          round
+          dense
+          icon="menu"
+          class="c_icon menu"
+        />
         <top-nav />
       </q-toolbar>
     </q-header>
 
     <aside class="l-sidebar fixed">
-      <q-btn flat @click="sideClick = !sideClick" round dense icon="menu" class="c_icon menu" />
+      <q-btn
+        flat
+        @click="sideClick = !sideClick"
+        round
+        dense
+        icon="menu"
+        class="c_icon menu"
+      />
       <side-bar />
     </aside>
 
@@ -98,5 +116,4 @@ const sideClick = ref(false);
 //   onProtect();
 // });
 </script>
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

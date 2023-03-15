@@ -13,15 +13,13 @@
     </div>
     <!-- //.chead -->
     <div class="p-body">
-      <div class="tab_area">
-        <q-tabs v-model="tab" align="left" class="c_tabs">
-          <q-tab name="tabs1" label="내이미지" />
-          <q-tab name="tabs2" label="기본 이미지" />
-          <q-tab name="tabs3" label="공유받은 이미지" />
-        </q-tabs>
-      </div>
-      <template v-if="defaultData == true">
-        <div class="table_set">
+      <q-tabs v-model="tab" align="left" class="c_tabs">
+        <q-tab name="tabs1" label="내이미지" />
+        <q-tab name="tabs2" label="기본 이미지" />
+        <q-tab name="tabs3" label="공유받은 이미지" />
+      </q-tabs>
+      <div class="table_set">
+        <div class="l_set_inner">
           <div class="c_inpgroup">
             <q-input
               outlined
@@ -35,20 +33,22 @@
               </template>
             </q-input>
           </div>
-          <div class="select_drop">
-            <c-dropdown
-              :label="optLabel"
-              :options="optNumber"
-              class="auto_size"
-            />
-          </div>
         </div>
+        <div class="r_set_inner">
+          <c-dropdown
+            :label="optLabel"
+            :options="optNumber"
+            class="auto_size"
+          />
+        </div>
+      </div>
+      <template v-if="defaultData == true">
         <div class="table_inner">
-          <EasyDataTable
+          <easy-data-table
             :headers="headers"
             :items="items"
             :hide-footer="true"
-            empty-message="정보가 없습니다."
+            empty-message="검색 결과가 없습니다."
             @click-row="showRow"
           >
             <!-- id -->
@@ -57,7 +57,7 @@
             </template>
             <!-- title -->
             <template #item-title="item">
-              <a href="#">
+              <a>
                 <span class="txt">{{ item.title }}</span>
                 <q-tooltip anchor="bottom middle" class="c_tooltip">
                   <div class="inner">
@@ -89,7 +89,7 @@
             </template>
             <!-- image -->
             <template #item-base_image="item">
-              <a href="#">
+              <a>
                 <span class="txt">{{ item.base_image }}</span>
               </a>
             </template>
@@ -124,7 +124,7 @@
                 </q-btn>
               </div>
             </template>
-          </EasyDataTable>
+          </easy-data-table>
           <c-pagination />
         </div>
       </template>
@@ -168,20 +168,21 @@ const headers = [
   {
     text: "상태",
     value: "status",
+    width: 118,
   },
   {
     text: "기본 이미지",
     value: "base_image",
+    widthAuto: true,
     sortable: true,
   },
   {
     text: "생성일시",
     value: "createdAt",
-    width: 190,
-    widthAuto: true,
+    width: 200,
     sortable: true,
   },
-  { text: "", value: "buttons" },
+  { text: "", value: "buttons", width: 100 },
 ];
 const items = [
   {

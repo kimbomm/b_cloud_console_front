@@ -40,90 +40,77 @@
     </div>
     <!-- //.chead -->
     <div class="p-body">
-      <div class="wrap">
-        <ProjectDashboard />
+      <ProjectDashboard />
 
-        <div class="com_m_cont">
-          <div class="change_tab_btn">
-            <q-tabs v-model="tab" align="left" class="c_tabs">
-              <q-tab name="tabs1" label="인스턴스">
-                <q-badge>36</q-badge>
-              </q-tab>
-              <q-tab name="tabs2" label="태스크">
-                <q-badge>19</q-badge>
-              </q-tab>
-              <q-tab name="tabs3" label="멤버">
-                <q-badge>0</q-badge>
-              </q-tab>
-            </q-tabs>
-          </div>
-          <template v-if="defaultData == true">
-            <div class="table_set">
-              <div class="l_set_inner">
-                <div class="c_inpgroup">
-                  <q-input
-                    outlined
-                    v-model="suffix"
-                    placeholder="이름, 상태, 생성자 검색"
-                    class="wsize292"
-                  >
-                    <template v-slot:prepend>
-                      <q-icon name="search" class="ico_search" />
-                    </template>
-                  </q-input>
-                </div>
-
-                <div class="c_selectgroup">
-                  <CDropdown
-                    v-model:selected="selectedCheck"
-                    :label="label"
-                    :options="options"
-                    :multiple="true"
-                  />
-                </div>
-              </div>
-
-              <div class="r_set_inner">
-                <div class="instance_make_btn">
-                  <q-btn
-                    btnTypes="4"
-                    type="button"
-                    class="c_btn line medium"
-                    to="/projects/Instancedetail"
-                  >
-                    <span class="txt">인스턴스 생성하기</span>
-                  </q-btn>
-                </div>
-
-                <div class="view_cont_num">
-                  <CDropdown
-                    v-model:selected="selectedBasic"
-                    :label="label2"
-                    :options="options2"
-                  />
-                </div>
-              </div>
-            </div>
-            <div class="change_table_area">
-              <EasyDataTable
-                :headers="headers"
-                :items="items"
-                :hide-footer="true"
-                empty-message="정보가 없습니다."
-                @click-row="showRow"
+      <div class="com_m_cont">
+        <q-tabs v-model="tab" align="left" class="c_tabs">
+          <q-tab name="tabs1" label="인스턴스">
+            <q-badge>36</q-badge>
+          </q-tab>
+          <q-tab name="tabs2" label="태스크">
+            <q-badge>19</q-badge>
+          </q-tab>
+          <q-tab name="tabs3" label="멤버">
+            <q-badge>0</q-badge>
+          </q-tab>
+        </q-tabs>
+        <div class="table_set">
+          <div class="l_set_inner">
+            <div class="c_inpgroup">
+              <q-input
+                outlined
+                v-model="suffix"
+                placeholder="이름, 상태, 생성자 검색"
+                class="wsize292"
               >
-                <!-- title -->
-                <template #item-title="item">
-                  <a href="#">
-                    <span class="txt">{{ item.title }}</span>
-                    <q-tooltip anchor="bottom middle" class="c_tooltip">
-                      <div class="inner">
-                        {{ item.title }}
-                      </div>
-                    </q-tooltip>
-                  </a>
+                <template v-slot:prepend>
+                  <q-icon name="search" class="ico_search" />
                 </template>
-                <!--
+              </q-input>
+            </div>
+            <c-dropdown
+              v-model:selected="selectedCheck"
+              :label="label"
+              :options="options"
+              :multiple="true"
+            />
+          </div>
+
+          <div class="r_set_inner">
+            <c-button
+              :size="'medium'"
+              :outline="true"
+              :btn-names="'인스턴스 생성하기'"
+            />
+            <c-dropdown
+              v-model:selected="selectedBasic"
+              :label="label2"
+              :options="options2"
+              class="view_cont_num"
+            />
+          </div>
+        </div>
+        <template v-if="defaultData == true">
+          <div class="table_inner">
+            <easy-data-table
+              :headers="headers"
+              :items="items"
+              :hide-footer="true"
+              empty-message="생성된 인스턴스가 없습니다."
+              @click-row="showRow"
+            >
+              <!-- title -->
+              <template #item-title="item">
+                <a href="#">
+                  <span class="txt">{{ item.title }}</span>
+                  <q-tooltip anchor="bottom middle" class="c_tooltip">
+                    <div class="inner">
+                      {{ item.title }}
+                    </div>
+                  </q-tooltip>
+                </a>
+              </template>
+              <!--
                   상태값(status)
                   1. running, 운영중
                   2. stopped, 정지
@@ -135,121 +122,108 @@
                   7. delete_cont, 삭제예정 D-n
                   8. delete_day, 삭제예정 D-Day
                 -->
-                <template #item-status="item">
-                  <q-badge v-if="item.status === 'running'" class="green">
-                    <span class="txt">운영중</span>
-                  </q-badge>
-                  <q-badge v-else-if="item.status === 'stopped'" class="orange">
-                    <span class="txt">정지</span>
-                  </q-badge>
-                  <q-badge
-                    v-else-if="item.status === 'pending'"
-                    class="c_badge"
-                  >
-                    <span class="txt">대기중</span>
-                  </q-badge>
-                  <q-badge
-                    v-else-if="item.status === 'stopping'"
-                    class="c_badge"
-                  >
-                    <span class="txt">정지중</span>
-                  </q-badge>
-                  <q-badge
-                    v-else-if="item.status === 'deleting'"
-                    class="c_badge"
-                  >
-                    <span class="txt">삭제중</span>
-                  </q-badge>
-                  <q-badge
-                    v-else-if="item.status === 'starting'"
-                    class="c_badge"
-                  >
-                    <span class="txt">시작중</span>
-                  </q-badge>
-                  <q-badge
-                    v-else-if="item.status === 'delete_cont'"
-                    class="orange"
-                  >
-                    <span class="txt">삭제예정 D-{{ nDay }}</span>
-                  </q-badge>
-                  <q-badge
-                    v-else-if="item.status === 'delete_day'"
-                    class="orange"
-                  >
-                    <span class="txt">삭제예정 D-Day</span>
-                  </q-badge>
-                </template>
-                <!-- ssh -->
-                <template #item-ssh="item">
-                  <q-badge class="copy square ssh icon" @click="onCopy(item)">
-                    <span class="txt">{{ item.ssh }}</span>
-                  </q-badge>
-                </template>
-                <!-- jupyterLab -->
-                <template #item-jupyterLab="item">
-                  <q-badge class="copy square lab icon" @click="onCopy(item)">
-                    <span class="txt">{{ item.jupyterLab }}</span>
-                  </q-badge>
-                </template>
-                <!-- 인스턴스 타입 -->
-                <template #item-instanceType="item">
-                  <q-badge class="text instance" @click="onCopy(item)">
-                    <span class="txt"
-                      >{{ item.instanceType
-                      }}<i class="ico details">
-                        <q-tooltip
-                          anchor="bottom middle"
-                          class="c_tooltip insTypeTool"
+              <template #item-status="item">
+                <q-badge v-if="item.status === 'running'" class="green">
+                  <span class="txt">운영중</span>
+                </q-badge>
+                <q-badge v-else-if="item.status === 'stopped'" class="orange">
+                  <span class="txt">정지</span>
+                </q-badge>
+                <q-badge v-else-if="item.status === 'pending'" class="c_badge">
+                  <span class="txt">대기중</span>
+                </q-badge>
+                <q-badge v-else-if="item.status === 'stopping'" class="c_badge">
+                  <span class="txt">정지중</span>
+                </q-badge>
+                <q-badge v-else-if="item.status === 'deleting'" class="c_badge">
+                  <span class="txt">삭제중</span>
+                </q-badge>
+                <q-badge v-else-if="item.status === 'starting'" class="c_badge">
+                  <span class="txt">시작중</span>
+                </q-badge>
+                <q-badge
+                  v-else-if="item.status === 'delete_cont'"
+                  class="orange"
+                >
+                  <span class="txt">삭제예정 D-{{ nDay }}</span>
+                </q-badge>
+                <q-badge
+                  v-else-if="item.status === 'delete_day'"
+                  class="orange"
+                >
+                  <span class="txt">삭제예정 D-Day</span>
+                </q-badge>
+              </template>
+              <!-- ssh -->
+              <template #item-ssh="item">
+                <q-badge class="copy square ssh icon" @click="onCopy(item)">
+                  <span class="txt">{{ item.ssh }}</span>
+                </q-badge>
+              </template>
+              <!-- jupyterLab -->
+              <template #item-jupyterLab="item">
+                <q-badge class="copy square lab icon" @click="onCopy(item)">
+                  <span class="txt">{{ item.jupyterLab }}</span>
+                </q-badge>
+              </template>
+              <!-- 인스턴스 타입 -->
+              <template #item-instanceType="item">
+                <q-badge class="text instance" @click="onCopy(item)">
+                  <span class="txt"
+                    >{{ item.instanceType
+                    }}<i class="ico details">
+                      <q-tooltip
+                        anchor="bottom middle"
+                        class="c_tooltip insTypeTool"
+                      >
+                        <div class="inner">
+                          {{ item.instanceType }}
+                        </div>
+                      </q-tooltip></i
+                    >
+                  </span>
+                </q-badge>
+              </template>
+              <!-- createdBy -->
+              <template #item-createdBy="item">
+                <span class="txt clip">{{ item.createdBy }}</span>
+              </template>
+              <!-- 버튼 그룹 -->
+              <template #item-buttons="item">
+                <div v-if="actionButtons" class="cell btngroup">
+                  <q-btn class="c_btn ibtn dot">
+                    <i class="ico dots" /><span class="txt">클릭</span>
+                    <q-popup-edit
+                      v-model="item.id"
+                      class="dots_menu"
+                      anchor="top right"
+                    >
+                      <q-list style="min-width: 100px">
+                        <q-item
+                          v-for="button in actionButtons"
+                          :key="button.name"
                         >
-                          <div class="inner">
-                            {{ item.instanceType }}
-                          </div>
-                        </q-tooltip></i
-                      >
-                    </span>
-                  </q-badge>
-                </template>
-                <!-- createdBy -->
-                <template #item-createdBy="item">
-                  <span class="txt clip">{{ item.createdBy }}</span>
-                </template>
-                <!-- 버튼 그룹 -->
-                <template #item-buttons="item">
-                  <div v-if="actionButtons" class="cell btngroup">
-                    <q-btn class="c_btn ibtn dot">
-                      <i class="ico dots" /><span class="txt">클릭</span>
-                      <q-popup-edit
-                        v-model="item.id"
-                        class="dots_menu"
-                        anchor="top right"
-                      >
-                        <q-list style="min-width: 100px">
-                          <q-item
-                            v-for="button in actionButtons"
-                            :key="button.name"
+                          <q-btn
+                            class="item"
+                            @click="onActions(button.event, item)"
                           >
-                            <q-btn
-                              class="item"
-                              @click="onActions(button.event, item)"
-                            >
-                              <span class="txt">{{ button.name }}</span>
-                            </q-btn>
-                          </q-item>
-                        </q-list>
-                      </q-popup-edit>
-                    </q-btn>
-                  </div>
-                </template>
-              </EasyDataTable>
-              <c-pagination />
-            </div>
-          </template>
-          <template v-else>
-            <div class="nondata_box">
-              <p class="nondata_txt">생성된 인스턴스가 없습니다.</p>
-            </div>
-          </template>
-        </div>
+                            <span class="txt">{{ button.name }}</span>
+                          </q-btn>
+                        </q-item>
+                      </q-list>
+                    </q-popup-edit>
+                  </q-btn>
+                </div>
+              </template>
+            </easy-data-table>
+            <c-pagination />
+          </div>
+        </template>
+        <template v-else>
+          <div class="nondata_box">
+            <p class="nondata_txt">생성된 인스턴스가 없습니다.</p>
+          </div>
+        </template>
       </div>
     </div>
   </q-page>
@@ -260,6 +234,7 @@ import { useMeta } from "quasar";
 import ProjectDashboard from "src/components/pages/ProjectDashboard.vue";
 import CPagination from "components/common/CPagination.vue";
 import CDropdown from "components/common/CDropdown.vue";
+import CButton from "components/common/CButton.vue";
 
 const title = ref("Test Projects");
 useMeta(() => ({
@@ -353,7 +328,7 @@ const items = [
     createdBy: "root.choi",
     resource: {
       cpus: 28,
-      gpu_device_model: "TESLA_V100",
+      gpu_device_model: "V100",
       gpus: 2,
       mem: 249856,
       zone: "public:normal",
@@ -375,7 +350,7 @@ const items = [
     createdBy: "root.choi",
     resource: {
       cpus: 28,
-      gpu_device_model: "TESLA_V100",
+      gpu_device_model: "V100",
       gpus: 2,
       mem: 249856,
       zone: "public:normal",
@@ -394,7 +369,7 @@ const items = [
     createdBy: "root.choi",
     resource: {
       cpus: 28,
-      gpu_device_model: "TESLA_V100",
+      gpu_device_model: "V100",
       gpus: 2,
       mem: 249856,
       zone: "public:normal",
@@ -413,7 +388,7 @@ const items = [
     createdBy: "root.choi",
     resource: {
       cpus: 28,
-      gpu_device_model: "TESLA_V100",
+      gpu_device_model: "V100",
       gpus: 2,
       mem: 249856,
       zone: "public:normal",
@@ -432,7 +407,7 @@ const items = [
     createdBy: "root.choi",
     resource: {
       cpus: 28,
-      gpu_device_model: "TESLA_V100",
+      gpu_device_model: "V100",
       gpus: 2,
       mem: 249856,
       zone: "public:normal",
@@ -451,7 +426,7 @@ const items = [
     createdBy: "root.choi",
     resource: {
       cpus: 28,
-      gpu_device_model: "TESLA_V100",
+      gpu_device_model: "V100",
       gpus: 2,
       mem: 249856,
       zone: "public:normal",
@@ -474,7 +449,7 @@ const items = [
     createdBy: "root.choi",
     resource: {
       cpus: 28,
-      gpu_device_model: "TESLA_V100",
+      gpu_device_model: "V100",
       gpus: 2,
       mem: 249856,
       zone: "public:normal",
@@ -493,7 +468,7 @@ const items = [
     createdBy: "root.choi",
     resource: {
       cpus: 28,
-      gpu_device_model: "TESLA_V100",
+      gpu_device_model: "V100",
       gpus: 2,
       mem: 249856,
       zone: "public:normal",
@@ -543,5 +518,4 @@ const options2 = ref([
 
 <style lang="scss" scoped>
 @import "./src/css/projects";
-@import "./src/css/table";
 </style>
