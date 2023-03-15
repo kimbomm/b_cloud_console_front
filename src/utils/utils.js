@@ -161,6 +161,13 @@ class Utils {
     const filteredList = list.filter((item) => targetKey.some((key) => item[key].match(new RegExp(input), "gi")));
     return filteredList;
   }
+  /* 중첩속성 적용 시 base_image.name 에러
+    utils.js?t=1678870613519:161 Uncaught (in promise) TypeError: Cannot read properties of undefined (reading 'match')
+  */
+  /* 수정 */
+  // searchList(list, targetKey, input) {
+  //   return list.filter((item) => targetKey.some((key) => String(key.split(".").reduce((o, i) => (o ? o[i] : null), item)).match(new RegExp(input, "gi"))));
+  // }
 }
 
 export const $utils = new Utils();
