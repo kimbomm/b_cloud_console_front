@@ -34,12 +34,11 @@
           >
             <q-item-label class="name">
               {{ userInfo.name }}
-              <q-btn
-                class="ibtn edit"
+              <c-button
+                :only-icon="true"
                 @click="onEditStart"
-              >
-                <span class="hidden">편집</span>
-              </q-btn>
+                class="edit"
+              />
             </q-item-label>
             <q-item-label class="subject">
               {{ userInfo.description }}
@@ -206,10 +205,12 @@
             :size="'medium'"
             :outline="true"
             :btn-names="'등록하기'"
+            :disabled="sshKeys.length >= 5"
+            @click="sshRegistModal = true"
           />
         </div>
         <section class="section">
-          <EasyDataTable
+          <easy-data-table
             v-if="sshKeys.length !== 0"
             :headers="headers"
             :items="sshKeys"
@@ -255,12 +256,13 @@
                 </q-btn>
               </div>
             </template>
-          </EasyDataTable>
+          </easy-data-table>
           <div v-else class="sign-up">
             <p class="mb30">SSH Key를 등록해주세요.</p>
             <c-button
               :size="'medium'"
-              :btn-names="btnSign"
+              :btn-names="'등록하기'"
+              @click="sshRegistModal = true"
             />
           </div>
         </section>
@@ -271,12 +273,14 @@
               :size="'medium'"
               :outline="true"
               :btn-names="'재생성'"
+              @click="onApiRegist(true)"
             />
             &nbsp;
             <c-button
               :size="'medium'"
               :outline="true"
               :btn-names="'삭제'"
+              @click="onApiDelete"
             />
           </div>
         </div>
@@ -295,7 +299,8 @@
             <p class="mb30">생성시 Secret key는 팝업에서 1회만 확인 가능합니다.</p>
             <c-button
               :size="'medium'"
-              :btn-names="btnCreate"
+              :btn-names="'생성하기'"
+              @click="onApiRegist"
             />
           </div>
         </section>
@@ -305,6 +310,133 @@
 
       </div>
     </div>
+    <!-- Start : [sshkey & apikey] SSH Key&API Key - 등록 -->
+    <c-dialog
+      v-model:visible="sshRegistModal"
+      :message="'SSH Key 등록'"
+      :size="'large'"
+    >
+      <template #contents>
+        <section class="section">
+          <p class="sub_title">이름</p>
+          <div class="c_inpgroup">
+            <c-input-text
+              ref="refSshKeyName"
+              v-model:value="sshKeyName"
+              outlined
+              placeholder="최소 2자 최대 30자 입력"
+              clearable
+              class="wsize_full"
+              :rules="nameRules"
+            />
+          </div>
+        </section>
+        <section class="section relative">
+          <p class="sub_title">Public key</p>
+          <label class="c_file btntype absolute top-20 right">
+            <input
+              type="file"
+              @update:model-value="val => { files = val }"
+            />
+            <span class="file_text">파일업로드</span>
+          </label>
+          <div class="c_inpgroup">
+            <c-input-text
+              v-model:value="sshKey"
+              outlined
+              bottom-slots
+              type="textarea"
+              placeholder="다음으로 시작하는 SSH Key를 지원합니다.&#10;‘ssh-rsa’, ‘ssh-ed25519’, ‘ecdsa-sha2-nistp256’, ‘ecdsa-sha2-nistp384’, ‘ecdsa-sha2-nistp521’, ‘sk-ecdsa-sha2-nistp256@openssh.com’, ‘sk-ssh-ed25519@openssh.com’"
+              clearable
+              counter
+              :error="sshKeyError"
+              :maxlength="1000"
+              class="wsize_full hsize244"
+              :input-style="{height: '100%'}"
+              @update="onSshUpdate"
+            >
+              <template #error>
+                유효한 Public Key를 등록해주세요.
+              </template>
+            </c-input-text>
+          </div>
+        </section>
+      </template>
+      <template #footer>
+        <c-button
+          :outline="true"
+          :btn-names="'취소'"
+          @click="sshRegistModal = false"
+        />
+        <c-button
+          :btn-names="'저장'"
+          :disabled="!sshIsAvailableSave"
+          @click="onSshKeyRegist"
+        />
+      </template>
+    </c-dialog>
+    <!-- End : [sshkey & apikey] SSH Key&API Key - 등록 -->
+
+    <!-- Start : [sshkey & apikey] API Key 생성 -->
+    <c-dialog
+      v-model:visible="apiIssueModal"
+      :message="'API Key 생성'"
+      :size="'medium'"
+    >
+      <template #contents>
+        <q-banner class="c_banner caution small">
+          <template v-slot:avatar>
+            <q-icon class="noti" />
+          </template>
+          <div class="bn_head">
+            <strong class="title">주의</strong>
+          </div>
+          <div class="bn_body">
+            Secret Key는 최초 1회만 확인 가능합니다. 복사 후 이용해주세요.
+          </div>
+        </q-banner>
+        <section class="section">
+          <p class="sub_title">Access Key</p>
+          <div class="c_inpgroup keygroup">
+            <c-input-text
+              v-model:value="accessKey"
+              outlined
+              disable
+            />
+            <c-button
+              class="copy"
+              :only-icon="true"
+            >
+              <i class="ico copy" />
+            </c-button>
+          </div>
+        </section>
+        <section class="section">
+          <p class="sub_title">Secret Key</p>
+          <div class="c_inpgroup keygroup">
+            <c-input-text
+              outlined
+              v-model:value="secretKey"
+              disable
+            />
+            <c-button
+              class="copy"
+              :only-icon="true"
+            >
+              <i class="ico copy" />
+            </c-button>
+          </div>
+        </section>
+      </template>
+      <template #footer>
+        <c-button
+          :btn-names="'확인'"
+          @click="apiIssueModal = false"
+        />
+      </template>
+    </c-dialog>
+    <!-- End : [sshkey & apikey] API Key 생성 -->
+
     <!-- TODO: TBD 개발 -->
     <!-- Start : [내정보] LDAP 로그인(오픈 이후 개발) -->
     <!-- <q-dialog
@@ -360,11 +492,12 @@
 <script setup>
 import {
   ref,
-  onBeforeMount,
-  computed
+  computed,
+  nextTick
 } from "vue";
 import { useMeta } from "quasar";
 import { useRoute, onBeforeRouteUpdate } from "vue-router";
+import { useCommonStore } from "stores/useCommonStore.js";
 import { $utils } from "src/utils/utils";
 
 import {
@@ -375,6 +508,9 @@ import {
 import CInputText from "components/common/CInputText.vue";
 import CTab from "components/common/CTab.vue";
 import CButton from "components/common/CButton.vue";
+import CDialog from "components/common/CDialog.vue";
+import { $useCmFn } from "src/composables/useCommonFunction";
+import { storeToRefs } from "pinia";
 
 const title = ref("Account");
 useMeta(() => ({
@@ -382,6 +518,7 @@ useMeta(() => ({
 }));
 const ptitle = ref(title);
 const route = useRoute();
+const { me } = storeToRefs(useCommonStore());
 const { workspaceId } = route.params;
 
 const userName = ref(null);
@@ -418,7 +555,6 @@ onBeforeRouteUpdate((to) => {
 });
 // route hash값 존재시 탭이동 끝
 
-const userId = ref(0);
 const modifyInfo = ref({
   name: "",
   description: ""
@@ -444,17 +580,17 @@ const headers = [
 ];
 const sshKeys = ref([]);
 const accessKey = ref("");
+const secretKey = ref("");
 const actionButtons = [
   { name: "삭제", event: "delete" },
 ];
 
-const onActions = (eventName, rowData) => {
-  console.log(eventName, rowData);
-};
-
+/**
+ * workspace 내정보 가져오기
+ */
 const getMe = async () => {
   try {
-    const myInfo = await WorkspaceService.getMemberInfo(workspaceId, userId.value);
+    const myInfo = await WorkspaceService.getMemberInfo(workspaceId, me.value.id);
     userInfo.value = myInfo;
     modifyInfo.value.description = {
       name: myInfo.name,
@@ -466,26 +602,31 @@ const getMe = async () => {
     return false;
   }
 };
+/**
+ * 초기화
+ */
 const init = async () => {
   try {
-    const { id } = await UserService.getMe();
-    userId.value = id;
-
     const [myInfo, projects, keys, apis] = await Promise.all([
-      WorkspaceService.getMemberInfo(workspaceId, userId.value),
-      ProjectService.getUserProjects(workspaceId, userId.value),
-      UserService.getSSHKeys(userId.value),
-      UserService.getApiKeys(userId.value),
+      WorkspaceService.getMemberInfo(workspaceId, me.value.id),
+      ProjectService.getUserProjects(workspaceId, me.value.id),
+      UserService.getSSHKeys(me.value.id),
+      UserService.getApiKeys(me.value.id),
     ]);
     userInfo.value = myInfo;
     userProjects.value = projects.projects;
     sshKeys.value = keys.ssh_keys;
     accessKey.value = apis.access_key;
   } catch (e) {
-    console.log(e);
+    console.error(e);
     return false;
   }
 };
+init();
+
+/**
+ * 내정보 수정 버튼 클릭
+ */
 const onEditStart = () => {
   modifyInfo.value = {
     name: userInfo.value.name,
@@ -493,6 +634,9 @@ const onEditStart = () => {
   };
   editInfoModel.value = true;
 };
+/**
+ * 내정보 변경 저장
+ */
 const onEditSave = async (isSave) => {
   if (!isSave) {
     editInfoModel.value = false;
@@ -511,9 +655,147 @@ const onEditSave = async (isSave) => {
   }
 };
 
-onBeforeMount(() => {
-  init();
-});
+const sshRegistModal = ref(false);
+const apiIssueModal = ref(false);
+const refSshKeyName = ref("");
+const sshKeyName = ref("");
+const sshKey = ref("");
+const sshKeyError = ref(false);
+const sshIsAvailableSave = computed(() => !refSshKeyName.value?.getHasError && Boolean(sshKey.value));
+// const sshKeyStartAt = [
+//   "ssh-rsa", "ssh-ed25519", "ecdsa-sha2-nistp256", "ecdsa-sha2-nistp384", "ecdsa-sha2-nistp521", "sk-ecdsa-sha2-nistp256@openssh.com", "sk-ssh-ed25519@openssh.com"
+// ];
+// const sshKeyRules = [
+//   (value) => (sshKeyStartAt.includes(value)) || "유효한 Public Key를 등록해주세요.",
+// ];
+
+/**
+ * SSH Key Modal Init
+ */
+const sshModalInit = () => {
+  sshKeyName.value = "";
+  sshKey.value = "";
+  sshKeyError.value = false;
+  sshRegistModal.value = false;
+};
+const onSshUpdate = () => {
+  sshKeyError.value = Boolean(!sshKey.value);
+};
+/**
+ * SSH key 등록
+ */
+const onSshKeyRegist = async () => {
+  const params = {
+    name: sshKeyName.value,
+    description: "",
+    public_key: sshKey.value
+  };
+  try {
+    await UserService.registSSHKeys(me.value.id, params);
+    $useCmFn.onNotify({
+      message: "SSH Key 등록이 완료되었습니다.",
+      type: "positive"
+    });
+    await nextTick();
+    const keys = await UserService.getSSHKeys(me.value.id);
+    sshKeys.value = keys.ssh_keys;
+    await sshModalInit();
+  } catch (e) {
+    console.log("Error >>>", e.response);
+    $useCmFn.onNotify({
+      message: "SSH Key 등록에 실패하였습니다. 다시 시도해주세요.",
+      type: "negative"
+    });
+    sshKeyError.value = true;
+    return false;
+  }
+};
+
+/**
+ * SSH Key 삭제
+ */
+const onActions = async (eventName, rowData) => {
+  if (eventName === "delete") {
+    $useCmFn.onMessage({
+      message: "SSH Key를 삭제하시겠습니까?",
+      positive: {
+        value: "확인",
+        callback: async () => {
+          try {
+            await UserService.delSSHKeys(me.value.id, rowData.id);
+            $useCmFn.onNotify({
+              message: "SSH Key 삭제가 완료되었습니다.",
+              type: "negative"
+            });
+            await nextTick();
+            const keys = await UserService.getSSHKeys(me.value.id);
+            sshKeys.value = keys.ssh_keys;
+          } catch (e) {
+            console.error(e);
+            $useCmFn.onNotify({
+              message: "SSH Key 삭제를 실패하였습니다. 다시 시도해주세요.",
+              type: "negative"
+            });
+            return false;
+          }
+        }
+      },
+      negative: {
+        value: "취소"
+      }
+    });
+  }
+};
+
+/**
+ * API Key 발행
+ */
+const onApiRegist = async (reIssue = false) => {
+  try {
+    const res = !reIssue
+      ? await UserService.createApiKeys(userInfo.value.id)
+      : await UserService.reIssueApiKeys(me.value.id, accessKey.value);
+    accessKey.value = res.access_key;
+    secretKey.value = res.secret_key;
+    apiIssueModal.value = true;
+  } catch (e) {
+    console.log(e.response);
+    $useCmFn.onNotify({
+      message: "API Key 생성을 실패하였습니다. 다시 시도해주세요.",
+      type: "negative"
+    });
+    return false;
+  }
+};
+const onApiDelete = () => {
+  $useCmFn.onMessage({
+    message: "API Key를 삭제하시겠습니까?",
+    positive: {
+      value: "확인",
+      callback: async () => {
+        try {
+          const res = await UserService.delApiKeys(me.value.id, accessKey.value);
+          console.log(res);
+          $useCmFn.onNotify({
+            message: "API Key 삭제가 완료되었습니다.",
+            type: "positive"
+          });
+          accessKey.value = null;
+        } catch (e) {
+          console.log(e.response);
+          $useCmFn.onNotify({
+            message: " API Key 삭제를 실패하였습니다. 다시 시도해주세요.",
+            type: "negative"
+          });
+          return false;
+        }
+      }
+    },
+    negative: {
+      value: "취소"
+    }
+  });
+};
 
 </script>
 

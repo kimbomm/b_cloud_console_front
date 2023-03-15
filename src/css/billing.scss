@@ -79,40 +79,28 @@
     .wsize450{width: 450px;}
   }
   /*  // instance, storage 공통 css */
-
   &.p-index{
-    .p-head{
-      .billing_btn{
-        .c_btn.line{
-          .ico{
-            background-image: url(/src/assets/images/icon/16/ico_money_normal.svg);
-          }
+    .c_btn.line{
+      .ico{
+        background-image: url(/src/assets/images/icon/16/ico_money_normal.svg);
+        &:focus, &:hover{
+          background-image: url(/src/assets/images/icon/16/ico_money_pressed.svg);
         }
       }
     }
-    .p-body{
-      .pay-notice{
-        margin-top: 16px;
-        color: $gray500; font-size: $fs14;
-      }
+    .pay-notice{
+      margin-top: 16px;
+      color: $gray500; font-size: $fs14;
     }
   }
-  &.p-detail{
-  }
-  &.p-member{
-  }
   &.p-storage{
-    .p-body{
-      .ins-wrap{
-        display: flex; justify-content: space-between; align-items: center;
-      }
+    .ins-wrap{
+      display: flex; justify-content: space-between; align-items: center;
     }
   }
   &.p-instance{
-    .p-body{
-      .ins-wrap{
-        display: flex; justify-content: space-between; align-items: center;
-      }
+    .ins-wrap{
+      display: flex; justify-content: space-between; align-items: center;
     }
   }
 }

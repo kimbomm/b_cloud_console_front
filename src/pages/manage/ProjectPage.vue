@@ -182,7 +182,7 @@
                 <div class="usage_box">
                   <p class="usage_title">
                     사용량
-                    <q-btn class="ibtn help">
+                    <c-button class="ibtn help">
                       <i class="ico help" /><span class="hidden">도움말</span>
                       <q-popup-edit
                         v-model="helpShow"
@@ -200,7 +200,7 @@
                           </p>
                         </div>
                       </q-popup-edit>
-                    </q-btn>
+                    </c-button>
                   </p>
                   <p class="com_tag"><i class="ico low" />0% ~ 50%</p>
                   <p class="com_tag"><i class="ico middle" />51% ~ 90%</p>
@@ -211,17 +211,17 @@
 
             <div class="r_set_inner">
               <div class="quota_set_btn">
-                <q-btn
-                  btnTypes="4"
-                  type="button"
-                  class="c_btn line medium"
+                <c-button
+                  :outline="true"
+                  :btn-names="'기본 할당량 설정'"
+                  :size="'medium'"
                   @click="workspaceMngSetModal = true"
                 >
                   <span class="txt">기본 할당량 설정</span>
-                </q-btn>
+                </c-button>
               </div>
               <div class="view_cont_num">
-                <CDropdown
+                <c-dropdown
                   v-model:selected="selectedBasic"
                   :label="label"
                   :options="options"
@@ -454,9 +454,7 @@
                 </div>
               </template>
             </EasyDataTable>
-          </div>
-          <div class="table_pagenav disflex_C">
-            <CPagination />
+            <c-pagination />
           </div>
         </div>
       </div>
@@ -589,8 +587,8 @@
         <!-- //.c_form -->
       </q-card-section>
       <q-card-actions class="c_dialog_foot">
-        <q-btn label="취소" class="line" v-close-popup />
-        <q-btn label="저장" class="primary" v-close-popup disable />
+        <c-button :outline="true" :btn-names="'취소'" v-close-popup />
+        <c-button :btn-names="'저장'" v-close-popup disable />
       </q-card-actions>
     </q-card>
   </q-dialog>
@@ -600,6 +598,7 @@
 import { ref } from "vue";
 import { useMeta } from "quasar";
 import CDropdown from "components/common/CDropdown.vue";
+import CButton from "src/components/common/CButton.vue";
 import CPagination from "components/common/CPagination.vue";
 
 const title = ref("Project");

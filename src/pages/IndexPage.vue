@@ -1,10 +1,10 @@
 <template>
   <q-page class="p-content p-console">
     <div class="p-head">
-      <h1 class="p-title">{{ ptitle }}</h1>
+      <h1 class="p-title">Dashboard</h1>
       <p class="desc">
         <i class="ico time" />
-        <span class="txt">업데이트 시간 <span class="time">2023.10.33 14:33</span></span>
+        <span class="txt">업데이트 시간 <span class="time">{{ updateTime }}</span></span>
       </p>
     </div>
     <!-- //.chead -->
@@ -555,85 +555,22 @@
       <div class="section notice-box">
         <p class="sub-title">Notice</p>
         <q-list class="c_collapse">
-          <q-expansion-item group="notigroup" default-opened header-class="collapse_head">
+          <q-expansion-item
+            v-for="notice in notices"
+            :key="notice.id"
+            group="notigroup"
+            header-class="collapse_head"
+          >
             <template v-slot:header>
-              <q-icon class="service" />
-              <q-item-section class="state"><strong>서비스</strong></q-item-section>
-              <q-item-section class="title"><span>스토리지 사용안내 제목입니다</span></q-item-section>
-              <q-item-section side class="date"><span>23.01.03 18:33</span></q-item-section>
+              <q-icon :class="NOTICE_TYPE[notice.type].class" />
+              <q-item-section class="state"><strong>{{ NOTICE_TYPE[notice.type].name }}</strong></q-item-section>
+              <q-item-section class="title"><span>{{ notice.title }}</span></q-item-section>
+              <!-- <q-item-section side class="date"><span>{{ $utils.paseseDate(new Date(notice.created_at).toUTCString(), "YY.MM.DD hh:mm") }}</span></q-item-section> -->
+              <q-item-section side class="date"><span>{{ $utils.paseseDate(notice.created_at, "YY.MM.DD HH:MM") }}</span></q-item-section>
             </template>
             <q-card class="collapse_body">
               <q-card-section>
-                <div class="text_data">
-                  스토리지 사용안내 드립니다.
-                  스토리지 용량을 초과해서 사용하실 경우 기존 사용금액보다 더 많은 사용금액을 지불 할 수 있습니다.
-                  스토리지 사용안내 드립니다.
-                  스토리지 용량을 초과해서 사용하실 경우 기존 사용금액보다 더 많은 사용금액을 지불 할 수 있습니다.
-                  스토리지 사용안내 드립니다.
-                  스토리지 용량을 초과해서 사용하실 경우 기존 사용금액보다 더 많은 사용금액을 지불 할 수 있습니다.
-                  스토리지 사용안내 드립니다.
-                  스토리지 용량을 초과해서 사용하실 경우 기존 사용금액보다 더 많은 사용금액을 지불 할 수 있습니다.
-                  스토리지 사용안내 드립니다.
-                  스토리지 용량을 초과해서 사용하실 경우 기존 사용금액보다 더 많은 사용금액을 지불 할 수 있습니다.
-                  스토리지 사용안내 드립니다.
-                  스토리지 용량을 초과해서 사용하실 경우 기존 사용금액보다 더 많은 사용금액을 지불 할 수 있습니다.
-                </div>
-                <a href="#" class="alink">자세히 보기</a>
-              </q-card-section>
-            </q-card>
-          </q-expansion-item>
-
-          <q-expansion-item group="notigroup" header-class="collapse_head">
-            <template v-slot:header>
-              <q-icon class="community" />
-              <q-item-section class="state"><strong>공동체</strong></q-item-section>
-              <q-item-section class="title"><span>스토리지 사용안내 제목입니다</span></q-item-section>
-              <q-item-section side class="date"><span>23.01.03 18:33</span></q-item-section>
-            </template>
-            <q-card class="collapse_body">
-              <q-card-section>
-                <div class="text_data">
-                  스토리지 사용안내 드립니다.
-                  스토리지 용량을 초과해서 사용하실 경우 기존 사용금액보다 더 많은 사용금액을 지불 할 수 있습니다.
-                  스토리지 사용안내 드립니다.
-                  스토리지 용량을 초과해서 사용하실 경우 기존 사용금액보다 더 많은 사용금액을 지불 할 수 있습니다.
-                  스토리지 사용안내 드립니다.
-                  스토리지 용량을 초과해서 사용하실 경우 기존 사용금액보다 더 많은 사용금액을 지불 할 수 있습니다.
-                  스토리지 사용안내 드립니다.
-                  스토리지 용량을 초과해서 사용하실 경우 기존 사용금액보다 더 많은 사용금액을 지불 할 수 있습니다.
-                  스토리지 사용안내 드립니다.
-                  스토리지 용량을 초과해서 사용하실 경우 기존 사용금액보다 더 많은 사용금액을 지불 할 수 있습니다.
-                  스토리지 사용안내 드립니다.
-                  스토리지 용량을 초과해서 사용하실 경우 기존 사용금액보다 더 많은 사용금액을 지불 할 수 있습니다.
-                </div>
-                <a href="#" class="alink">자세히 보기</a>
-              </q-card-section>
-            </q-card>
-          </q-expansion-item>
-
-          <q-expansion-item group="notigroup" header-class="collapse_head">
-            <template v-slot:header>
-              <q-icon class="work" />
-              <q-item-section class="state"><strong>작업</strong></q-item-section>
-              <q-item-section class="title"><span>스토리지 사용안내 제목입니다</span></q-item-section>
-              <q-item-section side class="date"><span>23.01.03 18:33</span></q-item-section>
-            </template>
-            <q-card class="collapse_body">
-              <q-card-section>
-                <div class="text_data">
-                  스토리지 사용안내 드립니다.
-                  스토리지 용량을 초과해서 사용하실 경우 기존 사용금액보다 더 많은 사용금액을 지불 할 수 있습니다.
-                  스토리지 사용안내 드립니다.
-                  스토리지 용량을 초과해서 사용하실 경우 기존 사용금액보다 더 많은 사용금액을 지불 할 수 있습니다.
-                  스토리지 사용안내 드립니다.
-                  스토리지 용량을 초과해서 사용하실 경우 기존 사용금액보다 더 많은 사용금액을 지불 할 수 있습니다.
-                  스토리지 사용안내 드립니다.
-                  스토리지 용량을 초과해서 사용하실 경우 기존 사용금액보다 더 많은 사용금액을 지불 할 수 있습니다.
-                  스토리지 사용안내 드립니다.
-                  스토리지 용량을 초과해서 사용하실 경우 기존 사용금액보다 더 많은 사용금액을 지불 할 수 있습니다.
-                  스토리지 사용안내 드립니다.
-                  스토리지 용량을 초과해서 사용하실 경우 기존 사용금액보다 더 많은 사용금액을 지불 할 수 있습니다.
-                </div>
+                <div class="text_data" v-html="notice.content" />
                 <a href="#" class="alink">자세히 보기</a>
               </q-card-section>
             </q-card>
@@ -645,14 +582,17 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onBeforeUnmount } from "vue";
 import { useMeta } from "quasar";
+import { $utils } from "src/utils/utils";
+import { NoticeService } from "src/services";
 
-const title = ref("Dashboard");
 useMeta(() => ({
-  title: title.value,
+  title: "Dashboard",
 }));
-const ptitle = ref(title);
+
+const updateTime = $utils.paseseDate(new Date(), "YYYY.MM.DD HH:MM");
+
 const slide = ref(1);
 const slide2 = ref(1);
 const instanceData = ref(true);
@@ -683,6 +623,40 @@ const stores = ref([
     title: "삭제중", caption: "스토리지 설명", current: "3,000", total: "10,000", value: 100
   },
 ]);
+
+// 공지사항
+const notices = ref([]);
+const NOTICE_TYPE = {
+  service: {
+    class: "service",
+    name: "서비스"
+  },
+  community: {
+    class: "community",
+    name: "공동체"
+  },
+  work: {
+    class: "work",
+    name: "작업"
+  },
+};
+const getNotices = async () => {
+  const res = await NoticeService.getNotices();
+  notices.value = res.notices;
+};
+getNotices();
+// 공지사항 끝
+
+// 10분단위 업데이트
+const interval = setInterval(() => {
+  getNotices();
+  updateTime.value = $utils.paseseDate(new Date(), "YYYY.MM.DD HH:MM");
+}, 10 * 60 * 1000);
+
+onBeforeUnmount(() => {
+  clearInterval(interval);
+});
+// 10분단위 업데이트 끝
 </script>
 
 <style lang="scss" scoped>

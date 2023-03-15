@@ -32,7 +32,8 @@ const state = computed(() => {
       text = "저장(개인)";
       className = "green";
       break;
-      /* 임시 추가 */
+    /* 임시 추가 */
+      // 개발추가예정  saved일 경우  image id로 공유 여부 확인!!!
     case "saved":
       text = "저장(개인)";
       className = "green";

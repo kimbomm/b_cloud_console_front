@@ -11,7 +11,7 @@
       <div class="top-btn">
         <h1 class="p-title">{{ ptitle }}</h1>
         <div class="csv_btn">
-          <c-button :size="'medium'" :btn-names="btnName">
+          <c-button :outline="true" :size="'medium'" :btn-names="btnName">
             <template #prepend>
               <i class="ico plus"></i>
             </template>
@@ -92,7 +92,7 @@
                 <q-icon name="search" class="ico_search" />
               </template>
             </q-select>
-            <CDropdown
+            <c-dropdown
               v-model:selected="selectedBasic"
               :label="optLabel"
               :options="optNumber"
@@ -121,10 +121,8 @@
               <span class="txt">{{ item.useageFee }}</span>
             </template>
           </EasyDataTable>
+          <c-pagination />
         </section>
-        <div class="group-page">
-          <CPagination />
-        </div>
       </template>
     </div>
   </q-page>

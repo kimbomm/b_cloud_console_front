@@ -11,7 +11,7 @@
       <div class="top-btn">
         <h1 class="p-title">{{ ptitle }}</h1>
         <div class="csv_btn">
-          <c-button :size="'medium'" :btn-names="btnName">
+          <c-button :outline="true" :size="'medium'" :btn-names="btnName">
             <template #prepend>
               <i class="ico plus"></i>
             </template>
@@ -80,7 +80,7 @@
           </q-tabs>
         </div>
         <div class="table_set">
-          <CDropdown
+          <c-dropdown
             v-model:selected="selectedBasic"
             :label="optLabel"
             :options="optNumber"
@@ -89,33 +89,29 @@
         </div>
       </div>
       <template v-if="defaultData == true">
-        <div class="group-table">
-          <section class="section">
-            <EasyDataTable
-              :headers="headers"
-              :items="items"
-              :hide-footer="true"
-              empty-message="정보가 없습니다."
-              @click-row="showRow"
-            >
-              <!-- date -->
-              <template #item-date="item">
-                <span class="txt">{{ item.date }}</span>
-              </template>
-              <!-- storageAmount -->
-              <template #item-storageAmount="item">
-                <span class="txt">{{ item.storageAmount }}</span>
-              </template>
-              <!-- useageFee -->
-              <template #item-useageFee="item">
-                <span class="txt">{{ item.useageFee }}</span>
-              </template>
-            </EasyDataTable>
-          </section>
-          <div class="group-page">
-            <CPagination />
-          </div>
-        </div>
+        <section class="section">
+          <EasyDataTable
+            :headers="headers"
+            :items="items"
+            :hide-footer="true"
+            empty-message="정보가 없습니다."
+            @click-row="showRow"
+          >
+            <!-- date -->
+            <template #item-date="item">
+              <span class="txt">{{ item.date }}</span>
+            </template>
+            <!-- storageAmount -->
+            <template #item-storageAmount="item">
+              <span class="txt">{{ item.storageAmount }}</span>
+            </template>
+            <!-- useageFee -->
+            <template #item-useageFee="item">
+              <span class="txt">{{ item.useageFee }}</span>
+            </template>
+          </EasyDataTable>
+          <c-pagination />
+        </section>
       </template>
       <!-- 서비스 준비중입니다. -->
       <template v-else>
@@ -126,8 +122,7 @@
             :hide-footer="true"
             :body-row-class-name="bodyRowClassNameFunction"
             empty-message="서비스 준비중입니다."
-          >
-          </EasyDataTable>
+          />
         </section>
       </template>
     </div>
@@ -140,7 +135,7 @@ import CButton from "components/common/CButton.vue";
 import CDropdown from "components/common/CDropdown.vue";
 import CPagination from "components/common/CPagination.vue";
 
-const defaultData = ref(true);
+const defaultData = ref(false);
 const title = ref("워크스페이스 이용 요금");
 const btnName = ref("CSV 다운로드");
 
