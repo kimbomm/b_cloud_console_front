@@ -15,7 +15,7 @@
         </q-input>
       </div>
       <div class="select_drop">
-        <CDropdown :label="optLabel" :options="optNumber" class="auto_size" />
+        <c-dropdown :label="optLabel" :options="optNumber" class="auto_size" />
       </div>
     </div>
     <section class="section">
@@ -91,5 +91,4 @@ getBaseImge();
 <style lang="scss" scoped="scoped">
 @import "src/css/images.scss";
 @import "src/css/table.scss";
-@import "src/css/page.scss";
 </style>

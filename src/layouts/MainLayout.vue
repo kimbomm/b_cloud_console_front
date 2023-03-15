@@ -1,22 +1,34 @@
 <template>
-  <q-layout ref="input" view="hHh Lpr lff" class="l-wrap l-console"
-  :class="{iconMode: drawer, textMode: sideClick}">
+  <q-layout
+    ref="input"
+    view="hHh Lpr lff"
+    class="l-wrap l-console"
+    :class="{ iconMode: drawer, textMode: sideClick }"
+  >
     <q-header class="l-header">
       <q-toolbar>
-        <q-btn flat @click="drawer = !drawer" round dense icon="menu" class="c_icon menu" />
-        <top-nav
-          :workspaces="workspaces"
-          @changeWorkspace="changeWorkspace"
+        <q-btn
+          flat
+          @click="drawer = !drawer"
+          round
+          dense
+          icon="menu"
+          class="c_icon menu"
         />
+        <top-nav :workspaces="workspaces" @changeWorkspace="changeWorkspace" />
       </q-toolbar>
     </q-header>
 
     <aside class="l-sidebar fixed">
-      <q-btn flat @click="sideClick = !sideClick" round dense icon="menu" class="c_icon menu" />
-      <side-bar
-        :project-menu="projectMenu"
-        @updateMenu="updateMenu"
+      <q-btn
+        flat
+        @click="sideClick = !sideClick"
+        round
+        dense
+        icon="menu"
+        class="c_icon menu"
       />
+      <side-bar :project-menu="projectMenu" @updateMenu="updateMenu" />
     </aside>
 
     <q-page-container class="l-container">
@@ -27,16 +39,9 @@
 </template>
 
 <script setup>
-import {
-  ref,
-  watch
-} from "vue";
+import { ref, watch } from "vue";
 import { useMeta } from "quasar";
-import {
-  UserService,
-  WorkspaceService,
-  ProjectService,
-} from "src/services";
+import { UserService, WorkspaceService, ProjectService } from "src/services";
 import { useCommonStore } from "stores/useCommonStore.js";
 import { useProjectStore } from "stores/useProjectStore.js";
 import { storeToRefs } from "pinia";
@@ -66,11 +71,13 @@ const { setIsProjectChange } = useProjectStore();
 const workspaces = ref([]);
 
 const initMe = async () => {
-  await UserService.getMe().then((user) => {
-    setMe(user);
-  }).catch(() => {
-    console.log("유저 정보가 없습니다.");
-  });
+  await UserService.getMe()
+    .then((user) => {
+      setMe(user);
+    })
+    .catch(() => {
+      console.log("유저 정보가 없습니다.");
+    });
 };
 
 /**
@@ -79,7 +86,10 @@ const initMe = async () => {
 const projectStore = useProjectStore();
 const projectMenu = ref([]);
 const getUserProjects = async (workspaceId) => {
-  const { projects } = await ProjectService.getUserProjects(workspaceId, me.value.id);
+  const { projects } = await ProjectService.getUserProjects(
+    workspaceId,
+    me.value.id
+  );
   projectStore.setUseProjects(projects);
 
   const sortedList = projects.sort((a, b) => a.id - b.id);
@@ -125,12 +135,15 @@ const changeWorkspace = (workspace) => {
 /**
  * 설명: 워크스페이스 > 프로젝트 > 대시보드 > 프로젝트 변경시
  */
-watch(() => isProjectChange.value, async () => {
-  if (isProjectChange.value) {
-    await updateMenu();
-    await setIsProjectChange(false);
+watch(
+  () => isProjectChange.value,
+  async () => {
+    if (isProjectChange.value) {
+      await updateMenu();
+      await setIsProjectChange(false);
+    }
   }
-});
+);
 
 // const route = useRoute();
 // const router = useRouter();
@@ -188,5 +201,4 @@ watch(() => isProjectChange.value, async () => {
 //   onProtect();
 // });
 </script>
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>
