@@ -2,29 +2,33 @@
   <template v-if="imageList.length > 0">
     <div class="table_set">
       <div class="c_inpgroup">
-        <q-input
+        <c-input-text
           outlined
-          v-model="filters"
+          v-model="searchData.query"
           placeholder="이름, 설명, 기본이미지 검색"
-          clearable
           class="wsize_full"
+          @update="onSearch"
         >
-          <template v-slot:prepend>
-            <q-icon name="search" class="ico_search" />
+        <template #prepend>
+          <q-icon name="search" class="ico_search" />
           </template>
-        </q-input>
+        </c-input-text>
       </div>
       <div class="select_drop">
-        <CDropdown :label="optLabel" :options="optNumber" class="auto_size" />
+        <CDropdown :label="optLabel" :options="optNumber" class="auto_size"
+        v-model:selected="model"
+         />
       </div>
     </div>
     <section class="section">
       <easy-data-table
         :headers="headers"
-        :items="imageList"
+        :items="makeSearchList"
         :hide-footer="true"
         empty-message="생성한 내 이미지가 없습니다."
         @click-row="showRow"
+        rowsPerPage="50"
+
       >
 
         <!-- id -->
@@ -76,7 +80,8 @@
         </template>
       </easy-data-table>
     </section>
-    <c-pagination />
+    <c-pagination @update:current="setPage" :maxPage="paging.maxPage" :total="paging.total"/>
+
   </template>
   <template v-else>
     <div class="com_nondata_area">
@@ -178,7 +183,9 @@
 </template>
 
 <script setup>
-import { ref, reactive, watch } from "vue";
+import {
+  ref, reactive, watch, computed
+} from "vue";
 import { imageService, ProjectService } from "src/services";
 import { useRoute } from "vue-router";
 import { $utils } from "src/utils/utils";
@@ -186,6 +193,7 @@ import { $useCmFn } from "src/composables/useCommonFunction.js";
 import { useCommonStore } from "src/stores/useCommonStore";
 import { useProjectStore } from "src/stores/useProjectStore";
 import CDropdown from "components/common/CDropdown.vue";
+import CInputText from "components/common/CInputText.vue";
 import CPagination from "src/components/common/CPagination.vue";
 import CBadgeState from "src/components/common/CBadgeState.vue";
 import CDialog from "src/components/common/CDialog.vue";
@@ -196,13 +204,26 @@ const commonStore = useCommonStore();
 const projectStore = useProjectStore();
 const { workspaceId } = route.params;
 const workspaceName = ref("");
-console.log("commonStore.myWorkspaces >>>", commonStore.myWorkspaces);
 workspaceName.value = commonStore.myWorkspaces.find((item) => item.id === parseInt(workspaceId, 10)).name;
 
 // 상태 state
 const popupState = reactive({});
-const filters = ref("");
 const optLabel = ref("10");
+const searchData = ref({
+  query: "",
+  size: 10,
+});
+const model = ref(null);
+
+watch(() => model.value, (newValue) => {
+  searchData.value.size = newValue.label;
+});
+
+const setPage = (num) => {
+  console.log("sdf", num);
+  searchData.value.page = num;
+};
+
 // n개씩 보기
 const optNumber = ref([
   { label: "10", value: 0 },
@@ -210,6 +231,21 @@ const optNumber = ref([
   { label: "50", value: 2 },
 ]);
 const imageList = ref([]);
+
+const paging = ref({
+  maxPage: 5,
+  total: computed(() => Math.ceil(imageList.value.length / searchData.value.size))
+
+});
+
+const makeSearchList = computed(() => $utils.searchList(imageList.value, ["name", "base_image.name"], searchData.value.query));
+
+// const onSearch = () => {
+//   const users = $utils.searchList(imageList.value, ["name", "description"], searchData.value.query);
+//   resultList.value = users;
+//   console.log("resultList.value", resultList.value);
+// };
+
 const headers = [
   {
     text: "이름",
