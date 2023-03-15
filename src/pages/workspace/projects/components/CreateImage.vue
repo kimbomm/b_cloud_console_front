@@ -57,7 +57,7 @@ import CDialog from "src/components/common/CDialog.vue";
 import CButton from "src/components/common/CButton.vue";
 import CInputText from "src/components/common/CInputText.vue";
 
-const emit = defineEmits(["update:projectInstanceImgCreateModal"]);
+const emit = defineEmits(["update:projectInstanceImgCreateModal", "getInstances", "toggleActionButtons"]);
 const route = useRoute();
 
 const props = defineProps({
@@ -137,12 +137,19 @@ const createImage = async () => {
 
   try {
     await InstanceService.saveIntanceImage(route.params.projectId, props.currentSelected.id, data);
-    triggerImgSuccess();
+    setTimeout(() => {
+      triggerImgSuccess();
+      resetInput();
+    }, 2500);
+
+    setTimeout(() => {
+      emit("getInstances");
+    }, 3500);
   } catch (error) {
     triggerImgWarning();
     console.log(error);
   }
-  resetInput();
+  emit("toggleActionButtons");
 };
 
 </script>

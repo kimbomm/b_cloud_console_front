@@ -167,7 +167,7 @@
     </div>
 
     <div class="table_pagenav disflex_C">
-      <c-pagination @update:current="test1"/>
+      <c-pagination @update:current="setPage"/>
 
     </div>
   </template>
@@ -239,6 +239,8 @@
     :projectInstanceImgCreateModal="projectInstanceImgCreateModal"
     v-model="projectInstanceImgCreateModal"
     :currentSelected="currentSelected"
+    @getInstances="getInstances"
+    @toggleActionButtons="toggleActionButtons"
   />
 </template>
 <script setup>
@@ -355,11 +357,21 @@ const isCurrentTab = props.tabModel === "instances";
 
 const emit = defineEmits(["update:instanceTotal"]);
 
-const dataParams = ref({});
 const searchData = ref({
   query: "",
   status: [],
   size: 10,
+});
+const dataParams = ref({
+  query: computed(() => searchData.value.query),
+  page: computed(() => searchData.value.page),
+  size: computed(() => searchData.value.size.size),
+  status: computed(() => {
+    const result = searchData.value.status.flatMap((item) => (Object.keys(item).includes("status") ? item.status : []));
+    if (searchData.value.status.some((item) => item.value === 0)) result.length = 0;
+    return result.length > 0 ? result.join(",") : result;
+  }),
+
 });
 
 const actionButtons = ref([]);
@@ -403,15 +415,10 @@ const getInstances = async () => {
 
 /* * 초기화 */
 const initRouterData = () => {
-  dataParams.value = {
-    page: 1,
-    size: 10,
-    query: "",
-    status: [],
-  };
   searchData.value = {
     query: "",
     status: [],
+    page: 1,
   };
 };
 
@@ -423,9 +430,9 @@ const createInstance = () => {
   });
 };
 
-const pageReset = () => {
-  searchData.value.page = 1;
-};
+// const pageReset = () => {
+//   // searchData.value.page = 1;
+// };
 
 /*
  * 설명 :  인스턴스 검색,필터
@@ -434,19 +441,8 @@ const pageReset = () => {
 watch(
   () => searchData.value,
   throttle(async (newValue) => {
-    dataParams.value.query = newValue.query || null;
-
-    if (newValue.status) {
-      const result = newValue.status.flatMap((item) => (Object.keys(item).includes("status") ? item.status : []));
-      if (newValue.status.some((item) => item.value === 0)) result.length = 0;
-      dataParams.value.status = result.length > 0 ? result.join(",") : result;
-    }
     if (newValue.size) {
-      dataParams.value.size = newValue.size.size;
-      pageReset();
-    }
-    if (newValue.page) {
-      dataParams.value.page = newValue.page;
+      searchData.value.page = 1;
     }
     getInstances();
   }, 800),
@@ -458,7 +454,7 @@ onMounted(async () => {
   }
 });
 
-const test1 = (num) => {
+const setPage = (num) => {
   console.log("sdf", num);
   searchData.value.page = num;
 };
