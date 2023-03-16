@@ -38,8 +38,13 @@
 </template>
 <script setup>
 import {
-  ref, watch, onMounted, computed
+  ref,
+  watch,
+  defineEmits,
+  onMounted,
+  computed,
 } from "vue";
+
 import { $utils } from "src/utils/utils";
 
 const props = defineProps({

@@ -122,7 +122,9 @@
   </div>
 </template>
 <script setup>
-import { ref, computed, defineEmits, toRef } from "vue";
+import {
+  ref, computed, defineEmits, toRef
+} from "vue";
 
 const table = ref(null);
 const selected = ref([]);

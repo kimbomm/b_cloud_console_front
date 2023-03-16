@@ -57,13 +57,13 @@
 
         <div class="table_set">
           <div class="l_set_inner">
-            <div class="c_inpgroup">
+            <!-- <div class="c_inpgroup"> -->
               <q-input outlined v-model="suffix" placeholder="이름 이메일 검색">
                 <template v-slot:prepend>
                   <q-icon name="search" class="ico_search" />
                 </template>
               </q-input>
-            </div>
+
           </div>
 
           <div class="r_set_inner">

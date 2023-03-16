@@ -29,7 +29,7 @@
 </template>
 <script setup>
 import {
-  onMounted, ref, computed, useAttrs, watch, defineEmits
+  onMounted, ref, computed, defineEmits, useAttrs, watch
 } from "vue";
 
 const emit = defineEmits(["update:selected"]);
@@ -42,42 +42,42 @@ const props = defineProps({
    */
   label: {
     type: String,
-    default: "전체",
+    default: "전체"
   },
   /**
    * 설명: disabled 여부
    */
   disabled: {
     type: Boolean,
-    default: false,
+    default: false
   },
   /**
    * 설명: outlined 여부
    */
   outlined: {
     type: Boolean,
-    default: false,
+    default: false
   },
   /**
    * 설명: filled 여부
    */
   filled: {
     type: Boolean,
-    default: false,
+    default: false
   },
   /**
    * 설명: multi-select 여부
    */
   multiple: {
     type: Boolean,
-    default: false,
+    default: false
   },
   /**
    * 설명: selectbox option list
    */
   options: {
     type: Array,
-    default: () => [],
+    default: () => []
   },
   /**
    * 설명: selectbox 형태
@@ -86,16 +86,16 @@ const props = defineProps({
    */
   type: {
     type: String,
-    default: "",
+    default: ""
   },
   popupContentClass: {
     type: String,
-    default: "",
+    default: ""
   },
   class: {
     type: String,
-    default: "",
-  },
+    default: ""
+  }
 });
 
 /**
@@ -117,12 +117,9 @@ const onUpdate = (value) => {
 /**
  * 설명: 최초 페이지 dropdown value값 초기화시 셋팅
  */
-watch(
-  () => attrs.selected,
-  (cur) => {
-    lazyValue.value = cur;
-  }
-);
+watch(() => attrs.selected, (cur) => {
+  lazyValue.value = cur;
+});
 
 onMounted(() => {
   lazyValue.value = attrs.selected;

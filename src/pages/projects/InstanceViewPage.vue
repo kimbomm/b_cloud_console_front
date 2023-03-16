@@ -144,7 +144,7 @@
                 <div class="user_data_value">
                   <q-btn @click="triggerSuccess('top-right')">
                     <span class="ssh_btn">ssh</span>
-                  </q-btn>
+                </q-btn>
                   <q-btn>
                     <span class="JupyterLab_btn">JupyterLab</span>
                   </q-btn>

@@ -303,8 +303,8 @@
     }
   }
   .com_m_cont{
-    .change_tab_btn{
-      padding:60px 0 30px;
+    .c_tabs{
+      padding-top :60px;
     }
     .l_set_inner{
       .c_inpgroup{
@@ -326,6 +326,7 @@
       }
       .c_selectgroup{
         display: inline-block;
+        margin-left: 10px;
       }
     }
     .r_set_inner{
@@ -670,8 +671,7 @@
               justify-content: flex-end;
               margin-top: 40px;
               .line,.primary{
-                width: 70px;
-                margin-left: 10px;
+                margin-right: 10px;
               }
             }
           }
