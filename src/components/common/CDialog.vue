@@ -1,6 +1,6 @@
 <template>
   <q-dialog
-    :model-value="visible"
+    :model-value="lazyVisible"
     :persistent="persistent"
     :class="`c_dialog ${size}`"
   >

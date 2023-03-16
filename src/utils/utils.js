@@ -1,6 +1,8 @@
 /* eslint-disable class-methods-use-this */
 import { date } from "quasar";
+import { useCommonStore } from "stores/useCommonStore.js";
 
+const commonStore = useCommonStore();
 class Utils {
   /**
    * 설명: null check 함수
@@ -37,11 +39,14 @@ class Utils {
       case "en":
         regExp = /[a-zA-Z]/g;
         break;
+      case "email":
+        regExp = /^[\w-\\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+        break;
       default:
         break;
     }
 
-    return regExp.text(value);
+    return regExp.test(value);
   }
 
   /**
@@ -71,36 +76,8 @@ class Utils {
    * app : 애플리케이션
    */
   getRoleName(role, type = "workspace") {
-    let roleName = "";
-    if (type !== "workspace") {
-      switch (role) {
-        case "manager":
-          roleName = "워크스페이스 관리자";
-          break;
-        case "billing_manager":
-          roleName = "정산 관리자";
-          break;
-        case "member":
-          roleName = "워크스페이스 멤버";
-          break;
-        case "guest":
-          roleName = "게스트";
-          break;
-        default:
-          break;
-      }
-    } else {
-      switch (role) {
-        case "manager":
-          roleName = "프로젝트 관리자";
-          break;
-        case "member":
-          roleName = "멤버";
-          break;
-        default:
-          break;
-      }
-    }
+    const roleCode = commonStore.getCodes("role");
+    const roleName = roleCode[type].find((item) => item.code === role).label;
     return roleName;
   }
 

@@ -9,9 +9,7 @@
       </q-breadcrumbs>
       <h1 class="p-title">{{ title }}</h1>
     </div>
-    <!-- //.chead -->
     <div v-if="onLoad" class="p-body">
-      <!-- /* 멤버 - 메인(워크스페이스 관리자) */ -->
       <div class="table_set">
         <div class="l_set_inner">
           <c-input-text
@@ -28,9 +26,10 @@
             <c-dropdown
               v-model:selected="roleFilter"
               :label="roleFilter"
-              :options="options"
+              :options="roleOptions"
               :outlined="true"
               class="w220"
+              @selected="onFilterSelected"
             />
         </div>
         <div class="r_set_inner">
@@ -49,9 +48,10 @@
             <c-button
               :size="'medium'"
               :outline="true"
-              disabled
+              :disabled="chkGrp.length === 0"
               :btn-names="'멤버삭제'"
               class="btn"
+              @click="onRemoveMembers"
               >
               <template #prepend>
                 <i class="ico plus" />
@@ -59,8 +59,8 @@
             </c-button>
           </template>
           <template v-else>
-            <!-- TODO: TBD 개발 -->
-            <!-- <c-button
+            <!-- TODO: TBD
+            <c-button
               :outline="true"
               :size="'medium'"
               :btn-names="'멤버 초대 요청'"
@@ -69,7 +69,8 @@
               <template #prepend>
                 <i class="ico plus"></i>
               </template>
-            </c-button> -->
+            </c-button>
+            -->
           </template>
           <c-dropdown
             v-model:selected="rowPerPaging"
@@ -108,20 +109,23 @@
           </template>
           <template #item-name="item">
             <div class="j-badge">
-              <span class="txt" :class="{ noJoin: !item.joined }">{{ item.name }}</span>
-              <span v-if="!item.joined" class="n_join_badge">회원가입 미완료</span>
+              <span class="txt" :class="{ noJoin: !item.joined || chkGrp.includes(item.id) }">{{ item.name }}</span>
+              <!-- TODO: TBD
+              <span v-if="!item.joined || chkGrp.includes(item.id)" class="n_join_badge">회원가입 미완료</span>
+              -->
             </div>
           </template>
           <template #item-email="item">
-            <span class="txt" :class="{ noJoin: !item.joined }">{{ item.email }}</span>
+            <span class="txt" :class="{ noJoin: !item.joined || chkGrp.includes(item.id) }">{{ item.email }}</span>
           </template>
           <template #item-role="item">
-            <span class="txt" :class="{ noJoin: !item.joined }">{{ $utils.getRoleName(item.role, "workspace") }}</span>
+            <span class="txt" :class="{ noJoin: !item.joined || chkGrp.includes(item.id) }">{{ $utils.getRoleName(item.role) }}</span>
           </template>
           <template #item-description="item">
-            <span class="txt" :class="{ noJoin: !item.joined }">{{ item.description }}</span>
+            <span class="txt" :class="{ noJoin: !item.joined || chkGrp.includes(item.id) }">{{ item.description }}</span>
           </template>
-          <!-- <template #item-buttons="item">
+          <!-- TODO: TBD
+          <template #item-buttons="item">
             <div v-if="actionButtons || item.buttons" class="cell btngroup">
               <c-button
                 v-if="item.buttons"
@@ -130,7 +134,8 @@
                 <span class="txt">{{ item.buttons.name }}</span>
               </c-button>
             </div>
-          </template> -->
+          </template>
+          -->
         </easy-data-table>
         <easy-data-table
           v-else
@@ -164,116 +169,102 @@
   <c-dialog
     v-model:visible="addMemberModal"
     :size="'medium'"
-    :message="'프로젝트 멤버 추가'"
+    :message="'워크스페이스 멤버 추가'"
   >
     <template #contents>
-      <div class="c_group">
-        <div class="c_inpgroup">
-          <q-select
-            outlined
-            v-model="shareChipModel"
-            placeholder="사용자 이메일 입력"
-            use-input
-            use-chips
-            multiple
-            input-debounce="0"
-            @new-value="createValue"
-            :options="filterOptions"
-            @filter="chipFilterFn"
-            class="c_inpchip"
-          >
-            <template v-slot:prepend>
-              <q-icon
-                name="search"
-                class="ico_search"
-              />
-            </template>
-            <template v-slot:append>
-              <div class="slotopt"></div>
-            </template>
-            <template v-slot:no-option>
-              <q-item class="no_data">
-                <q-item-section>
-                  검색 결과 없습니다.
-                </q-item-section>
-              </q-item>
-            </template>
-          </q-select>
-          <div class="c_selectgroup f_start">
-            <CDropdown
-              v-model:selected="memberSelModel"
-              :label="'프로젝트 관리자'"
-              :options="memberSelOptions"
-              :type="'text'"
+      <div class="c_form">
+        <section class="section">
+          <p class="sub_title">이메일<i class="ess">*</i></p>
+          <div class="c_inpgroup">
+            <c-input-text
+              ref="refFormEmail"
+              v-model:value="formAddMember.email"
+              :rules="formRules.email"
+              placeholder="이름 또는 이메일 입력"
+              class="wsize_full"
+              outlined
+              clearable
             />
           </div>
-        </div>
-        <q-btn class="c_btn medium add">
-          <span class="txt">추가하기</span>
-        </q-btn>
+        </section>
+        <section class="section">
+          <p class="sub_title">워크스페이스 역할<i class="ess">*</i></p>
+          <div class="c_radiogroup f_wrap wsize-50">
+            <template v-for="role in roleCodes" :key="role.code">
+              <q-radio
+                v-if="role.code !== 'guest'"
+                v-model="formAddMember.role"
+                :val="role.code"
+                :label="role.label"
+                class="c_radio"
+              />
+              <template v-else>
+                <q-radio
+                  v-model="formAddMember.role"
+                  :val="role.code"
+                  :label="role.label"
+                  class="c_radio mr0"
+                />
+                <q-btn class="ibtn help">
+                  <i class="ico help" /><span class="hidden">도움말</span>
+                  <q-popup-edit
+                    v-model="helpShow"
+                    anchor="top middle"
+                    self="top middle"
+                    class="c_popover"
+                  >
+                    <div class="inner">
+                      게스트는 워크스페이스 멤버 조회 및 프로젝트 생성 기능이 제한됩니다.
+                    </div>
+                  </q-popup-edit>
+                </q-btn>
+              </template>
+            </template>
+          </div>
+        </section>
+        <section class="section">
+          <p class="sub_title">개인 스토리지 용량<i class="ess">*</i></p>
+          <div class="c_inpgroup flex-end">
+            <c-input-text
+              ref="refFormStorage"
+              outlined
+              v-model:value="formAddMember.storage"
+              :rules="formRules.storage"
+              type="number"
+              placeholder="50GiB 단위 입력"
+              clearable
+              class="inp_unit"
+            >
+              <template #append>
+                <span class="unit">GiB</span>
+              </template>
+            </c-input-text>
+            <span class="desc">최대 50,000</span>
+          </div>
+        </section>
       </div>
-      <!-- 검색 완료 -->
-      <!-- <q-list class="p_list membermng">
-        <q-item class="item">
-          <i class="ico member" />
-          <q-item-section class="item_card">
-            <q-item-label class="name">root.choi</q-item-label>
-            <q-item-label class="mail">root.choi@kakaobrain.com</q-item-label>
-          </q-item-section>
-          <CDropdown
-            v-model:selected="memberSelModel"
-            :label="'멤버'"
-            :options="memberSelOptions"
-            :type="'text'"
-          />
-        </q-item>
-        <q-item class="item">
-          <i class="ico member" />
-          <q-item-section class="item_card">
-            <q-item-label class="name">김나온</q-item-label>
-            <q-item-label class="mail">naon12@gmail.com</q-item-label>
-          </q-item-section>
-          <CDropdown
-            v-model:selected="memberSelModel"
-            :label="'멤버'"
-            :options="memberSelOptions"
-            :type="'text'"
-          />
-        </q-item>
-        <q-item class="item">
-          <i class="ico member" />
-          <q-item-section class="item_card">
-            <q-item-label class="name">김나온</q-item-label>
-            <q-item-label class="mail">naon12@gmail.com</q-item-label>
-          </q-item-section>
-          <CDropdown
-            v-model:selected="memberSelModel"
-            :label="'멤버'"
-            :options="memberSelOptions"
-            :type="'text'"
-          />
-        </q-item>
-      </q-list> -->
     </template>
     <template #footer>
       <c-button
         :btn-names="'취소'"
         class="line"
-        @click="addMemberModal = false"
+        @click="onResetAddModal"
       />
       <c-button
         :btn-names="'확인'"
         class="primary"
-        @click="addMemberModal = false"
+        :disabled="disabledAdd"
+        @click="onAddMember"
       />
     </template>
   </c-dialog>
   <!-- End : [프로젝트 - 멤버관리] 멤버 - 추가 -->
 </template>
 <script setup>
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import { useMeta } from "quasar";
 import { useRoute } from "vue-router";
+import { $useCmFn } from "src/composables/useCommonFunction";
 import { useCommonStore } from "stores/useCommonStore.js";
 import { WorkspaceService } from "src/services";
 import { $utils } from "src/utils/utils";
@@ -285,7 +276,7 @@ import CPagination from "components/common/CPagination.vue";
 
 const route = useRoute();
 const { workspaceId } = route.params;
-const { me, myWorkspaces } = useCommonStore();
+const { me, myWorkspaces, getCodes } = useCommonStore();
 const myWorkspace = myWorkspaces.filter((item) => item.id === Number(workspaceId))[0];
 const title = myWorkspace.name;
 const rowsPerPage = ref(10);
@@ -297,45 +288,75 @@ const chkGrp = ref([]);
 const checkedAll = ref(false);
 const onLoad = ref(false);
 
+useMeta(() => ({
+  title,
+}));
+
+const getOriginData = async () => {
+  const { users } = await WorkspaceService.getWorkspaceMembers(workspaceId);
+  originMembers.value = users;
+  return originMembers.value;
+};
 const setMembers = (users) => {
   members.value = users.map((user) => ({
     ...user,
     checked: false,
     disabled: false,
-    joined: true
+    joined: true // TODO: TBD 미회원가입시!
   }));
 };
-const getMembers = async () => {
-  const { users } = await WorkspaceService.getWorkspaceMembers(workspaceId);
+const init = async () => {
+  await getOriginData();
   const { role } = await WorkspaceService.getMemberInfo(workspaceId, me.id);
-  setMembers(users);
-  originMembers.value = users;
+  setMembers(originMembers.value);
 
   myRole.value = role;
   onLoad.value = true;
 };
-getMembers();
+init();
 
-useMeta(() => ({
-  title,
-}));
-
-const roleFilter = ref("전체");
-const rowPerPaging = ref("10");
-const options = ref([
-  { label: "역할전체", value: "ALL" },
+const roleCodes = getCodes("role").workspace;
+const roleOptions = [
+  { label: "역할 전체", value: "ALL" },
   { label: "워크스페이스 관리자", value: "manager" },
   { label: "워크스페이스 멤버", value: "member" },
   { label: "정산 관리자", value: "billing_manager" },
-]);
+];
+const roleFilter = ref(roleOptions[0]);
+
+/**
+ * 검색 및 필터 이벤트
+ * members API 페이징 및 검색 조건 X
+ * 동시 처리
+ */
+const onSearch = async () => {
+  const users = await getOriginData();
+  // 필터조건
+  const filteredUsers = originMembers.value.filter((user) => (roleFilter.value.value !== "ALL"
+    ? user.role === roleFilter.value.value
+    : users));
+  // 검색조건
+  const returnUsers = $utils.searchList(filteredUsers, ["name", "email"], searchModel.value);
+  setMembers(returnUsers);
+};
+
+/**
+ * 역할 필터 변경 이벤트
+ * @param { object } selectedVal
+ * @param { string } selectedVal.label roleOptions.label
+ * @param { string } selectedVal.value roleOptions.value
+ */
+const onFilterSelected = (selectedVal) => {
+  console.log("selectedVal >>>", selectedVal);
+  onSearch();
+};
+
+const rowPerPaging = ref("10");
 const rowPerPagingOptions = ref([
   { label: "10", value: 10 },
   { label: "25", value: 25 },
   { label: "50", value: 50 },
 ]);
-
-// Table1
-// const itemsSelected = ref([]);
 
 const managerHeader = [
   {
@@ -403,16 +424,82 @@ const bodyRowClassNameFunction = (item) => {
   return classList.join(" ");
 };
 
-const onSearch = () => {
-  const users = $utils.searchList(originMembers.value, ["name", "email"], searchModel.value);
-  setMembers(users);
-};
-
 const onPaging = () => {
   console.log(">>>>");
 };
 
 const addMemberModal = ref(false);
+const refFormEmail = ref("");
+const refFormStorage = ref("");
+const formAddMember = ref({
+  user_id: "",
+  email: "",
+  role: "member",
+  storage: null,
+});
+
+const onResetAddModal = () => {
+  formAddMember.value.email = "";
+  formAddMember.value.role = "member";
+  formAddMember.value.storage = null;
+  addMemberModal.value = false;
+};
+
+const onAddMember = async () => {
+  try {
+    // const params = {
+    //   email: formAddMember.value.email,
+    //   role: formAddMember.value.role,
+    //   storage: formAddMember.value.storage,
+    // };
+    // WorkspaceService.addWorkspaceMember(workspaceId, params);
+    $useCmFn.onNotify({
+      message: "신규 멤버가 추가되었습니다.",
+      type: "positive"
+    });
+    onResetAddModal();
+    await onSearch();
+  } catch (e) {
+    $useCmFn.onNotify({
+      message: "멤버 추가에 실패하였습니다. 다시 시도해주세요.",
+      type: "negative"
+    });
+    return false;
+  }
+};
+
+const onRemoveMembers = async () => {
+  try {
+    $useCmFn.onNotify({
+      message: "멤버가 삭제되었습니다.",
+      type: "positive"
+    });
+    await onSearch();
+  } catch {
+    $useCmFn.onNotify({
+      message: "멤버 삭제에 실패하였습니다. 다시 시도해주세요",
+      type: "negative"
+    });
+  }
+};
+
+const disabledAdd = computed(() => {
+  const emailValid = formAddMember.value.email && !refFormEmail.value?.getHasError;
+  const storageValid = formAddMember.value.storage && !refFormStorage.value?.getHasError;
+  return !emailValid || !storageValid;
+});
+
+const formRules = {
+  email: [
+    (value) => (!!value) || "이메일을 입력해주세요",
+    (value) => $utils.testRegex(value, "email") || "이메일 형식으로 입력해주세요",
+  ],
+  storage: [
+    (value) => (!!value) || "스토리지 용량을 입력해주세요",
+    (value) => (value % 50 === 0) || "50GB 단위로 입력해주세요",
+    (value) => (value <= 50000) || "할당 가능 용량 초과",
+  ]
+};
 </script>
 
 <style lang="scss" scoped>
