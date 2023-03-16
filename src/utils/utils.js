@@ -72,7 +72,7 @@ class Utils {
    */
   getRoleName(role, type = "workspace") {
     let roleName = "";
-    if (type !== "workspace") {
+    if (type === "workspace") {
       switch (role) {
         case "manager":
           roleName = "워크스페이스 관리자";

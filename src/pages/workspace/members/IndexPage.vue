@@ -9,9 +9,7 @@
       </q-breadcrumbs>
       <h1 class="p-title">{{ title }}</h1>
     </div>
-    <!-- //.chead -->
     <div v-if="onLoad" class="p-body">
-      <!-- /* 멤버 - 메인(워크스페이스 관리자) */ -->
       <div class="table_set">
         <div class="l_set_inner">
           <c-input-text
@@ -28,9 +26,10 @@
             <c-dropdown
               v-model:selected="roleFilter"
               :label="roleFilter"
-              :options="options"
+              :options="roleOptions"
               :outlined="true"
               class="w220"
+              @selected="onFilterSelected"
             />
         </div>
         <div class="r_set_inner">
@@ -59,8 +58,8 @@
             </c-button>
           </template>
           <template v-else>
-            <!-- TODO: TBD 개발 -->
-            <!-- <c-button
+            <!-- TODO: TBD
+            <c-button
               :outline="true"
               :size="'medium'"
               :btn-names="'멤버 초대 요청'"
@@ -69,7 +68,8 @@
               <template #prepend>
                 <i class="ico plus"></i>
               </template>
-            </c-button> -->
+            </c-button>
+            -->
           </template>
           <c-dropdown
             v-model:selected="rowPerPaging"
@@ -109,19 +109,22 @@
           <template #item-name="item">
             <div class="j-badge">
               <span class="txt" :class="{ noJoin: !item.joined }">{{ item.name }}</span>
+              <!-- TODO: TBD
               <span v-if="!item.joined" class="n_join_badge">회원가입 미완료</span>
+              -->
             </div>
           </template>
           <template #item-email="item">
             <span class="txt" :class="{ noJoin: !item.joined }">{{ item.email }}</span>
           </template>
           <template #item-role="item">
-            <span class="txt" :class="{ noJoin: !item.joined }">{{ $utils.getRoleName(item.role, "workspace") }}</span>
+            <span class="txt" :class="{ noJoin: !item.joined }">{{ $utils.getRoleName(item.role) }}</span>
           </template>
           <template #item-description="item">
             <span class="txt" :class="{ noJoin: !item.joined }">{{ item.description }}</span>
           </template>
-          <!-- <template #item-buttons="item">
+          <!-- TODO: TBD
+          <template #item-buttons="item">
             <div v-if="actionButtons || item.buttons" class="cell btngroup">
               <c-button
                 v-if="item.buttons"
@@ -130,7 +133,8 @@
                 <span class="txt">{{ item.buttons.name }}</span>
               </c-button>
             </div>
-          </template> -->
+          </template>
+          -->
         </easy-data-table>
         <easy-data-table
           v-else
@@ -297,45 +301,72 @@ const chkGrp = ref([]);
 const checkedAll = ref(false);
 const onLoad = ref(false);
 
+useMeta(() => ({
+  title,
+}));
+
+const getOriginData = async () => {
+  const { users } = await WorkspaceService.getWorkspaceMembers(workspaceId);
+  originMembers.value = users;
+  return originMembers.value;
+};
 const setMembers = (users) => {
   members.value = users.map((user) => ({
     ...user,
     checked: false,
     disabled: false,
-    joined: true
+    joined: true // TODO: TBD 미회원가입시!
   }));
 };
-const getMembers = async () => {
-  const { users } = await WorkspaceService.getWorkspaceMembers(workspaceId);
+const init = async () => {
+  await getOriginData();
   const { role } = await WorkspaceService.getMemberInfo(workspaceId, me.id);
-  setMembers(users);
-  originMembers.value = users;
+  setMembers(originMembers.value);
 
   myRole.value = role;
   onLoad.value = true;
 };
-getMembers();
+init();
 
-useMeta(() => ({
-  title,
-}));
-
-const roleFilter = ref("전체");
-const rowPerPaging = ref("10");
-const options = ref([
-  { label: "역할전체", value: "ALL" },
+const roleOptions = [
+  { label: "역할 전체", value: "ALL" },
   { label: "워크스페이스 관리자", value: "manager" },
   { label: "워크스페이스 멤버", value: "member" },
   { label: "정산 관리자", value: "billing_manager" },
-]);
+];
+const roleFilter = ref(roleOptions[0]);
+
+/**
+ * 검색 및 필터 이벤트
+ * members API 페이징 및 검색 조건 X
+ * 동시 처리
+ */
+const onSearch = async () => {
+  const users = await getOriginData();
+  const filteredUsers = originMembers.value.filter((user) => (roleFilter.value.value !== "ALL"
+    ? user.role === roleFilter.value.value
+    : users));
+  const returnUsers = $utils.searchList(filteredUsers, ["name", "email"], searchModel.value);
+  setMembers(returnUsers);
+};
+
+/**
+ * 역할 필터 변경 이벤트
+ * @param { object } selectedVal
+ * @param { string } selectedVal.label roleOptions.label
+ * @param { string } selectedVal.value roleOptions.value
+ */
+const onFilterSelected = (selectedVal) => {
+  console.log("selectedVal >>>", selectedVal);
+  onSearch();
+};
+
+const rowPerPaging = ref("10");
 const rowPerPagingOptions = ref([
   { label: "10", value: 10 },
   { label: "25", value: 25 },
   { label: "50", value: 50 },
 ]);
-
-// Table1
-// const itemsSelected = ref([]);
 
 const managerHeader = [
   {
@@ -401,11 +432,6 @@ const bodyRowClassNameFunction = (item) => {
   if (item.checked) classList.push("row-selected");
   if (item.disabled) classList.push("row-disabled");
   return classList.join(" ");
-};
-
-const onSearch = () => {
-  const users = $utils.searchList(originMembers.value, ["name", "email"], searchModel.value);
-  setMembers(users);
 };
 
 const onPaging = () => {
