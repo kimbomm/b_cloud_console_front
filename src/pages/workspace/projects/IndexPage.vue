@@ -230,8 +230,8 @@ import CDialog from "src/components/common/CDialog.vue";
 import CButton from "src/components/common/CButton.vue";
 
 import CDropdown from "components/common/CDropdown.vue";
-import InstancePage from "src/pages/workspace/projects/components/InstancePage.vue";
-import TaskPage from "src/pages/workspace/projects/components/TaskPage.vue";
+import InstancePage from "src/pages/workspace/projects/components/instance/InstancePage.vue";
+import TaskPage from "src/pages/workspace/projects/components/task/TaskPage.vue";
 import UpdateProjectPopup from "./components/UpdateProjectPopup.vue";
 import QuotaChangePopup from "./components/QuotaChangePopup.vue";
 

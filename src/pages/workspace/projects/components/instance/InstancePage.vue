@@ -260,7 +260,7 @@ import CInputText from "components/common/CInputText.vue";
 import CBadgeState from "src/components/common/CBadgeState.vue";
 import CDialog from "src/components/common/CDialog.vue";
 import CButton from "src/components/common/CButton.vue";
-import CreateImagePopup from "./CreateImagePopup.vue";
+import CreateImagePopup from "../CreateImagePopup.vue";
 
 const headers = [
   {
