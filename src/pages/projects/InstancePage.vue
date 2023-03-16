@@ -81,6 +81,7 @@
               :size="'medium'"
               :outline="true"
               :btn-names="'인스턴스 생성하기'"
+              class="instance_make_btn"
             />
             <c-dropdown
               v-model:selected="selectedBasic"
