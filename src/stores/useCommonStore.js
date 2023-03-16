@@ -65,7 +65,32 @@ export const useCommonStore = defineStore("common", () => {
   function hideMessageInfo() {
     messageInfo.value.visible = false;
   }
+
+  /**
+   * 설명: 공통 코드
+   */
+  const commonCodes = {
+    role: {
+      workspace: [
+        { label: "워크스페이스 관리자", code: "manager" },
+        { label: "정산 관리자", code: "billing_manager" },
+        { label: "워크스페이스 멤버", code: "member" },
+        { label: "게스트", code: "guest" },
+      ],
+      project: [
+        { label: "프로젝트 관리자", code: "manager" },
+        { label: "멤버", code: "member" },
+      ],
+    }
+  };
+
+  /**
+   * 설명: 공통 코드 가져오기
+   */
+  const getCodes = (key) => commonCodes[key];
   return {
+    commonCodes,
+    getCodes,
     me,
     setMe,
     myWorkspaces,

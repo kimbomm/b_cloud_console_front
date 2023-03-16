@@ -17,6 +17,7 @@
     :rules="rules"
     :prefix="prefix"
     :suffix="suffix"
+    v-bind="attrs"
     @update:model-value="onUpdateInput"
   >
     <template v-if="$slots.error" v-slot:error>
@@ -43,8 +44,11 @@ import {
   defineEmits,
   onMounted,
   computed,
+  useAttrs,
 } from "vue";
 import { $utils } from "src/utils/utils";
+
+const attrs = useAttrs();
 
 const props = defineProps({
   clearable: {
