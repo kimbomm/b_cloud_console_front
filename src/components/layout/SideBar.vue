@@ -282,7 +282,11 @@ import { AuthService, ProjectService } from "src/services";
 import { googleLogout } from "vue3-google-login";
 import { $useCmFn } from "src/composables/useCommonFunction.js";
 import { useRoute } from "vue-router";
+import { useProjectStore } from "stores/useProjectStore.js";
+
 import CInputText from "components/common/CInputText.vue";
+
+const projectStore = useProjectStore();
 
 const props = defineProps({
   projectMenu: {
@@ -395,7 +399,6 @@ const pjtTypeItem = menuData.find((item) => item.type === "pjt");
 
 const projectName = ref("");
 const projectDescription = ref("");
-const getListProject = ref([]);
 
 const isValidProjectDescription = ref(true);
 const isValidProjectSave = ref(true);
@@ -412,7 +415,7 @@ const inputRules = ref([
       return "";
     }
     // 프로젝트 이름 중복확인
-    const foundProject = isDuplicateProjectName(projectName.value.trim(), getListProject.value);
+    const foundProject = isDuplicateProjectName(projectName.value.trim(), projectStore.useProjects);
 
     // 사용 가능 문자열 확인
     return (
@@ -432,7 +435,7 @@ watch(
   ([projectNameValue, projectDescriptionValue]) => {
     const regex = /^[A-Za-z0-9가-힣ㄱ-ㅎㅏ-ㅣ\s]+$/;
     // 프로젝트 이름 중복 확인
-    const isDuplicate = isDuplicateProjectName(projectNameValue.trim(), getListProject.value);
+    const isDuplicate = isDuplicateProjectName(projectNameValue.trim(), projectStore.useProjects);
 
     const isValid = (!regex.test(projectName.value) && !isDuplicate)
   || projectName.value.length <= 1
