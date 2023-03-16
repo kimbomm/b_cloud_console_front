@@ -1,6 +1,7 @@
 <template>
   <q-page class="p-content p-projects p-make">
     <div class="p-head">
+      currentInput : {{ currentInput }}
       <q-breadcrumbs
         class="c_breadcrumb"
         gutter="none"
@@ -26,14 +27,17 @@
     <div class="p-body">
       <div class="wrap p-inst-detail">
         <div class="make_main_cont">
-        <!-- 이름/설명 -->
-        <InstanceNameDescription/>
+          <!-- 이름/설명 -->
+          <InstanceNameDescription
+            @updateInputName ="updateInputName"
+            @updateInputDescription ="updateInputDescription"
+          />
 
-        <!-- 인스턴스 타입 -->
-        <InstanceType/>
+          <!-- 인스턴스 타입 -->
+          <InstanceType/>
 
-        <!-- 이미지 -->
-        <InstanceImage/>
+          <!-- 이미지 -->
+          <InstanceImage/>
 
         <!-- 스토리지 -->
         <InstanceStorage/>
@@ -83,7 +87,7 @@
   </q-page>
 </template>
 <script setup>
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import { useMeta } from "quasar";
 import InstanceNameDescription from "./components/instance/InstanceNameDescription.vue";
 import InstanceType from "./components/instance/InstanceType.vue";
@@ -97,6 +101,21 @@ useMeta(() => ({
   title: title.value,
 }));
 
+const currentInput = ref({
+  inputName: "",
+  inputDescription: ""
+
+});
+
+const updateInputName = (a) => {
+  console.log("result", a);
+  currentInput.value.inputName = a;
+};
+
+const updateInputDescription = (a) => {
+  console.log("descriptn 실행");
+  currentInput.value.inputDescription = a;
+};
 const ptitle = ref(title);
 const datacheck = ref(false);
 
@@ -112,7 +131,7 @@ const datacheck = ref(false);
  */
 
 const datalist = [
-  { title: "이름", value: "인스턴스 이름" },
+  { title: "이름", value: computed(() => currentInput.value.inputName) },
   { title: "인스턴스 타입", value: "Tesla V100" },
   { title: "GPU", value: 1 },
   { title: "CPU", value: 14 },

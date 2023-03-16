@@ -2,20 +2,19 @@
   <div class="s_01">
     <p class="sub_title">인스턴스 이름<i class="ess">*</i></p>
     <div class="c_inpgroup">
-      <q-input
-        outlined
-        v-model="textName"
+      <c-input-text
+        v-model:value="textName"
         placeholder="최소 2자 최대 30자"
         clearable
         class="wsize608"
+        @update:value="updateTextName"
       />
     </div>
   </div>
   <div class="s_02">
     <p class="sub_title">인스턴스 설명</p>
     <div class="c_inpgroup">
-      <q-input
-        outlined
+      <c-input-text
         v-model="textDescription"
         bottom-slots
         type="textarea"
@@ -23,20 +22,46 @@
         clearable
         counter
         :count="10"
-        maxlength="500"
         class="wsize_full hsize244"
         :input-style="{ height: '100%' }"
-      >
-      </q-input>
+        @update:value="updateTextDescription"
+      />
     </div>
   </div>
 </template>
 
 <script setup>
 import { ref } from "vue";
+import CInputText from "src/components/common/CInputText.vue";
 
 const textName = ref(null);
 const textDescription = ref(null);
+
+const emit = defineEmits(["updateInputName"], ["updateInputDescription"]);
+
+// 프로젝트명 정규식체크
+// const inputRules = ref([
+//   (value) => {
+//     if (value.length < 1) {
+//       return "이름을 입력해주세요.";
+//     }
+//   },
+//   (value) => (!!value.length && value.length >= 2 && value.length <= 30)
+//     || "최소 2글자 최대 30글자로 입력해주세요",
+// ]);
+
+const updateTextName = async () => {
+  setTimeout(() => {
+    emit("updateInputName", textName.value);
+  }, 50);
+};
+
+const updateTextDescription = async () => {
+  setTimeout(() => {
+    emit("updateInputDescription", textDescription.value);
+  }, 50);
+};
+
 </script>
 
 <style lang="scss" scoped>
