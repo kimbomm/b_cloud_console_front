@@ -113,9 +113,12 @@ const init = async () => {
   const [workspaceList] = await Promise.all([
     WorkspaceService.getUserWorkspaceList(me.value.id),
   ]);
-
   const { workspaceId } = route.params;
-  await getUserProjects(workspaceId);
+  try {
+    await getUserProjects(workspaceId || 1);
+  } catch (e) {
+    return false;
+  }
 
   setMyWorkspaces(workspaceList.workspaces);
   workspaces.value = workspaceList;
