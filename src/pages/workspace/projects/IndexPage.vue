@@ -45,12 +45,35 @@
 
             </q-item>
             <q-item>
-              <q-btn class="item">
+              <q-btn class="item"  @click="checkInstanceTask">
                 <span class="txt">프로젝트 삭제</span>
               </q-btn>
-            </q-item>
-          </q-list>
-        </q-menu>
+
+              <!-- Start : [프로젝트 - 대시보드] 삭제 가능한경우, 삭제 확인 Alert 팝업 -->
+              <c-dialog
+              v-model:visible="alertInstanceDelPossibleModal"
+              :message="'프로젝트를 삭제하시겠습니까?'"
+              :description="'프로젝트 관련 정보는 모두 삭제되며,<br/> 삭제된 내용은 복구되지 않습니다.'"
+              >
+              <template #negative>{{projectInfo.name}}</template>
+              <template #footer>
+                <c-button
+                :outline="true"
+                btn-names="취소"
+                @click="alertInstanceDelPossibleModal = false"
+                />
+                <c-button
+                btn-names="확인"
+                @click="deleteProject"
+                />
+
+              </template>
+            </c-dialog>
+            <!-- End : [프로젝트 - 대시보드] 삭제 가능한경우, 삭제 확인 Alert 팝업 -->
+
+          </q-item>
+        </q-list>
+      </q-menu>
       </q-btn>
 
       <p class="desc">
@@ -75,6 +98,7 @@
               <InstancePage
                 :tabModel="tabModel"
                 @update:instanceTotal="instanceTotal = $event"
+                :projectInfo="projectInfo"
               />
             </q-tab-panel>
             <q-tab-panel name="task_gorup">
@@ -190,16 +214,20 @@
   <!-- End : [프로젝트 - 멤버관리] 멤버 - 추가 -->
 </template>
 <script setup>
-import { ref, watch, computed } from "vue";
+import {
+  ref, watch, computed, nextTick
+} from "vue";
 import { useMeta } from "quasar";
-import { useRoute, onBeforeRouteUpdate } from "vue-router";
-import { ProjectService } from "src/services";
+import { useRoute, useRouter, onBeforeRouteUpdate } from "vue-router";
+import { ProjectService, } from "src/services";
 import { useProjectStore } from "stores/useProjectStore.js";
 import { $utils } from "src/utils/utils";
+import { $useCmFn } from "src/composables/useCommonFunction.js";
 
 import ProjectDashboard from "src/components/pages/ProjectDashboard.vue";
-// import CTable from "src/components/common/CTable.vue";
 import CTab from "src/components/common/CTab.vue";
+import CDialog from "src/components/common/CDialog.vue";
+import CButton from "src/components/common/CButton.vue";
 
 import CDropdown from "components/common/CDropdown.vue";
 import InstancePage from "src/pages/workspace/projects/components/InstancePage.vue";
@@ -208,14 +236,18 @@ import UpdateProjectPopup from "./components/UpdateProjectPopup.vue";
 import QuotaChangeRequest from "./components/QuotaChangeRequest.vue";
 
 const route = useRoute();
-const { setIsProjectChange } = useProjectStore();
+const router = useRouter();
+const { workspaceId } = route.params;
 
-const projectInfo = ref({});
+const { setIsProjectChange } = useProjectStore();
+const projectInfo = ref({}); // 프로젝트 상세
 const getListProject = ref({});
 const newProjectDescription = ref("");
 
 const projectCreateModal = ref(false);
 const quotaChangeModal = ref(false);
+const alertInstanceDelPossibleModal = ref(false);
+
 const instanceTotal = ref(0);
 const taskTotal = ref(0);
 const memberTotal = ref(0);
@@ -274,6 +306,7 @@ const getProjectInfo = async () => {
   }
 };
 
+/* * 프로젝트 리스트 호출  */
 const getProjectList = async () => {
   try {
     const { projects } = await ProjectService.getListProject(route.params.workspaceId);
@@ -284,12 +317,13 @@ const getProjectList = async () => {
   }
 };
 
-// 현재 프로젝트 페이지 정보
+/* * 프로젝트 description */
 const fetchProjectDescription = (projectId) => {
   const project = getListProject.value.find((p) => p.id === parseInt(projectId, 10));
   newProjectDescription.value = project.description;
 };
 
+/* * 인스턴스 새로고침  */
 const updateInfo = async () => {
   await getProjectList();
   await fetchProjectDescription(route.params.projectId);
@@ -298,7 +332,9 @@ const updateInfo = async () => {
 watch(
   () => route.params.projectId,
   async () => {
-    await Promise.all([updateInfo(), getProjectInfo()]);
+    if (route.name === "ProjectList") {
+      await Promise.all([updateInfo(), getProjectInfo()]);
+    }
   },
   { immediate: true }
 );
@@ -328,11 +364,64 @@ const chipFilterFn = (val, update) => {
   });
 };
 
+/* * 인스턴스 편집 */
 const updateProject = () => {
-  console.log("updateProject실행");
   updateInfo();
   getProjectInfo();
   setIsProjectChange(true);
+};
+
+/* *  성공 메세지 */
+const triggerTaskGroupSuccess = (message) => {
+  $useCmFn.onNotify({
+    message,
+    type: "positive",
+  });
+};
+
+/* *  실패 메세지 */
+const triggerTaskGroupWarning = (message) => {
+  $useCmFn.onNotify({
+    message,
+    type: "negative",
+  });
+};
+
+/* *프로젝트 삭제 */
+const deleteProject = async () => {
+  try {
+    await ProjectService.deleteProject(
+      workspaceId,
+      route.params.projectId
+    );
+    triggerTaskGroupSuccess("프로젝트가 삭제되었습니다.");
+    alertInstanceDelPossibleModal.value = false;
+
+    // 삭제 후 새로고침
+    router.push("/");
+    nextTick(() => {
+      window.location.href = "/";
+    });
+  } catch (error) {
+    triggerTaskGroupWarning("프로젝트 삭제를 실패하였습니다. 다시 시도해주세요.");
+    console.log(error);
+  }
+};
+
+/* * 이용중인 인스턴스/태스크 확인  */
+const checkInstanceTask = () => {
+  const isTotal = tabs.value.some((tab) => tab.name !== "member" && tab.total > 1);
+  if (isTotal) {
+    $useCmFn.onMessage({
+      message: "이용중인 인스턴스/태스크가 있어 <br/>프로젝트 삭제가 불가능합니다. ",
+      positive: {
+        value: "확인",
+        callback: () => {}
+      }
+    });
+  } else {
+    alertInstanceDelPossibleModal.value = true;
+  }
 };
 </script>
 
