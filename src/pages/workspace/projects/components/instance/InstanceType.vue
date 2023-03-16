@@ -4,9 +4,9 @@
     <div class="s_03_main">
       <div class="s_03_tab">
         <q-tabs v-model="tab" align="left" class="c_tabs">
-          <q-tab name="tabs1" label="CPU"></q-tab>
-          <q-tab name="tabs2" label="GPU Tesla V100"></q-tab>
-          <q-tab name="tabs3" label="GPU Tesla A100_40G"></q-tab>
+          <q-tab name="tabCpu" label="CPU"></q-tab>
+          <q-tab name="tabV100" label="GPU Tesla V100"></q-tab>
+          <q-tab name="tabA100" label="GPU Tesla A100_40G"></q-tab>
         </q-tabs>
       </div>
       <div class="now_selected_area">
@@ -20,6 +20,8 @@
         </div>
       </div>
       <div class="s_03_table">
+      <div v-if="tab === 'tabCpu'">
+      {{ itemsSelected }}
         <easy-data-table
           v-model:items-selected="itemsSelected"
           :headers="instanceHeaders"
@@ -60,6 +62,90 @@
           </template>
         </easy-data-table>
       </div>
+      <div v-if="tab === 'tabV100'">
+        <easy-data-table
+          v-model:items-selected="itemsSelected"
+          :headers="instanceHeaders"
+          :items="instanceItems"
+          :hide-footer="true"
+          :body-row-class-name="bodyRowClassNameFunction"
+          empty-message="정보가 없습니다."
+        >
+          <!-- title -->
+          <template #item-title="item">
+            <a href="#">
+              <span class="txt">{{ item.title }}</span>
+            </a>
+          </template>
+          <!-- cpu -->
+          <template #item-cpu="item">
+            <a href="#">
+              <span class="txt">{{ item.cpu }}</span>
+            </a>
+          </template>
+          <!-- memory -->
+          <template #item-memory="item">
+            <a href="#">
+              <span class="txt">{{ item.memory }}</span>
+            </a>
+          </template>
+          <!-- disk -->
+          <template #item-disk="item">
+            <a href="#">
+              <span class="txt">{{ item.disk }}</span>
+            </a>
+          </template>
+          <!-- 버튼 그룹 -->
+          <template #item-buttons="item">
+            <q-btn v-if="item.checkbox" class="text">
+              <span class="txt">선택 취소하기</span>
+            </q-btn>
+          </template>
+        </easy-data-table>
+      </div>
+
+      <div v-if="tab === 'tabA100'">
+        <easy-data-table
+          v-model:items-selected="itemsSelected"
+          :headers="instanceHeaders"
+          :items="instanceItems"
+          :hide-footer="true"
+          :body-row-class-name="bodyRowClassNameFunction"
+          empty-message="정보가 없습니다."
+        >
+          <!-- title -->
+          <template #item-title="item">
+            <a href="#">
+              <span class="txt">{{ item.title }}</span>
+            </a>
+          </template>
+          <!-- cpu -->
+          <template #item-cpu="item">
+            <a href="#">
+              <span class="txt">{{ item.cpu }}</span>
+            </a>
+          </template>
+          <!-- memory -->
+          <template #item-memory="item">
+            <a href="#">
+              <span class="txt">{{ item.memory }}</span>
+            </a>
+          </template>
+          <!-- disk -->
+          <template #item-disk="item">
+            <a href="#">
+              <span class="txt">{{ item.disk }}</span>
+            </a>
+          </template>
+          <!-- 버튼 그룹 -->
+          <template #item-buttons="item">
+            <q-btn v-if="item.checkbox" class="text">
+              <span class="txt">선택 취소하기</span>
+            </q-btn>
+          </template>
+        </easy-data-table>
+      </div>
+      </div>
       <div class="disflex_C mt32">
         <c-pagination />
       </div>
@@ -69,10 +155,11 @@
 
 <script setup>
 import { ref } from "vue";
+import CPagination from "components/common/CPagination.vue";
 
 const itemsSelected = ref([]);
 
-const tab = ref("tabs1");
+const tab = ref("tabCpu");
 
 /**
  * 버튼 및 checkbox 에 대한 이벤트 존재할 시 class 삽입
