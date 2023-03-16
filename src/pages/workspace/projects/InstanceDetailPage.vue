@@ -1,7 +1,6 @@
 <template>
   <q-page class="p-content p-projects p-make">
     <div class="p-head">
-      currentInput : {{ currentInput }}
       <q-breadcrumbs
         class="c_breadcrumb"
         gutter="none"
@@ -54,9 +53,9 @@
           <div class="aside_box">
             <p class="section_title">인스턴스</p>
             <ul class="instance_data">
-              <li :class="'i_d0' + i" v-for="(i,a) in datalistLen" :key="i">
-                <q-item class="i_data_title">{{datalist[a].title}}</q-item>
-                <q-item class="i_data_value"><p>{{datalist[a].value}}</p></q-item>
+              <li :class="`i_d0${i+1}`" v-for="(list,i) in datalist" :key="list">
+                <q-item class="i_data_title">{{list.title}}</q-item>
+                <q-item class="i_data_value"><p>{{list.value}}</p></q-item>
               </li>
             </ul>
             <div class="make_btn">
@@ -107,14 +106,12 @@ const currentInput = ref({
 
 });
 
-const updateInputName = (a) => {
-  console.log("result", a);
-  currentInput.value.inputName = a;
+const updateInputName = (value) => {
+  currentInput.value.inputName = value;
 };
 
-const updateInputDescription = (a) => {
-  console.log("descriptn 실행");
-  currentInput.value.inputDescription = a;
+const updateInputDescription = (value) => {
+  currentInput.value.inputDescription = value;
 };
 const ptitle = ref(title);
 const datacheck = ref(false);
@@ -130,7 +127,7 @@ const datacheck = ref(false);
  * @param { object } rowData get table row data
  */
 
-const datalist = [
+const datalist = ref([
   { title: "이름", value: computed(() => currentInput.value.inputName) },
   { title: "인스턴스 타입", value: "Tesla V100" },
   { title: "GPU", value: 1 },
@@ -141,8 +138,7 @@ const datalist = [
   { title: "스토리지", value: "개인 스토리지 외 3개" },
   { title: "SSH/JupyterLab", value: "tda" },
   { title: "포트번호", value: "-" },
-];
-const datalistLen = datalist.length;
+]);
 </script>
 
 <style lang="scss" scoped>
