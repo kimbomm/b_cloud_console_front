@@ -34,7 +34,7 @@
                 <span class="txt">할당량 변경 요청</span>
               </q-btn>
 
-              <QuotaChangeRequest
+              <QuotaChangePopup
                 v-model="quotaChangeModal"
                 :quotaChangeModal="quotaChangeModal"
                 @updateProject="updateProject"
@@ -233,7 +233,7 @@ import CDropdown from "components/common/CDropdown.vue";
 import InstancePage from "src/pages/workspace/projects/components/InstancePage.vue";
 import TaskPage from "src/pages/workspace/projects/components/TaskPage.vue";
 import UpdateProjectPopup from "./components/UpdateProjectPopup.vue";
-import QuotaChangeRequest from "./components/QuotaChangeRequest.vue";
+import QuotaChangePopup from "./components/QuotaChangePopup.vue";
 
 const route = useRoute();
 const router = useRouter();
