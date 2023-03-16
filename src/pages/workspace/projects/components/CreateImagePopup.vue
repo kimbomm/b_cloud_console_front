@@ -40,7 +40,7 @@
       </section>
     </template>
     <template #footer>
-      <c-button :outline="true" btn-names="취소" @click="triggerImgWarning" />
+      <c-button :outline="true" btn-names="취소" @click="cancleImage"   />
       <c-button btn-names="확인" @click="createImage" :disable="isValidProjectSave"
        />
     </template>
@@ -48,7 +48,7 @@
 </template>
 
 <script setup>
-import { ref, watch } from "vue";
+import { ref, watch, computed } from "vue";
 import { $useCmFn } from "src/composables/useCommonFunction.js";
 import { InstanceService } from "src/services";
 import { useRoute } from "vue-router";
@@ -73,7 +73,9 @@ const projectName = ref("");
 const projectDescription = ref("");
 
 const isValidProjectDescription = ref(true);
-const isValidProjectSave = ref(true);
+const isValidProjectSave = computed(() => (
+  isValidProjectDescription.value
+));
 
 // 프로젝트명 정규식체크
 const inputRules = ref([
@@ -81,24 +83,20 @@ const inputRules = ref([
     if (value.length < 1) {
       return "이름을 입력해주세요.";
     }
-    // 사용 가능 문자열 확인
-    return (/^[A-Za-z0-9가-힣ㄱ-ㅎㅏ-ㅣ\s]+$/.test(value))
-      || "영어,한글,숫자만 입력 가능합니다.";
   },
   (value) => (!!value.length && value.length >= 2 && value.length <= 100)
     || "최소 2글자 최대 100글자로 입력해주세요",
 ]);
 
+// const regex = /^[A-Za-z0-9가-힣ㄱ-ㅎㅏ-ㅣ\s]*$/; //정규식
+
 watch(
-  [projectName, projectDescription],
-  ([newProjectName,]) => {
-    const regex = /^[A-Za-z0-9가-힣ㄱ-ㅎㅏ-ㅣ\s]*$/;
-    const isValid = (!regex.test(newProjectName))
-      || projectName.value.length <= 1
-      || projectName.value.length >= 100;
+  [projectName],
+  () => {
+    const isValid = projectName.value.length <= 1 || projectName.value.length >= 100;
 
     isValidProjectDescription.value = isValid;
-    isValidProjectSave.value = isValid;
+    // isValidProjectSave.value = isValid;
   }
 );
 
@@ -129,6 +127,11 @@ const resetInput = () => {
   projectName.value = "";
 };
 
+/* * 생성취소 */
+const cancleImage = () => {
+  resetInput();
+  emit("update:projectInstanceImgCreateModal", false);
+};
 const createImage = async () => {
   const data = {
     description: projectDescription.value,

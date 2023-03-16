@@ -234,7 +234,7 @@
   <!-- End : [관리 - 인스턴스] 인스턴스 추가된 용량 (10GB 초과시 저장 되지 않음 안내) Alert 팝업 -->
 
   <!-- [프로젝트 - 인스턴스] 프로젝트 - 인스턴스 - 이미지 생성 팝업 -->
-  <CreateImage
+  <CreateImagePopup
     @update:projectInstanceImgCreateModal="(value)=>{projectInstanceImgCreateModal = value}"
     :projectInstanceImgCreateModal="projectInstanceImgCreateModal"
     v-model="projectInstanceImgCreateModal"
@@ -260,7 +260,7 @@ import CInputText from "components/common/CInputText.vue";
 import CBadgeState from "src/components/common/CBadgeState.vue";
 import CDialog from "src/components/common/CDialog.vue";
 import CButton from "src/components/common/CButton.vue";
-import CreateImage from "./CreateImage.vue";
+import CreateImagePopup from "../CreateImagePopup.vue";
 
 const headers = [
   {
@@ -417,6 +417,7 @@ const getInstances = async () => {
 const initRouterData = () => {
   searchData.value = {
     query: "",
+    size: 10,
     status: [],
     page: 1,
   };
@@ -609,7 +610,9 @@ const startInstnace = async () => {
  */
 
 const onActions = (eventName, rowData) => {
+  console.log("실행");
   projectQuotaUsed.value = props.projectInfo.quota.used;
+  console.log("props.projectInfo", props.projectInfo);
   switch (eventName) {
     case "delete":
       handleDeleteModal();
