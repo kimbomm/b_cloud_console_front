@@ -118,11 +118,11 @@ const inputRules = ref([
     || "최소 2글자 최대 30글자로 입력해주세요",
 ]);
 
+const regex = /^[A-Za-z0-9가-힣ㄱ-ㅎㅏ-ㅣ\s]*$/;
 // 프로젝트이름, 설명 정규식체크
 watch(
   [projectName, projectDescription],
   ([newPprojectName,]) => {
-    const regex = /^[A-Za-z0-9가-힣ㄱ-ㅎㅏ-ㅣ\s]*$/;
     // 프로젝트 이름 중복 확인
     const isDuplicate = isDuplicateProjectName(
       newPprojectName.trim(),

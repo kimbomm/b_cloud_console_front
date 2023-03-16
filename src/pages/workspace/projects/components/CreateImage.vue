@@ -91,7 +91,7 @@ const inputRules = ref([
 // const regex = /^[A-Za-z0-9가-힣ㄱ-ㅎㅏ-ㅣ\s]*$/; //정규식
 
 watch(
-  [projectName, projectDescription],
+  [projectName],
   () => {
     const isValid = projectName.value.length <= 1 || projectName.value.length >= 100;
 

@@ -625,7 +625,7 @@
                     @filter="chipFilterFn"
                     class="c_inpchip wsize_full"
                   >
-                    <template v-slot:append>
+                    <!-- <template v-slot:append>
                       <div class="slotopt"></div>
                     </template>
                     <template v-slot:no-option>
@@ -634,14 +634,13 @@
                           검색 결과 없습니다.
                         </q-item-section>
                       </q-item>
-                    </template>
+                    </template> -->
                   </q-select>
                 </div>
                 <template v-if="filterOptions == false">
                   <q-btn
                     type="button"
                     class="c_btn c_icon medium"
-                    disabled
                   >
                     <i class="ico plus" /><span class="txt">Disabled</span>
                   </q-btn>

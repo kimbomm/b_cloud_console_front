@@ -37,6 +37,8 @@
       </div>
 
       <div class="view_cont_num">
+      {{searchData.size}}
+      dataParams{{dataParams.size  }}
         <CDropdown
           v-model:selected="searchData.size"
           :label="label2"
@@ -417,6 +419,7 @@ const getInstances = async () => {
 const initRouterData = () => {
   searchData.value = {
     query: "",
+    size: 10,
     status: [],
     page: 1,
   };
@@ -609,7 +612,9 @@ const startInstnace = async () => {
  */
 
 const onActions = (eventName, rowData) => {
+  console.log("실행");
   projectQuotaUsed.value = props.projectInfo.quota.used;
+  console.log("props.projectInfo", props.projectInfo);
   switch (eventName) {
     case "delete":
       handleDeleteModal();
