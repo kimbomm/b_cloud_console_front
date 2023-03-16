@@ -91,6 +91,7 @@
           :hide-footer="true"
           :body-row-class-name="bodyRowClassNameFunction"
           :rows-per-page="rowsPerPage"
+          @click-row="onMemberClick"
           empty-message="정보가 없습니다."
         >
           <template #header-checked>
@@ -263,7 +264,7 @@
 <script setup>
 import { ref, computed } from "vue";
 import { useMeta } from "quasar";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { $useCmFn } from "src/composables/useCommonFunction";
 import { useCommonStore } from "stores/useCommonStore.js";
 import { WorkspaceService } from "src/services";
@@ -275,6 +276,7 @@ import CDialog from "components/common/CDialog.vue";
 import CPagination from "components/common/CPagination.vue";
 
 const route = useRoute();
+const router = useRouter();
 const { workspaceId } = route.params;
 const { me, myWorkspaces, getCodes } = useCommonStore();
 const myWorkspace = myWorkspaces.filter((item) => item.id === Number(workspaceId))[0];
@@ -301,7 +303,7 @@ const setMembers = (users) => {
   members.value = users.map((user) => ({
     ...user,
     checked: false,
-    disabled: false,
+    disabled: me.id === user.id,
     joined: true // TODO: TBD 미회원가입시!
   }));
 };
@@ -397,9 +399,9 @@ const memberHeader = [
  */
 const onChangeAll = (isAll) => {
   members.value.forEach((member) => {
-    member.checked = isAll;
+    if (!member.disabled) member.checked = isAll;
     if (isAll) {
-      chkGrp.value.push(member.id);
+      if (!member.disabled) chkGrp.value.push(member.id);
     } else {
       chkGrp.value = [];
     }
@@ -499,6 +501,11 @@ const formRules = {
     (value) => (value % 50 === 0) || "50GB 단위로 입력해주세요",
     (value) => (value <= 50000) || "할당 가능 용량 초과",
   ]
+};
+
+const onMemberClick = (row) => {
+  console.log("row >>>", row.id);
+  router.push(`/workspace/${workspaceId}/members/${row.id}`);
 };
 </script>
 
