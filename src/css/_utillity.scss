@@ -4289,3 +4289,7 @@ $linew:15px;
   75% {transform: rotate3d(0, 0, 1, 270deg);}
   100% {transform: rotate3d(0, 0, 1, 359deg);}
 }
+
+.q-separator {
+  background-color: $surface05;
+}

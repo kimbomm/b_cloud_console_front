@@ -8,7 +8,7 @@
         <q-breadcrumbs-el label="Member" to="/members/" />
         <q-breadcrumbs-el label="멤버 상세" to="/members/memberdetail" />
       </q-breadcrumbs>
-      <h1 class="p-title">{{ ptitle }}</h1>
+      <h1 class="p-title">Member</h1>
       <div class="deleteBtn">
         <c-button
           :outline="true"
@@ -19,12 +19,12 @@
     </div>
     <!-- //.chead -->
     <div class="p-body">
-      <template v-if='visible === true'>
+      <template v-if='visible'>
         <div class="m-info">
           <div class="u-info">
-            <p class="u-info_name">{{ userName }}</p>
-            <p class="u-info_email">{{ userEmail }}</p>
-            <p class="u-info_intro">{{ userIntroduce }}</p>
+            <p class="u-info_name">{{ user.name }}</p>
+            <p class="u-info_email">{{ user.email }}</p>
+            <p class="u-info_intro">{{ user.description }}</p>
           </div>
           <div class="u-info2">
             <div>
@@ -44,46 +44,68 @@
           </div>
         </div>
       </template>
-      <template v-if='visible == !true'>
+      <template v-if='visible'>
         <div class="w-info">
           <div class="w-info_work line pb">
             <div class="t-flex">
               <p class="title">워크스페이스</p>
               <div class="btnWrap">
-                <c-button
-                  :size="'medium'"
-                  :btn-names="'편집'"
-                  @click="visible = true"
-                />
+                <template v-if="!isEditMode">
+                  <c-button
+                    :size="'medium'"
+                    :btn-names="'편집'"
+                    @click="isEditMode = true"
+                  />
+                </template>
+                <template v-else>
+                  <c-button
+                    :outline="true"
+                    :size="medium"
+                    :btn-names="'취소'"
+                    @click="isEditMode = false"
+                  />
+                  <c-button
+                    :size="medium"
+                    :btn-names="'저장'"
+                    @click="isEditMode = false"
+                  />
+                </template>
               </div>
             </div>
 
             <div class="work-wrap">
-              <div class="w-name">
-                <p class="g-txt">워크스페이스 이름</p>
-                <p class="b-txt">{{ spaceName }}</p>
-              </div>
-              <div class="w-char">
-                <p class="g-txt">역할</p>
-                <p class="b-txt">{{ spaceChar }}</p>
+              <div class="col-grid">
+                <div class="g-txt">워크스페이스 이름</div>
+                <div class="g-txt">역할</div>
+                <div class="b-txt">{{ workspace.name }}</div>
+                <div v-if="!isEditMode" class="b-txt">{{ $utils.getRoleName(user.role) }}</div>
+                <div v-else class="group">
+                  <div class="c_selectgroup">
+                    <c-dropdown
+                      v-model:selected="selectedBasic"
+                      :label="label"
+                      :options="options"
+                    />
+                  </div>
+                </div>
               </div>
             </div>
           </div>
+          <q-separator spaced="40px" />
           <div class="w-info_proj line pb">
             <p class="title mt40">프로젝트</p>
             <div class="work-wrap">
-              <div class="w-name">
+              <div class="col-grid">
                 <p class="g-txt">프로젝트 이름</p>
-                <p class="p-txt">{{ proName1 }}</p>
-                <p class="p-txt">{{ proName2 }}</p>
-              </div>
-              <div class="w-char">
                 <p class="g-txt">프로젝트 권한</p>
-                <p class="p-txt">{{ proAuthor1 }}</p>
-                <p class="p-txt">{{ proAuthor2 }}</p>
+                <template v-for="(project) in projects" :key="project.id">
+                  <p class="p-txt">{{ project.name }}</p>
+                  <p class="p-txt">{{ $utils.getRoleName(project.role, "project") }}</p>
+                </template>
               </div>
             </div>
           </div>
+          <q-separator spaced="40px" />
           <div class="w-info_stor line">
             <p class="title mt40">개인 스토리지</p>
             <p class="amount">
@@ -228,12 +250,20 @@
 <script setup>
 import { ref } from "vue";
 import { useMeta } from "quasar";
+import { useRoute } from "vue-router";
+import { WorkspaceService, ProjectService } from "src/services";
+import { $utils } from "src/utils/utils";
 import CButton from "components/common/CButton.vue";
 import CDropdown from "components/common/CDropdown.vue";
 
+useMeta(() => ({
+  title: "Member",
+}));
+const route = useRoute();
+// const router = useRouter();
+const { workspaceId, memberId } = route.params;
+const isEditMode = ref(false);
 const visible = ref(true);
-const title = ref("Member");
-
 const label = ref("프로젝트 이름");
 const label2 = ref("전체");
 
@@ -248,12 +278,6 @@ const spaceName = ref("카카오 모빌리티(public)");
 const spaceChar = ref("워크스페이스 멤버");
 const proName1 = ref("00프로젝트1");
 const proName2 = ref("00프로젝트1");
-const proAuthor1 = ref("프로젝트 관리자");
-const proAuthor2 = ref("멤버");
-
-useMeta(() => ({
-  title: title.value,
-}));
 
 const options = ref([
   { label: "전체", value: 0 },
@@ -261,7 +285,22 @@ const options = ref([
   { label: "멤버", value: 2 },
 ]);
 
-const ptitle = ref(title);
+const user = ref(null);
+const workspace = ref(null);
+const projects = ref(null);
+
+const init = async () => {
+  const [resUser, resWorkspace, resProjects] = await Promise.all([
+    WorkspaceService.getMemberInfo(workspaceId, memberId),
+    WorkspaceService.getWorkspace(workspaceId),
+    ProjectService.getUserProjects(workspaceId, memberId),
+  ]);
+  user.value = resUser;
+  workspace.value = resWorkspace;
+  projects.value = resProjects.projects;
+};
+
+init();
 </script>
 
 <style lang="scss" scoped>
