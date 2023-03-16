@@ -27,18 +27,21 @@ import {
 const props = defineProps({
   placeholder: {
     type: String,
-    default: ""
+    default: "",
   },
   value: {
     type: String,
-    default: ""
-  }
+    default: "",
+  },
 });
 const emit = defineEmits(["update:value"]);
 const lazyDate = ref(null);
-watch(() => props.value, () => {
-  lazyDate.value = props.value;
-});
+watch(
+  () => props.value,
+  () => {
+    lazyDate.value = props.value;
+  }
+);
 
 onMounted(() => {
   lazyDate.value = props.value;
