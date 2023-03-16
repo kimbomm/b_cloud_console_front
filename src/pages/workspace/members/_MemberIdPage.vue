@@ -77,8 +77,8 @@
               <div class="col-grid">
                 <div class="g-txt">워크스페이스 이름</div>
                 <div class="g-txt">역할</div>
-                <div class="b-txt">{{spaceName}}</div>
-                <div v-if="!isEditMode" class="b-txt">{{ spaceChar }}</div>
+                <div class="b-txt">{{ workspace.name }}</div>
+                <div v-if="!isEditMode" class="b-txt">{{ $utils.getRoleName(user.role) }}</div>
                 <div v-else class="group">
                   <div class="c_selectgroup">
                     <c-dropdown
@@ -286,14 +286,17 @@ const options = ref([
 ]);
 
 const user = ref(null);
+const workspace = ref(null);
 const projects = ref(null);
 
 const init = async () => {
-  const [resUser, resProjects] = await Promise.all([
+  const [resUser, resWorkspace, resProjects] = await Promise.all([
     WorkspaceService.getMemberInfo(workspaceId, memberId),
+    WorkspaceService.getWorkspace(workspaceId),
     ProjectService.getUserProjects(workspaceId, memberId),
   ]);
   user.value = resUser;
+  workspace.value = resWorkspace;
   projects.value = resProjects.projects;
 };
 
