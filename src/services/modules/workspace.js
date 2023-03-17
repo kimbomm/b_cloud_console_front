@@ -33,6 +33,24 @@ export const WorkspaceService = {
   async getWorkspaceMembers(workspaceId) {
     const response = await api.get(`/workspaces/${workspaceId}/members`);
     return response.data;
-  }
+  },
 
+  /**
+   * 설명: 워크스페이스 멤버 추가
+   * @param { number } workspaceId 워크스페이스 id
+   */
+  async addWorkspaceMember(workspaceId, payload) {
+    const response = await api.post(`/workspaces/${workspaceId}/members`, payload);
+    return response.data;
+  },
+
+  /**
+   * 설명: 워크스페이스 멤버 삭제
+   * @param { number } workspaceId 워크스페이스 id
+   * @param { number } userId user id
+   */
+  async removeWorkspaceMember(workspaceId, userId) {
+    const response = await api.post(`/workspaces/${workspaceId}/members/${userId}`);
+    return response.data;
+  }
 };

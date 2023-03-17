@@ -3,8 +3,6 @@ const routes = [
     path: "/",
     component: () => import("layouts/MainLayout.vue"),
     children: [
-      // Dashboard
-      { path: "", component: () => import("pages/IndexPage.vue") },
       // 프로젝트
       { path: "/projects/", component: () => import("pages/projects/IndexPage.vue") },
       { path: "/projects/task", component: () => import("pages/projects/TaskPage.vue") },
@@ -16,14 +14,6 @@ const routes = [
       { path: "/projects/instancedetail", component: () => import("pages/projects/InstanceDetailPage.vue") },
       // 스토리지
       { path: "/storage/", component: () => import("pages/storage/IndexPage.vue") },
-      // 이미지
-      { path: "/images/", component: () => import("pages/images/IndexPage.vue") },
-      { path: "/images/storage", component: () => import("pages/images/StoragePage.vue") },
-      { path: "/images/basic", component: () => import("pages/images/BasicPage.vue") },
-      { path: "/images/shared", component: () => import("pages/images/SharedPage.vue") },
-      // 멤버
-      { path: "/members/", component: () => import("pages/members/IndexPage.vue") },
-      { path: "/members/memberdetail", component: () => import("pages/members/MemberDetailPage.vue") },
       // 요금
       { path: "/billing/", component: () => import("pages/billing/IndexPage.vue") },
       { path: "/billing/billingdetail", component: () => import("pages/billing/BillingDetailPage.vue") },
@@ -31,10 +21,6 @@ const routes = [
       { path: "/billing/instance", component: () => import("pages/billing/InstancePage.vue") },
       { path: "/billing/storage", component: () => import("pages/billing/StoragePage.vue") },
       { path: "/billing/project", component: () => import("pages/billing/ProjectPage.vue") },
-      // 내정보
-      { path: "/my/", component: () => import("pages/my/IndexPage.vue") },
-      { path: "/my/alarm", component: () => import("pages/my/AlarmPage.vue") },
-      { path: "key", component: () => import("pages/KeyPage.vue") },
       // 관리
       { path: "/manage/", component: () => import("pages/manage/IndexPage.vue") },
       { path: "/manage/project", component: () => import("pages/manage/ProjectPage.vue") },
@@ -128,7 +114,7 @@ const routes = [
       },
       { path: "/projects/projectdetail", component: () => import("pages/workspace/projects/ProjectDetailPage.vue") },
       // 프로젝트 - 인스턴스 : 생성, 상세
-      { path: "/workspace/:workspaceId/projects/:projectId/instance/create", component: () => import("pages/workspace/projects/InstanceDetailPage.vue") },
+      { path: "/workspace/:workspaceId/projects/:projectId/instance/create", name: "createInstance", component: () => import("pages/workspace/projects/InstanceDetailPage.vue") },
       { path: "/workspace/:workspaceId/projects/:projectId/instance/:instanceId", component: () => import("pages/workspace/projects/InstanceViewPage.vue") },
       // 프로젝트 - 테스크 : 생성, 상세, 그룹상세
       // TODO: 그룹상세 url
@@ -142,7 +128,7 @@ const routes = [
       { path: "/workspace/:workspaceId/images", component: () => import("pages/workspace/images/IndexPage.vue") },
       // 멤버
       { path: "/workspace/:workspaceId/members/", component: () => import("pages/workspace/members/IndexPage.vue") },
-      { path: "/workspace/:workspaceId/members/:memberId", component: () => import("pages/workspace/members/MemberDetailPage.vue") },
+      { path: "/workspace/:workspaceId/members/:memberId", component: () => import("pages/workspace/members/_MemberIdPage.vue") },
       // 요금
       { path: "/workspace/:workspaceId/billing", component: () => import("pages/billing/IndexPage.vue") },
       { path: "/workspace/:workspaceId/billing/:billingId", component: () => import("pages/billing/BillingDetailPage.vue") },

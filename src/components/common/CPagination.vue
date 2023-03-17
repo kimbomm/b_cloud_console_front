@@ -25,7 +25,7 @@ const router = useRouter();
 const props = defineProps({
   total: {
     type: Number,
-    default: 2
+    default: 1
   },
   maxPage: {
     type: Number,
