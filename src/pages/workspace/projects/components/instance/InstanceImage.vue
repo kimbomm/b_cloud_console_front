@@ -1,12 +1,12 @@
 <template>
-  <div class="s_04 pb78">
+  <div class="s_03 pb78">
     <p class="sub_title2">이미지<i class="ess">*</i></p>
-    <div class="s_04_main">
-      <div class="s_04_tab">
-        <q-tabs v-model="tab2" align="left" class="c_tabs">
-          <q-tab name="tabs1" label="기본 이미지"></q-tab>
-          <q-tab name="tabs2" label="내이미지"></q-tab>
-          <q-tab name="tabs3" label="공유받은 이미지"></q-tab>
+    <div class="s_03_main">
+      <div class="s_03_tab">
+        <q-tabs v-model="tab" align="left" class="c_tabs">
+          <q-tab name="baseIamge" label="기본 이미지"></q-tab>
+          <q-tab name="myImage" label="내이미지"></q-tab>
+          <q-tab name="sharedImage" label="공유받은 이미지"></q-tab>
         </q-tabs>
       </div>
       <div class="now_selected_area">
@@ -15,386 +15,361 @@
             <p class="select_title_inner">선택된 타입</p>
           </q-item>
           <q-item class="select_value">
-            <p class="select_value_inner">
-              tensorflow 2.9.0 (python3, cuda11.2, ubuntu20.04)
-            </p>
+            <p class="select_value_inner">{{ selectedName }}</p>
           </q-item>
         </div>
       </div>
-      <template v-if="tab2 === 'tabs1'">
-        <template v-if="defaultData == true">
-          <div class="s_04_table">
-            <easy-data-table
-              v-model:items-selected="itemsSelected"
-              :headers="imgHeader1"
-              :items="imgItems1"
-              :hide-footer="true"
-              :body-row-class-name="bodyRowClassNameFunction"
-              empty-message="정보가 없습니다."
-            >
-              <!-- title -->
-              <template #item-title="item">
-                <a href="#">
-                  <span class="txt">{{ item.title }}</span>
-                  <q-tooltip anchor="bottom middle" class="c_tooltip">
-                    <div class="inner">
-                      {{ item.title }}
-                    </div>
-                  </q-tooltip>
-                </a>
-              </template>
-              <!-- nvida -->
-              <template #item-nvida="item">
-                <a href="#">
-                  <span class="txt">{{ item.nvida }}</span>
-                </a>
-              </template>
-              <!-- 버튼 그룹 -->
-              <template #item-buttons="item">
-                <q-btn v-if="item.checkbox" class="text">
-                  <span class="txt">선택 취소하기</span>
-                </q-btn>
-              </template>
-            </easy-data-table>
-          </div>
+      <div class="s_03_table">
+        <div v-if="tab === 'baseIamge'">
+          <easy-data-table
+            :headers="baseImageHeader"
+            :items="baseImages"
+            :hide-footer="true"
+            empty-message="생성된 이미지가 없습니다."
+            @click-row="handleBaseTableRowClick"
+            :id="baseTableId"
+            :body-row-class-name="bodyRowClassNameFunctionCheck"
+          >
+            <!-- name -->
+            <template #item-title="item">
+              <a href="javascript:void(0);">
+                <span class="txt">{{ item.name }}</span>
+              </a>
+            </template>
+            <!-- 최소버전 -->
+            <template #item-disk="item">
+              <a href="#">
+                <span class="txt">{{ item.min_nvidia_driver_version }}</span>
+              </a>
+            </template>
+          </easy-data-table>
           <div class="disflex_C mt32">
             <c-pagination />
           </div>
-        </template>
-        <template v-else>
-          <div class="com_nondata_area">
-            <div class="nondata_box">
-              <p class="nondata_txt">생성된 이미지가 없습니다.</p>
-            </div>
-          </div>
-        </template>
-      </template>
-      <template v-if="tab2 === 'tabs2'">
-        <template v-if="defaultData == true">
-          <div class="s_04_table">
-            <easy-data-table
-              v-model:items-selected="itemsSelected"
-              :headers="imgHeader2"
-              :items="imgItems2"
-              :hide-footer="true"
-              :body-row-class-name="bodyRowClassNameFunction"
-              empty-message="정보가 없습니다."
-            >
-              <!-- title -->
-              <template #item-title="item">
-                <a href="#">
-                  <span class="txt">{{ item.title }}</span>
-                  <q-tooltip anchor="bottom middle" class="c_tooltip">
-                    <div class="inner">
-                      {{ item.title }}
-                    </div>
-                  </q-tooltip>
-                </a>
-              </template>
-              <!-- description -->
-              <template #item-description="item">
-                <a href="#">
-                  <span class="txt">{{ item.description }}</span>
-                  <q-tooltip anchor="bottom middle" class="c_tooltip">
-                    <div class="inner">
-                      {{ item.description }}
-                    </div>
-                  </q-tooltip>
-                </a>
-              </template>
-              <!--
-                          상태값(status)
-                          1. sharing, 저장(공유)
-                          2. error, 오류
-                          3. inStorage, 저장중
-                        -->
-              <template #item-status="item">
-                <q-badge v-if="item.status === 'sharing'" class="green">
-                  <span class="txt">저장(공유)</span>
-                </q-badge>
-                <q-badge v-else-if="item.status === 'error'" class="orange">
-                  <span class="txt">오류</span>
-                </q-badge>
-                <q-badge v-else-if="item.status === 'inStorage'">
-                  <span class="txt">저장중</span>
-                </q-badge>
-                <q-item v-else-if="item.status === 'group'" class="badge_group">
-                  <div class="badge">
-                    <q-badge class="green">
-                      <span class="txt">7</span>
-                    </q-badge>
-                    <q-badge class="orange">
-                      <span class="txt">20</span>
-                    </q-badge>
-                    <q-badge class="c_badge">
-                      <span class="txt">27</span>
-                    </q-badge>
-                  </div>
+        </div>
 
-                  <q-popup-edit
-                    v-model="badgeGroup"
-                    self="bottom middle"
-                    class="badge_menu"
-                  >
-                    <div class="inner">
-                      <q-list>
-                        <q-item>
-                          <q-item-section>
-                            <div class="badge_item">
-                              <q-badge class="green">
-                                <span class="txt">실행중</span>
-                              </q-badge>
-                              <span class="count">2</span>
-                            </div>
-                          </q-item-section>
-                          <q-item-section>
-                            <div class="badge_item">
-                              <q-badge>
-                                <span class="txt">생성중</span>
-                              </q-badge>
-                              <span class="count">2</span>
-                            </div>
-                          </q-item-section>
-                        </q-item>
-                        <q-item>
-                          <q-item-section>
-                            <div class="badge_item">
-                              <q-badge class="green">
-                                <span class="txt">완료</span>
-                              </q-badge>
-                              <span class="count">5</span>
-                            </div>
-                          </q-item-section>
-                          <q-item-section>
-                            <div class="badge_item">
-                              <q-badge>
-                                <span class="txt">재시작중</span>
-                              </q-badge>
-                              <span class="count">5</span>
-                            </div>
-                          </q-item-section>
-                        </q-item>
-                        <q-item>
-                          <q-item-section>
-                            <div class="badge_item">
-                              <q-badge class="orange">
-                                <span class="txt">취소</span>
-                              </q-badge>
-                              <span class="count">10</span>
-                            </div>
-                          </q-item-section>
-                          <q-item-section>
-                            <div class="badge_item">
-                              <q-badge>
-                                <span class="txt">취소중</span>
-                              </q-badge>
-                              <span class="count">10</span>
-                            </div>
-                          </q-item-section>
-                        </q-item>
-                        <q-item>
-                          <q-item-section>
-                            <div class="badge_item">
-                              <q-badge class="orange">
-                                <span class="txt">실패</span>
-                              </q-badge>
-                              <span class="count">10</span>
-                            </div>
-                          </q-item-section>
-                          <q-item-section>
-                            <div class="badge_item">
-                              <q-badge>
-                                <span class="txt">삭제중</span>
-                              </q-badge>
-                              <span class="count">10</span>
-                            </div>
-                          </q-item-section>
-                        </q-item>
-                      </q-list>
-                    </div>
-                  </q-popup-edit>
-                </q-item>
-                <q-badge v-else class="c_badge">
-                  <span class="txt">생성중</span>
-                </q-badge>
-              </template>
-              <!-- createdAt -->
-              <template #item-createdAt="item">
-                <a href="#">
-                  <span class="txt">{{ item.createdAt }}</span>
-                </a>
-              </template>
-              <!-- 버튼 그룹 -->
-              <template #item-buttons="item">
-                <q-btn v-if="item.checkbox" class="text">
-                  <span class="txt">선택 취소하기</span>
-                </q-btn>
-              </template>
-            </easy-data-table>
-          </div>
+        <div v-if="tab === 'myImage'">
+          <easy-data-table
+            :headers="myImageHeader"
+            :items="myImages"
+            :hide-footer="true"
+            empty-message="생성된 이미지가 없습니다."
+            @click-row="handleMyTableRowClick"
+            :id="myTableId"
+            :body-row-class-name="bodyRowClassNameFunctionCheck"
+          >
+            <!-- name -->
+            <template #item-title="item">
+              <a href="javascript:void(0);">
+                <span class="txt">{{ item.name }}</span>
+              </a>
+            </template>
+            <template #item-description="item">
+              <a href="javascript:void(0);">
+                <span class="txt">{{ item.description }}</span>
+                <q-tooltip anchor="bottom middle" class="c_tooltip">
+                  <div class="inner">
+                    {{ item.description }}
+                  </div>
+                </q-tooltip>
+              </a>
+            </template>
+            <template #item-status="item">
+              <CBadgeState :item="item" />
+            </template>
+          </easy-data-table>
           <div class="disflex_C mt32">
             <c-pagination />
           </div>
-        </template>
-        <template v-else>
-          <div class="com_nondata_area">
-            <div class="nondata_box">
-              <p class="nondata_txt">생성된 이미지가 없습니다.</p>
-            </div>
-          </div>
-        </template>
-      </template>
-      <template v-if="tab2 === 'tabs3'">
-        <template v-if="defaultData == true">
-          <div class="s_04_table">
-            <easy-data-table
-              v-model:items-selected="itemsSelected"
-              :headers="imgHeader3"
-              :items="imgItems3"
-              :hide-footer="true"
-              :body-row-class-name="bodyRowClassNameFunction"
-              empty-message="정보가 없습니다."
-            >
-              <!-- title -->
-              <template #item-title="item">
-                <a href="#">
-                  <span class="txt">{{ item.title }}</span>
-                </a>
-              </template>
-              <!-- description -->
-              <template #item-description="item">
-                <a href="#">
-                  <span class="txt">{{ item.description }}</span>
-                  <q-tooltip anchor="bottom middle" class="c_tooltip">
-                    <div class="inner">
-                      {{ item.description }}
-                    </div>
-                  </q-tooltip>
-                </a>
-              </template>
-              <!-- owner -->
-              <template #item-owner="item">
-                <a href="#">
-                  <span class="txt">{{ item.owner }}</span>
-                </a>
-              </template>
-              <!-- 버튼 그룹 -->
-              <template #item-buttons="item">
-                <q-btn v-if="item.checkbox" class="text">
-                  <span class="txt">선택 취소하기</span>
-                </q-btn>
-              </template>
-            </easy-data-table>
-          </div>
+        </div>
+
+        <div v-if="tab === 'sharedImage'">
+          <easy-data-table
+            :headers="sharedImageHeader"
+            :items="sharedImages"
+            :hide-footer="true"
+            empty-message="공유받은 이미지가 없습니다."
+            @click-row="handleSharedTableRowClick"
+            :id="sharedTableId"
+            :body-row-class-name="bodyRowClassNameFunctionCheck"
+          >
+            <template #item-id="item">
+              <span class="txt">{{ item.name }}</span>
+            </template>
+            <template #item-title="item">
+              <a href="#">
+                <span class="txt">{{ item.description }}</span>
+                <q-tooltip anchor="bottom middle" class="c_tooltip">
+                  <div class="inner">{{ item.description }}</div>
+                </q-tooltip>
+              </a>
+            </template>
+            <!-- image -->
+            <template #item-image="item">
+              <span class="txt">{{ item }}</span>
+            </template>
+            <!-- sharedBy -->
+            <template #item-sharedBy="item">
+              <span class="txt">{{ item.sharedUserWithEmail }}</span>
+            </template>
+          </easy-data-table>
           <div class="disflex_C mt32">
             <c-pagination />
           </div>
-        </template>
-        <template v-else>
-          <div class="com_nondata_area">
-            <div class="nondata_box">
-              <p class="nondata_txt">공유받은 이미지가 없습니다.</p>
-            </div>
-          </div>
-        </template>
-      </template>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted, computed } from "vue";
+import { imageService } from "src/services";
+import { $utils } from "src/utils/utils";
+import { useCommonStore } from "src/stores/useCommonStore";
+
 import CPagination from "components/common/CPagination.vue";
+import CBadgeState from "src/components/common/CBadgeState.vue";
 
-const itemsSelected = ref([]);
-const defaultData = ref(true);
+const emit = defineEmits(["imageSelected"]);
+const props = defineProps({
+  workspaceId: {
+    type: [Number, String],
+  },
+  userId: {
+    type: Number,
+  },
+});
 
-const tab2 = ref("tabs1");
+const tab = ref("baseIamge");
+const baseTableId = "baseImageTable";
+const myTableId = "myImageTable";
+const sharedTableId = "sharedImageTable";
 
-// 이미지 테이블_기본이미지
-const imgHeader1 = [
+const imageSelected = ref({});
+
+const baseImages = ref([]);
+const myImages = ref([]);
+const sharedImages = ref([]);
+
+const commonStore = useCommonStore();
+
+const selectedName = computed(() => {
+  const name = imageSelected.value?.name || "";
+  console.log("imageSelected", imageSelected.value);
+  if (!name) {
+    return "이미지를 선택해주세요.";
+  }
+  if (imageSelected.value.type === "base") {
+    return `${name}`;
+  }
+  if (imageSelected.value.type === "custom") {
+    console.log("sdfsdf", commonStore.commonStatus("save").text);
+    return `${imageSelected.value.name} (${imageSelected.value.description} / ${commonStore.commonStatus(imageSelected.value.status).text} / ${imageSelected.value.created_at})`;
+  }
+  if (imageSelected.value.type === "shared") {
+    return `${name} ( 내 이미지)`;
+  }
+  return `${name}`;
+});
+
+// const myImageStatus = () => {
+//   if (imageSelected.value.type === "custom") {
+//     imageSelected.value.status
+
+//   }
+// }
+
+const baseImageHeader = [
   {
-    text: "이름", value: "title", width: 320, widthAuto: true, sortable: false
+    text: "이름",
+    value: "name",
+    width: 580,
+    widthAuto: true,
+    sortable: false,
   },
   {
-    text: "NVIDA 드라이브 최소버전", value: "nvida", width: 270, sortable: false
-  },
-];
-const imgItems1 = [
-  {
-    title: "tensorflow 2.9.0  (python3, cuda11.2, ubuntu20.04)",
-    nvida: "400.0008",
-  },
-  {
-    title: "tensorflow 2.9.0  (python3, cuda11.2, ubuntu20.04)",
-    nvida: "450.0008",
-  },
-];
-// 이미지 테이블_내이미지
-const imgHeader2 = [
-  {
-    text: "이름", value: "title", width: 140, sortable: false
-  },
-  {
-    text: "설명", value: "description", width: 130, widthAuto: true, sortable: false
-  },
-  {
-    text: "상태", value: "status", width: 110, sortable: false
-  },
-  {
-    text: "생성일시", value: "createdAt", width: 200, sortable: false
-  },
-];
-const imgItems2 = [
-  {
-    title: "내 이미지 1",
-    description: "내 이미지 1",
-    status: "sharing",
-    createdAt: "2023.09.02 07:30:44",
-  },
-  {
-    title: "내 이미지 1",
-    description: "내 이미지 1",
-    status: "inStorage",
-    createdAt: "2023.09.02 07:30:44",
-  },
-  {
-    title: "내 이미지 1",
-    description: "내 이미지 1",
-    status: "error",
-    createdAt: "2023.09.02 07:30:44",
-  },
-];
-// 이미지 테이블_공유받은 이미지
-const imgHeader3 = [
-  {
-    text: "이름", value: "title", width: 110, sortable: false
-  },
-  {
-    text: "설명", value: "description", width: 200, widthAuto: true, sortable: false
-  },
-  {
-    text: "공유자", value: "owner", width: 280, sortable: false
-  },
-];
-const imgItems3 = [
-  {
-    title: "내 이미지1",
-    description: "내 이미지 1",
-    owner: "Kayle(kayle.k@kakaobrain.com)",
-  },
-  {
-    title: "내 이미지1",
-    description: "택스트용 내 이미지 생성 테스트 텍스트",
-    owner: "Kayle(kayle.k@kakaobrain.com)",
-  },
-  {
-    title: "내 이미지1",
-    description: "내 이미지 3",
-    owner: "Kayle(kayle.k@kakaobrain.com)",
+    text: "NVIDA 드라이버 최소버전",
+    value: "base_image.min_nvidia_driver_version",
+    width: 382,
+    sortable: false,
   },
 ];
 
+const myImageHeader = [
+  {
+    text: "이름",
+    value: "name",
+    width: 190,
+    sortable: true,
+  },
+  {
+    text: "설명",
+    value: "description",
+    width: 274,
+  },
+  {
+    text: "상태",
+    value: "status",
+    width: 110,
+  },
+  {
+    text: "기본 이미지",
+    value: "base_image.name",
+    width: 350,
+    sortable: true,
+  },
+  {
+    text: "생성일시",
+    value: "created_at",
+    width: 200,
+    sortable: true,
+  },
+];
+
+const sharedImageHeader = [
+  {
+    text: "이름",
+    value: "name",
+    width: 140,
+    sortable: true,
+  },
+  {
+    text: "설명",
+    value: "description",
+    width: 340,
+  },
+  {
+    text: "공유자",
+    value: "sharedUserWithEmail",
+    width: 250,
+    sortable: true,
+  },
+];
+
+const bodyRowClassNameFunctionCheck = (item) => {
+  const classList = [];
+  /*
+   * disabled 처리
+   * 예시) 리소스 할당량 초과
+   * */
+  if (item.id === 132) {
+    classList.push("row-isdim");
+  }
+  return classList.join(" ");
+};
+
+/* row 클릭 시 해당 행 checked */
+const showRowChecked = (item, tableId) => {
+  imageSelected.value = item;
+  const nNum = baseImages.value.findIndex((n) => n.id === item.id);
+  const selected = document.querySelectorAll(`#${tableId} table tr`);
+
+  // 타입 선택시, 선택된 타입 목록 상단 고정 표기
+  const firstNode = selected[1];
+  const parent = firstNode.parentNode;
+  parent.insertBefore(selected[nNum + 1], firstNode);
+
+  if (selected.length > nNum + 1) {
+    selected.forEach((tr) => tr.classList.remove("row-isCheck"));
+    selected[nNum + 1].classList.add("row-isCheck");
+  }
+  emit("imageSelected", imageSelected.value);
+};
+
+/**
+ * 설명 : object 안에 데이터 속성 명을 입력하면
+ * YYYY-MM-DD로 변경 후 새로운 object 생성
+ * @param { Object } value
+ * @param { Object } created_at
+ */
+const transformDate = (value) => {
+  const { images } = value;
+  const updateImage = images.map((item) => ({
+    ...item,
+    [value.created_at]: $utils.paseseDate(item[value.created_at], value.dateType),
+  }));
+
+  return updateImage;
+};
+
+const handleBaseTableRowClick = (item) => {
+  showRowChecked(item, baseTableId);
+};
+
+const handleMyTableRowClick = (item) => {
+  showRowChecked(item, myTableId);
+};
+const handleSharedTableRowClick = (item) => {
+  showRowChecked(item, sharedTableId);
+};
+
+const getBaseImage = async () => {
+  try {
+    const { images } = await imageService.getBaseImages();
+    baseImages.value = images;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const getMyImage = async () => {
+  try {
+    const { images } = await imageService.getMyImages(props.workspaceId, props.userId);
+    const updatedImages = $utils.sortType(
+      transformDate({
+        images,
+        created_at: "created_at",
+        dateType: "YYYY-MM-DD",
+      }),
+      "created_at",
+      true,
+      "datetime"
+    );
+
+    myImages.value = updatedImages;
+    console.log("myImages.value", myImages.value);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// 공유자 정보 이름(이메일) 형식으로 변경
+const setImagesWithSharedUser = (updatedImages) => {
+  const extractSharedUser = (item) => {
+    const { email, name } = item.shared_user;
+    return { sharedUserWithEmail: `${name}(${email})` };
+  };
+  const updateSahredUser = updatedImages.map((item) => ({
+    ...item,
+    ...extractSharedUser(item),
+  }));
+
+  return updateSahredUser;
+};
+
+const getSharedImage = async () => {
+  try {
+    const response = await imageService.getSharedImages(props.workspaceId, props.userId);
+    const images = response.shared_images;
+    const updatedImages = transformDate({
+      images,
+      created_at: "shared_at",
+      dateType: "YYYY-MM-DD HH:mm:ss",
+    });
+
+    sharedImages.value = setImagesWithSharedUser(updatedImages);
+  } catch (error) {
+    console.log(error.response);
+    return false;
+  }
+};
+
+onMounted(async () => {
+  await getBaseImage();
+  await getMyImage();
+  await getSharedImage();
+});
 </script>
 
 <style lang="scss" scoped>

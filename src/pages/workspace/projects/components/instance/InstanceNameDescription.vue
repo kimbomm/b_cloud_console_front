@@ -39,7 +39,7 @@ import CInputText from "src/components/common/CInputText.vue";
 const textName = ref(null);
 const textDescription = ref(null);
 
-const emit = defineEmits(["updateInputName", "updateInputDescription"]);
+const emit = defineEmits(["instanceName", "instanceDescription"]);
 
 // 이름 정규식체크
 const inputRules = ref([
@@ -55,13 +55,13 @@ const inputRules = ref([
 const updateTextName = (value) => {
   setTimeout(() => {
     textName.value = value;
-    emit("updateInputName", textName.value);
+    emit("instanceName", textName.value);
   }, 50);
 };
 
 const updateTextDescription = () => {
   setTimeout(() => {
-    emit("updateInputDescription", textDescription.value);
+    emit("instanceDescription", textDescription.value);
   }, 50);
 };
 

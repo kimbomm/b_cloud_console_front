@@ -51,4 +51,12 @@ export const InstanceService = {
     return response.data;
   },
 
+  /**
+   * 설명: 인스턴스 타입 목록 조회
+   */
+  async getIntanceType() {
+    const response = await api.get("/instance-types");
+    return response.data;
+  },
+
 };
