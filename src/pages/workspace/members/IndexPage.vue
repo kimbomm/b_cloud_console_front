@@ -427,7 +427,7 @@ const bodyRowClassNameFunction = (item) => {
 };
 
 const onPaging = () => {
-  console.log(">>>>");
+  // console.log(">>>>");
 };
 
 const addMemberModal = ref(false);
@@ -504,7 +504,6 @@ const formRules = {
 };
 
 const onMemberClick = (row) => {
-  console.log("row >>>", row.id);
   router.push(`/workspace/${workspaceId}/members/${row.id}`);
 };
 </script>

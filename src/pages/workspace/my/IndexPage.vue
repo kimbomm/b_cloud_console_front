@@ -106,7 +106,7 @@
               <q-item-section class="item_card">
                 <q-item-label class="title">워크스페이스 역할</q-item-label>
                 <q-item-label class="info">
-                  {{ $utils.getRoleName(userInfo.role, "workspace") }}
+                  {{ $utils.getRoleName(userInfo.role) }}
                 </q-item-label>
               </q-item-section>
               <!-- TODO: TBD 개발 -->
@@ -703,7 +703,6 @@ const onSshKeyRegist = async () => {
     sshKeys.value = keys.ssh_keys;
     await sshModalInit();
   } catch (e) {
-    console.log("Error >>>", e.response);
     $useCmFn.onNotify({
       message: "SSH Key 등록에 실패하였습니다. 다시 시도해주세요.",
       type: "negative"

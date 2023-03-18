@@ -13,7 +13,8 @@ import routes from "./routes";
  * with the Router instance.
  */
 
-export default route((/* { store, ssrContext } */) => {
+// export default route(({ store, /* ssrContext */ }) => {
+export default route(() => {
   const createHistory = process.env.SERVER
     ? createMemoryHistory
     : (process.env.VUE_ROUTER_MODE === "history" ? createWebHistory : createWebHashHistory);
@@ -26,6 +27,11 @@ export default route((/* { store, ssrContext } */) => {
     // quasar.conf.js -> build -> vueRouterMode
     // quasar.conf.js -> build -> publicPath
     history: createHistory(process.env.VUE_ROUTER_BASE),
+  });
+
+  Router.beforeEach((to, from, next) => {
+    console.log("router/index.js >>>", to, from);
+    next();
   });
 
   return Router;

@@ -49,14 +49,6 @@ const routes = [
     ],
   },
   {
-    path: "/login",
-    component: () => import("layouts/LoginLayout.vue"),
-    children: [
-      // 로그인
-      { path: "/login", component: () => import("pages/login/IndexPage.vue") },
-    ],
-  },
-  {
     path: "/common",
     component: () => import("layouts/SubLayout.vue"),
     children: [
@@ -101,19 +93,28 @@ const routes = [
    */
   {
     path: "/",
+    component: () => import("layouts/LoginLayout.vue"),
+    children: [
+      // 로그인 (완료)
+      { path: "/login", component: () => import("pages/login/IndexPage.vue") },
+    ],
+  },
+  {
+    path: "/",
     component: () => import("layouts/MainLayout.vue"),
     children: [
-      { path: "/workspace", component: () => import("pages/workspace/IndexPage.vue") },
-      // Dashboard
-      { path: "/workspace/:workspaceId/projects", component: () => import("pages/IndexPage.vue") },
-      // 프로젝트
+      { path: "/workspace", component: () => import("src/pages/IndexPage.vue") },
+      // Dashboard (완료)
+      { path: "/workspace/:workspaceId/projects", component: () => import("pages/workspace/IndexPage.vue") },
+      // 프로젝트 (완료)
       {
         path: "/workspace/:workspaceId/projects/:projectId",
         component: () => import("pages/workspace/projects/IndexPage.vue"),
         name: "ProjectList",
       },
-      { path: "/projects/projectdetail", component: () => import("pages/workspace/projects/ProjectDetailPage.vue") },
-      // 프로젝트 - 인스턴스 : 생성, 상세
+      // 프로젝트 상세 (TODO:)
+      { path: "/workspace/:workspaceId/projects/:projectId/detail", component: () => import("pages/workspace/projects/ProjectDetailPage.vue") },
+      // 프로젝트 - 인스턴스 : 생성, 상세 (TODO:)
       { path: "/workspace/:workspaceId/projects/:projectId/instance/create", component: () => import("pages/workspace/projects/InstanceDetailPage.vue") },
       { path: "/workspace/:workspaceId/projects/:projectId/instance/:instanceId", component: () => import("pages/workspace/projects/InstanceViewPage.vue") },
       // 프로젝트 - 테스크 : 생성, 상세, 그룹상세
@@ -122,22 +123,22 @@ const routes = [
       { path: "/workspace/:workspaceId/projects/:projectId/task/:taskId", component: () => import("pages/workspace/projects/TaskViewPage.vue") },
       { path: "/projects/taskgroup", component: () => import("pages/workspace/projects/TaskGroupPage.vue") },
 
-      // 스토리지
+      // 스토리지 (TODO:)
       { path: "/workspace/:workspaceId/storage", component: () => import("pages/storage/IndexPage.vue") },
-      // 이미지
+      // 이미지 (완료)
       { path: "/workspace/:workspaceId/images", component: () => import("pages/workspace/images/IndexPage.vue") },
-      // 멤버
+      // 멤버 (완료)
       { path: "/workspace/:workspaceId/members/", component: () => import("pages/workspace/members/IndexPage.vue") },
       { path: "/workspace/:workspaceId/members/:memberId", component: () => import("pages/workspace/members/_MemberIdPage.vue") },
-      // 요금
+      // 요금 (TODO:)
       { path: "/workspace/:workspaceId/billing", component: () => import("pages/billing/IndexPage.vue") },
       { path: "/workspace/:workspaceId/billing/:billingId", component: () => import("pages/billing/BillingDetailPage.vue") },
-      // 내정보
+      // 내정보 (완료)
       { path: "/workspace/:workspaceId/my", component: () => import("pages/workspace/my/IndexPage.vue") },
-      // 관리
-      { path: "/workspace/:workspaceId/manage/manage/project", component: () => import("pages/manage/ProjectPage.vue") },
-      { path: "/manage/resource", component: () => import("pages/manage/InstancePage.vue") },
-      { path: "/manage/storage", component: () => import("pages/manage/StoragePage.vue") },
+      // 관리 (TODO:)
+      { path: "/workspace/:workspaceId/manage/project", component: () => import("pages/manage/ProjectPage.vue") },
+      { path: "/workspace/:workspaceId/manage/resource", component: () => import("pages/manage/InstancePage.vue") },
+      { path: "/workspace/:workspaceId/manage/storage", component: () => import("pages/manage/StoragePage.vue") },
       // 팝업
       { path: "/popup/", component: () => import("pages/popup/IndexPage.vue") },
     ],

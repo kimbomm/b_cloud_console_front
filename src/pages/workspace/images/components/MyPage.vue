@@ -196,7 +196,6 @@ const commonStore = useCommonStore();
 const projectStore = useProjectStore();
 const { workspaceId } = route.params;
 const workspaceName = ref("");
-console.log("commonStore.myWorkspaces >>>", commonStore.myWorkspaces);
 workspaceName.value = commonStore.myWorkspaces.find((item) => item.id === parseInt(workspaceId, 10)).name;
 
 // 상태 state

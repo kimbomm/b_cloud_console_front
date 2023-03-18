@@ -10,7 +10,7 @@
           @click="itemSelected = i"
         >
           <q-item-section class="menu_section">
-            <router-link :to="`/${menu.path}`" class="item">
+            <router-link :to="getPath(menu)" class="item">
               <i :class="`ico ${menu.icon}`" />
               <span class="txt">{{ menu.label }}</span>
             </router-link>
@@ -42,9 +42,9 @@
                 <span class="txt">프로젝트 메뉴</span>
                 <q-menu :offset="[-40, -35]" class="submenu" :class="{ open: pjtToggle }">
                   <q-list style="min-width: 178px">
-                    <q-item v-for="(pjt, index) in menu.children" :key="index.label">
+                    <q-item v-for="(pjt, index) in menu?.children" :key="`prj-${index}`">
                       <router-link
-                        :to="`/${pjt.path}`"
+                        :to="pjt.path"
                         class="menu-link"
                         @click="itemSelected = i"
                       >
@@ -74,8 +74,8 @@
                 v-for="(pjt, index) in menu.children"
                 :key="index.label"
               >
-                <router-link :to="`/${pjt.path}`" class="link" @click="itemSelected = i">
-                  <span class="txt">{{ pjt.label }}</span>
+                <router-link :to="pjt.path" class="link" @click="itemSelected = i">
+                  <span class="txt">{{ pjt?.label }}</span>
                 </router-link>
               </q-item>
             </q-card>
@@ -91,7 +91,7 @@
           @click="itemSelected = i"
         >
           <q-item-section class="menu_section">
-            <router-link :to="`/${menu.path}`" class="item">
+            <router-link :to="getPath(menu)" class="item">
               <i :class="`ico ${menu.icon}`" />
               <span class="txt">{{ menu.label }}</span>
             </router-link>
@@ -124,7 +124,7 @@
                       :key="index.label"
                     >
                       <router-link
-                        :to="`/${mng.path}`"
+                        :to="getPath(mng)"
                         class="menu-link"
                         @click="itemSelected = i"
                       >
@@ -145,7 +145,7 @@
                 v-for="(mng, index) in menu.children"
                 :key="index.label"
               >
-                <router-link :to="`/${mng.path}`" class="link" @click="itemSelected = i">
+                <router-link :to="getPath(mng)" class="link" @click="itemSelected = i">
                   <span class="txt">{{ mng.label }}</span>
                 </router-link>
               </q-item>
@@ -162,12 +162,12 @@
           @click="itemSelected = i"
         >
           <i :class="`ico ${menu.icon}`" />
-          <router-link :to="`/${menu.path}`" class="link link_close">
+          <router-link :to="getPath(menu)" class="link link_close">
             <span class="txt">{{ menu.label }}</span>
           </router-link>
           <q-item-section class="menu_section">
             <p class="caption">{{ menu.caption }}</p>
-            <router-link :to="`/${menu.path}`" class="link">
+            <router-link :to="getPath(menu)" class="link">
               <span class="txt">{{ menu.label }}</span>
             </router-link>
           </q-item-section>
@@ -201,7 +201,7 @@
                   :key="index.label"
                 >
                   <router-link
-                    :to="`/${item.path}`"
+                    :to="getPath(item)"
                     class="menu-link"
                     @click="onMenuClick(item)"
                   >
@@ -292,6 +292,7 @@ const props = defineProps({
 });
 const emit = defineEmits(["updateMenu"]);
 const route = useRoute();
+// const router = useRouter();
 const menuList = ref([]);
 const itemSelected = ref(false);
 const projectCreateModal = ref(false);
@@ -303,38 +304,37 @@ const menuData = reactive([
     type: "dash",
     label: "Dashboard",
     icon: "ico_dashboard",
-    path: "",
+    path: "/projects",
   },
   {
     type: "pjt",
     label: "Projects",
     icon: "ico_projects",
-    children: [
-    ],
+    children: [],
   },
   {
     type: "base",
     label: "Srorage",
     icon: "ico_storage",
-    path: "storage",
+    path: "/storage",
   },
   {
     type: "base",
     label: "Image",
     icon: "ico_image",
-    path: "images",
+    path: "/images",
   },
   {
     type: "base",
     label: "Member",
     icon: "ico_member",
-    path: "members",
+    path: "/members",
   },
   {
     type: "base",
     label: "Billing",
-    path: "billing",
     icon: "ico_billing",
+    path: "/billing",
   },
   {
     type: "mng",
@@ -344,17 +344,17 @@ const menuData = reactive([
       {
         type: "mngsub",
         label: "Projects",
-        path: "manage/project",
+        path: "/manage/project",
       },
       {
         type: "mngsub",
         label: "Instance & Task",
-        path: "manage/instance",
+        path: "/manage/resource",
       },
       {
         type: "mngsub",
         label: "Storage",
-        path: "manage/storage",
+        path: "/manage/storage",
       },
     ],
   },
@@ -363,7 +363,7 @@ const menuData = reactive([
     label: "문의하기",
     icon: "ico_support",
     caption: "궁금하신 사항은 아래 문의하기를 이용해주세요.",
-    path: "support",
+    path: "/support",
   },
   {
     type: "mymenu",
@@ -375,17 +375,17 @@ const menuData = reactive([
       {
         type: "mysub",
         label: "내정보",
-        path: "my",
+        path: "/my",
       },
       {
         type: "mysub",
         label: "SSH Key & API Key",
-        path: "key",
+        path: "/my#key",
       },
       {
         type: "mysub",
         label: "로그아웃",
-        path: "login",
+        path: "/login",
       },
     ],
   },
@@ -508,6 +508,11 @@ watch(() => props.projectMenu, () => {
   menuList.value = props.projectMenu;
   addMenuPjtProjects();
 }, { deep: true });
+
+function getPath(item) {
+  const { workspaceId } = route.params;
+  return `/workspace/${workspaceId}${item.path}`;
+}
 
 </script>
 <style lang="scss" scoped></style>
