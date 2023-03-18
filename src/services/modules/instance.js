@@ -41,4 +41,14 @@ export const InstanceService = {
     return response.data;
   },
 
+  /**
+   * 설명: 인스턴스 이미지 저장
+   * @param { Number } projectId 프로젝트 id
+   * @param { Number } instanceId 인스턴스 id
+   */
+  async saveIntanceImage(projectId, instanceId, params) {
+    const response = await api.post(`/projects/${projectId}/instances/${instanceId}/save`, params);
+    return response.data;
+  },
+
 };

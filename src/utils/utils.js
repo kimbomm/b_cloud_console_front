@@ -135,9 +135,16 @@ class Utils {
    * @param { array } targetKey 검색 조건이 되는 key
    * @param { string } input 입력값
    */
+  // searchList(list, targetKey, input) {
+  //   const filteredList = list.filter((item) => targetKey.some((key) => item[key].match(new RegExp(input), "gi")));
+  //   return filteredList;
+  // }
+  /* base_image.name시 에러
+    utils.js?t=1678870613519:161 Uncaught (in promise) TypeError: Cannot read properties of undefined (reading 'match')
+  */
+  /* 수정 */
   searchList(list, targetKey, input) {
-    const filteredList = list.filter((item) => targetKey.some((key) => item[key].match(new RegExp(input), "gi")));
-    return filteredList;
+    return list.filter((item) => targetKey.some((key) => String(key.split(".").reduce((o, i) => (o ? o[i] : null), item)).match(new RegExp(input, "gi"))));
   }
 }
 

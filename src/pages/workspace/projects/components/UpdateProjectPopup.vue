@@ -59,7 +59,7 @@
 
 <script setup>
 import {
-  ref, toRefs, watch, watchEffect
+  ref, watch, watchEffect
 } from "vue";
 import CInputText from "src/components/common/CInputText.vue";
 
@@ -78,8 +78,6 @@ const props = defineProps({
 });
 
 const emit = defineEmits(["updateProject"]);
-const { RefDscription } = toRefs(props);
-
 const route = useRoute();
 const { workspaceId, projectId } = route.params;
 
@@ -120,11 +118,11 @@ const inputRules = ref([
     || "최소 2글자 최대 30글자로 입력해주세요",
 ]);
 
+const regex = /^[A-Za-z0-9가-힣ㄱ-ㅎㅏ-ㅣ\s]*$/;
 // 프로젝트이름, 설명 정규식체크
 watch(
   [projectName, projectDescription],
   ([newPprojectName,]) => {
-    const regex = /^[A-Za-z0-9가-힣ㄱ-ㅎㅏ-ㅣ\s]*$/;
     // 프로젝트 이름 중복 확인
     const isDuplicate = isDuplicateProjectName(
       newPprojectName.trim(),
@@ -183,10 +181,6 @@ const updateProject = async () => {
     resetProject();
   }
 };
-
-watch(RefDscription, () => {
-  projectDescription.value = RefDscription;
-});
 
 watchEffect(() => {
   if (props.projectCreateModal) {

@@ -2,29 +2,33 @@
   <template v-if="imageList.length > 0">
     <div class="table_set">
       <div class="c_inpgroup">
-        <q-input
+        <c-input-text
           outlined
-          v-model="filters"
+          v-model="searchData.query"
           placeholder="이름, 설명, 기본이미지 검색"
-          clearable
           class="wsize_full"
+          @update="onSearch"
         >
-          <template v-slot:prepend>
-            <q-icon name="search" class="ico_search" />
+        <template #prepend>
+          <q-icon name="search" class="ico_search" />
           </template>
-        </q-input>
+        </c-input-text>
       </div>
       <div class="select_drop">
-        <CDropdown :label="optLabel" :options="optNumber" class="auto_size" />
+        <CDropdown :label="optLabel" :options="optNumber" class="auto_size"
+        v-model:selected="model"
+         />
       </div>
     </div>
     <section class="section">
       <easy-data-table
         :headers="headers"
-        :items="imageList"
+        :items="makeSearchList"
         :hide-footer="true"
         empty-message="생성한 내 이미지가 없습니다."
         @click-row="showRow"
+        rowsPerPage="50"
+
       >
 
         <!-- id -->
@@ -76,7 +80,8 @@
         </template>
       </easy-data-table>
     </section>
-    <c-pagination />
+    <c-pagination @update:current="setPage" :maxPage="paging.maxPage" :total="paging.total"/>
+
   </template>
   <template v-else>
     <div class="com_nondata_area">
@@ -178,7 +183,9 @@
 </template>
 
 <script setup>
-import { ref, reactive, watch } from "vue";
+import {
+  ref, reactive, watch, computed
+} from "vue";
 import { imageService, ProjectService } from "src/services";
 import { useRoute } from "vue-router";
 import { $utils } from "src/utils/utils";
@@ -186,6 +193,7 @@ import { $useCmFn } from "src/composables/useCommonFunction.js";
 import { useCommonStore } from "src/stores/useCommonStore";
 import { useProjectStore } from "src/stores/useProjectStore";
 import CDropdown from "components/common/CDropdown.vue";
+import CInputText from "components/common/CInputText.vue";
 import CPagination from "src/components/common/CPagination.vue";
 import CBadgeState from "src/components/common/CBadgeState.vue";
 import CDialog from "src/components/common/CDialog.vue";
@@ -200,8 +208,22 @@ workspaceName.value = commonStore.myWorkspaces.find((item) => item.id === parseI
 
 // 상태 state
 const popupState = reactive({});
-const filters = ref("");
 const optLabel = ref("10");
+const searchData = ref({
+  query: "",
+  size: 10,
+});
+const model = ref(null);
+
+watch(() => model.value, (newValue) => {
+  searchData.value.size = newValue.label;
+});
+
+const setPage = (num) => {
+  console.log("sdf", num);
+  searchData.value.page = num;
+};
+
 // n개씩 보기
 const optNumber = ref([
   { label: "10", value: 0 },
@@ -209,6 +231,21 @@ const optNumber = ref([
   { label: "50", value: 2 },
 ]);
 const imageList = ref([]);
+
+const paging = ref({
+  maxPage: 5,
+  total: computed(() => Math.ceil(imageList.value.length / searchData.value.size))
+
+});
+
+const makeSearchList = computed(() => $utils.searchList(imageList.value, ["name", "base_image.name"], searchData.value.query));
+
+// const onSearch = () => {
+//   const users = $utils.searchList(imageList.value, ["name", "description"], searchData.value.query);
+//   resultList.value = users;
+//   console.log("resultList.value", resultList.value);
+// };
+
 const headers = [
   {
     text: "이름",
@@ -345,11 +382,12 @@ const deleteShareData = async () => {
 // 공유받은 이미지 정보 가져오기 !!오류 임시데이터
 const getSahredImage = async (imgId) => {
   console.log("임시 ,imgId", imgId);
-  // try {
-  //   await imageService.getSahredInfoImage(workspaceId, 0);
-  // } catch (e) {
-  //   console.log(e);
-  // }
+  try {
+    const result = await imageService.getSahredInfoImage(workspaceId, imgId);
+    console.log("resultresultresult", result);
+  } catch (e) {
+    console.log(e);
+  }
 
   const result = {
     image: {
@@ -452,38 +490,70 @@ const triggerSharedImageFail = () => {
 };
 
 // 공유 대상 저장, 공유해제 대상 axios 요청
+// const handleShareImageRequests = async ({ falseChecked, trueChecked }) => {
+//   failedRequests.value = []; // 실패리스트
+
+//   try {
+//     await Promise.all(
+//       trueChecked.map(async (item) => {
+//         try {
+//           await ProjectService.postShareWorkspaceImage(item.id, popupState.value.id);
+//           triggerSharedSuccess();
+//         } catch (error) {
+//           failedRequests.value.push({ id: item.id, name: item.name });
+//           alertTaskDeleteFailModal.value = true;
+//           console.log(error);
+//         }
+//       })
+//     );
+//   } catch (error) {
+//     console.error(error);
+//   }
+
+//   await Promise.all(
+//     falseChecked.map(async (item) => {
+//       try {
+//         await ProjectService.postUnShareWorkspaceImage(item.id, popupState.value.id);
+//         triggerSharedSuccess();
+//       } catch (error) {
+//         failedRequests.value.push({ id: item.id, name: item.name });
+//         alertTaskDeleteFailModal.value = true;
+//         console.log(error);
+//       }
+//     })
+//   );
+// };
+
 const handleShareImageRequests = async ({ falseChecked, trueChecked }) => {
   failedRequests.value = []; // 실패리스트
 
-  try {
-    await Promise.all(
-      trueChecked.map(async (item) => {
-        try {
-          await ProjectService.postShareWorkspaceImage(item.id, popupState.value.id);
-          triggerSharedSuccess();
-        } catch (error) {
-          failedRequests.value.push({ id: item.id, name: item.name });
-          alertTaskDeleteFailModal.value = true;
-          console.log(error);
-        }
-      })
-    );
-  } catch (error) {
-    console.error(error);
-  }
-
-  await Promise.all(
-    falseChecked.map(async (item) => {
-      try {
-        await ProjectService.postUnShareWorkspaceImage(item.id, popupState.value.id);
-        triggerSharedSuccess();
-      } catch (error) {
-        failedRequests.value.push({ id: item.id, name: item.name });
-        alertTaskDeleteFailModal.value = true;
-        console.log(error);
-      }
+  const sharePromises = trueChecked.map(async (item) => ProjectService.postShareWorkspaceImage(item.id, popupState.value.id)
+    .then(() => {
+      triggerSharedSuccess();
     })
-  );
+    .catch((error) => {
+      console.log(error);
+      return { id: item.id, name: item.name };
+    }));
+
+  const unsharePromises = falseChecked.map(async (item) => ProjectService.postUnShareWorkspaceImage(item.id, popupState.value.id)
+    .then(() => {
+      triggerSharedSuccess();
+    })
+    .catch((error) => {
+      console.log(error);
+      return { id: item.id, name: item.name };
+    }));
+
+  const allPromises = [...sharePromises, ...unsharePromises];
+  const results = await Promise.allSettled(allPromises);
+  console.log("resultsresults", results);
+  results.forEach((result) => {
+    if (result.status === "rejected") {
+      failedRequests.value.push(result.reason);
+      alertTaskDeleteFailModal.value = true;
+    }
+  });
 };
 
 // 저장 시 checked true,false 각 배열 분리

@@ -81,13 +81,23 @@ export const ProjectService = {
   },
 
   /**
-   * 설명: 할당량 변경
+   * 설명: 프로젝트 할당량 변경
    * @param { number } projectId 프로젝트 id
    * @param { number } params 할당량 설정 상세
    */
   async putProjectQuota(projectId, params) {
     const response = await api.put(`/projects/${projectId}/quota`, params);
 
+    return response.data;
+  },
+
+  /**
+   * 설명: 프로젝트 삭제
+   * @param { number } workspaceId 워크스페이스 id
+   * @param { number } projectId 프로젝트 id
+   */
+  async deleteProject(workspaceId, projectId) {
+    const response = await api.delete(`/workspaces/${workspaceId}/projects/${projectId}`);
     return response.data;
   },
 
