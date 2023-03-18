@@ -1,7 +1,6 @@
 <template>
   <q-page class="p-content p-projects p-make">
     <div class="p-head">
-      currentInput : {{ currentInput }}
       <q-breadcrumbs
         class="c_breadcrumb"
         gutter="none"
@@ -29,15 +28,21 @@
         <div class="make_main_cont">
           <!-- 이름/설명 -->
           <InstanceNameDescription
-            @updateInputName ="updateInputName"
-            @updateInputDescription ="updateInputDescription"
+            @instanceName ="updateInstanceName"
+            @instanceDescription ="updateInstanceDescription"
           />
 
           <!-- 인스턴스 타입 -->
-          <InstanceType/>
+          <InstanceType
+          @instanceTypeSelected="updateInstanceTypeSelected"
+          />
 
           <!-- 이미지 -->
-          <InstanceImage/>
+          <InstanceImage
+          :workspaceId=" workspaceId"
+          :userId="userId"
+          @imageSelected="updateimageSelected"
+          />
 
         <!-- 스토리지 -->
         <InstanceStorage/>
@@ -54,9 +59,9 @@
           <div class="aside_box">
             <p class="section_title">인스턴스</p>
             <ul class="instance_data">
-              <li :class="'i_d0' + i" v-for="(i,a) in datalistLen" :key="i">
-                <q-item class="i_data_title">{{datalist[a].title}}</q-item>
-                <q-item class="i_data_value"><p>{{datalist[a].value}}</p></q-item>
+              <li :class="`i_d0${i+1}`" v-for="(list,i) in datalist" :key="list">
+                <q-item class="i_data_title">{{list.title}}</q-item>
+                <q-item class="i_data_value"><p>{{list.value}}</p></q-item>
               </li>
             </ul>
             <div class="make_btn">
@@ -87,8 +92,12 @@
   </q-page>
 </template>
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed, onMounted } from "vue";
 import { useMeta } from "quasar";
+import { useRoute } from "vue-router";
+import { storeToRefs } from "pinia";
+import { useCommonStore } from "stores/useCommonStore.js";
+
 import InstanceNameDescription from "./components/instance/InstanceNameDescription.vue";
 import InstanceType from "./components/instance/InstanceType.vue";
 import InstanceImage from "./components/instance/InstanceImage.vue";
@@ -96,26 +105,51 @@ import InstanceStorage from "./components/instance/InstanceStorage.vue";
 import InstanceSshKey from "./components/instance/InstanceSshKey.vue";
 import InstancePortNumber from "./components/instance/InstancePortNumber.vue";
 
+const route = useRoute();
+const { me } = storeToRefs(useCommonStore());
+const { workspaceId } = route.params;
+const userId = computed(() => me.value.id);
+
 const title = ref("인스턴스 생성");
 useMeta(() => ({
   title: title.value,
 }));
 
+onMounted(() => {
+  console.log("userId", userId);
+});
 const currentInput = ref({
-  inputName: "",
-  inputDescription: ""
+  instanceName: "",
+  instanceDescription: "",
+  instanceTypeSelected: {
+    cpu: "",
+    gpu: "",
+    mem: "",
+    disk: ""
+  },
+  instanceImage: {}
 
 });
 
-const updateInputName = (a) => {
-  console.log("result", a);
-  currentInput.value.inputName = a;
+const updateInstanceName = (value) => {
+  currentInput.value.instanceName = value;
 };
 
-const updateInputDescription = (a) => {
-  console.log("descriptn 실행");
-  currentInput.value.inputDescription = a;
+const updateInstanceDescription = (value) => {
+  currentInput.value.instanceDescription = value;
 };
+const updateInstanceTypeSelected = (value) => {
+  currentInput.value.instanceTypeSelected = {
+    cpu: value.cpu,
+    gpu: value.gpu,
+    mem: value.mem,
+  };
+};
+
+const updateimageSelected = (value) => {
+  currentInput.value.instanceImage = value;
+};
+
 const ptitle = ref(title);
 const datacheck = ref(false);
 
@@ -130,19 +164,19 @@ const datacheck = ref(false);
  * @param { object } rowData get table row data
  */
 
-const datalist = [
-  { title: "이름", value: computed(() => currentInput.value.inputName) },
+const datalist = ref([
+
+  { title: "이름", value: computed(() => (currentInput.value.instanceName === "" ? "-" : currentInput.value.instanceName)) },
   { title: "인스턴스 타입", value: "Tesla V100" },
-  { title: "GPU", value: 1 },
-  { title: "CPU", value: 14 },
-  { title: "Memory", value: "122GB" },
-  { title: "Disk", value: "80GiB" },
-  { title: "이미지", value: "tensorflow 2.9.0 \n(python3, cuda11.2, ubuntu20.04)" },
+  { title: "GPU", value: computed(() => (currentInput.value.instanceTypeSelected.gpu === "" ? "-" : currentInput.value.instanceTypeSelected.gpu)) },
+  { title: "CPU", value: computed(() => (currentInput.value.instanceTypeSelected.cpu === "" ? "-" : currentInput.value.instanceTypeSelected.cpu)) },
+  { title: "Memory", value: computed(() => (currentInput.value.instanceTypeSelected.mem === "" ? "-" : currentInput.value.instanceTypeSelected.mem)) },
+  { title: "Disk", value: "80GiB" }, // ??disk
+  { title: "이미지", value: computed(() => (currentInput.value.instanceImage === "" ? "-" : currentInput.value.instanceImage)) },
   { title: "스토리지", value: "개인 스토리지 외 3개" },
   { title: "SSH/JupyterLab", value: "tda" },
   { title: "포트번호", value: "-" },
-];
-const datalistLen = datalist.length;
+]);
 </script>
 
 <style lang="scss" scoped>

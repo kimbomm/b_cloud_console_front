@@ -215,7 +215,7 @@
 </template>
 <script setup>
 import {
-  ref, watch, computed, nextTick
+  ref, watch, computed
 } from "vue";
 import { useMeta } from "quasar";
 import { useRoute, useRouter, onBeforeRouteUpdate } from "vue-router";
@@ -397,11 +397,8 @@ const deleteProject = async () => {
     triggerTaskGroupSuccess("프로젝트가 삭제되었습니다.");
     alertInstanceDelPossibleModal.value = false;
 
-    // 삭제 후 새로고침
-    router.push("/");
-    nextTick(() => {
-      window.location.href = "/";
-    });
+    setIsProjectChange(true);
+    router.replace("/");
   } catch (error) {
     triggerTaskGroupWarning("프로젝트 삭제를 실패하였습니다. 다시 시도해주세요.");
     console.log(error);

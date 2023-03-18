@@ -7,6 +7,7 @@
         placeholder="최소 2자 최대 30자"
         clearable
         class="wsize608"
+        :rules="inputRules"
         @update:value="updateTextName"
       />
     </div>
@@ -21,6 +22,7 @@
         placeholder="인스턴스 설명 입력"
         clearable
         counter
+        :maxlength="500"
         :count="10"
         class="wsize_full hsize244"
         :input-style="{ height: '100%' }"
@@ -37,28 +39,27 @@ import CInputText from "src/components/common/CInputText.vue";
 const textName = ref(null);
 const textDescription = ref(null);
 
-const emit = defineEmits(["updateInputName"], ["updateInputDescription"]);
+const emit = defineEmits(["instanceName", "instanceDescription"]);
 
-// 프로젝트명 정규식체크
-// const inputRules = ref([
-//   (value) => {
-//     if (value.length < 1) {
-//       return "이름을 입력해주세요.";
-//     }
-//   },
-//   (value) => (!!value.length && value.length >= 2 && value.length <= 30)
-//     || "최소 2글자 최대 30글자로 입력해주세요",
-// ]);
+// 이름 정규식체크
+const inputRules = ref([
+  (value) => {
+    if (!value || value.length < 1) {
+      return "이름을 입력해주세요.";
+    }
+  },
+  (value) => (!!value.length && value.length >= 2 && value.length <= 30)
+    || "최소 2글자 최대 30글자로 입력해주세요",
+]);
 
-const updateTextName = async () => {
-  setTimeout(() => {
-    emit("updateInputName", textName.value);
-  }, 50);
+const updateTextName = (value) => {
+  textName.value = value;
+  emit("instanceName", textName.value);
 };
 
-const updateTextDescription = async () => {
+const updateTextDescription = () => {
   setTimeout(() => {
-    emit("updateInputDescription", textDescription.value);
+    emit("instanceDescription", textDescription.value);
   }, 50);
 };
 

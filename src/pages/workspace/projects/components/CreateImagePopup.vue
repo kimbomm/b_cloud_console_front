@@ -140,10 +140,8 @@ const createImage = async () => {
 
   try {
     await InstanceService.saveIntanceImage(route.params.projectId, props.currentSelected.id, data);
-    setTimeout(() => {
-      triggerImgSuccess();
-      resetInput();
-    }, 2500);
+    triggerImgSuccess();
+    resetInput();
 
     setTimeout(() => {
       emit("getInstances");
