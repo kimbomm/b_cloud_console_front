@@ -195,21 +195,14 @@ const bodyRowClassNameFunctionCheck = (item) => {
 };
 
 /* row 클릭 시 해당 행 checked */
-const tableId = "IsntanceType";
+const tableId = "InstanceType";
 const showRowChecked = (item) => {
   instanceTypeSelected.value = item;
   const nNum = typeList.value.findIndex((n) => n.id === item.id);
+  typeList.value.splice(0, 0, ...typeList.value.splice(nNum, 1));
+
   const selected = document.querySelectorAll(`#${tableId} table tr`);
-
-  // 타입 선택시, 선택된 타입 목록 상단 고정 표기
-  const firstNode = selected[1];
-  const parent = firstNode.parentNode;
-  parent.insertBefore(selected[nNum + 1], firstNode);
-
-  if (selected.length > nNum + 1) {
-    selected.forEach((tr) => tr.classList.remove("row-isCheck"));
-    selected[nNum + 1].classList.add("row-isCheck");
-  }
+  selected.forEach((tr, index) => tr.classList.toggle("row-isCheck", index === 1));
   emit("instanceTypeSelected", instanceTypeSelected.value);
 };
 

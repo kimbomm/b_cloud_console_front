@@ -156,7 +156,6 @@ const commonStore = useCommonStore();
 
 const selectedName = computed(() => {
   const name = imageSelected.value?.name || "";
-  console.log("imageSelected", imageSelected.value);
   if (!name) {
     return "이미지를 선택해주세요.";
   }
@@ -164,7 +163,6 @@ const selectedName = computed(() => {
     return `${name}`;
   }
   if (imageSelected.value.type === "custom") {
-    console.log("sdfsdf", commonStore.commonStatus("save").text);
     return `${imageSelected.value.name} (${imageSelected.value.description} / ${commonStore.commonStatus(imageSelected.value.status).text} / ${imageSelected.value.created_at})`;
   }
   if (imageSelected.value.type === "shared") {
@@ -172,13 +170,6 @@ const selectedName = computed(() => {
   }
   return `${name}`;
 });
-
-// const myImageStatus = () => {
-//   if (imageSelected.value.type === "custom") {
-//     imageSelected.value.status
-
-//   }
-// }
 
 const baseImageHeader = [
   {
@@ -263,17 +254,10 @@ const bodyRowClassNameFunctionCheck = (item) => {
 const showRowChecked = (item, tableId) => {
   imageSelected.value = item;
   const nNum = baseImages.value.findIndex((n) => n.id === item.id);
+  baseImages.value.splice(0, 0, ...baseImages.value.splice(nNum, 1));
+
   const selected = document.querySelectorAll(`#${tableId} table tr`);
-
-  // 타입 선택시, 선택된 타입 목록 상단 고정 표기
-  const firstNode = selected[1];
-  const parent = firstNode.parentNode;
-  parent.insertBefore(selected[nNum + 1], firstNode);
-
-  if (selected.length > nNum + 1) {
-    selected.forEach((tr) => tr.classList.remove("row-isCheck"));
-    selected[nNum + 1].classList.add("row-isCheck");
-  }
+  selected.forEach((tr, index) => tr.classList.toggle("row-isCheck", index === 1));
   emit("imageSelected", imageSelected.value);
 };
 

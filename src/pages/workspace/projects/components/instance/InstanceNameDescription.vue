@@ -53,10 +53,8 @@ const inputRules = ref([
 ]);
 
 const updateTextName = (value) => {
-  setTimeout(() => {
-    textName.value = value;
-    emit("instanceName", textName.value);
-  }, 50);
+  textName.value = value;
+  emit("instanceName", textName.value);
 };
 
 const updateTextDescription = () => {

@@ -20,7 +20,7 @@
           </div>
         </div>
         <q-tab-panels v-model="tabModel">
-          <q-tab-panel name="myTab">
+        <q-tab-panel name="myTab">
             <!-- 내이미지 -->
             <MyPage />
           </q-tab-panel>

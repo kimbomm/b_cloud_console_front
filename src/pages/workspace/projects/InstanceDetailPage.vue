@@ -126,7 +126,8 @@ const currentInput = ref({
     gpu: "",
     mem: "",
     disk: ""
-  }
+  },
+  instanceImage: {}
 
 });
 
@@ -143,6 +144,10 @@ const updateInstanceTypeSelected = (value) => {
     gpu: value.gpu,
     mem: value.mem,
   };
+};
+
+const updateimageSelected = (value) => {
+  currentInput.value.instanceImage = value;
 };
 
 const ptitle = ref(title);
@@ -167,7 +172,7 @@ const datalist = ref([
   { title: "CPU", value: computed(() => (currentInput.value.instanceTypeSelected.cpu === "" ? "-" : currentInput.value.instanceTypeSelected.cpu)) },
   { title: "Memory", value: computed(() => (currentInput.value.instanceTypeSelected.mem === "" ? "-" : currentInput.value.instanceTypeSelected.mem)) },
   { title: "Disk", value: "80GiB" }, // ??disk
-  { title: "이미지", value: "tensorflow 2.9.0 \n(python3, cuda11.2, ubuntu20.04)" },
+  { title: "이미지", value: computed(() => (currentInput.value.instanceImage === "" ? "-" : currentInput.value.instanceImage)) },
   { title: "스토리지", value: "개인 스토리지 외 3개" },
   { title: "SSH/JupyterLab", value: "tda" },
   { title: "포트번호", value: "-" },
