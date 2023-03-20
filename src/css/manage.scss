@@ -1,3 +1,4 @@
+
 @import 'src/css/utillity';
 @import 'src/css/table';
 /* Workspace Manager */
@@ -340,15 +341,17 @@
     }
     .manage_main_area{
       .btn_area{margin-bottom: 30px;}
-      .l_set_inner{
-        >div{display: inline-block;}
-        .search_area{
-          .wsize292{width: 292px;}
+      .table_set{
+        .l_set_inner{
+          >div{display: inline-block;}
+          .search_area{
+            .wsize292{width: 292px;}
+          }
         }
-      }
-      .r_set_inner{
-        >div{display: inline-block;}
-        .quota_set_btn{margin-right: 10px;}
+        .r_set_inner{
+          >div{display: inline-block;}
+          .quota_set_btn{margin-right: 10px;}
+        }
       }
     }
   }

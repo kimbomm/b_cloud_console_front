@@ -46,6 +46,7 @@ import {
   computed,
   useAttrs,
 } from "vue";
+
 import { $utils } from "src/utils/utils";
 
 const attrs = useAttrs();
@@ -53,47 +54,47 @@ const attrs = useAttrs();
 const props = defineProps({
   clearable: {
     type: Boolean,
-    default: false
+    default: false,
   },
   disable: {
     type: Boolean,
-    default: false
+    default: false,
   },
   outlined: {
     type: Boolean,
-    default: true
+    default: true,
   },
   bottomSlots: {
     type: Boolean,
-    default: false
+    default: false,
   },
   counter: {
     type: Boolean,
-    default: false
+    default: false,
   },
   maxlength: {
     type: Number,
-    default: null
+    default: null,
   },
   inputStyle: {
     type: [Object],
-    default: null
+    default: null,
   },
   value: {
     type: [String, Number],
-    default: null
+    default: null,
   },
   placeholder: {
     type: String,
-    default: ""
+    default: "",
   },
   hint: {
     type: String,
-    default: ""
+    default: "",
   },
   error: {
     type: Boolean,
-    default: false
+    default: false,
   },
   type: {
     /**
@@ -102,22 +103,22 @@ const props = defineProps({
      * password
      */
     type: String,
-    default: "text"
+    default: "text",
   },
   rules: {
     /**
      * 설명: input validation 조건
      */
     type: Array,
-    default: () => []
+    default: () => [],
   },
   prefix: {
     type: String,
-    default: ""
+    default: "",
   },
   suffix: {
     type: String,
-    default: ""
+    default: "",
   },
 });
 
@@ -131,7 +132,7 @@ const isPasswordType = computed(() => lazyType.value === "password");
 const getHasError = computed(() => inputRef.value.hasError);
 
 defineExpose({
-  getHasError
+  getHasError,
 });
 /**
  * input rules가 존재할 경우
@@ -144,7 +145,9 @@ const onValidate = () => {
     if (!getHasError.value && !classes.value.includes("q-field--positive")) {
       classes.value.push("q-field--positive");
     } else {
-      const classIdx = classes.value.findIndex((classNm) => classNm === "q-field--positive");
+      const classIdx = classes.value.findIndex(
+        (classNm) => classNm === "q-field--positive"
+      );
       if (classIdx !== -1) {
         classes.value.splice(classIdx, 1);
       }
@@ -152,10 +155,13 @@ const onValidate = () => {
   }
 };
 
-watch(() => props.value, (changedValue) => {
-  lazyValue.value = changedValue;
-  onValidate();
-});
+watch(
+  () => props.value,
+  (changedValue) => {
+    lazyValue.value = changedValue;
+    onValidate();
+  }
+);
 
 onMounted(async () => {
   const el = inputRef.value.getNativeElement();

@@ -1,3 +1,6 @@
+@import "./_utillity.scss";
+@import "./table.scss";
+
 /* Projects */
 @mixin xscrollBar{
   &::-webkit-scrollbar {
@@ -228,9 +231,13 @@
             color:$primary-light;
           }
         }
-        .cont_footer{
-          .progress_bar_area{
-            ::-webkit-progress-bar {background-color: $primary-dark;}
+        .r_set_inner{
+          .instance_make_btn{
+            margin-right: 10px;
+          }
+          .view_cont_num{
+            display: inline-block;
+            width: 108px;
           }
         }
       }
@@ -296,8 +303,8 @@
     }
   }
   .com_m_cont{
-    .change_tab_btn{
-      padding:60px 0 30px;
+    .c_tabs{
+      padding-top :60px;
     }
     .l_set_inner{
       .c_inpgroup{
@@ -311,6 +318,7 @@
           vertical-align: middle;
           background-color: $surface05;
         }
+
       }
       .c_segmentedTab{
         display: inline-block;
@@ -318,11 +326,11 @@
       }
       .c_selectgroup{
         display: inline-block;
+        margin-left: 10px;
       }
     }
     .r_set_inner{
       .instance_make_btn{
-        display: inline-block;
         margin-right: 10px;
       }
       .view_cont_num{
@@ -663,8 +671,7 @@
               justify-content: flex-end;
               margin-top: 40px;
               .line,.primary{
-                width: 70px;
-                margin-left: 10px;
+                margin-right: 10px;
               }
             }
           }

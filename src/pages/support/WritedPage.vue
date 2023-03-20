@@ -1,21 +1,12 @@
 <template>
   <q-page class="p-content p-support p-write">
     <div class="p-head">
-      <q-breadcrumbs
-        class="c_breadcrumb"
-        gutter="none"
-      >
+      <q-breadcrumbs class="c_breadcrumb" gutter="none">
         <template v-slot:separator>
           <q-icon />
         </template>
-        <q-breadcrumbs-el
-          label="Workspace Manager"
-          to="/support"
-        />
-        <q-breadcrumbs-el
-          label="Support"
-          to="/support"
-        />
+        <q-breadcrumbs-el label="Workspace Manager" to="/support" />
+        <q-breadcrumbs-el label="Support" to="/support" />
       </q-breadcrumbs>
       <h1 class="p-title">{{ ptitle }}</h1>
     </div>
@@ -229,7 +220,7 @@
                 :count="10"
                 maxlength="1000"
                 class="wsize_full hsize244 pl-px"
-                :input-style="{height: '100%'}"
+                :input-style="{ height: '100%' }"
               />
             </div>
           </section>
@@ -314,5 +305,5 @@ const triggerInfo2 = () => {
 </script>
 
 <style lang="scss" scoped>
-@import 'src/css/support';
+@import "src/css/support";
 </style>

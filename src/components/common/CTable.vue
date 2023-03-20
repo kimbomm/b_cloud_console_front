@@ -28,24 +28,11 @@
         </q-tr>
       </template>
       <template v-slot:body="props">
-        <q-tr
-          :props="props"
-          @click="onRowClick(props.row)"
-        >
-          <q-td
-            v-if="rowClick"
-            class="text-center"
-          >
-            <q-checkbox
-              v-model="props.selected"
-              class="c_checkbox"
-            />
+        <q-tr :props="props" @click="onRowClick(props.row)">
+          <q-td v-if="rowClick" class="text-center">
+            <q-checkbox v-model="props.selected" class="c_checkbox" />
           </q-td>
-          <q-td
-            v-for="(col, i) in props.cols"
-            :key="col.name"
-            :props="props"
-          >
+          <q-td v-for="(col, i) in props.cols" :key="col.name" :props="props">
             <div class="cell">
               <q-checkbox
                 v-if="selection && i === 0"
@@ -54,7 +41,9 @@
               />
               <!-- 테이블 링크타입 -->
               <template v-if="col.type === 'link'">
-                <a :href="`/#/${props.row.id}`"><span class="txt">{{ col.value }}</span></a>
+                <a :href="`/#/${props.row.id}`"
+                  ><span class="txt">{{ col.value }}</span></a
+                >
               </template>
               <!-- 테이블 뱃지타입 -->
               <template v-else-if="col.type === 'tag'">
@@ -64,10 +53,7 @@
                   2. stopped, 정지 | 오류 | 취소 | 실패
                   3. 생성중 | 삭제중 | 대기중 | 재시작중
                 -->
-                <q-badge
-                  v-if="col.value === 'running'"
-                  class="c_badge green"
-                >
+                <q-badge v-if="col.value === 'running'" class="c_badge green">
                   <span class="txt">운영중</span>
                 </q-badge>
                 <q-badge
@@ -79,10 +65,7 @@
               </template>
               <!-- copy 버튼타입 -->
               <template v-else-if="col.type === 'copy'">
-                <q-badge
-                  class="c_badge copy"
-                  @click="onCopy(props.row)"
-                >
+                <q-badge class="c_badge copy" @click="onCopy(props.row)">
                   <span class="txt">{{ col.value }}</span>
                 </q-badge>
               </template>
@@ -92,29 +75,18 @@
               </template>
             </div>
           </q-td>
-          <q-td
-            v-if="rowClick"
-            class="text-right"
-          >
-            <div
-              class="cell"
-              style="width:auto"
-            >
-              <q-btn
-                class="c_btn"
-                v-show="props.selected"
-              ><span class="txt">선택취소하기</span></q-btn>
+          <q-td v-if="rowClick" class="text-right">
+            <div class="cell" style="width: auto">
+              <q-btn class="c_btn" v-show="props.selected"
+                ><span class="txt">선택취소하기</span></q-btn
+              >
             </div>
           </q-td>
-          <q-td
-            v-if="!rowClick && inviteRequest"
-            class="text-left"
-          >
-            <div
-              class="cell"
-              style="width:auto"
-            >
-              <q-btn class="c_btn"><span class="txt">초대요청 확인</span></q-btn>
+          <q-td v-if="!rowClick && inviteRequest" class="text-left">
+            <div class="cell" style="width: auto">
+              <q-btn class="c_btn"
+                ><span class="txt">초대요청 확인</span></q-btn
+              >
             </div>
           </q-td>
           <!-- row action button -->
@@ -131,10 +103,7 @@
                   anchor="top right"
                 >
                   <q-list style="min-width: 100px">
-                    <q-item
-                      v-for="button in actionButtons"
-                      :key="button.name"
-                    >
+                    <q-item v-for="button in actionButtons" :key="button.name">
                       <q-btn
                         class="item"
                         @click="onEmit(button.event, props.row)"

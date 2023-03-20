@@ -12,11 +12,13 @@
             <i class="ico help" /><span class="hidden">도움말</span>
             <q-popup-edit
               v-model="helpShow"
-              anchor="top middle" self="top middle"
+              anchor="top middle"
+              self="top middle"
               class="c_popover"
             >
               <div class="inner">
-                게스트는 워크스페이스 멤버 조회 및 프로젝트 생성 기능이 제한됩니다.
+                게스트는 워크스페이스 멤버 조회 및 프로젝트 생성 기능이
+                제한됩니다.
               </div>
             </q-popup-edit>
           </q-btn>
@@ -39,15 +41,15 @@ const helpShow = ref(false);
 </script>
 
 <style lang="scss" scoped>
-.section{
-  h2{
-    margin-bottom:10px;
+.section {
+  h2 {
+    margin-bottom: 10px;
   }
-  ~ .section{
-    margin-top:50px;
+  ~ .section {
+    margin-top: 50px;
   }
 }
-.group{
-  margin-top:20px;
+.group {
+  margin-top: 20px;
 }
 </style>

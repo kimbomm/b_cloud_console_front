@@ -1,17 +1,11 @@
 <template>
   <q-page class="p-content p-my p-index">
     <div class="p-head">
-      <q-breadcrumbs
-        class="c_breadcrumb"
-        gutter="none"
-      >
+      <q-breadcrumbs class="c_breadcrumb" gutter="none">
         <template v-slot:separator>
           <q-icon />
         </template>
-        <q-breadcrumbs-el
-          label="Account"
-          to="/"
-        />
+        <q-breadcrumbs-el label="Account" to="/" />
         <q-breadcrumbs-el label="내 알림" />
       </q-breadcrumbs>
       <h1 class="p-title">{{ ptitle }}</h1>
@@ -20,25 +14,12 @@
     <div class="p-body">
       <div class="p-alarm">
         <div class="btn_area">
-          <q-tabs
-            v-model="tab"
-            align="left"
-            class="c_tabs"
-          >
-            <q-tab
-              name="tabs1"
-              label="내 정보"
-            ></q-tab>
-            <q-tab
-              name="tabs2"
-              label="내 알림"
-            >
+          <q-tabs v-model="tab" align="left" class="c_tabs">
+            <q-tab name="tabs1" label="내 정보"></q-tab>
+            <q-tab name="tabs2" label="내 알림">
               <q-badge>19</q-badge>
             </q-tab>
-            <q-tab
-              name="tabs3"
-              label="SSH key & API key"
-            ></q-tab>
+            <q-tab name="tabs3" label="SSH key & API key"></q-tab>
           </q-tabs>
         </div>
         <div class="table_set">
@@ -51,10 +32,7 @@
                 class="wsize450"
               >
                 <template v-slot:prepend>
-                  <q-icon
-                    name="search"
-                    class="ico_search"
-                  />
+                  <q-icon name="search" class="ico_search" />
                 </template>
               </q-input>
             </div>
@@ -126,16 +104,27 @@ const options = ref([
 
 const headers = [
   {
-    text: "카테고리", value: "category", width: 200, sortable: true
+    text: "카테고리",
+    value: "category",
+    width: 200,
+    sortable: true,
   },
   {
-    text: "내용", value: "content", sortable: true
+    text: "내용",
+    value: "content",
+    sortable: true,
   },
   {
-    text: "발송시간", value: "sendingTime", width: 250, sortable: true
+    text: "발송시간",
+    value: "sendingTime",
+    width: 250,
+    sortable: true,
   },
   {
-    text: "읽음여부", value: "readStatus", width: 150, sortable: true
+    text: "읽음여부",
+    value: "readStatus",
+    width: 150,
+    sortable: true,
   },
 ];
 const items = [

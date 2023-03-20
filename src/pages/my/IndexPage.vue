@@ -1,17 +1,11 @@
 <template>
   <q-page class="p-content p-my p-index">
     <div class="p-head">
-      <q-breadcrumbs
-        class="c_breadcrumb"
-        gutter="none"
-      >
+      <q-breadcrumbs class="c_breadcrumb" gutter="none">
         <template v-slot:separator>
           <q-icon />
         </template>
-        <q-breadcrumbs-el
-          label="Account"
-          to="/"
-        />
+        <q-breadcrumbs-el label="Account" to="/" />
         <q-breadcrumbs-el label="내 정보" />
       </q-breadcrumbs>
       <h1 class="p-title">{{ ptitle }}</h1>
@@ -19,25 +13,12 @@
     <!-- //.p-head -->
     <div class="p-body">
       <div class="group-tabs">
-        <q-tabs
-          v-model="tab"
-          align="left"
-          class="c_tabs"
-        >
-          <q-tab
-            name="tabs1"
-            label="내 정보"
-          ></q-tab>
-          <q-tab
-            name="tabs2"
-            label="내 알림"
-          >
+        <q-tabs v-model="tab" align="left" class="c_tabs">
+          <q-tab name="tabs1" label="내 정보"></q-tab>
+          <q-tab name="tabs2" label="내 알림">
             <q-badge>19</q-badge>
           </q-tab>
-          <q-tab
-            name="tabs3"
-            label="SSH key & API key"
-          ></q-tab>
+          <q-tab name="tabs3" label="SSH key & API key"></q-tab>
         </q-tabs>
       </div>
       <div class="my_info">
@@ -48,10 +29,7 @@
         >
           <q-item-label class="name">
             김카브
-            <q-btn
-              class="ibtn edit"
-              @click="editInfoModel = !editInfoModel"
-            >
+            <q-btn class="ibtn edit" @click="editInfoModel = !editInfoModel">
               <span class="hidden">편집</span>
             </q-btn>
           </q-item-label>
@@ -89,7 +67,7 @@
                 :count="10"
                 maxlength="100"
                 class="wsize_full hsize136"
-                :input-style="{height: '100%'}"
+                :input-style="{ height: '100%' }"
               >
                 <!-- <template v-slot:hint>
                     Description
@@ -101,10 +79,7 @@
             <q-btn class="c_btn line medium">
               <span class="txt">취소</span>
             </q-btn>
-            <q-btn
-              class="c_btn medium"
-              @click="editInfoModel = !editInfoModel"
-            >
+            <q-btn class="c_btn medium" @click="editInfoModel = !editInfoModel">
               <span class="txt">저장</span>
             </q-btn>
           </div>
@@ -141,10 +116,7 @@
               <q-item-label class="info">
                 <!-- LDAP 등록전 -->
                 <div class="entry">
-                  <q-btn
-                    class="c_btn text"
-                    @click="LDAPLoginModal = true"
-                  >
+                  <q-btn class="c_btn text" @click="LDAPLoginModal = true">
                     <span class="txt">등록하기</span>
                   </q-btn>
                 </div>
@@ -165,10 +137,7 @@
                     <span class="start">150GiB</span>
                     <span class="end">200GiB</span>
                   </div>
-                  <progress
-                    value="75"
-                    max="100"
-                  />
+                  <progress value="75" max="100" />
                 </div>
               </q-item-label>
             </q-item-section>
@@ -193,20 +162,13 @@
         </q-list>
       </div>
       <div class="c_btngroup f_start">
-        <q-btn
-          to="/common/withdrawal"
-          target="_blank"
-          class="c_btn alink"
-        >
+        <q-btn to="/common/withdrawal" target="_blank" class="c_btn alink">
           <span class="txt">회원탈퇴</span>
         </q-btn>
       </div>
     </div>
     <!-- Start : [내정보] LDAP 로그인(오픈 이후 개발) -->
-    <q-dialog
-      v-model="LDAPLoginModal"
-      class="c_dialog medium"
-    >
+    <q-dialog v-model="LDAPLoginModal" class="c_dialog medium">
       <q-card>
         <q-card-section class="c_dialog_body">
           <p class="title">
@@ -236,17 +198,8 @@
           </section>
         </q-card-section>
         <q-card-actions class="c_dialog_foot">
-          <q-btn
-            label="취소"
-            class="line"
-            v-close-popup
-          />
-          <q-btn
-            label="로그인"
-            class="primary"
-            v-close-popup
-            disable
-          />
+          <q-btn label="취소" class="line" v-close-popup />
+          <q-btn label="로그인" class="primary" v-close-popup disable />
         </q-card-actions>
       </q-card>
     </q-dialog>

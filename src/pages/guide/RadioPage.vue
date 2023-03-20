@@ -9,10 +9,32 @@
         <h2 class="h6">class="c_radio"</h2>
         <div class="group">
           <div class="c_radiogroup">
-            <q-radio v-model="radCheck" val="rad1" label="워크스페이스 멤버" class="c_radio" />
-            <q-radio v-model="radCheck" val="rad1" label="정산 관리자" disable class="c_radio" />
-            <q-radio v-model="radCheck" val="rad2" label="게스트" class="c_radio" />
-            <q-radio v-model="radCheck" val="rad2" label="게스트" disable class="c_radio" />
+            <q-radio
+              v-model="radCheck"
+              val="rad1"
+              label="워크스페이스 멤버"
+              class="c_radio"
+            />
+            <q-radio
+              v-model="radCheck"
+              val="rad1"
+              label="정산 관리자"
+              disable
+              class="c_radio"
+            />
+            <q-radio
+              v-model="radCheck"
+              val="rad2"
+              label="게스트"
+              class="c_radio"
+            />
+            <q-radio
+              v-model="radCheck"
+              val="rad2"
+              label="게스트"
+              disable
+              class="c_radio"
+            />
           </div>
         </div>
       </section>
@@ -33,15 +55,15 @@ const radCheck = ref("rad1");
 </script>
 
 <style lang="scss" scoped>
-.section{
-  h2{
-    margin-bottom:10px;
+.section {
+  h2 {
+    margin-bottom: 10px;
   }
-  ~ .section{
-    margin-top:50px;
+  ~ .section {
+    margin-top: 50px;
   }
 }
-.group{
-  margin-top:20px;
+.group {
+  margin-top: 20px;
 }
 </style>

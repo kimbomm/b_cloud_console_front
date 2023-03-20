@@ -1,0 +1,28 @@
+<template>
+  <q-page class="p-content p-manage p-index">
+    <div class="p-head">
+      <h1 class="p-title">{{ ptitle }}</h1>
+    </div>
+    <!-- //.chead -->
+    <div class="p-body">
+      <div class="coming">
+        <p>페이지 준비중입니다.</p>
+      </div>
+    </div>
+  </q-page>
+</template>
+<script setup>
+import { ref } from "vue";
+import { useMeta } from "quasar";
+
+const title = ref("Workspace Manager");
+useMeta(() => ({
+  title: title.value,
+}));
+
+const ptitle = ref(title);
+</script>
+
+<style lang="scss" scoped>
+@import "./src/css/manage";
+</style>

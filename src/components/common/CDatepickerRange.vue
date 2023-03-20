@@ -22,7 +22,11 @@
         </q-input>
       </div>
     </div>
-    <q-popup-proxy ref="datepickerPopup" :offset="[15, 18]" class="c_datepicker">
+    <q-popup-proxy
+      ref="datepickerPopup"
+      :offset="[15, 18]"
+      class="c_datepicker"
+    >
       <q-date
         v-model="lazyDate"
         mask="YYYY.MM.DD"
@@ -41,26 +45,32 @@ import {
 const props = defineProps({
   placeholder: {
     type: String,
-    default: ""
+    default: "",
   },
   fromValue: {
     type: String,
-    default: ""
+    default: "",
   },
   toValue: {
     type: String,
-    default: ""
+    default: "",
   },
 });
 const emit = defineEmits(["update:fromValue", "update:toValue"]);
 const lazyDate = ref({ from: null, to: null });
 const datepickerPopup = ref(null);
-watch(() => props.fromValue, () => {
-  lazyDate.value.from = props.fromValue;
-});
-watch(() => props.toValue, () => {
-  lazyDate.value.to = props.toValue;
-});
+watch(
+  () => props.fromValue,
+  () => {
+    lazyDate.value.from = props.fromValue;
+  }
+);
+watch(
+  () => props.toValue,
+  () => {
+    lazyDate.value.to = props.toValue;
+  }
+);
 
 onMounted(() => {
   lazyDate.value.from = props.fromValue;

@@ -1,21 +1,12 @@
 <template>
   <q-page class="p-content p-projects p-index">
     <div class="p-head">
-      <q-breadcrumbs
-        class="c_breadcrumb"
-        gutter="none"
-      >
+      <q-breadcrumbs class="c_breadcrumb" gutter="none">
         <template v-slot:separator>
           <q-icon />
         </template>
-        <q-breadcrumbs-el
-          label="Projects"
-          to="/"
-        />
-        <q-breadcrumbs-el
-          label="Test Project"
-          to="/"
-        />
+        <q-breadcrumbs-el label="Projects" to="/" />
+        <q-breadcrumbs-el label="Test Project" to="/" />
         <q-breadcrumbs-el label="인스턴스" />
       </q-breadcrumbs>
       <h1 class="p-title">
@@ -162,7 +153,7 @@ const columns = [
     label: "생성일시",
     align: "center",
     sortable: true,
-    type: "datetime"
+    type: "datetime",
   },
   {
     name: "createdBy",
@@ -189,8 +180,8 @@ const data = [
       gpu_device_model: "TESLA_V100",
       gpus: 2,
       mem: 249856,
-      zone: "public:normal"
-    }
+      zone: "public:normal",
+    },
   },
   {
     id: 2,
@@ -208,8 +199,8 @@ const data = [
       gpu_device_model: "TESLA_V100",
       gpus: 2,
       mem: 249856,
-      zone: "public:normal"
-    }
+      zone: "public:normal",
+    },
   },
 ];
 

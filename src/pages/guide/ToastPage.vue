@@ -10,11 +10,15 @@
         <div class="group">
           <CToast :toastMsg="toastMsg1" />
         </div>
-        <h2 class="h6">긍정 (기본에서 아이콘만 변경) :toastTypes="1" class="c_toast positive"</h2>
+        <h2 class="h6">
+          긍정 (기본에서 아이콘만 변경) :toastTypes="1" class="c_toast positive"
+        </h2>
         <div class="group">
           <CToast :toastTypes="1" :toastMsg="toastMsg2" class="positive" />
         </div>
-        <h2 class="h6">부정 (기본에서 아이콘만 변경) :toastTypes="2" class="c_toast negative"</h2>
+        <h2 class="h6">
+          부정 (기본에서 아이콘만 변경) :toastTypes="2" class="c_toast negative"
+        </h2>
         <div class="group">
           <CToast :toastTypes="2" :toastMsg="toastMsg3" class="negative" />
         </div>
@@ -22,7 +26,9 @@
         <div class="group">
           <CToast :toastMsg="toastMsg4" />
         </div>
-        <h2 class="h6">기본 - 텍스트 두줄 - 버튼 :toastTypes="3" class="c_toast"</h2>
+        <h2 class="h6">
+          기본 - 텍스트 두줄 - 버튼 :toastTypes="3" class="c_toast"
+        </h2>
         <div class="group">
           <CToast :toastTypes="3" :toastMsg="toastMsg4" :linkName="linkName" />
         </div>
@@ -50,36 +56,37 @@ export default {
       toastMsg1: ref("안내 메시지 입니다."),
       toastMsg2: ref("인스턴스 생성이 완료 되었습니다."),
       toastMsg3: ref("인스턴스 생성에 실패했습니다."),
-      toastMsg4: ref("안내 메시지 입니다.안내 메시지 입니다.안내 메시지 입니다.안내 메시지 입니다."),
+      toastMsg4: ref(
+        "안내 메시지 입니다.안내 메시지 입니다.안내 메시지 입니다.안내 메시지 입니다."
+      ),
       link: ref("#"),
       linkName: ref("바로보기"),
     };
   },
 };
 </script>
-<script setup>
-</script>
+<script setup></script>
 
 <style lang="scss" scoped>
-.section{
-  h2{
-    margin-bottom:10px;
+.section {
+  h2 {
+    margin-bottom: 10px;
   }
-  ~ .section{
-    margin-top:50px;
+  ~ .section {
+    margin-top: 50px;
   }
-  .h6{
-    &:not(:first-child){
-      margin-top:50px;
+  .h6 {
+    &:not(:first-child) {
+      margin-top: 50px;
     }
   }
 }
-.group{
-  margin-top:20px;
+.group {
+  margin-top: 20px;
 }
-.c_toast{
-  &:not(:first-child){
-    margin-top:10px;
+.c_toast {
+  &:not(:first-child) {
+    margin-top: 10px;
   }
 }
 </style>

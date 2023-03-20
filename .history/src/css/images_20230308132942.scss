@@ -1,0 +1,42 @@
+::v-deep{
+table{
+  table-layout:fixed;
+  .cell.btngroup{min-width: 50px !important;}
+  .txt.clip{max-width: inherit;}
+}
+
+}
+.p-images{
+    .p-body{
+        display: flex;
+        flex-direction: column;
+        .header {
+          display: flex;
+          margin-bottom: 30px;
+        }
+        .wsize_full {
+          width: 450px;
+          margin-bottom: 8px;
+        }
+        .c_tooltip{
+          width: 438px;
+        }
+      }
+
+  }
+
+
+  .nondata_box{
+    width: 100%;
+    padding:130px 0;
+    text-align: center;
+    background-color: $surface01;
+    border-radius: 8px;
+    .nondata_txt{color:$gray500;}
+    .nondata_btn{
+      margin-top: 30px;
+      button{width: 99px;}
+    }
+  }
+
+

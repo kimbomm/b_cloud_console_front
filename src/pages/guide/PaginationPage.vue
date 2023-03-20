@@ -12,7 +12,9 @@
         </div>
       </section>
       <section class="section">
-        <h2 class="h6">Default - 페이지가 5개 이상일 경우 class="c_pagination"</h2>
+        <h2 class="h6">
+          Default - 페이지가 5개 이상일 경우 class="c_pagination"
+        </h2>
         <div class="group">
           <q-pagination
             v-model="type2"
@@ -30,7 +32,9 @@
         </div>
       </section>
       <section class="section">
-        <h2 class="h6">Default - 페이지가 5개 이상일 경우 - 5 클릭했을때 class="c_pagination"</h2>
+        <h2 class="h6">
+          Default - 페이지가 5개 이상일 경우 - 5 클릭했을때 class="c_pagination"
+        </h2>
         <div class="group">
           <q-pagination
             v-model="type3"
@@ -65,12 +69,12 @@ const type3 = ref(5);
 </script>
 
 <style lang="scss" scoped>
-.section{
-  h2{
-    margin-bottom:10px;
+.section {
+  h2 {
+    margin-bottom: 10px;
   }
-  ~ .section{
-    margin-top:50px;
+  ~ .section {
+    margin-top: 50px;
   }
 }
 </style>

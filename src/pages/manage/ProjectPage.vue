@@ -1,17 +1,11 @@
 <template>
   <q-page class="p-content p-manage p-project">
     <div class="p-head">
-      <q-breadcrumbs
-        class="c_breadcrumb"
-        gutter="none"
-      >
+      <q-breadcrumbs class="c_breadcrumb" gutter="none">
         <template v-slot:separator>
           <q-icon />
         </template>
-        <q-breadcrumbs-el
-          label="Workapace Manager"
-          to="/"
-        />
+        <q-breadcrumbs-el label="Workapace Manager" to="/" />
         <q-breadcrumbs-el label="Projects" />
       </q-breadcrumbs>
       <h1 class="p-title">{{ ptitle }}</h1>
@@ -37,10 +31,7 @@
               <div class="cont_footer">
                 <p class="progress_percentage_txt">75%</p>
                 <div class="progress_bar_area">
-                  <progress
-                    value="75"
-                    max="100"
-                  />
+                  <progress value="75" max="100" />
                 </div>
               </div>
             </div>
@@ -62,10 +53,7 @@
               <div class="cont_footer">
                 <p class="progress_percentage_txt">75%</p>
                 <div class="progress_bar_area">
-                  <progress
-                    value="75"
-                    max="100"
-                  />
+                  <progress value="75" max="100" />
                 </div>
               </div>
             </div>
@@ -87,10 +75,7 @@
               <div class="cont_footer">
                 <p class="progress_percentage_txt">12%</p>
                 <div class="progress_bar_area">
-                  <progress
-                    value="75"
-                    max="100"
-                  />
+                  <progress value="75" max="100" />
                 </div>
               </div>
             </div>
@@ -112,10 +97,7 @@
               <div class="cont_footer">
                 <p class="progress_percentage_txt">75%</p>
                 <div class="progress_bar_area">
-                  <progress
-                    value="75"
-                    max="100"
-                  />
+                  <progress value="75" max="100" />
                 </div>
               </div>
             </div>
@@ -137,10 +119,7 @@
               <div class="cont_footer">
                 <p class="progress_percentage_txt">12%</p>
                 <div class="progress_bar_area">
-                  <progress
-                    value="75"
-                    max="100"
-                  />
+                  <progress value="75" max="100" />
                 </div>
               </div>
             </div>
@@ -162,11 +141,8 @@
               <div class="cont_footer">
                 <p class="progress_percentage_txt">75%</p>
                 <div class="progress_bar_area">
-                  <progress
-                    value="75"
-                    max="100"
-                  />
-              </div>
+                  <progress value="75" max="100" />
+                </div>
               </div>
             </div>
           </li>
@@ -183,16 +159,14 @@
                 class="wsize292"
               >
                 <template v-slot:prepend>
-                  <q-icon
-                    name="search"
-                    class="ico_search"
-                  />
+                  <q-icon name="search" class="ico_search" />
                 </template>
               </q-input>
             </div>
             <div class="usage_info">
               <div class="usage_box">
-                <p class="usage_title">사용량
+                <p class="usage_title">
+                  사용량
                   <c-button class="ibtn help">
                     <i class="ico help" /><span class="hidden">도움말</span>
                     <q-popup-edit
@@ -202,8 +176,13 @@
                       class="c_popover manage_pj_pop"
                     >
                       <div class="inner">
-                        <p class="list_dot">할당량 대비 사용량을 표기합니다.<br>(현재 사용량 / 할당량)</p>
-                        <p class="list_dot">할당량 OFF시 현재 사용량만 표기됩니다.</p>
+                        <p class="list_dot">
+                          할당량 대비 사용량을 표기합니다.<br />(현재 사용량 /
+                          할당량)
+                        </p>
+                        <p class="list_dot">
+                          할당량 OFF시 현재 사용량만 표기됩니다.
+                        </p>
                       </div>
                     </q-popup-edit>
                   </c-button>
@@ -251,10 +230,7 @@
             <template #item-desc="item">
               <a href="#">
                 <span class="txt">{{ item.desc }}</span>
-                <q-tooltip
-                  anchor="bottom middle"
-                  class="c_tooltip"
-                >
+                <q-tooltip anchor="bottom middle" class="c_tooltip">
                   <div class="inner">
                     {{ item.desc }}
                   </div>
@@ -268,16 +244,10 @@
               3. 생성중 | 삭제중 | 대기중 | 재시작중 | OFF
             -->
             <template #item-status="item">
-              <q-badge
-                v-if="item.status === 'running'"
-                class="green"
-              >
+              <q-badge v-if="item.status === 'running'" class="green">
                 <span class="txt">ON</span>
               </q-badge>
-              <q-badge
-                v-else
-                class="c_badge"
-              >
+              <q-badge v-else class="c_badge">
                 <span class="txt">OFF</span>
               </q-badge>
             </template>
@@ -476,10 +446,7 @@
   </q-page>
 
   <!-- Start : [관리 - 프로젝트] 워크스페이스 관리자 기능 - 프로젝트 기본 할당량 설정 -->
-  <q-dialog
-    v-model="workspaceMngSetModal"
-    class="c_dialog medium"
-  >
+  <q-dialog v-model="workspaceMngSetModal" class="c_dialog medium">
     <q-card>
       <q-card-section class="c_dialog_body">
         <p class="title">
@@ -489,16 +456,12 @@
           <section class="section relative">
             <p class="sub_title">프로젝트 기본 할당량</p>
             <div class="desc">
-              워크스페이스 멤버들이 프로젝트 생성시 적용되는 기본 할당량을 설정합니다.<br />
+              워크스페이스 멤버들이 프로젝트 생성시 적용되는 기본 할당량을
+              설정합니다.<br />
               (기본 할당량 설정된 시점 이후 생성된 프로젝트만 적용)<br />
             </div>
-            <div class="desc etc mt10">
-              0 입력시 미할당
-            </div>
-            <q-toggle
-              v-model="quotaOn"
-              class="quotaToggle"
-            />
+            <div class="desc etc mt10">0 입력시 미할당</div>
+            <q-toggle v-model="quotaOn" class="quotaToggle" />
           </section>
           <section class="section">
             <p class="sub_title">CPU</p>
@@ -608,21 +571,12 @@
         <!-- //.c_form -->
       </q-card-section>
       <q-card-actions class="c_dialog_foot">
-        <c-button
-          :outline="true"
-          :btn-names="'취소'"
-          v-close-popup
-        />
-        <c-button
-          :btn-names="'저장'"
-          v-close-popup
-          disable
-        />
+        <c-button :outline="true" :btn-names="'취소'" v-close-popup />
+        <c-button :btn-names="'저장'" v-close-popup disable />
       </q-card-actions>
     </q-card>
   </q-dialog>
   <!-- End : [관리 - 프로젝트] 워크스페이스 관리자 기능 - 프로젝트 기본 할당량 설정 -->
-
 </template>
 <script setup>
 import { ref } from "vue";
@@ -648,25 +602,46 @@ const options = ref([
 
 const mngTaskHeader = [
   {
-    text: "프로젝트 이름", value: "title", width: 160, sortable: true
+    text: "프로젝트 이름",
+    value: "title",
+    width: 160,
+    sortable: true,
   },
   {
-    text: "프로젝트 설명", value: "desc", width: 250, sortable: false
+    text: "프로젝트 설명",
+    value: "desc",
+    width: 250,
+    sortable: false,
   },
   {
-    text: "할당량 설정", value: "status", width: 130, sortable: true
+    text: "할당량 설정",
+    value: "status",
+    width: 130,
+    sortable: true,
   },
   {
-    text: "GPU", value: "gpu", width: 130, sortable: true
+    text: "GPU",
+    value: "gpu",
+    width: 130,
+    sortable: true,
   },
   {
-    text: "V100", value: "v100", width: 130, sortable: true
+    text: "V100",
+    value: "v100",
+    width: 130,
+    sortable: true,
   },
   {
-    text: "A100_400G", value: "g400", width: 130, sortable: true
+    text: "A100_400G",
+    value: "g400",
+    width: 130,
+    sortable: true,
   },
   {
-    text: "A100_80G", value: "g80", width: 130, sortable: true
+    text: "A100_80G",
+    value: "g80",
+    width: 130,
+    sortable: true,
   },
   { text: "", value: "buttons", width: 80 },
 ];
@@ -680,8 +655,8 @@ const mngTaskItems = [
     g400: "middle",
     g80: "high",
     buttons: {
-      name: "초대요청 확인"
-    }
+      name: "초대요청 확인",
+    },
   },
   {
     title: "aa프로젝트1",
@@ -692,8 +667,8 @@ const mngTaskItems = [
     g400: "middle",
     g80: "high",
     buttons: {
-      name: "초대요청 확인"
-    }
+      name: "초대요청 확인",
+    },
   },
 ];
 

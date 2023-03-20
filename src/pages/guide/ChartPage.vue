@@ -10,24 +10,23 @@
           <a
             href="https://apexcharts.com/vue-chart-demos/"
             target="_blank"
-            style="font-size: 20px; color: blue;"
-          >chart Demo 바로가기</a>
+            style="font-size: 20px; color: blue"
+            >chart Demo 바로가기</a
+          >
 
           <h3>Chart Docs</h3>
           <a
             href="https://apexcharts.com/docs/chart-types/line-chart/"
             target="_blank"
-            style="font-size: 20px; color: blue;"
-          >chart Docs 바로가기</a>
+            style="font-size: 20px; color: blue"
+            >chart Docs 바로가기</a
+          >
         </div>
         <br />
         <br />
         <br />
         <br />
-        <q-card
-          v-model="chartModel"
-          class="apexchart"
-        >
+        <q-card v-model="chartModel" class="apexchart">
           <div class="chart_head">
             <div class="chart_legend">
               <div class="blue">GPU(%)</div>
@@ -52,7 +51,7 @@
           </div>
         </q-card>
       </section>
-      <section class="section" style="display:none">
+      <section class="section" style="display: none">
         <h3>Circular Gauage</h3>
         <div id="chart"></div>
         <apexchart
@@ -66,18 +65,35 @@
       <section class="section">
         <h3>CSS+SVG Circular Gauage</h3>
         <div class="chart_circle">
-          <div class="circle-chart" style="--value:86.7;">
+          <div class="circle-chart" style="--value: 86.7">
             <svg class="svg_dashboad" fill="none" viewBox="0 0 600 600">
               <defs>
-                <linearGradient id="paint0_linear" x1="50" x2="200" y1="100" y2="450"
+                <linearGradient
+                  id="paint0_linear"
+                  x1="50"
+                  x2="200"
+                  y1="100"
+                  y2="450"
                   gradientUnits="userSpaceOnUse"
                 >
-                  <stop stop-color="#FF0000"/>
-                  <stop offset="1" stop-color="#4992FF"/>
+                  <stop stop-color="#FF0000" />
+                  <stop offset="1" stop-color="#4992FF" />
                 </linearGradient>
               </defs>
-              <circle pathLength="100" cx="300" cy="300" r="285" class="circle-chart__bg" />
-              <circle pathLength="100" cx="300" cy="300" r="285" class="circle-chart__stroke" />
+              <circle
+                pathLength="100"
+                cx="300"
+                cy="300"
+                r="285"
+                class="circle-chart__bg"
+              />
+              <circle
+                pathLength="100"
+                cx="300"
+                cy="300"
+                r="285"
+                class="circle-chart__stroke"
+              />
             </svg>
           </div>
         </div>
@@ -127,7 +143,7 @@ const options = {
       fontSize: "12px",
       fontWeight: "normal",
       fontFamily: undefined,
-      color: "#9699a2"
+      color: "#9699a2",
     },
   },
   legend: {
@@ -163,7 +179,19 @@ const options = {
     size: 0,
   },
   xaxis: {
-    categories: ["", "10/1", "", "10/5", "", "10/10", "", "10/20", "", "10/28", ""],
+    categories: [
+      "",
+      "10/1",
+      "",
+      "10/5",
+      "",
+      "10/10",
+      "",
+      "10/20",
+      "",
+      "10/28",
+      "",
+    ],
     title: {
       text: "",
     },
@@ -212,7 +240,7 @@ const options = {
   ],
   tooltip: {
     x: {
-      show: false
+      show: false,
     },
   },
   noData: {
@@ -224,9 +252,9 @@ const options = {
     style: {
       color: undefined,
       fontSize: "14px",
-      fontFamily: undefined
-    }
-  }
+      fontFamily: undefined,
+    },
+  },
 };
 const series = [
   {
@@ -248,8 +276,8 @@ const radiaBarOptions = {
     height: 350,
     type: "radialBar",
     toolbar: {
-      show: true
-    }
+      show: true,
+    },
   },
   plotOptions: {
     radialBar: {
@@ -265,8 +293,8 @@ const radiaBarOptions = {
           top: 3,
           left: 0,
           blur: 4,
-          opacity: 0.24
-        }
+          opacity: 0.24,
+        },
       },
       track: {
         background: "#fff",
@@ -277,8 +305,8 @@ const radiaBarOptions = {
           top: -3,
           left: 0,
           blur: 4,
-          opacity: 0.35
-        }
+          opacity: 0.35,
+        },
       },
 
       dataLabels: {
@@ -287,7 +315,7 @@ const radiaBarOptions = {
           offsetY: -10,
           show: true,
           color: "#888",
-          fontSize: "17px"
+          fontSize: "17px",
         },
         value: {
           formatter(val) {
@@ -296,9 +324,9 @@ const radiaBarOptions = {
           color: "#111",
           fontSize: "36px",
           show: true,
-        }
-      }
-    }
+        },
+      },
+    },
   },
   fill: {
     type: "gradient",
@@ -310,47 +338,50 @@ const radiaBarOptions = {
       inverseColors: true,
       opacityFrom: 1,
       opacityTo: 1,
-      stops: [0, 100]
-    }
+      stops: [0, 100],
+    },
   },
   stroke: {
-    lineCap: "round"
+    lineCap: "round",
   },
   labels: ["Percent"],
 };
 
 const radiaBarSeries = [75];
-
 </script>
 <style lang="scss" scoped>
 @import "./src/css/table";
-.section:not(:first-child){margin-top:50px}
+.section:not(:first-child) {
+  margin-top: 50px;
+}
 
-.chart_circle{
-  width:140px;height:140px;
+.chart_circle {
+  width: 140px;
+  height: 140px;
   border-radius: 50%;
-  background:#212648;
+  background: #212648;
 }
 .circle-chart {
   position: relative;
-  width: 100%;height: 140px;
-  stroke: #1C2142;
+  width: 100%;
+  height: 140px;
+  stroke: #1c2142;
   stroke-dashoffset: 140;
 
   svg {
     width: 100%;
     display: block;
   }
-  &__bg{
-    stroke:rgb(28, 33, 66);
-    stroke-width:30px;
-    stroke-linecap:round;
-    opacity:1;
+  &__bg {
+    stroke: rgb(28, 33, 66);
+    stroke-width: 30px;
+    stroke-linecap: round;
+    opacity: 1;
   }
   &__stroke {
-    stroke:url(#paint0_linear);
-    stroke-linecap:round;
-    stroke-width:30px;
+    stroke: url(#paint0_linear);
+    stroke-linecap: round;
+    stroke-width: 30px;
     stroke-dasharray: 100px;
     stroke-dashoffset: calc((100 - var(--value, 0)) * 1px);
     transform-origin: 300px 300px;
@@ -366,71 +397,82 @@ const radiaBarSeries = [75];
 }
 
 // Loading
-.loading{
-  &.loading_text{
-    position:relative;
-    width:40px;height:40px;
-    margin:0;padding-left:32px;
-    color:$primary;font-size:$fs14;
-    &::before{
-      content:"";
-      display:inline-block;
-      position:absolute;top:-3px;left:0;
-      width:20px;height:20px;
+.loading {
+  &.loading_text {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    margin: 0;
+    padding-left: 32px;
+    color: $primary;
+    font-size: $fs14;
+    &::before {
+      content: "";
+      display: inline-block;
+      position: absolute;
+      top: -3px;
+      left: 0;
+      width: 20px;
+      height: 20px;
       border-radius: 50%;
       background-repeat: no-repeat;
-      background-position:50% 50%;
-      background-size:20px;
+      background-position: 50% 50%;
+      background-size: 20px;
     }
-    &::before{
-      background-image:url($iconUrl + '20/ico_loading.svg');
+    &::before {
+      background-image: url($iconUrl + "20/ico_loading.svg");
       animation: spin 2s linear infinite;
     }
   }
 }
 @keyframes spin {
-  0% {transform: rotate3d(0, 0, 1, 0deg)}
-  25% {transform: rotate3d(0, 0, 1, 90deg)}
-  50% {transform: rotate3d(0, 0, 1, 180deg)}
-  75% {transform: rotate3d(0, 0, 1, 270deg)}
-  100% {transform: rotate3d(0, 0, 1, 359deg)}
+  0% {
+    transform: rotate3d(0, 0, 1, 0deg);
+  }
+  25% {
+    transform: rotate3d(0, 0, 1, 90deg);
+  }
+  50% {
+    transform: rotate3d(0, 0, 1, 180deg);
+  }
+  75% {
+    transform: rotate3d(0, 0, 1, 270deg);
+  }
+  100% {
+    transform: rotate3d(0, 0, 1, 359deg);
+  }
 }
 .circle-background {
   stroke: #efefef;
 }
-.semi-circle-chart
-{
+.semi-circle-chart {
   position: relative;
-  width:200px;
-  height:140px;
+  width: 200px;
+  height: 140px;
 }
-.semi-circle-chart .chart-svg
-{
-position: absolute;
+.semi-circle-chart .chart-svg {
+  position: absolute;
   top: -15px;
   left: 12px;
 }
 .chart-price {
-    position:absolute;
-    top:50%;
-    left:50%;
-    transform: translate(-50%,-50%);
-    text-align:center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
 }
-.chart-final-price
-{
-  font-weight:bold;
-  font-size:38px;
-  color:#333333;
+.chart-final-price {
+  font-weight: bold;
+  font-size: 38px;
+  color: #333333;
 }
-.chart-from-price-text
-{
-  font-size:12px;
+.chart-from-price-text {
+  font-size: 12px;
 }
-.added-text-chart
-{
-text-align: center;
-  color: #6A6A6A;
+.added-text-chart {
+  text-align: center;
+  color: #6a6a6a;
   position: absolute;
   bottom: 0px;
   font-size: 12px;
@@ -445,15 +487,15 @@ text-align: center;
   overflow: hidden;
 }
 .semi-circle:before {
-  border: 10px solid #CCC;
-  border-radius:100px;
+  border: 10px solid #ccc;
+  border-radius: 100px;
   border-bottom: none;
   top: 0;
   z-index: 1;
   border-radius: 300px 300px 0 0;
   width: 100%;
   height: 100%;
-  content: '';
+  content: "";
   position: absolute;
   transform-origin: 50% 0%;
   left: 0;
@@ -483,22 +525,22 @@ text-align: center;
   transform-origin: 50% 0;
   box-sizing: border-box;
   z-index: 2;
-  border-color: #0099FF;
+  border-color: #0099ff;
 }
 .arc:after {
   width: 5px;
   content: " ";
   transform: rotate(90deg);
   height: 60px;
-  background: #0099FF;
+  background: #0099ff;
   display: block;
   top: -30px;
   position: absolute;
   left: -28px;
-  display:none;
+  display: none;
 }
 @for $i from 1 through 100 {
-  .semi-circle[data-value="#{$i}"] .arc{
+  .semi-circle[data-value="#{$i}"] .arc {
     // @if ($i < 50) {
     //   border-color: #FF0000;
     // }
@@ -527,7 +569,9 @@ text-align: center;
 }
 
 @keyframes circle-chart-fill {
-  to { stroke-dasharray: 0 100; }
+  to {
+    stroke-dasharray: 0 100;
+  }
 }
 
 // type4
@@ -535,5 +579,4 @@ text-align: center;
   transform: rotate(-90deg);
   transform-origin: center;
 }
-
 </style>

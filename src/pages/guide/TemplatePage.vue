@@ -106,23 +106,23 @@
           <section class="section" aria-label="프로젝트 설명">
             <p class="sub_title">프로젝트 설명</p>
             <div class="c_inpgroup">
-                <q-input
-                  outlined
-                  v-model="textDesc"
-                  bottom-slots
-                  type="textarea"
-                  placeholder="프로젝트 설명 입력"
-                  clearable
-                  counter
-                  :count="10"
-                  maxlength="500"
-                  class="wsize_full hsize244"
-                  :input-style="{height: '100%'}"
-                >
-                  <!-- <template v-slot:hint>
+              <q-input
+                outlined
+                v-model="textDesc"
+                bottom-slots
+                type="textarea"
+                placeholder="프로젝트 설명 입력"
+                clearable
+                counter
+                :count="10"
+                maxlength="500"
+                class="wsize_full hsize244"
+                :input-style="{ height: '100%' }"
+              >
+                <!-- <template v-slot:hint>
                     Description
                   </template> -->
-                </q-input>
+              </q-input>
             </div>
           </section>
         </q-card-section>
@@ -161,33 +161,29 @@
           <section class="section" aria-label="프로젝트 설명">
             <p class="sub_title">프로젝트 설명</p>
             <div class="c_inpgroup">
-                <q-input
-                  outlined
-                  v-model="textChangeDesc"
-                  bottom-slots
-                  type="textarea"
-                  placeholder="프로젝트 설명 입력"
-                  clearable
-                  counter
-                  :count="10"
-                  maxlength="500"
-                  class="wsize_full hsize244"
-                  :input-style="{height: '100%'}"
-                >
-                  <!-- <template v-slot:hint>
+              <q-input
+                outlined
+                v-model="textChangeDesc"
+                bottom-slots
+                type="textarea"
+                placeholder="프로젝트 설명 입력"
+                clearable
+                counter
+                :count="10"
+                maxlength="500"
+                class="wsize_full hsize244"
+                :input-style="{ height: '100%' }"
+              >
+                <!-- <template v-slot:hint>
                     Description
                   </template> -->
-                </q-input>
+              </q-input>
             </div>
           </section>
         </q-card-section>
         <q-card-actions class="c_dialog_foot">
           <q-btn label="취소" class="line" v-close-popup />
-          <q-btn
-            label="저장"
-            class="primary"
-            v-close-popup
-          />
+          <q-btn label="저장" class="primary" v-close-popup />
         </q-card-actions>
       </q-card>
     </q-dialog>
@@ -342,18 +338,35 @@
           <section class="section" aria-label="워크스페이스 역할">
             <p class="sub_title">워크스페이스 역할</p>
             <div class="c_radiogroup mt20">
-              <q-radio v-model="radCheck" val="rad1" label="워크스페이스 멤버" class="c_radio" />
-              <q-radio v-model="radCheck" val="rad2" label="정산 관리자" class="c_radio" />
-              <q-radio v-model="radCheck" val="rad3" label="게스트" class="c_radio mr0" />
+              <q-radio
+                v-model="radCheck"
+                val="rad1"
+                label="워크스페이스 멤버"
+                class="c_radio"
+              />
+              <q-radio
+                v-model="radCheck"
+                val="rad2"
+                label="정산 관리자"
+                class="c_radio"
+              />
+              <q-radio
+                v-model="radCheck"
+                val="rad3"
+                label="게스트"
+                class="c_radio mr0"
+              />
               <q-btn class="ibtn help">
                 <i class="ico help" /><span class="hidden">도움말</span>
                 <q-popup-edit
                   v-model="helpShow"
-                  anchor="top middle" self="top middle"
+                  anchor="top middle"
+                  self="top middle"
                   class="c_popover"
                 >
                   <div class="inner">
-                    게스트는 워크스페이스 멤버 조회 및 프로젝트 생성 기능이 제한됩니다.
+                    게스트는 워크스페이스 멤버 조회 및 프로젝트 생성 기능이
+                    제한됩니다.
                   </div>
                 </q-popup-edit>
               </q-btn>
@@ -374,23 +387,23 @@
           <section class="section" aria-label="초대사유">
             <p class="sub_title">초대사유</p>
             <div class="c_inpgroup">
-                <q-input
-                  outlined
-                  v-model="textInviteDesc"
-                  bottom-slots
-                  type="textarea"
-                  placeholder="초대사유 입력"
-                  clearable
-                  counter
-                  :count="10"
-                  maxlength="500"
-                  class="wsize_full hsize244"
-                  :input-style="{height: '100%'}"
-                >
-                  <!-- <template v-slot:hint>
+              <q-input
+                outlined
+                v-model="textInviteDesc"
+                bottom-slots
+                type="textarea"
+                placeholder="초대사유 입력"
+                clearable
+                counter
+                :count="10"
+                maxlength="500"
+                class="wsize_full hsize244"
+                :input-style="{ height: '100%' }"
+              >
+                <!-- <template v-slot:hint>
                     Description
                   </template> -->
-                </q-input>
+              </q-input>
             </div>
           </section>
         </q-card-section>
@@ -462,9 +475,15 @@ const triggerSuccess = (position) => {
       icon: "positive",
       position,
       actions: [
-        { label: "닫기", class: "xclose", handler: () => { /* console.log('') */ } }
+        {
+          label: "닫기",
+          class: "xclose",
+          handler: () => {
+            /* console.log('') */
+          },
+        },
       ],
-      timeout: 3000
+      timeout: 3000,
     });
   }, 100);
 };
@@ -476,9 +495,15 @@ const triggerSuccess1 = (position) => {
       icon: "positive",
       position,
       actions: [
-        { label: "닫기", class: "xclose", handler: () => { /* console.log('') */ } }
+        {
+          label: "닫기",
+          class: "xclose",
+          handler: () => {
+            /* console.log('') */
+          },
+        },
       ],
-      timeout: 3000
+      timeout: 3000,
     });
   }, 100);
 };
@@ -487,23 +512,23 @@ onMounted(() => {});
 </script>
 
 <style lang="scss" scoped>
-h2:not(:first-child){
-  margin-top:40px;
+h2:not(:first-child) {
+  margin-top: 40px;
 }
-.p-body{
-  .section{
-    h2{
-      margin-bottom:10px;
+.p-body {
+  .section {
+    h2 {
+      margin-bottom: 10px;
     }
-    &:not(:first-child){
-      margin-top:40px;
+    &:not(:first-child) {
+      margin-top: 40px;
     }
   }
-  .group{
-    margin-top:20px;
-    .c_btn{
-      &:not(:first-child){
-        margin-left:10px;
+  .group {
+    margin-top: 20px;
+    .c_btn {
+      &:not(:first-child) {
+        margin-left: 10px;
       }
     }
   }

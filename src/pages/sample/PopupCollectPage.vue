@@ -13,10 +13,7 @@
       <section class="psection">
         <h2 class="sub_title">공통 팝업</h2>
         <div class="c_btngroup f_wrap">
-          <q-btn
-            class="c_btn line"
-            @click="alertErrorModal"
-          >
+          <q-btn class="c_btn line" @click="alertErrorModal">
             <span class="txt">[Alert]공통 오류 팝업</span>
           </q-btn>
         </div>
@@ -25,10 +22,7 @@
       <section class="psection">
         <h2 class="sub_title">소속된 워크스페이스가 없는 사용자</h2>
         <div class="c_btngroup f_wrap">
-          <q-btn
-            class="c_btn line"
-            @click="alertWorkspaceModal"
-          >
+          <q-btn class="c_btn line" @click="alertWorkspaceModal">
             <span class="txt">[Alert]소속된 워크스페이스가 없는 사용자</span>
           </q-btn>
         </div>
@@ -37,22 +31,13 @@
       <section class="psection">
         <h2 class="sub_title">프로젝트</h2>
         <div class="c_btngroup f_wrap">
-          <q-btn
-            class="c_btn line"
-            @click="projectCreateModal = true"
-          >
+          <q-btn class="c_btn line" @click="projectCreateModal = true">
             <span class="txt">SNB - 프로젝트 생성</span>
           </q-btn>
-          <q-btn
-            class="c_btn line"
-            @click="projectChangeModal = true"
-          >
+          <q-btn class="c_btn line" @click="projectChangeModal = true">
             <span class="txt">프로젝트 - 프로젝트 이름/설명 변경</span>
           </q-btn>
-          <q-btn
-            class="c_btn"
-            @click="quotaChangeModal = true"
-          >
+          <q-btn class="c_btn" @click="quotaChangeModal = true">
             <span class="txt">할당량 변경 요청 팝업 (TBD)</span>
           </q-btn>
         </div>
@@ -60,11 +45,11 @@
       <section class="psection">
         <h2 class="sub_title">프로젝트 - 대시보드</h2>
         <div class="c_btngroup f_wrap">
-          <q-btn
-            class="c_btn line"
-            @click="alertProjectInstanceTaskInfoModal"
-          >
-            <span class="txt">[Alert]프로젝트내 이용중인 인스턴스/태스크가 있는 경우 안내 팝업</span>
+          <q-btn class="c_btn line" @click="alertProjectInstanceTaskInfoModal">
+            <span class="txt"
+              >[Alert]프로젝트내 이용중인 인스턴스/태스크가 있는 경우 안내
+              팝업</span
+            >
           </q-btn>
           <q-btn
             class="c_btn line"
@@ -78,40 +63,29 @@
       <section class="psection">
         <h2 class="sub_title">프로젝트 - 인스턴스</h2>
         <div class="c_btngroup f_wrap">
-          <q-btn
-            class="c_btn line"
-            @click="alertInstanceOverAddModal = true"
-          >
-            <span class="txt">[Alert]인스턴스 추가된 용량 (10GB 초과시 저장 되지 않음 안내 팝업)</span>
+          <q-btn class="c_btn line" @click="alertInstanceOverAddModal = true">
+            <span class="txt"
+              >[Alert]인스턴스 추가된 용량 (10GB 초과시 저장 되지 않음 안내
+              팝업)</span
+            >
           </q-btn>
-          <q-btn
-            class="c_btn line"
-            @click="alertInstanceDeleteModal = true"
-          >
+          <q-btn class="c_btn line" @click="alertInstanceDeleteModal = true">
             <span class="txt">[Alert]인스턴스 삭제 확인 팝업</span>
           </q-btn>
-          <q-btn
-            class="c_btn line"
-            @click="alertInstanceResourceModal"
-          >
-            <span class="txt">[Alert]리소스 부족으로 인한 재시작 불가 팝업</span>
+          <q-btn class="c_btn line" @click="alertInstanceResourceModal">
+            <span class="txt"
+              >[Alert]리소스 부족으로 인한 재시작 불가 팝업</span
+            >
           </q-btn>
-          <q-btn
-            class="c_btn line"
-            @click="alertInstanceOverImageModal = true"
-          >
-            <span class="txt">[Alert]인스턴스 용량 초과로 인한 이미지 생성 불가</span>
+          <q-btn class="c_btn line" @click="alertInstanceOverImageModal = true">
+            <span class="txt"
+              >[Alert]인스턴스 용량 초과로 인한 이미지 생성 불가</span
+            >
           </q-btn>
-          <q-btn
-            class="c_btn line"
-            @click="alertProjectQuotaModal"
-          >
+          <q-btn class="c_btn line" @click="alertProjectQuotaModal">
             <span class="txt">[Alert]프로젝트 할당량이 부족한 경우</span>
           </q-btn>
-          <q-btn
-            class="c_btn line"
-            @click="alertWorkspaceQuotaModal = true"
-          >
+          <q-btn class="c_btn line" @click="alertWorkspaceQuotaModal = true">
             <span class="txt">[Alert]워크스페이스 할당량이 부족한 경우</span>
           </q-btn>
           <q-btn
@@ -126,11 +100,11 @@
           >
             <span class="txt">A 워크스페이스 리소스 사용 이력(꺽은선 그래프 + 달력 + 시계)(TBD)</span>
           </q-btn> -->
-          <q-btn
-            class="c_btn"
-            @click="workspaceHistoryBModal = true"
-          >
-            <span class="txt">B 워크스페이스 리소스 사용 이력(꺽은선 그래프 + 달력 + 시계)(TBD)</span>
+          <q-btn class="c_btn" @click="workspaceHistoryBModal = true">
+            <span class="txt"
+              >B 워크스페이스 리소스 사용 이력(꺽은선 그래프 + 달력 +
+              시계)(TBD)</span
+            >
           </q-btn>
         </div>
       </section>
@@ -138,22 +112,13 @@
       <section class="psection">
         <h2 class="sub_title">프로젝트 - 태스크</h2>
         <div class="c_btngroup f_wrap">
-          <q-btn
-            class="c_btn line"
-            @click="alertTaskGroupDeleteModal"
-          >
+          <q-btn class="c_btn line" @click="alertTaskGroupDeleteModal">
             <span class="txt">[Alert]태스크 그룹 삭제 확인 팝업</span>
           </q-btn>
-          <q-btn
-            class="c_btn line"
-            @click="alertTaskDeleteModal = true"
-          >
+          <q-btn class="c_btn line" @click="alertTaskDeleteModal = true">
             <span class="txt">[Alert]태스크 삭제 확인 팝업</span>
           </q-btn>
-          <q-btn
-            class="c_btn line"
-            @click="taskLogModal = true"
-          >
+          <q-btn class="c_btn line" @click="taskLogModal = true">
             <span class="txt">태스크 - 로그 stdout(+ Full Size)</span>
           </q-btn>
         </div>
@@ -162,22 +127,13 @@
       <section class="psection">
         <h2 class="sub_title">프로젝트 - 멤버관리</h2>
         <div class="c_btngroup f_wrap">
-          <q-btn
-            class="c_btn line"
-            @click="alertMemberAuthNotModal = true"
-          >
+          <q-btn class="c_btn line" @click="alertMemberAuthNotModal = true">
             <span class="txt">[Alert]권한 변경 불가 안내 팝업</span>
           </q-btn>
-          <q-btn
-            class="c_btn line"
-            @click="alertMemberDelNotModal = true"
-          >
+          <q-btn class="c_btn line" @click="alertMemberDelNotModal = true">
             <span class="txt">[Alert]삭제 불가 안내 팝업</span>
           </q-btn>
-          <q-btn
-            class="c_btn line"
-            @click="projectMemberAddModal = true"
-          >
+          <q-btn class="c_btn line" @click="projectMemberAddModal = true">
             <span class="txt">프로젝트 - 멤버 - 추가</span>
           </q-btn>
           <q-btn
@@ -186,10 +142,7 @@
           >
             <span class="txt">프로젝트 - 멤버 - 권한변경</span>
           </q-btn>
-          <q-btn
-            class="c_btn line"
-            @click="projectMemberDeleteModal = true"
-          >
+          <q-btn class="c_btn line" @click="projectMemberDeleteModal = true">
             <span class="txt">프로젝트 - 멤버 - 멤버삭제</span>
           </q-btn>
         </div>
@@ -198,52 +151,30 @@
       <section class="psection">
         <h2 class="sub_title">스토리지</h2>
         <div class="c_btngroup f_wrap">
-          <q-btn
-            class="c_btn line"
-            @click="alertStorageDeleteModal = true"
-          >
+          <q-btn class="c_btn line" @click="alertStorageDeleteModal = true">
             <span class="txt">[Alert]스토리지 삭제 확인 팝업</span>
           </q-btn>
-          <q-btn
-            class="c_btn line"
-            @click="alertStorageDelNotModal = true"
-          >
+          <q-btn class="c_btn line" @click="alertStorageDelNotModal = true">
             <span class="txt">[Alert]스토리지 삭제 불가 안내 팝업</span>
           </q-btn>
-          <q-btn
-            class="c_btn line"
-            @click="storageAddModal = true"
-          >
+          <q-btn class="c_btn line" @click="storageAddModal = true">
             <span class="txt">개인스토리지 추가</span>
           </q-btn>
-          <q-btn
-            class="c_btn line"
-            @click="storageShareMngModal = true"
-          >
+          <q-btn class="c_btn line" @click="storageShareMngModal = true">
             <span class="txt">스토리지 - 공유관리</span>
           </q-btn>
-          <q-btn
-            class="c_btn line"
-            @click="storageShareMngIngModal = true"
-          >
-            <span class="txt">스토리지 - 공유관리(현재 이용중인 사용자가 있는 경우)</span>
+          <q-btn class="c_btn line" @click="storageShareMngIngModal = true">
+            <span class="txt"
+              >스토리지 - 공유관리(현재 이용중인 사용자가 있는 경우)</span
+            >
           </q-btn>
-          <q-btn
-            class="c_btn line"
-            @click="storageUsageStatusModal = true"
-          >
+          <q-btn class="c_btn line" @click="storageUsageStatusModal = true">
             <span class="txt">스토리지 - 이용 현황</span>
           </q-btn>
-          <q-btn
-            class="c_btn line"
-            @click="storageVolumeChangeModal = true"
-          >
+          <q-btn class="c_btn line" @click="storageVolumeChangeModal = true">
             <span class="txt">스토리지 - 용량 변경</span>
           </q-btn>
-          <q-btn
-            class="c_btn"
-            @click="storageChangeRequestModal = true"
-          >
+          <q-btn class="c_btn" @click="storageChangeRequestModal = true">
             <span class="txt">스토리지 용량 변경 요청 (TBD)</span>
           </q-btn>
         </div>
@@ -252,16 +183,10 @@
       <section class="psection">
         <h2 class="sub_title">내 이미지</h2>
         <div class="c_btngroup f_wrap">
-          <q-btn
-            class="c_btn line"
-            @click="alertImageDeleteModal = true"
-          >
+          <q-btn class="c_btn line" @click="alertImageDeleteModal = true">
             <span class="txt">[Alert]이미지 삭제 확인 팝업</span>
           </q-btn>
-          <q-btn
-            class="c_btn line"
-            @click="imageShareMngModal = true"
-          >
+          <q-btn class="c_btn line" @click="imageShareMngModal = true">
             <span class="txt">이미지 - 내이미지 - 공유관리</span>
           </q-btn>
         </div>
@@ -270,52 +195,32 @@
       <section class="psection">
         <h2 class="sub_title">멤버</h2>
         <div class="c_btngroup f_wrap">
-          <q-btn
-            class="c_btn line"
-            @click="alertMemberProjectModal = true"
-          >
+          <q-btn class="c_btn line" @click="alertMemberProjectModal = true">
             <span class="txt">[Alert]소속된 프로젝트가 있는 경우 팝업</span>
           </q-btn>
-          <q-btn
-            class="c_btn line"
-            @click="alertMemberStorageModal = true"
-          >
-            <span class="txt">[Alert]개인이 생성한 스토리지가 있는 경우 팝업</span>
+          <q-btn class="c_btn line" @click="alertMemberStorageModal = true">
+            <span class="txt"
+              >[Alert]개인이 생성한 스토리지가 있는 경우 팝업</span
+            >
           </q-btn>
-          <q-btn
-            class="c_btn line"
-            @click="alertMemberUserDelModal = true"
-          >
+          <q-btn class="c_btn line" @click="alertMemberUserDelModal = true">
             <span class="txt">[Alert]사용자 삭제 가능한 경우 팝업</span>
           </q-btn>
-          <q-btn
-            class="c_btn line"
-            @click="alertMemberDeleteModal = true"
-          >
+          <q-btn class="c_btn line" @click="alertMemberDeleteModal = true">
             <span class="txt">[Alert]멤버 삭제 가능한 경우 팝업</span>
           </q-btn>
-          <q-btn
-            class="c_btn line"
-            @click="alertMemberEditCancelModal = true"
-          >
-            <span class="txt">[Alert]수정된 내용이 있는 경우(멤버편집) 취소 확인 팝업</span>
+          <q-btn class="c_btn line" @click="alertMemberEditCancelModal = true">
+            <span class="txt"
+              >[Alert]수정된 내용이 있는 경우(멤버편집) 취소 확인 팝업</span
+            >
           </q-btn>
-          <q-btn
-            class="c_btn line"
-            @click="memberWorkspaceAddModal = true"
-          >
+          <q-btn class="c_btn line" @click="memberWorkspaceAddModal = true">
             <span class="txt">워크스페이스 멤버 추가</span>
           </q-btn>
-          <q-btn
-            class="c_btn"
-            @click="memberInviteModal = true"
-          >
+          <q-btn class="c_btn" @click="memberInviteModal = true">
             <span class="txt">멤버 초대 요청 (TBD)</span>
           </q-btn>
-          <q-btn
-            class="c_btn"
-            @click="memberInviteConfirmModal = true"
-          >
+          <q-btn class="c_btn" @click="memberInviteConfirmModal = true">
             <span class="txt">멤버 초대 요청 확인 (TBD)</span>
           </q-btn>
         </div>
@@ -324,10 +229,7 @@
       <section class="psection">
         <h2 class="sub_title">내정보</h2>
         <div class="c_btngroup f_wrap">
-          <q-btn
-            class="c_btn line"
-            @click="LDAPLoginModal = true"
-          >
+          <q-btn class="c_btn line" @click="LDAPLoginModal = true">
             <span class="txt">LDAP 로그인(오픈 이후 개발)</span>
           </q-btn>
         </div>
@@ -336,16 +238,10 @@
       <section class="psection">
         <h2 class="sub_title">회원탈퇴</h2>
         <div class="c_btngroup f_wrap">
-          <q-btn
-            class="c_btn"
-            @click="alertWithDrawalInfoModal = true"
-          >
+          <q-btn class="c_btn" @click="alertWithDrawalInfoModal = true">
             <span class="txt">[Alert]회원탈퇴 안내 팝업 (TBD)</span>
           </q-btn>
-          <q-btn
-            class="c_btn"
-            @click="alertWithDrawalConfirmModal = true"
-          >
+          <q-btn class="c_btn" @click="alertWithDrawalConfirmModal = true">
             <span class="txt">[Alert]회원탈퇴 완료 팝업 (TBD)</span>
           </q-btn>
         </div>
@@ -354,28 +250,16 @@
       <section class="psection">
         <h2 class="sub_title">sshkey & apikey</h2>
         <div class="c_btngroup f_wrap">
-          <q-btn
-            class="c_btn line"
-            @click="alertSshkeyDeleteModal = true"
-          >
+          <q-btn class="c_btn line" @click="alertSshkeyDeleteModal = true">
             <span class="txt">[Alert]SSH Key 삭제 선택시, 삭제 확인 팝업</span>
           </q-btn>
-          <q-btn
-            class="c_btn line"
-            @click="alertApikeyDeleteModal = true"
-          >
+          <q-btn class="c_btn line" @click="alertApikeyDeleteModal = true">
             <span class="txt">[Alert]API Key 삭제 팝업</span>
           </q-btn>
-          <q-btn
-            class="c_btn line"
-            @click="sshkeyWriteModal = true"
-          >
+          <q-btn class="c_btn line" @click="sshkeyWriteModal = true">
             <span class="txt">계정 - SSH Key&API Key - 등록</span>
           </q-btn>
-          <q-btn
-            class="c_btn line"
-            @click="apikeyCreateModal = true"
-          >
+          <q-btn class="c_btn line" @click="apikeyCreateModal = true">
             <span class="txt">API Key 생성</span>
           </q-btn>
         </div>
@@ -384,41 +268,29 @@
       <section class="psection">
         <h2 class="sub_title">관리 - 프로젝트</h2>
         <div class="c_btngroup f_wrap">
-          <q-btn
-            class="c_btn line"
-            @click="alertProjectDelInfoModal = true"
-          >
+          <q-btn class="c_btn line" @click="alertProjectDelInfoModal = true">
             <span class="txt">[Alert]프로젝트 삭제 안내 팝업</span>
           </q-btn>
-          <q-btn
-            class="c_btn line"
-            @click="alertProjectDelConfirmModal = true"
-          >
+          <q-btn class="c_btn line" @click="alertProjectDelConfirmModal = true">
             <span class="txt">[Alert]프로젝트 삭제 확인 팝업</span>
           </q-btn>
-          <q-btn
-            class="c_btn line"
-            @click="workspaceMngEditModal = true"
-          >
+          <q-btn class="c_btn line" @click="workspaceMngEditModal = true">
             <span class="txt">워크스페이스 관리자 기능 - 프로젝트 편집</span>
           </q-btn>
-          <q-btn
-            class="c_btn line"
-            @click="workspaceMngSetModal = true"
-          >
-            <span class="txt">워크스페이스 관리자 기능 - 프로젝트 기본 할당량 설정</span>
+          <q-btn class="c_btn line" @click="workspaceMngSetModal = true">
+            <span class="txt"
+              >워크스페이스 관리자 기능 - 프로젝트 기본 할당량 설정</span
+            >
           </q-btn>
-          <q-btn
-            class="c_btn line"
-            @click="alertInstanceTaskInfoModal"
-          >
-            <span class="txt">[Alert]인스턴스, 태스크 생성하기 선택시 안내 팝업</span>
+          <q-btn class="c_btn line" @click="alertInstanceTaskInfoModal">
+            <span class="txt"
+              >[Alert]인스턴스, 태스크 생성하기 선택시 안내 팝업</span
+            >
           </q-btn>
-          <q-btn
-            class="c_btn line"
-            @click="alertTaskGroupReCreateInfoModal"
-          >
-            <span class="txt">[Alert]태스크 그룹 재생성, 태스크 재생성 선택시 안내 팝업</span>
+          <q-btn class="c_btn line" @click="alertTaskGroupReCreateInfoModal">
+            <span class="txt"
+              >[Alert]태스크 그룹 재생성, 태스크 재생성 선택시 안내 팝업</span
+            >
           </q-btn>
         </div>
       </section>
@@ -430,7 +302,10 @@
             class="c_btn line"
             @click="alertInstanceAddVolumeInfoModal = true"
           >
-            <span class="txt">[Alert]인스턴스 추가된 용량 (10GB 초과시 저장 되지 않음 안내 팝업)</span>
+            <span class="txt"
+              >[Alert]인스턴스 추가된 용량 (10GB 초과시 저장 되지 않음 안내
+              팝업)</span
+            >
           </q-btn>
           <q-btn
             class="c_btn line"
@@ -438,23 +313,19 @@
           >
             <span class="txt">[Alert]인스턴스 삭제 확인 팝업</span>
           </q-btn>
-          <q-btn
-            class="c_btn line"
-            @click="alertResouceCantRestartModal"
-          >
-            <span class="txt">[Alert]리소스 부족으로 인한 재시작 불가 팝업</span>
+          <q-btn class="c_btn line" @click="alertResouceCantRestartModal">
+            <span class="txt"
+              >[Alert]리소스 부족으로 인한 재시작 불가 팝업</span
+            >
           </q-btn>
-          <q-btn
-            class="c_btn line"
-            @click="alertImageCreateCantModal = true"
-          >
+          <q-btn class="c_btn line" @click="alertImageCreateCantModal = true">
             <span class="txt">[Alert]이미지 생성 불가 팝업</span>
           </q-btn>
-          <q-btn
-            class="c_btn"
-            @click="workspaceResouceHistoryModal = true"
-          >
-            <span class="txt">워크스페이스 리소스 사용이력 조회 (TBD) - (꺽은선 그래프 + 달력)</span>
+          <q-btn class="c_btn" @click="workspaceResouceHistoryModal = true">
+            <span class="txt"
+              >워크스페이스 리소스 사용이력 조회 (TBD) - (꺽은선 그래프 +
+              달력)</span
+            >
           </q-btn>
         </div>
       </section>
@@ -462,11 +333,10 @@
       <section class="psection">
         <h2 class="sub_title">관리 - 태스크</h2>
         <div class="c_btngroup f_wrap">
-          <q-btn
-            class="c_btn line"
-            @click="alertTaskRecreateInfoModal"
-          >
-            <span class="txt">[Alert]프로젝트 구성원이 아닌경우 선택시 안내 팝업</span>
+          <q-btn class="c_btn line" @click="alertTaskRecreateInfoModal">
+            <span class="txt"
+              >[Alert]프로젝트 구성원이 아닌경우 선택시 안내 팝업</span
+            >
           </q-btn>
           <q-btn
             class="c_btn line"
@@ -474,17 +344,14 @@
           >
             <span class="txt">[Alert]태스크 그룹 삭제 확인 팝업</span>
           </q-btn>
-          <q-btn
-            class="c_btn line"
-            @click="alertTaskDelConfirmModal = true"
-          >
+          <q-btn class="c_btn line" @click="alertTaskDelConfirmModal = true">
             <span class="txt">[Alert]태스크 삭제 확인 팝업</span>
           </q-btn>
-          <q-btn
-            class="c_btn line"
-            @click="alertTaskRecreateAuthModal"
-          >
-            <span class="txt">[Alert]재생성 권한 없음 팝업(프로젝트 구성원이 아닌경우) - 워크스페이스 관리자만 확인 가능</span>
+          <q-btn class="c_btn line" @click="alertTaskRecreateAuthModal">
+            <span class="txt"
+              >[Alert]재생성 권한 없음 팝업(프로젝트 구성원이 아닌경우) -
+              워크스페이스 관리자만 확인 가능</span
+            >
           </q-btn>
         </div>
       </section>
@@ -492,40 +359,30 @@
       <section class="psection">
         <h2 class="sub_title">관리 - 스토리지</h2>
         <div class="c_btngroup f_wrap">
-          <q-btn
-            class="c_btn line"
-            @click="alertStorageDeleteInfoModal = true"
-          >
+          <q-btn class="c_btn line" @click="alertStorageDeleteInfoModal = true">
             <span class="txt">[Alert]스토리지 삭제 확인 팝업</span>
           </q-btn>
-          <q-btn
-            class="c_btn line"
-            @click="alertStorageCantDeleteModal = true"
-          >
-            <span class="txt">[Alert]스토리지를 이용중인 사용자가 있는 경우 삭제 불가 안내 팝업</span>
+          <q-btn class="c_btn line" @click="alertStorageCantDeleteModal = true">
+            <span class="txt"
+              >[Alert]스토리지를 이용중인 사용자가 있는 경우 삭제 불가 안내
+              팝업</span
+            >
           </q-btn>
-          <q-btn
-            class="c_btn line"
-            @click="mngStorageAddModal = true"
-          >
+          <q-btn class="c_btn line" @click="mngStorageAddModal = true">
             <span class="txt">관리자 스토리지 추가</span>
           </q-btn>
-          <q-btn
-            class="c_btn"
-            @click="mngStorageChangeRequestModal = true"
-          >
-            <span class="txt">워크스페이스 관리자 기능 - 스토리지 - 용량 변경 요청 (TBD)</span>
+          <q-btn class="c_btn" @click="mngStorageChangeRequestModal = true">
+            <span class="txt"
+              >워크스페이스 관리자 기능 - 스토리지 - 용량 변경 요청 (TBD)</span
+            >
           </q-btn>
-          <q-btn
-            class="c_btn line"
-            @click="mngStorageQuotaChangeModal = true"
-          >
-            <span class="txt">워크스페이스 관리자 - 스토리지 - 멤버 탭 - 스토리지 할당량 변경</span>
+          <q-btn class="c_btn line" @click="mngStorageQuotaChangeModal = true">
+            <span class="txt"
+              >워크스페이스 관리자 - 스토리지 - 멤버 탭 - 스토리지 할당량
+              변경</span
+            >
           </q-btn>
-          <q-btn
-            class="c_btn line"
-            @click="mngStorageShareModal = true"
-          >
+          <q-btn class="c_btn line" @click="mngStorageShareModal = true">
             <span class="txt">워크스페이스 관리자 - 스토리지 - 공유 관리</span>
           </q-btn>
         </div>
@@ -565,7 +422,7 @@
               :count="10"
               maxlength="500"
               class="wsize_full hsize244"
-              :input-style="{height: '100%'}"
+              :input-style="{ height: '100%' }"
             >
               <!-- <template v-slot:hint>
                   Description
@@ -580,10 +437,7 @@
           btn-names="취소"
           @click="projectCreateModal = false"
         />
-        <c-button
-          btn-names="확인"
-          @click="triggerSuccess"
-        />
+        <c-button btn-names="확인" @click="triggerSuccess" />
       </template>
     </c-dialog>
     <!-- End : [프로젝트] SNB - 프로젝트 생성 팝업 -->
@@ -597,10 +451,7 @@
       :button-negative="'취소'"
     >
       <template #contents>
-        <section
-          class="section"
-          aria-label="프로젝트 이름"
-        >
+        <section class="section" aria-label="프로젝트 이름">
           <p class="sub_title">프로젝트 이름</p>
           <div class="c_inpgroup">
             <q-input
@@ -612,10 +463,7 @@
             />
           </div>
         </section>
-        <section
-          class="section"
-          aria-label="프로젝트 설명"
-        >
+        <section class="section" aria-label="프로젝트 설명">
           <p class="sub_title">프로젝트 설명</p>
           <div class="c_inpgroup">
             <q-input
@@ -629,7 +477,7 @@
               :count="10"
               maxlength="500"
               class="wsize_full hsize244"
-              :input-style="{height: '100%'}"
+              :input-style="{ height: '100%' }"
             >
             </q-input>
           </div>
@@ -758,10 +606,7 @@
           btn-names="취소"
           @click="quotaChangeModal = false"
         />
-        <c-button
-          btn-names="확인"
-          @click="quotaChangeModal = false"
-        />
+        <c-button btn-names="확인" @click="quotaChangeModal = false" />
       </template>
     </c-dialog>
     <!-- End : [프로젝트] 할당량 변경 요청 팝업 (TBD) 팝업 -->
@@ -799,10 +644,7 @@
           btn-names="취소"
           @click="alertInstanceOverAddModal = false"
         />
-        <c-button
-          btn-names="확인"
-          @click="alertInstanceOverAddModal = false"
-        />
+        <c-button btn-names="확인" @click="alertInstanceOverAddModal = false" />
       </template>
     </c-dialog>
     <!-- End : [프로젝트 - 인스턴스] 인스턴스 추가된 용량 (10GB 초과시 저장 되지 않음 안내) Alert 팝업 -->
@@ -820,10 +662,7 @@
           btn-names="취소"
           @click="alertInstanceDeleteModal = false"
         />
-        <c-button
-          btn-names="확인"
-          @click="alertInstanceDeleteModal = false"
-        />
+        <c-button btn-names="확인" @click="alertInstanceDeleteModal = false" />
       </template>
     </c-dialog>
     <!-- End : [프로젝트 - 인스턴스] 인스턴스 삭제 확인 Alert 팝업 -->
@@ -856,10 +695,7 @@
       :message="'이미지 생성'"
     >
       <template #contents>
-        <section
-          class="section"
-          aria-label="이미지 이름"
-        >
+        <section class="section" aria-label="이미지 이름">
           <p class="sub_title">이미지 이름</p>
           <div class="c_inpgroup">
             <q-input
@@ -871,10 +707,7 @@
             />
           </div>
         </section>
-        <section
-          class="section"
-          aria-label="이미지 설명"
-        >
+        <section class="section" aria-label="이미지 설명">
           <p class="sub_title">이미지 설명</p>
           <div class="c_inpgroup">
             <q-input
@@ -888,7 +721,7 @@
               :count="10"
               maxlength="500"
               class="wsize_full hsize244"
-              :input-style="{height: '100%'}"
+              :input-style="{ height: '100%' }"
             >
               <!-- <template v-slot:hint>
                   Description
@@ -898,15 +731,8 @@
         </section>
       </template>
       <template #footer>
-        <c-button
-          :outline="true"
-          btn-names="취소"
-          @click="triggerImgWarning"
-        />
-        <c-button
-          btn-names="확인"
-          @click="triggerImgSuccess"
-        />
+        <c-button :outline="true" btn-names="취소" @click="triggerImgWarning" />
+        <c-button btn-names="확인" @click="triggerImgSuccess" />
       </template>
     </c-dialog>
     <!-- End : [프로젝트 - 인스턴스] 프로젝트 - 인스턴스 - 이미지 생성 팝업 -->
@@ -951,12 +777,11 @@
       :button-positive="'닫기'"
     >
       <template #contents>
-        <section
-          class="section"
-          aria-label="인스턴스 이름"
-        >
+        <section class="section" aria-label="인스턴스 이름">
           <p class="sub_title">인스턴스 이름</p>
-          <p class="desc">V1.Xlarge(v100 GPU 1 / CPU 14 / MEM 122GB / DISK 80GB)</p>
+          <p class="desc">
+            V1.Xlarge(v100 GPU 1 / CPU 14 / MEM 122GB / DISK 80GB)
+          </p>
           <div class="searcharea">
             <CDropdown
               v-model:selected="chartSelectedBasic"
@@ -996,12 +821,14 @@
                 >
                   <template v-slot:append>
                     <q-icon name="access_time">
-                      <q-popup-proxy
-                        :offset="[100, 0]"
-                        class="c_time"
-                      >
+                      <q-popup-proxy :offset="[100, 0]" class="c_time">
                         <q-time v-model="timeFrom" mask="HH:mm">
-                          <q-btn v-close-popup label="확인" color="primary" flat />
+                          <q-btn
+                            v-close-popup
+                            label="확인"
+                            color="primary"
+                            flat
+                          />
                         </q-time>
                       </q-popup-proxy>
                     </q-icon>
@@ -1018,10 +845,7 @@
                 >
                   <template v-slot:prepend>
                     <q-icon class="ico_calendar">
-                      <q-popup-proxy
-                        :offset="[150, 0]"
-                        class="c_datepicker"
-                      >
+                      <q-popup-proxy :offset="[150, 0]" class="c_datepicker">
                         <q-date
                           v-model="dateTo"
                           mask="YYYY.MM.DD"
@@ -1039,12 +863,14 @@
                 >
                   <template v-slot:append>
                     <q-icon name="access_time">
-                      <q-popup-proxy
-                        :offset="[240, 0]"
-                        class="c_time"
-                      >
+                      <q-popup-proxy :offset="[240, 0]" class="c_time">
                         <q-time v-model="timeTo" mask="HH:mm">
-                          <q-btn v-close-popup label="확인" color="primary" flat />
+                          <q-btn
+                            v-close-popup
+                            label="확인"
+                            color="primary"
+                            flat
+                          />
                         </q-time>
                       </q-popup-proxy>
                     </q-icon>
@@ -1053,10 +879,7 @@
               </div>
             </div>
           </div>
-          <q-card
-            v-model="chartModel"
-            class="apexchart"
-          >
+          <q-card v-model="chartModel" class="apexchart">
             <div class="chart_head">
               <div class="chart_legend">
                 <div class="blue">GPU(%)</div>
@@ -1083,10 +906,7 @@
         </section>
       </template>
       <template #footer>
-        <c-button
-          btn-names="닫기"
-          @click="workspaceHistoryBModal = false"
-        />
+        <c-button btn-names="닫기" @click="workspaceHistoryBModal = false" />
       </template>
     </c-dialog>
     <!-- End : [프로젝트 - 인스턴스] B 워크스페이스 리소스 사용 이력(꺽은선 그래프 + 달력 + 시계) 팝업 -->
@@ -1130,24 +950,14 @@
     <!-- End : [프로젝트 - 태스크] 태스크 그룹 삭제 확인 Alert 팝업 -->
 
     <!-- Start : [프로젝트 - 태스크] 태스크 삭제 확인 Alert 팝업 -->
-    <q-dialog
-      v-model="alertTaskDeleteModal"
-      class="c_dialog"
-    >
+    <q-dialog v-model="alertTaskDeleteModal" class="c_dialog">
       <q-card>
-        <q-card-section
-          style="max-height:290px"
-          class="c_dialog_body"
-        >
+        <q-card-section style="max-height: 290px" class="c_dialog_body">
           <p class="title">
             <strong>태스크를 삭제하시겠습니까?</strong>
           </p>
-          <p class="desc">
-            삭제된 태스크는 복구되지 않습니다.
-          </p>
-          <div class="info negative">
-            task1
-          </div>
+          <p class="desc">삭제된 태스크는 복구되지 않습니다.</p>
+          <div class="info negative">task1</div>
         </q-card-section>
         <q-card-actions class="c_dialog_foot">
           <q-btn
@@ -1181,34 +991,21 @@
           <section class="section command">
             <p class="sub_title">명령어</p>
             <div class="subject">
-              command command command command command command
-              command command command command command command command
+              command command command command command command command command
+              command command command command command
             </div>
           </section>
           <div class="tasklog_group">
             <div class="tasklog_header">
-              <q-tabs
-                v-model="taskLogTab"
-                align="left"
-                class="c_tabs"
-              >
-                <q-tab
-                  name="stdout"
-                  label="stdout"
-                />
-                <q-tab
-                  name="stderr"
-                  label="stderr"
-                />
+              <q-tabs v-model="taskLogTab" align="left" class="c_tabs">
+                <q-tab name="stdout" label="stdout" />
+                <q-tab name="stderr" label="stderr" />
               </q-tabs>
               <div class="c_btngroup">
                 <q-btn class="ibtn download">
                   <span class="hidden">txt 파일 다운로드</span>
                 </q-btn>
-                <q-btn
-                  class="ibtn fullscreen"
-                  @click="taskLog = !taskLog"
-                >
+                <q-btn class="ibtn fullscreen" @click="taskLog = !taskLog">
                   <template v-if="taskLog === false">
                     <span class="hidden">전체화면</span>
                   </template>
@@ -1243,71 +1040,50 @@
           </div>
         </q-card-section>
         <q-card-actions class="c_dialog_foot">
-          <q-btn
-            label="닫기"
-            class="primary"
-            v-close-popup
-          />
+          <q-btn label="닫기" class="primary" v-close-popup />
         </q-card-actions>
       </q-card>
     </q-dialog>
     <!-- End : [프로젝트 - 태스크] 태스크 - 로그 stdout(+ Full Size) 팝업 -->
 
     <!-- Start : [프로젝트 - 멤버관리] 권한 변경 불가 안내 Alert 팝업 -->
-    <q-dialog
-      v-model="alertMemberAuthNotModal"
-      class="c_dialog"
-    >
+    <q-dialog v-model="alertMemberAuthNotModal" class="c_dialog">
       <q-card>
-        <q-card-section
-          style="max-height:290px"
-          class="c_dialog_body"
-        >
+        <q-card-section style="max-height: 290px" class="c_dialog_body">
           <p class="title">
-            <strong>프로젝트 관리자가 1명인 경우,<br />관리자에 대한 권한 변경이 불가능합니다.</strong>
+            <strong
+              >프로젝트 관리자가 1명인 경우,<br />관리자에 대한 권한 변경이
+              불가능합니다.</strong
+            >
           </p>
         </q-card-section>
         <q-card-actions class="c_dialog_foot">
-          <q-btn
-            label="확인"
-            class="primary"
-            v-close-popup
-          />
+          <q-btn label="확인" class="primary" v-close-popup />
         </q-card-actions>
       </q-card>
     </q-dialog>
     <!-- End : [프로젝트 - 멤버관리] 권한 변경 불가 안내 Alert 팝업 -->
 
     <!-- Start : [프로젝트 - 멤버관리] 삭제 불가 안내 Alert 팝업 -->
-    <q-dialog
-      v-model="alertMemberDelNotModal"
-      class="c_dialog"
-    >
+    <q-dialog v-model="alertMemberDelNotModal" class="c_dialog">
       <q-card>
-        <q-card-section
-          style="max-height:290px"
-          class="c_dialog_body"
-        >
+        <q-card-section style="max-height: 290px" class="c_dialog_body">
           <p class="title">
-            <strong>이용중인 태스크/인스턴스가 있어<br />멤버 삭제가 불가능합니다.</strong>
+            <strong
+              >이용중인 태스크/인스턴스가 있어<br />멤버 삭제가
+              불가능합니다.</strong
+            >
           </p>
         </q-card-section>
         <q-card-actions class="c_dialog_foot">
-          <q-btn
-            label="확인"
-            class="primary"
-            v-close-popup
-          />
+          <q-btn label="확인" class="primary" v-close-popup />
         </q-card-actions>
       </q-card>
     </q-dialog>
     <!-- End : [프로젝트 - 멤버관리] 삭제 불가 안내 Alert 팝업 -->
 
     <!-- Start : [프로젝트 - 멤버관리] 멤버 - 추가 -->
-    <q-dialog
-      v-model="projectMemberAddModal"
-      class="c_dialog medium"
-    >
+    <q-dialog v-model="projectMemberAddModal" class="c_dialog medium">
       <q-card>
         <q-card-section class="c_dialog_body">
           <p class="title">
@@ -1330,19 +1106,14 @@
                 class="c_inpchip"
               >
                 <template v-slot:prepend>
-                  <q-icon
-                    name="search"
-                    class="ico_search"
-                  />
+                  <q-icon name="search" class="ico_search" />
                 </template>
                 <template v-slot:append>
                   <div class="slotopt"></div>
                 </template>
                 <template v-slot:no-option>
                   <q-item class="no_data">
-                    <q-item-section>
-                      검색 결과 없습니다.
-                    </q-item-section>
+                    <q-item-section> 검색 결과 없습니다. </q-item-section>
                   </q-item>
                 </template>
               </q-select>
@@ -1403,32 +1174,17 @@
           </q-list> -->
         </q-card-section>
         <q-card-actions class="c_dialog_foot">
-          <q-btn
-            label="취소"
-            class="line"
-            v-close-popup
-          />
-          <q-btn
-            label="확인"
-            class="primary"
-            v-close-popup
-            disable
-          />
+          <q-btn label="취소" class="line" v-close-popup />
+          <q-btn label="확인" class="primary" v-close-popup disable />
         </q-card-actions>
       </q-card>
     </q-dialog>
     <!-- End : [프로젝트 - 멤버관리] 멤버 - 추가 -->
 
     <!-- Start : [프로젝트 - 멤버관리] 권한변경 -->
-    <q-dialog
-      v-model="projectMemberAuthChangeModal"
-      class="c_dialog medium"
-    >
+    <q-dialog v-model="projectMemberAuthChangeModal" class="c_dialog medium">
       <q-card>
-        <q-card-section
-          style="max-height:290px"
-          class="c_dialog_body"
-        >
+        <q-card-section style="max-height: 290px" class="c_dialog_body">
           <p class="title">
             <strong>프로젝트 권한 변경</strong>
           </p>
@@ -1453,31 +1209,17 @@
           </div>
         </q-card-section>
         <q-card-actions class="c_dialog_foot">
-          <q-btn
-            label="취소"
-            class="line"
-            v-close-popup
-          />
-          <q-btn
-            label="저장"
-            class="primary"
-            v-close-popup
-          />
+          <q-btn label="취소" class="line" v-close-popup />
+          <q-btn label="저장" class="primary" v-close-popup />
         </q-card-actions>
       </q-card>
     </q-dialog>
     <!-- End : [프로젝트 - 멤버관리] 권한변경 -->
 
     <!-- Start : [프로젝트 - 멤버관리] 멤버삭제 -->
-    <q-dialog
-      v-model="projectMemberDeleteModal"
-      class="c_dialog"
-    >
+    <q-dialog v-model="projectMemberDeleteModal" class="c_dialog">
       <q-card>
-        <q-card-section
-          style="max-height:290px"
-          class="c_dialog_body"
-        >
+        <q-card-section style="max-height: 290px" class="c_dialog_body">
           <p class="title">
             <strong>프로젝트에서 삭제 하시겠습니까?</strong>
           </p>
@@ -1487,87 +1229,53 @@
           </q-item-section>
         </q-card-section>
         <q-card-actions class="c_dialog_foot">
-          <q-btn
-            label="취소"
-            class="line"
-            v-close-popup
-          />
-          <q-btn
-            label="삭제"
-            class="primary"
-            v-close-popup
-          />
+          <q-btn label="취소" class="line" v-close-popup />
+          <q-btn label="삭제" class="primary" v-close-popup />
         </q-card-actions>
       </q-card>
     </q-dialog>
     <!-- End : [프로젝트 - 멤버관리] 멤버삭제 -->
 
     <!-- Start : [스토리지] 스토리지 삭제 확인 Alert 팝업 -->
-    <q-dialog
-      v-model="alertStorageDeleteModal"
-      class="c_dialog"
-    >
+    <q-dialog v-model="alertStorageDeleteModal" class="c_dialog">
       <q-card>
-        <q-card-section
-          style="max-height:290px"
-          class="c_dialog_body"
-        >
+        <q-card-section style="max-height: 290px" class="c_dialog_body">
           <p class="title">
             <strong>스토리지를 삭제하시겠습니까?</strong>
           </p>
           <p class="desc">
-            스토리지에 저장된 데이터는 모두 삭제되며,<br />삭제된 내용은 복구되지 않습니다.
+            스토리지에 저장된 데이터는 모두 삭제되며,<br />삭제된 내용은
+            복구되지 않습니다.
           </p>
-          <div class="info negative">
-            aa스토리지 이름
-          </div>
+          <div class="info negative">aa스토리지 이름</div>
         </q-card-section>
         <q-card-actions class="c_dialog_foot">
-          <q-btn
-            label="취소"
-            class="line"
-            v-close-popup
-          />
-          <q-btn
-            label="확인"
-            class="primary"
-            v-close-popup
-          />
+          <q-btn label="취소" class="line" v-close-popup />
+          <q-btn label="확인" class="primary" v-close-popup />
         </q-card-actions>
       </q-card>
     </q-dialog>
     <!-- End : [스토리지] 스토리지 삭제 확인 Alert 팝업 -->
 
     <!-- Start : [스토리지] 스토리지 삭제 불가 안내 Alert 팝업 -->
-    <q-dialog
-      v-model="alertStorageDelNotModal"
-      class="c_dialog"
-    >
+    <q-dialog v-model="alertStorageDelNotModal" class="c_dialog">
       <q-card>
-        <q-card-section
-          style="max-height:290px"
-          class="c_dialog_body"
-        >
+        <q-card-section style="max-height: 290px" class="c_dialog_body">
           <p class="title">
-            <strong>현재 이용중인 사용자가 있어<br />스토리지 삭제가 불가능합니다. </strong>
+            <strong
+              >현재 이용중인 사용자가 있어<br />스토리지 삭제가 불가능합니다.
+            </strong>
           </p>
         </q-card-section>
         <q-card-actions class="c_dialog_foot">
-          <q-btn
-            label="확인"
-            class="primary"
-            v-close-popup
-          />
+          <q-btn label="확인" class="primary" v-close-popup />
         </q-card-actions>
       </q-card>
     </q-dialog>
     <!-- End : [스토리지] 스토리지 삭제 불가 안내 Alert 팝업 -->
 
     <!-- Start : [스토리지] 개인스토리지 추가 -->
-    <q-dialog
-      v-model="storageAddModal"
-      class="c_dialog large"
-    >
+    <q-dialog v-model="storageAddModal" class="c_dialog large">
       <q-card>
         <q-card-section class="c_dialog_body">
           <p class="title">
@@ -1599,7 +1307,7 @@
                 :count="10"
                 maxlength="500"
                 class="wsize_full hsize244"
-                :input-style="{height: '100%'}"
+                :input-style="{ height: '100%' }"
               >
                 <!-- <template v-slot:hint>
                     Description
@@ -1627,32 +1335,17 @@
           </section>
         </q-card-section>
         <q-card-actions class="c_dialog_foot">
-          <q-btn
-            label="취소"
-            class="line"
-            v-close-popup
-          />
-          <q-btn
-            label="확인"
-            class="primary"
-            v-close-popup
-            disable
-          />
+          <q-btn label="취소" class="line" v-close-popup />
+          <q-btn label="확인" class="primary" v-close-popup disable />
         </q-card-actions>
       </q-card>
     </q-dialog>
     <!-- End : [스토리지] 개인스토리지 추가 -->
 
     <!-- Start : [스토리지] 공유관리 -->
-    <q-dialog
-      v-model="storageShareMngModal"
-      class="c_dialog medium"
-    >
+    <q-dialog v-model="storageShareMngModal" class="c_dialog medium">
       <q-card>
-        <q-card-section
-          class="c_dialog_body"
-          style="max-height:684px"
-        >
+        <q-card-section class="c_dialog_body" style="max-height: 684px">
           <p class="title">
             <strong>공유 관리</strong>
           </p>
@@ -1687,19 +1380,14 @@
                 class="c_inpchip"
               >
                 <template v-slot:prepend>
-                  <q-icon
-                    name="search"
-                    class="ico_search"
-                  />
+                  <q-icon name="search" class="ico_search" />
                 </template>
                 <template v-slot:append>
                   <div class="slotopt"></div>
                 </template>
                 <template v-slot:no-option>
                   <q-item class="no_data">
-                    <q-item-section>
-                      검색 결과 없습니다.
-                    </q-item-section>
+                    <q-item-section> 검색 결과 없습니다. </q-item-section>
                   </q-item>
                 </template>
               </q-select>
@@ -1718,10 +1406,7 @@
           </div>
           <template v-if="listData === listData">
             <q-list class="p_list sharemng">
-              <template
-                v-for="k in 5"
-                :key="k"
-              >
+              <template v-for="k in 5" :key="k">
                 <q-item class="item">
                   <i class="ico member" />
                   <q-item-section class="item_card">
@@ -1758,26 +1443,16 @@
           </template>
         </q-card-section>
         <q-card-actions class="c_dialog_foot bdr">
-          <q-btn
-            label="확인"
-            class="primary"
-            v-close-popup
-          />
+          <q-btn label="확인" class="primary" v-close-popup />
         </q-card-actions>
       </q-card>
     </q-dialog>
     <!-- End : [스토리지] 공유관리 -->
 
     <!-- Start : [스토리지] 공유관리(현재 이용중인 사용자가 있는 경우) -->
-    <q-dialog
-      v-model="storageShareMngIngModal"
-      class="c_dialog medium"
-    >
+    <q-dialog v-model="storageShareMngIngModal" class="c_dialog medium">
       <q-card>
-        <q-card-section
-          class="c_dialog_body"
-          style="max-height:684px"
-        >
+        <q-card-section class="c_dialog_body" style="max-height: 684px">
           <p class="title">
             <strong>공유 관리</strong>
           </p>
@@ -1812,19 +1487,14 @@
                 class="c_inpchip"
               >
                 <template v-slot:prepend>
-                  <q-icon
-                    name="search"
-                    class="ico_search"
-                  />
+                  <q-icon name="search" class="ico_search" />
                 </template>
                 <template v-slot:append>
                   <div class="slotopt"></div>
                 </template>
                 <template v-slot:no-option>
                   <q-item class="no_data">
-                    <q-item-section>
-                      검색 결과 없습니다.
-                    </q-item-section>
+                    <q-item-section> 검색 결과 없습니다. </q-item-section>
                   </q-item>
                 </template>
               </q-select>
@@ -1843,10 +1513,7 @@
           </div>
           <template v-if="listData === listData">
             <q-list class="p_list sharemng">
-              <template
-                v-for="k in 5"
-                :key="k"
-              >
+              <template v-for="k in 5" :key="k">
                 <q-item class="item">
                   <i class="ico member" />
                   <q-item-section class="item_card">
@@ -1883,36 +1550,22 @@
           </template>
         </q-card-section>
         <q-card-actions class="c_dialog_foot bdr">
-          <q-btn
-            label="확인"
-            class="primary"
-            v-close-popup
-          />
+          <q-btn label="확인" class="primary" v-close-popup />
         </q-card-actions>
       </q-card>
     </q-dialog>
     <!-- End : [스토리지] 공유관리(현재 이용중인 사용자가 있는 경우) -->
 
     <!-- Start : [스토리지] 이용 현황 -->
-    <q-dialog
-      v-model="storageUsageStatusModal"
-      class="c_dialog medium"
-    >
+    <q-dialog v-model="storageUsageStatusModal" class="c_dialog medium">
       <q-card>
-        <q-card-section
-          class="c_dialog_body"
-          style="max-height:684px"
-        >
+        <q-card-section class="c_dialog_body" style="max-height: 684px">
           <p class="title">
             <strong>스토리지 이용 현황</strong>
           </p>
           <template v-if="listData === listData">
             <q-list class="p_list stglist">
-              <q-item
-                v-for="i in 10"
-                :key="i"
-                class="item"
-              >
+              <q-item v-for="i in 10" :key="i" class="item">
                 <i class="ico storage" />
                 <q-item-section class="item_card">
                   <q-item-label class="name">MLOPS 용</q-item-label>
@@ -1931,21 +1584,14 @@
           </template>
         </q-card-section>
         <q-card-actions class="c_dialog_foot bdr">
-          <q-btn
-            label="확인"
-            class="primary"
-            v-close-popup
-          />
+          <q-btn label="확인" class="primary" v-close-popup />
         </q-card-actions>
       </q-card>
     </q-dialog>
     <!-- End : [스토리지] 이용 현황 -->
 
     <!-- Start : [스토리지] 용량 변경 -->
-    <q-dialog
-      v-model="storageVolumeChangeModal"
-      class="c_dialog large"
-    >
+    <q-dialog v-model="storageVolumeChangeModal" class="c_dialog large">
       <q-card>
         <q-card-section class="c_dialog_body">
           <p class="title">
@@ -1991,35 +1637,21 @@
           </section>
         </q-card-section>
         <q-card-actions class="c_dialog_foot">
-          <q-btn
-            label="취소"
-            class="line"
-            v-close-popup
-          />
-          <q-btn
-            label="저장"
-            class="primary"
-            v-close-popup
-            disable
-          />
+          <q-btn label="취소" class="line" v-close-popup />
+          <q-btn label="저장" class="primary" v-close-popup disable />
         </q-card-actions>
       </q-card>
     </q-dialog>
     <!-- End : [스토리지] 용량 변경 -->
 
     <!-- Start : [스토리지] 용량 변경 요청 (TBD) -->
-    <q-dialog
-      v-model="storageChangeRequestModal"
-      class="c_dialog large"
-    >
+    <q-dialog v-model="storageChangeRequestModal" class="c_dialog large">
       <q-card>
         <q-card-section class="c_dialog_body">
           <p class="title">
             <strong>개인 용량 변경 요청</strong>
           </p>
-          <div class="info black">
-            스토리지 용량 : 150GiB / 200GiB
-          </div>
+          <div class="info black">스토리지 용량 : 150GiB / 200GiB</div>
           <section class="section mt24">
             <p class="sub_title">요청 용량</p>
             <div class="c_inpgroup flex-end">
@@ -2051,7 +1683,7 @@
                 :count="10"
                 maxlength="500"
                 class="wsize_full hsize244"
-                :input-style="{height: '100%'}"
+                :input-style="{ height: '100%' }"
               >
                 <!-- <template v-slot:hint>
                     Description
@@ -2061,32 +1693,17 @@
           </section>
         </q-card-section>
         <q-card-actions class="c_dialog_foot">
-          <q-btn
-            label="취소"
-            class="line"
-            v-close-popup
-          />
-          <q-btn
-            label="확인"
-            class="primary"
-            v-close-popup
-            disable
-          />
+          <q-btn label="취소" class="line" v-close-popup />
+          <q-btn label="확인" class="primary" v-close-popup disable />
         </q-card-actions>
       </q-card>
     </q-dialog>
     <!-- End : [스토리지] 용량 변경 요청 (TBD) -->
 
     <!-- Start : [내 이미지] 이미지 삭제 확인  Alert 팝업 -->
-    <q-dialog
-      v-model="alertImageDeleteModal"
-      class="c_dialog"
-    >
+    <q-dialog v-model="alertImageDeleteModal" class="c_dialog">
       <q-card>
-        <q-card-section
-          style="max-height:290px"
-          class="c_dialog_body"
-        >
+        <q-card-section style="max-height: 290px" class="c_dialog_body">
           <p class="title">
             <strong>이미지를 삭제하시겠습니까?</strong>
           </p>
@@ -2095,26 +1712,15 @@
           </div>
         </q-card-section>
         <q-card-actions class="c_dialog_foot">
-          <q-btn
-            label="취소"
-            class="line"
-            v-close-popup
-          />
-          <q-btn
-            label="삭제"
-            class="primary"
-            v-close-popup
-          />
+          <q-btn label="취소" class="line" v-close-popup />
+          <q-btn label="삭제" class="primary" v-close-popup />
         </q-card-actions>
       </q-card>
     </q-dialog>
     <!-- End : [내 이미지] 이미지 삭제 확인  Alert 팝업 -->
 
     <!-- Start : [내 이미지] 이미지 - 내이미지 - 공유관리 -->
-    <q-dialog
-      v-model="imageShareMngModal"
-      class="c_dialog medium"
-    >
+    <q-dialog v-model="imageShareMngModal" class="c_dialog medium">
       <q-card>
         <q-card-section class="c_dialog_body">
           <p class="title">
@@ -2133,10 +1739,7 @@
                   <q-item-label class="name">{{ itemName }}</q-item-label>
                   <q-item-label class="desc">{{ itemDesc }}</q-item-label>
                 </q-item-section>
-                <q-checkbox
-                  v-model="chkAll"
-                  class="c_checkbox check_all"
-                />
+                <q-checkbox v-model="chkAll" class="c_checkbox check_all" />
               </q-item>
               <q-item class="item subitem">
                 <i class="ico note" />
@@ -2144,11 +1747,7 @@
                   <q-item-label class="name">{{ itemName1 }}</q-item-label>
                   <q-item-label class="desc">{{ itemDesc1 }}</q-item-label>
                 </q-item-section>
-                <q-checkbox
-                  v-model="chk1"
-                  disable
-                  class="c_checkbox"
-                />
+                <q-checkbox v-model="chk1" disable class="c_checkbox" />
               </q-item>
               <q-item class="item subitem">
                 <i class="ico note" />
@@ -2156,11 +1755,7 @@
                   <q-item-label class="name">{{ itemName2 }}</q-item-label>
                   <q-item-label class="desc">{{ itemDesc1 }}</q-item-label>
                 </q-item-section>
-                <q-checkbox
-                  v-model="chk2"
-                  disable
-                  class="c_checkbox"
-                />
+                <q-checkbox v-model="chk2" disable class="c_checkbox" />
               </q-item>
               <q-item class="item subitem">
                 <i class="ico note" />
@@ -2168,135 +1763,82 @@
                   <q-item-label class="name">{{ itemName3 }}</q-item-label>
                   <q-item-label class="desc">{{ itemDesc1 }}</q-item-label>
                 </q-item-section>
-                <q-checkbox
-                  v-model="chk3"
-                  disable
-                  class="c_checkbox"
-                />
+                <q-checkbox v-model="chk3" disable class="c_checkbox" />
               </q-item>
             </q-list>
           </section>
         </q-card-section>
         <q-card-actions class="c_dialog_foot">
-          <q-btn
-            label="취소"
-            class="line"
-            v-close-popup
-          />
-          <q-btn
-            label="저장"
-            class="primary"
-            v-close-popup
-          />
+          <q-btn label="취소" class="line" v-close-popup />
+          <q-btn label="저장" class="primary" v-close-popup />
         </q-card-actions>
       </q-card>
     </q-dialog>
     <!-- End : [내 이미지] 이미지 - 내이미지 - 공유관리 -->
 
     <!-- Start : [멤버] 소속된 프로젝트가 있는 경우 Alert 팝업 -->
-    <q-dialog
-      v-model="alertMemberProjectModal"
-      class="c_dialog"
-    >
+    <q-dialog v-model="alertMemberProjectModal" class="c_dialog">
       <q-card>
-        <q-card-section
-          style="max-height:290px"
-          class="c_dialog_body"
-        >
+        <q-card-section style="max-height: 290px" class="c_dialog_body">
           <p class="title">
-            <strong>소속된 프로젝트가 있어 멤버 삭제가<br />불가능합니다.</strong>
+            <strong
+              >소속된 프로젝트가 있어 멤버 삭제가<br />불가능합니다.</strong
+            >
           </p>
-          <div class="info">
-            aaProject1, 개인작업용prj
-          </div>
+          <div class="info">aaProject1, 개인작업용prj</div>
         </q-card-section>
         <q-card-actions class="c_dialog_foot">
-          <q-btn
-            label="취소"
-            class="line"
-            v-close-popup
-          />
-          <q-btn
-            label="확인"
-            class="primary"
-            v-close-popup
-          />
+          <q-btn label="취소" class="line" v-close-popup />
+          <q-btn label="확인" class="primary" v-close-popup />
         </q-card-actions>
       </q-card>
     </q-dialog>
     <!-- End : [멤버] 소속된 프로젝트가 있는 경우 Alert 팝업 -->
 
     <!-- Start : [멤버] 개인이 생성한 스토리지가 있는 경우 Alert 팝업 -->
-    <q-dialog
-      v-model="alertMemberStorageModal"
-      class="c_dialog"
-    >
+    <q-dialog v-model="alertMemberStorageModal" class="c_dialog">
       <q-card>
-        <q-card-section
-          style="max-height:290px"
-          class="c_dialog_body"
-        >
+        <q-card-section style="max-height: 290px" class="c_dialog_body">
           <p class="title">
-            <strong>이용중인 스토리지가 있어 멤버 삭제가<br />불가능합니다.</strong>
+            <strong
+              >이용중인 스토리지가 있어 멤버 삭제가<br />불가능합니다.</strong
+            >
           </p>
         </q-card-section>
         <q-card-actions class="c_dialog_foot">
-          <q-btn
-            label="확인"
-            class="primary"
-            v-close-popup
-          />
+          <q-btn label="확인" class="primary" v-close-popup />
         </q-card-actions>
       </q-card>
     </q-dialog>
     <!-- End : [멤버] 개인이 생성한 스토리지가 있는 경우 Alert 팝업 -->
 
     <!-- Start : [멤버] 사용자 삭제 가능한 경우 Alert 팝업 -->
-    <q-dialog
-      v-model="alertMemberUserDelModal"
-      class="c_dialog"
-    >
+    <q-dialog v-model="alertMemberUserDelModal" class="c_dialog">
       <q-card>
-        <q-card-section
-          style="max-height:290px"
-          class="c_dialog_body"
-        >
+        <q-card-section style="max-height: 290px" class="c_dialog_body">
           <p class="title">
             <strong>삭제하시겠습니까?</strong>
           </p>
           <p class="desc">
-            삭제된 사용자의 개인 스토리지 데이터는 삭제되며,<br />복구 불가능합니다.
+            삭제된 사용자의 개인 스토리지 데이터는 삭제되며,<br />복구
+            불가능합니다.
           </p>
           <div class="info negative">
             <span class="black">김카브(root.choi@kakaobrain.com)</span> 외 3명
           </div>
         </q-card-section>
         <q-card-actions class="c_dialog_foot">
-          <q-btn
-            label="취소"
-            class="line"
-            v-close-popup
-          />
-          <q-btn
-            label="확인"
-            class="primary"
-            v-close-popup
-          />
+          <q-btn label="취소" class="line" v-close-popup />
+          <q-btn label="확인" class="primary" v-close-popup />
         </q-card-actions>
       </q-card>
     </q-dialog>
     <!-- End : [멤버] 사용자 삭제 가능한 경우 Alert 팝업 -->
 
     <!-- Start : [멤버] 멤버 삭제 가능한 경우 Alert 팝업 -->
-    <q-dialog
-      v-model="alertMemberDeleteModal"
-      class="c_dialog"
-    >
+    <q-dialog v-model="alertMemberDeleteModal" class="c_dialog">
       <q-card>
-        <q-card-section
-          style="max-height:290px"
-          class="c_dialog_body"
-        >
+        <q-card-section style="max-height: 290px" class="c_dialog_body">
           <p class="title">
             <strong>멤버를 삭제 하시겠습니까?</strong>
           </p>
@@ -2306,59 +1848,32 @@
           </q-item-section>
         </q-card-section>
         <q-card-actions class="c_dialog_foot">
-          <q-btn
-            label="취소"
-            class="line"
-            v-close-popup
-          />
-          <q-btn
-            label="확인"
-            class="primary"
-            v-close-popup
-          />
+          <q-btn label="취소" class="line" v-close-popup />
+          <q-btn label="확인" class="primary" v-close-popup />
         </q-card-actions>
       </q-card>
     </q-dialog>
     <!-- End : [멤버] 멤버 삭제 가능한 경우 Alert 팝업 -->
 
     <!-- Start : [멤버] 수정된 내용이 있는 경우(멤버편집) 취소 확인 Alert 팝업 -->
-    <q-dialog
-      v-model="alertMemberEditCancelModal"
-      class="c_dialog"
-    >
+    <q-dialog v-model="alertMemberEditCancelModal" class="c_dialog">
       <q-card>
-        <q-card-section
-          style="max-height:290px"
-          class="c_dialog_body"
-        >
+        <q-card-section style="max-height: 290px" class="c_dialog_body">
           <p class="title">
             <strong>멤버 편집을 취소하시겠습니까?</strong>
           </p>
-          <p class="desc">
-            변경사항은 저장되지 않습니다.
-          </p>
+          <p class="desc">변경사항은 저장되지 않습니다.</p>
         </q-card-section>
         <q-card-actions class="c_dialog_foot">
-          <q-btn
-            label="취소"
-            class="line"
-            v-close-popup
-          />
-          <q-btn
-            label="확인"
-            class="primary"
-            v-close-popup
-          />
+          <q-btn label="취소" class="line" v-close-popup />
+          <q-btn label="확인" class="primary" v-close-popup />
         </q-card-actions>
       </q-card>
     </q-dialog>
     <!-- End : [멤버] 수정된 내용이 있는 경우(멤버편집) 취소 확인 Alert 팝업 -->
 
     <!-- Start : [멤버] 워크스페이스 멤버 추가 -->
-    <q-dialog
-      v-model="memberWorkspaceAddModal"
-      class="c_dialog medium"
-    >
+    <q-dialog v-model="memberWorkspaceAddModal" class="c_dialog medium">
       <q-card>
         <q-card-section class="c_dialog_body">
           <p class="title">
@@ -2413,7 +1928,8 @@
                     class="c_popover"
                   >
                     <div class="inner">
-                      게스트는 워크스페이스 멤버 조회 및 프로젝트 생성 기능이 제한됩니다.
+                      게스트는 워크스페이스 멤버 조회 및 프로젝트 생성 기능이
+                      제한됩니다.
                     </div>
                   </q-popup-edit>
                 </q-btn>
@@ -2441,27 +1957,15 @@
           <!-- //.c_form -->
         </q-card-section>
         <q-card-actions class="c_dialog_foot">
-          <q-btn
-            label="취소"
-            class="line"
-            v-close-popup
-          />
-          <q-btn
-            label="확인"
-            class="primary"
-            disable
-            v-close-popup
-          />
+          <q-btn label="취소" class="line" v-close-popup />
+          <q-btn label="확인" class="primary" disable v-close-popup />
         </q-card-actions>
       </q-card>
     </q-dialog>
     <!-- End : [멤버] 워크스페이스 멤버 추가 -->
 
     <!-- Start : [멤버] 멤버 초대 요청 (TBD) 팝업 -->
-    <q-dialog
-      v-model="memberInviteModal"
-      class="c_dialog medium"
-    >
+    <q-dialog v-model="memberInviteModal" class="c_dialog medium">
       <q-card>
         <q-card-section class="c_dialog_body">
           <p class="title">
@@ -2478,10 +1982,7 @@
                 class="wsize_full"
               >
                 <template v-slot:prepend>
-                  <q-icon
-                    name="search"
-                    class="ico_search"
-                  />
+                  <q-icon name="search" class="ico_search" />
                 </template>
               </q-input>
             </div>
@@ -2516,7 +2017,8 @@
                   class="c_popover"
                 >
                   <div class="inner">
-                    게스트는 워크스페이스 멤버 조회 및 프로젝트 생성 기능이 제한됩니다.
+                    게스트는 워크스페이스 멤버 조회 및 프로젝트 생성 기능이
+                    제한됩니다.
                   </div>
                 </q-popup-edit>
               </q-btn>
@@ -2548,7 +2050,7 @@
                 :count="10"
                 maxlength="500"
                 class="wsize_full hsize244"
-                :input-style="{height: '100%'}"
+                :input-style="{ height: '100%' }"
               >
                 <!-- <template v-slot:hint>
                     Description
@@ -2558,11 +2060,7 @@
           </section>
         </q-card-section>
         <q-card-actions class="c_dialog_foot">
-          <q-btn
-            label="취소"
-            class="line"
-            v-close-popup
-          />
+          <q-btn label="취소" class="line" v-close-popup />
           <q-btn
             label="확인"
             class="primary"
@@ -2576,15 +2074,9 @@
     <!-- End : [멤버] 초대 요청 (TBD) 팝업 -->
 
     <!-- Start : [멤버] 멤버 초대 요청 확인 (TBD) -->
-    <q-dialog
-      v-model="memberInviteConfirmModal"
-      class="c_dialog medium"
-    >
+    <q-dialog v-model="memberInviteConfirmModal" class="c_dialog medium">
       <q-card>
-        <q-card-section
-          style="max-height:684px"
-          class="c_dialog_body"
-        >
+        <q-card-section style="max-height: 684px" class="c_dialog_body">
           <p class="title">
             <strong>멤버 초대 요청 확인</strong>
           </p>
@@ -2597,26 +2089,27 @@
                 </q-item-label>
               </q-item-section>
               <q-item class="subject">
-                같이 협업을 위해 신규 사용자를 초대했습니다. 확인해주세요~
-                같이 협업을 위해 신규 사용자를 초대했습니다. 확인해주세요~
-                같이 협업을 위해 신규 사용자를 초대했습니다. 확인해주세요~
-                같이 협업을 위해 신규 사용자를 초대했습니다. 확인해주세요~
-                같이 협업을 위해 신규 사용자를 초대했습니다. 확인해주세요~
-                같이 협업을 위해 신규 사용자를 초대했습니다. 확인해주세요~
-                같이 협업을 위해 신규 사용자를 초대했습니다. 확인해주세요~
-                같이 협업을 위해 신규 사용자를 초대했습니다. 확인해주세요~
-                같이 협업을 위해 신규 사용자를 초대했습니다. 확인해주세요~
+                같이 협업을 위해 신규 사용자를 초대했습니다. 확인해주세요~ 같이
+                협업을 위해 신규 사용자를 초대했습니다. 확인해주세요~ 같이
+                협업을 위해 신규 사용자를 초대했습니다. 확인해주세요~ 같이
+                협업을 위해 신규 사용자를 초대했습니다. 확인해주세요~ 같이
+                협업을 위해 신규 사용자를 초대했습니다. 확인해주세요~ 같이
+                협업을 위해 신규 사용자를 초대했습니다. 확인해주세요~ 같이
+                협업을 위해 신규 사용자를 초대했습니다. 확인해주세요~ 같이
+                협업을 위해 신규 사용자를 초대했습니다. 확인해주세요~ 같이
+                협업을 위해 신규 사용자를 초대했습니다. 확인해주세요~
               </q-item>
               <q-item-section class="item_card member bg_white f_start">
                 <q-item-label class="name">{{ memberName }}</q-item-label>
                 <q-item-label class="mail">{{ memberMail }}</q-item-label>
               </q-item-section>
-              <q-item-section class="item_card info bg_white f_start f_wrap row">
+              <q-item-section
+                class="item_card info bg_white f_start f_wrap row"
+              >
                 <q-item-label class="name">{{ itemDesc1 }}</q-item-label>
                 <q-item-label class="proj">
-                  AA프로젝트, BB프로젝트,
-                  AA프로젝트, BB프로젝트,
-                  AA프로젝트, BB프로젝트
+                  AA프로젝트, BB프로젝트, AA프로젝트, BB프로젝트, AA프로젝트,
+                  BB프로젝트
                 </q-item-label>
               </q-item-section>
             </section>
@@ -2656,7 +2149,8 @@
                     class="c_popover"
                   >
                     <div class="inner">
-                      게스트는 워크스페이스 멤버 조회 및 프로젝트 생성 기능이 제한됩니다.
+                      게스트는 워크스페이스 멤버 조회 및 프로젝트 생성 기능이
+                      제한됩니다.
                     </div>
                   </q-popup-edit>
                 </q-btn>
@@ -2684,27 +2178,15 @@
           <!-- //.c_form -->
         </q-card-section>
         <q-card-actions class="c_dialog_foot bdr">
-          <q-btn
-            label="취소"
-            class="line"
-            v-close-popup
-          />
-          <q-btn
-            label="확인"
-            class="primary"
-            disable
-            v-close-popup
-          />
+          <q-btn label="취소" class="line" v-close-popup />
+          <q-btn label="확인" class="primary" disable v-close-popup />
         </q-card-actions>
       </q-card>
     </q-dialog>
     <!-- End : [멤버] 멤버 초대 요청 확인 (TBD) -->
 
     <!-- Start : [내정보] LDAP 로그인(오픈 이후 개발) -->
-    <q-dialog
-      v-model="LDAPLoginModal"
-      class="c_dialog medium"
-    >
+    <q-dialog v-model="LDAPLoginModal" class="c_dialog medium">
       <q-card>
         <q-card-section class="c_dialog_body">
           <p class="title">
@@ -2734,32 +2216,17 @@
           </section>
         </q-card-section>
         <q-card-actions class="c_dialog_foot">
-          <q-btn
-            label="취소"
-            class="line"
-            v-close-popup
-          />
-          <q-btn
-            label="로그인"
-            class="primary"
-            v-close-popup
-            disable
-          />
+          <q-btn label="취소" class="line" v-close-popup />
+          <q-btn label="로그인" class="primary" v-close-popup disable />
         </q-card-actions>
       </q-card>
     </q-dialog>
     <!-- End : [내정보] LDAP 로그인(오픈 이후 개발) -->
 
     <!-- Start : [회원탈퇴] 회원탈퇴 안내 (TBD) Alert 팝업 -->
-    <q-dialog
-      v-model="alertWithDrawalInfoModal"
-      class="c_dialog"
-    >
+    <q-dialog v-model="alertWithDrawalInfoModal" class="c_dialog">
       <q-card>
-        <q-card-section
-          style="max-height:290px"
-          class="c_dialog_body"
-        >
+        <q-card-section style="max-height: 290px" class="c_dialog_body">
           <p class="title">
             <strong>회원탈퇴 하시겠습니까?</strong>
           </p>
@@ -2768,111 +2235,65 @@
           </p>
         </q-card-section>
         <q-card-actions class="c_dialog_foot">
-          <q-btn
-            label="취소"
-            class="line"
-            v-close-popup
-          />
-          <q-btn
-            label="확인"
-            class="primary"
-            v-close-popup
-          />
+          <q-btn label="취소" class="line" v-close-popup />
+          <q-btn label="확인" class="primary" v-close-popup />
         </q-card-actions>
       </q-card>
     </q-dialog>
     <!-- End : [회원탈퇴] 회원탈퇴 안내 (TBD) Alert 팝업 -->
 
     <!-- Start : [회원탈퇴] 회원탈퇴 완료 (TBD) Alert 팝업 -->
-    <q-dialog
-      v-model="alertWithDrawalConfirmModal"
-      class="c_dialog"
-    >
+    <q-dialog v-model="alertWithDrawalConfirmModal" class="c_dialog">
       <q-card>
-        <q-card-section
-          style="max-height:290px"
-          class="c_dialog_body"
-        >
+        <q-card-section style="max-height: 290px" class="c_dialog_body">
           <p class="title">
-            <strong>회원 탈퇴가 완료되었습니다.<br />B^Cloud를 이용해주셔서 감사합니다.</strong>
+            <strong
+              >회원 탈퇴가 완료되었습니다.<br />B^Cloud를 이용해주셔서
+              감사합니다.</strong
+            >
           </p>
         </q-card-section>
         <q-card-actions class="c_dialog_foot">
-          <q-btn
-            label="확인"
-            class="primary"
-            v-close-popup
-          />
+          <q-btn label="확인" class="primary" v-close-popup />
         </q-card-actions>
       </q-card>
     </q-dialog>
     <!-- End : [회원탈퇴] 회원탈퇴 완료 (TBD) Alert 팝업 -->
 
     <!-- Start : [sshkey & apikey] SSH Key 삭제 선택시, 삭제 확인  Alert 팝업 -->
-    <q-dialog
-      v-model="alertSshkeyDeleteModal"
-      class="c_dialog"
-    >
+    <q-dialog v-model="alertSshkeyDeleteModal" class="c_dialog">
       <q-card>
-        <q-card-section
-          style="max-height:290px"
-          class="c_dialog_body"
-        >
+        <q-card-section style="max-height: 290px" class="c_dialog_body">
           <p class="title">
             <strong>SSH Key를 삭제하시겠습니까?</strong>
           </p>
         </q-card-section>
         <q-card-actions class="c_dialog_foot">
-          <q-btn
-            label="취소"
-            class="line"
-            v-close-popup
-          />
-          <q-btn
-            label="확인"
-            class="primary"
-            v-close-popup
-          />
+          <q-btn label="취소" class="line" v-close-popup />
+          <q-btn label="확인" class="primary" v-close-popup />
         </q-card-actions>
       </q-card>
     </q-dialog>
     <!-- End : [sshkey & apikey] SSH Key 삭제 선택시, 삭제 확인  Alert 팝업 -->
 
     <!-- Start : [sshkey & apikey] API Key 삭제  Alert 팝업 -->
-    <q-dialog
-      v-model="alertApikeyDeleteModal"
-      class="c_dialog"
-    >
+    <q-dialog v-model="alertApikeyDeleteModal" class="c_dialog">
       <q-card>
-        <q-card-section
-          style="max-height:290px"
-          class="c_dialog_body"
-        >
+        <q-card-section style="max-height: 290px" class="c_dialog_body">
           <p class="title">
             <strong>API Key를 삭제하시겠습니까?</strong>
           </p>
         </q-card-section>
         <q-card-actions class="c_dialog_foot">
-          <q-btn
-            label="취소"
-            class="line"
-            v-close-popup
-          />
-          <q-btn
-            label="확인"
-            class="primary"
-            v-close-popup
-          />
+          <q-btn label="취소" class="line" v-close-popup />
+          <q-btn label="확인" class="primary" v-close-popup />
         </q-card-actions>
       </q-card>
     </q-dialog>
     <!-- End : [sshkey & apikey] API Key 삭제  Alert 팝업 -->
 
     <!-- Start : [sshkey & apikey] SSH Key&API Key - 등록 -->
-    <q-dialog
-      v-model="sshkeyWriteModal"
-      class="c_dialog large"
-    >
+    <q-dialog v-model="sshkeyWriteModal" class="c_dialog large">
       <q-card>
         <q-card-section class="c_dialog_body">
           <p class="title">
@@ -2895,7 +2316,11 @@
             <label class="c_file btntype absolute top-20 right">
               <input
                 type="file"
-                @update:model-value="val => { files = val }"
+                @update:model-value="
+                  (val) => {
+                    files = val;
+                  }
+                "
               />
               <span class="file_text">파일업로드</span>
             </label>
@@ -2911,7 +2336,7 @@
                 :count="10"
                 maxlength="500"
                 class="wsize_full hsize244"
-                :input-style="{height: '100%'}"
+                :input-style="{ height: '100%' }"
               >
                 <!-- <template v-slot:hint>
                     Description
@@ -2921,26 +2346,15 @@
           </section>
         </q-card-section>
         <q-card-actions class="c_dialog_foot">
-          <q-btn
-            label="취소"
-            class="line"
-            v-close-popup
-          />
-          <q-btn
-            label="저장"
-            class="primary"
-            v-close-popup
-          />
+          <q-btn label="취소" class="line" v-close-popup />
+          <q-btn label="저장" class="primary" v-close-popup />
         </q-card-actions>
       </q-card>
     </q-dialog>
     <!-- End : [sshkey & apikey] SSH Key&API Key - 등록 -->
 
     <!-- Start : [sshkey & apikey] API Key 생성 -->
-    <q-dialog
-      v-model="apikeyCreateModal"
-      class="c_dialog medium"
-    >
+    <q-dialog v-model="apikeyCreateModal" class="c_dialog medium">
       <q-card>
         <q-card-section class="c_dialog_body">
           <p class="title">
@@ -2960,11 +2374,7 @@
           <section class="section">
             <p class="sub_title">Access Key</p>
             <div class="c_inpgroup keygroup">
-              <q-input
-                outlined
-                v-model="textKeyName"
-                disable
-              />
+              <q-input outlined v-model="textKeyName" disable />
               <q-btn class="c_icon ibtn copy">
                 <i class="ico copy" />
                 <span class="hidden">Key 복사</span>
@@ -2974,11 +2384,7 @@
           <section class="section">
             <p class="sub_title">Secret Key</p>
             <div class="c_inpgroup keygroup">
-              <q-input
-                outlined
-                v-model="textKeyName"
-                disable
-              />
+              <q-input outlined v-model="textKeyName" disable />
               <q-btn class="c_icon ibtn copy">
                 <i class="ico copy" />
                 <span class="hidden">Key 복사</span>
@@ -2987,60 +2393,39 @@
           </section>
         </q-card-section>
         <q-card-actions class="c_dialog_foot">
-          <q-btn
-            label="확인"
-            class="primary"
-            v-close-popup
-          />
+          <q-btn label="확인" class="primary" v-close-popup />
         </q-card-actions>
       </q-card>
     </q-dialog>
     <!-- End : [sshkey & apikey] API Key 생성 -->
 
     <!-- Start : [관리 - 프로젝트] 프로젝트 삭제 안내  Alert 팝업 -->
-    <q-dialog
-      v-model="alertProjectDelInfoModal"
-      class="c_dialog"
-    >
+    <q-dialog v-model="alertProjectDelInfoModal" class="c_dialog">
       <q-card>
-        <q-card-section
-          style="max-height:290px"
-          class="c_dialog_body"
-        >
+        <q-card-section style="max-height: 290px" class="c_dialog_body">
           <p class="title">
-            <strong>현재 이용중인 인스턴스/태스크가 있어<br />프로젝트 삭제가 불가능합니다.</strong>
+            <strong
+              >현재 이용중인 인스턴스/태스크가 있어<br />프로젝트 삭제가
+              불가능합니다.</strong
+            >
           </p>
         </q-card-section>
         <q-card-actions class="c_dialog_foot">
-          <q-btn
-            label="확인"
-            class="primary"
-            v-close-popup
-          />
+          <q-btn label="확인" class="primary" v-close-popup />
         </q-card-actions>
       </q-card>
     </q-dialog>
     <!-- End : [관리 - 프로젝트] 프로젝트 삭제 안내  Alert 팝업 -->
 
     <!-- Start : [관리 - 프로젝트] 프로젝트 삭제 확인  Alert 팝업 -->
-    <q-dialog
-      v-model="alertProjectDelConfirmModal"
-      class="c_dialog"
-    >
+    <q-dialog v-model="alertProjectDelConfirmModal" class="c_dialog">
       <q-card>
-        <q-card-section
-          style="max-height:290px"
-          class="c_dialog_body"
-        >
+        <q-card-section style="max-height: 290px" class="c_dialog_body">
           <p class="title">
             <strong>프로젝트를 삭제하시겠습니까?</strong>
           </p>
-          <p class="desc">
-            삭제된 프로젝트는 복구되지 않습니다.
-          </p>
-          <div class="info negative">
-            aa프로젝트1
-          </div>
+          <p class="desc">삭제된 프로젝트는 복구되지 않습니다.</p>
+          <div class="info negative">aa프로젝트1</div>
         </q-card-section>
         <q-card-actions class="c_dialog_foot">
           <q-btn
@@ -3061,15 +2446,9 @@
     <!-- End : [관리 - 프로젝트] 프로젝트 삭제 확인  Alert 팝업 -->
 
     <!-- Start : [관리 - 프로젝트] 워크스페이스 관리자 기능 - 프로젝트 편집 -->
-    <q-dialog
-      v-model="workspaceMngEditModal"
-      class="c_dialog medium"
-    >
+    <q-dialog v-model="workspaceMngEditModal" class="c_dialog medium">
       <q-card>
-        <q-card-section
-          class="c_dialog_body"
-          style="max-height:684px"
-        >
+        <q-card-section class="c_dialog_body" style="max-height: 684px">
           <p class="title">
             <strong>프로젝트 편집</strong>
           </p>
@@ -3099,7 +2478,7 @@
                 :count="10"
                 maxlength="500"
                 class="wsize_full hsize244"
-                :input-style="{height: '100%'}"
+                :input-style="{ height: '100%' }"
               >
                 <!-- <template v-slot:hint>
                     Description
@@ -3114,10 +2493,7 @@
                 프로젝트에서 이용가능한 리소스 한도를 설정합니다.<br />
                 입력시 해당 자원을 할당하지 않습니다.
               </div>
-              <q-toggle
-                v-model="quotaOn"
-                class="quotaToggle"
-              />
+              <q-toggle v-model="quotaOn" class="quotaToggle" />
             </section>
             <section class="section">
               <p class="sub_title">CPU</p>
@@ -3227,27 +2603,15 @@
           <!-- //.c_form -->
         </q-card-section>
         <q-card-actions class="c_dialog_foot bdr">
-          <q-btn
-            label="취소"
-            class="line"
-            v-close-popup
-          />
-          <q-btn
-            label="저장"
-            class="primary"
-            v-close-popup
-            disable
-          />
+          <q-btn label="취소" class="line" v-close-popup />
+          <q-btn label="저장" class="primary" v-close-popup disable />
         </q-card-actions>
       </q-card>
     </q-dialog>
     <!-- End : [관리 - 프로젝트] 워크스페이스 관리자 기능 - 프로젝트 편집 -->
 
     <!-- Start : [관리 - 프로젝트] 워크스페이스 관리자 기능 - 프로젝트 기본 할당량 설정 -->
-    <q-dialog
-      v-model="workspaceMngSetModal"
-      class="c_dialog medium"
-    >
+    <q-dialog v-model="workspaceMngSetModal" class="c_dialog medium">
       <q-card>
         <q-card-section class="c_dialog_body">
           <p class="title">
@@ -3257,16 +2621,12 @@
             <section class="section relative">
               <p class="sub_title">프로젝트 기본 할당량</p>
               <div class="desc">
-                워크스페이스 멤버들이 프로젝트 생성시 적용되는 기본 할당량을 설정합니다.<br />
+                워크스페이스 멤버들이 프로젝트 생성시 적용되는 기본 할당량을
+                설정합니다.<br />
                 (기본 할당량 설정된 시점 이후 생성된 프로젝트만 적용)<br />
               </div>
-              <div class="desc etc mt10">
-                0 입력시 미할당
-              </div>
-              <q-toggle
-                v-model="quotaOn"
-                class="quotaToggle"
-              />
+              <div class="desc etc mt10">0 입력시 미할당</div>
+              <q-toggle v-model="quotaOn" class="quotaToggle" />
             </section>
             <section class="section">
               <p class="sub_title">CPU</p>
@@ -3376,17 +2736,8 @@
           <!-- //.c_form -->
         </q-card-section>
         <q-card-actions class="c_dialog_foot">
-          <q-btn
-            label="취소"
-            class="line"
-            v-close-popup
-          />
-          <q-btn
-            label="저장"
-            class="primary"
-            v-close-popup
-            disable
-          />
+          <q-btn label="취소" class="line" v-close-popup />
+          <q-btn label="저장" class="primary" v-close-popup disable />
         </q-card-actions>
       </q-card>
     </q-dialog>
@@ -3397,9 +2748,7 @@
       v-model:visible="alertInstanceAddVolumeInfoModal"
       :message="'인스턴스 용량이 초과되어 정지시 현재 상태가 저장되지 않습니다. 정지 하시겠습니까?'"
     >
-      <template #positive>
-        현재 용량 : 21GB (10BG 이하 저장 가능)
-      </template>
+      <template #positive> 현재 용량 : 21GB (10BG 이하 저장 가능) </template>
       <template #footer>
         <c-button
           :outline="true"
@@ -3421,19 +2770,14 @@
       :description="'삭제된 인스턴스는 복구되지 않습니다.'"
     >
       <!-- :callback-negative="triggerInstanceSuccess" -->
-      <template #negative>
-        AA인스턴스
-      </template>
+      <template #negative> AA인스턴스 </template>
       <template #footer>
         <c-button
           :outline="true"
           btn-names="취소"
           @click="triggerInstanceWarning"
         />
-        <c-button
-          btn-names="확인"
-          @click="triggerInstanceSuccess"
-        />
+        <c-button btn-names="확인" @click="triggerInstanceSuccess" />
       </template>
     </c-dialog>
     <!-- End : [관리 - 인스턴스] 인스턴스 삭제 확인 Alert 팝업 -->
@@ -3446,19 +2790,14 @@
       :button-positive="'확인'"
       :button-nagative="'취소'"
     >
-      <template #negative>
-        현재 추가된 용량 : 21GB
-      </template>
+      <template #negative> 현재 추가된 용량 : 21GB </template>
       <template #footer>
         <c-button
           :outline="true"
           btn-names="취소"
           @click="alertImageCreateCantModal = false"
         />
-        <c-button
-          btn-names="확인"
-          @click="alertImageCreateCantModal = false"
-        />
+        <c-button btn-names="확인" @click="alertImageCreateCantModal = false" />
       </template>
     </c-dialog>
     <!-- End : [관리 - 인스턴스] 인스턴스 용량 초과로 인한 이미지 생성 불가 Alert 팝업 -->
@@ -3510,10 +2849,7 @@
                 >
                   <template v-slot:prepend>
                     <q-icon class="ico_calendar">
-                      <q-popup-proxy
-                        :offset="[180, 0]"
-                        class="c_datepicker"
-                      >
+                      <q-popup-proxy :offset="[180, 0]" class="c_datepicker">
                         <q-date
                           v-model="dateTo"
                           mask="YYYY.MM.DD"
@@ -3526,10 +2862,7 @@
               </div>
             </div>
           </div>
-          <q-card
-            v-model="chartModel"
-            class="apexchart"
-          >
+          <q-card v-model="chartModel" class="apexchart">
             <div class="chart_body">
               <apexchart
                 v-if="chartModel === chartModel"
@@ -3560,9 +2893,7 @@
       :message="'태스크 그룹을 삭제하시겠습니까?'"
       :description="'삭제된 태스크 그룹은 복구되지 않습니다.'"
     >
-      <template #negative>
-        Taskgroup1
-      </template>
+      <template #negative> Taskgroup1 </template>
       <template #footer>
         <c-button
           :outline="true"
@@ -3583,19 +2914,14 @@
       :message="'태스크를 삭제하시겠습니까?'"
       :description="'삭제된 태스크는 복구되지 않습니다.'"
     >
-      <template #negative>
-        task1
-      </template>
+      <template #negative> task1 </template>
       <template #footer>
         <c-button
           :outline="true"
           btn-names="취소"
           @click="alertTaskDelConfirmModal = false"
         />
-        <c-button
-          btn-names="확인"
-          @click="alertTaskDelConfirmModal = false"
-        />
+        <c-button btn-names="확인" @click="alertTaskDelConfirmModal = false" />
       </template>
     </c-dialog>
     <!-- End : [관리 - 태스크] 태스크 삭제 확인 Alert 팝업 -->
@@ -3606,9 +2932,7 @@
       :message="'스토리지를 삭제하시겠습니까?'"
       :description="'스토리지에 저장된 데이터는 모두 삭제되며, 삭제된 내용은 복구되지 않습니다.'"
     >
-      <template #negative>
-        aa스토리지 이름
-      </template>
+      <template #negative> aa스토리지 이름 </template>
       <template #footer>
         <c-button
           :outline="true"
@@ -3624,10 +2948,7 @@
     <!-- End : [관리 - 스토리지] 스토리지 삭제 확인 Alert 팝업 -->
 
     <!-- Start : [관리 - 스토리지] 관리자 스토리지 추가 팝업 -->
-    <q-dialog
-      v-model="mngStorageAddModal"
-      class="c_dialog large"
-    >
+    <q-dialog v-model="mngStorageAddModal" class="c_dialog large">
       <q-card>
         <q-card-section class="c_dialog_body">
           <p class="title">
@@ -3659,7 +2980,7 @@
                 :count="10"
                 maxlength="500"
                 class="wsize_full hsize244"
-                :input-style="{height: '100%'}"
+                :input-style="{ height: '100%' }"
               >
                 <!-- <template v-slot:hint>
                     Description
@@ -3706,10 +3027,7 @@
     <!-- End : [관리 - 스토리지] 관리자 스토리지 추가 팝업 -->
 
     <!-- Start : [관리 - 스토리지] 워크스페이스 관리자 기능 - 스토리지 - 용량 변경 요청 (TBD) -->
-    <q-dialog
-      v-model="mngStorageChangeRequestModal"
-      class="c_dialog medium"
-    >
+    <q-dialog v-model="mngStorageChangeRequestModal" class="c_dialog medium">
       <q-card>
         <q-card-section class="c_dialog_body">
           <p class="title">
@@ -3760,27 +3078,15 @@
           </section>
         </q-card-section>
         <q-card-actions class="c_dialog_foot">
-          <q-btn
-            label="취소"
-            class="line"
-            v-close-popup
-          />
-          <q-btn
-            label="저장"
-            class="primary"
-            v-close-popup
-            disable
-          />
+          <q-btn label="취소" class="line" v-close-popup />
+          <q-btn label="저장" class="primary" v-close-popup disable />
         </q-card-actions>
       </q-card>
     </q-dialog>
     <!-- End : [관리 - 스토리지] 워크스페이스 관리자 기능 - 스토리지 - 용량 변경 요청 (TBD) -->
 
     <!-- Start : [관리 - 스토리지] 워크스페이스 관리자 - 스토리지 - 멤버 탭 - 스토리지 할당량 변경 -->
-    <q-dialog
-      v-model="mngStorageQuotaChangeModal"
-      class="c_dialog medium"
-    >
+    <q-dialog v-model="mngStorageQuotaChangeModal" class="c_dialog medium">
       <q-card>
         <q-card-section class="c_dialog_body">
           <p class="title">
@@ -3817,32 +3123,17 @@
           </section>
         </q-card-section>
         <q-card-actions class="c_dialog_foot">
-          <q-btn
-            label="취소"
-            class="line"
-            v-close-popup
-          />
-          <q-btn
-            label="저장"
-            class="primary"
-            v-close-popup
-            disable
-          />
+          <q-btn label="취소" class="line" v-close-popup />
+          <q-btn label="저장" class="primary" v-close-popup disable />
         </q-card-actions>
       </q-card>
     </q-dialog>
     <!-- End : [관리 - 스토리지] 워크스페이스 관리자 - 스토리지 - 멤버 탭 - 스토리지 할당량 변경 -->
 
     <!-- Start : [관리 - 스토리지] 워크스페이스 관리자 - 스토리지 - 공유 관리 -->
-    <q-dialog
-      v-model="mngStorageShareModal"
-      class="c_dialog medium"
-    >
+    <q-dialog v-model="mngStorageShareModal" class="c_dialog medium">
       <q-card>
-        <q-card-section
-          class="c_dialog_body"
-          style="max-height:684px"
-        >
+        <q-card-section class="c_dialog_body" style="max-height: 684px">
           <p class="title">
             <strong>공유 관리</strong>
           </p>
@@ -3877,19 +3168,14 @@
                 class="c_inpchip"
               >
                 <template v-slot:prepend>
-                  <q-icon
-                    name="search"
-                    class="ico_search"
-                  />
+                  <q-icon name="search" class="ico_search" />
                 </template>
                 <template v-slot:append>
                   <div class="slotopt"></div>
                 </template>
                 <template v-slot:no-option>
                   <q-item class="no_data">
-                    <q-item-section>
-                      검색 결과 없습니다.
-                    </q-item-section>
+                    <q-item-section> 검색 결과 없습니다. </q-item-section>
                   </q-item>
                 </template>
               </q-select>
@@ -3908,10 +3194,7 @@
           </div>
           <template v-if="listData === listData">
             <q-list class="p_list sharemng">
-              <template
-                v-for="k in 5"
-                :key="k"
-              >
+              <template v-for="k in 5" :key="k">
                 <q-item class="item">
                   <i class="ico member" />
                   <q-item-section class="item_card">
@@ -3948,11 +3231,7 @@
           </template>
         </q-card-section>
         <q-card-actions class="c_dialog_foot bdr">
-          <q-btn
-            label="확인"
-            class="primary"
-            v-close-popup
-          />
+          <q-btn label="확인" class="primary" v-close-popup />
         </q-card-actions>
       </q-card>
     </q-dialog>
@@ -3986,26 +3265,28 @@ const options = ref([
 
 const alertErrorModal = () => {
   $useCmFn.onMessage({
-    message: "알 수 없는 오류가 발생하였습니다.<br />다시 시도해주세요."
+    message: "알 수 없는 오류가 발생하였습니다.<br />다시 시도해주세요.",
   });
 };
 const alertWorkspaceModal = () => {
   $useCmFn.onMessage({
     message: "소속된 워크스페이스가 없습니다.",
-    description: "워크스페이스 관리자에게 초대를 요청하거나<br />서비스 이용문의를 남겨주세요",
+    description:
+      "워크스페이스 관리자에게 초대를 요청하거나<br />서비스 이용문의를 남겨주세요",
     negative: {
       value: "서비스 이용문의",
-      callback: () => {}
+      callback: () => {},
     },
     positive: {
       value: "확인",
-      callback: () => {}
-    }
+      callback: () => {},
+    },
   });
 };
 const alertProjectInstanceTaskInfoModal = () => {
   $useCmFn.onMessage({
-    message: "이용중인 인스턴스/태스크가 있어<br />프로젝트 삭제가 불가능합니다."
+    message:
+      "이용중인 인스턴스/태스크가 있어<br />프로젝트 삭제가 불가능합니다.",
   });
 };
 const alertInstanceDelPossibleModal = ref(false);
@@ -4014,17 +3295,19 @@ const alertInstanceDeleteModal = ref(false);
 const alertInstanceOverImageModal = ref(false);
 const alertInstanceResourceModal = () => {
   $useCmFn.onMessage({
-    message: "000리소스 할당량이 부족하여<br />인스턴스를 실행 할 수 없습니다."
+    message: "000리소스 할당량이 부족하여<br />인스턴스를 실행 할 수 없습니다.",
   });
 };
 const alertProjectQuotaModal = () => {
   $useCmFn.onMessage({
-    message: "프로젝트 리소스 할당량이 부족하여<br />인스턴스 생성이 불가능합니다."
+    message:
+      "프로젝트 리소스 할당량이 부족하여<br />인스턴스 생성이 불가능합니다.",
   });
 };
 const alertWorkspaceQuotaModal = () => {
   $useCmFn.onMessage({
-    message: "워크스페이스 리소스 할당량이 부족하여<br />인스턴스 생성이 불가능합니다."
+    message:
+      "워크스페이스 리소스 할당량이 부족하여<br />인스턴스 생성이 불가능합니다.",
   });
 };
 // const alertTaskGroupDeleteModal = ref(false);
@@ -4048,14 +3331,14 @@ const alertTaskGroupDeleteModal = () => {
       value: "확인",
       callback: () => {
         triggerTaskGroupSuccess();
-      }
+      },
     },
     negative: {
       value: "취소",
       callback: () => {
         triggerTaskGroupWarning();
-      }
-    }
+      },
+    },
   });
 };
 const alertTaskDeleteModal = ref(false);
@@ -4080,8 +3363,8 @@ const alertInstanceTaskInfoModal = () => {
     message: "인스턴스/태스크 생성 권한이 없습니다.",
     description: "프로젝트 구성원만 인스턴스/태스크 생성이 가능합니다.",
     positive: {
-      value: "확인"
-    }
+      value: "확인",
+    },
   });
 };
 const alertTaskGroupReCreateInfoModal = () => {
@@ -4089,8 +3372,8 @@ const alertTaskGroupReCreateInfoModal = () => {
     message: "태스크 그룹/태스크 재생성 권한이 없습니다.",
     description: "프로젝트 구성원만 태스크 그룹/태스크 재생성 가능합니다.",
     positive: {
-      value: "확인"
-    }
+      value: "확인",
+    },
   });
 };
 const alertInstanceAddVolumeInfoModal = ref(false);
@@ -4099,8 +3382,8 @@ const alertResouceCantRestartModal = () => {
   $useCmFn.onMessage({
     message: "000리소스 할당량이 부족하여<br />인스턴스를 실행 할 수 없습니다.",
     positive: {
-      value: "확인"
-    }
+      value: "확인",
+    },
   });
 };
 const alertImageCreateCantModal = ref(false);
@@ -4109,8 +3392,8 @@ const alertTaskRecreateInfoModal = () => {
     message: "태스크 그룹/태스크 재생성 권한이 없습니다.",
     description: "프로젝트 구성원만 태스크 그룹/태스크 재생성 가능합니다.",
     positive: {
-      value: "확인"
-    }
+      value: "확인",
+    },
   });
 };
 const alertTaskGroupDelConfirmModal = ref(false);
@@ -4120,8 +3403,8 @@ const alertTaskRecreateAuthModal = () => {
     message: "태스크 그룹/태스크 재생성 권한이 없습니다.",
     description: "프로젝트 구성원만 태스크 그룹/태스크 재생성 가능합니다.",
     positive: {
-      value: "확인"
-    }
+      value: "확인",
+    },
   });
 };
 const alertStorageDeleteInfoModal = ref(false);
@@ -4129,8 +3412,8 @@ const alertStorageCantDeleteModal = () => {
   $useCmFn.onMessage({
     message: "현재 이용중인 사용자가 있어<br />스토리지 삭제가 불가능합니다.",
     positive: {
-      value: "확인"
-    }
+      value: "확인",
+    },
   });
 };
 const projectCreateModal = ref(false);
@@ -4472,7 +3755,7 @@ const chartOptions = {
       fontSize: "12px",
       fontWeight: "normal",
       fontFamily: undefined,
-      color: "#9699a2"
+      color: "#9699a2",
     },
   },
   legend: {
@@ -4508,7 +3791,19 @@ const chartOptions = {
     size: 0,
   },
   xaxis: {
-    categories: ["", "10/1", "", "10/5", "", "10/10", "", "10/20", "", "10/28", ""],
+    categories: [
+      "",
+      "10/1",
+      "",
+      "10/5",
+      "",
+      "10/10",
+      "",
+      "10/20",
+      "",
+      "10/28",
+      "",
+    ],
     title: {
       text: "",
     },

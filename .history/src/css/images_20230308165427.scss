@@ -1,0 +1,28 @@
+@import "./_utillity.scss";
+@import "./table.scss";
+::v-deep{
+table{
+  table-layout:fixed;
+  .cell.btngroup{min-width: 50px !important;}
+  .txt.clip{max-width: inherit;}
+}
+
+}
+.p-images{
+        display: flex;
+        flex-direction: column;
+        .tab_area {
+          display: flex;
+          margin-bottom: 30px;
+        }
+        .wsize_full {
+          width: 450px;
+          margin-bottom: 8px;
+        }
+        .c_tooltip{
+          width: 438px;
+        }
+      }
+
+
+

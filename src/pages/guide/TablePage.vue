@@ -121,7 +121,7 @@ const columns = [
     label: "생성일시",
     align: "left",
     sortable: true,
-    type: "datetime"
+    type: "datetime",
   },
   {
     name: "createdBy",
@@ -148,8 +148,8 @@ const data = [
       gpu_device_model: "TESLA_V100",
       gpus: 2,
       mem: 249856,
-      zone: "public:normal"
-    }
+      zone: "public:normal",
+    },
   },
   {
     id: 2,
@@ -167,8 +167,8 @@ const data = [
       gpu_device_model: "TESLA_V100",
       gpus: 2,
       mem: 249856,
-      zone: "public:normal"
-    }
+      zone: "public:normal",
+    },
   },
 ];
 
@@ -204,15 +204,15 @@ const respAction = (eventObj) => {
 </script>
 
 <style lang="scss" scoped>
-.section{
-  h2{
-    margin-bottom:10px;
+.section {
+  h2 {
+    margin-bottom: 10px;
   }
-  ~ .section{
-    margin-top:50px;
+  ~ .section {
+    margin-top: 50px;
   }
 }
-.group{
-  margin-top:20px;
+.group {
+  margin-top: 20px;
 }
 </style>

@@ -1,9 +1,5 @@
 <template>
-  <q-btn
-    @click="onClick"
-    :class="classList"
-    :disabled="disabled"
-  >
+  <q-btn @click="onClick" :class="classList" :disabled="disabled">
     <template v-if="!onlyIcon">
       <slot name="prepend" />
       <span class="txt">{{ btnNames }}</span>
