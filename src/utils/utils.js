@@ -76,6 +76,7 @@ class Utils {
    * app : 애플리케이션
    */
   getRoleName(role, type = "workspace") {
+    if (!role) return false;
     const roleCode = commonStore.getCodes("role");
     const roleName = roleCode[type].find((item) => item.code === role).label;
     return roleName;
