@@ -131,7 +131,7 @@ import { useCommonStore } from "src/stores/useCommonStore";
 import CPagination from "components/common/CPagination.vue";
 import CBadgeState from "src/components/common/CBadgeState.vue";
 
-const emit = defineEmits(["imageSelected"]);
+const emit = defineEmits(["instanceImage"]);
 const props = defineProps({
   workspaceId: {
     type: [Number, String],
@@ -261,7 +261,7 @@ const showRowChecked = (item, tableId) => {
   const selected = document.querySelectorAll(`#${tableId} table tr`);
   selected.forEach((tr, index) => tr.classList.toggle("row-isCheck", index === 1));
 
-  emit("imageSelected", selectedName.value);
+  emit("instanceImage", selectedName.value);
 };
 
 /**

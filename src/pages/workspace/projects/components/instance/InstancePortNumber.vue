@@ -1,116 +1,102 @@
 <template>
+  <div class="s_07">
+    <p class="sub_title2">포트 번호 입력</p>
+    <div class="s_07_main wsize608">
+      <div class="port_num_input">
+        <div class="c_inpgroup">
+          <p class="info_txt">최대 10개</p>
 
-<div class="s_07">
-            <p class="sub_title2">포트 번호 입력</p>
-            <div class="s_07_main wsize608">
-              <div class="port_num_input">
-                <div class="c_inpgroup">
-                  <p class="info_txt">최대 10개</p>
-                  <q-select
-                    outlined
-                    v-model="shareChipModel"
-                    placeholder="포트 번호 입력"
-                    use-input
-                    use-chips
-                    multiple
-                    input-debounce="0"
-                    @new-value="createValue"
-                    :options="filterOptions"
-                    @filter="chipFilterFn"
-                    class="c_inpchip wsize_full"
-                  >
-                    <!-- <template v-slot:append>
-                      <div class="slotopt"></div>
-                    </template>
-                    <template v-slot:no-option>
-                      <q-item class="no_data">
-                        <q-item-section>
-                          검색 결과 없습니다.
-                        </q-item-section>
-                      </q-item>
-                    </template> -->
-                  </q-select>
-                </div>
-                <template v-if="filterOptions == false">
-                  <q-btn
-                    type="button"
-                    class="c_btn c_icon medium"
-                  >
-                    <i class="ico plus" /><span class="txt">Disabled</span>
-                  </q-btn>
-                </template>
-                <template v-else>
-                  <q-btn
-                    type="button"
-                    class="c_btn c_icon medium"
-                  >
-                    <i class="ico plus" /><span class="txt">Button</span>
-                  </q-btn>
-                </template>
-              </div>
-              <div class="port_list_area">
-                <template v-if="noMemberList == true">
-                  <ul class="port_list_box com_border_box">
-                    <li>
-                      <p>등록된 포트 번호가 없습니다.</p>
-                    </li>
-                  </ul>
-                </template>
-                <template v-else>
-                  <ul class="port_list_box add_port_box com_border_box">
-                    <li><span class="port_badge">32233<i class="ico cancel" /></span></li>
-                    <li><span class="port_badge">32233<i class="ico cancel" /></span></li>
-                    <li><span class="port_badge">08~65535<i class="ico cancel" /></span></li>
-                    <li><span class="port_badge">32233<i class="ico cancel" /></span></li>
-                    <li><span class="port_badge">32233<i class="ico cancel" /></span></li>
-                    <li><span class="port_badge">32233<i class="ico cancel" /></span></li>
-                    <li><span class="port_badge">32233<i class="ico cancel" /></span></li>
-                    <li><span class="port_badge">32233<i class="ico cancel" /></span></li>
-                    <li><span class="port_badge">32233<i class="ico cancel" /></span></li>
-                    <li><span class="port_badge">32233<i class="ico cancel" /></span></li>
-                    <li><span class="port_badge">132135<i class="ico cancel" /></span></li>
-                    <li><span class="port_badge">32233<i class="ico cancel" /></span></li>
-                    <li><span class="port_badge">08~65535<i class="ico cancel" /></span></li>
-                    <li><span class="port_badge">32233<i class="ico cancel" /></span></li>
-                    <li><span class="port_badge">08~65535<i class="ico cancel" /></span></li>
-                    <li><span class="port_badge">32233<i class="ico cancel" /></span></li>
-                    <li><span class="port_badge">08~65535<i class="ico cancel" /></span></li>
-                  </ul>
-                </template>
-              </div>
-            </div>
-          </div>
+          <c-input-text
+            class="wsize_full"
+            v-model:value="portNumber"
+            placeholder="포트 번호 입력"
+            type="Number"
+            :rules="inputRules"
+            :disable="isInput"
+
+          />
+        </div>
+
+        <q-btn type="button" class="c_btn c_icon medium" :disabled="isCreateButton" @click="addPosrtNumber()">
+          <i class="ico plus" /><span class="txt">Disabled</span>
+        </q-btn>
+      </div>
+      <div class="port_list_area">
+        <template v-if="addPortNumbers.length > 0">
+          <ul class="port_list_box add_port_box com_border_box">
+            <li v-for="(port,index) in addPortNumbers" :key="port" @click="removePort(port,index)">
+              <span class="port_badge">{{ port.number }}<i class="ico cancel" /></span>
+            </li>
+          </ul>
+        </template>
+        <template v-else>
+          <ul class="port_list_box com_border_box">
+            <li>
+              <p>등록된 포트 번호가 없습니다.</p>
+            </li>
+          </ul>
+        </template>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, computed } from "vue";
+import CInputText from "components/common/CInputText.vue";
 
-const stringOptions = [];
-const filterOptions = ref(stringOptions);
+const portNumber = ref(null);
+const isInput = ref(false);
+const addPortNumbers = ref([
+  // { number: 333 },
 
-const noMemberList = ref(true);
+]);
 
-const shareChipModel = ref(null);
-
-const createValue = (val, done) => {
-  if (val.length > 0) {
-    if (!stringOptions.includes(val)) {
-      stringOptions.push(val);
+const checkDuplicates = (value) => {
+  for (let i = 0; i < addPortNumbers.value.length; i++) {
+    if (addPortNumbers.value[i].number === String(value)) {
+      return false;
     }
-    done(val, "toggle");
   }
+  return true;
 };
-const chipFilterFn = (val, update) => {
-  update(() => {
-    if (val === "") {
-      filterOptions.value = stringOptions;
-    } else {
-      const needle = val.toLowerCase();
-      filterOptions.value = stringOptions.filter(
-        (v) => v.toLowerCase().indexOf(needle) > -1
-      );
+
+const isCreateButton = computed(() => {
+  const duplicates = checkDuplicates(portNumber.value);
+  return (!portNumber.value || portNumber.value < 80 || portNumber.value > 65535) || !duplicates;
+});
+
+const inputRules = ref([
+  (value) => {
+    if (!value) {
+      return "";
     }
-  });
+  },
+  (value) => (value >= 80 && value <= 65535) || "80~65535 입력 가능",
+  (value) => {
+    if (!checkDuplicates(value)) {
+      return "중복 입력 불가.";
+    }
+    return "";
+  }
+]);
+
+const inputReset = () => {
+  portNumber.value = null;
+};
+
+const addPosrtNumber = () => {
+  if (addPortNumbers.value.length < 10) {
+    addPortNumbers.value.push({ number: portNumber.value });
+  } else {
+    isInput.value = true;
+  }
+  inputReset();
+};
+
+const removePort = (item, index) => {
+  console.log(item);
+  addPortNumbers.value.splice(index, 1);
 };
 
 </script>

@@ -41,7 +41,8 @@
           <InstanceImage
           :workspaceId=" workspaceId"
           :userId="userId"
-          @imageSelected="updateimageSelected"
+          @instanceImage="updateimageSelected"
+
           />
 
         <!-- 스토리지 -->
@@ -50,7 +51,11 @@
         />
 
         <!-- ssh -->
-        <InstanceSshKey/>
+        <InstanceSshKey
+        :userId="userId"
+        @instanceSSKeySelected="updateInstanceSSkeySelected"
+
+        />
 
         <!-- 포트번호 -->
         <InstancePortNumber/>
@@ -128,7 +133,8 @@ const currentInput = ref({
     mem: "",
     disk: ""
   },
-  instanceImage: ""
+  instanceImage: "",
+  instanceSSKeySelected: ""
 
 });
 
@@ -149,6 +155,10 @@ const updateInstanceTypeSelected = (value) => {
 
 const updateimageSelected = (value) => {
   currentInput.value.instanceImage = value;
+};
+const updateInstanceSSkeySelected = (value) => {
+  console.log("value", value);
+  currentInput.value.instanceSSKeySelected = value;
 };
 
 const ptitle = ref(title);

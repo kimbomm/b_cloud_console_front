@@ -91,15 +91,6 @@ export const useCommonStore = defineStore("common", () => {
     let text = "";
     let className = "";
 
-    /**
-      상태 스키마 값
-      *  1. save, 저장(개인)
-      *  2. save_s, 저장(공유)
-      *  3. error, 오류
-      *  4. saving, 저장중
-      * 임시추가 - saved -저장(개인)
-      */
-
     switch (status) {
       case "save":
         text = "저장(개인)";
