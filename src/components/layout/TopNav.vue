@@ -25,14 +25,8 @@
   </div>
 </template>
 <script setup>
-<<<<<<< HEAD
 import { ref, watch, defineEmits } from "vue";
-=======
-import {
-  ref, watch, defineEmits,
-} from "vue";
 import { useRoute } from "vue-router";
->>>>>>> develop
 import CDropdown from "components/common/CDropdown.vue";
 
 const route = useRoute();
@@ -45,23 +39,16 @@ const props = defineProps({
 });
 const workspaceModel = ref("");
 
-<<<<<<< HEAD
 watch(
   () => props.workspaces,
-  (prop) => {
-    menuopt.value = prop.workspaces
-      ? prop.workspaces.map((item) => ({ value: item.id, label: item.name }))
-      : [];
-    workspaceModel.value = menuopt.value[0].label;
+  () => {
+    const { workspaceId } = route.params;
+    const findWorkspace = props.workspaces.find(
+      (item) => item.value === Number(workspaceId)
+    );
+    workspaceModel.value = findWorkspace.label;
   }
 );
-=======
-watch(() => props.workspaces, () => {
-  const { workspaceId } = route.params;
-  const findWorkspace = props.workspaces.find((item) => item.value === Number(workspaceId));
-  workspaceModel.value = findWorkspace.label;
-});
->>>>>>> develop
 
 const onSelected = (option) => {
   emit("changeWorkspace", option);

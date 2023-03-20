@@ -7,15 +7,11 @@
   >
     <q-header class="l-header">
       <q-toolbar>
-        <q-btn
-          flat
-          @click="drawer = !drawer"
-          round
-          dense
-          icon="menu"
-          class="c_icon menu"
+        <q-btn flat @click="drawer = !drawer" round dense icon="menu" class="c_icon menu" />
+        <top-nav
+          :workspaces="topNavMenu"
+          @changeWorkspace="changeWorkspace"
         />
-        <top-nav :workspaces="topNavMenu" @changeWorkspace="changeWorkspace" />
         <top-nav :workspaces="workspaces" @changeWorkspace="changeWorkspace" />
       </q-toolbar>
     </q-header>
@@ -40,7 +36,11 @@
 </template>
 
 <script setup>
-import { ref, watch, computed } from "vue";
+import {
+  ref,
+  watch,
+  computed,
+} from "vue";
 import { useMeta } from "quasar";
 import { UserService, WorkspaceService, ProjectService } from "src/services";
 import { useCommonStore } from "stores/useCommonStore.js";
@@ -68,29 +68,25 @@ const { isProjectChange } = storeToRefs(useProjectStore());
 const { setMe, setMyWorkspaces } = useCommonStore();
 const { setIsProjectChange } = useProjectStore();
 const workspaces = ref([]);
-const topNavMenu = computed(() =>
-  workspaces.value
-    ? workspaces.value.map((item) => ({ value: item.id, label: item.name }))
-    : []
-);
+const topNavMenu = computed(() => (workspaces.value
+  ? workspaces.value.map((item) => ({ value: item.id, label: item.name }))
+  : []));
 
 const initMe = async () => {
-  await UserService.getMe()
-    .then((user) => {
-      setMe(user);
-    })
-    .catch(() => {
-      $useCmFn.onMessage({
-        message: "네트워크 연결을 확인해주세요",
-        description: "테스트 사용자는 VPN연결 확인 부탁드립니다.",
-        positive: {
-          value: "확인",
-          callback: () => {
-            router.replace("/login");
-          },
-        },
-      });
+  await UserService.getMe().then((user) => {
+    setMe(user);
+  }).catch(() => {
+    $useCmFn.onMessage({
+      message: "네트워크 연결을 확인해주세요",
+      description: "테스트 사용자는 VPN연결 확인 부탁드립니다.",
+      positive: {
+        value: "확인",
+        callback: () => {
+          router.replace("/login");
+        }
+      }
     });
+  });
 };
 
 /**
@@ -136,20 +132,19 @@ const init = async () => {
   } catch (e) {
     $useCmFn.onMessage({
       message: "소속된 워크스페이스가 없습니다.",
-      description:
-        "워크스페이스 관리자에게 초대를 요청하거나<br/>서비스 이용문의를 남겨주세요",
+      description: "워크스페이스 관리자에게 초대를 요청하거나<br/>서비스 이용문의를 남겨주세요",
       positive: {
         value: "확인",
         callback: () => {
           router.replace("/login");
-        },
+        }
       },
       negative: {
         value: "서비스 이용문의",
         callback: () => {
           router.replace("/login");
-        },
-      },
+        }
+      }
     });
   }
   const { workspaceId } = route.params;
@@ -190,13 +185,10 @@ watch(
 /**
  * user가 임의로 workspaceId 변경시
  */
-watch(
-  () => route.params.workspaceId,
-  async () => {
-    if (!checkWorkspace()) {
-      router.replace(`/workspace/${workspaces.value[0].id}/projects`);
-    }
+watch(() => route.params.workspaceId, async () => {
+  if (!checkWorkspace()) {
+    router.replace(`/workspace/${workspaces.value[0].id}/projects`);
   }
-);
+});
 </script>
 <style lang="scss" scoped></style>
