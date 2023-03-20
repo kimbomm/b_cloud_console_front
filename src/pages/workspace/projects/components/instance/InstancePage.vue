@@ -20,6 +20,8 @@
           :label="label"
           :options="statusOption"
           :multiple="true"
+          outlined
+
         />
       </div>
     </div>
@@ -40,6 +42,7 @@
         <CDropdown
           v-model:selected="searchData.size"
           :label="label2"
+          outlined
           :options="options2"
         />
       </div>
@@ -107,23 +110,29 @@
         </template>
         <template #item-gpu="item">
           <span class="txt">
-            {{
+          <em v-if="false">
+            {{ item }}
+          </em>
+            <!-- {{
               $utils.getPercentData(
                 item.instance_type.gpu,
                 workspace.quota.total.cpu_milli
               )
-            }}%
+            }}% -->
           </span>
         </template>
         <template #item-cpu="item">
           <span class="txt"
             >
-            {{
+            <em v-if="false">
+            {{ item }}
+          </em>
+            <!-- {{
               $utils.getPercentData(
                 item.instance_type.cpu,
                 workspace.quota.total.cpu_milli
               )
-            }}%
+            }}% -->
           </span>
         </template>
         <!-- gpu -->
