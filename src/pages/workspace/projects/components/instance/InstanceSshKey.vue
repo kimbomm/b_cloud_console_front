@@ -66,7 +66,7 @@ const route = useRoute();
 const { workspaceId } = route.params;
 
 const itemsSelected = ref([]);
-const emit = defineEmits(["instanceSSKeySelected"]);
+const emit = defineEmits(["instanceSSKeySelected", "instanceSSKeySelectedId"]);
 
 const props = defineProps({
   userId: {
@@ -170,7 +170,9 @@ const showRowChecked = (item) => {
   const selected = document.querySelectorAll(`#${tableId} table tr`);
   selected.forEach((tr, index) => tr.classList.toggle("row-isCheck", index === 1));
   itemsSelected.value = item;
-  emit("instanceSSKeySelected", item.id);
+
+  emit("instanceSSKeySelected", itemsSelected.value.name);
+  emit("instanceSSKeySelectedId", item.id);
 };
 
 onMounted(() => {

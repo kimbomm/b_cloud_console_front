@@ -28,6 +28,7 @@
               <span class="port_badge">{{ port.number }}<i class="ico cancel" /></span>
             </li>
           </ul>
+
         </template>
         <template v-else>
           <ul class="port_list_box com_border_box">
@@ -45,12 +46,14 @@
 import { ref, computed } from "vue";
 import CInputText from "components/common/CInputText.vue";
 
+const emit = defineEmits(["instancePortNumber"]);
 const portNumber = ref(null);
 const isInput = ref(false);
 const addPortNumbers = ref([
   // { number: 333 },
-
 ]);
+
+const makeAddPortNumbers = computed(() => addPortNumbers.value.map((item) => item.number));
 
 const checkDuplicates = (value) => {
   for (let i = 0; i < addPortNumbers.value.length; i++) {
@@ -87,16 +90,18 @@ const inputReset = () => {
 
 const addPosrtNumber = () => {
   if (addPortNumbers.value.length < 10) {
-    addPortNumbers.value.push({ number: portNumber.value });
+    console.log("portNumber.value", portNumber.value);
+    addPortNumbers.value.push({ number: parseInt(portNumber.value, 10) });
   } else {
     isInput.value = true;
   }
+  emit("instancePortNumber", makeAddPortNumbers.value);
   inputReset();
 };
 
-const removePort = (item, index) => {
-  console.log(item);
+const removePort = (index) => {
   addPortNumbers.value.splice(index, 1);
+  emit("instancePortNumber", makeAddPortNumbers.value);
 };
 
 </script>
