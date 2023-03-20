@@ -56,8 +56,7 @@
               :val="item.id"
               @click="onClick(item)"
             />
-            <span class="txt">{{ item.title }}</span
-            >>
+            <span class="txt">{{ item.title }}</span>
           </template>
           <!--
             상태값(status)
@@ -623,6 +622,107 @@
         </easy-data-table>
       </section>
 
+      <!-- tr 선택 시 하나만 check -->
+      <section class="section">
+        <h2 class="h6">Type5</h2>
+        <easy-data-table
+          :headers="headers"
+          :items="items"
+          :hide-footer="true"
+          empty-message="정보가 없습니다."
+          @click-row="showRowChecked"
+          :id="tableId"
+          :body-row-class-name="bodyRowClassNameFunctionCheck"
+        >
+          <!-- title -->
+          <template #item-title="item">
+            <a href="javascript:void()">
+              <span class="txt">{{ item.title }}</span>
+              <q-tooltip anchor="bottom middle" class="c_tooltip">
+                <div class="inner">
+                  {{ item.title }}
+                </div>
+              </q-tooltip>
+            </a>
+          </template>
+          <!--
+            상태값(status)
+            1. running, 운영중, 실행중
+            2. stopped, 정지 | 오류 | 취소 | 실패
+            3. 생성중 | 삭제중 | 대기중 | 재시작중
+          -->
+          <template #item-status="item">
+            <q-badge v-if="item.status === 'running'" class="green">
+              <span class="txt">운영중</span>
+            </q-badge>
+            <q-badge v-else-if="item.status === 'stopped'" class="orange">
+              <span class="txt">정지</span>
+            </q-badge>
+            <q-badge v-else class="c_badge">
+              <span class="txt">생성중</span>
+            </q-badge>
+          </template>
+          <!-- ssh -->
+          <template #item-ssh="item">
+            <q-badge class="copy square ssh icon" @click="onCopy(item)">
+              <span class="txt">{{ item.ssh }}</span>
+            </q-badge>
+          </template>
+          <!-- jupyterLab -->
+          <template #item-jupyterLab="item">
+            <q-badge class="copy square lab icon" @click="onCopy(item)">
+              <span class="txt">{{ item.jupyterLab }}</span>
+            </q-badge>
+          </template>
+          <!-- 인스턴스 타입 -->
+          <template #item-instanceType="item">
+            <q-badge class="text instance" @click="onCopy(item)">
+              <span class="txt"
+                >{{ item.instanceType
+                }}<i class="ico details">
+                  <q-tooltip
+                    anchor="bottom middle"
+                    class="c_tooltip insTypeTool"
+                  >
+                    <div class="inner">
+                      {{ item.instanceType }}
+                    </div>
+                  </q-tooltip></i
+                >
+              </span>
+            </q-badge>
+          </template>
+          <!-- createdBy -->
+          <template #item-createdBy="item">
+            <span class="txt clip">{{ item.createdBy }}</span>
+          </template>
+          <!-- 버튼 그룹 -->
+          <template #item-buttons="item">
+            <div v-if="actionButtons" class="cell btngroup">
+              <q-btn class="c_btn ibtn dot">
+                <i class="ico dots" /><span class="txt">클릭</span>
+                <q-popup-edit
+                  v-model="item.id"
+                  class="dots_menu"
+                  anchor="top right"
+                >
+                  <q-list style="min-width: 100px">
+                    <q-item v-for="button in actionButtons" :key="button.name">
+                      <q-btn
+                        class="item"
+                        @click="onActions(button.event, item)"
+                      >
+                        <span class="txt">{{ button.name }}</span>
+                      </q-btn>
+                    </q-item>
+                  </q-list>
+                </q-popup-edit>
+              </q-btn>
+            </div>
+          </template>
+        </easy-data-table>
+      </section>
+
       <section class="section">
         <h2 class="h6">관리 - 프로젝트</h2>
         <easy-data-table
@@ -1110,6 +1210,29 @@ const onClick = (item) => {
   console.log(item);
 };
 
+const bodyRowClassNameFunctionCheck = (item) => {
+  console.log("itemitemitem", item);
+  const classList = [];
+
+  /*
+   * disabled 처리
+   * 예시) 리소스 할당량 초과
+   * */
+  if (item.id === 132) {
+    classList.push("row-isdim");
+  }
+  return classList.join(" ");
+};
+
+/* row 클릭 시 해당 행 checked */
+const tableId = "Type5";
+const showRowChecked = (item) => {
+  const nNum = items.findIndex((n) => n.id === item.id);
+  const selected = document.querySelectorAll(`#${tableId} table tr`);
+  selected.forEach((tr) => tr.classList.remove("row-isCheck"));
+  selected[nNum + 1].classList.add("row-isCheck");
+};
+
 const showRow = (item) => {
   console.log(item);
 };
@@ -1127,5 +1250,15 @@ const showRow = (item) => {
 }
 .group {
   margin-top: 20px;
+}
+
+/* row 클릭 시 */
+::v-deep {
+  .row-isCheck {
+    color: blue !important;
+  }
+  .row-isdim {
+    color: #b1b1b1 !important;
+  }
 }
 </style>

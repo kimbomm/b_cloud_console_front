@@ -9,13 +9,15 @@
     </router-link>
     <div class="c_selectgroup">
       <c-dropdown
+        v-if="workspaces.length > 0"
         v-model:selected="workspaceModel"
-        :options="menuopt"
+        :options="workspaces"
         :filled="true"
         popup-content-class="smtext topmenu_opt"
         class="smtext"
         @selected="onSelected"
       />
+      <span v-else>-</span>
     </div>
     <q-btn to="/" class="c_btn c_icon top_guidemenu">
       <i class="ico" /><span class="txt">메뉴</span>
@@ -23,9 +25,17 @@
   </div>
 </template>
 <script setup>
+<<<<<<< HEAD
 import { ref, watch, defineEmits } from "vue";
+=======
+import {
+  ref, watch, defineEmits,
+} from "vue";
+import { useRoute } from "vue-router";
+>>>>>>> develop
 import CDropdown from "components/common/CDropdown.vue";
 
+const route = useRoute();
 const emit = defineEmits(["changeWorkspace"]);
 const props = defineProps({
   workspaces: {
@@ -34,8 +44,8 @@ const props = defineProps({
   },
 });
 const workspaceModel = ref("");
-const menuopt = ref([]);
 
+<<<<<<< HEAD
 watch(
   () => props.workspaces,
   (prop) => {
@@ -45,6 +55,13 @@ watch(
     workspaceModel.value = menuopt.value[0].label;
   }
 );
+=======
+watch(() => props.workspaces, () => {
+  const { workspaceId } = route.params;
+  const findWorkspace = props.workspaces.find((item) => item.value === Number(workspaceId));
+  workspaceModel.value = findWorkspace.label;
+});
+>>>>>>> develop
 
 const onSelected = (option) => {
   emit("changeWorkspace", option);

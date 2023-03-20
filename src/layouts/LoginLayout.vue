@@ -7,10 +7,12 @@
       <router-view />
     </q-page-container>
   </q-layout>
+  <c-message-box />
 </template>
 
 <script setup>
 import { useMeta } from "quasar";
+import CMessageBox from "components/common/CMessageBox.vue";
 
 const metaData = {
   title: "Brain Cloud",
