@@ -1,20 +1,12 @@
 <template>
   <q-page class="p-content p-support p-detail">
     <div class="p-head">
-      <q-breadcrumbs
-        class="c_breadcrumb"
-        gutter="none"
-      >
+      <q-breadcrumbs class="c_breadcrumb" gutter="none">
         <template v-slot:separator>
           <q-icon />
         </template>
-        <q-breadcrumbs-el
-          label="Workspace Manager"
-          to="/support"
-        />
-        <q-breadcrumbs-el
-          label="Support"
-        />
+        <q-breadcrumbs-el label="Workspace Manager" to="/support" />
+        <q-breadcrumbs-el label="Support" />
       </q-breadcrumbs>
       <h1 class="p-title">{{ ptitle }}</h1>
     </div>
@@ -22,7 +14,9 @@
     <div class="p-body">
       <div class="view_contents">
         <div class="view_head">
-          <p class="view_title">워크스페이스 스토리지 용량 변경 (관리자 전용)</p>
+          <p class="view_title">
+            워크스페이스 스토리지 용량 변경 (관리자 전용)
+          </p>
           <q-badge class="green">
             <span class="txt">답변완료</span>
           </q-badge>
@@ -165,11 +159,7 @@
         -->
       </div>
       <div class="c_btngroup f_end">
-        <c-button
-          :size="'medium'"
-          :btn-names="'목록'"
-          class="list"
-        />
+        <c-button :size="'medium'" :btn-names="'목록'" class="list" />
       </div>
     </div>
   </q-page>
@@ -189,39 +179,39 @@ const visible = ref("C");
 const imgData = [
   {
     path: "http://unsplash.it/600/600?image=180",
-    desc: ""
+    desc: "",
   },
   {
     path: "http://unsplash.it/800/600?image=180",
-    desc: ""
+    desc: "",
   },
   {
     path: "https://interactive-examples.mdn.mozilla.net/media/examples/plumeria.jpg",
-    desc: ""
+    desc: "",
   },
   {
     path: "https://ichef.bbci.co.uk/news/640/cpsprodpb/E172/production/_126241775_getty_cats.png",
-    desc: ""
+    desc: "",
   },
   {
     path: "https://image.yes24.com/goods/60896840/XL",
-    desc: ""
+    desc: "",
   },
   {
     path: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJRVyLbmUUrp61vQ7_fkz35ViGCYwX8iSAZw&usqp=CAU",
-    desc: ""
+    desc: "",
   },
   {
     path: "https://cdn.eyesmag.com/content/uploads/posts/2022/08/08/main-ad65ae47-5a50-456d-a41f-528b63071b7b.jpg",
-    desc: ""
+    desc: "",
   },
   {
     path: "http://c.files.bbci.co.uk/4532/production/_126241771_gettyimages-1224404559-1.jpg",
-    desc: ""
+    desc: "",
   },
 ];
 </script>
 
 <style lang="scss" scoped>
-@import 'src/css/support';
+@import "src/css/support";
 </style>

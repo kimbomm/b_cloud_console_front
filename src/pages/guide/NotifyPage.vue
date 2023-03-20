@@ -43,9 +43,15 @@ const triggerInfo = (position) => {
       icon: "info",
       position,
       actions: [
-        { label: "닫기", class: "xclose", handler: () => { /* console.log('') */ } }
+        {
+          label: "닫기",
+          class: "xclose",
+          handler: () => {
+            /* console.log('') */
+          },
+        },
       ],
-      timeout: 500
+      timeout: 500,
     });
   }, 100);
 };
@@ -57,9 +63,15 @@ const triggerSuccess = (position) => {
       icon: "positive",
       position,
       actions: [
-        { label: "닫기", class: "xclose", handler: () => { /* console.log('') */ } }
+        {
+          label: "닫기",
+          class: "xclose",
+          handler: () => {
+            /* console.log('') */
+          },
+        },
       ],
-      timeout: 500
+      timeout: 500,
     });
   }, 100);
 };
@@ -71,9 +83,15 @@ const triggerWarning = (position) => {
       icon: "negative",
       position,
       actions: [
-        { label: "닫기", class: "xclose", handler: () => { /* console.log('') */ } }
+        {
+          label: "닫기",
+          class: "xclose",
+          handler: () => {
+            /* console.log('') */
+          },
+        },
       ],
-      timeout: 500
+      timeout: 500,
     });
   }, 100);
 };
@@ -81,39 +99,46 @@ const triggerButton = (position) => {
   setTimeout(() => {
     $q.notify({
       type: "info",
-      message: "안내 메시지 입니다.안내 메시지 입니다.안내 메시지 입니다.안내 메시지 입니다.",
+      message:
+        "안내 메시지 입니다.안내 메시지 입니다.안내 메시지 입니다.안내 메시지 입니다.",
       caption: "<a href='#' class='alink'><span>바로보기</span></a>",
       icon: "info",
       position,
       actions: [
-        { label: "닫기", class: "xclose", handler: () => { /* console.log('') */ } }
+        {
+          label: "닫기",
+          class: "xclose",
+          handler: () => {
+            /* console.log('') */
+          },
+        },
       ],
       html: true,
-      timeout: 500
+      timeout: 500,
     });
   }, 100);
 };
 </script>
 
 <style lang="scss" scoped>
-.section{
-  h2{
-    margin-bottom:10px;
+.section {
+  h2 {
+    margin-bottom: 10px;
   }
-  ~ .section{
-    margin-top:50px;
+  ~ .section {
+    margin-top: 50px;
   }
 }
-.group{
-  margin-top:20px;
+.group {
+  margin-top: 20px;
 }
-.c_btngroup{
-  &:not(:first-child){
-    margin-top:20px;
+.c_btngroup {
+  &:not(:first-child) {
+    margin-top: 20px;
   }
-  .q-btn{
-    &:not(:last-child){
-      margin-right:10px;
+  .q-btn {
+    &:not(:last-child) {
+      margin-right: 10px;
     }
   }
 }

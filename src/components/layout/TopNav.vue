@@ -5,7 +5,7 @@
         alt="B CLOUD logo"
         src="~assets/images/common/logo_bcloud.svg"
         style="width: 116px; height: 22px"
-      >
+      />
     </router-link>
     <div class="c_selectgroup">
       <c-dropdown
@@ -25,9 +25,7 @@
   </div>
 </template>
 <script setup>
-import {
-  ref, watch, defineEmits,
-} from "vue";
+import { ref, watch, defineEmits } from "vue";
 import { useRoute } from "vue-router";
 import CDropdown from "components/common/CDropdown.vue";
 
@@ -36,16 +34,21 @@ const emit = defineEmits(["changeWorkspace"]);
 const props = defineProps({
   workspaces: {
     type: Array,
-    default: () => []
-  }
+    default: () => [],
+  },
 });
 const workspaceModel = ref("");
 
-watch(() => props.workspaces, () => {
-  const { workspaceId } = route.params;
-  const findWorkspace = props.workspaces.find((item) => item.value === Number(workspaceId));
-  workspaceModel.value = findWorkspace.label;
-});
+watch(
+  () => props.workspaces,
+  () => {
+    const { workspaceId } = route.params;
+    const findWorkspace = props.workspaces.find(
+      (item) => item.value === Number(workspaceId)
+    );
+    workspaceModel.value = findWorkspace.label;
+  }
+);
 
 const onSelected = (option) => {
   emit("changeWorkspace", option);

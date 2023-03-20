@@ -9,7 +9,11 @@
           readonly
           class="inp_calendar"
         />
-        <q-popup-proxy ref="datepickerPopupFrom" :offset="[15, 18]" class="c_datepicker">
+        <q-popup-proxy
+          ref="datepickerPopupFrom"
+          :offset="[15, 18]"
+          class="c_datepicker"
+        >
           <q-date
             v-model="lazyDateFrom"
             mask="YYYY.MM.DD HH:mm"
@@ -35,7 +39,11 @@
           class="inp_calendar"
         >
         </q-input>
-        <q-popup-proxy ref="datepickerPopupTo" :offset="[15, 18]" class="c_datepicker">
+        <q-popup-proxy
+          ref="datepickerPopupTo"
+          :offset="[15, 18]"
+          class="c_datepicker"
+        >
           <q-date
             v-model="lazyDateTo"
             mask="YYYY.MM.DD HH:mm"
@@ -62,15 +70,15 @@ import {
 const props = defineProps({
   placeholder: {
     type: String,
-    default: ""
+    default: "",
   },
   fromValue: {
     type: String,
-    default: ""
+    default: "",
   },
   toValue: {
     type: String,
-    default: ""
+    default: "",
   },
 });
 const emit = defineEmits(["update:fromValue", "update:toValue"]);
@@ -78,12 +86,18 @@ const lazyDateFrom = ref(null);
 const lazyDateTo = ref(null);
 const datepickerPopupFrom = ref(null);
 const datepickerPopupTo = ref(null);
-watch(() => props.fromValue, () => {
-  lazyDateFrom.value = props.fromValue;
-});
-watch(() => props.toValue, () => {
-  lazyDateTo.value = props.toValue;
-});
+watch(
+  () => props.fromValue,
+  () => {
+    lazyDateFrom.value = props.fromValue;
+  }
+);
+watch(
+  () => props.toValue,
+  () => {
+    lazyDateTo.value = props.toValue;
+  }
+);
 
 onMounted(() => {
   lazyDateFrom.value = props.fromValue;

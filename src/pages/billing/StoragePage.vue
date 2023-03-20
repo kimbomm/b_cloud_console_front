@@ -38,25 +38,22 @@
                     mask="YYYY.MM.DD"
                     class="datepicker"
                   />
-                  </q-popup-proxy>
-                </q-icon>
-              </template>
-            </q-input>
-          </div>
-          <i class="bar" />
-          <div class="to">
-            <q-input
-              outlined
-              v-model="dateTo"
-              placeholder="2023.01.01"
-              class="inp_calendar"
-            >
-              <template v-slot:prepend>
-                <q-icon class="ico_calendar">
-                  <q-popup-proxy
-                    :offset="[150, 0]"
-                    class="c_datepicker"
-                  >
+                </q-popup-proxy>
+              </q-icon>
+            </template>
+          </q-input>
+        </div>
+        <i class="bar" />
+        <div class="to">
+          <q-input
+            outlined
+            v-model="dateTo"
+            placeholder="2023.01.01"
+            class="inp_calendar"
+          >
+            <template v-slot:prepend>
+              <q-icon class="ico_calendar">
+                <q-popup-proxy :offset="[150, 0]" class="c_datepicker">
                   <q-date
                     v-model="dateTo"
                     mask="YYYY.MM.DD"
@@ -73,11 +70,7 @@
         <p class="pay"><span>39,220,000</span>&nbsp;원</p>
       </div>
       <div class="table_set">
-        <q-tabs
-          v-model="tab"
-          align="left"
-          class="c_tabs"
-        >
+        <q-tabs v-model="tab" align="left" class="c_tabs">
           <q-tab name="tabs1" label="멤버"></q-tab>
           <q-tab name="tabs2" label="프로젝트"></q-tab>
           <q-tab name="tabs3" label="인스턴스 타입"></q-tab>
@@ -151,30 +144,38 @@ const optNumber = ref([
 const nodata = [];
 const headers = [
   {
-    text: "날짜", value: "date", width: 244, sortable: true
+    text: "날짜",
+    value: "date",
+    width: 244,
+    sortable: true,
   },
   {
-    text: "스토리지 용량", value: "storageAmount", sortable: true
+    text: "스토리지 용량",
+    value: "storageAmount",
+    sortable: true,
   },
   {
-    text: "이용요금", value: "useageFee", width: 315, sortable: true
+    text: "이용요금",
+    value: "useageFee",
+    width: 315,
+    sortable: true,
   },
 ];
 const items = [
   {
     date: "2023.12.31",
     storageAmount: "3.5TiB",
-    useageFee: "283,292원"
+    useageFee: "283,292원",
   },
   {
     date: "2023.12.31",
     storageAmount: "3.5TiB",
-    useageFee: "283,292원"
+    useageFee: "283,292원",
   },
   {
     date: "2023.12.31",
     storageAmount: "3.5TiB",
-    useageFee: "283,292원"
+    useageFee: "283,292원",
   },
 ];
 // Date Form
@@ -185,6 +186,6 @@ const ptitle = ref(title);
 </script>
 
 <style lang="scss" scoped>
-@import 'src/css/table';
-@import 'src/css/billing';
+@import "src/css/table";
+@import "src/css/billing";
 </style>

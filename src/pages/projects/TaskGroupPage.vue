@@ -1,21 +1,12 @@
 <template>
   <q-page class="p-content p-projects p-detail">
     <div class="p-head">
-      <q-breadcrumbs
-        class="c_breadcrumb"
-        gutter="none"
-      >
+      <q-breadcrumbs class="c_breadcrumb" gutter="none">
         <template v-slot:separator>
           <q-icon />
         </template>
-        <q-breadcrumbs-el
-          label="Projects"
-          to="/"
-        />
-        <q-breadcrumbs-el
-          label="Test Project"
-          to="/"
-        />
+        <q-breadcrumbs-el label="Projects" to="/" />
+        <q-breadcrumbs-el label="Test Project" to="/" />
         <q-breadcrumbs-el label="태스크" />
       </q-breadcrumbs>
       <h1 class="p-title">
@@ -30,7 +21,8 @@
             <div class="user_box_head">
               <template v-if="datacheck === true">
                 <div class="basis_view">
-                  <p class="sub_title">00태스크 1-1
+                  <p class="sub_title">
+                    00태스크 1-1
                     <i class="ico modify" @click="datacheck = false" />
                   </p>
                 </div>
@@ -48,14 +40,15 @@
                         class="wsize608"
                       />
                       <div class="modify_btn">
-                        <q-btn
-                          label="취소"
-                          class="line"
+                        <c-button
+                          :size="'medium'"
+                          :outline="true"
+                          :btn-names="'취소'"
                           @click="datacheck = true"
                         />
-                        <q-btn
-                          label="저장"
-                          class="primary"
+                        <c-button
+                          :size="'medium'"
+                          :btn-names="'저장'"
                           @click="datacheck = true"
                         />
                       </div>
@@ -110,16 +103,20 @@
         <div class="instance_type">
           <div class="type_box com_box">
             <p class="sub_title">인스턴스 타입</p>
-            <span class="text">V1.XLARGE (1GPU | 14CPU | MEM 122GiB | DISK 80GiB)</span>
+            <span class="text"
+              >V1.XLARGE (1GPU | 14CPU | MEM 122GiB | DISK 80GiB)</span
+            >
 
             <ul class="type_list">
-              <li :class="'t_list0'+ i" v-for="(i,a) in typeList" :key="i">
+              <li :class="'t_list0' + i" v-for="(i, a) in typeList" :key="i">
                 <q-item>
-                  <p class="type_list_title">{{typeItem[a].typeTitle}} <span>
-                    {{typeItem[a].basicTxt}}</span></p>
+                  <p class="type_list_title">
+                    {{ typeItem[a].typeTitle }}
+                    <span> {{ typeItem[a].basicTxt }}</span>
+                  </p>
                 </q-item>
                 <q-item>
-                  <p class="type_list_value">{{typeItem[a].typeValue}}</p>
+                  <p class="type_list_value">{{ typeItem[a].typeValue }}</p>
                 </q-item>
               </li>
             </ul>
@@ -164,7 +161,7 @@
             </div>
             <div class="ins_etc com_box">
               <p class="sub_title">기타 정보</p>
-              <q-scroll-area style="height:200px;">
+              <q-scroll-area style="height: 200px">
                 <div class="etc_cont">
                   <div>
                     <div class="theadarea">호스트 전체 준비 완료시 실행</div>
@@ -192,35 +189,31 @@
           </div>
         </div>
 
-        <div class="task_table_area">
-          <p class="sub_title">태스크</p>
-          <div class="task_inner">
-            <easy-data-table
-              :headers="headers"
-              :items="items"
-              :hide-footer="true"
-              empty-message="정보가 없습니다."
-              @click-row="showRow"
-            >
-              <!-- id -->
-              <template #item-id="item">
-                <span class="txt clip">{{ item.id }}</span>
-              </template>
-              <!-- title -->
-              <template #item-title="item">
-                <a href="#">
-                  <span class="txt">{{ item.title }}</span>
-                  <q-tooltip
-                    anchor="bottom middle"
-                    class="c_tooltip"
-                  >
-                    <div class="inner">
-                      {{ item.title }}
-                    </div>
-                  </q-tooltip>
-                </a>
-              </template>
-              <!--
+        <p class="sub_title">태스크</p>
+        <div class="table_inner">
+          <easy-data-table
+            :headers="headers"
+            :items="items"
+            :hide-footer="true"
+            empty-message="정보가 없습니다."
+            @click-row="showRow"
+          >
+            <!-- id -->
+            <template #item-id="item">
+              <span class="txt clip">{{ item.id }}</span>
+            </template>
+            <!-- title -->
+            <template #item-title="item">
+              <a href="#">
+                <span class="txt">{{ item.title }}</span>
+                <q-tooltip anchor="bottom middle" class="c_tooltip">
+                  <div class="inner">
+                    {{ item.title }}
+                  </div>
+                </q-tooltip>
+              </a>
+            </template>
+            <!--
                 상태값(status)
                 1. finished, 완료
                 2. stopped, 실패
@@ -232,78 +225,47 @@
                 8. deleting, 삭제중
                 9. unknown
               -->
-              <template #item-status="item">
-                <q-badge
-                  v-if="item.status === 'finished'"
-                  class="green"
-                >
-                  <span class="txt">완료</span>
-                </q-badge>
-                <q-badge
-                  v-else-if="item.status === 'stopped'"
-                  class="orange"
-                >
-                  <span class="txt">실패</span>
-                </q-badge>
-                <q-badge
-                  v-else-if="item.status === 'pending'"
-                  class="c_badge"
-                >
-                  <span class="txt">대기중</span>
-                </q-badge>
-                <q-badge
-                  v-else-if="item.status === 'making'"
-                  class="c_badge"
-                >
-                  <span class="txt">생성중</span>
-                </q-badge>
-                <q-badge
-                  v-else-if="item.status === 'starting'"
-                  class="c_badge"
-                >
-                  <span class="txt">실행중</span>
-                </q-badge>
-                <q-badge
-                  v-else-if="item.status === 'canceling'"
-                  class="c_badge"
-                >
-                  <span class="txt">취소중</span>
-                </q-badge>
-                <q-badge
-                  v-else-if="item.status === 'deleting'"
-                  class="c_badge"
-                >
-                  <span class="txt">삭제중</span>
-                </q-badge>
-                <q-badge
-                  v-else-if="item.status === 'cancel'"
-                  class="c_badge"
-                >
-                  <span class="txt">취소</span>
-                </q-badge>
-                <q-badge
-                  v-else
-                  class="c_badge"
-                >
-                  <span class="txt">Unknown</span>
-                </q-badge>
-              </template>
-              <!-- ssh -->
-              <template #item-ssh="item">
-                <q-badge
-                  class="copy square ssh icon"
-                  @click="onCopy(item)"
-                >
-                  <span class="txt">{{ item.ssh }}</span>
-                </q-badge>
-              </template>
-              <!-- 인스턴스 타입 -->
-              <template #item-instanceType="item">
-                <q-badge
-                  class="text instance"
-                  @click="onCopy(item)"
-                >
-                  <span class="txt">{{ item.instanceType }}<i class="ico details">
+            <template #item-status="item">
+              <q-badge v-if="item.status === 'finished'" class="green">
+                <span class="txt">완료</span>
+              </q-badge>
+              <q-badge v-else-if="item.status === 'stopped'" class="orange">
+                <span class="txt">실패</span>
+              </q-badge>
+              <q-badge v-else-if="item.status === 'pending'" class="c_badge">
+                <span class="txt">대기중</span>
+              </q-badge>
+              <q-badge v-else-if="item.status === 'making'" class="c_badge">
+                <span class="txt">생성중</span>
+              </q-badge>
+              <q-badge v-else-if="item.status === 'starting'" class="c_badge">
+                <span class="txt">실행중</span>
+              </q-badge>
+              <q-badge v-else-if="item.status === 'canceling'" class="c_badge">
+                <span class="txt">취소중</span>
+              </q-badge>
+              <q-badge v-else-if="item.status === 'deleting'" class="c_badge">
+                <span class="txt">삭제중</span>
+              </q-badge>
+              <q-badge v-else-if="item.status === 'cancel'" class="c_badge">
+                <span class="txt">취소</span>
+              </q-badge>
+              <q-badge v-else class="c_badge">
+                <span class="txt">Unknown</span>
+              </q-badge>
+            </template>
+            <!-- ssh -->
+            <template #item-ssh="item">
+              <q-badge class="copy square ssh icon" @click="onCopy(item)">
+                <span class="txt">{{ item.ssh }}</span>
+              </q-badge>
+            </template>
+            <!-- 인스턴스 타입 -->
+            <template #item-instanceType="item">
+              <q-badge class="text instance" @click="onCopy(item)">
+                <span class="txt"
+                  >{{ item.instanceType
+                  }}<i class="ico details">
                     <q-tooltip
                       anchor="bottom middle"
                       class="c_tooltip insTypeTool"
@@ -313,65 +275,62 @@
                         {{ item.instanceType }}
                         {{ item.instanceType }}
                       </div>
-                    </q-tooltip></i>
-                  </span>
-
-                </q-badge>
-              </template>
-              <!-- cpu -->
-              <template #item-cpu="item">
-                <span class="txt">{{ item.cpu }}</span>
-              </template>
-              <!-- gpu -->
-              <template #item-gpu="item">
-                <span class="txt">{{ item.gpu }}</span>
-              </template>
-              <!-- createdAt -->
-              <template #item-createdAt="item">
-                <span class="txt">{{ item.createdAt }}</span>
-              </template>
-              <!-- endDate -->
-              <template #item-endDate="item">
-                <span class="txt">{{ item.endDate }}</span>
-              </template>
-              <!-- logCheck -->
-              <template #item-logCheck="item">
-                <a href="#">
-                  <span class="txt logbadge">{{ item.logCheck }}</span>
-                </a>
-              </template>
-              <!-- 버튼 그룹 -->
-              <template #item-buttons="item">
-                <div v-if="actionButtons" class="cell btngroup">
-                  <q-btn class="c_btn ibtn dot">
-                    <i class="ico dots" /><span class="txt">클릭</span>
-                    <q-popup-edit
-                      v-model="item.id"
-                      class="dots_menu"
-                      anchor="top right"
-                    >
-                      <q-list style="min-width: 100px">
-                        <q-item
-                          v-for="button in actionButtons"
-                          :key="button.name"
+                    </q-tooltip></i
+                  >
+                </span>
+              </q-badge>
+            </template>
+            <!-- cpu -->
+            <template #item-cpu="item">
+              <span class="txt">{{ item.cpu }}</span>
+            </template>
+            <!-- gpu -->
+            <template #item-gpu="item">
+              <span class="txt">{{ item.gpu }}</span>
+            </template>
+            <!-- createdAt -->
+            <template #item-createdAt="item">
+              <span class="txt">{{ item.createdAt }}</span>
+            </template>
+            <!-- endDate -->
+            <template #item-endDate="item">
+              <span class="txt">{{ item.endDate }}</span>
+            </template>
+            <!-- logCheck -->
+            <template #item-logCheck="item">
+              <a href="#">
+                <span class="txt logbadge">{{ item.logCheck }}</span>
+              </a>
+            </template>
+            <!-- 버튼 그룹 -->
+            <template #item-buttons="item">
+              <div v-if="actionButtons" class="cell btngroup">
+                <q-btn class="c_btn ibtn dot">
+                  <i class="ico dots" /><span class="txt">클릭</span>
+                  <q-popup-edit
+                    v-model="item.id"
+                    class="dots_menu"
+                    anchor="top right"
+                  >
+                    <q-list style="min-width: 100px">
+                      <q-item
+                        v-for="button in actionButtons"
+                        :key="button.name"
+                      >
+                        <q-btn
+                          class="item"
+                          @click="onActions(button.event, item)"
                         >
-                          <q-btn
-                            class="item"
-                            @click="onActions(button.event, item)"
-                          >
-                            <span class="txt">{{ button.name }}</span>
-                          </q-btn>
-                        </q-item>
-                      </q-list>
-                    </q-popup-edit>
-                  </q-btn>
-                </div>
-              </template>
-            </easy-data-table>
-          </div>
-          <div class="task_pagenav disflex_C">
-            <c-pagination />
-          </div>
+                          <span class="txt">{{ button.name }}</span>
+                        </q-btn>
+                      </q-item>
+                    </q-list>
+                  </q-popup-edit>
+                </q-btn>
+              </div>
+            </template>
+          </easy-data-table>
+          <c-pagination />
         </div>
       </div>
     </div>
@@ -381,6 +340,7 @@
 import { ref } from "vue";
 import { useMeta } from "quasar";
 import CPagination from "components/common/CPagination.vue";
+import CButton from "components/common/CButton.vue";
 
 const title = ref("태스크 그룹 상세정보");
 const textName = ref(null);
@@ -393,34 +353,66 @@ const ptitle = ref(title);
 
 const headers = [
   {
-    text: "ID", value: "id", width: 65, sortable: false, checkbox: true
+    text: "ID",
+    value: "id",
+    width: 65,
+    sortable: false,
+    checkbox: true,
   },
   {
-    text: "태스크 이름", value: "title", width: 160, widthAuto: true, sortable: true
+    text: "태스크 이름",
+    value: "title",
+    width: 160,
+    widthAuto: true,
+    sortable: true,
   },
   {
-    text: "상태", value: "status", width: 100, sortable: true
+    text: "상태",
+    value: "status",
+    width: 100,
+    sortable: true,
   },
   {
-    text: "ssh", value: "ssh", width: 80, sortable: false
+    text: "ssh",
+    value: "ssh",
+    width: 80,
+    sortable: false,
   },
   {
-    text: "GPU", value: "gpu", width: 60, sortable: false
+    text: "GPU",
+    value: "gpu",
+    width: 60,
+    sortable: false,
   },
   {
-    text: "CPU", value: "cpu", width: 60, sortable: false
+    text: "CPU",
+    value: "cpu",
+    width: 60,
+    sortable: false,
   },
   {
-    text: "인스턴스 타입", value: "instanceType", width: 115, sortable: false
+    text: "인스턴스 타입",
+    value: "instanceType",
+    width: 115,
+    sortable: false,
   },
   {
-    text: "생성일시", value: "createdAt", width: 165, sortable: true
+    text: "생성일시",
+    value: "createdAt",
+    width: 165,
+    sortable: true,
   },
   {
-    text: "완료일시", value: "endDat", width: 165, sortable: true
+    text: "완료일시",
+    value: "endDat",
+    width: 165,
+    sortable: true,
   },
   {
-    text: "로그확인", value: "logCheck", width: 100, sortable: true
+    text: "로그확인",
+    value: "logCheck",
+    width: 100,
+    sortable: true,
   },
   { text: "", value: "buttons", width: 80 },
 ];
@@ -438,14 +430,14 @@ const items = [
     logCheck: "LOG",
     resource: {
       cpus: 28,
-      gpu_device_model: "TESLA_V100",
+      gpu_device_model: "V100",
       gpus: 2,
       mem: 249856,
       zone: "public:normal",
     },
     buttons: {
-      name: "초대요청 확인"
-    }
+      name: "초대요청 확인",
+    },
   },
   {
     id: 342,
@@ -460,14 +452,14 @@ const items = [
     logCheck: "LOG",
     resource: {
       cpus: 28,
-      gpu_device_model: "TESLA_V100",
+      gpu_device_model: "V100",
       gpus: 2,
       mem: 249856,
       zone: "public:normal",
     },
     buttons: {
-      name: "초대요청 확인"
-    }
+      name: "초대요청 확인",
+    },
   },
   {
     id: 342,
@@ -482,14 +474,14 @@ const items = [
     logCheck: "LOG",
     resource: {
       cpus: 28,
-      gpu_device_model: "TESLA_V100",
+      gpu_device_model: "V100",
       gpus: 2,
       mem: 249856,
       zone: "public:normal",
     },
     buttons: {
-      name: "초대요청 확인"
-    }
+      name: "초대요청 확인",
+    },
   },
   {
     id: 342,
@@ -504,14 +496,14 @@ const items = [
     logCheck: "LOG",
     resource: {
       cpus: 28,
-      gpu_device_model: "TESLA_V100",
+      gpu_device_model: "V100",
       gpus: 2,
       mem: 249856,
       zone: "public:normal",
     },
     buttons: {
-      name: "초대요청 확인"
-    }
+      name: "초대요청 확인",
+    },
   },
   {
     id: 342,
@@ -526,14 +518,14 @@ const items = [
     logCheck: "LOG",
     resource: {
       cpus: 28,
-      gpu_device_model: "TESLA_V100",
+      gpu_device_model: "V100",
       gpus: 2,
       mem: 249856,
       zone: "public:normal",
     },
     buttons: {
-      name: "초대요청 확인"
-    }
+      name: "초대요청 확인",
+    },
   },
   {
     id: 342,
@@ -548,14 +540,14 @@ const items = [
     logCheck: "LOG",
     resource: {
       cpus: 28,
-      gpu_device_model: "TESLA_V100",
+      gpu_device_model: "V100",
       gpus: 2,
       mem: 249856,
       zone: "public:normal",
     },
     buttons: {
-      name: "초대요청 확인"
-    }
+      name: "초대요청 확인",
+    },
   },
   {
     id: 342,
@@ -570,14 +562,14 @@ const items = [
     logCheck: "LOG",
     resource: {
       cpus: 28,
-      gpu_device_model: "TESLA_V100",
+      gpu_device_model: "V100",
       gpus: 2,
       mem: 249856,
       zone: "public:normal",
     },
     buttons: {
-      name: "초대요청 확인"
-    }
+      name: "초대요청 확인",
+    },
   },
   {
     id: 342,
@@ -592,14 +584,14 @@ const items = [
     logCheck: "LOG",
     resource: {
       cpus: 28,
-      gpu_device_model: "TESLA_V100",
+      gpu_device_model: "V100",
       gpus: 2,
       mem: 249856,
       zone: "public:normal",
     },
     buttons: {
-      name: "초대요청 확인"
-    }
+      name: "초대요청 확인",
+    },
   },
   {
     id: 342,
@@ -614,14 +606,14 @@ const items = [
     logCheck: "LOG",
     resource: {
       cpus: 28,
-      gpu_device_model: "TESLA_V100",
+      gpu_device_model: "V100",
       gpus: 2,
       mem: 249856,
       zone: "public:normal",
     },
     buttons: {
-      name: "초대요청 확인"
-    }
+      name: "초대요청 확인",
+    },
   },
 ];
 
@@ -652,7 +644,7 @@ const showRow = (item) => {
 };
 
 const typeItem = [
-  { typeTitle: "GPU 모델", typeValue: "TESLA_V100" },
+  { typeTitle: "GPU 모델", typeValue: "V100" },
   { typeTitle: "GPU", typeValue: "2" },
   { typeTitle: "CPU", typeValue: "14" },
   { typeTitle: "Memory", typeValue: "122 GB" },
@@ -663,5 +655,4 @@ const typeList = typeItem.length;
 
 <style lang="scss" scoped>
 @import "./src/css/projects";
-@import "./src/css/table";
 </style>

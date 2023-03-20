@@ -27,10 +27,7 @@
               3. 생성중 | 삭제중 | 대기중 | 재시작중
             -->
             <template #item-status="item">
-              <q-badge
-                v-if="item.status === 'running'"
-                class="c_badge green"
-              >
+              <q-badge v-if="item.status === 'running'" class="c_badge green">
                 <span class="txt">운영중</span>
               </q-badge>
               <q-badge
@@ -42,37 +39,31 @@
             </template>
             <!-- ssh -->
             <template #item-ssh="item">
-              <q-badge
-                class="copy square ssh icon"
-                @click="onCopy(item)"
-              >
+              <q-badge class="copy square ssh icon" @click="onCopy(item)">
                 <span class="txt">{{ item.ssh }}</span>
               </q-badge>
             </template>
             <!-- jupyterLab -->
             <template #item-jupyterLab="item">
-              <q-badge
-                class="copy square lab icon"
-                @click="onCopy(item)"
-              >
+              <q-badge class="copy square lab icon" @click="onCopy(item)">
                 <span class="txt">{{ item.jupyterLab }}</span>
               </q-badge>
             </template>
             <!-- 인스턴스 타입 -->
             <template #item-instanceType="item">
-              <q-badge
-                class="text instance"
-                @click="onCopy(item)"
-              >
-                <span class="txt">{{ item.instanceType }}<i class="ico details">
-                  <q-tooltip
-                    anchor="bottom middle"
-                    class="c_tooltip insTypeTool"
+              <q-badge class="text instance" @click="onCopy(item)">
+                <span class="txt"
+                  >{{ item.instanceType
+                  }}<i class="ico details">
+                    <q-tooltip
+                      anchor="bottom middle"
+                      class="c_tooltip insTypeTool"
+                    >
+                      <div class="inner">
+                        {{ item.instanceType }}
+                      </div>
+                    </q-tooltip></i
                   >
-                    <div class="inner">
-                      {{ item.instanceType }}
-                    </div>
-                  </q-tooltip></i>
                 </span>
               </q-badge>
             </template>
@@ -135,10 +126,7 @@
               3. 생성중 | 삭제중 | 대기중 | 재시작중
             -->
             <template #item-status="item">
-              <q-badge
-                v-if="item.status === 'running'"
-                class="c_badge green"
-              >
+              <q-badge v-if="item.status === 'running'" class="c_badge green">
                 <span class="txt">운영중</span>
               </q-badge>
               <q-badge
@@ -150,37 +138,31 @@
             </template>
             <!-- ssh -->
             <template #item-ssh="item">
-              <q-badge
-                class="copy square ssh icon"
-                @click="onCopy(item)"
-              >
+              <q-badge class="copy square ssh icon" @click="onCopy(item)">
                 <span class="txt">{{ item.ssh }}</span>
               </q-badge>
             </template>
             <!-- jupyterLab -->
             <template #item-jupyterLab="item">
-              <q-badge
-                class="copy square lab icon"
-                @click="onCopy(item)"
-              >
+              <q-badge class="copy square lab icon" @click="onCopy(item)">
                 <span class="txt">{{ item.jupyterLab }}</span>
               </q-badge>
             </template>
             <!-- 인스턴스 타입 -->
             <template #item-instanceType="item">
-              <q-badge
-                class="text instance"
-                @click="onCopy(item)"
-              >
-                <span class="txt">{{ item.instanceType }}<i class="ico details">
-                  <q-tooltip
-                    anchor="bottom middle"
-                    class="c_tooltip insTypeTool"
+              <q-badge class="text instance" @click="onCopy(item)">
+                <span class="txt"
+                  >{{ item.instanceType
+                  }}<i class="ico details">
+                    <q-tooltip
+                      anchor="bottom middle"
+                      class="c_tooltip insTypeTool"
+                    >
+                      <div class="inner">
+                        {{ item.instanceType }}
+                      </div>
+                    </q-tooltip></i
                   >
-                    <div class="inner">
-                      {{ item.instanceType }}
-                    </div>
-                  </q-tooltip></i>
                 </span>
               </q-badge>
             </template>
@@ -188,10 +170,7 @@
             <template #item-buttons="item">
               <div v-if="actionButtons || item.buttons" class="cell">
                 <!-- 초대 요청 확인 -->
-                <q-btn
-                  v-if="item.buttons"
-                  class="c_btn"
-                >
+                <q-btn v-if="item.buttons" class="c_btn">
                   <span class="txt">{{ item.buttons.name }}</span>
                 </q-btn>
 
@@ -246,10 +225,7 @@
             <template #item-title="item">
               <a href="#">
                 <span class="txt">{{ item.title }}</span>
-                <q-tooltip
-                  anchor="bottom middle"
-                  class="c_tooltip"
-                >
+                <q-tooltip anchor="bottom middle" class="c_tooltip">
                   <div class="inner">
                     {{ item.title }}
                   </div>
@@ -263,10 +239,7 @@
               3. 생성중 | 삭제중 | 대기중 | 재시작중
             -->
             <template #item-status="item">
-              <q-badge
-                v-if="item.status === 'running'"
-                class="c_badge green"
-              >
+              <q-badge v-if="item.status === 'running'" class="c_badge green">
                 <span class="txt">운영중</span>
               </q-badge>
               <q-badge
@@ -278,43 +251,39 @@
             </template>
             <!-- ssh -->
             <template #item-ssh="item">
-              <q-badge
-                class="copy square ssh icon"
-                @click="onCopy(item)"
-              >
+              <q-badge class="copy square ssh icon" @click="onCopy(item)">
                 <span class="txt">{{ item.ssh }}</span>
               </q-badge>
             </template>
             <!-- jupyterLab -->
             <template #item-jupyterLab="item">
-              <q-badge
-                class="copy square lab icon"
-                @click="onCopy(item)"
-              >
+              <q-badge class="copy square lab icon" @click="onCopy(item)">
                 <span class="txt">{{ item.jupyterLab }}</span>
               </q-badge>
             </template>
             <!-- 인스턴스 타입 -->
             <template #item-instanceType="item">
-              <q-badge
-                class="text instance"
-                @click="onCopy(item)"
-              >
-                <span class="txt">{{ item.instanceType }}<i class="ico details">
-                  <q-tooltip
-                    anchor="bottom middle"
-                    class="c_tooltip insTypeTool"
+              <q-badge class="text instance" @click="onCopy(item)">
+                <span class="txt"
+                  >{{ item.instanceType
+                  }}<i class="ico details">
+                    <q-tooltip
+                      anchor="bottom middle"
+                      class="c_tooltip insTypeTool"
+                    >
+                      <div class="inner">
+                        {{ item.instanceType }}
+                      </div>
+                    </q-tooltip></i
                   >
-                    <div class="inner">
-                      {{ item.instanceType }}
-                    </div>
-                  </q-tooltip></i>
                 </span>
               </q-badge>
             </template>
             <!-- 버튼 그룹 -->
             <template #item-buttons="item">
-              <q-btn v-if="item.checkbox" class="text"><span class="txt">선택 취소하기</span></q-btn>
+              <q-btn v-if="item.checkbox" class="text"
+                ><span class="txt">선택 취소하기</span></q-btn
+              >
             </template>
           </easy-data-table>
         </div>
@@ -335,37 +304,70 @@ const itemsSelected = ref([]);
 const itemsSelected2 = ref([]);
 const headers = [
   {
-    text: "", value: "checkbox", width: 80
+    text: "",
+    value: "checkbox",
+    width: 80,
   },
   {
-    text: "ID", value: "id", width: 100, sortable: true
+    text: "ID",
+    value: "id",
+    width: 100,
+    sortable: true,
   },
   {
-    text: "인스턴스 이름", value: "title", width: 150, widthAuto: true, sortable: true
+    text: "인스턴스 이름",
+    value: "title",
+    width: 150,
+    widthAuto: true,
+    sortable: true,
   },
   {
-    text: "상태", value: "status", width: 100, sortable: true
+    text: "상태",
+    value: "status",
+    width: 100,
+    sortable: true,
   },
   {
-    text: "ssh", value: "ssh", width: 100, sortable: true
+    text: "ssh",
+    value: "ssh",
+    width: 100,
+    sortable: true,
   },
   {
-    text: "JupyterLab", value: "jupyterLab", width: 150, sortable: true
+    text: "JupyterLab",
+    value: "jupyterLab",
+    width: 150,
+    sortable: true,
   },
   {
-    text: "인스턴스 타입", value: "instanceType", width: 160, sortable: true
+    text: "인스턴스 타입",
+    value: "instanceType",
+    width: 160,
+    sortable: true,
   },
   {
-    text: "GPU", value: "gpu", sortable: true, width: 100
+    text: "GPU",
+    value: "gpu",
+    sortable: true,
+    width: 100,
   },
   {
-    text: "CPU", value: "cpu", sortable: true, width: 100
+    text: "CPU",
+    value: "cpu",
+    sortable: true,
+    width: 100,
   },
   {
-    text: "생성일시", value: "createdAt", width: 180, sortable: true
+    text: "생성일시",
+    value: "createdAt",
+    width: 180,
+    sortable: true,
   },
   {
-    text: "생성자", value: "createdBy", width: 100, sortable: true
+    text: "생성자",
+    value: "createdBy",
+    width: 100,
+    sortable: true,
   },
   { text: "", value: "buttons", width: 80 },
 ];
@@ -390,10 +392,10 @@ const items = [
       zone: "public:normal",
     },
     buttons: {
-      name: "초대요청 확인"
+      name: "초대요청 확인",
     },
     checkbox: false,
-    disabled: true
+    disabled: true,
   },
   {
     id: 2,
@@ -414,7 +416,7 @@ const items = [
       zone: "public:normal",
     },
     checkbox: false,
-    disabled: false
+    disabled: false,
   },
 ];
 
@@ -483,7 +485,7 @@ const onCheck2 = (item) => {
     background-color: rgba(54, 60, 229, 0.04);
   }
   .row-selected td {
-    background-color: #FAFBFC;
+    background-color: #fafbfc;
   }
 }
 </style>

@@ -1,8 +1,6 @@
 <template>
   <div>
-    <h6>
-      Axios TEST
-    </h6>
+    <h6>Axios TEST</h6>
     <button @click="onClick">getMe</button>
   </div>
 </template>

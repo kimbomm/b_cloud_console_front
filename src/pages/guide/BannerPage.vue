@@ -16,13 +16,9 @@
             <strong class="title">스토리지 안내드립니다.</strong>
           </div>
           <div class="bn_body">
-            스토리지 사용 안내 드립니다.
-            스토리지 사용 안내 드립니다.
-            스토리지 사용 안내 드립니다.
-            스토리지 사용 안내 드립니다.
-            스토리지 사용 안내 드립니다.
-            스토리지 사용 안내 드립니다.
-            스토리지 사용 안내 드립니다.
+            스토리지 사용 안내 드립니다. 스토리지 사용 안내 드립니다. 스토리지
+            사용 안내 드립니다. 스토리지 사용 안내 드립니다. 스토리지 사용 안내
+            드립니다. 스토리지 사용 안내 드립니다. 스토리지 사용 안내 드립니다.
           </div>
           <template v-slot:action>
             <q-btn class="xclose" />
@@ -44,15 +40,15 @@ const ptitle = ref(title);
 </script>
 
 <style lang="scss" scoped>
-.section{
-  h2{
-    margin-bottom:10px;
+.section {
+  h2 {
+    margin-bottom: 10px;
   }
-  ~ .section{
-    margin-top:50px;
+  ~ .section {
+    margin-top: 50px;
   }
 }
-.group{
-  margin-top:20px;
+.group {
+  margin-top: 20px;
 }
 </style>

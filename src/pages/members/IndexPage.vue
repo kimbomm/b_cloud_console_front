@@ -20,17 +20,17 @@
               v-model="suffix"
               placeholder="이름 이메일 검색"
               class="w292"
-              >
-                <template v-slot:prepend>
-                  <q-icon name="search" class="ico_search" />
-                </template>
-              </q-input>
-              <c-dropdown
-                v-model:selected="selectedBasic"
-                :label="label"
-                :options="options"
-                class="w220"
-              />
+            >
+              <template v-slot:prepend>
+                <q-icon name="search" class="ico_search" />
+              </template>
+            </q-input>
+            <c-dropdown
+              v-model:selected="selectedBasic"
+              :label="label"
+              :options="options"
+              class="w220"
+            />
           </div>
           <div class="r_set_inner">
             <c-button
@@ -38,7 +38,7 @@
               :size="'medium'"
               :btn-names="'멤버추가'"
               class="btn"
-              >
+            >
               <template #prepend>
                 <i class="ico plus"></i>
               </template>
@@ -49,7 +49,7 @@
               disabled
               :btn-names="'멤버삭제'"
               class="btn"
-              >
+            >
               <template #prepend>
                 <i class="ico plus" />
               </template>
@@ -59,7 +59,7 @@
               :label="label3"
               :options="options2"
               class="auto_size"
-              />
+            />
           </div>
         </div>
         <!-- Table -->
@@ -148,7 +148,7 @@
               v-model="suffix"
               placeholder="이름 이메일 검색"
               class="w292"
-              >
+            >
               <template v-slot:prepend>
                 <q-icon name="search" class="ico_search" />
               </template>
@@ -187,24 +187,24 @@
           empty-message="정보가 없습니다."
           @click-row="showRow"
         >
-        <!-- name -->
-        <template #item-name="item">
-          <span class="txt">{{ item.name.title }}</span>
-        </template>
-        <!-- email -->
-        <template #item-email="item">
-          <span class="txt">{{ item.email }}</span>
-        </template>
-        <!-- workspaceChar -->
-        <template #item-workspaceChar="item">
-          <span class="txt">{{ item.workspaceChar }}</span>
-        </template>
-        <!-- introduce -->
-        <template #item-introduce="item">
-          <span class="txt">{{ item.introduce }}</span>
-        </template>
-      </easy-data-table>
-      <c-pagination />
+          <!-- name -->
+          <template #item-name="item">
+            <span class="txt">{{ item.name.title }}</span>
+          </template>
+          <!-- email -->
+          <template #item-email="item">
+            <span class="txt">{{ item.email }}</span>
+          </template>
+          <!-- workspaceChar -->
+          <template #item-workspaceChar="item">
+            <span class="txt">{{ item.workspaceChar }}</span>
+          </template>
+          <!-- introduce -->
+          <template #item-introduce="item">
+            <span class="txt">{{ item.introduce }}</span>
+          </template>
+        </easy-data-table>
+        <c-pagination />
         <!-- //Table -->
       </template>
     </div>
@@ -244,19 +244,33 @@ const itemsSelected = ref([]);
 
 const headers = [
   {
-    text: "", value: "checkbox", width: 80
+    text: "",
+    value: "checkbox",
+    width: 80,
   },
   {
-    text: "이름", value: "name", width: 220, sortable: true, checkbox: true
+    text: "이름",
+    value: "name",
+    width: 220,
+    sortable: true,
+    checkbox: true,
   },
   {
-    text: "이메일", value: "email", width: 272, sortable: true
+    text: "이메일",
+    value: "email",
+    width: 272,
+    sortable: true,
   },
   {
-    text: "워크스페이스 역할", value: "workspaceChar", width: 200, sortable: false
+    text: "워크스페이스 역할",
+    value: "workspaceChar",
+    width: 200,
+    sortable: false,
   },
   {
-    text: "소개", value: "introduce", sortable: false
+    text: "소개",
+    value: "introduce",
+    sortable: false,
   },
   { text: "", value: "buttons" },
 ];
@@ -264,19 +278,19 @@ const items = [
   {
     name: {
       title: "billing",
-      join: false
+      join: false,
     },
     email: "billing@workspace1.com",
     workspaceChar: "정산 관리자",
     introduce: "안녕하세요",
     buttons: {
-      name: "초대요청 확인"
+      name: "초대요청 확인",
     },
   },
   {
     name: {
       title: "liv.olive",
-      join: true
+      join: true,
     },
     email: "billing@workspace1.com",
     workspaceChar: "정산 관리자",
@@ -285,7 +299,7 @@ const items = [
   {
     name: {
       title: "Test",
-      join: true
+      join: true,
     },
     email: "test@workspace1.com",
     workspaceChar: "워크스페이스 멤버",
@@ -311,16 +325,28 @@ const onCheck = (item) => {
 // Table2
 const headers2 = [
   {
-    text: "이름", value: "name", width: 266, sortable: true, checkbox: true
+    text: "이름",
+    value: "name",
+    width: 266,
+    sortable: true,
+    checkbox: true,
   },
   {
-    text: "이메일", value: "email", width: 293, sortable: true
+    text: "이메일",
+    value: "email",
+    width: 293,
+    sortable: true,
   },
   {
-    text: "워크스페이스 역할", value: "workspaceChar", width: 242, sortable: false
+    text: "워크스페이스 역할",
+    value: "workspaceChar",
+    width: 242,
+    sortable: false,
   },
   {
-    text: "소개", value: "introduce", sortable: false
+    text: "소개",
+    value: "introduce",
+    sortable: false,
   },
 ];
 const items2 = [
@@ -330,8 +356,8 @@ const items2 = [
     workspaceChar: "정산 관리자",
     introduce: "안녕하세요",
     buttons: {
-      name: "초대요청 확인"
-    }
+      name: "초대요청 확인",
+    },
   },
   {
     name: "liv.olive",
@@ -357,5 +383,5 @@ const ptitle = ref(title);
 </script>
 
 <style lang="scss" scoped>
-@import 'src/css/members';
+@import "src/css/members";
 </style>

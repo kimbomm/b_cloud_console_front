@@ -1,10 +1,12 @@
+@import "./_utillity.scss";
+@import "./table.scss";
+
 /* Storage */
 .p-storage{
-  &.p-index{
     .table_set{
       .l_set_inner{
         display: flex;
-        .search_area{
+        .c_inpgroup{
           display: flex;
           align-items: center;
           &::after{
@@ -73,11 +75,10 @@
       }
     }
   }
-}
+
 
 ::v-deep{
   table{
-    table-layout:fixed;
     .cell.btngroup{min-width: 50px !important;}
   }
 }

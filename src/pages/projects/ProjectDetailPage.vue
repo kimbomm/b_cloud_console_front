@@ -23,5 +23,4 @@ useMeta(() => ({
 const ptitle = ref(title);
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>
