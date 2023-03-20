@@ -166,8 +166,10 @@ const selectedName = computed(() => {
     return `${imageSelected.value.name} (${imageSelected.value.description} / ${commonStore.commonStatus(imageSelected.value.status).text} / ${imageSelected.value.created_at})`;
   }
   if (imageSelected.value.type === "shared") {
-    return `${name} ( 내 이미지)`;
+    return `${name} ( 내 이미지 )`; // 개발중
   }
+
+  console.log("결과", name);
   return `${name}`;
 });
 
@@ -258,7 +260,8 @@ const showRowChecked = (item, tableId) => {
 
   const selected = document.querySelectorAll(`#${tableId} table tr`);
   selected.forEach((tr, index) => tr.classList.toggle("row-isCheck", index === 1));
-  emit("imageSelected", imageSelected.value);
+
+  emit("imageSelected", selectedName.value);
 };
 
 /**

@@ -45,7 +45,9 @@
           />
 
         <!-- 스토리지 -->
-        <InstanceStorage/>
+        <InstanceStorage
+        :userId="userId"
+        />
 
         <!-- ssh -->
         <InstanceSshKey/>
@@ -116,7 +118,6 @@ useMeta(() => ({
 }));
 
 onMounted(() => {
-  console.log("userId", userId);
 });
 const currentInput = ref({
   instanceName: "",
@@ -127,7 +128,7 @@ const currentInput = ref({
     mem: "",
     disk: ""
   },
-  instanceImage: {}
+  instanceImage: ""
 
 });
 

@@ -4,6 +4,7 @@
     <div class="s_06_main">
       <template v-if="defaultData == true">
         <div class="s_06_table">
+
           <easy-data-table
             v-model:items-selected="itemsSelected"
             :headers="sshKeyHeader"
@@ -55,10 +56,18 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
+import { UserService } from "src/services";
 
 const defaultData = ref(true);
 const itemsSelected = ref([]);
+
+const props = defineProps({
+
+  userId: {
+    type: Number,
+  },
+});
 
 // SSH Key 테이블
 const sshKeyHeader = [
@@ -84,16 +93,40 @@ const sshKeyHeader = [
 ];
 const sshKeyItems = [
   {
-    title: "개인용",
-    fingerprint: "61:a2:62:d0:7e:3d:c9:0a:4e:fe:83:6c:14:bc:fa:0f",
-    registrationDat: "2023.11.21  04:33:34",
-  },
-  {
-    title: "기업용",
-    fingerprint: "61:a2:62:d0:7e:3d:c9:0a:4e:fe:83:6c:14:bc:fa:0f",
-    registrationDat: "2023.11.21  04:33:34",
-  },
+    ssh_keys: [
+      {
+        id: 1,
+        name: "dummy-user-key",
+        type: "ssh-rsa",
+        fingerprint: "SHA256:T/AjzO3EwGUAKPPviSXPnTIjrxhgPWmZjQ/JOU+nAzo",
+        description: "",
+        created_at: "2023-03-17T17:00:14Z"
+      },
+      {
+        id: 2,
+        name: "dummy-user-key",
+        type: "ssh-rsa",
+        fingerprint: "SHA256:T/AjzO3EwGUAKPPviSXPnTIjrxhgPWmZjQ/JOU+nAzo222",
+        description: "",
+        created_at: "2023-03-17T17:00:14Z222"
+      },
+
+    ]
+  }
 ];
+
+const getSSHKeys = async () => {
+  try {
+    const result = await UserService.getSSHKeys(props.userId);
+    console.log("result", result);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+onMounted(() => {
+  getSSHKeys();
+});
 </script>
 
 <style lang="scss" scoped>

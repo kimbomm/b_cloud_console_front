@@ -34,28 +34,20 @@
         >
           <!-- title -->
           <template #item-title="item">
-            <a href="javascript:void(0);">
               <span class="txt">{{ item.name }}</span>
-            </a>
           </template>
           <!-- cpu -->
           <template #item-cpu="item">
-            <a href="#">
               <span class="txt">{{ item.cpu }}</span>
-            </a>
           </template>
           <!-- memory -->
           <template #item-memory="item">
-            <a href="#">
               <span class="txt">{{ item.mem }}</span>
-            </a>
           </template>
           <!-- disk -->
           <template #item-disk="item">
-            <a href="#">
             <!-- ??disk -->
               <span class="txt">{{ item.disk }}</span>
-            </a>
           </template>
         </easy-data-table>
 
