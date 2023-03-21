@@ -25,8 +25,9 @@
           />
 
           <!-- 인스턴스 타입 -->
-          <InstanceType @instanceTypeSelected="updateInstanceTypeSelected" />
-
+          <InstanceType @instanceTypeSelected="updateInstanceTypeSelected"
+          @instanceTypeName="(value)=>{  currentInput.instanceTypeName = value}"
+           />
           <!-- 이미지 -->
           <InstanceImage
             :workspaceId="workspaceId"
@@ -109,8 +110,9 @@ const currentInput = ref({
     cpu: null,
     gpu: null,
     mem: null,
-    disk: null,
+    local_storage: null,
   },
+  instanceTypeName: "",
   instanceImageId: null,
   instanceImage: "",
   instanceSSKeySelected: null,
@@ -141,6 +143,7 @@ const updateInstanceTypeSelected = (value) => {
     cpu: value.cpu,
     gpu: value.gpu,
     mem: value.mem,
+    local_storage: value.local_storage
   };
 };
 
@@ -151,12 +154,34 @@ const triggerSuccess = (message) => {
     type: "positive",
   });
 };
+// const triggerFails = (message) => {
+//   $useCmFn.onNotify({
+//     message,
+//     type: "negative",
+//   });
+// };
 
-const triggerFails = (message) => {
-  $useCmFn.onNotify({
-    message,
-    type: "negative",
-  });
+const handleErrorResponse = (error) => {
+  const { response } = error;
+  if (response) {
+    const { status } = response;
+    switch (status) {
+      case 422:
+        $useCmFn.onMessage({
+          message: "프로젝트 리소스 할당량이 부족하여<br />인스턴스 생성이 불가능합니다. ",
+          positive: {
+            value: "확인",
+          }
+        });
+        break;
+      default:
+        break;
+    }
+  } else {
+    console.log(error);
+  }
+
+  return Promise.reject(error);
 };
 
 const createTask = async () => {
@@ -167,7 +192,7 @@ const createTask = async () => {
       router.push(`/workspace/${workspaceId}/projects/${projectId}`);
     }, 100);
   } catch (error) {
-    triggerFails("인스턴스 생성을 실패하였습니다. 다시 시도해주세요.");
+    handleErrorResponse();
     console.log(error);
   }
 };
@@ -186,13 +211,47 @@ const ptitle = ref(title);
  */
 
 const datalist = ref([
-  { title: "이름", value: computed(() => (currentInput.value.instanceName === "" ? "-" : currentInput.value.instanceName)), },
-  { title: "인스턴스 타입", value: "Tesla V100" },
-  { title: "GPU", value: computed(() => (currentInput.value.instanceTypeSelected.gpu === "" ? "-" : currentInput.value.instanceTypeSelected.gpu)) },
-  { title: "CPU", value: computed(() => (currentInput.value.instanceTypeSelected.cpu === "" ? "-" : currentInput.value.instanceTypeSelected.cpu)) },
-  { title: "Memory", value: computed(() => (currentInput.value.instanceTypeSelected.mem === "" ? "-" : currentInput.value.instanceTypeSelected.mem)) },
-  { title: "Disk", value: "80GiB" }, // ??disk
-  { title: "이미지", value: computed(() => (currentInput.value.instanceImage === "" ? "-" : currentInput.value.instanceImage)), },
+  {
+    title: "이름",
+    value: computed(() => (currentInput.value.instanceName === "" ? "-"
+      : currentInput.value.instanceName)),
+  },
+  {
+    title: "인스턴스 타입",
+    value: computed(() => (currentInput.value.instanceTypeName === "" ? "-"
+      : currentInput.value.instanceTypeName))
+  },
+
+  {
+    title: "GPU",
+    value: computed(() => (currentInput.value.instanceTypeSelected.gpu === null ? "-"
+      : currentInput.value.instanceTypeSelected.gpu))
+  },
+  {
+    title: "CPU",
+    value: computed(() => (currentInput.value.instanceTypeSelected.cpu === null ? "-"
+      : currentInput.value.instanceTypeSelected.cpu))
+  },
+  {
+    title: "Memory",
+    value: computed(() => (currentInput.value.instanceTypeSelected.mem === null ? "-"
+      : `${currentInput.value.instanceTypeSelected.mem}GB`
+    ))
+  },
+  {
+    title: "Disk",
+    value: computed(() => (
+      currentInput.value.instanceTypeSelected.local_storage === null
+        ? "-"
+        : `${currentInput.value.instanceTypeSelected.local_storage}GB`
+    ))
+  },
+
+  {
+    title: "이미지",
+    value: computed(() => (currentInput.value.instanceImage === "" ? "-"
+      : currentInput.value.instanceImage)),
+  },
   { title: "스토리지", value: "개인 스토리지 외 3개" },
   { title: "SSH/JupyterLab", value: "tda" },
   { title: "포트번호", value: computed(() => (currentInput.value.instancePortNumber.length > 0 ? currentInput.value.instancePortNumber.join(",") : "-")), },

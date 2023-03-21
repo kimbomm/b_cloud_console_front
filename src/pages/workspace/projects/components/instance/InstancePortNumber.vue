@@ -56,10 +56,8 @@ const addPortNumbers = ref([
 const makeAddPortNumbers = computed(() => addPortNumbers.value.map((item) => item.number));
 
 const checkDuplicates = (value) => {
-  for (let i = 0; i < addPortNumbers.value.length; i++) {
-    if (addPortNumbers.value[i].number === String(value)) {
-      return false;
-    }
+  if (addPortNumbers.value.some((port) => port.number === parseInt(value, 10))) {
+    return false;
   }
   return true;
 };

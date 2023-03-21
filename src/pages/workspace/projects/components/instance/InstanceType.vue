@@ -5,10 +5,9 @@
       <div class="s_03_tab">
         <q-tabs v-model="tab" align="left" class="c_tabs">
           <q-tab name="tabCpu" label="CPU"></q-tab>
-          <q-tab name="tabV100" label="GPU Tesla V100"></q-tab>
-          <q-tab name="tabA100_40G" label="GPU Tesla A100_40G"></q-tab>
-          <q-tab name="tabA100_80G" label="GPU Tesla A100_80G"></q-tab>
-
+          <q-tab name="tabV100" label="GPU V100"></q-tab>
+          <q-tab name="tabA100_40G" label="GPU A100_40G"></q-tab>
+          <q-tab name="tabA100_80G" label="GPU A100_80G"></q-tab>
         </q-tabs>
       </div>
       <div class="now_selected_area">
@@ -22,53 +21,143 @@
         </div>
       </div>
       <div class="s_03_table">
-      <div v-if="tab === 'tabCpu'">
-        <easy-data-table
-        :headers="instanceHeaders"
-          :items="typeList"
-          :hide-footer="true"
-          empty-message="정보가 없습니다."
-          @click-row="showRowChecked"
-          :id="tableId"
-          :body-row-class-name="bodyRowClassNameFunctionCheck"
-        >
-          <!-- title -->
-          <template #item-title="item">
+        <div v-if="tab === 'tabCpu'">
+          <easy-data-table
+            :headers="instanceHeaders"
+            :items="Cpu"
+            :hide-footer="true"
+            empty-message="생성된 타입이 없습니다."
+            @click-row="showRowChecked"
+            :id="tableId"
+            :body-row-class-name="bodyRowClassNameFunctionCheck"
+          >
+            <!-- title -->
+            <template #item-title="item">
               <span class="txt">{{ item.name }}</span>
-          </template>
-          <!-- cpu -->
-          <template #item-cpu="item">
+            </template>
+            <!-- cpu -->
+            <template #item-cpu="item">
               <span class="txt">{{ item.cpu }}</span>
-          </template>
-          <!-- memory -->
-          <template #item-memory="item">
-              <span class="txt">{{ item.mem }}</span>
-          </template>
-          <!-- disk -->
-          <template #item-disk="item">
-            <!-- ??disk -->
-              <span class="txt">{{ item.disk }}</span>
-          </template>
-        </easy-data-table>
+            </template>
+            <!-- memory -->
+            <template #item-memory="item">
+              <span class="txt">{{ item.mem }}GB</span>
+            </template>
+            <!-- disk -->
+            <template #item-disk="item">
+              <!-- ??disk -->
+              <span class="txt">{{ item.local_storage }}GB</span>
+            </template>
+          </easy-data-table>
 
-        <div class="disflex_C mt32">
-        <c-pagination />
-      </div>
-      </div>
-      <div v-if="tab === 'tabV100'">
-        tabV100
-      </div>
+          <div class="disflex_C mt32">
+            <c-pagination />
+          </div>
+        </div>
+        <div v-if="tab === 'tabV100'">
+          <easy-data-table
+            :headers="instanceHeaders"
+            :items="V100"
+            :hide-footer="true"
+            empty-message="생성된 타입이 없습니다."
+            @click-row="showRowChecked"
+            :id="tableId"
+            :body-row-class-name="bodyRowClassNameFunctionCheck"
+          >
+            <!-- title -->
+            <template #item-title="item">
+              <span class="txt">{{ item.name }}</span>
+            </template>
+            <!-- cpu -->
+            <template #item-cpu="item">
+              <span class="txt">{{ item.cpu }}</span>
+            </template>
+            <!-- memory -->
+            <template #item-memory="item">
+              <span class="txt">{{ item.mem }}GB</span>
+            </template>
+            <!-- disk -->
+            <template #item-disk="item">
+              <!-- ??disk -->
+              <span class="txt">{{ item.local_storage }}GB</span>
+            </template>
+          </easy-data-table>
 
-      <div v-if="tab === 'tabA100_40G'">
-        tabA100_40G
-      </div>
+          <div class="disflex_C mt32">
+            <c-pagination />
+          </div>
+        </div>
 
-      <div v-if="tab === 'tabA100_80G'">
-        tabA100_80G
-      </div>
+        <div v-if="tab === 'tabA100_40G'">
+          <easy-data-table
+            :headers="instanceHeaders"
+            :items="V100G40"
+            :hide-footer="true"
+            empty-message="생성된 타입이 없습니다."
+            @click-row="showRowChecked"
+            :id="tableId"
+            :body-row-class-name="bodyRowClassNameFunctionCheck"
+          >
+            <!-- title -->
+            <template #item-title="item">
+              <span class="txt">{{ item.name }}</span>
+            </template>
+            <!-- cpu -->
+            <template #item-cpu="item">
+              <span class="txt">{{ item.cpu }}</span>
+            </template>
+            <!-- memory -->
+            <template #item-memory="item">
+              <span class="txt">{{ item.mem }}GB</span>
+            </template>
+            <!-- disk -->
+            <template #item-disk="item">
+              <!-- ??disk -->
+              <span class="txt">{{ item.local_storage }}GB</span>
+            </template>
+          </easy-data-table>
 
-      </div>
+          <div class="disflex_C mt32">
+            <c-pagination />
+          </div>
 
+        </div>
+
+        <div v-if="tab === 'tabA100_80G'">
+          <easy-data-table
+            :headers="instanceHeaders"
+            :items="V100G80"
+            :hide-footer="true"
+            empty-message="생성된 타입이 없습니다."
+            @click-row="showRowChecked"
+            :id="tableId"
+            :body-row-class-name="bodyRowClassNameFunctionCheck"
+          >
+            <!-- title -->
+            <template #item-title="item">
+              <span class="txt">{{ item.name }}</span>
+            </template>
+            <!-- cpu -->
+            <template #item-cpu="item">
+              <span class="txt">{{ item.cpu }}</span>
+            </template>
+            <!-- memory -->
+            <template #item-memory="item">
+              <span class="txt">{{ item.mem }}GB</span>
+            </template>
+            <!-- disk -->
+            <template #item-disk="item">
+              <!-- ??disk -->
+              <span class="txt">{{ item.local_storage }}GB</span>
+            </template>
+          </easy-data-table>
+
+          <div class="disflex_C mt32">
+            <c-pagination />
+          </div>
+
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -79,30 +168,37 @@ import { InstanceService } from "src/services";
 
 import CPagination from "components/common/CPagination.vue";
 
-const emit = defineEmits(["instanceTypeSelected"]);
+const emit = defineEmits(["instanceTypeName", "instanceTypeSelected"]);
 
 const tab = ref("tabCpu");
+
+const tabLabel = computed(() => {
+  switch (tab.value) {
+    case "tabCpu":
+      return "CPU";
+    case "tabV100":
+      return "GPU V100";
+    case "tabA100_40G":
+      return "GPU A100_40G";
+    case "tabA100_80G":
+      return "GPU A100_80G";
+    default:
+      return "";
+  }
+});
+
 const typeList = ref([]);
 const instanceTypeSelected = ref({});
 const selectedName = computed(() => {
   const name = instanceTypeSelected.value?.name || "";
   const cpu = instanceTypeSelected.value?.cpu || "";
   const mem = instanceTypeSelected.value?.mem || "";
-  const disk = instanceTypeSelected.value?.disk || "";
-  if (!name && !cpu && !mem && !disk) {
+  const localStorage = instanceTypeSelected.value?.local_storage || "";
+  if (!name && !cpu && !mem && !localStorage) {
     return "인스턴스 타입을 선택해주세요.";
   }
-  return `${name}  (ChPU ${cpu} / MEM ${mem} / DISK  ${disk}GB)`;
+  return `${name}  (CPU ${cpu} / MEM ${mem}GB / DISK  ${localStorage}GB)`;
 });
-/**
- * 버튼 및 checkbox 에 대한 이벤트 존재할 시 class 삽입
- */
-// const bodyRowClassNameFunction = (item) => {
-//   const classList = [];
-//   if (item.buttons) classList.push("row-button");
-//   if (item.checkbox) classList.push("row-selected");
-//   return classList.join(" ");
-// };
 
 // 인스턴스 타입 테이블
 const instanceHeaders = [
@@ -132,54 +228,13 @@ const instanceHeaders = [
     sortable: false,
   },
 ];
-// const instanceItems = [
-//   {
-//     title: "CG.nano",
-//     cpu: "8",
-//     memory: "18GB",
-//     disk: "80GB",
-//     resource: {
-//       cpus: 28,
-//       gpu_device_model: "TESLA_V100",
-//       gpus: 2,
-//       mem: 249856,
-//       zone: "public:normal",
-//     },
-//   },
-//   {
-//     title: "CG.nano",
-//     cpu: "7",
-//     memory: "18GB",
-//     disk: "80GB",
-//     resource: {
-//       cpus: 28,
-//       gpu_device_model: "TESLA_V100",
-//       gpus: 2,
-//       mem: 249856,
-//       zone: "public:normal",
-//     },
-//   },
-//   {
-//     title: "CG.nano",
-//     cpu: "9",
-//     memory: "18GB",
-//     disk: "80GB",
-//     resource: {
-//       cpus: 28,
-//       gpu_device_model: "TESLA_V100",
-//       gpus: 2,
-//       mem: 249856,
-//       zone: "public:normal",
-//     },
-//   },
-// ];
 
 const bodyRowClassNameFunctionCheck = (item) => {
   const classList = [];
   /*
-  * disabled 처리
-  * 예시) 리소스 할당량 초과
-  * */
+   * disabled 처리
+   * 예시) 리소스 할당량 초과
+   * */
   if (item.id === 132) {
     classList.push("row-isdim");
   }
@@ -191,8 +246,13 @@ const tableId = "InstanceType";
 const showRowChecked = (item) => {
   instanceTypeSelected.value = item;
   const nNum = typeList.value.findIndex((n) => n.id === item.id);
-  document.querySelectorAll(`#${tableId} table tr`).forEach((tr, i) => tr.classList.toggle("row-isCheck", i === nNum + 1));
+  document
+    .querySelectorAll(`#${tableId} table tr`)
+    .forEach((tr, i) => tr.classList.toggle("row-isCheck", i === nNum + 1));
 
+  console.log("tabLabel.value", instanceTypeSelected.value);
+
+  emit("instanceTypeName", tabLabel.value);
   emit("instanceTypeSelected", instanceTypeSelected.value);
 };
 
@@ -206,23 +266,25 @@ const showRowChecked = (item) => {
 //   };
 //   emit("instanceTypeSelected", instanceTypeSelected.value);
 // };
+
+const filterByGpuModel = (model) => computed(() => typeList.value.filter((item) => item.gpu_model === model));
+
+const Cpu = filterByGpuModel("NONE");
+const V100 = filterByGpuModel("V100");
+const V100G40 = filterByGpuModel("V100_40G");
+const V100G80 = filterByGpuModel("V100_80G");
+
 onMounted(async () => {
   try {
     const result = await InstanceService.getIntanceType();
     typeList.value = result.instance_types;
-    // const [firstType] = typeList.value;
-
-    // setItemsSelected(firstType);
-    // showRowChecked(typeList.value[0]);
   } catch (error) {
     console.log(error);
   }
 });
-
 </script>
 
 <style lang="scss" scoped>
 @import "./src/css/projects";
 @import "./src/css/table";
-
 </style>

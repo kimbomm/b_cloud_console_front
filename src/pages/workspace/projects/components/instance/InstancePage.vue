@@ -1,5 +1,6 @@
 <template>
   <div class="table_set">
+  <button @click="stopInstnace">정지</button>
     <div class="l_set_inner">
       <div class="c_inpgroup">
         <c-input-text
@@ -584,6 +585,29 @@ const stopInstnaceCancle = () => {
   alertInstanceAddVolumeInfoModal.value = false;
 };
 
+const handleErrorResponse = (error) => {
+  const { response } = error;
+  if (response) {
+    const { status } = response;
+    switch (status) {
+      case 422:
+        $useCmFn.onMessage({
+          message: "이용중인 인스턴스/태스크가 있어 <br/>프로젝트 삭제가 불가능합니다. ",
+          positive: {
+            value: "확인",
+          }
+        });
+        break;
+      default:
+        break;
+    }
+  } else {
+    console.log(error);
+  }
+
+  return Promise.reject(error);
+};
+
 /* * 인스턴스 정지 */
 const stopInstnace = async () => {
   try {
@@ -594,7 +618,7 @@ const stopInstnace = async () => {
       getInstances();
     }, 4000);
   } catch (error) {
-    console.log(error);
+    handleErrorResponse(error);
   }
 };
 
@@ -629,7 +653,8 @@ const onActions = (eventName, rowData) => {
 
     case "stop":
       if (rowData.instance_type.local_storage > 10) {
-        alertInstanceAddVolumeInfoModal.value = true;
+        // 인스턴스 정지 개발중
+        // alertInstanceAddVolumeInfoModal.value = true;
       } else {
         stopInstnace();
       }

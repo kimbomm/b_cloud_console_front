@@ -387,6 +387,32 @@ const triggerTaskGroupWarning = (message) => {
   });
 };
 
+const errorMessage = () => {
+  $useCmFn.onMessage({
+    message: "이용중인 인스턴스/태스크가 있어 <br/>프로젝트 삭제가 불가능합니다. ",
+    positive: {
+      value: "확인",
+    }
+  });
+};
+const handleErrorResponse = (error) => {
+  const { response } = error;
+  if (response) {
+    const { status } = response;
+    switch (status) {
+      case 422:
+        errorMessage();
+        break;
+      default:
+        break;
+    }
+  } else {
+    console.log(error);
+  }
+
+  return Promise.reject(error);
+};
+
 /* *프로젝트 삭제 */
 const deleteProject = async () => {
   try {
@@ -400,6 +426,7 @@ const deleteProject = async () => {
     setIsProjectChange(true);
     router.replace("/");
   } catch (error) {
+    handleErrorResponse();
     triggerTaskGroupWarning("프로젝트 삭제를 실패하였습니다. 다시 시도해주세요.");
     console.log(error);
   }
@@ -409,13 +436,7 @@ const deleteProject = async () => {
 const checkInstanceTask = () => {
   const isTotal = tabs.value.some((tab) => tab.name !== "member" && tab.total > 1);
   if (isTotal) {
-    $useCmFn.onMessage({
-      message: "이용중인 인스턴스/태스크가 있어 <br/>프로젝트 삭제가 불가능합니다. ",
-      positive: {
-        value: "확인",
-        callback: () => {}
-      }
-    });
+    errorMessage();
   } else {
     alertInstanceDelPossibleModal.value = true;
   }
