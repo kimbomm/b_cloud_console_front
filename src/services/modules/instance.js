@@ -59,4 +59,14 @@ export const InstanceService = {
     return response.data;
   },
 
+  /**
+   * 설명: 인스턴스 생성
+   * @param { Number } projectId 프로젝트 id
+   * @param { Object } params 인스턴스 생성정보
+   */
+  async createIntance(projectId, params) {
+    const response = await api.post(`/projects/${projectId}/instances`, params);
+    return response.data;
+  },
+
 };
