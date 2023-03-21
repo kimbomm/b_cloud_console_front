@@ -1227,10 +1227,8 @@ const bodyRowClassNameFunctionCheck = (item) => {
 /* row 클릭 시 해당 행 checked */
 const tableId = "Type5";
 const showRowChecked = (item) => {
-  const nNum = items.findIndex((n) => n.id === item.id);
-  const selected = document.querySelectorAll(`#${tableId} table tr`);
-  selected.forEach((tr) => tr.classList.remove("row-isCheck"));
-  selected[nNum + 1].classList.add("row-isCheck");
+  const nNum = items.value.findIndex((n) => n.id === item.id);
+  document.querySelectorAll(`#${tableId} table tr`).forEach((tr, i) => tr.classList.toggle("row-isCheck", i === nNum + 1));
 };
 
 const showRow = (item) => {
