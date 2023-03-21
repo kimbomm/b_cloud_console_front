@@ -13,34 +13,14 @@
     </div>
     <!-- //.chead -->
     <div class="p-body">
-      <div class="tab_area">
-        <c-tab v-model:value="tabModel" :tabs="tabs" />
-      </div>
-      <template v-if="defaultData == true">
-        <div class="table_set">
-          <div class="c_inpgroup">
-            <q-input
-              outlined
-              v-model="suffix"
-              placeholder="이름,설명,기본이미지 검색"
-              clearable
-              class="wsize_full"
-            >
-              <template v-slot:prepend>
-                <q-icon name="search" class="ico_search" />
-              </template>
-            </q-input>
-          </div>
-          <div class="select_drop">
-            <c-dropdown
-              :label="optLabel"
-              :options="optNumber"
-              class="auto_size"
-            />
+      <div class="container">
+        <div class="group-tabs">
+          <div class="header">
+            <c-tab v-model:value="tabModel" :tabs="tabs" />
           </div>
         </div>
         <q-tab-panels v-model="tabModel">
-        <q-tab-panel name="myTab">
+          <q-tab-panel name="myTab">
             <!-- 내이미지 -->
             <MyPage />
           </q-tab-panel>
@@ -53,12 +33,15 @@
             <SharedPage />
           </q-tab-panel>
         </q-tab-panels>
-      </template>
+      </div>
     </div>
   </q-page>
 </template>
 <script setup>
-import { ref, computed } from "vue";
+
+import {
+  ref, computed
+} from "vue";
 import { useMeta } from "quasar";
 import { useRoute, onBeforeRouteUpdate } from "vue-router";
 import { $utils } from "src/utils/utils";
