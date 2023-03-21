@@ -191,10 +191,8 @@ const tableId = "InstanceType";
 const showRowChecked = (item) => {
   instanceTypeSelected.value = item;
   const nNum = typeList.value.findIndex((n) => n.id === item.id);
-  typeList.value.splice(0, 0, ...typeList.value.splice(nNum, 1));
+  document.querySelectorAll(`#${tableId} table tr`).forEach((tr, i) => tr.classList.toggle("row-isCheck", i === nNum + 1));
 
-  const selected = document.querySelectorAll(`#${tableId} table tr`);
-  selected.forEach((tr, index) => tr.classList.toggle("row-isCheck", index === 1));
   emit("instanceTypeSelected", instanceTypeSelected.value);
 };
 

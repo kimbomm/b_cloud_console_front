@@ -165,11 +165,7 @@ const bodyRowClassNameFunctionCheck = (item) => {
 const tableId = "SSkeyType";
 const showRowChecked = (item) => {
   const nNum = sshKeyItems.value.findIndex((n) => n.id === item.id);
-  sshKeyItems.value.splice(0, 0, ...sshKeyItems.value.splice(nNum, 1));
-
-  const selected = document.querySelectorAll(`#${tableId} table tr`);
-  selected.forEach((tr, index) => tr.classList.toggle("row-isCheck", index === 1));
-  itemsSelected.value = item;
+  document.querySelectorAll(`#${tableId} table tr`).forEach((tr, i) => tr.classList.toggle("row-isCheck", i === nNum + 1));
 
   emit("instanceSSKeySelected", itemsSelected.value.name);
   emit("instanceSSKeySelectedId", item.id);

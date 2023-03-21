@@ -256,10 +256,7 @@ const bodyRowClassNameFunctionCheck = (item) => {
 const showRowChecked = (item, tableId) => {
   imageSelected.value = item;
   const nNum = baseImages.value.findIndex((n) => n.id === item.id);
-  baseImages.value.splice(0, 0, ...baseImages.value.splice(nNum, 1));
-
-  const selected = document.querySelectorAll(`#${tableId} table tr`);
-  selected.forEach((tr, index) => tr.classList.toggle("row-isCheck", index === 1));
+  document.querySelectorAll(`#${tableId} table tr`).forEach((tr, i) => tr.classList.toggle("row-isCheck", i === nNum + 1));
 
   emit("instanceImage", selectedName.value);
   emit("instanceImageId", item.id);
